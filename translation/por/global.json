@@ -4,6 +4,7 @@
     "Email": "E-mail",
     "Password": "Senha",
     "Iniciar_Sesión": "Acesse sua conta",
+    "continuar": "Acesse sua conta",
     "errorLogin": "Seu e-mail e/ou senha não correspondem. Por favor, tente novamente."
   },
   "menu": {

@@ -55,7 +55,7 @@ const user = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    Cookies.remove("userDt");
+    Cookies.remove("infoDt");
 
     axios
       .patch(
@@ -79,7 +79,7 @@ const user = () => {
       )
       .then((res) => {
         Cookies.set(
-          "userDt",
+          "infoDt",
           JSON.stringify({
             ...userAll,
             user: {

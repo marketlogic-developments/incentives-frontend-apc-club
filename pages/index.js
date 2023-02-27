@@ -29,7 +29,7 @@ export default function Home() {
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
-    if (Cookies.get("userDt") !== undefined) {
+    if (Cookies.get("infoDt") !== undefined) {
       route.push("/dashboard");
     }
   }, []);
@@ -48,7 +48,7 @@ export default function Home() {
       })
       .then((res) => {
         Cookies.set(
-          "userDt",
+          "infoDt",
           JSON.stringify({
             token: res.data.token,
             id: res.data.user.id,
@@ -93,7 +93,7 @@ export default function Home() {
       )
       .then((res) => {
         const [digipoints] = res.data;
-        Cookies.set("digipoints", JSON.stringify(digipoints), { expires: 365 });
+        Cookies.set("dp", JSON.stringify(digipoints), { expires: 365 });
         dispatch(setDigipoints(digipoints));
         if (!userData.user.policy) {
           return route.push("/dashboard");
@@ -176,7 +176,7 @@ export default function Home() {
                         className="btn btn-secondary w-full"
                         type="submit"
                       >
-                        {t("login.Iniciar_Sesión")}
+                        {t("login.continuar")}
                       </button>
                     </form>
                     <div className="flex flex-col">

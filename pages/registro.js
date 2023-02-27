@@ -20,7 +20,7 @@ export default function Home() {
   const route = useRouter();
 
   useEffect(() => {
-    if (Cookies.get("userDt") !== undefined) {
+    if (Cookies.get("infoDt") !== undefined) {
       route.push("/dashboard");
     }
   }, []);
@@ -38,7 +38,7 @@ export default function Home() {
         password: password,
       })
       .then((res) => {
-        Cookies.set("userDt", JSON.stringify(res.data), { expires: 365 });
+        Cookies.set("infoDt", JSON.stringify(res.data), { expires: 365 });
         dispatch(userLogin(res.data));
         handleDigipoints(res.data);
       })
@@ -58,7 +58,7 @@ export default function Home() {
       )
       .then((res) => {
         const [digipoints] = res.data;
-        Cookies.set("digipoints", JSON.stringify(digipoints), { expires: 365 });
+        Cookies.set("dp", JSON.stringify(digipoints), { expires: 365 });
         dispatch(setDigipoints(digipoints));
         if (!userData.user.policy) {
           return route.push("/dashboard");

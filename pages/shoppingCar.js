@@ -28,8 +28,8 @@ const shoppingCar = () => {
   const [t, i18n] = useTranslation("global");
 
   useEffect(() => {
-    if (Cookies.get("shoppingCar") !== undefined) {
-      const productsToCookies = JSON.parse(Cookies.get("shoppingCar"));
+    if (Cookies.get("shoppCar") !== undefined) {
+      const productsToCookies = JSON.parse(Cookies.get("shoppCar"));
       setMyProducts(productsToCookies);
       dispatch(productsPush(productsToCookies));
     }
@@ -116,10 +116,10 @@ const shoppingCar = () => {
           }
         )
         .then((res) => {
-          Cookies.remove("shoppingCar");
-          Cookies.remove("digipoints");
+          Cookies.remove("shoppCar");
+          Cookies.remove("dp");
           Cookies.set(
-            "digipoints",
+            "dp",
             JSON.stringify({
               ...digipoints,
               cart_points:

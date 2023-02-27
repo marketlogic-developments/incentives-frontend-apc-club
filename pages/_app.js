@@ -36,8 +36,8 @@ export default function MyApp({ Component, pageProps }) {
 
   async function init() {
     setLoading(true);
-    if (Cookies.get("userDt")) {
-      const roll = JSON.parse(Cookies.get("userDt")) || undefined;
+    if (Cookies.get("infoDt")) {
+      const roll = JSON.parse(Cookies.get("infoDt")) || undefined;
       if (location.pathname === "/") {
         if (roll !== null) {
           setUser(roll?.roleId);

@@ -630,8 +630,8 @@ const Layout = ({ children }) => {
   };
 
   const logout = () => {
-    Cookies.remove("userDt");
-    Cookies.remove("digipoints");
+    Cookies.remove("infoDt");
+    Cookies.remove("dp");
     router.push("/");
   };
 
@@ -716,8 +716,8 @@ const Layout = ({ children }) => {
   }, [locations, locationsVendedor, userRedux, locationsPA, locationsPP]);
 
   useEffect(() => {
-    if (Cookies.get("userDt") !== undefined && userRedux === 0) {
-      const userGetData = JSON.parse(Cookies.get("userDt"));
+    if (Cookies.get("infoDt") !== undefined && userRedux === 0) {
+      const userGetData = JSON.parse(Cookies.get("infoDt"));
       axios
         .get(`${process.env.BACKURL}/users/${userGetData?.id}`, {
           headers: {
@@ -742,7 +742,7 @@ const Layout = ({ children }) => {
       }
     }
 
-    const digipoints = Cookies.get("digipoints");
+    const digipoints = Cookies.get("dp");
     try {
       if (typeof digipoints === "string" && digipoints !== undefined) {
         const parsedDigipoints = JSON.parse(digipoints);
