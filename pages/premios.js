@@ -4,9 +4,15 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import ContainerContent from "../components/containerContent";
-import { getDataAwards, pushReward } from "../store/reducers/awards.reducer";
+import {
+  awardsPush,
+  getDataAwards,
+  pushReward,
+} from "../store/reducers/awards.reducer";
 import * as XLSX from "xlsx";
 import { Modal } from "@mantine/core";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const premios = () => {
   const [formData, setFormData] = useState({
@@ -49,15 +55,44 @@ const premios = () => {
   const handleSubmit = (data) => {
     data.preventDefault();
 
-    dispatch(pushReward(token, formData));
-    setFormData({
-      name: "",
-      digipoints: "",
-      price: "",
-      imagePath: "",
-      status: true,
-      description: "",
-    });
+    axios
+      .post(`${process.env.BACKURL}/awards`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        dispatch(awardsPush([res.data]));
+
+        setFormData({
+          name: "",
+          digipoints: "",
+          price: "",
+          imagePath: "",
+          status: true,
+          description: "",
+        });
+      })
+      .catch(() => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        return Toast.fire({
+          icon: "error",
+          title: "Faltan campos por llenar",
+        });
+      });
   };
 
   function Table({ currentItems }) {
@@ -76,6 +111,9 @@ const premios = () => {
                 {t("tabla.precio")}
               </th>
               <th scope="col" className="py-3 px-6">
+                Región
+              </th>
+              <th scope="col" className="py-3 px-6">
                 {t("tabla.imagen")}
               </th>
             </tr>
@@ -83,18 +121,24 @@ const premios = () => {
           <tbody>
             {[...currentItems]
               .reverse()
-              .map(({ id, name, digipoints, price, imagePath, status }) => (
-                <tr className="bg-white border-b dark:border-gray-500" key={id}>
-                  <td className="py-4 px-6">{name}</td>
-                  <td className="py-4 px-6">{digipoints}</td>
-                  <td className="py-4 px-6">{price}</td>
-                  <td className="py-4 px-6 w-32">
-                    <figure>
-                      <img src={imagePath} />
-                    </figure>
-                  </td>
-                </tr>
-              ))}
+              .map(
+                ({ id, name, digipoints, price, imagePath, description }) => (
+                  <tr
+                    className="bg-white border-b dark:border-gray-500"
+                    key={id}
+                  >
+                    <td className="py-4 px-6">{name}</td>
+                    <td className="py-4 px-6">{digipoints}</td>
+                    <td className="py-4 px-6">{price}</td>
+                    <td className="py-4 px-6">{description}</td>
+                    <td className="py-4 px-6 w-32">
+                      <figure>
+                        <img src={imagePath} />
+                      </figure>
+                    </td>
+                  </tr>
+                )
+              )}
           </tbody>
         </table>
       </>
@@ -165,19 +209,9 @@ const premios = () => {
                   value={formData.digipoints}
                 />
                 <label className="label">
-                  <span className="label-text">Valor en Dolares / Reales</span>
+                  <span className="label-text">Valor en Dolares</span>
                 </label>
                 <div className="flex reverse">
-                  <select
-                    className="input input-bordered w-1/4"
-                    name="description"
-                    onChange={handleChange}
-                    value={formData.description}
-                  >
-                    <option value="">Moneda</option>
-                    <option value="R$">Reales</option>
-                    <option value="$">Dolares</option>
-                  </select>
                   <input
                     type="number"
                     placeholder="Ingrese el numero del valor"
@@ -187,6 +221,20 @@ const premios = () => {
                     value={formData.price}
                   />
                 </div>
+                <label className="label">
+                  <span className="label-text">Región</span>
+                </label>
+                <select
+                  className="input input-bordered w-1/2"
+                  name="description"
+                  onChange={handleChange}
+                  value={formData.description}
+                >
+                  <option value="">Región</option>
+                  <option value="BRA">BRASIL</option>
+                  <option value="NOLA-SOLA-MEX">NOLA - SOLA - MEX</option>
+                  <option value="CH">CHILE</option>
+                </select>
 
                 <label className="label">
                   <span className="label-text">
@@ -215,10 +263,7 @@ const premios = () => {
                 />
               </div>
 
-              <button
-                htmlFor="my-modal-4"
-                className="btn btn-outline btn-error w-2/4"
-              >
+              <button htmlFor="my-modal-4" className="btn btn-primary w-2/4">
                 Enviar solicitud
               </button>
             </div>
