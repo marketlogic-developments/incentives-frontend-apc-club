@@ -176,7 +176,7 @@ export default function Home() {
                         className="btn btn-secondary w-full"
                         type="submit"
                       >
-                        {t("login.Iniciar_Sesión")}
+                        {t("login.continuar")}
                       </button>
                     </form>
                     <div className="flex flex-col">

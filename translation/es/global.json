@@ -3,7 +3,8 @@
     "¿Has_olvidado_la_contraseña?": "¿Has olvidado la contraseña?",
     "Email": "Email",
     "Password": "Password",
-    "Iniciar_Sesión": "Continuar",
+    "Iniciar_Sesión": "Iniciar Sesión",
+    "continuar": "Continuar",
     "errorLogin": "Tu correo electrónico y/o contraseña no coinciden. Inténtalo de nuevo."
   },
   "menu": {
