@@ -70,6 +70,7 @@ const dashboard = () => {
       .then((res) => {
         dispatch(policyAndPassword(res.data));
         setOpened(false);
+        setOpened2(true);
       });
   };
 

@@ -84,7 +84,7 @@ const adobeMarket = () => {
         <BnEsp />
         <div className="w-full h-full">
           <button
-            className="btn btn-warning btn-outline"
+            className="btn btn-primary"
             onClick={() => route.push("/estadoProducto")}
           >
             {t("adobeMarket.estado")}
