@@ -29,7 +29,7 @@ const terminosycondiciones = () => {
   }, []);
 
   const handleSubmit = () => {
-    const userToken = JSON.parse(Cookies.get("userDt"));
+    const userToken = JSON.parse(Cookies.get("infoDt"));
     console.log(userToken);
     axios
       .patch(

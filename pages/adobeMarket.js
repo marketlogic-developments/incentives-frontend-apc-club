@@ -38,7 +38,7 @@ const adobeMarket = () => {
   }, [token]);
 
   const handleShoppingCard = () => {
-    Cookies.set("shoppingCar", JSON.stringify(globalAwards), { expires: 365 });
+    Cookies.set("shoppCar", JSON.stringify(globalAwards), { expires: 365 });
     dispatch(productsPush([...car, ...globalAwards]));
     awardsDelete();
     route.push("/shoppingCar");

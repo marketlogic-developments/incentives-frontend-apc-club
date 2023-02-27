@@ -5,7 +5,12 @@ import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../store/reducers/users.reducer";
 
-function MobileMenu({ locations, locationsVendedor, locationsPP, locationsPA }) {
+function MobileMenu({
+  locations,
+  locationsVendedor,
+  locationsPP,
+  locationsPA,
+}) {
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
   const location =
@@ -99,9 +104,9 @@ function MobileMenu({ locations, locationsVendedor, locationsPP, locationsPA }) 
   }, [locations, locationsVendedor, user]);
 
   useEffect(() => {
-    if (Cookies.get("userDt") !== undefined) {
-      dispatch(userLogin(JSON.parse(Cookies.get("userDt"))));
-      setUser(JSON.parse(Cookies.get("userDt")));
+    if (Cookies.get("infoDt") !== undefined) {
+      dispatch(userLogin(JSON.parse(Cookies.get("infoDt"))));
+      setUser(JSON.parse(Cookies.get("infoDt")));
     }
   }, [location]);
 
@@ -113,7 +118,7 @@ function MobileMenu({ locations, locationsVendedor, locationsPP, locationsPA }) 
   };
 
   const logout = () => {
-    Cookies.remove("userDt");
+    Cookies.remove("infoDt");
     router.push("/");
   };
 
