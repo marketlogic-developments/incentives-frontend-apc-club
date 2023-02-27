@@ -1,0 +1,163 @@
+.containerProgress {
+  display: flex;
+  padding: 30px 0;
+  border-radius: 8px;
+  background: #fff;
+  row-gap: 30px;
+  flex-direction: column;
+  align-items: center;
+}
+.circular-progress {
+  position: relative;
+  height: 250px;
+  width: 250px;
+  border-radius: 50%;
+  background: conic-gradient(#fecd03 3.6deg, #fecd03 0deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.circular-progress::before {
+  content: "";
+  position: absolute;
+  height: 210px;
+  width: 210px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.progress-value {
+  position: relative;
+  font-size: 40px;
+  font-weight: 600;
+  color: $primaryColorRed;
+}
+.textProgress {
+  font-size: 30px;
+  font-weight: 500;
+  color: #606060;
+}
+
+.imgPhoto {
+  display: flex;
+  z-index: 1;
+  justify-content: center;
+
+  img {
+    border-radius: 100%;
+    width: 100%;
+    z-index: 100;
+  }
+}
+
+.flip-card-imgPhoto {
+  background-color: transparent;
+  width: 75%;
+  height: 75%;
+  font-family: sans-serif;
+}
+
+.title-imgPhoto {
+  font-size: 1.5em;
+  font-weight: 900;
+  text-align: center;
+  margin: 0;
+}
+
+.flip-card-inner-imgPhoto {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.circular-progress:hover {
+  .flip-card-imgPhoto .flip-card-inner-imgPhoto {
+    transform: rotateY(180deg);
+  }
+}
+
+.flip-card-front-imgPhoto,
+.flip-card-back-imgPhoto {
+  box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border: 1px solid $primaryColorRed;
+  border-radius: 100%;
+}
+
+.flip-card-front-imgPhoto {
+  background: linear-gradient(
+    120deg,
+    $primaryColorWhite 60%,
+    $primaryColorSemiWhite 88%
+  );
+  color: $primaryColorRed;
+}
+
+.flip-card-back-imgPhoto {
+  background: linear-gradient(
+    120deg,
+    $primaryColorRed 30%,
+    $primaryColorRedTrans 88%
+  );
+  color: white;
+  transform: rotateY(180deg);
+}
+
+.flip-card-Graph {
+  background-color: transparent;
+  width: 75%;
+  height: 75%;
+  font-family: sans-serif;
+}
+
+.title-Graph {
+  font-size: 1.5em;
+  font-weight: 900;
+  text-align: center;
+  margin: 0;
+}
+
+.flip-card-inner-Graph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.activeButton {
+  .flip-card-Graph .flip-card-inner-Graph {
+    transform: rotateY(180deg);
+  }
+}
+
+.flip-card-front-Graph,
+.flip-card-back-Graph {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 100%;
+}
+
+.flip-card-front-Graph {
+  color: $primaryColorRed;
+}
+
+.flip-card-back-Graph {
+  transform: rotateY(180deg);
+}

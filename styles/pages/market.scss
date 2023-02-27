@@ -1,0 +1,88 @@
+.cardls {
+  width: 190px;
+  height: 150px;
+  padding: 0.5rem;
+  background: #fff;
+  border-radius: 8px;
+  -webkit-box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.28);
+  box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.28);
+  -webkit-transform: skewX(10deg);
+  -ms-transform: skewX(10deg);
+  transform: skewX(10deg);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  overflow: hidden;
+  color: #000;
+  text-align: center;
+  margin: auto;
+}
+
+.cardls:hover {
+  height: 350px;
+  -webkit-transform: skew(0deg);
+  -ms-transform: skew(0deg);
+  transform: skew(0deg);
+}
+
+.align {
+  padding: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  gap: 5px;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
+.red {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff605c;
+  -webkit-box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.28);
+  box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.28);
+}
+
+.yellow {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ffbd44;
+  -webkit-box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.28);
+  box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.28);
+}
+
+.green {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #00ca4e;
+  -webkit-box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.28);
+  box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.28);
+}
+
+.cardls h1 {
+  text-align: center;
+  margin: 1rem;
+  color: #000;
+}
+.cardls img {
+  width: 50px;
+  margin: 0 auto;
+}
+
+.rowcards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100%;
+  margin: 0 auto;
+  gap: 30px;
+
+  div {
+    justify-self: center;
+  }
+}

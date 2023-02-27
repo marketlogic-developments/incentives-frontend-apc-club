@@ -1,0 +1,127 @@
+{
+  "login": {
+    "¿Has_olvidado_la_contraseña?": "¿Has olvidado la contraseña?",
+    "Email": "Email",
+    "Password": "Password",
+    "Iniciar_Sesión": "Continuar",
+    "errorLogin": "Tu correo electrónico y/o contraseña no coinciden. Inténtalo de nuevo."
+  },
+  "menu": {
+    "Dashboard": "Dashboard",
+    "Participantes": "Participantes",
+    "Puntos_por_ventas": "Puntos por ventas",
+    "Reportes": "Mis Reportes",
+    "Digipoints": "Mis DigiPoints",
+    "Productos": "Productos Participantes",
+    "Premios": "Mis Premios",
+    "Carga_de_Ventas": "Carga de Ventas",
+    "Adobe Market": "Adobe Market",
+    "salir": "Salir",
+    "catalogo": "Catálogo de premios"
+  },
+  "dashboard": {
+    "Inicio": "Inicio",
+    "Hola": "Hola",
+    "Estado_de_la_Meta": "Estado de la Meta",
+    "bienvenido": "¡Bienvenido a Partner Connection Club!",
+    "continuar": "Para continuar ingresa tu nueva contraseña",
+    "digitar": "Digita tu nueva contraseña",
+    "verpass": "Ver contraseña",
+    "cambiarpass": "Cambiar contraseña",
+    "podio": "Podio del",
+    "enApc": "¡En el APC Club, reconocemos tu esfuerzo!",
+    "conoce": "Conoce el detalle",
+    "ranking": "ranking",
+    "promociones": "promociones",
+    "htw": "¿Cómo ganar?",
+    "salesCC": "Ventas \n Creative Cloud:",
+    "salesDC": "ventas \n Document Cloud:",
+    "renovaciones": "Renovaciones",
+    "nbusiness": "Nuevos negocios"
+  },
+  "terminosycondiciones": {
+    "TerminosyCondiciones": "Términos y condiciones",
+    "aceptar": "Aceptar los términos y condiciones del programa",
+    "bienvenido": "¡Bienvenido!"
+  },
+  "adobeMarket": {
+    "estado": "Ver el estado de tus premios",
+    "carrito": "Agregar al carrito"
+  },
+  "asignarventas": {},
+  "cargaventas": {
+    "asignar": "Asignar puntos",
+    "cargar": "Cargar puntos",
+    "id": "ID de archivo"
+  },
+  "digipoints": {
+    "mis": "Mis",
+    "historicos": "Históricos",
+    "actuales": "Actuales",
+    "txthistoricos": "Este es el acumulado de DigiPoints que has recibido durante el FY23",
+    "txtdias": "Hace 0 días",
+    "txtredencion": "Fue tu última redención",
+    "txtactuales": "Estos son los DigiPoints que tienes disponibles para redimir",
+    "redencion": "Tipo de redención"
+  },
+  "files": {},
+  "participantes": {
+    "nombre": "nombre",
+    "Region": "Región",
+    "correo": "Correo",
+    "rol": "rol",
+    "fecha": "Fecha de activación"
+  },
+  "premios": {
+    "agregar": "Agregar premio"
+  },
+  "tabla": {
+    "ppventas": "Puntos por ventas",
+    "rol": "Rol",
+    "exportar": "Exportar",
+    "buscar": "Buscar",
+    "fechaventa": "Fecha de Venta",
+    "fechacarga": "Fecha de carga",
+    "activo": "Activo",
+    "ventas": "Ventas",
+    "region": "Región",
+    "nombre": "Nombre",
+    "correo": "Correo Electrónico",
+    "sku": "SKU",
+    "nserie": "Factura",
+    "designados": "DigiPoints Asignados",
+    "tipoproducto": "Tipo de producto",
+    "tipodeventa": "Tipo de venta",
+    "amountTotal": "Monto",
+    "creado": "Creado",
+    "hproductos": "Productos",
+    "precio": "precio",
+    "imagen": "Imagen",
+    "idsol": "ID de solicitud",
+    "nproductos": "No. de productos",
+    "valordigipoints": "valor en DigiPoints",
+    "fechasol": "FECHA DE SOLICITUD",
+    "estado": "estado",
+    "agregarP": "Agregar participante",
+    "ordenarFecha": "Ordenar por fecha",
+    "recientesA": "Reciente / Antiguo",
+    "antiguoR": "Antiguo /Reciente",
+    "filtrarVenta": "Filtrar por tipo de venta",
+    "buscarFactura": "Buscar por email",
+    "buscarEmail": "Buscar por factura"
+  },
+  "shoopingcar": {
+    "carrito": "Carrito",
+    "valorde": "Tarjeta con valor de",
+    "cantidad": "Cantidad:",
+    "procesar": "procesar",
+    "recibida": "Orden Recibida",
+    "exito": "Tu orden fue recibida con exito",
+    "norden": "No. de Orden:",
+    "ir": "Ir al estado de tus premios"
+  },
+  "estadoProducto": {
+    "estado": "Estado de Tus Premios"
+  },
+  "user": {}
+}

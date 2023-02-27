@@ -1,0 +1,128 @@
+{
+  "login": {
+    "¿Has_olvidado_la_contraseña?": "Esqueceu sua senha?",
+    "Email": "E-mail",
+    "Password": "Senha",
+    "Iniciar_Sesión": "Acesse sua conta",
+    "errorLogin": "Seu e-mail e/ou senha não correspondem. Por favor, tente novamente."
+  },
+  "menu": {
+    "Dashboard": "Painel de controle",
+    "Participantes": "Participantes",
+    "Puntos_por_ventas": "Pontos por vendas",
+    "Reportes": "Relatórios",
+    "Digipoints": "Digipoints",
+    "Productos": "Produtos",
+    "Premios": "Prêmios",
+    "Carga_de_Ventas": "Carga de vendas",
+    "Adobe Market": "Adobe Market",
+    "salir": "Sair",
+    "catalogo": "Catálogo de prêmios"
+  },
+  "dashboard": {
+    "Estado_de_la_Meta": "Status da Meta",
+    "Inicio": "Home",
+    "Hola": "Óla",
+    "bienvenido": "Bem-vindo ao Partner Connection Club!",
+    "continuar": "Para continuar digitando sua nova senha",
+    "digitar": "Digite sua nova senha",
+    "verpass": "Veja a senha",
+    "cambiarpass": "Mudança de senha",
+    "podio": "Pódio do",
+    "enApc": "No APC Club, reconhecemos o seu esforço!",
+    "conoce": "Conheça o detalhe",
+    "ranking": "RANKING",
+    "promociones": "PROMOTIONS",
+    "htw": "HOW TO WIN",
+    "salesCC": "Vendas do \n Creative Cloud:",
+    "salesDC": "Vendas do \n Document Cloud:",
+    "renovaciones": "Renewals",
+    "nbusiness": "New businesses"
+  },
+  "terminosycondiciones": {
+    "TerminosyCondiciones": "Termos e Condições",
+    "aceptar": "Aceitar os termos e condições do programa",
+    "bienvenido": "Seja bem-vindo!"
+  },
+  "adobeMarket": {
+    "estado": "Veja o status de seus produtos",
+    "carrito": "Adicionar ao carrinhos"
+  },
+  "asignarventas": {},
+  "cargaventas": {
+    "asignar": "Atribuir pontos",
+    "cargar": "Pontos de carregamento",
+    "id": "ID do arquivo"
+  },
+  "digipoints": {
+    "mis": "Meus",
+    "historicos": "Históricos",
+    "actuales": "Atuais",
+    "txthistoricos": "Estes são os DigiPoints acumulados que você recebeu durante o ano fiscal de 23",
+    "txtdias": "0 dias atrás",
+    "txtredencion": "Foi sua última redenção",
+    "txtactuales": "Estes são os DigiPoints que você tem disponíveis para o resgate",
+    "redencion": "Tipo de redenção"
+  },
+
+  "files": {},
+  "participantes": {
+    "Region": "Região",
+    "nombre": "Nome",
+    "correo": "E-mail",
+    "rol": "Papel",
+    "fecha": "Data de ativação"
+  },
+  "premios": {
+    "agregar": "Adicionar prêmio"
+  },
+  "tabla": {
+    "ppventas": "Pontos por vendas",
+    "rol": "Papel",
+    "exportar": "Exportação",
+    "buscar": "Busca",
+    "fechaventa": "Data da venda",
+    "fechacarga": "Data do carregamento",
+    "activo": "Ativo",
+    "ventas": "Vendas",
+    "region": "Região",
+    "nombre": "Nome",
+    "correo": "E-mail",
+    "sku": "SKU",
+    "nserie": "Fatura",
+    "designados": "DIGIPOINTS ATRIBUÍDOS",
+    "tipoproducto": "Tipo de produto",
+    "tipodeventa": "Tipo de venda",
+    "amountTotal": "Quantia",
+    "creado": "Criado",
+    "hproductos": "Produtos",
+    "precio": "Preço",
+    "imagen": "Imagem",
+    "idsol": "ID DA APLICAÇÃO",
+    "nproductos": "No. de produtos",
+    "valordigipoints": "valor em digipoints",
+    "fechasol": "DATA DE APLICAÇÃO",
+    "estado": "ESTATUS",
+    "agregarP": "Adicionar participante",
+    "ordenarFecha": "Para ordenar por data",
+    "recientesA": "Recentes / Antigos",
+    "antiguoR": "Antigo / Recente",
+    "filtrarVenta": "Filtrar por tipo de venda",
+    "buscarFactura": "Pesquisar por fatura",
+    "buscarEmail": "Pesquisar por e-mail"
+  },
+  "shoopingcar": {
+    "carrito": "Carrinho de compras",
+    "valorde": "Cartão com um valor de",
+    "cantidad": "Montante:",
+    "procesar": "Processo",
+    "recibida": "Pedido Recebido",
+    "exito": "Seu pedido foi recebido com sucesso ",
+    "norden": "No. do pedido:",
+    "ir": "Ir para o status do produto"
+  },
+  "estadoProducto": {
+    "estado": "Status de seus produtos"
+  },
+  "user": {}
+}

@@ -1,0 +1,53 @@
+@mixin telefono-sm {
+  @media (max-width: #{$telefono-sm}) {
+    @content;
+  }
+}
+
+@mixin telefono {
+  @media (max-width: #{$telefono}) {
+    @content;
+  }
+}
+
+@mixin telefono-x {
+  @media (max-width: #{$telefono-x}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: #{$desktop}) {
+    @content;
+  }
+}
+
+@mixin desktop-l {
+  @media (max-width: #{$desktop-l}) {
+    @content;
+  }
+}
+
+@mixin desktop-xl {
+  @media (max-width: #{$desktop-xl}) {
+    @content;
+  }
+}
+
+@mixin desktop-fhd {
+  @media (max-width: #{$desktop-fhd}) {
+    @content;
+  }
+}
+
+@mixin desktop-4k {
+  @media (min-width: #{$desktop-4k}) {
+    @content;
+  }
+}

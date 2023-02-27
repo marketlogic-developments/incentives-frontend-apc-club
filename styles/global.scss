@@ -1,0 +1,257 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "./pages/login.scss";
+@import "./pages/dashboard.scss";
+@import "./pages/digipoints.scss";
+
+@import "./pages/market.scss";
+@import "./components/cardMarket.scss";
+@import "./components/trackingProduct.scss";
+@import "./components/progress.scss";
+
+@import "./components/layout.scss";
+
+@import "./Base/mixins";
+@import "./Base/variables";
+
+@import "./animations/animations.scss";
+
+@import "@react-pdf-viewer/core/lib/styles/index.css";
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+@import url("https://themes.googleusercontent.com/fonts/css?kit=-lTUqgJg2dxbe4D7B5DEICbzagQlgiMMTcfwSOywUzOVy0IPMoomNyLqSxNaFeOc");
+
+@import url("https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap");
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+
+  hr {
+    border-top-width: 3px;
+    border-color: $primaryColorRed;
+  }
+
+  .cls-1 {
+    fill: #fff;
+  }
+
+  .mantine-ckt4nk {
+    color: #000000 !important;
+  }
+
+  td,
+  th {
+    text-align: center;
+  }
+
+  .btn-accent {
+    color: #7e7e7e !important;
+  }
+
+  .mantine-y414p {
+    button {
+      color: $primaryColorRed;
+    }
+  }
+
+  button {
+    color: $primaryColorWhite !important;
+  }
+
+  @include desktop-xl {
+    p,
+    td,
+    th,
+    label,
+    input {
+      font-size: 0.75rem !important;
+    }
+
+    .logoRight {
+      margin-left: 0;
+      margin-right: 2rem;
+    }
+
+    .logosAdobe {
+      margin-top: 2rem;
+      img {
+        width: 200px;
+      }
+    }
+
+    button {
+      min-height: 2rem !important;
+      height: fit-content !important;
+    }
+
+    a,
+    button {
+      font-size: 0.65rem !important;
+    }
+
+    h1 {
+      font-size: 1.2rem !important;
+    }
+
+    h2 {
+      font-size: 1.5rem !important;
+    }
+
+    .swal2-title {
+      font-size: 0.75rem !important;
+    }
+
+    .mantine-1kzbr1s {
+      width: 90% !important;
+
+      .tableHeader {
+        p {
+          font-size: 0.6rem !important;
+        }
+      }
+    }
+  }
+}
+.modal {
+  background-color: #00000087;
+}
+
+.report-style-class {
+  height: 80vh;
+}
+
+.containerGlobal {
+  position: relative;
+
+  .bgAPC {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    /* Pantalla móvil */
+    @media (max-width: 767px) {
+      display: none;
+    }
+
+    figure {
+      width: 100%;
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+main {
+  max-width: 100%;
+  z-index: 2;
+}
+
+.menu-button-open {
+  position: absolute;
+  top: 16px;
+  right: 27px;
+  width: 46px;
+  height: 46px;
+  z-index: 9;
+}
+.menu-bg {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.containerItemLayout {
+  /* Pantalla móvil */
+  @media (max-width: 767px) {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+  svg {
+    /* Pantalla móvil */
+    @media (max-width: 767px) {
+      stroke: #fff;
+      text-align: center;
+      margin: 0 auto;
+    }
+  }
+}
+.menumobile {
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.logo-adobe {
+  width: 100px;
+  object-fit: contain;
+  @media (max-width: 768px) {
+    margin: 0 auto;
+    padding-bottom: 10px;
+  }
+}
+.cuadros-logo {
+  width: 10px;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+.idioma-card {
+  @media (max-width: 768px) {
+    bottom: 20px;
+  }
+}
+.card-login {
+  @media (max-width: 768px) {
+    display: grid;
+    text-align: center;
+  }
+}
+.bannerDesk {
+  @media (max-width: 769px) {
+    display: none;
+  }
+}
+.bannerMob {
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+.none {
+  display: none !important;
+}
+.nonetran {
+  visibility: hidden;
+}
+
+.pagination {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  justify-content: center;
+  list-style-type: none;
+  position: relative;
+  width: 100%;
+}
+
+.mantine-129761m {
+  position: relative;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  padding-right: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.tycImg {
+  width: 100%;
+}
+
+.imgLogoAdobe {
+  width: 80%;
+}

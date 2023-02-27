@@ -1,0 +1,118 @@
+@import "../Base/mixins";
+
+.mainIndex {
+  background-image: url(../../public/assets/login/bbapc.png);
+  background-repeat: round;
+  max-width: 100%;
+  /* Pantalla móvil */
+  @media (max-width: 767px) {
+    background-size: cover !important;
+    background-repeat: inherit !important;
+  }
+
+  @include desktop-xl {
+    .input {
+      height: 2.2rem;
+    }
+
+    .btn {
+      height: 2.2rem;
+      min-height: 2.2rem;
+    }
+
+    .containerLogin {
+      width: 80%;
+
+      .containerCard {
+        width: 60%;
+      }
+
+      #cardLogin {
+        width: 100%;
+      }
+
+      .internalCard {
+        padding: 1rem 2rem 1rem 2rem;
+      }
+    }
+
+    #apcLogo {
+      width: 80%;
+      .logoAPC {
+        @include desktop-xl {
+          width: 80%;
+        }
+      }
+    }
+  }
+}
+
+.adobeCo {
+  top: 0;
+  left: 0;
+
+  img {
+    max-width: 200px;
+    width: 100%;
+    z-index: 10 !important;
+  }
+  /* Pantalla de escritorio con resolución de 1920px o superior*/
+  @media (min-width: 1921px) {
+    top: 130px;
+    left: 100px;
+    background-color: aqua;
+  }
+
+  /* Pantalla de escritorio con resolución de 1600px o superior*/
+  @media (min-width: 1681px) and (max-width: 1920px) {
+    top: 130px;
+    left: 80px;
+  }
+
+  /* Pantalla de escritorio con resolución de 1536px o superior */
+  @media (min-width: 1537px) and (max-width: 1680px) {
+    top: 180px;
+    left: 50px;
+  }
+
+  /* Pantalla de escritorio con resolución de 1440px o superior */
+  @media (min-width: 1441px) and (max-width: 1536px) {
+    top: 10px;
+    left: 30px;
+  }
+
+  /* Pantalla de escritorio con resolución de 1366px o superior */
+  @media (min-width: 1367px) and (max-width: 1440px) {
+    top: 60px;
+    left: 20px;
+  }
+
+  /* Pantalla de tablet */
+  @media (min-width: 1025px) and (max-width: 1280px) {
+    top: 20px;
+    left: -20px;
+  }
+  /* Pantalla de tablet */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    top: 20px;
+    left: -120px;
+  }
+
+  /* Pantalla móvil */
+  @media (max-width: 767px) {
+    top: -10px;
+  }
+}
+
+.mantine-Modal-header {
+  display: none;
+}
+
+.inputSign {
+  font-family: "Tangerine", cursive;
+}
+
+// .logoAPC {
+//   width: 20px;
+//   height: 20px;
+// }
