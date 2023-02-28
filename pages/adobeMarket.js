@@ -24,9 +24,6 @@ const adobeMarket = () => {
   const token = useSelector((state) => state.user.token);
   const arrayAwards = useSelector((state) => state.awards.awards);
   const car = useSelector((state) => state.awards.shoopingCar);
-  const productsToShoppingCar = useSelector(
-    (state) => state.awards.shoopingCar
-  );
   const user = useSelector((state) => state.user.user);
   const itemsPerPage = 6;
   const [loading, setLoading] = useState(false);

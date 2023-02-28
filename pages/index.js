@@ -11,14 +11,11 @@ import {
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { Modal } from "@mantine/core";
 import Recovery from "../components/dashboard/recovery";
 import Swal from "sweetalert2";
 
 export default function Home() {
   const [t, i18n] = useTranslation("global");
-
-  const user = useSelector((state) => state.user.user.user);
 
   const dispatch = useDispatch();
 
@@ -107,6 +104,7 @@ export default function Home() {
     <>
       <Head>
         <title title="true">Adobe APC</title>
+        <link rel="icon" href="/favicon.png"></link>
       </Head>
       <main className="mainIndex bg-primary fixed w-full z-10">
         <Recovery opened={opened} setOpened={setOpened} t={t} />

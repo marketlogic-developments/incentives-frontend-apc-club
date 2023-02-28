@@ -6,6 +6,7 @@ const ContainerContent = ({ pageTitle, children }) => {
     <>
       <Head>
         <title>{pageTitle}</title>
+        <link rel="icon" href="/favicon.png"></link>
       </Head>
       <main
         className="relative flex justify-center"

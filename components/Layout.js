@@ -753,16 +753,16 @@ const Layout = ({ children }) => {
     }
   }, [location]);
 
-  if (sections.includes(location)) {
-    return <>{children}</>;
-  }
-
   if (!loading) {
     return (
       <div className="h-screen w-screen flex items-center justify-center z-50">
         <div className="spinner"></div>
       </div>
     );
+  }
+
+  if (sections.includes(location)) {
+    return <>{children}</>;
   }
 
   return (

@@ -5,6 +5,7 @@ module.exports = {
     includePaths: [path.join(__dirname, "styles")],
     prependData: `@import "./styles/Base/_variables.scss";`,
   },
+
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.svg$/,
