@@ -195,6 +195,7 @@ const digipoints = () => {
     <>
       <Head>
         <title>DigiPoints</title>
+        <link rel="icon" href="/favicon.png"></link>
       </Head>
       <main
         className="relative flex justify-center"

@@ -72,6 +72,7 @@ export default function Home() {
     <>
       <Head>
         <title title="true">Adobe APC</title>
+        <link rel="icon" href="/favicon.png"></link>
       </Head>
       <main className="mainIndex bg-primary fixed w-full z-10">
         <div className="container flex flex-col justify-center items-center h-screen w-full max-w-full">

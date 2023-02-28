@@ -81,6 +81,7 @@ const terminosycondiciones = () => {
     <>
       <Head>
         <title>Terminos y Condiciones</title>
+        <link rel="icon" href="/favicon.png"></link>
       </Head>
       <main
         className="flex justify-center"

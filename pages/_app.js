@@ -90,10 +90,8 @@ export default function MyApp({ Component, pageProps }) {
           <Layout>
             <Component {...pageProps} />
           </Layout>
-          {location !== "/" && location !== "/terminosycondiciones" ? (
+          {location !== "/" && location !== "/terminosycondiciones" && (
             <Footer />
-          ) : (
-            <></>
           )}
         </MantineProvider>
       </Provider>
