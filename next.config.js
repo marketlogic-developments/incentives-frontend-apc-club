@@ -20,6 +20,6 @@ module.exports = {
   swcMinify: true,
   reactStrictMode: false,
   env: {
-    BACKURL: "http://apc.mymarketlogic.net/api/v1",
+    BACKURL: "https://apc.mymarketlogic.net/api/v1",
   },
 };
