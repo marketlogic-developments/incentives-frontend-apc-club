@@ -33,9 +33,9 @@ const CardShoppingCard = ({ info, arrProducts, setProducts }) => {
         X
       </div>
       <div className="flex rounded-lg p-5 gap-4 border-red-700 border-double border-4">
-        <div className="w-12">
+        <div className="w-[25%]">
           <figure>
-            <img src={info.imagePath} />
+            <img src={info.imagePath} className="w-full" />
           </figure>
         </div>
         <div className="flex w-full justify-between">
