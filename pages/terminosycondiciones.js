@@ -23,18 +23,22 @@ const terminosycondiciones = () => {
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
-    if (user?.policy === false) {
+    if (user?.policy) {
       return route.push("/dashboard");
     }
   }, []);
 
   const handleSubmit = () => {
     const userToken = JSON.parse(Cookies.get("infoDt"));
-    console.log(userToken);
+
     axios
-      .patch(
-        `${process.env.BACKURL}/users/${userToken.id}`,
-        { policy: false },
+      .post(
+        `${process.env.BACKURL}/policy-logs`,
+        {
+          userId: userToken?.id,
+          fileName: `signature-${userToken?.id}`,
+          base64String: imageSign,
+        },
         {
           headers: {
             "Content-Type": "application/json",
@@ -43,7 +47,8 @@ const terminosycondiciones = () => {
         }
       )
       .then((res) => {
-        dispatch(policyAndPassword({ ...user, policy: false }));
+        console.log(res.data);
+        dispatch(policyAndPassword({ ...user, policy: true }));
         route.push("/dashboard");
       });
   };
@@ -84,8 +89,8 @@ const terminosycondiciones = () => {
         <link rel="icon" href="/favicon.png"></link>
       </Head>
       <main
-        className="flex justify-center"
-        style={{ maxWidth: "100%", marginTop: "5vh" }}
+        className="flex justify-center relative h-screen bg-white"
+        style={{ maxWidth: "100%", zIndex: 50, marginTop: "5vh" }}
       >
         <Modal opened={opened} centered size={"40%"}>
           {typeModal}

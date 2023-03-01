@@ -48,8 +48,9 @@ const dashboard = () => {
   }, [user]);
 
   const redirection = () => {
-    if (user?.passwordReset) {
-      return setModalType(0), setOpened(true);
+    if (!user?.passwordReset) {
+      setModalType(0);
+      return setOpened(true);
     }
   };
 
@@ -59,7 +60,7 @@ const dashboard = () => {
     axios
       .patch(
         `${process.env.BACKURL}/users/${user?.id}`,
-        { passwordReset: false, password: data.target[0].value },
+        { passwordReset: true, password: data.target[0].value },
         {
           headers: {
             "Content-Type": "application/json",
@@ -90,8 +91,8 @@ const dashboard = () => {
           );
           setSortedData(data);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          return;
         });
     }
   }, [isLoaded, token]);

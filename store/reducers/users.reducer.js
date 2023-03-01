@@ -108,19 +108,15 @@ export const createUserData = (token, data) => async (dispatch) => {
   }
 };
 export const getPointsData = (token) => async (dispatch) => {
-  try {
-    return axios
-      .get(`${process.env.BACKURL}/reporters/digipoints-redeem-status/1/0/`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((puntos) => {
-        return puntos.data;
-      });
-  } catch (err) {
-    console.log(err);
-  }
+  return axios
+    .get(`${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((puntos) => {
+      return puntos.data;
+    });
 };
