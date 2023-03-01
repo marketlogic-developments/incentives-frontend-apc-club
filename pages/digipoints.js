@@ -85,7 +85,7 @@ const digipoints = () => {
             <div class="flip-card">
               <div class="flip-card-inner">
                 <div class="flip-card-front">
-                  <p class="title">{digipoints?.assigned_points || 0}</p>
+                  <p class="title">{digipoints?.assigned_points}</p>
                   <p>DigiPoints {t("digipoints.historicos")}</p>
                 </div>
                 <div class="flip-card-back">
@@ -97,7 +97,7 @@ const digipoints = () => {
             <div class="flip-card">
               <div class="flip-card-inner">
                 <div class="flip-card-front">
-                  <p class="title">{digipoints?.cart_points || 0}</p>
+                  <p class="title">{digipoints?.cart_points}</p>
                   <p>DigiPoints Redimidos</p>
                 </div>
                 <div class="flip-card-back">
@@ -110,7 +110,7 @@ const digipoints = () => {
               <div class="flip-card-inner">
                 <div class="flip-card-front">
                   <p class="title">
-                    {digipoints?.assigned_points - digipoints?.cart_points || 0}
+                    {digipoints?.assigned_points - digipoints?.cart_points}
                   </p>
                   <p>DigiPoints {t("digipoints.actuales")}</p>
                 </div>

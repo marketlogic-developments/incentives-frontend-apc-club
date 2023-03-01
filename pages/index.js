@@ -90,9 +90,19 @@ export default function Home() {
       )
       .then((res) => {
         const [digipoints] = res.data;
-        Cookies.set("dp", JSON.stringify(digipoints), { expires: 365 });
-        dispatch(setDigipoints(digipoints));
-        if (!userData.user.policy) {
+
+        if (res.data.length === 0) {
+          dispatch(
+            setDigipoints({
+              assigned_points: 0,
+              cart_points: 0,
+            })
+          );
+        } else {
+          dispatch(setDigipoints(digipoints));
+        }
+
+        if (userData.user.policy) {
           return route.push("/dashboard");
         } else {
           return route.push("/terminosycondiciones");
@@ -213,6 +223,7 @@ export default function Home() {
                     onChange={(e) => {
                       i18n.changeLanguage(e.target.value);
                     }}
+                    value={i18n.resolvedLanguage}
                   >
                     <option value="es">Español</option>
                     <option value="por">Português</option>
