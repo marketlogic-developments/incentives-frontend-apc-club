@@ -142,7 +142,8 @@
     "recibida": "Pedido Recebido",
     "exito": "Seu pedido foi recebido com sucesso ",
     "norden": "No. do pedido:",
-    "ir": "Ir para o status do produto"
+    "ir": "Ir para o status do produto",
+    "notienes": "Ainda não há itens no seu carrinho de compras"
   },
   "estadoProducto": {
     "estado": "Status de seus produtos"
