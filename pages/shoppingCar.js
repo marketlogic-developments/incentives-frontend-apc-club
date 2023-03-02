@@ -185,7 +185,7 @@ const shoppingCar = () => {
                     />
                   ))
               ) : (
-                <p>Aun no tienes articulos en tu carrito de compras</p>
+                <p>Aún no tienes articulos en tu carrito de compras</p>
               )}
             </div>
             {myProducts.length > 0 && (

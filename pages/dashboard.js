@@ -103,7 +103,9 @@ const dashboard = () => {
         <div className="gap-10 flex flex w-full">
           <div className="gap-10 w-6/12">
             <div className="flex flex-col gap-5 texto_dash">
-              <h1 className="font-bold text-2xl max-sm:text-xl">{t("dashboard.Inicio")}</h1>
+              <h1 className="font-bold text-2xl max-sm:text-xl">
+                {t("dashboard.Inicio")}
+              </h1>
               <h2 className="font-bold text-4xl max-sm:text-xl">
                 {t("dashboard.Hola")}, {userData}
               </h2>
@@ -165,7 +167,7 @@ const dashboard = () => {
             />
           ) : (
             <img
-              src="assets/dashboard/banners/htwPor.jpg"
+              src="assets/dashboard/banners/htw.jpg"
               className="bannersImg"
             />
           )}
