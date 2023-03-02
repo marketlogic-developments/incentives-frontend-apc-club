@@ -149,7 +149,7 @@ const premios = () => {
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+
     return awards.slice(itemOffset, endOffset);
   }, [itemOffset, awards]);
   const pageCount = useMemo(

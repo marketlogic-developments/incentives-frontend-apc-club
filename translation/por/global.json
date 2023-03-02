@@ -5,7 +5,8 @@
     "Password": "Senha",
     "Iniciar_Sesión": "Acesse sua conta",
     "continuar": "Acesse sua conta",
-    "errorLogin": "Seu e-mail e/ou senha não correspondem. Por favor, tente novamente."
+    "errorLogin": "Seu e-mail e/ou senha não correspondem. Por favor, tente novamente.",
+    "language": "Linguagem"
   },
 
   "tyc": {
@@ -15,13 +16,14 @@
   },
 
   "menu": {
-    "Dashboard": "Painel de controle",
+    "Dashboard": "Painél de controle",
     "Participantes": "Participantes",
     "Puntos_por_ventas": "Pontos por vendas",
     "Reportes": "Relatórios",
-    "Digipoints": "Digipoints",
-    "Productos": "Produtos",
-    "Premios": "Prêmios",
+    "Digipoints": "Meus DigiPoints",
+    "DDigipoints": "Distribuição de DigiPoints",
+    "Productos": "Produtos Participantes",
+    "Premios": "Meus Prêmios",
     "Carga_de_Ventas": "Carga de vendas",
     "Adobe Market": "Adobe Market",
     "salir": "Sair",
@@ -30,7 +32,7 @@
   "dashboard": {
     "Estado_de_la_Meta": "Status da Meta",
     "Inicio": "Home",
-    "Hola": "Óla",
+    "Hola": "Olá!",
     "bienvenido": "Bem-vindo ao Partner Connection Club!",
     "continuar": "Para continuar digitando sua nova senha",
     "digitar": "Digite sua nova senha",
@@ -40,12 +42,14 @@
     "enApc": "No APC Club, reconhecemos o seu esforço!",
     "conoce": "Conheça o detalhe",
     "ranking": "RANKING",
-    "promociones": "PROMOTIONS",
-    "htw": "HOW TO WIN",
-    "salesCC": "Vendas do \n Creative Cloud:",
-    "salesDC": "Vendas do \n Document Cloud:",
-    "renovaciones": "Renewals",
-    "nbusiness": "New businesses"
+    "promociones": "Promoções",
+    "htw": "Como ganhar?",
+    "renovaciones": "Renew",
+    "nbusiness": "Novos negócios",
+    "vCC": "Vendas de",
+    "vDC": "Vendas de",
+    "mvCC": "Minhas Vendas",
+    "mvDC": "Minhas Vendas"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",
@@ -64,13 +68,16 @@
   },
   "digipoints": {
     "mis": "Meus",
+    "DDigipoints": "Distribuição de",
+    "Crear": "Criar equipe",
     "historicos": "Históricos",
     "actuales": "Atuais",
     "txthistoricos": "Estes são os DigiPoints acumulados que você recebeu durante o ano fiscal de 23",
     "txtdias": "0 dias atrás",
     "txtredencion": "Foi sua última redenção",
     "txtactuales": "Estes são os DigiPoints que você tem disponíveis para o resgate",
-    "redencion": "Tipo de redenção"
+    "redencion": "Tipo de redenção",
+    "Dredimidos": "DigiPoints Resgatados"
   },
 
   "files": {},
@@ -97,7 +104,7 @@
     "nombre": "Nome",
     "correo": "E-mail",
     "sku": "SKU",
-    "nserie": "Fatura",
+    "nserie": "Nota fiscal",
     "designados": "DIGIPOINTS ATRIBUÍDOS",
     "tipoproducto": "Tipo de produto",
     "tipodeventa": "Tipo de venda",
@@ -105,19 +112,27 @@
     "creado": "Criado",
     "hproductos": "Produtos",
     "precio": "Preço",
-    "imagen": "Imagem",
+    "imagen": "Cartão",
     "idsol": "ID DA APLICAÇÃO",
     "nproductos": "No. de produtos",
     "valordigipoints": "valor em digipoints",
     "fechasol": "DATA DE APLICAÇÃO",
     "estado": "ESTATUS",
     "agregarP": "Adicionar participante",
-    "ordenarFecha": "Para ordenar por data",
-    "recientesA": "Recentes / Antigos",
+    "ordenarFecha": "Ordenar por data",
+    "recienteA": "Recente / Antigos",
     "antiguoR": "Antigo / Recente",
     "filtrarVenta": "Filtrar por tipo de venda",
-    "buscarFactura": "Pesquisar por fatura",
-    "buscarEmail": "Pesquisar por e-mail"
+    "buscarFactura": "Pesquisar por nota fiscal",
+    "buscarEmail": "Pesquisar por e-mail",
+    "nEquipo": "Nome da equipe",
+    "descripcion": "Descrição",
+    "nParticipantes": "Núm. de participantes",
+    "fechaCreacion": "Data de criação",
+    "nfactura": "Núm. Nota fiscal",
+    "fecha": "Data",
+    "cantidad": "Quantidade",
+    "asignar": "Atribuir"
   },
   "shoopingcar": {
     "carrito": "Carrinho de compras",

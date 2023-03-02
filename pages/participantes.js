@@ -25,16 +25,22 @@ const participantes = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+    if (participantes.length === 0) setIsLoaded(true);
+  }, [participantes]);
 
   useEffect(() => {
     if (isLoaded && token) {
       setLoading(true);
       dispatch(getUsersData(token))
         .then((participantes) => {
+          console.log(
+            participantes.payload.filter(({ roleId }) => roleId === 5)
+          );
+
+          setParticipantes(
+            participantes.payload.filter(({ roleId }) => roleId === 5)
+          );
           setLoading(false);
-          setParticipantes(participantes.filter((user) => user.roleId === 5));
         })
         .catch((error) => {
           console.log(error);
@@ -280,8 +286,8 @@ const participantes = () => {
   }, [modal]);
   const isMobile = window.innerWidth <= 768;
   const modalSize = isMobile
-    ? { initialWidth: '100%', initialHeight: 'auto' }
-    : { initialWidth: '40%', initialHeight: 'auto' };
+    ? { initialWidth: "100%", initialHeight: "auto" }
+    : { initialWidth: "40%", initialHeight: "auto" };
 
   return (
     <>

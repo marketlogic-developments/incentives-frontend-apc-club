@@ -48,7 +48,7 @@ const adobeMarket = () => {
   }, [user]);
 
   const language = () => {
-    if (user?.user?.person[0]?.languageId === 1) {
+    if (user?.person[0]?.languageId === 1) {
       return i18n.changeLanguage("por");
     }
 
@@ -72,13 +72,12 @@ const adobeMarket = () => {
   };
 
   return (
-    <ContainerContent pageTitle={"Catálogo de Premios"}>
+    <ContainerContent pageTitle={t("menu.catalogo")}>
       <div className="m-6 flex flex-col gap-4">
         <div className="flex flex-col gap-5">
-          <h1 className="font-bold text-3xl">Catálogo de premios</h1>
+          <h1 className="font-bold text-3xl">{t("menu.catalogo")}</h1>
         </div>
-        {/* {user?.user?.person[0]?.languageId === 1 ? <BnPor /> : <BnEsp />} */}
-        <BnEsp />
+        {user?.person[0]?.languageId === 1 ? <BnPor /> : <BnEsp />}
         <div className="w-full h-full">
           <button
             className="btn btn-primary"

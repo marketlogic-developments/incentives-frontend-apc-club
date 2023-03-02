@@ -47,7 +47,6 @@ const terminosycondiciones = () => {
         }
       )
       .then((res) => {
-        console.log(res.data);
         dispatch(policyAndPassword({ ...user, policy: true }));
         route.push("/dashboard");
       });

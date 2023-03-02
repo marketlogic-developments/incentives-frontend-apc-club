@@ -5,7 +5,8 @@
     "Password": "Password",
     "Iniciar_Sesión": "Iniciar Sesión",
     "continuar": "Continuar",
-    "errorLogin": "Tu correo electrónico y/o contraseña no coinciden. Inténtalo de nuevo."
+    "errorLogin": "Tu correo electrónico y/o contraseña no coinciden. Inténtalo de nuevo.",
+    "language": "Lenguaje"
   },
 
   "tyc": {
@@ -20,6 +21,7 @@
     "Puntos_por_ventas": "Puntos por ventas",
     "Reportes": "Mis Reportes",
     "Digipoints": "Mis DigiPoints",
+    "DDigipoints": "Distribución DigiPoints",
     "Productos": "Productos Participantes",
     "Premios": "Mis Premios",
     "Carga_de_Ventas": "Carga de Ventas",
@@ -42,10 +44,13 @@
     "ranking": "ranking",
     "promociones": "promociones",
     "htw": "¿Cómo ganar?",
-    "salesCC": "Ventas \n Creative Cloud:",
-    "salesDC": "ventas \n Document Cloud:",
+
     "renovaciones": "Renovaciones",
-    "nbusiness": "Nuevos negocios"
+    "nbusiness": "Nuevos negocios",
+    "vCC": "Ventas",
+    "vDC": "Ventas",
+    "mvCC": "Mis ventas",
+    "mvDC": "Mis ventas"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
@@ -58,11 +63,12 @@
   },
   "asignarventas": {},
   "cargaventas": {
-    "asignar": "Asignar puntos",
     "cargar": "Cargar puntos",
     "id": "ID de archivo"
   },
   "digipoints": {
+    "DDigipoints": "Distribución",
+    "Crear": "Crear equipo",
     "mis": "Mis",
     "historicos": "Históricos",
     "actuales": "Actuales",
@@ -70,7 +76,8 @@
     "txtdias": "Hace 0 días",
     "txtredencion": "Fue tu última redención",
     "txtactuales": "Estos son los DigiPoints que tienes disponibles para redimir",
-    "redencion": "Tipo de redención"
+    "redencion": "Tipo de redención",
+    "Dredimidos": "DigiPoints Redimidos"
   },
   "files": {},
   "participantes": {
@@ -116,7 +123,15 @@
     "antiguoR": "Antiguo /Reciente",
     "filtrarVenta": "Filtrar por tipo de venta",
     "buscarFactura": "Buscar por email",
-    "buscarEmail": "Buscar por factura"
+    "buscarEmail": "Buscar por factura",
+    "nEquipo": "NOMBRE DEL EQUIPO",
+    "descripcion": "DESCRIPCIÓN",
+    "nParticipantes": "No. de participantes",
+    "fechaCreacion": "FECHA DE CREACIÓN",
+    "nfactura": "No. Factura",
+    "fecha": "Fecha",
+    "cantidad": "cantidad",
+    "asignar": "Asignar"
   },
   "shoopingcar": {
     "carrito": "Carrito",

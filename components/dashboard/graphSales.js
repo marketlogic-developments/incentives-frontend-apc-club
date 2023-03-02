@@ -1,7 +1,9 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const GraphSales = () => {
+  const user = useSelector((state) => state.user.user);
   const [content, setContent] = useState(0);
   const [renewalCC, setRenewalCC] = useState("");
   const [nbusinessCC, setNbusinessCC] = useState("");
@@ -57,7 +59,9 @@ const GraphSales = () => {
           <div className="flex w-1/2 justify-center items-center  ">
             <div className="flex flex-col items-center justify-evenly w-full">
               <p className="font-bold text-xl text-secondary text-center">
-                {t("dashboard.salesCC")}
+                {user.roleId === 5 ? t("dashboard.mvCC") : t("dashboard.vCC")}
+                <br />
+                Creative Cloud
               </p>
               <p>${0}</p>
             </div>
@@ -149,7 +153,9 @@ const GraphSales = () => {
           <div className="flex w-[60%] justify-center items-center  ">
             <div className="flex flex-col items-center justify-evenly w-full">
               <p className="font-bold text-xl text-primary text-center">
-                {t("dashboard.salesDC")}
+                {user.roleId === 5 ? t("dashboard.mvDC") : t("dashboard.vDC")}
+                <br />
+                Document Cloud
               </p>
               <p>${0}</p>
             </div>

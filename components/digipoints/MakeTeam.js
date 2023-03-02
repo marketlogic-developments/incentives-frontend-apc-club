@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useMemo } from "react";
 import { useId } from "react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { teamsPush, teamsUpdate } from "../../store/reducers/teams.reducer";
@@ -11,79 +12,8 @@ import { getUsersData } from "../../store/reducers/users.reducer";
 const MakeTeam = () => {
   const token = useSelector((state) => state.user.token);
   const teams = useSelector((state) => state.teams.teams);
-  const users = [
-    {
-      id: 1,
-      name: "juan pérez",
-      email: "juan.perez@mymarketlogic.com",
-      rol: "agente",
-      date: "2022-12-03",
-    },
-    {
-      id: 2,
-      name: "maría gutiérrez",
-      email: "maria.gutierrez@mymarketlogic.com",
-      rol: "agente",
-      date: "2023-01-08",
-    },
-    {
-      id: 3,
-      name: "luis gonzález",
-      email: "luis.gonzalez@mymarketlogic.com",
-      rol: "agente",
-      date: "2023-02-01",
-    },
-    {
-      id: 4,
-      name: "ana martínez",
-      email: "ana.martinez@mymarketlogic.com",
-      rol: "agente",
-      date: "2022-11-27",
-    },
-    {
-      id: 5,
-      name: "pablo ramírez",
-      email: "pablo.ramirez@mymarketlogic.com",
-      rol: "agente",
-      date: "2023-02-14",
-    },
-    {
-      id: 6,
-      name: "carolina castro",
-      email: "carolina.castro@mymarketlogic.com",
-      rol: "agente",
-      date: "2023-01-11",
-    },
-    {
-      id: 7,
-      name: "david sánchez",
-      email: "david.sanchez@mymarketlogic.com",
-      rol: "agente",
-      date: "2022-12-17",
-    },
-    {
-      id: 8,
-      name: "isabel torres",
-      email: "isabel.torres@mymarketlogic.com",
-      rol: "agente",
-      date: "2023-02-06",
-    },
-    {
-      id: 9,
-      name: "fernando jiménez",
-      email: "fernando.jimenez@mymarketlogic.com",
-      rol: "agente",
-      date: "2023-01-23",
-    },
-    {
-      id: 10,
-      name: "lucía vargas",
-      email: "lucia.vargas@mymarketlogic.com",
-      rol: "agente",
-      date: "2022-12-30",
-    },
-  ];
-
+  const users = [];
+  const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
   const [searchByEmail, setSearchByEmail] = useState("");
@@ -527,12 +457,13 @@ const MakeTeam = () => {
                 setOpened(true);
               }}
             >
-              Crear Equipo
+              {t("digipoints.Crear")}
             </button>
           </div>
           <select className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-            <option value="">Ordenar (ascendente/descendente)</option>
-            <option value="fully-furnished">Fecha</option>
+            <option value="">{t("tabla.ordenarFecha")}</option>
+            <option value="upDown">{t("tabla.recienteA")}</option>
+            <option value="downUp">{t("tabla.antiguoR")}</option>
           </select>
         </div>
         <br></br>
@@ -542,16 +473,16 @@ const MakeTeam = () => {
               <thead className="text-xs text-black-500 uppercase">
                 <tr>
                   <th scope="col" className="py-3 px-6">
-                    Nombre del equipo
+                    {t("tabla.nEquipo")}
                   </th>
                   <th scope="col" className="py-3 px-6">
-                    descripción
+                    {t("tabla.descripcion")}
                   </th>
                   <th scope="col" className="py-3 px-6">
-                    No. de Participantes
+                    {t("tabla.nParticipantes")}
                   </th>
                   <th scope="col" className="py-3 px-6">
-                    Fecha de creación
+                    {t("tabla.fechaCreacion")}
                   </th>
                 </tr>
               </thead>
