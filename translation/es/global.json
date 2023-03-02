@@ -141,7 +141,8 @@
     "recibida": "Orden Recibida",
     "exito": "Tu orden fue recibida con exito",
     "norden": "No. de Orden:",
-    "ir": "Ir al estado de tus premios"
+    "ir": "Ir al estado de tus premios",
+    "notienes": "Aún no tienes artículos en tu carrito de compras"
   },
   "estadoProducto": {
     "estado": "Estado de Tus Premios"
