@@ -138,10 +138,17 @@ const dashboard = () => {
             setOpened(true);
           }}
         >
-          <img
-            src="assets/dashboard/banners/prom.jpg"
-            className="bannersImg cursor-pointer"
-          />
+          {i18n.resolvedLanguage === "por" ? (
+            <img
+              src="assets/dashboard/banners/promPor.jpg"
+              className="bannersImg cursor-pointer"
+            />
+          ) : (
+            <img
+              src="assets/dashboard/banners/prom.jpg"
+              className="bannersImg cursor-pointer"
+            />
+          )}
         </figure>
       );
     }
