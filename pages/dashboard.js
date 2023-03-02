@@ -155,7 +155,17 @@ const dashboard = () => {
     if (typeHeader === 2) {
       return (
         <figure className="w-full flex justify-center">
-          <img src="assets/dashboard/banners/htw.jpg" className="bannersImg" />
+          {i18n.resolvedLanguage === "por" ? (
+            <img
+              src="assets/dashboard/banners/htwPor.jpg"
+              className="bannersImg"
+            />
+          ) : (
+            <img
+              src="assets/dashboard/banners/htwPor.jpg"
+              className="bannersImg"
+            />
+          )}
         </figure>
       );
     }
@@ -206,8 +216,8 @@ const dashboard = () => {
   }, [modalType, view]);
   const isMobile = window.innerWidth <= 768;
   const modalSize = isMobile
-    ? { initialWidth: '100%', initialHeight: 'auto' }
-    : { initialWidth: '40%', initialHeight: 'auto' };
+    ? { initialWidth: "100%", initialHeight: "auto" }
+    : { initialWidth: "40%", initialHeight: "auto" };
 
   return (
     <>
@@ -228,11 +238,19 @@ const dashboard = () => {
       >
         {
           <figure>
-            <img
-              src="assets/dashboard/banners/bannerPA.png"
-              alt="Sales_PA"
-              className="w-full"
-            ></img>
+            {i18n.resolvedLanguage === "por" ? (
+              <img
+                src="assets/dashboard/banners/bannerPApor.jpg"
+                alt="Sales_PA"
+                className="w-full"
+              ></img>
+            ) : (
+              <img
+                src="assets/dashboard/banners/bannerPA.jpg"
+                alt="Sales_PA"
+                className="w-full"
+              ></img>
+            )}
           </figure>
         }
       </Modal>
