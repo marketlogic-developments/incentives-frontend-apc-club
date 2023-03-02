@@ -1,11 +1,13 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import { toPng } from "html-to-image";
+import { useTranslation } from "react-i18next";
 
 export function SignModal({ setOpened, setImageSign, setChecked }) {
   const canvasRef = useRef(null);
   const inputRef = useRef(null);
   const [sign, setSign] = useState(0);
   const [imageData, setImageData] = useState(null);
+  const [t, i18n] = useTranslation("global");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -154,7 +156,7 @@ export function SignModal({ setOpened, setImageSign, setChecked }) {
               onClick={handleClearClick}
               className="text-secondary cursor-pointer"
             >
-              Limpiar
+              {t("tyc.borrar")}
             </p>
           )}
         </div>

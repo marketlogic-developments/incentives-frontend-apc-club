@@ -57,9 +57,7 @@ export const getDataAwards = (token) => async (dispatch) => {
         },
       })
       .then((res) => {
-        dispatch(
-          awardsPush(res.data.filter(({ description }) => description !== "R$"))
-        );
+        dispatch(awardsPush(res.data));
       });
   } catch (err) {
     console.log(err);

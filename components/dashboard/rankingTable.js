@@ -1,42 +1,5 @@
 const RankingTable = () => {
-  const data = [
-    {
-      name: "Juan Ramon",
-      email: "juanramon@adobe.com",
-      reg: "NOLA",
-      top: 1,
-    },
-    {
-      name: "Juan Ramon",
-      email: "juanramon@adobe.com",
-      reg: "NOLA",
-      top: 1,
-    },
-    {
-      name: "Juan Ramon",
-      email: "juanramon@adobe.com",
-      reg: "NOLA",
-      top: 1,
-    },
-    {
-      name: "Juan Ramon",
-      email: "juanramon@adobe.com",
-      reg: "NOLA",
-      top: 1,
-    },
-    {
-      name: "Juan Ramon",
-      email: "juanramon@adobe.com",
-      reg: "NOLA",
-      top: 1,
-    },
-    {
-      name: "Juan Ramon",
-      email: "juanramon@adobe.com",
-      reg: "NOLA",
-      top: 1,
-    },
-  ];
+  const data = [];
   return (
     <>
       <div className="m-6">

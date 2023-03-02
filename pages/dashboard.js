@@ -154,7 +154,10 @@ const dashboard = () => {
     }
     if (typeHeader === 2) {
       return (
-        <figure className="w-full flex justify-center">
+        <figure
+          className="w-full flex justify-center cursor-pointer"
+          onClick={() => route.push("/digipoints")}
+        >
           {i18n.resolvedLanguage === "por" ? (
             <img
               src="assets/dashboard/banners/htwPor.jpg"

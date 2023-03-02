@@ -729,7 +729,6 @@ const Layout = ({ children }) => {
         .then((res) => {
           dispatch(userLogin(res.data));
           dispatch(userToken(userGetData.token));
-          dispatch(loadingUser(true));
           language(res.data.person[0].languageId);
           redirection(res.data.policy);
         });
@@ -757,6 +756,8 @@ const Layout = ({ children }) => {
           } else {
             dispatch(setDigipoints(digipoints));
           }
+
+          dispatch(loadingUser(true));
         });
     } else {
       if (userRedux !== 0) {

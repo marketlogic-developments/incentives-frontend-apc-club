@@ -7,6 +7,13 @@
     "continuar": "Continuar",
     "errorLogin": "Tu correo electrónico y/o contraseña no coinciden. Inténtalo de nuevo."
   },
+
+  "tyc": {
+    "title": "Acepta los Términos y Condiciones \n del programa APC Club FY23",
+    "firmar": "firmar",
+    "borrar": "Limpiar"
+  },
+
   "menu": {
     "Dashboard": "Dashboard",
     "Participantes": "Participantes",

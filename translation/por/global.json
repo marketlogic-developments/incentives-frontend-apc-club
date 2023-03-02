@@ -7,6 +7,13 @@
     "continuar": "Acesse sua conta",
     "errorLogin": "Seu e-mail e/ou senha não correspondem. Por favor, tente novamente."
   },
+
+  "tyc": {
+    "title": "Aceite os termos e condições \n para fazer parte do clube APC",
+    "firmar": "assinar",
+    "borrar": "Borrão"
+  },
+
   "menu": {
     "Dashboard": "Painel de controle",
     "Participantes": "Participantes",

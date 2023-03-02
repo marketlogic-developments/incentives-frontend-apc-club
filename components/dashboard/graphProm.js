@@ -1,44 +1,7 @@
 import React from "react";
 
 const GraphProm = () => {
-  const data = [
-    {
-      name: "Juan Ramon",
-      des: "juanramon@adobe.com",
-      reg: "NOLA",
-      top: 1,
-    },
-    {
-      name: "Juan Ramon",
-      des: "juanramon@adobe.com",
-      reg: "NOLA",
-      top: 1,
-    },
-    {
-      name: "Juan Ramon",
-      des: "juanramon@adobe.com",
-      reg: "NOLA",
-      top: 1,
-    },
-    {
-      name: "Juan Ramon",
-      des: "juanramon@adobe.com",
-      reg: "NOLA",
-      top: 1,
-    },
-    {
-      name: "Juan Ramon",
-      des: "juanramon@adobe.com",
-      reg: "NOLA",
-      top: 1,
-    },
-    {
-      name: "Juan Ramon",
-      des: "juanramon@adobe.com",
-      reg: "NOLA",
-      top: 1,
-    },
-  ];
+  const data = [];
   return (
     <>
       <div className="m-6">
