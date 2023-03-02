@@ -2,8 +2,7 @@ import { useMemo } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useEffect, useReducer, useState } from "react";
-import { useDispatch } from "react-redux";
-import { userLogin } from "../store/reducers/users.reducer";
+import { useDispatch, useSelector } from "react-redux";
 
 function MobileMenu({
   locations,
@@ -12,16 +11,16 @@ function MobileMenu({
   locationsPA,
 }) {
   const [user, setUser] = useState({});
-  const dispatch = useDispatch();
   const location =
     typeof window !== "undefined" ? window.location.pathname : "";
 
   const router = useRouter();
   const ruta = router.query;
   const [isOpen, setIsOpen] = useState(false);
+  const userRedux = useSelector((state) => state.user.user);
 
   const menu = useMemo(() => {
-    if (user?.user?.roleId === 1) {
+    if (userRedux?.roleId === 1) {
       return locations.map(({ icon, page, text }, index) => {
         return (
           <div className="containerItemLayout" key={index}>

@@ -103,11 +103,11 @@ const dashboard = () => {
         <div className="gap-10 flex flex w-full">
           <div className="gap-10 w-6/12">
             <div className="flex flex-col gap-5 texto_dash">
-              <h1 className="font-bold text-2xl">{t("dashboard.Inicio")}</h1>
-              <h2 className="font-bold text-4xl">
+              <h1 className="font-bold text-2xl max-sm:text-xl">{t("dashboard.Inicio")}</h1>
+              <h2 className="font-bold text-4xl max-sm:text-xl">
                 {t("dashboard.Hola")}, {userData}
               </h2>
-              <p className="w-6/12">{t("dashboard.enApc")}</p>
+              <p className="w-6/12 max-sm:w-full">{t("dashboard.enApc")}</p>
               <button className="btn btn-primary buttonResponsive">
                 {t("dashboard.conoce")}
               </button>
@@ -117,10 +117,10 @@ const dashboard = () => {
             <div className="h-full w-full">
               <div
                 className="gap-10 w-full cursor-pointer"
-                onClick={() => {
+                /* onClick={() => {
                   setModalType(1);
                   setOpened(true);
-                }}
+                }} */
               >
                 <Podio t={t} sortedData={sortedData} />
               </div>
@@ -293,8 +293,8 @@ const dashboard = () => {
         </div>
         <hr color="red" />
         <div className="gap-10 flex flex-col h-full">
-          <div className="container w-full h-full bg-base-100 flex flex-col sm:flex-row justify-between">
-            <div className="w-8/12 flex flex-col  gap-5 progressiveBar">
+          <div className="container w-full h-full bg-base-100 flex flex-col sm:flex-row justify-between max-sm:justify-center">
+            <div className="w-8/12 max-sm:mx-auto flex flex-col gap-5 progressiveBar justify-center">
               <div className="w-full h-16 flex items-center gap-10 gapBar">
                 <div className="flex items-center h-full cct max-sm:w-64 w-32 text-center">
                   <img src="/assets/dashboard/cc.png" width={100}></img>
@@ -347,7 +347,7 @@ const dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="flex items-center w-4/12 justify-center gap-10">
+            <div className="flex items-center w-4/12 max-sm:w-full justify-center gap-10">
               <div className="flex flex-col gap-5">
                 <p className="font-semibold text-center">Parnert Goal:</p>
                 <p className="text-center font-bold text-3xl">{`${0}`}</p>

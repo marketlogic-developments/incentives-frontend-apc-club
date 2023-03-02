@@ -191,10 +191,14 @@
     @media (max-width: 767px) {
       border-radius: 0px;
       grid-template-columns: repeat(3, 1fr);
+      justify-content: space-between;
     }
 
     .digipoints {
-      justify-content: end;
+      margin: 0 auto;
+      @media (max-width: 767px) {
+        margin-left: 0;
+      }
       button {
         position: relative;
         padding: 0.8em;
@@ -329,6 +333,9 @@
       border: 0px solid #d9d9d9;
       border-width: 0px 3px;
       z-index: 5;
+      @media (max-width: 767px) {
+        display: none;
+      }
 
       svg {
         @include desktop-xl {
@@ -344,6 +351,9 @@
       border: 0px solid #d9d9d9;
       border-width: 0px 0px 0px 3px;
       z-index: 5;
+      @media (max-width: 767px) {
+        display: none;
+      }
 
       svg {
         @include desktop-xl {
@@ -392,6 +402,9 @@
 
       .username {
         min-width: 100px;
+        @media (max-width: 767px) {
+          display: none;
+        }
       }
 
       .buttonLayoutDropdown {
@@ -465,6 +478,9 @@
     background-color: $primaryColorRedTrans;
     position: sticky;
     top: 0;
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
 }
 

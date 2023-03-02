@@ -838,7 +838,7 @@ const Layout = ({ children }) => {
                 <strong className="text-digi-mobi">- DGS</strong>
               </button>
             </div>
-            <div className="infomations">
+            <div className="infomations none">
               <svg
                 width={30}
                 height={30}
@@ -862,7 +862,22 @@ const Layout = ({ children }) => {
               </svg>
             </div>
             <div className="notifications">
-              <svg
+            <div
+                className="shoopingMarket cursor-pointer"
+                onClick={() => router.push("/shoppingCar")}
+              >
+                <svg
+                  width={35}
+                  height={35}
+                  fill="#ffffff"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="m20.99 6.131-1.143 6.272a2.25 2.25 0 0 1-2.213 1.847H6.76l.413 2.25H17.25A2.25 2.25 0 1 1 15 18.75c0-.256.044-.51.131-.75H9.62a2.25 2.25 0 1 1-3.825-.712L3.197 3H1.5a.75.75 0 0 1 0-1.5h1.697a1.5 1.5 0 0 1 1.472 1.228l.46 2.522H20.25a.74.74 0 0 1 .572.272.722.722 0 0 1 .169.61Z" />
+                </svg>
+                <p className="none">1</p>
+              </div>
+              <svg className="none"
                 width={30}
                 height={30}
                 fill="#d9d9d9"
@@ -872,7 +887,7 @@ const Layout = ({ children }) => {
                 <path d="M20.719 16.49c-.553-.956-1.219-2.774-1.219-5.99v-.666c0-4.153-3.337-7.556-7.444-7.584H12a7.49 7.49 0 0 0-7.5 7.5v.75c0 3.216-.666 5.034-1.219 5.99a1.481 1.481 0 0 0-.01 1.51 1.49 1.49 0 0 0 1.304.75h14.85a1.49 1.49 0 0 0 1.303-.75 1.481 1.481 0 0 0-.01-1.51Z" />
                 <path d="M14.99 20.25h-6a.75.75 0 1 0 0 1.5h6a.75.75 0 1 0 0-1.5Z" />
               </svg>
-              <svg
+              <svg className="none"
                 width={30}
                 height={30}
                 fill="#d9d9d9"
@@ -885,14 +900,14 @@ const Layout = ({ children }) => {
 
             <div className="userDrop">
               <div className="menumobile">
-                {windowX < 768 && (
+                
                   <MobileMenu
+                    className="bannerMob"
                     locations={locations}
                     locationsPP={locationsPP}
                     locationsPA={locationsPA}
                     locationsVendedor={locationsVendedor}
                   />
-                )}
               </div>
               <div className="flex items-center gap-3">
                 <div className="user">
@@ -937,22 +952,6 @@ const Layout = ({ children }) => {
                 <div className="username">
                   <p>{userRedux?.person[0]?.names}</p>
                 </div>
-              </div>
-
-              <div
-                className="shoopingMarket cursor-pointer"
-                onClick={() => router.push("/shoppingCar")}
-              >
-                <svg
-                  width={35}
-                  height={35}
-                  fill="#ffffff"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="m20.99 6.131-1.143 6.272a2.25 2.25 0 0 1-2.213 1.847H6.76l.413 2.25H17.25A2.25 2.25 0 1 1 15 18.75c0-.256.044-.51.131-.75H9.62a2.25 2.25 0 1 1-3.825-.712L3.197 3H1.5a.75.75 0 0 1 0-1.5h1.697a1.5 1.5 0 0 1 1.472 1.228l.46 2.522H20.25a.74.74 0 0 1 .572.272.722.722 0 0 1 .169.61Z" />
-                </svg>
-                <p className="none">1</p>
               </div>
             </div>
           </div>
