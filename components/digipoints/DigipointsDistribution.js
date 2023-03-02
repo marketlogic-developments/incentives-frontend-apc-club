@@ -2,84 +2,15 @@ import { Modal } from "@mantine/core";
 import React from "react";
 import { useMemo } from "react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
 const DigipointsDistribution = () => {
   const [opened, setOpened] = useState(false);
+  const [t, i18n] = useTranslation("global");
   const teams = useSelector((state) => state.teams.teams);
-  const users = [
-    {
-      id: 1,
-      name: "juan pérez",
-      email: "juan.perez@mymarketlogic.com",
-      rol: "agente",
-      date: "2022-12-03",
-    },
-    {
-      id: 2,
-      name: "maría gutiérrez",
-      email: "maria.gutierrez@mymarketlogic.com",
-      rol: "agente",
-      date: "2023-01-08",
-    },
-    {
-      id: 3,
-      name: "luis gonzález",
-      email: "luis.gonzalez@mymarketlogic.com",
-      rol: "agente",
-      date: "2023-02-01",
-    },
-    {
-      id: 4,
-      name: "ana martínez",
-      email: "ana.martinez@mymarketlogic.com",
-      rol: "agente",
-      date: "2022-11-27",
-    },
-    {
-      id: 5,
-      name: "pablo ramírez",
-      email: "pablo.ramirez@mymarketlogic.com",
-      rol: "agente",
-      date: "2023-02-14",
-    },
-    {
-      id: 6,
-      name: "carolina castro",
-      email: "carolina.castro@mymarketlogic.com",
-      rol: "agente",
-      date: "2023-01-11",
-    },
-    {
-      id: 7,
-      name: "david sánchez",
-      email: "david.sanchez@mymarketlogic.com",
-      rol: "agente",
-      date: "2022-12-17",
-    },
-    {
-      id: 8,
-      name: "isabel torres",
-      email: "isabel.torres@mymarketlogic.com",
-      rol: "agente",
-      date: "2023-02-06",
-    },
-    {
-      id: 9,
-      name: "fernando jiménez",
-      email: "fernando.jimenez@mymarketlogic.com",
-      rol: "agente",
-      date: "2023-01-23",
-    },
-    {
-      id: 10,
-      name: "lucía vargas",
-      email: "lucia.vargas@mymarketlogic.com",
-      rol: "agente",
-      date: "2022-12-30",
-    },
-  ];
+  const users = [];
   const [salesOption, setSalesOption] = useState("salesRep");
   const [numModal, setNumModal] = useState(0);
   const [teamInfo, setTeamInfo] = useState({});
@@ -482,8 +413,9 @@ const DigipointsDistribution = () => {
       <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
         <div className="flex justify-between w-full">
           <select className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-            <option value="">Ordenar (ascendente/descendente)</option>
-            <option value="fully-furnished">Fecha</option>
+            <option value="">{t("tabla.ordenarFecha")}</option>
+            <option value="upDown">{t("tabla.recienteA")}</option>
+            <option value="downUp">{t("tabla.antiguoR")}</option>
           </select>
         </div>
         <br></br>
@@ -493,25 +425,25 @@ const DigipointsDistribution = () => {
               <thead className="text-xs text-black-500 uppercase">
                 <tr>
                   <th scope="col" className="py-3 px-6">
-                    No. Factura
+                    {t("tabla.nfactura")}
                   </th>
                   <th scope="col" className="py-3 px-6">
-                    Fecha
+                    {t("tabla.fecha")}
                   </th>
                   <th scope="col" className="py-3 px-6">
                     Cliente
                   </th>
                   <th scope="col" className="py-3 px-6">
-                    Productos
+                    {t("tabla.hproductos")}
                   </th>
                   <th scope="col" className="py-3 px-6">
-                    Cantidad
+                    {t("tabla.cantidad")}
                   </th>
                   <th scope="col" className="py-3 px-6">
                     Digipoints
                   </th>
                   <th scope="col" className="py-3 px-6">
-                    Asignar
+                    {t("tabla.asignar")}
                   </th>
                 </tr>
               </thead>

@@ -1,9 +1,8 @@
 import { useMemo } from "react";
-import { Menu } from "@mantine/core";
+import { Menu, Modal } from "@mantine/core";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import React, { useEffect, useReducer, useState } from "react";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loadingUser,
@@ -22,12 +21,73 @@ const Layout = ({ children }) => {
   const dispatch = useDispatch();
   const location =
     typeof window !== "undefined" ? window.location.pathname : "";
-  const windowX = typeof window !== "undefined" ? window : "";
   const router = useRouter();
   const sections = ["/", "/terminosycondiciones", "/registro"];
-  const ruta = router.query;
+  const [opened2, setOpened2] = useState(false);
 
   const [t, i18n] = useTranslation("global");
+
+  useEffect(() => {
+    if (Cookies.get("infoDt") !== undefined && userRedux === 0) {
+      const userGetData = JSON.parse(Cookies.get("infoDt"));
+      axios
+        .get(`${process.env.BACKURL}/users/${userGetData?.id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${userGetData?.token}`,
+          },
+        })
+        .then((res1) => {
+          axios
+            .get(
+              `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/${userGetData?.id}`,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin": "*",
+                  Authorization: `Bearer ${userGetData?.token}`,
+                },
+              }
+            )
+            .then((res2) => {
+              dispatch(userLogin(res1.data));
+              dispatch(userToken(userGetData.token));
+              language(res1.data.person[0].languageId);
+              redirection(res1.data.policy);
+
+              const [digipoints] = res2.data;
+              if (res2.data.length === 0) {
+                dispatch(
+                  setDigipoints({
+                    assigned_points: 0,
+                    cart_points: 0,
+                  })
+                );
+              } else {
+                dispatch(setDigipoints(digipoints));
+              }
+
+              dispatch(loadingUser(true));
+            });
+        });
+    } else {
+      if (userRedux !== 0) {
+        redirection(userRedux.policy);
+        language(userRedux?.person[0]?.languageId);
+      } else {
+        dispatch(loadingUser(true));
+      }
+    }
+  }, [location]);
+
+  const language = (rolNum) => {
+    if (rolNum === 1) {
+      return i18n.changeLanguage("por");
+    }
+
+    return i18n.changeLanguage("es");
+  };
 
   const locations = [
     {
@@ -495,7 +555,7 @@ const Layout = ({ children }) => {
         </svg>
       ),
       iconactive: "",
-      text: "Distribución DigiPoints",
+      text: t("menu.DDigipoints"),
     },
     {
       page: "/productos",
@@ -617,14 +677,6 @@ const Layout = ({ children }) => {
     }
   };
 
-  const language = (rolNum) => {
-    if (rolNum === 1) {
-      return i18n.changeLanguage("por");
-    }
-
-    return i18n.changeLanguage("es");
-  };
-
   const href = (page) => {
     router.push(page);
   };
@@ -715,60 +767,6 @@ const Layout = ({ children }) => {
     }
   }, [locations, locationsVendedor, userRedux, locationsPA, locationsPP]);
 
-  useEffect(() => {
-    if (Cookies.get("infoDt") !== undefined && userRedux === 0) {
-      const userGetData = JSON.parse(Cookies.get("infoDt"));
-      axios
-        .get(`${process.env.BACKURL}/users/${userGetData?.id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${userGetData?.token}`,
-          },
-        })
-        .then((res) => {
-          dispatch(userLogin(res.data));
-          dispatch(userToken(userGetData.token));
-          language(res.data.person[0].languageId);
-          redirection(res.data.policy);
-        });
-
-      axios
-        .get(
-          `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/${userGetData?.id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              Authorization: `Bearer ${userGetData?.token}`,
-            },
-          }
-        )
-        .then((res) => {
-          const [digipoints] = res.data;
-          if (res.data.length === 0) {
-            dispatch(
-              setDigipoints({
-                assigned_points: 0,
-                cart_points: 0,
-              })
-            );
-          } else {
-            dispatch(setDigipoints(digipoints));
-          }
-
-          dispatch(loadingUser(true));
-        });
-    } else {
-      if (userRedux !== 0) {
-        redirection(userRedux.policy);
-        language(userRedux?.person[0]?.languageId);
-      } else {
-        dispatch(loadingUser(true));
-      }
-    }
-  }, [location]);
-
   if (!loading) {
     return (
       <div className="h-screen w-screen flex items-center justify-center z-50">
@@ -783,6 +781,30 @@ const Layout = ({ children }) => {
 
   return (
     <div className="containerGlobal">
+      <Modal
+        opened={opened2}
+        centered
+        size={"70%"}
+        onClose={() => setOpened2(false)}
+      >
+        {
+          <figure>
+            {i18n.resolvedLanguage === "por" ? (
+              <img
+                src="assets/dashboard/banners/bannerPApor.jpg"
+                alt="Sales_PA"
+                className="w-full"
+              ></img>
+            ) : (
+              <img
+                src="assets/dashboard/banners/bannerPA.jpg"
+                alt="Sales_PA"
+                className="w-full"
+              ></img>
+            )}
+          </figure>
+        }
+      </Modal>
       <div className="globalContent bg-primary">
         <div className="containerLayout">
           <div className="mt-10 flex flex-col h-[80%]">
@@ -794,10 +816,7 @@ const Layout = ({ children }) => {
             <div className="containerRedirections">{menu}</div>
           </div>
           {userRedux?.roleId !== 2 && (
-            <div
-              className="adobeMarket"
-              onClick={() => router.push("/adobeMarket")}
-            >
+            <div className="adobeMarket" onClick={() => setOpened2(true)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -862,7 +881,7 @@ const Layout = ({ children }) => {
               </svg>
             </div>
             <div className="notifications">
-            <div
+              <div
                 className="shoopingMarket cursor-pointer"
                 onClick={() => router.push("/shoppingCar")}
               >
@@ -877,7 +896,8 @@ const Layout = ({ children }) => {
                 </svg>
                 <p className="none">1</p>
               </div>
-              <svg className="none"
+              <svg
+                className="none"
                 width={30}
                 height={30}
                 fill="#d9d9d9"
@@ -887,7 +907,8 @@ const Layout = ({ children }) => {
                 <path d="M20.719 16.49c-.553-.956-1.219-2.774-1.219-5.99v-.666c0-4.153-3.337-7.556-7.444-7.584H12a7.49 7.49 0 0 0-7.5 7.5v.75c0 3.216-.666 5.034-1.219 5.99a1.481 1.481 0 0 0-.01 1.51 1.49 1.49 0 0 0 1.304.75h14.85a1.49 1.49 0 0 0 1.303-.75 1.481 1.481 0 0 0-.01-1.51Z" />
                 <path d="M14.99 20.25h-6a.75.75 0 1 0 0 1.5h6a.75.75 0 1 0 0-1.5Z" />
               </svg>
-              <svg className="none"
+              <svg
+                className="none"
                 width={30}
                 height={30}
                 fill="#d9d9d9"
@@ -900,14 +921,13 @@ const Layout = ({ children }) => {
 
             <div className="userDrop">
               <div className="menumobile">
-                
-                  <MobileMenu
-                    className="bannerMob"
-                    locations={locations}
-                    locationsPP={locationsPP}
-                    locationsPA={locationsPA}
-                    locationsVendedor={locationsVendedor}
-                  />
+                <MobileMenu
+                  className="bannerMob"
+                  locations={locations}
+                  locationsPP={locationsPP}
+                  locationsPA={locationsPA}
+                  locationsVendedor={locationsVendedor}
+                />
               </div>
               <div className="flex items-center gap-3">
                 <div className="user">

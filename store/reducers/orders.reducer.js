@@ -30,7 +30,6 @@ export const getOrders = (token, id) => async (dispatch) => {
       },
     })
     .then((res) => {
-      console.log(res.data.filter(({ employeeId }) => employeeId === id));
       const data = res.data.filter(({ employeeId }) => employeeId === id);
       dispatch(getAllOrders(data));
     });

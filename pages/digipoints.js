@@ -27,8 +27,6 @@ const digipoints = () => {
 
   const datosdummy = [];
 
-  console.log(digipoints);
-
   const search = useMemo(() => {
     const newData = datosdummy.map((data) => ({
       ...data,
@@ -100,7 +98,7 @@ const digipoints = () => {
               <div class="flip-card-inner">
                 <div class="flip-card-front">
                   <p class="title">{digipoints?.cart_points}</p>
-                  <p>DigiPoints Redimidos</p>
+                  <p>{t("digipoints.Dredimidos")}</p>
                 </div>
                 <div class="flip-card-back">
                   <p class="title">{t("digipoints.txtdias")}</p>
@@ -129,9 +127,9 @@ const digipoints = () => {
                   className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                   onChange={(e) => setSelectDate(e.target.value)}
                 >
-                  <option value="">Ordenar por Fecha</option>
-                  <option value="upDown">Reciente / Antiguo</option>
-                  <option value="downUp">Antiguo / Reciente</option>
+                  <option value="">{t("tabla.ordenarFecha")}</option>
+                  <option value="upDown">{t("tabla.recienteA")}</option>
+                  <option value="downUp">{t("tabla.antiguoR")}</option>
                 </select>
               </div>
               <br></br>
@@ -150,7 +148,7 @@ const digipoints = () => {
                   <input
                     type="text"
                     onChange={(e) => setSearchInvoice(e.target.value)}
-                    placeholder={"Buscar por numero de Factura"}
+                    placeholder={t("tabla.buscarFactura")}
                     className="px-8 py-3 w-10/12 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                   />
                 </div>
@@ -163,16 +161,16 @@ const digipoints = () => {
                   <thead className="text-xs text-black-500 uppercase">
                     <tr>
                       <th scope="col" className="py-3 px-6">
-                        {t("No. Invoice")}
+                        {t("tabla.nfactura")}
                       </th>
                       <th scope="col" className="py-3 px-6">
-                        {t("Digipoints")}
+                        DigiPoints
                       </th>
                       <th scope="col" className="py-3 px-6">
                         {t("No. de Sillas")}
                       </th>
                       <th scope="col" className="py-3 px-6">
-                        {t("Fecha")}
+                        {t("tabla.fecha")}
                       </th>
                     </tr>
                   </thead>
@@ -192,7 +190,6 @@ const digipoints = () => {
     }
   }, [page, searchInvoice, selectDate]);
 
-  console.log(user?.roleId);
   return (
     <>
       <Head>
@@ -215,7 +212,7 @@ const digipoints = () => {
                   }  titleDigipoints cursor-pointer`}
                   onClick={() => setPage(0)}
                 >
-                  Mis DigiPoints
+                  {t("menu.Digipoints")}
                 </h1>
                 <h1
                   className={`font-bold text-3xl ${
@@ -225,7 +222,7 @@ const digipoints = () => {
                   }  titleDigipoints cursor-pointer`}
                   onClick={() => setPage(1)}
                 >
-                  Crear Equipo
+                  {t("digipoints.Crear")}
                 </h1>
                 <h1
                   className={`font-bold text-3xl ${
@@ -235,8 +232,7 @@ const digipoints = () => {
                   }  titleDigipoints cursor-pointer`}
                   onClick={() => setPage(2)}
                 >
-                  Asignación de <br />
-                  DigiPoints
+                  {t("digipoints.DDigipoints")} <br /> DigiPoints
                 </h1>
               </div>
             ) : (
@@ -249,7 +245,7 @@ const digipoints = () => {
                   }  titleDigipoints cursor-pointer`}
                   onClick={() => setPage(1)}
                 >
-                  Crear Equipo
+                  {t("digipoints.Crear")}
                 </h1>
                 <h1
                   className={`font-bold text-3xl ${
@@ -259,7 +255,8 @@ const digipoints = () => {
                   }  titleDigipoints cursor-pointer`}
                   onClick={() => setPage(2)}
                 >
-                  Asignación de <br />
+                  {t("digipoints.DDigipoints")}
+                  <br />
                   DigiPoints
                 </h1>
                 <h1
@@ -270,7 +267,7 @@ const digipoints = () => {
                   }  titleDigipoints cursor-pointer`}
                   onClick={() => setPage(0)}
                 >
-                  Mis DigiPoints
+                  {t("menu.Digipoints")}
                 </h1>
               </div>
             )}

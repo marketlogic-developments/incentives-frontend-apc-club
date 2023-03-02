@@ -171,9 +171,9 @@ const productos = () => {
                   return setSelectDate(e.target.value);
                 }}
               >
-                <option value="">Ordenar por Fecha</option>
-                <option value="upDown">Reciente / Antiguo</option>
-                <option value="downUp">Antiguo / Reciente</option>
+                <option value="">{t("tabla.ordenarFecha")}</option>
+                <option value="upDown">{t("tabla.recienteA")}</option>
+                <option value="downUp">{t("tabla.antiguoR")}</option>
               </select>
               <button
                 className="btn btn-primary w-max justify-self-end"

@@ -37,8 +37,6 @@ const estadoProducto = () => {
     }
   };
 
-  console.log(user);
-
   return (
     <>
       <Modal

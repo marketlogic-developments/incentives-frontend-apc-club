@@ -218,7 +218,7 @@ export default function Home() {
               >
                 <div className="flex items-center w-full justify-around">
                   <p className="text-secondary">
-                    <strong>Language</strong>
+                    <strong>{t("login.language")}</strong>
                   </p>
                   <select
                     className="select w-1/2 text-secondary"
