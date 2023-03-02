@@ -131,7 +131,7 @@ export function SignModal({ setOpened, setImageSign, setChecked }) {
               ref={canvasRef}
               width={480}
               height={120}
-              className="absolute top inset-0 m-auto"
+              className="absolute max-sm:relative max-sm:w-full top inset-0 m-auto"
             />
           ) : (
             <div className="absolute top inset-0 m-auto h-[80px] w-[380px]">
@@ -144,7 +144,7 @@ export function SignModal({ setOpened, setImageSign, setChecked }) {
               </div>
             </div>
           )}
-          <figure className="ml-5">
+          <figure className="ml-5 max-sm:hidden">
             <img src="assets/Icons/adobeS.png" alt="adobe-sign"></img>
           </figure>
         </div>

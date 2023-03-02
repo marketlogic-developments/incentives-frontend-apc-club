@@ -118,15 +118,17 @@ export default function Home() {
       </Head>
       <main className="mainIndex bg-primary fixed w-full z-10">
         <Recovery opened={opened} setOpened={setOpened} t={t} />
-        <figure className="absolute mt-16 ml-16 logosAdobe">
-          <img src="assets/login/adobe.png" className="imgLogoAdobe" />
-        </figure>
-        <figure className="absolute mt-16 ml-16 right-0 logosAdobe logoRight">
-          <img src="assets/login/pcc.png" className="imgLogoAdobe" />
-        </figure>
+        <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10">
+          <figure className="absolute max-sm:relative mt-16 ml-16 max-sm:mt-0 max-sm:mx-auto logosAdobe">
+            <img src="assets/login/adobe.png" className="imgLogoAdobe" />
+          </figure>
+          <figure className="absolute max-sm:relative mt-16 ml-16 max-sm:mt-0 max-sm:mx-auto logosAdobe">
+            <img src="assets/login/pcc.png" className="imgLogoAdobe" />
+          </figure>
+        </div>
         <div className="container flex flex-col justify-center items-center h-screen w-full max-w-full">
-          <div className="flex items-center justify-center w-full max-sm:w-4/5 h-[90%] relative containerLogin">
-            <div className="w-fit h-full flex justify-center items-center">
+          <div className="flex items-center max-sm:justify-start max-sm:flex-col justify-center w-full max-sm:w-full h-[90%] relative containerLogin">
+            <div className="w-fit h-full max-sm:h-auto max-sm:mb-5 flex justify-center items-center ">
               <figure id="apcLogo">
                 <img
                   src="/assets/login/apcLogo.png"
@@ -188,7 +190,7 @@ export default function Home() {
                       </button>
                     </form>
                     <div className="flex flex-col">
-                      <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center justify-between w-full none">
                         <p
                           className="text-secondary text-center underline decoration-solid cursor-pointer"
                           onClick={() => setOpened(true)}
