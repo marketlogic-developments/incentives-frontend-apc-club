@@ -105,7 +105,6 @@ function MobileMenu({
 
   useEffect(() => {
     if (Cookies.get("infoDt") !== undefined) {
-      dispatch(userLogin(JSON.parse(Cookies.get("infoDt"))));
       setUser(JSON.parse(Cookies.get("infoDt")));
     }
   }, [location]);
