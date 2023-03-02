@@ -27,6 +27,8 @@ const digipoints = () => {
 
   const datosdummy = [];
 
+  console.log(digipoints);
+
   const search = useMemo(() => {
     const newData = datosdummy.map((data) => ({
       ...data,

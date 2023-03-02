@@ -57,15 +57,13 @@ const terminosycondiciones = () => {
     if (modal === 0) {
       return (
         <div className="w-full p-10 flex flex-col justify-center gap-10">
-          <h2 className="font-medium text-center text-3xl">
-            Acepta los Términos y Condiciones <br /> del programa APC Club FY23
-          </h2>
+          <h2 className="font-medium text-center text-3xl">{t("tyc.title")}</h2>
           <div className="flex justify-center">
             <button
               className="btn btn-primary w-max text-lg"
               onClick={() => setModal(1)}
             >
-              Firmar
+              {t("tyc.firmar")}
             </button>
           </div>
         </div>
