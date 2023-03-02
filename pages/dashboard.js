@@ -242,21 +242,23 @@ const dashboard = () => {
         onClose={() => setOpened2(false)}
       >
         {
-          <figure>
-            {i18n.resolvedLanguage === "por" ? (
-              <img
-                src="assets/dashboard/banners/bannerPApor.jpg"
-                alt="Sales_PA"
-                className="w-full"
-              ></img>
-            ) : (
-              <img
-                src="assets/dashboard/banners/bannerPA.jpg"
-                alt="Sales_PA"
-                className="w-full"
-              ></img>
-            )}
-          </figure>
+          <a href="mailto:info@adobepcclub.com">
+            <figure>
+              {i18n.resolvedLanguage === "por" ? (
+                <img
+                  src="assets/dashboard/banners/bannerPApor.jpg"
+                  alt="Sales_PA"
+                  className="w-full"
+                ></img>
+              ) : (
+                <img
+                  src="assets/dashboard/banners/bannerPA.jpg"
+                  alt="Sales_PA"
+                  className="w-full"
+                ></img>
+              )}
+            </figure>
+          </a>
         }
       </Modal>
       <ContainerContent pageTitle={"Dashboard"}>
