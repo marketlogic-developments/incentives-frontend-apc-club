@@ -3,7 +3,7 @@ import React from "react";
 const Tycpor = () => {
   return (
     <div
-      class="c46 doc-content text-justify w-2/4 overflow-y-scroll max-sm:w-11/12"
+      class="c46 doc-content text-justify w-2/4 overflow-y-scroll max-sm:w-11/12 border-2"
       style={{ height: "50vh" }}
     >
       <p class="c30">
