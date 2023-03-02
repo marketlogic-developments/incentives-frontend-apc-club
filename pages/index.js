@@ -122,7 +122,7 @@ export default function Home() {
           <figure className="absolute max-sm:relative mt-16 ml-16 max-sm:mt-0 max-sm:mx-auto logosAdobe">
             <img src="assets/login/adobe.png" className="imgLogoAdobe" />
           </figure>
-          <figure className="absolute max-sm:relative mt-16 ml-16 max-sm:mt-0 max-sm:mx-auto logosAdobe">
+          <figure className="absolute max-sm:relative mt-16 ml-16 max-sm:mt-0 max-sm:mx-auto right-0 logosAdobe">
             <img src="assets/login/pcc.png" className="imgLogoAdobe" />
           </figure>
         </div>
