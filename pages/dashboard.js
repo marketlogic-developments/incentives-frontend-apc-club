@@ -164,7 +164,7 @@ const dashboard = () => {
   const typeModal = useMemo(() => {
     if (modalType === 0) {
       return (
-        <div className="flex flex-col w-full items-center text-center gap-10">
+        <div className="flex flex-col w-full items-center text-center gap-10 max-sm:gap-2">
           <p className="text-3xl text-primary">{t("dashboard.bienvenido")}</p>
           <p className="text-xl">{t("dashboard.continuar")}</p>
 
@@ -175,7 +175,7 @@ const dashboard = () => {
             <input
               type={view}
               placeholder={t("dashboard.digitar")}
-              className="input input-bordered input-primary w-2/4"
+              className="input input-bordered input-primary w-2/4 max-sm:w-full"
               required
             />
             <div className="flex gap-5">
@@ -204,13 +204,17 @@ const dashboard = () => {
       return <GraphProm />;
     }
   }, [modalType, view]);
+  const isMobile = window.innerWidth <= 768;
+  const modalSize = isMobile
+    ? { initialWidth: '100%', initialHeight: 'auto' }
+    : { initialWidth: '40%', initialHeight: 'auto' };
 
   return (
     <>
       <Modal
         opened={opened}
         centered
-        size={"50%"}
+        size={modalSize}
         onClose={() => (modalType === 0 ? setOpened(true) : setOpened(false))}
         draggable={false}
       >

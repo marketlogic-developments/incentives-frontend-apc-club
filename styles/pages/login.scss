@@ -34,9 +34,15 @@
 
     .containerLogin {
       width: 80%;
+      @media (max-width: 767px) {
+        width: 100%;
+      }
 
       .containerCard {
         width: 60%;
+        @media (max-width: 767px) {
+          width: 90%;
+        }
       }
 
       #cardLogin {
@@ -53,6 +59,9 @@
       .logoAPC {
         @include desktop-xl {
           width: 80%;
+        }
+        @media (max-width: 767px) {
+          width: 150px;
         }
       }
     }
@@ -122,6 +131,9 @@
 
 .inputSign {
   font-family: "Reenie Beanie", cursive;
+  @media (max-width: 767px) {
+    font-size: 28px !important;
+  }
 }
 
 // .logoAPC {

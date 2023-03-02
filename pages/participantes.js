@@ -278,6 +278,10 @@ const participantes = () => {
       );
     }
   }, [modal]);
+  const isMobile = window.innerWidth <= 768;
+  const modalSize = isMobile
+    ? { initialWidth: '100%', initialHeight: 'auto' }
+    : { initialWidth: '40%', initialHeight: 'auto' };
 
   return (
     <>
@@ -288,7 +292,7 @@ const participantes = () => {
             setOpened(false);
           }}
           centered
-          size={"60%"}
+          size={modalSize}
         >
           {typeModal}
         </Modal>
