@@ -8,8 +8,8 @@ module.exports = {
 
   webpack: (config, options) => {
     config.module.rules.push({
-      test: /\.svg$/,
-      use: ["@svgr/webpack"],
+      test: /\.html$/,
+      loader: "html-loader",
     });
     config.watchOptions = {
       poll: 1000,
