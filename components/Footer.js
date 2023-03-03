@@ -20,9 +20,9 @@ const Footer = () => {
         <div className="w-full bg-secondary flex max-sm:flex-col absolute text-white justify-center gap-5 items-center py-5 max-sm:py-10 z-0">
           <a
             href={`${
-              user.roleId === 2
-                ? "assets/pdf/Términos_y_Condiciones.pdf"
-                : "assets/pdf/Termos_e_Condições.pdf"
+              user.roleId === 1
+                ? "assets/pdf/Termos_e_Condições_.pdf"
+                : "assets/pdf/Términos_y_Condiciones.pdf"
             }`}
             download
           >
