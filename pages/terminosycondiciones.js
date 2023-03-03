@@ -83,8 +83,8 @@ const terminosycondiciones = () => {
   const isMobile = window.innerWidth <= 768;
 
   const modalSize = isMobile
-    ? { initialWidth: '90%', initialHeight: 'auto' }
-    : { initialWidth: '40%', initialHeight: 'auto' };
+    ? { initialWidth: "90%", initialHeight: "auto" }
+    : { initialWidth: "40%", initialHeight: "auto" };
 
   return (
     <>
@@ -96,7 +96,7 @@ const terminosycondiciones = () => {
         className="flex justify-center relative h-screen bg-white"
         style={{ maxWidth: "100%", zIndex: 50, marginTop: "5vh" }}
       >
-        <Modal opened={opened} centered size={modalSize} id='modalterminos'>
+        <Modal opened={opened} centered size={modalSize} id="modalterminos">
           {typeModal}
         </Modal>
         <div className="flex flex-col items-center w-full gap-5">
@@ -107,7 +107,7 @@ const terminosycondiciones = () => {
               </h1>
             </div>
           </div>
-          {user?.user?.person[0]?.languageId === 1 ? <Tycpor /> : <Tyces />}
+          {user?.person[0]?.languageId === 1 ? <Tycpor /> : <Tyces />}
 
           <div className="flex flex-col gap-10 items-center">
             <div className="flex gap-5">
