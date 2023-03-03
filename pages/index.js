@@ -25,6 +25,8 @@ export default function Home() {
 
   const [opened, setOpened] = useState(false);
 
+  const listRedirect = ["bcrservicos.com.br", "bcrcx.com", "adobe.com"];
+
   useEffect(() => {
     if (Cookies.get("infoDt") !== undefined) {
       route.push("/dashboard");
@@ -33,6 +35,10 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (listRedirect.includes(email.split("@")[1])) {
+      return route.push("https://bcr.adobepcclub.net/");
+    }
 
     axios
       .post(`${process.env.BACKURL}/auth/login`, {
