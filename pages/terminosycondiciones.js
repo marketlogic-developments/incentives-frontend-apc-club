@@ -74,10 +74,17 @@ const terminosycondiciones = () => {
           setOpened={setOpened}
           setImageSign={setImageSign}
           setChecked={setChecked}
+          size={modalSize}
         />
       );
     }
   }, [modal]);
+
+  const isMobile = window.innerWidth <= 768;
+
+  const modalSize = isMobile
+    ? { initialWidth: '90%', initialHeight: 'auto' }
+    : { initialWidth: '40%', initialHeight: 'auto' };
 
   return (
     <>
@@ -89,7 +96,7 @@ const terminosycondiciones = () => {
         className="flex justify-center relative h-screen bg-white"
         style={{ maxWidth: "100%", zIndex: 50, marginTop: "5vh" }}
       >
-        <Modal opened={opened} centered size={"40%"}>
+        <Modal opened={opened} centered size={modalSize} id='modalterminos'>
           {typeModal}
         </Modal>
         <div className="flex flex-col items-center w-full gap-5">

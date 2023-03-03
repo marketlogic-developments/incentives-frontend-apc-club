@@ -40,7 +40,7 @@ function MobileMenu({
           </div>
         );
       });
-    } else if (user?.user?.roleId === 2) {
+    } else if (userRedux?.roleId === 2) {
       return locationsPP.map(({ icon, page, text }, index) => {
         return (
           <div className="containerItemLayout" key={index}>
@@ -60,7 +60,7 @@ function MobileMenu({
           </div>
         );
       });
-    } else if (user?.user?.roleId === 3) {
+    } else if (userRedux?.roleId === 3) {
       return locationsPA.map(({ icon, page, text }, index) => {
         return (
           <div className="containerItemLayout" key={index}>
@@ -80,7 +80,7 @@ function MobileMenu({
           </div>
         );
       });
-    } else if (user?.user?.roleId === 5) {
+    } else if (userRedux?.roleId === 5) {
       return locationsVendedor.map(({ icon, page, text }, index) => {
         return (
           <div className="containerItemLayout" key={index}>
@@ -121,7 +121,7 @@ function MobileMenu({
   };
 
   return (
-    <div>
+    <div className="menu_Mobile">
       <button
         className={`menu-button ${
           isOpen ? "menu-button-open" : ""
@@ -164,7 +164,7 @@ function MobileMenu({
 
       {isOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full menu-bg text-white py-10 text-center"
+          className="fixed top-0 left-0 w-full h-full menu-bg text-white py-20 text-center"
           onClick={() => setIsOpen(false)}
         >
           {menu}

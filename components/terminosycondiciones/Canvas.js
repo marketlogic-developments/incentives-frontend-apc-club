@@ -136,8 +136,8 @@ export function SignModal({ setOpened, setImageSign, setChecked }) {
               className="absolute max-sm:relative max-sm:w-full top inset-0 m-auto"
             />
           ) : (
-            <div className="absolute top inset-0 m-auto h-[80px] w-[380px]">
-              <div className="relative w-full h-full ">
+            <div className="absolute max-sm:relative top inset-0 m-auto h-[80px] w-full max-sm:w-full">
+              <div className="relative w-full h-full">
                 <input
                   className="w-full h-full focus:outline-none text-3xl text-center inputSign"
                   type="text"
@@ -146,7 +146,7 @@ export function SignModal({ setOpened, setImageSign, setChecked }) {
               </div>
             </div>
           )}
-          <figure className="ml-5 max-sm:hidden">
+          <figure className="ml-5 z-10 max-sm:hidden">
             <img src="assets/Icons/adobeS.png" alt="adobe-sign"></img>
           </figure>
         </div>
