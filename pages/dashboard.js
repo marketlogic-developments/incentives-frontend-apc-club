@@ -7,7 +7,6 @@ import RankingTable from "../components/dashboard/rankingTable";
 import { useDispatch, useSelector } from "react-redux";
 import Podio from "../components/dashboard/podio";
 import { Modal } from "@mantine/core";
-import Cookies from "js-cookie";
 import axios from "axios";
 import {
   policyAndPassword,
@@ -15,9 +14,9 @@ import {
 } from "../store/reducers/users.reducer";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import Autoplay from "embla-carousel-autoplay";
 import GraphSales from "../components/dashboard/graphSales";
 import GraphProm from "../components/dashboard/graphProm";
+import Swal from "sweetalert2";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
@@ -192,6 +191,7 @@ const dashboard = () => {
               placeholder={t("dashboard.digitar")}
               className="input input-bordered input-primary w-2/4 max-sm:w-full"
               required
+              minLength={8}
             />
             <div className="flex gap-5">
               <input
@@ -240,6 +240,7 @@ const dashboard = () => {
         centered
         size={"70%"}
         onClose={() => setOpened2(false)}
+        className={"modalCloseDashboard"}
       >
         {
           <a href="mailto:info@adobepcclub.com">

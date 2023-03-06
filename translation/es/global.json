@@ -33,7 +33,7 @@
     "Inicio": "Inicio",
     "Hola": "Hola",
     "Estado_de_la_Meta": "Estado de la Meta",
-    "bienvenido": "¡Bienvenido a Partner Connection Club!",
+    "bienvenido": "¡Bienvenido(a) a Partner Connection Club!",
     "continuar": "Para continuar ingresa tu nueva contraseña",
     "digitar": "Digita tu nueva contraseña",
     "verpass": "Ver contraseña",
@@ -55,7 +55,7 @@
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
     "aceptar": "Aceptar los términos y condiciones del programa",
-    "bienvenido": "¡Bienvenido!"
+    "bienvenido": "¡Bienvenido(A)!"
   },
   "adobeMarket": {
     "estado": "Ver el estado de tus premios",
@@ -122,8 +122,9 @@
     "recienteA": "Reciente / Antiguo",
     "antiguoR": "Antiguo /Reciente",
     "filtrarVenta": "Filtrar por tipo de venta",
-    "buscarFactura": "Buscar por email",
-    "buscarEmail": "Buscar por factura",
+    "buscarFactura": "Buscar por factura",
+    "buscarSku": "Buscar por SKU",
+    "buscarEmail": "Buscar por email",
     "nEquipo": "NOMBRE DEL EQUIPO",
     "descripcion": "DESCRIPCIÓN",
     "nParticipantes": "No. de participantes",
@@ -131,7 +132,8 @@
     "nfactura": "No. Factura",
     "fecha": "Fecha",
     "cantidad": "cantidad",
-    "asignar": "Asignar"
+    "asignar": "Asignar",
+    "nomParticipantes": "NOMBRE DEL PARTICIPANTE"
   },
   "shoopingcar": {
     "carrito": "Carrito",
@@ -147,5 +149,43 @@
   "estadoProducto": {
     "estado": "Estado de Tus Premios"
   },
-  "user": {}
+  "redenciones": {
+    "idOrden": "ID de la orden",
+    "rastrear": "Seguimiento del producto",
+    "recibido": "Orden Recibida",
+    "aprobado": "Aprobada",
+    "proceso": "En proceso de pago",
+    "enviar": "Enviada",
+    "solicitado": "Productos Solicitados",
+    "cantidad": "Cantidad:",
+    "precio": "Precio:"
+  },
+  "modalEquipos": {
+    "informacion": "Información",
+    "porcentajes": "Porcentajes",
+    "nequipo": "Nombre del equipo",
+    "descripcion": "Descripción",
+    "dEquipo": "Descripción del equipo",
+    "next": "Siguiente",
+    "pEquipo": "Participantes del equipo",
+    "guardar": "Guardar Cambios",
+    "suma": "La suma de los porcentajes debe ser equivalente a 100%",
+    "lista": "Este participante ya está dentro de la lista"
+  },
+  "user": {
+    "ajustesdeperfil": "Ajustes de perfil",
+    "informaciongeneral": "Información General",
+    "informacionpersonal": "Información Personal",
+    "nombre": "Nombre",
+    "apellido": "Apellido",
+    "correo1": "Correo empresarial",
+    "correo2": "Correo personal",
+    "rol": "Rol",
+    "region": "Región",
+    "posicion": "Posición",
+    "cel": "Teléfono",
+    "FechaNacimiento": "Fecha de nacimiento",
+    "boton": "Actualizar datos",
+    "escriba": "Escriba aquí"
+  }
 }

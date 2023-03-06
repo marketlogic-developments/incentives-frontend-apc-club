@@ -53,6 +53,16 @@
   visibility: hidden;
 }
 
+.modalCloseDashboard {
+  .mantine-Modal-close {
+    visibility: visible;
+    background-color: $primaryColorRed;
+  }
+  .mantine-Modal-header {
+    display: flex;
+  }
+}
+
 .awardImg {
   width: 50px;
 }

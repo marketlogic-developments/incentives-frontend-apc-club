@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import CardProduct from "./CardProduct";
 
 const ModalProducts = ({ data }) => {
+  const [t, i18n] = useTranslation("global");
   const [state1, setState1] = useState(false);
   const [state2, setState2] = useState(false);
   const [state3, setState3] = useState(false);
@@ -35,7 +37,7 @@ const ModalProducts = ({ data }) => {
   return (
     <div className="flex flex-col gap-5">
       <div>
-        <p className="font-bold text-2xl py-5">Seguimiento del producto</p>
+        <p className="font-bold text-2xl py-5">{t("redenciones.rastrear")}</p>
         <div className="w-full flex h-full">
           <div className="row w-full">
             <div className="col-12 col-md-10 pt45 pb20 h-full flex">
@@ -43,7 +45,7 @@ const ModalProducts = ({ data }) => {
                 <div className={`order-tracking ${state1 && "completed"} `}>
                   <span className="is-complete"></span>
                   <p>
-                    Orden Recibida
+                    {t("redenciones.recibido")}
                     <br />
                   </p>
                 </div>
@@ -54,7 +56,7 @@ const ModalProducts = ({ data }) => {
                 >
                   <span className="is-complete"></span>
                   <p>
-                    Aprobada
+                    {t("redenciones.aprobado")}
                     <br />
                   </p>
                 </div>
@@ -65,7 +67,7 @@ const ModalProducts = ({ data }) => {
                 >
                   <span className="is-complete"></span>
                   <p>
-                    En proceso de pago
+                    {t("redenciones.proceso")}
                     <br />
                   </p>
                 </div>
@@ -76,7 +78,7 @@ const ModalProducts = ({ data }) => {
                 >
                   <span className="is-complete"></span>
                   <p>
-                    Enviada
+                    {t("redenciones.enviar")}
                     <br />
                   </p>
                 </div>
@@ -86,11 +88,11 @@ const ModalProducts = ({ data }) => {
         </div>
       </div>
       <div>
-        <p className="font-bold text-2xl py-5">Productos Solicitados</p>
+        <p className="font-bold text-2xl py-5">{t("redenciones.solicitado")}</p>
       </div>
       <div className="grid grid-cols-3 gap-5">
-        {data.productsObject.map((info) => {
-          return <CardProduct info={info} />;
+        {data.productsObject.map((info, index) => {
+          return <CardProduct info={info} index={index} />;
         })}
       </div>
     </div>

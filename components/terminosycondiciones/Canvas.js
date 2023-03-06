@@ -146,7 +146,7 @@ export function SignModal({ setOpened, setImageSign, setChecked }) {
               </div>
             </div>
           )}
-          <figure className="ml-5 z-10 max-sm:hidden">
+          <figure className="ml-5 z-10 max-sm:hidden invisible">
             <img src="assets/Icons/adobeS.png" alt="adobe-sign"></img>
           </figure>
         </div>
