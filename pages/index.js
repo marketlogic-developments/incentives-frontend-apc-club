@@ -119,7 +119,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title title="true">Adobe APC</title>
+        <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
       <main className="mainIndex bg-primary fixed w-full z-10">

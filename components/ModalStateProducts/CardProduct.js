@@ -1,9 +1,12 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
-const CardProduct = ({ info }) => {
+const CardProduct = ({ info, index }) => {
+  const [t, i18n] = useTranslation("global");
+
   return (
     <>
-      <div class="flip-card-market justify-self-center">
+      <div key={index} class="flip-card-market justify-self-center">
         <div class="flip-card-inner-market">
           <div class="flip-card-front-market">
             <div className="card-details justify-center">
@@ -11,10 +14,11 @@ const CardProduct = ({ info }) => {
                 <img src={info.imagePath} alt={info.name} className="w-1/4" />
               </figure>
               <p className="text-title">
-                Cantidad: <br /> {info.quantity}
+                {t("redenciones.cantidad")} <br /> {info.quantity}
               </p>
               <p className="text-title">
-                Precio: <br /> {`${info.price * info.quantity}DG`}
+                {t("redenciones.precio")} <br />
+                {`${info.price * info.quantity}DG`}
               </p>
             </div>
           </div>
