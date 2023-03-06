@@ -90,188 +90,207 @@
           width: 60%;
         }
       }
-    }
 
-    button {
-      min-height: 2rem !important;
-      height: fit-content !important;
-    }
-
-    a,
-    button {
-      font-size: 0.65rem !important;
-    }
-
-    h1 {
-      font-size: 1.2rem;
-      @media (max-width: 767px) {
-        font-size: 0.8rem !important;
+      button {
+        min-height: 2rem !important;
+        height: fit-content !important;
       }
-    }
 
-    h2 {
-      font-size: 1.5rem;
-      @media (max-width: 767px) {
-        font-size: 0.8rem !important;
+      a,
+      button {
+        font-size: 0.65rem !important;
       }
-    }
 
-    .swal2-title {
-      font-size: 0.75rem !important;
-    }
+      h1 {
+        font-size: 1.2rem;
+        @media (max-width: 767px) {
+          font-size: 0.8rem !important;
+        }
+      }
 
-    .mantine-1kzbr1s {
-      width: 90% !important;
+      h2 {
+        font-size: 1.5rem;
+        @media (max-width: 767px) {
+          font-size: 0.8rem !important;
+        }
+      }
 
-      .tableHeader {
-        p {
-          font-size: 0.6rem !important;
+      .swal2-title {
+        font-size: 0.75rem !important;
+      }
+
+      .mantine-1kzbr1s {
+        width: 90% !important;
+
+        .tableHeader {
+          p {
+            font-size: 0.6rem !important;
+          }
         }
       }
     }
   }
-}
-.modal {
-  background-color: #00000087;
-}
+  .modal {
+    background-color: #00000087;
+  }
 
-.report-style-class {
-  height: 80vh;
-}
+  .report-style-class {
+    height: 80vh;
+  }
 
-.containerGlobal {
-  position: relative;
+  .containerGlobal {
+    position: relative;
 
-  .bgAPC {
-    bottom: 0;
-    position: fixed;
-    width: 100%;
-    z-index: 1;
-    /* Pantalla móvil */
-    @media (max-width: 767px) {
-      display: none;
-    }
-
-    figure {
+    .bgAPC {
+      bottom: 0;
+      position: fixed;
       width: 100%;
-      img {
+      z-index: 1;
+      /* Pantalla móvil */
+      @media (max-width: 767px) {
+        display: none;
+      }
+
+      figure {
         width: 100%;
+        img {
+          width: 100%;
+        }
       }
     }
   }
-}
 
-main {
-  max-width: 100%;
-  z-index: 2;
-}
-
-.menu-button-open {
-  position: absolute;
-  top: 16px;
-  right: 27px;
-  width: 46px;
-  height: 46px;
-  z-index: 9;
-}
-.menu-bg {
-  background-color: rgba(0, 0, 0, 0.9);
-}
-.containerItemLayout {
-  /* Pantalla móvil */
-  @media (max-width: 767px) {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
+  main {
+    max-width: 100%;
+    z-index: 2;
   }
-  svg {
+
+  .menu-button-open {
+    position: absolute;
+    top: 16px;
+    right: 27px;
+    width: 46px;
+    height: 46px;
+    z-index: 9;
+  }
+  .menu-bg {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+  .containerItemLayout {
     /* Pantalla móvil */
     @media (max-width: 767px) {
-      stroke: #fff;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+    }
+    svg {
+      /* Pantalla móvil */
+      @media (max-width: 767px) {
+        stroke: #fff;
+        text-align: center;
+        margin: 0 auto;
+      }
+    }
+  }
+  .menumobile {
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  .logo-adobe {
+    width: 100px;
+    object-fit: contain;
+    @media (max-width: 768px) {
       margin: 0 auto;
+      padding-bottom: 10px;
+    }
+  }
+  .cuadros-logo {
+    width: 10px;
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  .idioma-card {
+    @media (max-width: 768px) {
+      bottom: 20px;
+    }
+  }
+  .card-login {
+    @media (max-width: 768px) {
+      display: grid;
+      text-align: center;
+    }
+  }
+  .bannerDesk {
+    @media (max-width: 769px) {
+      display: none;
+    }
+  }
+  .bannerMob {
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+  .none {
+    display: none !important;
+  }
+  .nonetran {
+    visibility: hidden;
+  }
+
+  .pagination {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    justify-content: center;
+    list-style-type: none;
+    position: relative;
+    width: 100%;
+  }
+
+  .mantine-129761m {
+    position: relative;
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    padding-right: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tycImg {
+    width: 100%;
+  }
+
+  .imgLogoAdobe {
+    width: 80%;
+  }
+
+  #modalSign {
+    width: 100% !important;
+    @media (min-width: 768px) {
+      width: 90%;
     }
   }
 }
-.menumobile {
-  @media (min-width: 768px) {
-    display: none;
-  }
-}
 
-.logo-adobe {
-  width: 100px;
-  object-fit: contain;
-  @media (max-width: 768px) {
-    margin: 0 auto;
-    padding-bottom: 10px;
-  }
-}
-.cuadros-logo {
-  width: 10px;
-  @media (max-width: 768px) {
-    display: none;
-  }
-}
-.idioma-card {
-  @media (max-width: 768px) {
-    bottom: 20px;
-  }
-}
-.card-login {
-  @media (max-width: 768px) {
-    display: grid;
-    text-align: center;
-  }
-}
-.bannerDesk {
-  @media (max-width: 769px) {
-    display: none;
-  }
-}
-.bannerMob {
-  @media (min-width: 768px) {
-    display: none;
-  }
-}
-.none {
-  display: none !important;
-}
-.nonetran {
-  visibility: hidden;
-}
+#logosAdobe2 {
+  margin-top: 2rem;
 
-.pagination {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  height: 60px;
-  justify-content: center;
-  list-style-type: none;
-  position: relative;
-  width: 100%;
-}
+  @include desktop-xl {
+    margin-top: 0rem !important;
+  }
 
-.mantine-129761m {
-  position: relative;
-  -webkit-flex: 0 0 100%;
-  -ms-flex: 0 0 100%;
-  flex: 0 0 100%;
-  padding-right: 0;
-  display: flex;
-  justify-content: center;
-}
-
-.tycImg {
-  width: 100%;
-}
-
-.imgLogoAdobe {
-  width: 80%;
-}
-#modalSign {
-  width: 100% !important;
-  @media (min-width: 768px) {
-    width: 90%;
+  @media (max-width: 767px) {
+    display: flex;
+  }
+  img {
+    width: 80%;
+    @media (max-width: 767px) {
+      width: 100%;
+    }
   }
 }
