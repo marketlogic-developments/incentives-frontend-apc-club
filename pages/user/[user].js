@@ -238,14 +238,19 @@ const user = () => {
                     <label className="label">
                       <span className="label-text">{t("user.region")}</span>
                     </label>
-                    <input
+                    <select
                       type="text"
                       name="region"
                       placeholder={t("user.escriba")}
                       className="input input-ghost w-full max-w-xs"
                       value={formData.region}
                       onChange={handleChange}
-                    />
+                    >
+                      <option value="BRAZIL">BRAZIL</option>
+                      <option value="NOLA">NOLA</option>
+                      <option value="SOLA">SOLA</option>
+                      <option value="MEXICO">MEXICO</option>
+                    </select>
                   </div>
                   <div className="form-control w-full max-w-xs">
                     <label className="label">
