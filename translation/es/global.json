@@ -33,7 +33,7 @@
     "Inicio": "Inicio",
     "Hola": "Hola",
     "Estado_de_la_Meta": "Estado de la Meta",
-    "bienvenido": "¡Bienvenido(a) a Partner Connection Club!",
+    "bienvenido": "¡Te damos la bienvenida a Partner connection club!",
     "continuar": "Para continuar ingresa tu nueva contraseña",
     "digitar": "Digita tu nueva contraseña",
     "verpass": "Ver contraseña",
@@ -55,7 +55,7 @@
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
     "aceptar": "Aceptar los términos y condiciones del programa",
-    "bienvenido": "¡Bienvenido(A)!"
+    "bienvenido": "¡Entrar!"
   },
   "adobeMarket": {
     "estado": "Ver el estado de tus premios",
@@ -187,5 +187,19 @@
     "FechaNacimiento": "Fecha de nacimiento",
     "boton": "Actualizar datos",
     "escriba": "Escriba aquí"
+  },
+  "meses": {
+    "enero": "Enero",
+    "febrero": "Febrero",
+    "marzo": "Marzo",
+    "abril": "Abril",
+    "mayo": "Mayo",
+    "junio": "Junio",
+    "julio": "Julio",
+    "agosto": "Agosto",
+    "septiembre": "Septiembre",
+    "octubre": "Octubre",
+    "noviembre": "Noviembre",
+    "diciembre": "Diciembre"
   }
 }
