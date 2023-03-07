@@ -25,7 +25,7 @@ export default function Home() {
 
   const [opened, setOpened] = useState(false);
 
-  const listRedirect = ["bcrservicos.com.br", "bcrcx.com", "adobe.com"];
+  const listRedirect = ["bcrservicos.com.br", "bcrcx.com"];
 
   useEffect(() => {
     if (Cookies.get("infoDt") !== undefined) {

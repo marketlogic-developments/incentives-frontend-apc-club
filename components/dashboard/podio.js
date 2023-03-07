@@ -2,8 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
-const Podio = ({ t, sortedData }) => {
+const Podio = ({ sortedData }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const date = new Date();
+  const [t, i18n] = useTranslation("global");
+
+  const Months = [
+    t("meses.enero"),
+    t("meses.febrero"),
+    t("meses.marzo"),
+    t("meses.abril"),
+    t("meses.mayo"),
+    t("meses.junio"),
+    t("meses.julio"),
+    t("meses.agosto"),
+    t("meses.septiembre"),
+    t("meses.octubre"),
+    t("meses.noviembre"),
+    t("meses.diciembre"),
+  ];
 
   useEffect(() => {
     setIsLoaded(true);
@@ -25,7 +42,7 @@ const Podio = ({ t, sortedData }) => {
         <p className="font-bold text-1xl">
           <strong style={{ color: "#EB1000" }}>Ranking</strong>
         </p>
-        <p>Enero</p>
+        <p>{Months[date.getMonth()]}</p>
       </div>
       <div className="flex gap-1 col-start-2 col-end-4 justify-center">
         <div className="flex flex-col justify-end w-44">
