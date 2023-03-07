@@ -125,6 +125,7 @@
     "filtrarVenta": "Filtrar por tipo de venda",
     "buscarFactura": "Pesquisar por nota fiscal",
     "buscarEmail": "Pesquisar por e-mail",
+    "buscarSku": "Pesquisar por SKU",
     "nEquipo": "Nome da equipe",
     "descripcion": "Descrição",
     "nParticipantes": "Núm. de participantes",
@@ -132,7 +133,8 @@
     "nfactura": "Núm. Nota fiscal",
     "fecha": "Data",
     "cantidad": "Quantidade",
-    "asignar": "Atribuir"
+    "asignar": "Atribuir",
+    "nomParticipantes": "NOME DO PARTICIPANTE"
   },
   "shoopingcar": {
     "carrito": "Carrinho de compras",
@@ -148,5 +150,43 @@
   "estadoProducto": {
     "estado": "Status de seus produtos"
   },
-  "user": {}
+  "redenciones": {
+    "idOrden": "ID do pedido",
+    "rastrear": "Rastreamento do produto",
+    "recibido": "Pedido Recebido",
+    "aprobado": "Aprovado",
+    "proceso": "Em processo de pagamento",
+    "enviar": "Enviado",
+    "solicitado": "Produtos Solicitados",
+    "cantidad": "Quantidade:",
+    "precio": "Preço:"
+  },
+  "modalEquipos": {
+    "informacion": "Informações",
+    "porcentajes": "Porcentagens",
+    "nequipo": "Nome da equipe",
+    "descripcion": "Descrição",
+    "dEquipo": "Descrição da equipe",
+    "next": "Próximo",
+    "pEquipo": "Participantes da equipe",
+    "guardar": "Salvar alterações",
+    "suma": "A soma das porcentagens deve ser equivalente a 100%",
+    "lista": "Este participante já está na lista"
+  },
+  "user": {
+    "ajustesdeperfil": "Ajustes do perfil",
+    "informaciongeneral": "Informações Gerais",
+    "informacionpersonal": "Informações Pessoais",
+    "nombre": "Nome",
+    "apellido": "Sobrenome",
+    "correo1": "E-mail comercial",
+    "correo2": "E-mail pessoal",
+    "rol": "Papel",
+    "region": "Região",
+    "posicion": "Cargo",
+    "cel": "Telefone",
+    "FechaNacimiento": "Data de nascimento",
+    "boton": "Atualizar dados",
+    "escriba": "Digite aqui"
+  }
 }

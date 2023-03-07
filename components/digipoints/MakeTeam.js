@@ -112,7 +112,7 @@ const MakeTeam = () => {
 
       return Toast.fire({
         icon: "error",
-        title: "Este participante ya está dentro de la lista",
+        title: t("modalEquipos.lista"),
       });
     } else {
       setSearchByEmail("");
@@ -208,7 +208,7 @@ const MakeTeam = () => {
 
       return Toast.fire({
         icon: "error",
-        title: "La suma de los porcentajes debe ser equivalente al 100%",
+        title: t("modalEquipos.suma"),
       });
     }
 
@@ -273,19 +273,19 @@ const MakeTeam = () => {
           onSubmit={(e) => handleSubmit(e)}
         >
           <div className="flex flex-col gap-5">
-            <p>Nombre del Equipo</p>
+            <p>{t("modalEquipos.nequipo")}</p>
             {infoModal?.nameTeam === undefined ? (
               <input
                 className="input input-primary"
                 type="text"
-                placeholder="Nombre del equipo"
+                placeholder={t("modalEquipos.nequipo")}
                 required
               />
             ) : (
               <input
                 className="input input-primary"
                 type="text"
-                placeholder="Nombre del equipo"
+                placeholder={t("modalEquipos.nequipo")}
                 required
                 name="nameTeam"
                 value={infoModal?.nameTeam}
@@ -294,19 +294,19 @@ const MakeTeam = () => {
             )}
           </div>
           <div className="flex flex-col gap-5">
-            <p>Descripción</p>
+            <p>{t("modalEquipos.descripcion")}</p>
             {infoModal?.nameTeam === undefined ? (
               <textarea
                 className="textarea textarea-lg textarea-primary"
                 type="text"
-                placeholder="Descripción del equipo"
+                placeholder={t("modalEquipos.dEquipo")}
                 required
               />
             ) : (
               <textarea
                 className="textarea textarea-lg textarea-primary"
                 type="text"
-                placeholder="Descripción del equipo"
+                placeholder={t("modalEquipos.dEquipo")}
                 required
                 name="description"
                 value={infoModal?.description}
@@ -320,7 +320,7 @@ const MakeTeam = () => {
               className="btn btn-primary w-max"
               name="create"
             >
-              Siguiente
+              {t("modalEquipos.next")}
             </button>
           ) : (
             <button
@@ -328,7 +328,7 @@ const MakeTeam = () => {
               className="btn btn-primary w-max"
               name="update"
             >
-              Siguiente
+              {t("modalEquipos.next")}
             </button>
           )}
         </form>
@@ -343,13 +343,13 @@ const MakeTeam = () => {
         >
           <div className="flex flex-col gap-5 relative p-5 h-full justify-evenly">
             <div>
-              <p>Participantes del equipo</p>
+              <p>{t("modalEquipos.pEquipo")}</p>
               <div className="relative w-full">
                 <input
                   value={searchByEmail}
                   className="input input-primary w-full"
                   type="text"
-                  placeholder="Buscar por email"
+                  placeholder={t("tabla.buscarEmail")}
                   onChange={(e) => setSearchByEmail(e.target.value)}
                   onFocus={() => setListUsers(true)}
                   onBlur={() => {
@@ -363,19 +363,19 @@ const MakeTeam = () => {
               </div>
             </div>
             <button className="btn btn-primary w-max" type="submit">
-              Guardar Cambios
+              {t("modalEquipos.guardar")}
             </button>
           </div>
           <div>
             <div className="text-xs text-black-500 uppercase border-2 w-full grid grid-cols-3 place-items-center tableHeader">
               <p scope="col" className="py-3 px-6">
-                Nombre del <br /> participante
+                {t("tabla.nomParticipantes")}
               </p>
               <p scope="col" className="py-3 px-6">
-                Email
+                {t("login.Email")}
               </p>
               <p scope="col" className="py-3 px-6">
-                Porcentaje
+                {t("modalEquipos.porcentajes")}
               </p>
             </div>
             <div className="w-full overflow-y-scroll">
@@ -439,9 +439,9 @@ const MakeTeam = () => {
           <div className="text-sm breadcrumbs">
             <ul>
               <li>
-                <a>Información</a>
+                <a>{t("modalEquipos.informacion")}</a>
               </li>
-              <li>Porcentajes</li>
+              <li>{t("modalEquipos.porcentajes")}</li>
             </ul>
           </div>
           {typeModal}
