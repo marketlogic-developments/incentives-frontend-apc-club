@@ -32,15 +32,16 @@
   "dashboard": {
     "Estado_de_la_Meta": "Status da Meta",
     "Inicio": "Home",
-    "Hola": "Olá!",
-    "bienvenido": "¡Sejam bem-vindos ao Partner connection club!",
-    "continuar": "Para continuar digitando sua nova senha",
+    "Hola": "Olá",
+    "bienvenido": "Seja bem vindo (a) ao Adobe Partner Connection Club!",
+    "continuar": "Para continuar, cadastre uma nova senha:",
     "digitar": "Digite sua nova senha",
     "verpass": "Veja a senha",
     "cambiarpass": "Mudança de senha",
     "podio": "Pódio do",
-    "enApc": "No APC Club, reconhecemos o seu esforço!",
+    "enApc": "No APC Club reconhecemos o seu engajmento!",
     "conoce": "Conheça o detalhe",
+    "ventas": "vendas",
     "ranking": "RANKING",
     "promociones": "Promoções",
     "htw": "Como ganhar?",
@@ -49,12 +50,13 @@
     "vCC": "Vendas de",
     "vDC": "Vendas de",
     "mvCC": "Minhas Vendas",
-    "mvDC": "Minhas Vendas"
+    "mvDC": "Minhas Vendas",
+    "redimir": "RESGATAR"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",
     "aceptar": "Aceitar os termos e condições do programa",
-    "bienvenido": "¡Entrar!"
+    "bienvenido": "Entrar"
   },
   "adobeMarket": {
     "estado": "Veja o status de seus produtos",

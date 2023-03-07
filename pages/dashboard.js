@@ -106,7 +106,7 @@ const dashboard = () => {
                 {t("dashboard.Inicio")}
               </h1>
               <h2 className="font-bold text-4xl max-sm:text-xl">
-                {t("dashboard.Hola")}, {userData}
+                {t("dashboard.Hola")} {userData}
               </h2>
               <p className="w-6/12 max-sm:w-full">{t("dashboard.enApc")}</p>
               <button className="btn btn-primary buttonResponsive">
@@ -269,7 +269,7 @@ const dashboard = () => {
             className={`btn btn-xs btn-accent`}
             onClick={() => setOpened2(true)}
           >
-            Ventas
+            {t("dashboard.ventas")}
           </button>
           <button
             className={`btn btn-xs ${
@@ -403,7 +403,7 @@ const dashboard = () => {
                 className="btn btn-primary btn-wide"
                 onClick={() => route.push("/adobeMarket")}
               >
-                Redimir
+                {t("dashboard.redimir")}
               </button>
             )}
           </div>

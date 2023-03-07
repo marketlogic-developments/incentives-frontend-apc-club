@@ -266,7 +266,7 @@
   }
 
   .imgLogoAdobe {
-    width: 80%;
+    width: fit-content;
   }
 
   #modalSign {
@@ -278,12 +278,6 @@
 }
 
 #logosAdobe2 {
-  margin-top: 2rem;
-
-  @include desktop-xl {
-    margin-top: 0rem !important;
-  }
-
   @media (max-width: 767px) {
     display: flex;
   }
