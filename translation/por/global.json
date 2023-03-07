@@ -33,7 +33,7 @@
     "Estado_de_la_Meta": "Status da Meta",
     "Inicio": "Home",
     "Hola": "Olá!",
-    "bienvenido": "Bem-vindo ao Partner Connection Club!",
+    "bienvenido": "¡Sejam bem-vindos ao Partner connection club!",
     "continuar": "Para continuar digitando sua nova senha",
     "digitar": "Digite sua nova senha",
     "verpass": "Veja a senha",
@@ -54,7 +54,7 @@
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",
     "aceptar": "Aceitar os termos e condições do programa",
-    "bienvenido": "Seja bem-vindo!"
+    "bienvenido": "¡Entrar!"
   },
   "adobeMarket": {
     "estado": "Veja o status de seus produtos",
@@ -188,5 +188,19 @@
     "FechaNacimiento": "Data de nascimento",
     "boton": "Atualizar dados",
     "escriba": "Digite aqui"
+  },
+  "meses": {
+    "enero": "Janeiro",
+    "febrero": "Fevereiro",
+    "marzo": "Março",
+    "abril": "Abril",
+    "mayo": "Maio",
+    "junio": "Junho",
+    "julio": "Julho",
+    "agosto": "Agosto",
+    "septiembre": "Setembro",
+    "octubre": "Outubro",
+    "noviembre": "Novembro",
+    "diciembre": "Dezembro"
   }
 }
