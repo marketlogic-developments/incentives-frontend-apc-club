@@ -205,6 +205,8 @@ const user = () => {
                     >
                       {formData.role === 1
                         ? "SuperAdmin"
+                        : formData.role === 2
+                        ? "Partner Principal"
                         : formData.role === 3
                         ? "Partner Admin"
                         : formData.role === 5

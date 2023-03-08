@@ -960,11 +960,8 @@ const Layout = ({ children }) => {
                           <p> Ver Perfil</p>
                         </div>
                       </Menu.Item>
-                      <Menu.Item>
-                        <div
-                          className="buttonLayoutDropdown"
-                          onClick={() => logout()}
-                        >
+                      <Menu.Item onClick={() => logout()}>
+                        <div className="buttonLayoutDropdown">
                           <p>{t("menu.salir")}</p>
                         </div>
                       </Menu.Item>
