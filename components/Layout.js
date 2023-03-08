@@ -841,6 +841,9 @@ const Layout = ({ children }) => {
         <span className="h-screen barra"></span>
         <div className="w-full">
           <div className="navbar">
+            <figure className="w-[30%]">
+              <img src="/assets/dashboard/years.png" className="!w-[60%] " />
+            </figure>
             <div className="digipoints">
               <button onClick={() => router.push("/digipoints")}>
                 <span></span>
