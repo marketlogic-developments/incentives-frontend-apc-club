@@ -109,20 +109,20 @@ const dashboard = () => {
                 {t("dashboard.Hola")} {userData}
               </h2>
               <p className="w-6/12 max-sm:w-full">{t("dashboard.enApc")}</p>
-              <button className="btn btn-primary buttonResponsive">
+              <button
+                className="btn btn-primary buttonResponsive"
+                onClick={() => {
+                  setModalType(1);
+                  setOpened(true);
+                }}
+              >
                 {t("dashboard.conoce")}
               </button>
             </div>
           </div>
           <div className="flex flex-col gap-5 w-3/6 items-center">
             <div className="h-full w-full">
-              <div
-                className="gap-10 w-full cursor-pointer"
-                /* onClick={() => {
-                  setModalType(1);
-                  setOpened(true);
-                }} */
-              >
+              <div className="gap-10 w-full">
                 <Podio t={t} sortedData={sortedData} />
               </div>
             </div>
