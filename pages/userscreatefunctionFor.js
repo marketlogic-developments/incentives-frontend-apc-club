@@ -42,28 +42,41 @@ const userscreatefunctionFor = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const company = jsonData.filter((data) => {
-      const posFilter = pos.filter((e) => e.description === data.Companyname);
+    console.log;
+
+    return jsonData.map((data) => {
+      const posFilter = pos.filter((e) => e.description === data.companyName);
       if (posFilter.length > 0) {
         posFilter.map((dataPos) => {
+          console.log(dataPos);
           console.log({
-            name: `${dataPos.FirstName + LastName}`,
-            email: `${dataPos.Username}`,
-            password: `${dataPos.Contraseñas}`,
-            roleId: `${dataPos.includes("Partner Admin") ? 3 : 5}`,
+            name: `${data.firstName + data.lastName}`,
+            email: `${data.username}`,
+            password: `${data.password}`,
+            roleId: `${
+              data.userRol.includes("Partner Admin")
+                ? 3
+                : data.userRol.includes("Partner Principal")
+                ? 2
+                : 5
+            }`,
             policy: false,
             passwordReset: false,
-            region: data,
+            region: data.region,
             cpf: "N/A",
             person: {
-              names: "Tyson",
-              lastName: "Fuentes",
+              names: data.firstName,
+              lastName: data.lastName,
               birthDate: "1980-07-05",
-              position: "Partner Admin",
+              position: data.userRol.includes("Partner Admin")
+                ? "Partner Admin"
+                : data.userRol.includes("Partner Principal")
+                ? "Partner Principal"
+                : "Sales Rep",
               phoneNumber: "45645646",
               operationStatusId: 4,
               academicDegreeId: 1,
-              languageId: 1,
+              languageId: data.region === "BRAZIL" ? 1 : 2,
             },
             employeePos: {
               posId: 1,
@@ -72,8 +85,6 @@ const userscreatefunctionFor = () => {
         });
       }
     });
-
-    return company;
   };
 
   console.table(jsonData);
@@ -89,8 +100,8 @@ const userscreatefunctionFor = () => {
         <button type="submit" className="btn btn-primary">
           Procesar
         </button>
-        {jsonData && <pre>{JSON.stringify(jsonData, null, 2)}</pre>}
       </form>
+      {jsonData && <pre>{JSON.stringify(jsonData, null, 2)}</pre>}
     </div>
   );
 };
