@@ -176,7 +176,7 @@
     display: flex;
     max-height: 5vh;
     width: 100%;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     position: relative;
     top: 0px;
@@ -196,7 +196,6 @@
     }
 
     .digipoints {
-      margin: 0 auto;
       @media (max-width: 767px) {
         margin-left: 0;
       }
