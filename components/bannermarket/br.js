@@ -16,7 +16,7 @@ const BnPor = () => {
         <a href="#">
           <img
             className="bannerDesk"
-            src="assets/dashboard/banners/dppor.jpg"
+            src="assets/dashboard/banners/dppor.png"
           ></img>
           <img
             className="bannerMob"

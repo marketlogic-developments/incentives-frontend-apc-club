@@ -122,17 +122,14 @@ export default function Home() {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      <main className="mainIndex bg-primary fixed w-full z-10">
+      <main className="mainIndex bg-primary flex flex-col w-full z-50 relative">
         <Recovery opened={opened} setOpened={setOpened} t={t} />
-        <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10">
-          <figure className="absolute max-sm:relative mt-16 ml-16 max-sm:mt-0 max-sm:mx-auto logosAdobe">
-            <img src="assets/login/adobe.png" className="imgLogoAdobe" />
+        <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] flex absolute w-full justify-between mt-10">
+          <figure className="ml-10">
+            <img src="assets/login/adobe.png" className="max-w-[250px]" />
           </figure>
-          <figure
-            className="absolute max-sm:relative mt-7 ml-16 max-sm:mt-0 max-sm:mx-auto right-0 w-[30%]"
-            id="logosAdobe2"
-          >
-            <img src="assets/login/pcc.png" className="imgLogoAdobe" />
+          <figure>
+            <img src="assets/login/pcc.png" className="max-w-[400px]" />
           </figure>
         </div>
         <div className="container flex flex-col justify-center items-center h-screen w-full max-w-full">

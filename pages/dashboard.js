@@ -106,23 +106,23 @@ const dashboard = () => {
                 {t("dashboard.Inicio")}
               </h1>
               <h2 className="font-bold text-4xl max-sm:text-xl">
-                {t("dashboard.Hola")}, {userData}
+                {t("dashboard.Hola")} {userData}
               </h2>
               <p className="w-6/12 max-sm:w-full">{t("dashboard.enApc")}</p>
-              <button className="btn btn-primary buttonResponsive">
+              <button
+                className="btn btn-primary buttonResponsive"
+                onClick={() => {
+                  setModalType(1);
+                  setOpened(true);
+                }}
+              >
                 {t("dashboard.conoce")}
               </button>
             </div>
           </div>
           <div className="flex flex-col gap-5 w-3/6 items-center">
             <div className="h-full w-full">
-              <div
-                className="gap-10 w-full cursor-pointer"
-                /* onClick={() => {
-                  setModalType(1);
-                  setOpened(true);
-                }} */
-              >
+              <div className="gap-10 w-full">
                 <Podio t={t} sortedData={sortedData} />
               </div>
             </div>
@@ -269,7 +269,7 @@ const dashboard = () => {
             className={`btn btn-xs btn-accent`}
             onClick={() => setOpened2(true)}
           >
-            Ventas
+            {t("dashboard.ventas")}
           </button>
           <button
             className={`btn btn-xs ${
@@ -403,7 +403,7 @@ const dashboard = () => {
                 className="btn btn-primary btn-wide"
                 onClick={() => route.push("/adobeMarket")}
               >
-                Redimir
+                {t("dashboard.redimir")}
               </button>
             )}
           </div>
