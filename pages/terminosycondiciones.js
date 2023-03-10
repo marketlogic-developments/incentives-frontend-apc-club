@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import { SignModal } from "../components/terminosycondiciones/Canvas";
 import Tyces from "../components/terminosycondiciones/tyces";
 import Tycpor from "../components/terminosycondiciones/tycpor";
@@ -19,6 +20,7 @@ const terminosycondiciones = () => {
   const [t, i18n] = useTranslation("global");
   const [modal, setModal] = useState(0);
   const [imageSign, setImageSign] = useState(null);
+  const modalAppear = Cookies.get("t&c");
 
   const [opened, setOpened] = useState(false);
 
@@ -26,30 +28,26 @@ const terminosycondiciones = () => {
     if (user?.policy) {
       return route.push("/dashboard");
     }
+
+    if (modalAppear) {
+      return setOpened(true);
+    }
   }, []);
 
   const handleSubmit = () => {
-    const userToken = JSON.parse(Cookies.get("infoDt"));
-
-    axios
-      .post(
-        `${process.env.BACKURL}/policy-logs`,
-        {
-          userId: userToken?.id,
-          fileName: `signature-${userToken?.id}`,
-          base64String: imageSign,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userToken.token}`,
-          },
-        }
-      )
-      .then((res) => {
-        dispatch(policyAndPassword({ ...user, policy: true }));
-        route.push("/dashboard");
-      });
+    Swal.fire({
+      title:
+        "¿Desea continuar? \n Una vez realizada la acción no podrás volver a los Términos y condiciones.",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Seguir",
+      confirmButtonColor: "#eb1000",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Cookies.set("t&c", true);
+        return setOpened(true);
+      }
+    });
   };
 
   const typeModal = useMemo(() => {
@@ -57,25 +55,15 @@ const terminosycondiciones = () => {
       return (
         <div className="w-full p-10 flex flex-col justify-center gap-10">
           <h2 className="font-medium text-center text-3xl">{t("tyc.title")}</h2>
-          <div className="flex justify-center">
+          {/* <div className="flex justify-center">
             <button
               className="btn btn-primary w-max text-lg"
               onClick={() => setModal(1)}
             >
               {t("tyc.firmar")}
             </button>
-          </div>
+          </div> */}
         </div>
-      );
-    }
-    if (modal === 1) {
-      return (
-        <SignModal
-          setOpened={setOpened}
-          setImageSign={setImageSign}
-          setChecked={setChecked}
-          size={modalSize}
-        />
       );
     }
   }, [modal]);
@@ -96,20 +84,41 @@ const terminosycondiciones = () => {
         className="flex justify-center relative h-screen bg-white"
         style={{ maxWidth: "100%", zIndex: 50, marginTop: "5vh" }}
       >
-        <Modal opened={opened} centered size={modalSize} id="modalterminos">
+        <Modal
+          opened={opened}
+          centered
+          size={modalSize}
+          onClose={() => null}
+          id="modalterminos"
+        >
           {typeModal}
         </Modal>
-        <div className="flex flex-col items-center w-full gap-5">
-          <div className="m-6 flex flex-col gap-16">
+        {!modalAppear && (
+          <div className="flex flex-col items-center w-full gap-5">
+            {/* <div className="m-6 flex flex-col gap-16">
             <div className="flex flex-col gap-5">
               <h1 className="font-bold text-3xl">
                 {t("terminosycondiciones.TerminosyCondiciones")}
               </h1>
             </div>
-          </div>
-          {user?.person[0]?.languageId === 1 ? <Tycpor /> : <Tyces />}
+          </div> */}
+            {user?.person[0]?.languageId === 1 ? (
+              <iframe
+                title="TermsAndContidionsAdobeSign"
+                src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhC7aI-LuferMHhCONPt0QpIJZSCGvLbhKN8k8WfgJKG2DT4iaUuIHTunhYoE9z1fe8*https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhC7aI-LuferMHhCONPt0QpIJZSCGvLbhKN8k8WfgJKG2DT4iaUuIHTunhYoE9z1fe8*"
+                width={1400}
+                height={800}
+              ></iframe>
+            ) : (
+              <iframe
+                title="TermsAndContidionsAdobeSign"
+                src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhC7aI-LuferMHhCONPt0QpIJZSCGvLbhKN8k8WfgJKG2DT4iaUuIHTunhYoE9z1fe8*https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhC7aI-LuferMHhCONPt0QpIJZSCGvLbhKN8k8WfgJKG2DT4iaUuIHTunhYoE9z1fe8*"
+                width={1400}
+                height={800}
+              ></iframe>
+            )}
 
-          <div className="flex flex-col gap-10 items-center">
+            {/* <div className="flex flex-col gap-10 items-center">
             <div className="flex gap-5">
               <input
                 type="checkbox"
@@ -131,8 +140,12 @@ const terminosycondiciones = () => {
                 </button>
               </div>
             )}
+          </div> */}
+            <button className="btn btn-primary btn-lg" onClick={handleSubmit}>
+              {t("terminosycondiciones.bienvenido")}
+            </button>
           </div>
-        </div>
+        )}
       </main>
     </>
   );

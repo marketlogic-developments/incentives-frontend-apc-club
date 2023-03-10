@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import GraphSales from "../components/dashboard/graphSales";
 import GraphProm from "../components/dashboard/graphProm";
 import Swal from "sweetalert2";
+import Cookies from "js-cookie";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
@@ -75,6 +76,9 @@ const dashboard = () => {
   };
 
   useEffect(() => {
+    if (user.policy) {
+      Cookies.remove("t&c");
+    }
     setIsLoaded(true);
   }, []);
 
