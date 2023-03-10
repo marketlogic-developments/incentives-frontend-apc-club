@@ -645,7 +645,7 @@ const Layout = ({ children }) => {
         </svg>
       ),
       iconactive: "",
-      text: "Digipoints",
+      text: "DigiPoints",
     },
     {
       page: "/productos",
