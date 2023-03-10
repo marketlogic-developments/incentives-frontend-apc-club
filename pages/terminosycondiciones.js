@@ -101,6 +101,13 @@ const terminosycondiciones = () => {
               </h1>
             </div>
           </div> */}
+            <div className="flex gap-5 items-center">
+              <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
+                <p className="text-white">1</p>
+              </div>
+              <p>{t("terminosycondiciones.aceptar")}</p>
+            </div>
+
             {user?.person[0]?.languageId === 1 ? (
               <iframe
                 title="TermsAndContidionsAdobeSign"
@@ -138,7 +145,17 @@ const terminosycondiciones = () => {
               </div>
             )}
           </div> */}
-            <button className="btn btn-primary btn-lg" onClick={handleSubmit}>
+            <div className="flex gap-5 items-center">
+              <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
+                <p className="text-white">2</p>
+              </div>
+              <p>{t("terminosycondiciones.click")}</p>
+            </div>
+
+            <button
+              className="btn btn-primary btn-lg mb-5"
+              onClick={handleSubmit}
+            >
               {t("terminosycondiciones.bienvenido")}
             </button>
           </div>
