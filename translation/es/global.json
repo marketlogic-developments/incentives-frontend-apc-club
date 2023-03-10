@@ -58,7 +58,8 @@
     "aceptar": "Aceptar los términos y condiciones del programa",
     "bienvenido": "Siguiente",
     "aceptarBtn": "Aceptar",
-    "deseas": "¿Desea continuar? \n Una vez realizada la acción no podrás volver a los Términos y Condiciones."
+    "deseas": "¿Desea continuar? \n Una vez realizada la acción no podrás volver a los Términos y Condiciones.",
+    "click": "Dale click al botón para seguir con el proceso."
   },
   "adobeMarket": {
     "estado": "Ver el estado de tus premios",

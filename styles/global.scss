@@ -295,5 +295,8 @@
 
   @include desktop-xl {
     height: 100%;
+    input {
+      font-size: 12px !important;
+    }
   }
 }
