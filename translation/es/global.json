@@ -10,7 +10,7 @@
   },
 
   "tyc": {
-    "title": "Acepta los Términos y Condiciones \n del programa APC Club FY23",
+    "title": "El proceso de habilitación de tu usuario será completado en un lapso de 24 horas, te llegará notificación a tu correo electrónico para realizar el ingreso a la plataforma",
     "firmar": "firmar",
     "borrar": "Limpiar"
   },
@@ -56,7 +56,10 @@
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
     "aceptar": "Aceptar los términos y condiciones del programa",
-    "bienvenido": "¡Entrar!"
+    "bienvenido": "Siguiente",
+    "aceptarBtn": "Aceptar",
+    "deseas": "¿Deseas continuar? \n Una vez realices esta acción no podrás volver a los Términos y Condiciones",
+    "click": "Dale click al botón para seguir con el proceso."
   },
   "adobeMarket": {
     "estado": "Ver el estado de tus premios",

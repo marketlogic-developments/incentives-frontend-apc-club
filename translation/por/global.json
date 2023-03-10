@@ -10,7 +10,7 @@
   },
 
   "tyc": {
-    "title": "Aceite os termos e condições \n para fazer parte do clube APC",
+    "title": "O processo de habilitação do seu usuário será concluído em até 24 horas após você assinar e aprovar os termos e condições",
     "firmar": "assinar",
     "borrar": "Borrão"
   },
@@ -56,7 +56,10 @@
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",
     "aceptar": "Aceitar os termos e condições do programa",
-    "bienvenido": "Entrar"
+    "bienvenido": "Seguindo",
+    "aceptarBtn": "Aceitar",
+    "deseas": "Você deseja continuar? \n Uma vez realizada a ação, você não poderá retornar aos Termos e Condições.",
+    "click": "Clique no botão para continuar com o processo."
   },
   "adobeMarket": {
     "estado": "Veja o status de seus produtos",
