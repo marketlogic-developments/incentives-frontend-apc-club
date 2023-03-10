@@ -86,8 +86,12 @@ const terminosycondiciones = () => {
           id="modalterminos"
         >
           <div className="w-full p-10 flex flex-col justify-center gap-10">
-            <h2 className="font-medium text-center text-3xl">
-              {t("tyc.title")}
+            <h2 className="font-medium text-center text-2xl">
+              {t("tyc.title1")}
+            </h2>
+
+            <h2 className="font-medium text-center text-2xl">
+              {t("tyc.title2")}
             </h2>
             <div className="flex justify-center">
               <button

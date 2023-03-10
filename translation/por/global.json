@@ -10,7 +10,8 @@
   },
 
   "tyc": {
-    "title": "O processo de habilitação do seu usuário será concluído em até 24 horas após você assinar e aprovar os termos e condições",
+    "title1": "O processo de habilitação do seu usuário será concluído em até 24 horas após você assinar e aprovar os termos e condições",
+    "title2": "O processo de habilitação do seu usuário será concluído em até 24 horas após você assinar e aprovar os termos e condições",
     "firmar": "assinar",
     "borrar": "Borrão"
   },
@@ -51,7 +52,8 @@
     "vDC": "Vendas de",
     "mvCC": "Minhas Vendas",
     "mvDC": "Minhas Vendas",
-    "redimir": "RESGATAR"
+    "redimir": "RESGATAR",
+    "dpObtenidos": "DigiPoints Ganhos"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",
@@ -78,7 +80,8 @@
     "historicos": "Históricos",
     "actuales": "Atuais",
     "txthistoricos": "Estes são os DigiPoints acumulados que você recebeu durante o ano fiscal de 23",
-    "txtdias": "0 dias atrás",
+    "txtdias1": "",
+    "txtdias2": " dias atrás",
     "txtredencion": "Foi sua última redenção",
     "txtactuales": "Estes são os DigiPoints que você tem disponíveis para o resgate",
     "redencion": "Tipo de redenção",
@@ -125,8 +128,8 @@
     "estado": "ESTATUS",
     "agregarP": "Adicionar participante",
     "ordenarFecha": "Ordenar por data",
-    "recienteA": "Recente / Antigos",
-    "antiguoR": "Antigo / Recente",
+    "recienteA": "Recentes / Antigos",
+    "antiguoR": "Antigos / Recentes",
     "filtrarVenta": "Filtrar por tipo de venda",
     "buscarFactura": "Pesquisar por nota fiscal",
     "buscarEmail": "Pesquisar por e-mail",
