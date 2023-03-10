@@ -288,3 +288,12 @@
     }
   }
 }
+
+.iframeTandC {
+  width: 80%;
+  height: 82%;
+
+  @include desktop-xl {
+    height: 100%;
+  }
+}
