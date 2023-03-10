@@ -177,4 +177,13 @@ const userscreatefunctionFor = () => {
   );
 };
 
+export async function getStaticProps(context) {
+  return {
+    props: {
+      protected: true,
+      userTypes: [1],
+    },
+  };
+}
+
 export default userscreatefunctionFor;
