@@ -38,7 +38,9 @@ const GraphSales = () => {
                       </div>
                     </div>
                     <div className="flip-card-back-Graph text-xs text-black">
-                      <p className="text-primary">Digipoints Obtenidos:</p>
+                      <p className="text-primary">
+                        {t("dashboard.dpObtenidos")}:
+                      </p>
                       <p>0</p>
                     </div>
                   </div>
@@ -86,7 +88,9 @@ const GraphSales = () => {
                       <p className="text-black">$0</p>
                     </div>
                     <div className="flip-card-back-Graph text-xs text-black">
-                      <p className="text-primary">Digipoints Obtenidos:</p>
+                      <p className="text-primary">
+                        {t("dashboard.dpObtenidos")}:
+                      </p>
                       <p>0</p>
                     </div>
                   </div>
@@ -132,7 +136,9 @@ const GraphSales = () => {
                       </div>
                     </div>
                     <div className="flip-card-back-Graph text-xs text-black">
-                      <p className="text-primary">Digipoints Obtenidos:</p>
+                      <p className="text-primary">
+                        {t("dashboard.dpObtenidos")}:
+                      </p>
                       <p>0</p>
                     </div>
                   </div>
@@ -178,7 +184,9 @@ const GraphSales = () => {
                       <p className="text-black">$0</p>
                     </div>
                     <div className="flip-card-back-Graph text-xs text-black">
-                      <p className="text-primary">Digipoints Obtenidos:</p>
+                      <p className="text-primary">
+                        {t("dashboard.dpObtenidos")}:
+                      </p>
                       <p>0</p>
                     </div>
                   </div>

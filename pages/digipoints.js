@@ -101,7 +101,11 @@ const digipoints = () => {
                   <p>{t("digipoints.Dredimidos")}</p>
                 </div>
                 <div class="flip-card-back">
-                  <p class="title">{t("digipoints.txtdias")}</p>
+                  <p class="title">
+                    {t("digipoints.txtdias1")}
+                    {0}
+                    {t("digipoints.txtdias2")}
+                  </p>
                   <p>{t("digipoints.txtredencion")}</p>
                 </div>
               </div>
@@ -167,7 +171,7 @@ const digipoints = () => {
                         DigiPoints
                       </th>
                       <th scope="col" className="py-3 px-6">
-                        {t("No. de Sillas")}
+                        {t("tabla.sillas")}
                       </th>
                       <th scope="col" className="py-3 px-6">
                         {t("tabla.fecha")}

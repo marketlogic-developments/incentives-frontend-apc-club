@@ -10,7 +10,8 @@
   },
 
   "tyc": {
-    "title": "El proceso de habilitación de tu usuario será completado en un lapso de 24 horas, te llegará notificación a tu correo electrónico para realizar el ingreso a la plataforma",
+    "title1": "Gracias, estamos procesando la activación de tu usuario, en un plazo de 24 horas recibirás un correo electrónico con la notificación para que puedas acceder a la plataforma.",
+    "title2": "Si en 24 horas no la has recibido, puedes escribirnos a info@adobepcclub.net para verificar el estado de tu solicitud.",
     "firmar": "firmar",
     "borrar": "Limpiar"
   },
@@ -19,13 +20,12 @@
     "Dashboard": "Dashboard",
     "Participantes": "Participantes",
     "Puntos_por_ventas": "Puntos por ventas",
-    "Reportes": "Mis Reportes",
+    "Reportes": "Mis reportes",
     "Digipoints": "Mis DigiPoints",
     "DDigipoints": "Distribución DigiPoints",
-    "Productos": "Productos Participantes",
-    "Premios": "Mis Premios",
-    "Carga_de_Ventas": "Carga de Ventas",
-    "Adobe Market": "Adobe Market",
+    "Productos": "Productos participantes",
+    "Premios": "Mis premios",
+    "Carga_de_Ventas": "Carga de ventas",
     "salir": "Salir",
     "catalogo": "Catálogo de premios"
   },
@@ -39,7 +39,7 @@
     "verpass": "Ver contraseña",
     "cambiarpass": "Cambiar contraseña",
     "podio": "Podio del",
-    "enApc": "¡En el APC Club, reconocemos tu esfuerzo!",
+    "enApc": "¡En el APC Club reconocemos tu esfuerzo!",
     "ventas": "ventas",
     "conoce": "Conoce el detalle",
     "ranking": "ranking",
@@ -51,7 +51,8 @@
     "vCC": "Ventas",
     "vDC": "Ventas",
     "mvCC": "Mis ventas",
-    "mvDC": "Mis ventas"
+    "mvDC": "Mis ventas",
+    "dpObtenidos": "DigiPoints Obtenidos"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
@@ -59,7 +60,7 @@
     "bienvenido": "Siguiente",
     "aceptarBtn": "Aceptar",
     "deseas": "¿Deseas continuar? \n Una vez realices esta acción no podrás volver a los Términos y Condiciones",
-    "click": "Dale click al botón para seguir con el proceso."
+    "click": "Dale clic al botón para seguir con el proceso."
   },
   "adobeMarket": {
     "estado": "Ver el estado de tus premios",
@@ -77,7 +78,8 @@
     "historicos": "Históricos",
     "actuales": "Actuales",
     "txthistoricos": "Este es el acumulado de DigiPoints que has recibido durante el FY23",
-    "txtdias": "Hace 0 días",
+    "txtdias1": "Hace ",
+    "txtdias2": " días",
     "txtredencion": "Fue tu última redención",
     "txtactuales": "Estos son los DigiPoints que tienes disponibles para redimir",
     "redencion": "Tipo de redención",
@@ -124,7 +126,7 @@
     "agregarP": "Agregar participante",
     "ordenarFecha": "Ordenar por fecha",
     "recienteA": "Reciente / Antiguo",
-    "antiguoR": "Antiguo /Reciente",
+    "antiguoR": "Antiguo / Reciente",
     "filtrarVenta": "Filtrar por tipo de venta",
     "buscarFactura": "Buscar por factura",
     "buscarSku": "Buscar por SKU",
@@ -137,7 +139,8 @@
     "fecha": "Fecha",
     "cantidad": "cantidad",
     "asignar": "Asignar",
-    "nomParticipantes": "NOMBRE DEL PARTICIPANTE"
+    "nomParticipantes": "NOMBRE DEL PARTICIPANTE",
+    "sillas": "No. de sillas"
   },
   "shoopingcar": {
     "carrito": "Carrito",
@@ -151,7 +154,7 @@
     "notienes": "Aún no tienes artículos en tu carrito de compras"
   },
   "estadoProducto": {
-    "estado": "Estado de Tus Premios"
+    "estado": "Estado de tus premios"
   },
   "redenciones": {
     "idOrden": "ID de la orden",
