@@ -116,8 +116,9 @@ const dashboard = () => {
               <button
                 className="btn btn-primary buttonResponsive"
                 onClick={() => {
-                  setModalType(1);
-                  setOpened(true);
+                  // setModalType(1);
+                  // setOpened(true);
+                  setOpened2(true);
                 }}
               >
                 {t("dashboard.conoce")}
@@ -139,8 +140,9 @@ const dashboard = () => {
         <figure
           className="w-full flex justify-center"
           onClick={() => {
-            setModalType(2);
-            setOpened(true);
+            // setModalType(2);
+            // setOpened(true);
+            setOpened2(true);
           }}
         >
           {i18n.resolvedLanguage === "por" ? (
@@ -279,7 +281,10 @@ const dashboard = () => {
             className={`btn btn-xs ${
               typeHeader === 0 ? "btn-primary" : "btn-accent"
             }`}
-            onClick={() => setTypeHeader(0)}
+            onClick={() => {
+              // setTypeHeader(0)
+              setOpened2(true);
+            }}
           >
             {t("dashboard.ranking")}
           </button>
@@ -287,7 +292,10 @@ const dashboard = () => {
             className={`btn ${
               typeHeader === 1 ? "btn-primary" : "btn-accent"
             } btn-xs`}
-            onClick={() => setTypeHeader(1)}
+            onClick={() => {
+              // setTypeHeader(1)
+              setOpened2(true);
+            }}
           >
             {t("dashboard.promociones")}
           </button>
@@ -295,7 +303,10 @@ const dashboard = () => {
             className={`btn ${
               typeHeader === 2 ? "btn-primary" : "btn-accent"
             } btn-xs`}
-            onClick={() => setTypeHeader(2)}
+            onClick={() => {
+              // setTypeHeader(2)
+              setOpened2(true);
+            }}
           >
             {t("dashboard.htw")}
           </button>
@@ -358,7 +369,7 @@ const dashboard = () => {
             </div>
             <div className="flex items-center w-4/12 max-sm:w-full justify-center gap-10">
               <div className="flex flex-col gap-5">
-                <p className="font-semibold text-center">Parnert Goal:</p>
+                <p className="font-semibold text-center">Partner Goal:</p>
                 <p className="text-center font-bold text-3xl">{`${0}`}</p>
               </div>
               <div className="h-full w-min">
