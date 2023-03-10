@@ -36,11 +36,10 @@ const terminosycondiciones = () => {
 
   const handleSubmit = () => {
     Swal.fire({
-      title:
-        "¿Desea continuar? \n Una vez realizada la acción no podrás volver a los Términos y condiciones.",
+      title: t("terminosycondiciones.deseas"),
       showCancelButton: true,
       cancelButtonText: "Cancelar",
-      confirmButtonText: "Seguir",
+      confirmButtonText: t("terminosycondiciones.aceptarBtn"),
       confirmButtonColor: "#eb1000",
     }).then((result) => {
       if (result.isConfirmed) {
@@ -106,15 +105,13 @@ const terminosycondiciones = () => {
               <iframe
                 title="TermsAndContidionsAdobeSign"
                 src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhC7aI-LuferMHhCONPt0QpIJZSCGvLbhKN8k8WfgJKG2DT4iaUuIHTunhYoE9z1fe8*https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhC7aI-LuferMHhCONPt0QpIJZSCGvLbhKN8k8WfgJKG2DT4iaUuIHTunhYoE9z1fe8*"
-                width={1400}
-                height={800}
+                className="iframeTandC"
               ></iframe>
             ) : (
               <iframe
                 title="TermsAndContidionsAdobeSign"
                 src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhC7aI-LuferMHhCONPt0QpIJZSCGvLbhKN8k8WfgJKG2DT4iaUuIHTunhYoE9z1fe8*https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhC7aI-LuferMHhCONPt0QpIJZSCGvLbhKN8k8WfgJKG2DT4iaUuIHTunhYoE9z1fe8*"
-                width={1400}
-                height={800}
+                className="iframeTandC"
               ></iframe>
             )}
 
