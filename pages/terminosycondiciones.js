@@ -1,5 +1,5 @@
 import { Modal } from "@mantine/core";
-import axios from "axios";
+import axios, { Axios } from "axios";
 import Cookies from "js-cookie";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -10,17 +10,17 @@ import Swal from "sweetalert2";
 import { SignModal } from "../components/terminosycondiciones/Canvas";
 import Tyces from "../components/terminosycondiciones/tyces";
 import Tycpor from "../components/terminosycondiciones/tycpor";
-import { policyAndPassword } from "../store/reducers/users.reducer";
+import { policyAndPassword, userLogin } from "../store/reducers/users.reducer";
 
 const terminosycondiciones = () => {
   const [checked, setChecked] = useState(false);
   const route = useRouter();
   const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
   const [modal, setModal] = useState(0);
   const [imageSign, setImageSign] = useState(null);
-  const modalAppear = Cookies.get("t&c");
 
   const [opened, setOpened] = useState(false);
 
@@ -29,10 +29,12 @@ const terminosycondiciones = () => {
       return route.push("/dashboard");
     }
 
-    if (modalAppear) {
+    if (user?.cpf === "active") {
       return setOpened(true);
     }
   }, []);
+
+  console.log(user);
 
   const handleSubmit = () => {
     Swal.fire({
@@ -43,8 +45,21 @@ const terminosycondiciones = () => {
       confirmButtonColor: "#eb1000",
     }).then((result) => {
       if (result.isConfirmed) {
-        Cookies.set("t&c", true);
-        return setOpened(true);
+        axios
+          .patch(
+            `${process.env.BACKURL}/users/${user?.id}`,
+            { cpf: "active" },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then(() => {
+            dispatch(userLogin({ ...user, cpf: "active" }));
+            return setOpened(true);
+          });
       }
     });
   };
@@ -54,14 +69,17 @@ const terminosycondiciones = () => {
       return (
         <div className="w-full p-10 flex flex-col justify-center gap-10">
           <h2 className="font-medium text-center text-3xl">{t("tyc.title")}</h2>
-          {/* <div className="flex justify-center">
+          <div className="flex justify-center">
             <button
               className="btn btn-primary w-max text-lg"
-              onClick={() => setModal(1)}
+              onClick={() => {
+                Cookies.remove("infoDt");
+                route.push("/");
+              }}
             >
-              {t("tyc.firmar")}
+              {t("menu.salir")}
             </button>
-          </div> */}
+          </div>
         </div>
       );
     }
@@ -92,7 +110,7 @@ const terminosycondiciones = () => {
         >
           {typeModal}
         </Modal>
-        {!modalAppear && (
+        {user?.cpf !== "active" && (
           <div className="flex flex-col items-center w-full gap-5">
             {/* <div className="m-6 flex flex-col gap-16">
             <div className="flex flex-col gap-5">
