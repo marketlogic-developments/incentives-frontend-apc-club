@@ -34,8 +34,6 @@ const terminosycondiciones = () => {
     }
   }, []);
 
-  console.log(user);
-
   const handleSubmit = () => {
     Swal.fire({
       title: t("terminosycondiciones.deseas"),
@@ -64,27 +62,6 @@ const terminosycondiciones = () => {
     });
   };
 
-  const typeModal = useMemo(() => {
-    if (modal === 0) {
-      return (
-        <div className="w-full p-10 flex flex-col justify-center gap-10">
-          <h2 className="font-medium text-center text-3xl">{t("tyc.title")}</h2>
-          <div className="flex justify-center">
-            <button
-              className="btn btn-primary w-max text-lg"
-              onClick={() => {
-                Cookies.remove("infoDt");
-                route.push("/");
-              }}
-            >
-              {t("menu.salir")}
-            </button>
-          </div>
-        </div>
-      );
-    }
-  }, [modal]);
-
   const isMobile = window.innerWidth <= 768;
 
   const modalSize = isMobile
@@ -108,7 +85,22 @@ const terminosycondiciones = () => {
           onClose={() => null}
           id="modalterminos"
         >
-          {typeModal}
+          <div className="w-full p-10 flex flex-col justify-center gap-10">
+            <h2 className="font-medium text-center text-3xl">
+              {t("tyc.title")}
+            </h2>
+            <div className="flex justify-center">
+              <button
+                className="btn btn-primary w-max text-lg"
+                onClick={() => {
+                  Cookies.remove("infoDt");
+                  route.push("/");
+                }}
+              >
+                {t("menu.salir")}
+              </button>
+            </div>
+          </div>
         </Modal>
         {user?.cpf !== "active" && (
           <div className="flex flex-col items-center w-full gap-5">
