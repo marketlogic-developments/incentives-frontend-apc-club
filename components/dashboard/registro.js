@@ -1,8 +1,9 @@
+import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const Registro = ({ close }) => {
+const Registro = ({ close, register }) => {
   const [t, i18n] = useTranslation("global");
   const [formData, setFormData] = useState({
     name: "",
@@ -14,6 +15,16 @@ const Registro = ({ close }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    axios
+      .post("https://hooks.zapier.com/hooks/catch/666990/3bgdttq/", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   const handleChange = (e) => {
@@ -24,27 +35,37 @@ const Registro = ({ close }) => {
   };
 
   return (
-    <div className="bg-base-100 h-screen w-[50%] absolute z-50 right-0 rounded-l-3xl register border-l-2 border-primary shadow-3xl px-10 py-10 flex flex-col items-center">
-      <div className="w-full">
-        <button onClick={() => close(false)}>
-          <svg
-            width="46"
-            height="46"
-            fill="none"
-            stroke="#cccccc"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="m18.75 5.25-13.5 13.5"></path>
-            <path d="M18.75 18.75 5.25 5.25"></path>
-          </svg>
-        </button>
-      </div>
+    <div
+      className={`bg-base-100 h-screen w-[50%] absolute z-50 right-0 rounded-l-3xl ${
+        register ? "register" : "registerDisappear"
+      } border-l-2 border-primary shadow-3xl px-10 py-10 flex flex-col items-center registerGlobal`}
+    >
+      {register && (
+        <div className="w-full">
+          <button onClick={() => close(false)}>
+            <svg
+              width="46"
+              height="46"
+              fill="none"
+              stroke="#cccccc"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="m18.75 5.25-13.5 13.5"></path>
+              <path d="M18.75 18.75 5.25 5.25"></path>
+            </svg>
+          </button>
+        </div>
+      )}
 
-      <div className="h-full flex items-center registerForm w-full">
+      <div
+        className={`h-full flex items-center ${
+          register ? "registerForm" : "registerFormDis"
+        } w-full`}
+      >
         <div
           className="card w-full text-primary-content margin-auto"
           id="cardLogin"
@@ -67,6 +88,7 @@ const Registro = ({ close }) => {
               >
                 <div className="w-full">
                   <label className="label flex flex-col w-full items-start">
+                    Nombre Completo
                     <input
                       required
                       type="text"
@@ -77,6 +99,7 @@ const Registro = ({ close }) => {
                     />
                   </label>
                   <label className="label flex flex-col w-full items-start">
+                    Email
                     <input
                       required
                       type="email"
@@ -87,6 +110,7 @@ const Registro = ({ close }) => {
                     />
                   </label>
                   <label className="label flex flex-col w-full items-start">
+                    Número telefónico
                     <input
                       type="number"
                       minLength={6}
@@ -98,6 +122,7 @@ const Registro = ({ close }) => {
                     />
                   </label>
                   <label className="label flex flex-col w-full items-start">
+                    Nombre de la compañía
                     <input
                       required
                       type="text"
@@ -108,6 +133,7 @@ const Registro = ({ close }) => {
                     />
                   </label>
                   <label className="label flex flex-col w-full items-start">
+                    Escribe tu comentario (opcional)
                     <textarea
                       type="text"
                       placeholder="Escribe un mensaje..."

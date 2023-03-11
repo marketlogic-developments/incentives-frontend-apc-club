@@ -153,6 +153,17 @@ div#modalterminos .mantine-Modal-modal {
   }
 }
 
+.registerGlobal {
+  label {
+    color: $blueColor;
+    font-weight: bold;
+    input,
+    textarea {
+      font-weight: 400;
+    }
+  }
+}
+
 .register {
   width: 0;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -165,6 +176,20 @@ div#modalterminos .mantine-Modal-modal {
     animation-name: appear;
     animation-delay: 1s;
     animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+}
+
+.registerDisappear {
+  width: 50%;
+  animation-name: registerAnimationDisappear;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+
+  .registerFormDis {
+    opacity: 1;
+    animation-name: disappear;
+    animation-duration: 0.1s;
     animation-fill-mode: forwards;
   }
 }

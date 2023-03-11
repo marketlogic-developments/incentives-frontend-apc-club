@@ -66,13 +66,33 @@
 }
 
 @keyframes registerAnimation {
+  from {
+    width: 0%;
+    padding: 0;
+  }
+
   to {
+    padding: 40px;
     width: 50%;
+  }
+}
+
+@keyframes registerAnimationDisappear {
+  to {
+    width: 0;
+    padding: 0;
   }
 }
 
 @keyframes appear {
   to {
     opacity: 1;
+  }
+}
+
+@keyframes disappear {
+  to {
+    opacity: 0;
+    width: 0;
   }
 }

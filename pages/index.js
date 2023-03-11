@@ -134,8 +134,8 @@ export default function Home() {
             <img src="assets/login/pcc.png" className="max-w-[400px]" />
           </figure>
         </div>
-        <div className="container flex flex-col justify-center items-center h-screen w-full max-w-full">
-          <div className="flex items-center max-sm:justify-start max-sm:flex-col justify-center w-full max-sm:w-full h-[90%] relative containerLogin">
+        <div className="container flex flex-col justify-center items-center h-screen w-full max-w-full relative">
+          <div className="flex items-center max-sm:justify-start max-sm:flex-col justify-center w-full max-sm:w-full h-[90%] containerLogin">
             <div className="w-fit h-full max-sm:h-auto max-sm:mb-5 flex justify-center items-center ">
               <figure id="apcLogo">
                 <img
@@ -144,7 +144,7 @@ export default function Home() {
                 />
               </figure>
             </div>
-            {register && <Registro close={setRegister} />}
+            <Registro close={setRegister} register={register} />
             <div className="gap-5 flex flex-col containerCard">
               <div
                 className="card w-[35rem] text-primary-content"
