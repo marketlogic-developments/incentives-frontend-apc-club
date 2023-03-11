@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import Recovery from "../components/dashboard/recovery";
 import Swal from "sweetalert2";
+import Registro from "../components/dashboard/registro";
 
 export default function Home() {
   const [t, i18n] = useTranslation("global");
@@ -24,6 +25,7 @@ export default function Home() {
   const route = useRouter();
 
   const [opened, setOpened] = useState(false);
+  const [register, setRegister] = useState(false);
 
   const listRedirect = ["bcrservicos.com.br", "bcrcx.com"];
 
@@ -122,7 +124,7 @@ export default function Home() {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      <main className="mainIndex bg-primary flex flex-col w-full z-50 relative">
+      <main className="mainIndex bg-primary flex flex-col w-full z-50 relative overflow-x-hidden">
         <Recovery opened={opened} setOpened={setOpened} t={t} />
         <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] flex absolute w-full justify-between mt-10">
           <figure className="ml-10">
@@ -142,6 +144,7 @@ export default function Home() {
                 />
               </figure>
             </div>
+            {register && <Registro close={setRegister} />}
             <div className="gap-5 flex flex-col containerCard">
               <div
                 className="card w-[35rem] text-primary-content"
@@ -195,7 +198,7 @@ export default function Home() {
                         {t("login.continuar")}
                       </button>
                     </form>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                       <div className="flex items-center justify-between w-full none">
                         <p
                           className="text-secondary text-center underline decoration-solid cursor-pointer"
@@ -204,14 +207,15 @@ export default function Home() {
                           {t("login.¿Has_olvidado_la_contraseña?")}
                         </p>
                       </div>
-                      <div className="w-1/2 flex flex-col justify-center items-center text-secondary none">
+                      <div className="w-full flex flex-col justify-center items-center text-secondary">
                         <p className="text-center">
                           ¿Quieres unirte a APC Club?
                         </p>
-                        <p className="underline decoration-solid cursor-pointer">
-                          <Link href={"/registro"}>
-                            <strong>Regístrate Aquí</strong>
-                          </Link>
+                        <p
+                          className="underline decoration-solid cursor-pointer font-bold"
+                          onClick={() => setRegister(true)}
+                        >
+                          Regístrate Aquí
                         </p>
                       </div>
                     </div>
