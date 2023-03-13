@@ -77,12 +77,12 @@
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
-    "aceptar": "Lee y acepta los términos y condiciones del programa y haz clic en la bandera de Inicio.",
+    "aceptar": "Lee y acepta los términos y condiciones del programa y haz clic en la bandera de Inicio, y llena la información.",
     "aprobar": "Aprobar",
     "bienvenido": "Siguiente",
     "aceptarBtn": "Aceptar",
     "deseas": "¿Deseas continuar? \n Una vez realices esta acción no podrás volver a los Términos y Condiciones",
-    "click": "Haz clic al botón Siguiente para continuar con el proceso."
+    "click": "Si ya aceptaste los Términos y Condiciones, haz clic en el botón siguiente para continuar con el proceso."
   },
   "adobeMarket": {
     "estado": "Ver el estado de tus premios",
