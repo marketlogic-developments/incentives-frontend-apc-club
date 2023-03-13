@@ -77,7 +77,7 @@ const terminosycondiciones = () => {
         <Modal
           opened={opened}
           centered
-          size={modalSize}
+          size={"80%"}
           onClose={() => null}
           id="modalterminos"
         >
