@@ -375,14 +375,12 @@ export default function Home() {
                       </div>
                       <div className="border-separate border border-[#00405d] w-full mt-4 mb-4"></div>
                       <div className="w-full flex flex-col justify-center items-center text-secondary">
-                        <p className="text-center">
-                          ¿Quieres unirte a APC Club?
-                        </p>
+                        <p className="text-center">{t("login.registro")}</p>
                         <p
                           className="underline decoration-solid cursor-pointer font-bold"
                           onClick={() => setRegister(true)}
                         >
-                          Regístrate Aquí
+                          {t("login.linkRegistro")}
                         </p>
                       </div>
                     </div>
