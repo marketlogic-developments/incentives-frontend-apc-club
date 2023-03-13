@@ -125,7 +125,7 @@ const Registro = ({ close, register }) => {
                   className="card-title text-black font-bold max-sm:text-center py-5 w-full justify-center"
                   style={{ color: "#00405d", fontSize: "2.00rem" }}
                 >
-                  Registrate
+                  Regístrate
                 </h1>
               </div>
             </div>

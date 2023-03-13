@@ -29,8 +29,10 @@
   },
 
   "tyc": {
-    "title1": "Gracias, estamos procesando la activación de tu usuario, en un plazo de 24 horas recibirás un correo electrónico con la notificación para que puedas acceder a la plataforma.",
-    "title2": "Si en 24 horas no la has recibido, puedes escribirnos a info@adobepcclub.com para verificar el estado de tu solicitud.",
+    "title1": "¡Gracias! \n Te hemos enviado un vínculo por correo electrónico para verificar tu identidad.",
+    "title12": "Debes confirmar que eres tú para continuar con la aprobación de los Términos y Condiciones del APC Club. Si no completas este paso, no podremos aceptar tu aprobación.",
+    "title2": "Estamos procesando la activación de tu usuario, en un plazo de 24 horas recibirás un correo electrónico con la notificación para que puedas acceder a la plataforma.",
+    "title3": "Si en 24 horas no la has recibido, puedes escribirnos a info@adobepcclub.com para verificar el estado de tu solicitud.",
     "firmar": "firmar",
     "borrar": "Limpiar"
   },
@@ -75,7 +77,8 @@
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
-    "aceptar": "Aceptar los términos y condiciones del programa",
+    "aceptar": "Acepta los términos y condiciones del programa y haz clic en el botón:",
+    "aprobar": "Aprobar",
     "bienvenido": "Siguiente",
     "aceptarBtn": "Aceptar",
     "deseas": "¿Deseas continuar? \n Una vez realices esta acción no podrás volver a los Términos y Condiciones",
