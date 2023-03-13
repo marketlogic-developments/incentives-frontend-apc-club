@@ -22,19 +22,17 @@ const Registro = ({ close, register }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     const formData = new FormData();
-  
+
     formData.append("First_Name", firstname);
     formData.append("Email", email);
     formData.append("Phone", phone);
     formData.append("Company", company);
     formData.append("textArea", textarea);
-  
-    axios.post(
-      "https://hooks.zapier.com/hooks/catch/666990/3bgdttq/",
-      formData
-    )
+
+    axios
+      .post("https://hooks.zapier.com/hooks/catch/666990/3bgdttq/", formData)
       .then(() => {
         setFirstname("");
         setCompany("");
@@ -80,7 +78,6 @@ const Registro = ({ close, register }) => {
       });
   };
 
-
   const handleChange = (e) => {
     return setFormData({
       ...formData,
@@ -90,8 +87,9 @@ const Registro = ({ close, register }) => {
 
   return (
     <div
-      className={`bg-base-100 h-screen max-sm:h-full w-[50%] max-sm:w-full absolute z-50 right-0 rounded-l-3xl ${register ? "register" : "registerDisappear"
-        } border-l-2 max-sm:rounded-none border-primary shadow-3xl px-10 py-10 flex flex-col max-sm:items-start items-center registerGlobal`}
+      className={`bg-base-100 h-screen max-sm:h-full w-[50%] max-sm:w-full absolute z-50 right-0 rounded-l-3xl opacity-0 ${
+        register ? "register" : "registerDisappear"
+      } border-l-2 max-sm:rounded-none border-primary shadow-3xl px-10 py-10 flex flex-col max-sm:items-start items-center registerGlobal`}
     >
       {register && (
         <div className="w-full">
@@ -115,8 +113,9 @@ const Registro = ({ close, register }) => {
       )}
 
       <div
-        className={`h-full flex items-center ${register ? "registerForm" : "registerFormDis"
-          } w-full`}
+        className={`h-full flex items-center ${
+          register ? "registerForm" : "registerFormDis"
+        } w-full`}
       >
         <div
           className="card w-full text-primary-content margin-auto"

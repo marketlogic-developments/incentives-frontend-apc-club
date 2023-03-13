@@ -226,7 +226,12 @@ export default function Home() {
   return (
     <>
       {showPopup && (
-        <Modal opened={showPopup} onClose={() => setShowPopup(false)} centered size={"50%"}>
+        <Modal
+          opened={showPopup}
+          onClose={() => setShowPopup(false)}
+          centered
+          size={"50%"}
+        >
           <div className="flex flex-col w-full items-center text-center gap-10">
             <p className="text-3xl text-primary">{t("dashboard.bienvenido")}</p>
             <p className="text-xl">{t("dashboard.continuar")}</p>
@@ -285,7 +290,7 @@ export default function Home() {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      <main className="mainIndex bg-primary flex flex-col w-full z-50 relative overflow-x-hidden">
+      <main className="mainIndex bg-primary flex flex-col w-full z-50 relative overflow-x-hidden overflow-y-hidden">
         <Recovery opened={opened} setOpened={setOpened} t={t} />
         <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] flex absolute w-full justify-between mt-10">
           <figure className="ml-10">
