@@ -118,9 +118,6 @@ const terminosycondiciones = () => {
                 <p className="text-white">1</p>
               </div>
               <p>{t("terminosycondiciones.aceptar")}</p>
-              <button className="buttonSign">
-                {t("terminosycondiciones.aprobar")}
-              </button>
             </div>
 
             {user?.person[0]?.languageId === 1 ? (
