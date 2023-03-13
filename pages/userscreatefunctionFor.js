@@ -111,14 +111,17 @@ const userscreatefunctionFor = () => {
       }
     });
   };
+
   const handleSubmit2 = (e) => {
     e.preventDefault();
 
     const usersEmailFile = jsonData2.map((data) => data.email);
-    const usersEmailData = users.map((data) => ({
-      email: data.email,
-      id: data.id,
-    }));
+    const usersEmailData = users
+      .filter((data) => data.policy === false)
+      .map((data) => ({
+        email: data.email,
+        id: data.id,
+      }));
 
     const usersMatch = usersEmailData.filter((data) =>
       usersEmailFile.includes(data.email)
