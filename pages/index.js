@@ -26,7 +26,7 @@ export default function Home() {
   const route = useRouter();
 
   const [opened, setOpened] = useState(false);
-  const [register, setRegister] = useState(false);
+  const [register, setRegister] = useState(null);
 
   const listRedirect = ["bcrservicos.com.br", "bcrcx.com"];
   const [open, setOpen] = useState("");

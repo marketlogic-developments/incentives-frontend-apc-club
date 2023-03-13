@@ -179,13 +179,13 @@ div#modalterminos .mantine-Modal-modal {
 .registerDisappear {
   width: 50%;
   animation-name: registerAnimationDisappear;
-  animation-duration: 1s;
+  animation-duration: 0.3s;
   animation-fill-mode: forwards;
 
   .registerFormDis {
     opacity: 1;
     animation-name: disappear;
-    animation-duration: 0.1s;
+    animation-duration: 0.01s;
     animation-fill-mode: forwards;
   }
 }
