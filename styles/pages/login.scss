@@ -54,6 +54,10 @@
 
       .internalCard {
         padding: 1rem 2rem 1rem 2rem;
+
+        @include desktop-l {
+          padding: 0.8rem 3rem;
+        }
       }
     }
 

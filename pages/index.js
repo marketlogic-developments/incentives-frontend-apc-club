@@ -72,7 +72,7 @@ export default function Home() {
             id: res.data.user.id,
             roleId: res.data.user.roleId,
           }),
-          { expires: 365 }
+          { expires: 1 / 24 }
         );
         dispatch(userLogin(res.data.user));
         dispatch(userToken(res.data.token));
@@ -291,9 +291,10 @@ export default function Home() {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      <main className="mainIndex bg-primary flex flex-col w-full z-50 relative overflow-x-hidden overflow-y-hidden">
+      <main className="mainIndex bg-primary flex flex-col w-full z-50 relative overflow-x-hidden overflow-y-hidden h-screen 2xl:gap-16 xl:gap-1">
         <Recovery opened={opened} setOpened={setOpened} t={t} />
-        <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] flex absolute w-full justify-between mt-10">
+        <Registro close={setRegister} register={register} />
+        <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] flex w-full justify-between mt-10">
           <figure className="ml-10">
             <img src="assets/login/adobe.png" className="max-w-[250px]" />
           </figure>
@@ -301,7 +302,7 @@ export default function Home() {
             <img src="assets/login/pcc.png" className="max-w-[400px]" />
           </figure>
         </div>
-        <div className="container flex flex-col justify-center items-center h-screen w-full max-w-full relative">
+        <div className="container flex flex-col justify-center items-center w-full max-w-full relative">
           <div className="flex items-center max-sm:justify-start max-sm:flex-col justify-center w-full max-sm:w-full h-[90%] containerLogin">
             <div className="w-fit h-full max-sm:h-auto max-sm:mb-5 flex justify-center items-center ">
               <figure id="apcLogo">
@@ -311,7 +312,7 @@ export default function Home() {
                 />
               </figure>
             </div>
-            <Registro close={setRegister} register={register} />
+
             <div className="gap-5 flex flex-col containerCard">
               <div
                 className="card w-[35rem] text-primary-content"
@@ -359,22 +360,22 @@ export default function Home() {
                       </div>
 
                       <button
-                        className="btn btn-secondary w-full"
+                        className="btn btn-secondary w-full lg:button-sm 2xl:input-md"
                         type="submit"
                       >
                         {t("login.continuar")}
                       </button>
                     </form>
                     <div className="flex flex-col items-center">
-                      <div className="flex items-center justify-between w-full">
+                      {/* <div className="flex items-center justify-between w-full">
                         <p
                           className="text-secondary text-center decoration-solid cursor-pointer"
-                          // onClick={() => setOpen(true)}
+                          onClick={() => setOpen(true)}
                         >
                           {t("login.¿Has_olvidado_la_contraseña?")}
                         </p>
                       </div>
-                      <div className="border-separate border border-[#00405d] w-full mt-4 mb-4"></div>
+                      <div className="border-separate border border-[#00405d] w-full mt-4 mb-4"></div> */}
                       <div className="w-full flex flex-col justify-center items-center text-secondary">
                         <p className="text-center">{t("login.registro")}</p>
                         <p
@@ -397,7 +398,7 @@ export default function Home() {
                     <strong>{t("login.language")}</strong>
                   </p>
                   <select
-                    className="select w-1/2 text-secondary"
+                    className="select w-1/2 text-secondary lg:select-sm 2xl:select-md"
                     onChange={(e) => {
                       i18n.changeLanguage(e.target.value);
                     }}
