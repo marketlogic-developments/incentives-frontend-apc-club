@@ -1,7 +1,7 @@
 import { Modal } from "@mantine/core";
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import ContainerContent from "../../components/containerContent";
@@ -9,6 +9,7 @@ import { policyAndPassword } from "../../store/reducers/users.reducer";
 
 const user = () => {
   const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
   const userAll = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
@@ -35,7 +36,10 @@ const user = () => {
       email: user?.email,
       role: user?.roleId,
       position: user?.person[0]?.position,
-      emailP: user?.person[0]?.secondaryEmail,
+      emailP:
+        user?.person[0]?.secondaryEmail === null
+          ? ""
+          : user?.person[0]?.secondaryEmail,
       region: user?.region,
       imgProfile: user?.profilePhotoPath,
       birthDate: user?.person[0]?.birthDate,
@@ -75,10 +79,9 @@ const user = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .patch(
-        `${process.env.BACKURL}/users/${user.id}`,
-        {
+    const jsonData = () => {
+      if (formData.emailP === "") {
+        return {
           person: {
             names: formData.name,
             lastName: formData.lastname,
@@ -87,15 +90,31 @@ const user = () => {
             personId: user.person[0].id,
           },
           region: formData.region,
+        };
+      }
+
+      return {
+        person: {
+          names: formData.name,
+          lastName: formData.lastname,
+          birthDate: formData.birthDate,
+          phoneNumber: formData.phone,
+          personId: user.person[0].id,
+          secondaryEmail: formData.emailP,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userAll.token}`,
-          },
-        }
-      )
+        region: formData.region,
+      };
+    };
+
+    axios
+      .patch(`${process.env.BACKURL}/users/${user.id}`, jsonData(), {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
+        console.log(res.data);
         dispatch(
           policyAndPassword({
             ...res.data,
@@ -163,7 +182,7 @@ const user = () => {
                     <input
                       type="text"
                       placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs"
+                      className="input input-ghost w-full max-w-xs border border-accent"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
@@ -177,7 +196,7 @@ const user = () => {
                       type="text"
                       name="lastname"
                       placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs"
+                      className="input input-ghost w-full max-w-xs border border-accent"
                       value={formData.lastname}
                       onChange={handleChange}
                     />
@@ -189,7 +208,7 @@ const user = () => {
                     <span
                       type="text"
                       placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs p-3"
+                      className="input input-ghost w-full max-w-xs p-3 border"
                     >
                       {formData.email}
                     </span>
@@ -231,7 +250,7 @@ const user = () => {
                       type="text"
                       name="emailP"
                       placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs"
+                      className="input input-ghost w-full max-w-xs border border-accent"
                       value={formData.emailP}
                       onChange={handleChange}
                     />
@@ -273,7 +292,7 @@ const user = () => {
                     <input
                       type="text"
                       placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs"
+                      className="input input-ghost w-full max-w-xs border border-accent"
                       value={formData.phone}
                       onChange={handleChange}
                       name="phone"
@@ -288,7 +307,7 @@ const user = () => {
                     <input
                       type="text"
                       placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs"
+                      className="input input-ghost w-full max-w-xs border border-accent"
                       value={formData.birthDate}
                       onChange={handleChange}
                       name="birthDate"

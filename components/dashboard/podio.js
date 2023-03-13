@@ -50,21 +50,21 @@ const Podio = ({ sortedData }) => {
             className="h-4/6 flex items-end px-5 rounded-t-3xl justify-center"
             style={{ backgroundColor: "#fc7d74" }}
           ></div>
-          <p className="text-center font-bold">John Doe 1</p>
+          <p className="text-center font-bold"></p>
         </div>
         <div className="flex flex-col justify-end w-44">
           <div
             className="h-full flex items-end px-5 rounded-t-3xl justify-center"
             style={{ backgroundColor: "#eb1000" }}
           ></div>
-          <p className="text-center font-bold">John Doe 1</p>
+          <p className="text-center font-bold"></p>
         </div>
         <div className="flex flex-col justify-end w-44 h-44">
           <div
             className="h-2/4 flex items-end px-5 rounded-t-3xl justify-center"
             style={{ backgroundColor: "#fc7d74" }}
           ></div>
-          <p className="text-center font-bold">John Doe 1</p>
+          <p className="text-center font-bold"></p>
         </div>
       </div>
     </div>
