@@ -822,7 +822,7 @@ const Layout = ({ children }) => {
             <div className="containerRedirections">{menu}</div>
           </div>
           {userRedux?.roleId !== 2 && (
-            <div className="adobeMarket" onClick={() => setOpened2(true)}>
+            <div className="adobeMarket z-10" onClick={() => setOpened2(true)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
