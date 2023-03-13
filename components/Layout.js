@@ -645,7 +645,7 @@ const Layout = ({ children }) => {
         </svg>
       ),
       iconactive: "",
-      text: "Digipoints",
+      text: "DigiPoints",
     },
     {
       page: "/productos",
@@ -674,6 +674,10 @@ const Layout = ({ children }) => {
   const redirection = (tyc) => {
     if (!tyc) {
       return router.push("/terminosycondiciones");
+    }
+
+    if (location === "/terminosycondiciones") {
+      return router.push("/dashboard");
     }
   };
 

@@ -13,7 +13,7 @@ module.exports = {
           accent: "#e6e6e6",
           neutral: "#ef5c00",
           "base-100": "#ffffff",
-          warning: "#ff9a00",
+          warning: "#cccccc",
         },
       },
       "autumn",
