@@ -12,7 +12,6 @@
     "donechangepass": "Senha atualizada",
     "correoenviado": "Um e-mail foi enviado para realizar a alteração da senha",
     "correonotfound": "No se ha encontrado ninguna coincidencia con este correo",
-    "registroEnviado": "O registro foi enviado com sucesso, você receberá mais informações em breve.",
     "nombreC": "Nome completo",
     "esNombre": "Escreva seu nome",
     "email": "E-mail",
@@ -23,6 +22,8 @@
     "esEmpresa": "Insira o nome da sua empresa",
     "comentario": "Escreva seu comentário (opcional)",
     "esComentario": "Escreva uma mensagem..."
+    "doneregister": "A seus dados foram enviados, em breve entraremos em contato.",
+    "notregister": "Ocorreu um erro ao enviar seus dados, tente novamente."
   },
 
   "tyc": {

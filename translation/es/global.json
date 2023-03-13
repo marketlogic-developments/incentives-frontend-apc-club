@@ -12,7 +12,6 @@
     "donechangepass": "Contraseña actualizada",
     "correoenviado": "Se ha enviado un correo para realizar el cambio de contraseña",
     "correonotfound": "No se ha encontrado ninguna coincidencia con este correo",
-    "registroEnviado": "El registro se ha enviado exitosamente, recibirás más información dentro de poco",
     "nombreC": "Nombre completo",
     "esNombre": "Escribe tu nombre",
     "email": "Email",
@@ -23,6 +22,8 @@
     "esEmpresa": "Ingresa el nombre de tu empresa",
     "comentario": "Escribe tu comentario (opcional)",
     "esComentario": "Escribe un mensaje..."
+    "doneregister": "Se han enviado tus datos, pronto te contactaremos.",
+    "notregister": "Ha habido un error al enviar tus datos, intenta de nuevo."
   },
 
   "tyc": {

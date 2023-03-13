@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import Swal from "sweetalert2";
 
 const Registro = ({ close, register }) => {
   const [t, i18n] = useTranslation("global");
@@ -13,17 +14,35 @@ const Registro = ({ close, register }) => {
     message: "",
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const [firstname, setFirstname] = useState("");
+  const [company, setCompany] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [textarea, setTextarea] = useState("");
 
-    axios
-      .post("https://hooks.zapier.com/hooks/catch/666990/3blgn9r/", formData, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-      .then((res) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  
+    const formData = new FormData();
+  
+    formData.append("First_Name", firstname);
+    formData.append("Email", email);
+    formData.append("Phone", phone);
+    formData.append("Company", company);
+    formData.append("textArea", textarea);
+  
+    axios.post(
+      "https://hooks.zapier.com/hooks/catch/666990/3bgdttq/",
+      formData
+    )
+      .then(() => {
+        setFirstname("");
+        setCompany("");
+        setPhone("");
+        setEmail("");
+        setTextarea("");
+        close(false);
+
         const Toast = Swal.mixin({
           toast: true,
           position: "top",
@@ -38,10 +57,29 @@ const Registro = ({ close, register }) => {
 
         return Toast.fire({
           icon: "success",
-          title: t("modalEquipos.lista"),
+          title: t("login.doneregister"),
+        });
+      })
+      .catch((error) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        return Toast.fire({
+          icon: "error",
+          title: t("login.notregister"),
         });
       });
   };
+
 
   const handleChange = (e) => {
     return setFormData({
@@ -52,9 +90,8 @@ const Registro = ({ close, register }) => {
 
   return (
     <div
-      className={`bg-base-100 h-screen max-sm:h-full w-[50%] max-sm:w-full absolute z-50 right-0 rounded-l-3xl ${
-        register ? "register" : "registerDisappear"
-      } border-l-2 max-sm:rounded-none border-primary shadow-3xl px-10 py-10 flex flex-col max-sm:items-start items-center registerGlobal`}
+      className={`bg-base-100 h-screen max-sm:h-full w-[50%] max-sm:w-full absolute z-50 right-0 rounded-l-3xl ${register ? "register" : "registerDisappear"
+        } border-l-2 max-sm:rounded-none border-primary shadow-3xl px-10 py-10 flex flex-col max-sm:items-start items-center registerGlobal`}
     >
       {register && (
         <div className="w-full">
@@ -78,9 +115,8 @@ const Registro = ({ close, register }) => {
       )}
 
       <div
-        className={`h-full flex items-center ${
-          register ? "registerForm" : "registerFormDis"
-        } w-full`}
+        className={`h-full flex items-center ${register ? "registerForm" : "registerFormDis"
+          } w-full`}
       >
         <div
           className="card w-full text-primary-content margin-auto"
@@ -111,7 +147,8 @@ const Registro = ({ close, register }) => {
                       placeholder={t("login.esNombre")}
                       className="input input-bordered input-warning w-full text-black"
                       name="name"
-                      onChange={handleChange}
+                      value={firstname}
+                      onChange={(e) => setFirstname(e.target.value)}
                     />
                   </label>
                   <label className="label flex flex-col w-full items-start">
@@ -122,7 +159,8 @@ const Registro = ({ close, register }) => {
                       placeholder={t("login.esEmail")}
                       className="input w-full text-black input-bordered input-warning"
                       name="email"
-                      onChange={handleChange}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </label>
                   <label className="label flex flex-col w-full items-start">
@@ -134,7 +172,8 @@ const Registro = ({ close, register }) => {
                       placeholder={t("login.ingresa")}
                       className="input w-full text-black input-bordered input-warning"
                       name="phone"
-                      onChange={handleChange}
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                     />
                   </label>
                   <label className="label flex flex-col w-full items-start">
@@ -145,7 +184,8 @@ const Registro = ({ close, register }) => {
                       placeholder={t("login.esEmpresa")}
                       className="input w-full text-black input-bordered input-warning"
                       name="companyName"
-                      onChange={handleChange}
+                      value={company}
+                      onChange={(e) => setCompany(e.target.value)}
                     />
                   </label>
                   <label className="label flex flex-col w-full items-start">
@@ -156,7 +196,8 @@ const Registro = ({ close, register }) => {
                       cols={33}
                       className="input w-full text-black max-h-[300px] min-h-[80px] input-bordered input-warning"
                       name="message"
-                      onChange={handleChange}
+                      value={textarea}
+                      onChange={(e) => setTextarea(e.target.value)}
                     />
                   </label>
                 </div>
