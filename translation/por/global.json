@@ -11,7 +11,18 @@
     "errorchangepass": "Erro ao alterar sua senha",
     "donechangepass": "Senha atualizada",
     "correoenviado": "Um e-mail foi enviado para realizar a alteração da senha",
-    "correonotfound": "No se ha encontrado ninguna coincidencia con este correo"
+    "correonotfound": "No se ha encontrado ninguna coincidencia con este correo",
+    "registroEnviado": "O registro foi enviado com sucesso, você receberá mais informações em breve.",
+    "nombreC": "Nome completo",
+    "esNombre": "Escreva seu nome",
+    "email": "E-mail",
+    "esEmail": "Insira seu e-mail",
+    "telefono": "Número de telefone",
+    "ingresa": "Insira seu número de telefone",
+    "empresa": "Nome da empresa",
+    "esEmpresa": "Insira o nome da sua empresa",
+    "comentario": "Escreva seu comentário (opcional)",
+    "esComentario": "Escreva uma mensagem..."
   },
 
   "tyc": {

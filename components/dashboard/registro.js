@@ -17,13 +17,29 @@ const Registro = ({ close, register }) => {
     e.preventDefault();
 
     axios
-      .post("https://hooks.zapier.com/hooks/catch/666990/3bgdttq/", formData, {
+      .post("https://hooks.zapier.com/hooks/catch/666990/3blgn9r/", formData, {
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
       })
       .then((res) => {
-        console.log(res.data);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        return Toast.fire({
+          icon: "success",
+          title: t("modalEquipos.lista"),
+        });
       });
   };
 
@@ -88,55 +104,55 @@ const Registro = ({ close, register }) => {
               >
                 <div className="w-full">
                   <label className="label flex flex-col w-full items-start">
-                    Nombre Completo
+                    {t("login.nombreC")}
                     <input
                       required
                       type="text"
-                      placeholder="Escribe tu nombre"
+                      placeholder={t("login.esNombre")}
                       className="input input-bordered input-warning w-full text-black"
                       name="name"
                       onChange={handleChange}
                     />
                   </label>
                   <label className="label flex flex-col w-full items-start">
-                    Email
+                    {t("login.email")}
                     <input
                       required
                       type="email"
-                      placeholder="Ingresa tu email"
+                      placeholder={t("login.esEmail")}
                       className="input w-full text-black input-bordered input-warning"
                       name="email"
                       onChange={handleChange}
                     />
                   </label>
                   <label className="label flex flex-col w-full items-start">
-                    Número telefónico
+                    {t("login.telefono")}
                     <input
                       type="number"
                       minLength={6}
                       maxLength={20}
-                      placeholder="Ingresa tu número telefónico"
+                      placeholder={t("login.ingresa")}
                       className="input w-full text-black input-bordered input-warning"
                       name="phone"
                       onChange={handleChange}
                     />
                   </label>
                   <label className="label flex flex-col w-full items-start">
-                    Nombre de la compañía
+                    {t("login.empresa")}
                     <input
                       required
                       type="text"
-                      placeholder="Ingresa el nombre de tu compañía"
+                      placeholder={t("login.esEmpresa")}
                       className="input w-full text-black input-bordered input-warning"
                       name="companyName"
                       onChange={handleChange}
                     />
                   </label>
                   <label className="label flex flex-col w-full items-start">
-                    Escribe tu comentario (opcional)
+                    {t("login.comentario")}
                     <textarea
                       type="text"
-                      placeholder="Escribe un mensaje..."
+                      placeholder={t("login.esComentario")}
                       cols={33}
                       className="input w-full text-black max-h-[300px] min-h-[80px] input-bordered input-warning"
                       name="message"
