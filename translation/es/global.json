@@ -21,7 +21,7 @@
     "empresa": "Nombre de la empresa",
     "esEmpresa": "Ingresa el nombre de tu empresa",
     "comentario": "Escribe tu comentario (opcional)",
-    "esComentario": "Escribe un mensaje..."
+    "esComentario": "Escribe un mensaje...",
     "doneregister": "Se han enviado tus datos, pronto te contactaremos.",
     "notregister": "Ha habido un error al enviar tus datos, intenta de nuevo."
   },
