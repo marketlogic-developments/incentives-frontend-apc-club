@@ -6,12 +6,17 @@
     "Iniciar_Sesión": "Acesse sua conta",
     "continuar": "Acesse sua conta",
     "errorLogin": "Seu e-mail e/ou senha não correspondem. Por favor, tente novamente.",
-    "language": "Linguagem"
+    "language": "Linguagem",
+    "changepass": "Digite seu e-mail",
+    "errorchangepass": "Erro ao alterar sua senha",
+    "donechangepass": "Senha atualizada",
+    "correoenviado": "Um e-mail foi enviado para realizar a alteração da senha",
+    "correonotfound": "No se ha encontrado ninguna coincidencia con este correo"
   },
 
   "tyc": {
-    "title1": "O processo de habilitação do seu usuário será concluído em até 24 horas após você assinar e aprovar os termos e condições",
-    "title2": "O processo de habilitação do seu usuário será concluído em até 24 horas após você assinar e aprovar os termos e condições",
+    "title1": "Obrigado, estamos processando a ativação do seu usuário, em até 24 horas você receberá um e-mail com a notificação para que possa acessar a plataforma.",
+    "title2": "Caso não a tenha recebido dentro de 24 horas, você pode nos escrever para info@adobepcclub.net para checar o status da sua solicitação.",
     "firmar": "assinar",
     "borrar": "Borrão"
   },

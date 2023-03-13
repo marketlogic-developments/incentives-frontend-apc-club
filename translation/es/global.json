@@ -6,7 +6,13 @@
     "Iniciar_Sesión": "Iniciar Sesión",
     "continuar": "Continuar",
     "errorLogin": "Tu correo electrónico y/o contraseña no coinciden. Inténtalo de nuevo.",
-    "language": "Lenguaje"
+    "language": "Lenguaje",
+    "idioma": "Idioma",
+    "changepass": "Ingresa tu correo electrónico",
+    "errorchangepass": "Error al cambiar tu contraseña",
+    "donechangepass": "Contraseña actualizada",
+    "correoenviado": "Se ha enviado un correo para realizar el cambio de contraseña",
+    "correonotfound": "No se ha encontrado ninguna coincidencia con este correo"
   },
 
   "tyc": {

@@ -675,6 +675,10 @@ const Layout = ({ children }) => {
     if (!tyc) {
       return router.push("/terminosycondiciones");
     }
+
+    if (location === "/terminosycondiciones") {
+      return router.push("/dashboard");
+    }
   };
 
   const href = (page) => {

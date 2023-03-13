@@ -25,10 +25,6 @@ const terminosycondiciones = () => {
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
-    if (user?.policy) {
-      return route.push("/dashboard");
-    }
-
     if (user?.cpf === "active") {
       return setOpened(true);
     }

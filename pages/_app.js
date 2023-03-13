@@ -74,7 +74,11 @@ export default function MyApp({ Component, pageProps }) {
       }
     } else {
       setLoading(false);
-      return router.push("/");
+      const search = window.location.search || '';
+      return router.push({
+        pathname: "/",
+        search: search
+      });
     }
     setLoading(false);
   }
