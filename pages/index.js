@@ -179,6 +179,7 @@ export default function Home() {
 
   const handleRequestNewPass = (data) => {
     data.preventDefault();
+
     axios
       .post(`${process.env.BACKURL}/auth/recovery`, {
         email: data.target[0].value,
@@ -368,7 +369,7 @@ export default function Home() {
                       <div className="flex items-center justify-between w-full">
                         <p
                           className="text-secondary text-center decoration-solid cursor-pointer"
-                          onClick={() => setOpen(true)}
+                          // onClick={() => setOpen(true)}
                         >
                           {t("login.¿Has_olvidado_la_contraseña?")}
                         </p>
