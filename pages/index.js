@@ -367,7 +367,7 @@ export default function Home() {
                       </button>
                     </form>
                     <div className="flex flex-col items-center">
-                      <div className="flex items-center justify-between w-full">
+                      {/* <div className="flex items-center justify-between w-full">
                         <p
                           className="text-secondary text-center decoration-solid cursor-pointer"
                           onClick={() => setOpen(true)}
@@ -375,7 +375,7 @@ export default function Home() {
                           {t("login.¿Has_olvidado_la_contraseña?")}
                         </p>
                       </div>
-                      <div className="border-separate border border-[#00405d] w-full mt-4 mb-4"></div>
+                      <div className="border-separate border border-[#00405d] w-full mt-4 mb-4"></div> */}
                       <div className="w-full flex flex-col justify-center items-center text-secondary">
                         <p className="text-center">{t("login.registro")}</p>
                         <p

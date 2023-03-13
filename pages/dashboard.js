@@ -232,6 +232,12 @@ const dashboard = () => {
     ? { initialWidth: "100%", initialHeight: "auto" }
     : { initialWidth: "40%", initialHeight: "auto" };
 
+  const logout = () => {
+    Cookies.remove("infoDt");
+    Cookies.remove("dp");
+    route.push("/");
+  };
+
   return (
     <>
       <Modal
@@ -247,7 +253,10 @@ const dashboard = () => {
         opened={opened2}
         centered
         size={"70%"}
-        onClose={() => setOpened2(false)}
+        onClose={() => {
+          logout();
+          // setOpened2(false);
+        }}
         className={"modalCloseDashboard"}
       >
         {
