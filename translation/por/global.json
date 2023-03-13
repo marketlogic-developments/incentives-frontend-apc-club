@@ -23,7 +23,9 @@
     "comentario": "Escreva seu comentário (opcional)",
     "esComentario": "Escreva uma mensagem...",
     "doneregister": "A seus dados foram enviados, em breve entraremos em contato.",
-    "notregister": "Ocorreu um erro ao enviar seus dados, tente novamente."
+    "notregister": "Ocorreu um erro ao enviar seus dados, tente novamente.",
+    "registro": "Quer se juntar ao APC Club?",
+    "linkRegistro": "Cadastre-se aqui"
   },
 
   "tyc": {
