@@ -291,9 +291,9 @@ export default function Home() {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      <main className="mainIndex bg-primary flex flex-col w-full z-50 relative overflow-x-hidden overflow-y-hidden">
+      <main className="mainIndex bg-primary flex flex-col w-full z-50 relative overflow-x-hidden overflow-y-hidden h-screen gap-16">
         <Recovery opened={opened} setOpened={setOpened} t={t} />
-        <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] flex absolute w-full justify-between mt-10">
+        <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] flex w-full justify-between mt-10">
           <figure className="ml-10">
             <img src="assets/login/adobe.png" className="max-w-[250px]" />
           </figure>
@@ -301,7 +301,7 @@ export default function Home() {
             <img src="assets/login/pcc.png" className="max-w-[400px]" />
           </figure>
         </div>
-        <div className="container flex flex-col justify-center items-center h-screen w-full max-w-full relative">
+        <div className="container flex flex-col justify-center items-center w-full max-w-full relative">
           <div className="flex items-center max-sm:justify-start max-sm:flex-col justify-center w-full max-sm:w-full h-[90%] containerLogin">
             <div className="w-fit h-full max-sm:h-auto max-sm:mb-5 flex justify-center items-center ">
               <figure id="apcLogo">
