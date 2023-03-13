@@ -82,12 +82,14 @@ const terminosycondiciones = () => {
           id="modalterminos"
         >
           <div className="w-full p-10 flex flex-col justify-center gap-10">
-            <h2 className="font-medium text-center text-2xl">
-              {t("tyc.title1")}
+            <h2 className="font-medium text-justify text-xl">
+              {t("tyc.title1")} <strong>{t("tyc.title12")}</strong>
             </h2>
-
-            <h2 className="font-medium text-center text-2xl">
+            <h2 className="font-medium text-justify text-xl">
               {t("tyc.title2")}
+            </h2>
+            <h2 className="font-medium text-justify text-xl">
+              {t("tyc.title3")}
             </h2>
             <div className="flex justify-center">
               <button
@@ -116,6 +118,9 @@ const terminosycondiciones = () => {
                 <p className="text-white">1</p>
               </div>
               <p>{t("terminosycondiciones.aceptar")}</p>
+              <button className="buttonSign">
+                {t("terminosycondiciones.aprobar")}
+              </button>
             </div>
 
             {user?.person[0]?.languageId === 1 ? (

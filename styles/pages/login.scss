@@ -189,3 +189,20 @@ div#modalterminos .mantine-Modal-modal {
     animation-fill-mode: forwards;
   }
 }
+
+.buttonSign {
+  color: white;
+  background-color: #106bd9;
+  border-radius: 50px;
+  padding: 10px;
+
+  &:hover {
+    cursor: default;
+  }
+}
+
+#modalterminos {
+  .mantine-121w2fi {
+    display: none;
+  }
+}

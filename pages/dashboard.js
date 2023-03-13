@@ -23,7 +23,7 @@ const dashboard = () => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const [opened, setOpened] = useState(false);
-  const [opened2, setOpened2] = useState(false);
+  const [opened2, setOpened2] = useState(true);
   const [view, setView] = useState("password");
   const dispatch = useDispatch();
   const route = useRouter();
@@ -49,6 +49,8 @@ const dashboard = () => {
 
   const redirection = () => {
     if (!user?.passwordReset) {
+      setOpened2(false);
+      //borrar esto ^
       setModalType(0);
       return setOpened(true);
     }
