@@ -36,9 +36,9 @@ const Registro = ({ close, register }) => {
 
   return (
     <div
-      className={`bg-base-100 h-screen w-[50%] absolute z-50 right-0 rounded-l-3xl ${
+      className={`bg-base-100 h-screen max-sm:h-full w-[50%] max-sm:w-full absolute z-50 right-0 rounded-l-3xl ${
         register ? "register" : "registerDisappear"
-      } border-l-2 border-primary shadow-3xl px-10 py-10 flex flex-col items-center registerGlobal`}
+      } border-l-2 max-sm:rounded-none border-primary shadow-3xl px-10 py-10 flex flex-col max-sm:items-start items-center registerGlobal`}
     >
       {register && (
         <div className="w-full">

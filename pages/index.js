@@ -14,6 +14,7 @@ import Link from "next/link";
 import Recovery from "../components/dashboard/recovery";
 import Swal from "sweetalert2";
 import Registro from "../components/dashboard/registro";
+import { Modal } from "@mantine/core";
 
 export default function Home() {
   const [t, i18n] = useTranslation("global");
@@ -28,6 +29,18 @@ export default function Home() {
   const [register, setRegister] = useState(false);
 
   const listRedirect = ["bcrservicos.com.br", "bcrcx.com"];
+  const [open, setOpen] = useState("");
+  const [view, setView] = useState("password");
+  const [tokeNewPass, setTokeNewPass] = useState("");
+
+  const [showPopup, setShowPopup] = useState(false);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("token")) {
+      setShowPopup(true);
+      setTokeNewPass(params.get("token"));
+    }
+  }, []);
 
   useEffect(() => {
     if (Cookies.get("infoDt") !== undefined) {
@@ -118,8 +131,156 @@ export default function Home() {
       });
   };
 
+  const handleSubmitNewPass = (data) => {
+    data.preventDefault();
+    axios
+      .post(`${process.env.BACKURL}/auth/change-password`, {
+        token: tokeNewPass,
+        newPassword: data.target[0].value,
+      })
+      .then((res) => {
+        setShowPopup(false);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        return Toast.fire({
+          icon: "success",
+          title: t("login.donechangepass"),
+        });
+      })
+      .catch(() => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        return Toast.fire({
+          icon: "error",
+          title: t("login.errorchangepass"),
+        });
+      });
+  };
+
+  const handleRequestNewPass = (data) => {
+    data.preventDefault();
+    axios
+      .post(`${process.env.BACKURL}/auth/recovery`, {
+        email: data.target[0].value,
+        lang: i18n.language,
+      })
+      .then((res) => {
+        setOpen(false);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        return Toast.fire({
+          icon: "success",
+          title: t("login.correoenviado"),
+        });
+      })
+      .catch(() => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        return Toast.fire({
+          icon: "error",
+          title: t("login.correonotfound"),
+        });
+      });
+  };
+
   return (
     <>
+      {showPopup && (
+        <Modal opened={showPopup} onClose={() => setShowPopup(false)} centered size={"50%"}>
+          <div className="flex flex-col w-full items-center text-center gap-10">
+            <p className="text-3xl text-primary">{t("dashboard.bienvenido")}</p>
+            <p className="text-xl">{t("dashboard.continuar")}</p>
+
+            <form
+              className="flex flex-col items-center gap-5 w-full"
+              onSubmit={(data) => handleSubmitNewPass(data)}
+            >
+              <input
+                type={view}
+                placeholder={t("dashboard.digitar")}
+                className="input input-bordered input-primary w-2/4"
+                required
+              />
+              <div className="flex gap-5">
+                <input
+                  type="checkbox"
+                  className="checkbox checkbox-primary"
+                  onClick={() => {
+                    view === "password" ? setView("text") : setView("password");
+                  }}
+                />
+                <p>{t("dashboard.verpass")}</p>
+              </div>
+
+              <button className="btn btn-primary">
+                {t("dashboard.cambiarpass")}
+              </button>
+            </form>
+          </div>
+        </Modal>
+      )}
+      <Modal opened={open} onClose={() => setOpen(false)} centered size={"50%"}>
+        <div className="flex flex-col w-full items-center text-center gap-10">
+          <p className="text-xl">{t("login.changepass")}</p>
+
+          <form
+            className="flex flex-col items-center gap-5 w-full"
+            onSubmit={(data) => handleRequestNewPass(data)}
+          >
+            <label className="label">
+              <input
+                required
+                type="email"
+                placeholder={t("login.Email")}
+                className="input w-full text-black border-gray-500"
+              />
+            </label>
+            <button className="btn btn-primary">
+              {t("dashboard.cambiarpass")}
+            </button>
+          </form>
+        </div>
+      </Modal>
       <Head>
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
@@ -199,14 +360,15 @@ export default function Home() {
                       </button>
                     </form>
                     <div className="flex flex-col items-center">
-                      <div className="flex items-center justify-between w-full none">
+                      <div className="flex items-center justify-between w-full">
                         <p
-                          className="text-secondary text-center underline decoration-solid cursor-pointer"
-                          onClick={() => setOpened(true)}
+                          className="text-secondary text-center decoration-solid cursor-pointer"
+                          onClick={() => setOpen(true)}
                         >
                           {t("login.¿Has_olvidado_la_contraseña?")}
                         </p>
                       </div>
+                      <div className="border-separate border border-[#00405d] w-full mt-4 mb-4"></div>
                       <div className="w-full flex flex-col justify-center items-center text-secondary">
                         <p className="text-center">
                           ¿Quieres unirte a APC Club?

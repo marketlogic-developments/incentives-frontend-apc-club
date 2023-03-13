@@ -6,7 +6,12 @@
     "Iniciar_Sesión": "Acesse sua conta",
     "continuar": "Acesse sua conta",
     "errorLogin": "Seu e-mail e/ou senha não correspondem. Por favor, tente novamente.",
-    "language": "Linguagem"
+    "language": "Linguagem",
+    "changepass": "Digite seu e-mail",
+    "errorchangepass": "Erro ao alterar sua senha",
+    "donechangepass": "Senha atualizada",
+    "correoenviado": "Um e-mail foi enviado para realizar a alteração da senha",
+    "correonotfound": "No se ha encontrado ninguna coincidencia con este correo"
   },
 
   "tyc": {
