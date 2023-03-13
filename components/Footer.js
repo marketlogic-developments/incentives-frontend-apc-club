@@ -20,7 +20,7 @@ const Footer = () => {
 
     if (!sections.includes(location)) {
       return (
-        <div className="w-full bg-secondary flex max-sm:flex-col absolute text-white justify-center gap-5 items-center py-5 max-sm:py-10 z-0">
+        <div className="w-full bg-secondary flex max-sm:flex-col absolute text-white justify-center gap-5 items-center py-5 max-sm:py-10 z-10">
           <a
             href={`${
               user?.person[0]?.languageId === 1

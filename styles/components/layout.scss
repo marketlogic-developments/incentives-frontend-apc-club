@@ -45,6 +45,10 @@
         gap: 10px;
         padding: 30px 0px;
 
+        @include desktop-l {
+          overflow-y: scroll;
+        }
+
         @include desktop-xl {
           gap: 0;
           padding: 10px 0px;
