@@ -11,7 +11,9 @@
     "errorchangepass": "Erro ao alterar sua senha",
     "donechangepass": "Senha atualizada",
     "correoenviado": "Um e-mail foi enviado para realizar a alteração da senha",
-    "correonotfound": "No se ha encontrado ninguna coincidencia con este correo"
+    "correonotfound": "No se ha encontrado ninguna coincidencia con este correo",
+    "doneregister": "A seus dados foram enviados, em breve entraremos em contato.",
+    "notregister": "Ocorreu um erro ao enviar seus dados, tente novamente."
   },
 
   "tyc": {

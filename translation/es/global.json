@@ -12,7 +12,9 @@
     "errorchangepass": "Error al cambiar tu contraseña",
     "donechangepass": "Contraseña actualizada",
     "correoenviado": "Se ha enviado un correo para realizar el cambio de contraseña",
-    "correonotfound": "No se ha encontrado ninguna coincidencia con este correo"
+    "correonotfound": "No se ha encontrado ninguna coincidencia con este correo",
+    "doneregister": "Se han enviado tus datos, pronto te contactaremos.",
+    "notregister": "Ha habido un error al enviar tus datos, intenta de nuevo."
   },
 
   "tyc": {
