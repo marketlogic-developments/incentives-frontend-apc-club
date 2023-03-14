@@ -233,7 +233,7 @@ const dashboard = () => {
     : { initialWidth: "40%", initialHeight: "auto" };
 
   const logout = () => {
-    Cookies.remove("infoDt");
+    window.sessionStorage.removeItem("infoDt");
     Cookies.remove("dp");
     route.push("/");
   };

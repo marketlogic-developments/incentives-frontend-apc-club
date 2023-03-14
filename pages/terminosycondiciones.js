@@ -95,7 +95,7 @@ const terminosycondiciones = () => {
               <button
                 className="btn btn-primary w-max text-lg"
                 onClick={() => {
-                  Cookies.remove("infoDt");
+                  window.sessionStorage.removeItem("infoDt");
                   route.push("/");
                 }}
               >
@@ -118,9 +118,6 @@ const terminosycondiciones = () => {
                 <p className="text-white">1</p>
               </div>
               <p>{t("terminosycondiciones.aceptar")}</p>
-              <button className="buttonSign">
-                {t("terminosycondiciones.aprobar")}
-              </button>
             </div>
 
             {user?.person[0]?.languageId === 1 ? (
