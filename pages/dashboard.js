@@ -18,7 +18,12 @@ import GraphSales from "../components/dashboard/graphSales";
 import GraphProm from "../components/dashboard/graphProm";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
-import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import {
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  AiOutlineCheckCircle,
+  AiOutlineCloseCircle,
+} from "react-icons/ai";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
@@ -184,46 +189,50 @@ const dashboard = () => {
     }
   }, [typeHeader]);
 
-  const [passwordMatch, setPasswordMatch] = useState("") // passwords match
+  const [passwordMatch, setPasswordMatch] = useState(""); // passwords match
   // booleans for password validations
-  const [containsUL, setContainsUL] = useState(false) // uppercase letter
-  const [containsLL, setContainsLL] = useState(false) // lowercase letter
-  const [containsN, setContainsN] = useState(false) // number
-  const [containsSC, setContainsSC] = useState(false) // special character
-  const [contains8C, setContains8C] = useState(false) // min 8 characters
+  const [containsUL, setContainsUL] = useState(false); // uppercase letter
+  const [containsLL, setContainsLL] = useState(false); // lowercase letter
+  const [containsN, setContainsN] = useState(false); // number
+  const [containsSC, setContainsSC] = useState(false); // special character
+  const [contains8C, setContains8C] = useState(false); // min 8 characters
 
   // checks all validations are true
-  const [allValid, setAllValid] = useState(false)
+  const [allValid, setAllValid] = useState(false);
+
+  useEffect(() => {
+    if (containsUL && containsLL && containsN && containsSC && contains8C) {
+      return setAllValid(true);
+    }
+
+    return setAllValid(false);
+  }, [containsUL, containsLL, containsN, containsSC, contains8C]);
 
   const validatePassword = (string) => {
-    console.log(allValid);
-
     // has uppercase letter
-    if (string.toLowerCase() != string) setContainsUL(true)
-    else setContainsUL(false)
+    if (string.toLowerCase() != string) setContainsUL(true);
+    else setContainsUL(false);
 
     // has lowercase letter
-    if (string.toUpperCase() != string) setContainsLL(true)
-    else setContainsLL(false)
+    if (string.toUpperCase() != string) setContainsLL(true);
+    else setContainsLL(false);
 
     // has number
-    if (/\d/.test(string)) setContainsN(true)
-    else setContainsN(false)
+    if (/\d/.test(string)) setContainsN(true);
+    else setContainsN(false);
 
     // has special character
-    if (/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(string)) setContainsSC(true)
-    else setContainsSC(false)
+    if (/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(string))
+      setContainsSC(true);
+    else setContainsSC(false);
 
     // has 8 characters
-    if (string.split("").length > 8) setContains8C(true)
-    else setContains8C(false)
+    if (string.length >= 8) setContains8C(true);
+    else setContains8C(false);
 
     // all validations passed
-    if (containsUL && containsLL && containsN && containsSC && contains8C) setAllValid(true)
-    else setAllValid(false)
+  };
 
-    console.log(string.length)
-  }
   const handleError = (data) => {
     data.preventDefault();
 
@@ -243,10 +252,7 @@ const dashboard = () => {
       icon: "error",
       title: t("login.errorchangepass"),
     });
-  }
-
-
-
+  };
 
   const typeModal = useMemo(() => {
     if (modalType === 0) {
@@ -258,8 +264,7 @@ const dashboard = () => {
           <form
             className="flex flex-col items-center gap-5 w-full"
             onSubmit={(data) => {
-
-              allValid ? handleSubmit(data) : handleError(data)
+              allValid ? handleSubmit(data) : handleError(data);
             }}
           >
             <div className="relative w-2/4 max-sm:w-full">
@@ -342,7 +347,13 @@ const dashboard = () => {
                 </div>
               )}
             </div>
-            <button  className={`btn ${allValid ? 'btn-primary' : 'btn-active btn-ghost pointer-events-none'}`}>
+            <button
+              className={`btn ${
+                allValid
+                  ? "btn-primary"
+                  : "btn-active btn-ghost pointer-events-none"
+              }`}
+            >
               {t("dashboard.cambiarpass")}
             </button>
           </form>
@@ -356,7 +367,17 @@ const dashboard = () => {
     if (modalType === 2) {
       return <GraphProm />;
     }
-  }, [modalType, view, containsUL, containsLL, containsN, containsSC, contains8C, allValid, passwordMatch]);
+  }, [
+    modalType,
+    view,
+    containsUL,
+    containsLL,
+    containsN,
+    containsSC,
+    contains8C,
+    allValid,
+    passwordMatch,
+  ]);
   const isMobile = window.innerWidth <= 768;
   const modalSize = isMobile
     ? { initialWidth: "100%", initialHeight: "auto" }
@@ -419,8 +440,9 @@ const dashboard = () => {
             {t("dashboard.ventas")}
           </button>
           <button
-            className={`btn btn-xs ${typeHeader === 0 ? "btn-primary" : "btn-accent"
-              }`}
+            className={`btn btn-xs ${
+              typeHeader === 0 ? "btn-primary" : "btn-accent"
+            }`}
             onClick={() => {
               // setTypeHeader(0)
               setOpened2(true);
@@ -429,8 +451,9 @@ const dashboard = () => {
             {t("dashboard.ranking")}
           </button>
           <button
-            className={`btn ${typeHeader === 1 ? "btn-primary" : "btn-accent"
-              } btn-xs`}
+            className={`btn ${
+              typeHeader === 1 ? "btn-primary" : "btn-accent"
+            } btn-xs`}
             onClick={() => {
               // setTypeHeader(1)
               setOpened2(true);
@@ -439,8 +462,9 @@ const dashboard = () => {
             {t("dashboard.promociones")}
           </button>
           <button
-            className={`btn ${typeHeader === 2 ? "btn-primary" : "btn-accent"
-              } btn-xs`}
+            className={`btn ${
+              typeHeader === 2 ? "btn-primary" : "btn-accent"
+            } btn-xs`}
             onClick={() => {
               // setTypeHeader(2)
               setOpened2(true);
