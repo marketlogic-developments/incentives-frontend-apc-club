@@ -80,6 +80,22 @@ const dashboard = () => {
         dispatch(policyAndPassword(res.data));
         setOpened(false);
         setOpened2(true);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        return Toast.fire({
+          icon: "success",
+          title: t("login.donechangepass"),
+        });
       });
   };
 
@@ -294,7 +310,7 @@ const dashboard = () => {
               {containsUL ? (
                 <div className="item-icon">
                   <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
-                  <p className="color-[#047857]">{t("dashboard.contieneUL")}</p>
+                  <p className="checkitem">{t("dashboard.contieneUL")}</p>
                 </div>
               ) : (
                 <div className="item-icon">
@@ -305,7 +321,7 @@ const dashboard = () => {
               {containsLL ? (
                 <div className="item-icon">
                   <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
-                  <p className="color-[#047857]">{t("dashboard.contieneLL")}</p>
+                  <p className="checkitem">{t("dashboard.contieneLL")}</p>
                 </div>
               ) : (
                 <div className="item-icon">
@@ -316,7 +332,7 @@ const dashboard = () => {
               {containsN ? (
                 <div className="item-icon">
                   <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
-                  <p className="color-[#047857]">{t("dashboard.contieneN")}</p>
+                  <p className="checkitem">{t("dashboard.contieneN")}</p>
                 </div>
               ) : (
                 <div className="item-icon">
@@ -327,7 +343,7 @@ const dashboard = () => {
               {containsSC ? (
                 <div className="item-icon">
                   <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
-                  <p className="color-[#047857]">{t("dashboard.contieneSC")}</p>
+                  <p className="checkitem">{t("dashboard.contieneSC")}</p>
                 </div>
               ) : (
                 <div className="item-icon">
@@ -338,7 +354,7 @@ const dashboard = () => {
               {contains8C ? (
                 <div className="item-icon">
                   <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
-                  <p className="color-[#047857]">{t("dashboard.contiene8C")}</p>
+                  <p className="checkitem">{t("dashboard.contiene8C")}</p>
                 </div>
               ) : (
                 <div className="item-icon">
@@ -403,7 +419,7 @@ const dashboard = () => {
       <Modal
         opened={opened2}
         centered
-        size={"70%"}
+        size={"90%"}
         onClose={() => {
           logout();
           // setOpened2(false);

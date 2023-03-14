@@ -15,6 +15,12 @@ import Recovery from "../components/dashboard/recovery";
 import Swal from "sweetalert2";
 import Registro from "../components/dashboard/registro";
 import { Modal } from "@mantine/core";
+import {
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  AiOutlineCheckCircle,
+  AiOutlineCloseCircle,
+} from "react-icons/ai";
 
 export default function Home() {
   const [t, i18n] = useTranslation("global");
@@ -223,6 +229,71 @@ export default function Home() {
       });
   };
 
+  const [passwordMatch, setPasswordMatch] = useState(""); // passwords match
+  // booleans for password validations
+  const [containsUL, setContainsUL] = useState(false); // uppercase letter
+  const [containsLL, setContainsLL] = useState(false); // lowercase letter
+  const [containsN, setContainsN] = useState(false); // number
+  const [containsSC, setContainsSC] = useState(false); // special character
+  const [contains8C, setContains8C] = useState(false); // min 8 characters
+
+  // checks all validations are true
+  const [allValid, setAllValid] = useState(false);
+
+  useEffect(() => {
+    if (containsUL && containsLL && containsN && containsSC && contains8C) {
+      return setAllValid(true);
+    }
+
+    return setAllValid(false);
+  }, [containsUL, containsLL, containsN, containsSC, contains8C]);
+
+  const validatePassword = (string) => {
+    // has uppercase letter
+    if (string.toLowerCase() != string) setContainsUL(true);
+    else setContainsUL(false);
+
+    // has lowercase letter
+    if (string.toUpperCase() != string) setContainsLL(true);
+    else setContainsLL(false);
+
+    // has number
+    if (/\d/.test(string)) setContainsN(true);
+    else setContainsN(false);
+
+    // has special character
+    if (/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(string))
+      setContainsSC(true);
+    else setContainsSC(false);
+
+    // has 8 characters
+    if (string.length >= 8) setContains8C(true);
+    else setContains8C(false);
+
+    // all validations passed
+  };
+
+  const handleError = (data) => {
+    data.preventDefault();
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    return Toast.fire({
+      icon: "error",
+      title: t("login.errorchangepass"),
+    });
+  };
+
   return (
     <>
       {showPopup && (
@@ -238,26 +309,96 @@ export default function Home() {
 
             <form
               className="flex flex-col items-center gap-5 w-full"
-              onSubmit={(data) => handleSubmitNewPass(data)}
+              onSubmit={(data) => {
+                allValid ? handleSubmitNewPass(data) : handleError(data);
+              }}
             >
-              <input
-                type={view}
-                placeholder={t("dashboard.digitar")}
-                className="input input-bordered input-primary w-2/4"
-                required
-              />
-              <div className="flex gap-5">
+              <div className="relative w-2/4 max-sm:w-full">
                 <input
-                  type="checkbox"
-                  className="checkbox checkbox-primary"
+                  type={view}
+                  placeholder={t("dashboard.digitar")}
+                  className="input input-bordered input-primary w-full border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  required
+                  onChange={(data) => setPasswordMatch(data.target.value)}
+                  onKeyUp={() => validatePassword(passwordMatch)}
+                />
+                <button
+                  type="button"
                   onClick={() => {
                     view === "password" ? setView("text") : setView("password");
                   }}
-                />
-                <p>{t("dashboard.verpass")}</p>
+                  className="absolute inset-y-0 right-0 flex items-center px-4 py-2 text-gray-700 hover:text-gray-600 focus:outline-none"
+                >
+                  {view === "text" ? (
+                    <AiOutlineEyeInvisible className="h-5 w-5 fill-[#000]" />
+                  ) : (
+                    <AiOutlineEye className="h-5 w-5 fill-[#000]" />
+                  )}
+                </button>
               </div>
-
-              <button className="btn btn-primary">
+              <div className="w-auto flex flex-col justify-center items-center">
+                {containsUL ? (
+                  <div className="item-icon">
+                    <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
+                    <p className="checkitem">{t("dashboard.contieneUL")}</p>
+                  </div>
+                ) : (
+                  <div className="item-icon">
+                    <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
+                    <p>{t("dashboard.contieneUL")}</p>
+                  </div>
+                )}
+                {containsLL ? (
+                  <div className="item-icon">
+                    <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
+                    <p className="checkitem">{t("dashboard.contieneLL")}</p>
+                  </div>
+                ) : (
+                  <div className="item-icon">
+                    <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
+                    <p>{t("dashboard.contieneLL")}</p>
+                  </div>
+                )}
+                {containsN ? (
+                  <div className="item-icon">
+                    <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
+                    <p className="checkitem">{t("dashboard.contieneN")}</p>
+                  </div>
+                ) : (
+                  <div className="item-icon">
+                    <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
+                    <p>{t("dashboard.contieneN")}</p>
+                  </div>
+                )}
+                {containsSC ? (
+                  <div className="item-icon">
+                    <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
+                    <p className="checkitem">{t("dashboard.contieneSC")}</p>
+                  </div>
+                ) : (
+                  <div className="item-icon">
+                    <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
+                    <p>{t("dashboard.contieneSC")}</p>
+                  </div>
+                )}
+                {contains8C ? (
+                  <div className="item-icon">
+                    <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
+                    <p className="checkitem">{t("dashboard.contiene8C")}</p>
+                  </div>
+                ) : (
+                  <div className="item-icon">
+                    <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
+                    <p>{t("dashboard.contiene8C")}</p>
+                  </div>
+                )}
+              </div>
+              <button
+                className={`btn ${allValid
+                    ? "btn-primary"
+                    : "btn-active btn-ghost pointer-events-none"
+                  }`}
+              >
                 {t("dashboard.cambiarpass")}
               </button>
             </form>
@@ -293,12 +434,12 @@ export default function Home() {
       <main className="mainIndex bg-primary flex flex-col w-full z-50 relative overflow-x-hidden overflow-y-hidden h-screen 2xl:gap-16 xl:gap-1">
         <Recovery opened={opened} setOpened={setOpened} t={t} />
         <Registro close={setRegister} register={register} />
-        <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] flex w-full justify-between mt-10">
-          <figure className="ml-10">
-            <img src="assets/login/adobe.png" className="max-w-[250px]" />
+        <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] max-sm:max-h-[150px] flex w-full justify-between mt-10">
+          <figure className="ml-10 max-sm:m-auto">
+            <img src="assets/login/adobe.png" className="max-w-[250px] max-sm:m-auto " />
           </figure>
           <figure>
-            <img src="assets/login/pcc.png" className="max-w-[400px]" />
+            <img src="assets/login/pcc.png" className="max-w-[400px] max-sm:m-auto" />
           </figure>
         </div>
         <div className="container flex flex-col justify-center items-center w-full max-w-full relative">
@@ -366,7 +507,7 @@ export default function Home() {
                       </button>
                     </form>
                     <div className="flex flex-col items-center">
-                      {/* <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center justify-between w-full">
                         <p
                           className="text-secondary text-center decoration-solid cursor-pointer"
                           onClick={() => setOpen(true)}
@@ -374,7 +515,7 @@ export default function Home() {
                           {t("login.¿Has_olvidado_la_contraseña?")}
                         </p>
                       </div>
-                      <div className="border-separate border border-[#00405d] w-full mt-4 mb-4"></div> */}
+                      <div className="border-separate border border-[#00405d] w-full mt-4 mb-4"></div>
                       <div className="w-full flex flex-col justify-center items-center text-secondary">
                         <p className="text-center">{t("login.registro")}</p>
                         <p
