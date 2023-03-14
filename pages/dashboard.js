@@ -18,6 +18,7 @@ import GraphSales from "../components/dashboard/graphSales";
 import GraphProm from "../components/dashboard/graphProm";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
+import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
@@ -183,6 +184,70 @@ const dashboard = () => {
     }
   }, [typeHeader]);
 
+  const [passwordMatch, setPasswordMatch] = useState("") // passwords match
+  // booleans for password validations
+  const [containsUL, setContainsUL] = useState(false) // uppercase letter
+  const [containsLL, setContainsLL] = useState(false) // lowercase letter
+  const [containsN, setContainsN] = useState(false) // number
+  const [containsSC, setContainsSC] = useState(false) // special character
+  const [contains8C, setContains8C] = useState(false) // min 8 characters
+
+  // checks all validations are true
+  const [allValid, setAllValid] = useState(false)
+
+  const validatePassword = (string) => {
+    console.log(allValid);
+
+    // has uppercase letter
+    if (string.toLowerCase() != string) setContainsUL(true)
+    else setContainsUL(false)
+
+    // has lowercase letter
+    if (string.toUpperCase() != string) setContainsLL(true)
+    else setContainsLL(false)
+
+    // has number
+    if (/\d/.test(string)) setContainsN(true)
+    else setContainsN(false)
+
+    // has special character
+    if (/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(string)) setContainsSC(true)
+    else setContainsSC(false)
+
+    // has 8 characters
+    if (string.split("").length > 8) setContains8C(true)
+    else setContains8C(false)
+
+    // all validations passed
+    if (containsUL && containsLL && containsN && containsSC && contains8C) setAllValid(true)
+    else setAllValid(false)
+
+    console.log(string.length)
+  }
+  const handleError = (data) => {
+    data.preventDefault();
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    return Toast.fire({
+      icon: "error",
+      title: t("login.errorchangepass"),
+    });
+  }
+
+
+
+
   const typeModal = useMemo(() => {
     if (modalType === 0) {
       return (
@@ -192,27 +257,92 @@ const dashboard = () => {
 
           <form
             className="flex flex-col items-center gap-5 w-full"
-            onSubmit={(data) => handleSubmit(data)}
+            onSubmit={(data) => {
+
+              allValid ? handleSubmit(data) : handleError(data)
+            }}
           >
-            <input
-              type={view}
-              placeholder={t("dashboard.digitar")}
-              className="input input-bordered input-primary w-2/4 max-sm:w-full"
-              required
-              minLength={8}
-            />
-            <div className="flex gap-5">
+            <div className="relative w-2/4 max-sm:w-full">
               <input
-                type="checkbox"
-                className="checkbox checkbox-primary"
+                type={view}
+                placeholder={t("dashboard.digitar")}
+                className="input input-bordered input-primary w-full border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                required
+                onChange={(data) => setPasswordMatch(data.target.value)}
+                onKeyUp={() => validatePassword(passwordMatch)}
+              />
+              <button
+                type="button"
                 onClick={() => {
                   view === "password" ? setView("text") : setView("password");
                 }}
-              />
-              <p>{t("dashboard.verpass")}</p>
+                className="absolute inset-y-0 right-0 flex items-center px-4 py-2 text-gray-700 hover:text-gray-600 focus:outline-none"
+              >
+                {view === "text" ? (
+                  <AiOutlineEyeInvisible className="h-5 w-5 fill-[#000]" />
+                ) : (
+                  <AiOutlineEye className="h-5 w-5 fill-[#000]" />
+                )}
+              </button>
             </div>
-
-            <button className="btn btn-primary">
+            <div className="w-auto flex flex-col justify-center items-center">
+              {containsUL ? (
+                <div className="item-icon">
+                  <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
+                  <p className="color-[#047857]">{t("dashboard.contieneUL")}</p>
+                </div>
+              ) : (
+                <div className="item-icon">
+                  <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
+                  <p>{t("dashboard.contieneUL")}</p>
+                </div>
+              )}
+              {containsLL ? (
+                <div className="item-icon">
+                  <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
+                  <p className="color-[#047857]">{t("dashboard.contieneLL")}</p>
+                </div>
+              ) : (
+                <div className="item-icon">
+                  <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
+                  <p>{t("dashboard.contieneLL")}</p>
+                </div>
+              )}
+              {containsN ? (
+                <div className="item-icon">
+                  <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
+                  <p className="color-[#047857]">{t("dashboard.contieneN")}</p>
+                </div>
+              ) : (
+                <div className="item-icon">
+                  <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
+                  <p>{t("dashboard.contieneN")}</p>
+                </div>
+              )}
+              {containsSC ? (
+                <div className="item-icon">
+                  <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
+                  <p className="color-[#047857]">{t("dashboard.contieneSC")}</p>
+                </div>
+              ) : (
+                <div className="item-icon">
+                  <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
+                  <p>{t("dashboard.contieneSC")}</p>
+                </div>
+              )}
+              {contains8C ? (
+                <div className="item-icon">
+                  <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
+                  <p className="color-[#047857]">{t("dashboard.contiene8C")}</p>
+                </div>
+              ) : (
+                <div className="item-icon">
+                  <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
+                  <p>{t("dashboard.contiene8C")}</p>
+                </div>
+              )}
+            </div>
+            <button  className={`btn ${allValid ? 'btn-primary' : 'btn-active btn-ghost pointer-events-none'}`}>
               {t("dashboard.cambiarpass")}
             </button>
           </form>
@@ -226,7 +356,7 @@ const dashboard = () => {
     if (modalType === 2) {
       return <GraphProm />;
     }
-  }, [modalType, view]);
+  }, [modalType, view, containsUL, containsLL, containsN, containsSC, contains8C, allValid, passwordMatch]);
   const isMobile = window.innerWidth <= 768;
   const modalSize = isMobile
     ? { initialWidth: "100%", initialHeight: "auto" }
@@ -289,9 +419,8 @@ const dashboard = () => {
             {t("dashboard.ventas")}
           </button>
           <button
-            className={`btn btn-xs ${
-              typeHeader === 0 ? "btn-primary" : "btn-accent"
-            }`}
+            className={`btn btn-xs ${typeHeader === 0 ? "btn-primary" : "btn-accent"
+              }`}
             onClick={() => {
               // setTypeHeader(0)
               setOpened2(true);
@@ -300,9 +429,8 @@ const dashboard = () => {
             {t("dashboard.ranking")}
           </button>
           <button
-            className={`btn ${
-              typeHeader === 1 ? "btn-primary" : "btn-accent"
-            } btn-xs`}
+            className={`btn ${typeHeader === 1 ? "btn-primary" : "btn-accent"
+              } btn-xs`}
             onClick={() => {
               // setTypeHeader(1)
               setOpened2(true);
@@ -311,9 +439,8 @@ const dashboard = () => {
             {t("dashboard.promociones")}
           </button>
           <button
-            className={`btn ${
-              typeHeader === 2 ? "btn-primary" : "btn-accent"
-            } btn-xs`}
+            className={`btn ${typeHeader === 2 ? "btn-primary" : "btn-accent"
+              } btn-xs`}
             onClick={() => {
               // setTypeHeader(2)
               setOpened2(true);
