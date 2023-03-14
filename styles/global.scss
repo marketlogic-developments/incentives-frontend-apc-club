@@ -308,3 +308,10 @@
   visibility: inherit;
   color: rgb(134, 142, 150) !important;
 }
+
+.item-icon {
+  display: flex;
+  align-self: flex-start;
+  text-align: left;
+  place-items: center;
+}
