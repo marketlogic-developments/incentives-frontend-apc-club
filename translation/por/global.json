@@ -74,7 +74,13 @@
     "mvCC": "Minhas Vendas",
     "mvDC": "Minhas Vendas",
     "redimir": "RESGATAR",
-    "dpObtenidos": "DigiPoints Ganhos"
+    "dpObtenidos": "DigiPoints Ganhos",
+    "contieneUL": "Una letra mayúscula (a-z)",
+    "contieneLL": "Una letra minúscula (A-Z)",
+    "contieneN": "Un número (0-9)",
+    "contieneSC": "Un carácter especial (!@#$)",
+    "contiene8C": "Al menos 8 caracteres",
+    "coincidenContraseñas": "Las contraseñas coinciden"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",
