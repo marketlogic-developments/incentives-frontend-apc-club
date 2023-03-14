@@ -81,11 +81,7 @@ const Registro = ({ close, register }) => {
   return (
     <div
       className={`bg-base-100 h-screen max-sm:h-full w-[50%] max-sm:w-full absolute z-50 right-0 rounded-l-3xl ${
-        register === null
-          ? "w-[0px] opacity-0"
-          : register
-          ? "register"
-          : "registerDisappear"
+        register === null ? "none" : register ? "register" : "registerDisappear"
       }  border-l-2 max-sm:rounded-none border-primary shadow-3xl px-10 py-10 flex flex-col max-sm:items-start items-center registerGlobal`}
     >
       {register && (
