@@ -43,7 +43,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (Cookies.get("infoDt") !== undefined) {
+    if (window.sessionStorage.getItem("infoDt") !== null) {
       route.push("/dashboard");
     }
   }, []);
@@ -65,14 +65,13 @@ export default function Home() {
         password: password,
       })
       .then((res) => {
-        Cookies.set(
+        window.sessionStorage.setItem(
           "infoDt",
           JSON.stringify({
             token: res.data.token,
             id: res.data.user.id,
             roleId: res.data.user.roleId,
-          }),
-          { expires: 1 / 24 }
+          })
         );
         dispatch(userLogin(res.data.user));
         dispatch(userToken(res.data.token));
