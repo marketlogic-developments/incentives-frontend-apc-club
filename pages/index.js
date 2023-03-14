@@ -293,12 +293,12 @@ export default function Home() {
       <main className="mainIndex bg-primary flex flex-col w-full z-50 relative overflow-x-hidden overflow-y-hidden h-screen 2xl:gap-16 xl:gap-1">
         <Recovery opened={opened} setOpened={setOpened} t={t} />
         <Registro close={setRegister} register={register} />
-        <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] flex w-full justify-between mt-10">
-          <figure className="ml-10">
-            <img src="assets/login/adobe.png" className="max-w-[250px]" />
+        <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] max-sm:max-h-[150px] flex w-full justify-between mt-10">
+          <figure className="ml-10 max-sm:m-auto">
+            <img src="assets/login/adobe.png" className="max-w-[250px] max-sm:m-auto " />
           </figure>
           <figure>
-            <img src="assets/login/pcc.png" className="max-w-[400px]" />
+            <img src="assets/login/pcc.png" className="max-w-[400px] max-sm:m-auto" />
           </figure>
         </div>
         <div className="container flex flex-col justify-center items-center w-full max-w-full relative">
@@ -366,7 +366,7 @@ export default function Home() {
                       </button>
                     </form>
                     <div className="flex flex-col items-center">
-                      {/* <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center justify-between w-full">
                         <p
                           className="text-secondary text-center decoration-solid cursor-pointer"
                           onClick={() => setOpen(true)}
@@ -374,7 +374,7 @@ export default function Home() {
                           {t("login.¿Has_olvidado_la_contraseña?")}
                         </p>
                       </div>
-                      <div className="border-separate border border-[#00405d] w-full mt-4 mb-4"></div> */}
+                      <div className="border-separate border border-[#00405d] w-full mt-4 mb-4"></div>
                       <div className="w-full flex flex-col justify-center items-center text-secondary">
                         <p className="text-center">{t("login.registro")}</p>
                         <p
