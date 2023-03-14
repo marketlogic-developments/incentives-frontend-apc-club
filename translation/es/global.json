@@ -8,7 +8,7 @@
     "errorLogin": "Tu correo electrónico y/o contraseña no coinciden. Inténtalo de nuevo.",
     "language": "Lenguaje",
     "changepass": "Ingresa tu correo electrónico",
-    "errorchangepass": "Error al cambiar tu contraseña",
+    "errorchangepass": "Error al cambiar tu contraseña, intenta solicitar nuevamente.",
     "donechangepass": "Contraseña actualizada",
     "correoenviado": "Se ha enviado un correo para realizar el cambio de contraseña",
     "correonotfound": "No se ha encontrado ninguna coincidencia con este correo",
