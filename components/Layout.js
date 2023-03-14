@@ -28,8 +28,8 @@ const Layout = ({ children }) => {
   const [t, i18n] = useTranslation("global");
 
   useEffect(() => {
-    if (Cookies.get("infoDt") !== undefined && userRedux === 0) {
-      const userGetData = JSON.parse(Cookies.get("infoDt"));
+    if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
+      const userGetData = JSON.parse(window.sessionStorage.getItem("infoDt"));
       axios
         .get(`${process.env.BACKURL}/users/${userGetData?.id}`, {
           headers: {
@@ -686,7 +686,7 @@ const Layout = ({ children }) => {
   };
 
   const logout = () => {
-    Cookies.remove("infoDt");
+    window.sessionStorage.removeItem("infoDt");
     Cookies.remove("dp");
     router.push("/");
   };

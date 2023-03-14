@@ -36,8 +36,9 @@ export default function MyApp({ Component, pageProps }) {
 
   async function init() {
     setLoading(true);
-    if (Cookies.get("infoDt")) {
-      const roll = JSON.parse(Cookies.get("infoDt")) || undefined;
+    if (window.sessionStorage.getItem("infoDt") !== null) {
+      const roll =
+        JSON.parse(window.sessionStorage.getItem("infoDt")) || undefined;
       if (location.pathname === "/") {
         if (roll !== null) {
           setUser(roll?.roleId);
@@ -74,10 +75,10 @@ export default function MyApp({ Component, pageProps }) {
       }
     } else {
       setLoading(false);
-      const search = window.location.search || '';
+      const search = window.location.search || "";
       return router.push({
         pathname: "/",
-        search: search
+        search: search,
       });
     }
     setLoading(false);

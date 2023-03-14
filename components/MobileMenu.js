@@ -103,8 +103,8 @@ function MobileMenu({
   }, [locations, locationsVendedor, user]);
 
   useEffect(() => {
-    if (Cookies.get("infoDt") !== undefined) {
-      setUser(JSON.parse(Cookies.get("infoDt")));
+    if (window.sessionStorage.getItem("infoDt") !== null) {
+      setUser(JSON.parse(window.sessionStorage.getItem("infoDt")));
     }
   }, [location]);
 
@@ -116,7 +116,7 @@ function MobileMenu({
   };
 
   const logout = () => {
-    Cookies.remove("infoDt");
+    window.sessionStorage.removeItem("infoDt");
     router.push("/");
   };
 

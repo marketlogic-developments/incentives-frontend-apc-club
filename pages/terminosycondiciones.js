@@ -95,7 +95,7 @@ const terminosycondiciones = () => {
               <button
                 className="btn btn-primary w-max text-lg"
                 onClick={() => {
-                  Cookies.remove("infoDt");
+                  window.sessionStorage.removeItem("infoDt");
                   route.push("/");
                 }}
               >
