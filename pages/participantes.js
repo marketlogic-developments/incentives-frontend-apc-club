@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Modal } from "@mantine/core";
+import AgregarParticipante from "../components/participantes/AgregarParticipante";
 
 const participantes = () => {
   const dispatch = useDispatch();
@@ -20,8 +21,6 @@ const participantes = () => {
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
-  const [opened, setOpened] = useState(false);
-  const [modal, setModal] = useState(0);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -171,137 +170,9 @@ const participantes = () => {
     setItemOffset(newOffset);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    return setModal(1);
-  };
-
-  const typeModal = useMemo(() => {
-    if (modal === 0) {
-      return (
-        <div>
-          <div>
-            <h3 className="text-lg font-bold text-red-500">
-              Agregar Participante
-            </h3>
-            <p className="py-4">
-              Indica la información del usuario que vas a registrar
-            </p>
-            <div className="w-full flex flex-col items-center">
-              <h3 className="text-lg font-bold text-red-500">
-                Información de la Cuenta
-              </h3>
-              <div className="form-control w-9/12">
-                <label className="label">
-                  <span className="label-text">Nombre</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <label className="label">
-                  <span className="label-text">Apellido</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <label className="label">
-                  <span className="label-text">Correo Electrónico</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <label className="label">
-                  <span className="label-text">Rol</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <label className="label">
-                  <span className="label-text">Teléfono</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-
-                <label className="label">
-                  <span className="label-text">CPF</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <label className="label">
-                  <span className="label-text">Fecha de nacimiento</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <label className="label">
-                  <span className="label-text">Fecha de ingreso</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <div className="pt-5 flex justify-center">
-                  <button
-                    onClick={handleSubmit}
-                    className="btn btn-outline btn-primary w-max"
-                  >
-                    Enviar solicitud
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    if (modal === 2) {
-      return (
-        <div>
-          <div>
-            <h3 className="text-lg font-bold text-red-500">Usuario agregado</h3>
-            <p className="py-4">Usuario agregado con exito.</p>
-          </div>
-        </div>
-      );
-    }
-  }, [modal]);
-  const isMobile = window.innerWidth <= 768;
-  const modalSize = isMobile
-    ? { initialWidth: "100%", initialHeight: "auto" }
-    : { initialWidth: "40%", initialHeight: "auto" };
-
   return (
     <>
       <ContainerContent pageTitle={"Participantes"}>
-        <Modal
-          opened={opened}
-          onClose={() => {
-            setOpened(false);
-          }}
-          centered
-          size={modalSize}
-        >
-          {typeModal}
-        </Modal>
         <div className="m-6 flex flex-col gap-16">
           <div className="flex flex-col gap-5">
             <h1 className="font-bold text-3xl">Participantes</h1>
@@ -330,16 +201,7 @@ const participantes = () => {
                       />
                     </div>
                   </div>
-                  {[1].includes(user?.roleId) && (
-                    <button
-                      onClick={() => {
-                        setOpened(true);
-                      }}
-                      className="btn bg-primary hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-max"
-                    >
-                      {t("tabla.agregarP")}
-                    </button>
-                  )}
+                  {[1].includes(user?.roleId) && <AgregarParticipante />}
                 </div>
               </div>
             </div>

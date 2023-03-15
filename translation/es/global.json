@@ -25,7 +25,10 @@
     "doneregister": "Se han enviado tus datos, pronto te contactaremos.",
     "notregister": "Ha habido un error al enviar tus datos, intenta de nuevo.",
     "registro": "¿Quieres unirte a APC Club?",
-    "linkRegistro": "Regístrate Aquí"
+    "linkRegistro": "Regístrate Aquí",
+    "sorry": "¡Lo sentimos mucho!",
+    "userNoActivo1": "<p class='text-justify'>Actualmente no hemos encontrado activa tu cuenta en el programa de PartnerConnectionClub. Si tienes alguna pregunta o inquietud acerca de tu cuenta, por favor contáctanos a través de nuestro correo electrónico de soporte:</p> <br/>",
+    "userNoActivo2": "<br/> <p class='text-justify'>Nuestro equipo de soporte estará encantado de ayudarte a resolver cualquier duda que tengas.</p>"
   },
 
   "tyc": {

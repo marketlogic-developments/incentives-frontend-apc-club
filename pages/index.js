@@ -21,6 +21,7 @@ import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
 } from "react-icons/ai";
+import { changeLoadingData } from "../store/reducers/loading.reducer";
 
 export default function Home() {
   const [t, i18n] = useTranslation("global");
@@ -37,9 +38,22 @@ export default function Home() {
   const listRedirect = ["bcrservicos.com.br", "bcrcx.com"];
   const [open, setOpen] = useState("");
   const [view, setView] = useState("password");
+  const [viewLogin, setViewLogin] = useState("password");
   const [tokeNewPass, setTokeNewPass] = useState("");
 
+  const [passwordMatch, setPasswordMatch] = useState(""); // passwords match
+  // booleans for password validations
+  const [containsUL, setContainsUL] = useState(false); // uppercase letter
+  const [containsLL, setContainsLL] = useState(false); // lowercase letter
+  const [containsN, setContainsN] = useState(false); // number
+  const [containsSC, setContainsSC] = useState(false); // special character
+  const [contains8C, setContains8C] = useState(false); // min 8 characters
+
+  // checks all validations are true
+  const [allValid, setAllValid] = useState(false);
+
   const [showPopup, setShowPopup] = useState(false);
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("token")) {
@@ -57,6 +71,8 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    dispatch(changeLoadingData(true));
+
     if (listRedirect.includes(email.split("@")[1])) {
       return route.push("https://bcr.adobepcclub.net/");
     }
@@ -71,6 +87,20 @@ export default function Home() {
         password: password,
       })
       .then((res) => {
+        if (res.data.user.person[0]?.operationStatusId === 5) {
+          Swal.fire({
+            title: t("login.sorry"),
+            html:
+              t("login.userNoActivo1") +
+              '<a href="mailto:info@adobepcclub.com" class="text-[#eb1000] font-bold text-center">info@adobepcclub.com</a><br/>' +
+              t("login.userNoActivo2"),
+            icon: "warning",
+            confirmButtonColor: "#eb1000",
+            confirmButtonText: t("terminosycondiciones.aceptarBtn"),
+          });
+          return dispatch(changeLoadingData(false));
+        }
+
         window.sessionStorage.setItem(
           "infoDt",
           JSON.stringify({
@@ -96,10 +126,12 @@ export default function Home() {
           },
         });
 
-        return Toast.fire({
+        Toast.fire({
           icon: "error",
           title: t("login.errorLogin"),
         });
+
+        return dispatch(changeLoadingData(false));
       });
   };
 
@@ -228,17 +260,6 @@ export default function Home() {
         });
       });
   };
-
-  const [passwordMatch, setPasswordMatch] = useState(""); // passwords match
-  // booleans for password validations
-  const [containsUL, setContainsUL] = useState(false); // uppercase letter
-  const [containsLL, setContainsLL] = useState(false); // lowercase letter
-  const [containsN, setContainsN] = useState(false); // number
-  const [containsSC, setContainsSC] = useState(false); // special character
-  const [contains8C, setContains8C] = useState(false); // min 8 characters
-
-  // checks all validations are true
-  const [allValid, setAllValid] = useState(false);
 
   useEffect(() => {
     if (containsUL && containsLL && containsN && containsSC && contains8C) {
@@ -394,10 +415,11 @@ export default function Home() {
                 )}
               </div>
               <button
-                className={`btn ${allValid
+                className={`btn ${
+                  allValid
                     ? "btn-primary"
                     : "btn-active btn-ghost pointer-events-none"
-                  }`}
+                }`}
               >
                 {t("dashboard.cambiarpass")}
               </button>
@@ -431,15 +453,21 @@ export default function Home() {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      <main className="mainIndex bg-primary flex flex-col w-full z-50 relative overflow-x-hidden overflow-y-hidden h-screen 2xl:gap-16 xl:gap-1">
+      <main className="mainIndex bg-primary flex flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden h-screen 2xl:gap-16 xl:gap-1">
         <Recovery opened={opened} setOpened={setOpened} t={t} />
         <Registro close={setRegister} register={register} />
         <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] max-sm:max-h-[150px] flex w-full justify-between mt-10">
           <figure className="ml-10 max-sm:m-auto">
-            <img src="assets/login/adobe.png" className="max-w-[250px] max-sm:m-auto " />
+            <img
+              src="assets/login/adobe.png"
+              className="max-w-[250px] max-sm:m-auto "
+            />
           </figure>
           <figure>
-            <img src="assets/login/pcc.png" className="max-w-[400px] max-sm:m-auto" />
+            <img
+              src="assets/login/pcc.png"
+              className="max-w-[400px] max-sm:m-auto"
+            />
           </figure>
         </div>
         <div className="container flex flex-col justify-center items-center w-full max-w-full relative">
@@ -487,15 +515,31 @@ export default function Home() {
                             }}
                           />
                         </label>
-                        <label className="label flex flex-col w-full items-start">
+                        <label className="label flex flex-col w-full items-start relative">
                           <input
-                            type="password"
+                            type={viewLogin}
                             placeholder={t("login.Password")}
                             className="input w-full text-black"
+                            required
                             onChange={(e) => {
                               setPassword(e.target.value);
                             }}
                           />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              viewLogin === "password"
+                                ? setViewLogin("text")
+                                : setViewLogin("password");
+                            }}
+                            className="absolute inset-y-0 right-0 flex items-center px-4 py-2 text-gray-700 hover:text-gray-600 focus:outline-none"
+                          >
+                            {viewLogin === "text" ? (
+                              <AiOutlineEyeInvisible className="h-5 w-5 fill-[#000]" />
+                            ) : (
+                              <AiOutlineEye className="h-5 w-5 fill-[#000]" />
+                            )}
+                          </button>
                         </label>
                       </div>
 

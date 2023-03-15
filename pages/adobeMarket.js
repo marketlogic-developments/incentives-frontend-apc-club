@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { changeLoadingData } from "../store/reducers/loading.reducer";
 
 const adobeMarket = () => {
   const [globalAwards, setGlobalAwards] = useState([]);
@@ -35,6 +36,7 @@ const adobeMarket = () => {
   }, [token]);
 
   const handleShoppingCard = () => {
+    dispatch(changeLoadingData(true));
     Cookies.set("shoppCar", JSON.stringify(globalAwards), { expires: 365 });
     dispatch(productsPush([...car, ...globalAwards]));
     awardsDelete();
@@ -81,7 +83,10 @@ const adobeMarket = () => {
         <div className="w-full h-full">
           <button
             className="btn btn-primary"
-            onClick={() => route.push("/estadoProducto")}
+            onClick={() => {
+              dispatch(changeLoadingData(true));
+              route.push("/estadoProducto");
+            }}
           >
             {t("adobeMarket.estado")}
           </button>
