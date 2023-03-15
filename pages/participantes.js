@@ -9,9 +9,11 @@ import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Modal } from "@mantine/core";
 import AgregarParticipante from "../components/participantes/AgregarParticipante";
+import axios from "axios";
 
 const participantes = () => {
   const dispatch = useDispatch();
+  const [opened, setOpened] = useState(false);
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const [participantes, setParticipantes] = useState([]);
@@ -22,6 +24,9 @@ const participantes = () => {
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const [userDataToModal, setUserDataToModal] = useState({
+    person: [{ operationStatusId: 0 }],
+  });
 
   useEffect(() => {
     if (participantes.length === 0) setIsLoaded(true);
@@ -73,7 +78,24 @@ const participantes = () => {
     }
   }, [participantes, roles]);
 
-  const dataDummy = [];
+  const handleChangeCheckbox = (e) => {
+    axios.patch(
+      `${process.env.BACKURL}/users/${userDataToModal.id}`,
+      {
+        person: {
+          personId: userDataToModal.person[0]?.id,
+          operationStatusId: e.target.checked === false ? 5 : 4,
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  };
 
   function Table({ currentItems }) {
     return (
@@ -100,35 +122,55 @@ const participantes = () => {
           </thead>
           <tbody>
             {search !== ""
-              ? dataDummy
+              ? participantes
                   .filter(({ email }) =>
                     email.startsWith(search.toLocaleLowerCase())
                   )
-                  .map((user, index) => (
+                  .map((user2, index) => (
                     <tr
                       key={index}
-                      className="bg-white border-b dark:border-gray-500"
+                      className={`bg-white border-b dark:border-gray-500 ${
+                        user?.roleId === 1
+                          ? "cursor-pointer hover:bg-warning"
+                          : ""
+                      }`}
+                      onClick={() => {
+                        if (user?.roleId === 1) {
+                          setUserDataToModal(user2);
+                          return setOpened(true);
+                        }
+                      }}
                     >
-                      <td className="py-4 px-2">{user.id}</td>
-                      <td className="py-4 px-2">{user.name}</td>
-                      <td className="py-4 px-2">{user.email}</td>
-                      <td className="py-4 px-2">{user.rol}</td>
+                      <td className="py-4 px-2">{user2.id}</td>
+                      <td className="py-4 px-2">{user2.name}</td>
+                      <td className="py-4 px-2">{user2.email}</td>
+                      <td className="py-4 px-2">{user2.rol}</td>
                       <td className="py-4 px-2">
-                        {moment(user.date).format("MM/DD/YYYY")}
+                        {moment(user2.date).format("MM/DD/YYYY")}
                       </td>
                     </tr>
                   ))
-              : dataDummy.map((user, index) => (
+              : participantes.map((user2, index) => (
                   <tr
                     key={index}
-                    className="bg-white border-b dark:border-gray-500"
+                    className={`bg-white border-b dark:border-gray-500 ${
+                      user?.roleId === 1
+                        ? "cursor-pointer hover:bg-warning"
+                        : ""
+                    }`}
+                    onClick={() => {
+                      if (user?.roleId === 1) {
+                        setUserDataToModal(user2);
+                        return setOpened(true);
+                      }
+                    }}
                   >
-                    <td className="py-4 px-2">{user.id}</td>
-                    <td className="py-4 px-2">{user.name}</td>
-                    <td className="py-4 px-2">{user.email}</td>
-                    <td className="py-4 px-2">{user.rol}</td>
+                    <td className="py-4 px-2">{user2.id}</td>
+                    <td className="py-4 px-2">{user2.name}</td>
+                    <td className="py-4 px-2">{user2.email}</td>
+                    <td className="py-4 px-2">{user2.rol}</td>
                     <td className="py-4 px-2">
-                      {moment(user.date).format("MM/DD/YYYY")}
+                      {moment(user2.date).format("MM/DD/YYYY")}
                     </td>
                   </tr>
                 ))}
@@ -172,6 +214,19 @@ const participantes = () => {
 
   return (
     <>
+      <Modal opened={opened} onClose={() => setOpened(false)} size={"50%"}>
+        <div>
+          <h2>Activar/Desactivar Usuario</h2>
+          <input
+            type="checkbox"
+            className="toggle toggle-primary"
+            defaultChecked={
+              userDataToModal.person[0]?.operationStatusId === 4 ? true : false
+            }
+            onChange={handleChangeCheckbox}
+          />
+        </div>
+      </Modal>
       <ContainerContent pageTitle={"Participantes"}>
         <div className="m-6 flex flex-col gap-16">
           <div className="flex flex-col gap-5">
@@ -205,8 +260,12 @@ const participantes = () => {
                 </div>
               </div>
             </div>
-            {loading && <div className="lds-dual-ring"></div>}
-            {!loading && <Table currentItems={currentItems} />}
+            {loading ? (
+              <div className="lds-dual-ring"></div>
+            ) : (
+              <Table currentItems={currentItems} />
+            )}
+
             {/* {!loading && (
               <ReactPaginate
                 pageCount={pageCount}
