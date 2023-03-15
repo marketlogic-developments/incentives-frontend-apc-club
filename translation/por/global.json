@@ -25,7 +25,10 @@
     "doneregister": "A seus dados foram enviados, em breve entraremos em contato.",
     "notregister": "Ocorreu um erro ao enviar seus dados, tente novamente.",
     "registro": "Quer se juntar ao APC Club?",
-    "linkRegistro": "Cadastre-se aqui"
+    "linkRegistro": "Cadastre-se aqui",
+    "sorry": "Desculpe-nos!",
+    "userNoActivo1": "<p class='text-justify'>Atualmente não encontramos sua conta ativa em programa da PartnerConnectionClub. Se você tiver alguma dúvida ou preocupação sobre sua conta, por favor entre em contato conosco através do nosso e-mail de suporte:</p> </br>",
+    "userNoActivo2": "<br/> <p class='text-justify'>Nossa equipe de suporte ficará feliz em ajudá-lo a esclarecer qualquer dúvida que você tenha."
   },
 
   "tyc": {
@@ -86,10 +89,10 @@
     "TerminosyCondiciones": "Termos e Condições",
     "aceptar": "Leia e aceite os Termos & Condições do programa, clique na bandeira 'início' e preencha as informações necessárias.",
     "aprobar": "Aprovar",
-    "bienvenido": "Seguindo",
+    "bienvenido": "Seguinte",
     "aceptarBtn": "Aceitar",
     "deseas": "Você deseja continuar? \n Uma vez realizada a ação, você não poderá retornar aos Termos e Condições.",
-    "click": "Se você já aceitou os Termos e Condições, clique no botão 'SEGUINDO' para continuar com o processo."
+    "click": "Se você já aceitou os Termos e Condições, clique no botão 'SEGUINTE' para continuar com o processo."
   },
   "adobeMarket": {
     "estado": "Veja o status de seus produtos",

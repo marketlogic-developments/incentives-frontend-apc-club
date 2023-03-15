@@ -13,17 +13,18 @@ import {
 import MobileMenu from "./MobileMenu";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import { changeLoadingData } from "../store/reducers/loading.reducer";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
   const userRedux = useSelector((state) => state.user.user);
   const loading = useSelector((state) => state.user.loading);
+  const loadingData = useSelector((state) => state.loadingData.loadingData);
   const dispatch = useDispatch();
   const location =
     typeof window !== "undefined" ? window.location.pathname : "";
   const router = useRouter();
   const sections = ["/", "/terminosycondiciones", "/registro"];
-  const [opened2, setOpened2] = useState(false);
 
   const [t, i18n] = useTranslation("global");
 
@@ -78,6 +79,12 @@ const Layout = ({ children }) => {
       } else {
         dispatch(loadingUser(true));
       }
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (loadingData) {
+      dispatch(changeLoadingData(false));
     }
   }, [location]);
 
@@ -682,10 +689,12 @@ const Layout = ({ children }) => {
   };
 
   const href = (page) => {
+    dispatch(changeLoadingData(true));
     router.push(page);
   };
 
   const logout = () => {
+    dispatch(changeLoadingData(true));
     window.sessionStorage.removeItem("infoDt");
     Cookies.remove("dp");
     router.push("/");
@@ -780,214 +789,221 @@ const Layout = ({ children }) => {
   }
 
   if (sections.includes(location)) {
-    return <>{children}</>;
+    return (
+      <>
+        {loadingData && (
+          <div className="fixed h-screen w-screen flex items-center justify-center z-50 bg-[rgba(255,255,255,0.8)]">
+            <div className="spinner"></div>
+          </div>
+        )}
+        {children}
+      </>
+    );
   }
 
   return (
-    <div className="containerGlobal">
-      <Modal
-        opened={opened2}
-        centered
-        size={"70%"}
-        onClose={() => setOpened2(false)}
-      >
-        {
-          <a href="mailto:info@adobepcclub.com">
-            <figure>
-              {i18n.resolvedLanguage === "por" ? (
-                <img
-                  src="assets/dashboard/banners/bannerPApor.jpg"
-                  alt="Sales_PA"
-                  className="w-full"
-                ></img>
-              ) : (
-                <img
-                  src="assets/dashboard/banners/bannerPA.jpg"
-                  alt="Sales_PA"
-                  className="w-full"
-                ></img>
-              )}
-            </figure>
-          </a>
-        }
-      </Modal>
-      <div className="globalContent bg-primary">
-        <div className="containerLayout">
-          <div className="mt-10 flex flex-col h-[80%]">
-            <div className="logoAdobe">
-              <figure className="flex">
-                <img src="/assets/dashboard/logoapc.png"></img>
-              </figure>
-            </div>
-            <div className="containerRedirections">{menu}</div>
-          </div>
-          {userRedux?.roleId !== 2 && (
-            <div className="adobeMarket z-10" onClick={() => setOpened2(true)}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                xmlnsXlink="http://www.w3.org/1999/xlink"
-                width="30"
-                height="30"
-                viewBox="0 0 45 42"
-              >
-                <image
-                  id="Capa_33"
-                  data-name="Capa 33"
-                  width="45"
-                  height="42"
-                  xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAqCAYAAAAnH9IiAAAABHNCSVQICAgIfAhkiAAABTpJREFUWEfNmXuIVVUUh2eKyt5vexk9DCoSckR7QTVpREWRURlZ1vQUzeqPFLSHIhFUZKLZ255qaaFRRNjLrLAHFUn6TxZqKplOWWHZS7Pvk72HM3fOzD1nvOdwN/zY++6zz96/vc9aa6+1bmPrPg3nNTQ0PAn+BS8ErKX+E9RlaYT0AzAbU8HuFX7PAJ+DDeCfemIv6d4QmgDOBL3ADgmCK2g/A54Hq+uFuKRj6UfjEtAMbPdIkJT4reCPeiCeJB359KRxbsBF1LuBb8AQ8HW9ko68/AbTwJVAJXUjCypIN/J7l/B8S1kbSjvp5Not/Hg2dFxBPTvxsC/tx8B/YDNQWa3F3wEbqf8CWiJFa1MY93vo91nsc6zj7HNsbHcwAtVIn8PLbwWid1PfF0jZdRe4J7nDKm2/RIQbs+2G0/ric5/Fthv9DkyrRro/g94AB4GXwCigCbQcB1RQLY4isneot4bnik4RZU410kex6kxwGvgKXAy+TzCRrOQ0k5LdCWh19gIq8K6hbd/uYM+wsT3CM8c41n7H2m87jrdvZ6B+ObeiMqkaaSdUGYcB5dSTX5ogXVbTA1OHvKkHVyMtqfFgYmDXTP1BWUzDOgdQ/wh2BItBUxbS1zHw6TDBCOrpQOUoq9zGQpPDmlOox2QhrQV5EewPNHGjgWaqrPIxC50KNIlneNpZSPdhoMp4IlgELgS/lMT4YNZZAhQR/aCjXTcL6f0Yp8d3PtDo62CtK4m0/o53g1ZkKlBUMpF23BPgpkD0WOplJZF+h3XODmtpub7MQ/oOBt8bXr6Ueh6Il0hR/I9gYn0dRaIV6MhtK1nEw3H6HY8Cjbyf607gFVxk0VLdD7xsXPvmvKRP5gWV8RjwNlC+i/bqXmaNywJRb+RP8pI+kBdeA5oefQ99kSJttco+F2ixfgOa27ZDyioebvJ1oLmzOEl0nOIB1LL2QtNa6K8oGjpqbTqUh/TD4WXJqdHv1ZJlxVxJa+WF8lHyeR7SKoaRu57YWKCSFFG0FuqPouglponVerSVPKTP4q1Z4BCgklxeBGPmVPkkrUv6OLgdtHMb8pCW7Pth596IVwM9r1oVZVbf/NpA3HlNJM2vXCAPad81eePNZClCEQ0mVD4d/h+AuRhDrHYlL2k/lyfhpEWFU/HEH2ENdcfYcLtIeyMOBbcAY0RP+ylgGJTMTFWuk+e3IqcbqlyvSnsx70nHOdbQUMYNbG/Mw6gWY7tDeiALe5WbnzgdGL+VWrpDeg4MNUvGbQYIKk4t5du5fgYdZDmeTF7SOuPLgRGFE3vKphFqWSStXTag/ixt4rykDwtEdaCKLtewgEn+DiUvaU/Bm/EEoEOTVhbS+SYwaZlWfqWzBehTVIqVVkOiRiy6outrQTrOYR7Ez6fcmVL4FmhFTKh4KQwIddqaRiC6uacARc20gK6uUb5Xd1ss2MmmM0cule+rhIqIGdUbwkOtihswlWZaWAuTFpLps5iK2Dds0mhbsiPBJPAFML3caRyaVzwieS8TCY0DD4XOI6m1LCeBFmAEnxaSGTaZfFF8DgU6+RY3rbsr2auALkNq6S5pT0dzZx7EfwvMJV8PDH6N6QYBnau0k9YXfw6o1MPBq0B3V5EzZyhxSfs1a0raQNesk0UZ9rptApq/d4Ei0JVDlYz/PmWsaeLjgV/Qf9o6U/JtC3b3pH3XhLq5kBjau+CHQIVc2dkphf7DqRWRC8JG/SI/AWXdE+8y0t8e0pL13wBvR1PCyqALLgRZciK6AJ6q/6TpEpi8fxDo13RZ/gfYlTv9foGsJAAAAABJRU5ErkJggg=="
-                />
-              </svg>
-              <p>{t("menu.catalogo")}</p>
-            </div>
-          )}
+    <>
+      {loadingData && (
+        <div className="fixed h-screen w-screen flex items-center justify-center z-50 bg-[rgba(255,255,255,0.8)]">
+          <div className="spinner"></div>
         </div>
-        <span className="h-screen barra"></span>
-        <div className="w-full">
-          <div className="navbar">
-            <figure className="w-[30%]">
-              <img src="/assets/dashboard/years.png" className="!w-[60%] " />
-            </figure>
+      )}
+      <div className="containerGlobal">
+        <div className="globalContent bg-primary">
+          <div className="containerLayout">
+            <div className="mt-10 flex flex-col h-[80%]">
+              <div className="logoAdobe">
+                <figure className="flex">
+                  <img src="/assets/dashboard/logoapc.webp"></img>
+                </figure>
+              </div>
+              <div className="containerRedirections">{menu}</div>
+            </div>
+            {userRedux?.roleId !== 2 && (
+              <div
+                className="adobeMarket z-10"
+                onClick={() => {
+                  dispatch(changeLoadingData(true));
+                  router.push("/adobeMarket");
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 45 42"
+                >
+                  <image
+                    id="Capa_33"
+                    data-name="Capa 33"
+                    width="45"
+                    height="42"
+                    xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAqCAYAAAAnH9IiAAAABHNCSVQICAgIfAhkiAAABTpJREFUWEfNmXuIVVUUh2eKyt5vexk9DCoSckR7QTVpREWRURlZ1vQUzeqPFLSHIhFUZKLZ255qaaFRRNjLrLAHFUn6TxZqKplOWWHZS7Pvk72HM3fOzD1nvOdwN/zY++6zz96/vc9aa6+1bmPrPg3nNTQ0PAn+BS8ErKX+E9RlaYT0AzAbU8HuFX7PAJ+DDeCfemIv6d4QmgDOBL3ADgmCK2g/A54Hq+uFuKRj6UfjEtAMbPdIkJT4reCPeiCeJB359KRxbsBF1LuBb8AQ8HW9ko68/AbTwJVAJXUjCypIN/J7l/B8S1kbSjvp5Not/Hg2dFxBPTvxsC/tx8B/YDNQWa3F3wEbqf8CWiJFa1MY93vo91nsc6zj7HNsbHcwAtVIn8PLbwWid1PfF0jZdRe4J7nDKm2/RIQbs+2G0/ric5/Fthv9DkyrRro/g94AB4GXwCigCbQcB1RQLY4isneot4bnik4RZU410kex6kxwGvgKXAy+TzCRrOQ0k5LdCWh19gIq8K6hbd/uYM+wsT3CM8c41n7H2m87jrdvZ6B+ObeiMqkaaSdUGYcB5dSTX5ogXVbTA1OHvKkHVyMtqfFgYmDXTP1BWUzDOgdQ/wh2BItBUxbS1zHw6TDBCOrpQOUoq9zGQpPDmlOox2QhrQV5EewPNHGjgWaqrPIxC50KNIlneNpZSPdhoMp4IlgELgS/lMT4YNZZAhQR/aCjXTcL6f0Yp8d3PtDo62CtK4m0/o53g1ZkKlBUMpF23BPgpkD0WOplJZF+h3XODmtpub7MQ/oOBt8bXr6Ueh6Il0hR/I9gYn0dRaIV6MhtK1nEw3H6HY8Cjbyf607gFVxk0VLdD7xsXPvmvKRP5gWV8RjwNlC+i/bqXmaNywJRb+RP8pI+kBdeA5oefQ99kSJttco+F2ixfgOa27ZDyioebvJ1oLmzOEl0nOIB1LL2QtNa6K8oGjpqbTqUh/TD4WXJqdHv1ZJlxVxJa+WF8lHyeR7SKoaRu57YWKCSFFG0FuqPouglponVerSVPKTP4q1Z4BCgklxeBGPmVPkkrUv6OLgdtHMb8pCW7Pth596IVwM9r1oVZVbf/NpA3HlNJM2vXCAPad81eePNZClCEQ0mVD4d/h+AuRhDrHYlL2k/lyfhpEWFU/HEH2ENdcfYcLtIeyMOBbcAY0RP+ylgGJTMTFWuk+e3IqcbqlyvSnsx70nHOdbQUMYNbG/Mw6gWY7tDeiALe5WbnzgdGL+VWrpDeg4MNUvGbQYIKk4t5du5fgYdZDmeTF7SOuPLgRGFE3vKphFqWSStXTag/ixt4rykDwtEdaCKLtewgEn+DiUvaU/Bm/EEoEOTVhbS+SYwaZlWfqWzBehTVIqVVkOiRiy6outrQTrOYR7Ez6fcmVL4FmhFTKh4KQwIddqaRiC6uacARc20gK6uUb5Xd1ss2MmmM0cule+rhIqIGdUbwkOtihswlWZaWAuTFpLps5iK2Dds0mhbsiPBJPAFML3caRyaVzwieS8TCY0DD4XOI6m1LCeBFmAEnxaSGTaZfFF8DgU6+RY3rbsr2auALkNq6S5pT0dzZx7EfwvMJV8PDH6N6QYBnau0k9YXfw6o1MPBq0B3V5EzZyhxSfs1a0raQNesk0UZ9rptApq/d4Ei0JVDlYz/PmWsaeLjgV/Qf9o6U/JtC3b3pH3XhLq5kBjau+CHQIVc2dkphf7DqRWRC8JG/SI/AWXdE+8y0t8e0pL13wBvR1PCyqALLgRZciK6AJ6q/6TpEpi8fxDo13RZ/gfYlTv9foGsJAAAAABJRU5ErkJggg=="
+                  />
+                </svg>
+                <p>{t("menu.catalogo")}</p>
+              </div>
+            )}
+          </div>
+          <span className="h-screen barra"></span>
+          <div className="w-full">
+            <div className="navbar">
+              <figure className="w-[30%]">
+                <img src="/assets/dashboard/years.webp" className="!w-[60%] " />
+              </figure>
 
-            <div className="w-[35%] justify-around">
-              <div className="digipoints">
-                <button onClick={() => router.push("/digipoints")}>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>{" "}
-                  <strong>
-                    {typeof digipoints?.assigned_points !== "undefined" &&
-                    typeof digipoints?.cart_points !== "undefined"
-                      ? digipoints?.assigned_points - digipoints?.cart_points
-                      : typeof digipoints?.assigned_points !== "undefined"
-                      ? digipoints?.assigned_points
-                      : 0}
-                  </strong>{" "}
-                  <strong className="text-digi-desk">- DIGIPOINTS</strong>{" "}
-                  <strong className="text-digi-mobi">- DGS</strong>
-                </button>
-              </div>
-              <div className="infomations none">
-                <svg
-                  width={30}
-                  height={30}
-                  fill="#d9d9d9"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M4.256 16.594a8.99 8.99 0 1 1 3.15 3.15v0l-3.112.882a.74.74 0 0 1-.919-.92l.881-3.112Z"></path>
-                </svg>
-                <svg
-                  width={30}
-                  height={30}
-                  fill="#d9d9d9"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25ZM12 18a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 18Zm.75-4.584v.084a.75.75 0 1 1-1.5 0v-.75A.75.75 0 0 1 12 12a1.875 1.875 0 1 0-1.875-1.875.75.75 0 1 1-1.5 0 3.375 3.375 0 1 1 4.125 3.29Z"></path>
-                </svg>
-              </div>
-              <div className="notifications">
-                <div
-                  className="shoopingMarket cursor-pointer"
-                  onClick={() => router.push("/shoppingCar")}
-                >
+              <div className="w-[35%] justify-around">
+                <div className="digipoints">
+                  <button
+                    onClick={() => {
+                      dispatch(changeLoadingData(true));
+                      router.push("/digipoints");
+                    }}
+                  >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>{" "}
+                    <strong>
+                      {typeof digipoints?.assigned_points !== "undefined" &&
+                      typeof digipoints?.cart_points !== "undefined"
+                        ? digipoints?.assigned_points - digipoints?.cart_points
+                        : typeof digipoints?.assigned_points !== "undefined"
+                        ? digipoints?.assigned_points
+                        : 0}
+                    </strong>{" "}
+                    <strong className="text-digi-desk">- DIGIPOINTS</strong>{" "}
+                    <strong className="text-digi-mobi">- DGS</strong>
+                  </button>
+                </div>
+                <div className="infomations none">
                   <svg
-                    width={35}
-                    height={35}
-                    fill="#ffffff"
+                    width={30}
+                    height={30}
+                    fill="#d9d9d9"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path d="m20.99 6.131-1.143 6.272a2.25 2.25 0 0 1-2.213 1.847H6.76l.413 2.25H17.25A2.25 2.25 0 1 1 15 18.75c0-.256.044-.51.131-.75H9.62a2.25 2.25 0 1 1-3.825-.712L3.197 3H1.5a.75.75 0 0 1 0-1.5h1.697a1.5 1.5 0 0 1 1.472 1.228l.46 2.522H20.25a.74.74 0 0 1 .572.272.722.722 0 0 1 .169.61Z" />
+                    <path d="M4.256 16.594a8.99 8.99 0 1 1 3.15 3.15v0l-3.112.882a.74.74 0 0 1-.919-.92l.881-3.112Z"></path>
                   </svg>
-                  <p className="none">1</p>
+                  <svg
+                    width={30}
+                    height={30}
+                    fill="#d9d9d9"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25ZM12 18a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 18Zm.75-4.584v.084a.75.75 0 1 1-1.5 0v-.75A.75.75 0 0 1 12 12a1.875 1.875 0 1 0-1.875-1.875.75.75 0 1 1-1.5 0 3.375 3.375 0 1 1 4.125 3.29Z"></path>
+                  </svg>
                 </div>
-                <svg
-                  className="none"
-                  width={30}
-                  height={30}
-                  fill="#d9d9d9"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M20.719 16.49c-.553-.956-1.219-2.774-1.219-5.99v-.666c0-4.153-3.337-7.556-7.444-7.584H12a7.49 7.49 0 0 0-7.5 7.5v.75c0 3.216-.666 5.034-1.219 5.99a1.481 1.481 0 0 0-.01 1.51 1.49 1.49 0 0 0 1.304.75h14.85a1.49 1.49 0 0 0 1.303-.75 1.481 1.481 0 0 0-.01-1.51Z" />
-                  <path d="M14.99 20.25h-6a.75.75 0 1 0 0 1.5h6a.75.75 0 1 0 0-1.5Z" />
-                </svg>
-                <svg
-                  className="none"
-                  width={30}
-                  height={30}
-                  fill="#d9d9d9"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="m22.012 14.099-1.396-1.856c.009-.17 0-.347 0-.479L22.012 9.9a.73.73 0 0 0 .122-.647 10.765 10.765 0 0 0-1.022-2.475.769.769 0 0 0-.543-.375l-2.297-.328-.347-.347-.328-2.297a.788.788 0 0 0-.366-.544 11.014 11.014 0 0 0-2.484-1.021.731.731 0 0 0-.647.121l-1.856 1.388h-.488L9.9 1.986a.731.731 0 0 0-.647-.121c-.864.236-1.696.58-2.475 1.021a.769.769 0 0 0-.375.544l-.328 2.297-.347.347-2.297.328a.769.769 0 0 0-.544.375c-.442.78-.785 1.61-1.021 2.475a.731.731 0 0 0 .121.647l1.397 1.856v.478L1.987 14.1a.731.731 0 0 0-.121.647c.236.864.58 1.696 1.021 2.475a.769.769 0 0 0 .544.375l2.297.328.347.347.328 2.297a.769.769 0 0 0 .375.543c.78.443 1.61.786 2.475 1.022a.722.722 0 0 0 .647-.122l1.856-1.387h.488L14.1 22.01a.731.731 0 0 0 .647.122 10.593 10.593 0 0 0 2.475-1.022.769.769 0 0 0 .375-.543l.328-2.307c.112-.112.244-.234.337-.337l2.307-.328a.77.77 0 0 0 .543-.375c.443-.78.786-1.61 1.022-2.475a.732.732 0 0 0-.122-.647ZM12 16.124a4.125 4.125 0 1 1 0-8.25 4.125 4.125 0 0 1 0 8.25Z" />
-                </svg>
-              </div>
-
-              <div className="userDrop">
-                <div className="menumobile">
-                  <MobileMenu
-                    className="bannerMob"
-                    locations={locations}
-                    locationsPP={locationsPP}
-                    locationsPA={locationsPA}
-                    locationsVendedor={locationsVendedor}
-                  />
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="user">
-                    <Menu trigger="hover" openDelay={100} closeDelay={400}>
-                      <Menu.Target>
-                        <div className="userPreMenu">
-                          <svg
-                            width={30}
-                            height={30}
-                            fill="#2c2c2c"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M12 15.375a4.125 4.125 0 1 0 0-8.25 4.125 4.125 0 0 0 0 8.25Z" />
-                            <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25Zm6.169 15.225a7.624 7.624 0 0 0-2.297-2.156 5.597 5.597 0 0 1-7.744 0 7.622 7.622 0 0 0-2.297 2.156 8.25 8.25 0 1 1 12.338 0Z" />
-                          </svg>
-                        </div>
-                      </Menu.Target>
-
-                      <Menu.Dropdown>
-                        <Menu.Item>
-                          <div
-                            className="buttonLayoutDropdown"
-                            onClick={() =>
-                              router.push(`/user/${userRedux?.person[0].names}`)
-                            }
-                          >
-                            <p> Ver Perfil</p>
-                          </div>
-                        </Menu.Item>
-                        <Menu.Item onClick={() => logout()}>
-                          <div className="buttonLayoutDropdown">
-                            <p>{t("menu.salir")}</p>
-                          </div>
-                        </Menu.Item>
-                      </Menu.Dropdown>
-                    </Menu>
+                <div className="notifications">
+                  <div
+                    className="shoopingMarket cursor-pointer"
+                    onClick={() => {
+                      dispatch(changeLoadingData(true));
+                      router.push("/shoppingCar");
+                    }}
+                  >
+                    <svg
+                      width={35}
+                      height={35}
+                      fill="#ffffff"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="m20.99 6.131-1.143 6.272a2.25 2.25 0 0 1-2.213 1.847H6.76l.413 2.25H17.25A2.25 2.25 0 1 1 15 18.75c0-.256.044-.51.131-.75H9.62a2.25 2.25 0 1 1-3.825-.712L3.197 3H1.5a.75.75 0 0 1 0-1.5h1.697a1.5 1.5 0 0 1 1.472 1.228l.46 2.522H20.25a.74.74 0 0 1 .572.272.722.722 0 0 1 .169.61Z" />
+                    </svg>
+                    <p className="none">1</p>
                   </div>
-                  <div className="username">
-                    <p>{userRedux?.person[0]?.names}</p>
+                  <svg
+                    className="none"
+                    width={30}
+                    height={30}
+                    fill="#d9d9d9"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M20.719 16.49c-.553-.956-1.219-2.774-1.219-5.99v-.666c0-4.153-3.337-7.556-7.444-7.584H12a7.49 7.49 0 0 0-7.5 7.5v.75c0 3.216-.666 5.034-1.219 5.99a1.481 1.481 0 0 0-.01 1.51 1.49 1.49 0 0 0 1.304.75h14.85a1.49 1.49 0 0 0 1.303-.75 1.481 1.481 0 0 0-.01-1.51Z" />
+                    <path d="M14.99 20.25h-6a.75.75 0 1 0 0 1.5h6a.75.75 0 1 0 0-1.5Z" />
+                  </svg>
+                  <svg
+                    className="none"
+                    width={30}
+                    height={30}
+                    fill="#d9d9d9"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="m22.012 14.099-1.396-1.856c.009-.17 0-.347 0-.479L22.012 9.9a.73.73 0 0 0 .122-.647 10.765 10.765 0 0 0-1.022-2.475.769.769 0 0 0-.543-.375l-2.297-.328-.347-.347-.328-2.297a.788.788 0 0 0-.366-.544 11.014 11.014 0 0 0-2.484-1.021.731.731 0 0 0-.647.121l-1.856 1.388h-.488L9.9 1.986a.731.731 0 0 0-.647-.121c-.864.236-1.696.58-2.475 1.021a.769.769 0 0 0-.375.544l-.328 2.297-.347.347-2.297.328a.769.769 0 0 0-.544.375c-.442.78-.785 1.61-1.021 2.475a.731.731 0 0 0 .121.647l1.397 1.856v.478L1.987 14.1a.731.731 0 0 0-.121.647c.236.864.58 1.696 1.021 2.475a.769.769 0 0 0 .544.375l2.297.328.347.347.328 2.297a.769.769 0 0 0 .375.543c.78.443 1.61.786 2.475 1.022a.722.722 0 0 0 .647-.122l1.856-1.387h.488L14.1 22.01a.731.731 0 0 0 .647.122 10.593 10.593 0 0 0 2.475-1.022.769.769 0 0 0 .375-.543l.328-2.307c.112-.112.244-.234.337-.337l2.307-.328a.77.77 0 0 0 .543-.375c.443-.78.786-1.61 1.022-2.475a.732.732 0 0 0-.122-.647ZM12 16.124a4.125 4.125 0 1 1 0-8.25 4.125 4.125 0 0 1 0 8.25Z" />
+                  </svg>
+                </div>
+
+                <div className="userDrop">
+                  <div className="menumobile">
+                    <MobileMenu
+                      className="bannerMob"
+                      locations={locations}
+                      locationsPP={locationsPP}
+                      locationsPA={locationsPA}
+                      locationsVendedor={locationsVendedor}
+                    />
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="user">
+                      <Menu trigger="hover" openDelay={100} closeDelay={400}>
+                        <Menu.Target>
+                          <div className="userPreMenu">
+                            <svg
+                              width={30}
+                              height={30}
+                              fill="#2c2c2c"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M12 15.375a4.125 4.125 0 1 0 0-8.25 4.125 4.125 0 0 0 0 8.25Z" />
+                              <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25Zm6.169 15.225a7.624 7.624 0 0 0-2.297-2.156 5.597 5.597 0 0 1-7.744 0 7.622 7.622 0 0 0-2.297 2.156 8.25 8.25 0 1 1 12.338 0Z" />
+                            </svg>
+                          </div>
+                        </Menu.Target>
+
+                        <Menu.Dropdown>
+                          <Menu.Item>
+                            <div
+                              className="buttonLayoutDropdown"
+                              onClick={() => {
+                                dispatch(changeLoadingData(true));
+                                router.push(
+                                  `/user/${userRedux?.person[0].names}`
+                                );
+                              }}
+                            >
+                              <p>Ver Perfil</p>
+                            </div>
+                          </Menu.Item>
+                          <Menu.Item onClick={() => logout()}>
+                            <div className="buttonLayoutDropdown">
+                              <p>{t("menu.salir")}</p>
+                            </div>
+                          </Menu.Item>
+                        </Menu.Dropdown>
+                      </Menu>
+                    </div>
+                    <div className="username">
+                      <p>{userRedux?.person[0]?.names}</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            {children}
           </div>
-          {children}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

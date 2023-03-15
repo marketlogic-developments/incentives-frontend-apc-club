@@ -8,9 +8,12 @@ import { useTranslation } from "react-i18next";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Modal } from "@mantine/core";
+import AgregarParticipante from "../components/participantes/AgregarParticipante";
+import axios from "axios";
 
 const participantes = () => {
   const dispatch = useDispatch();
+  const [opened, setOpened] = useState(false);
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const [participantes, setParticipantes] = useState([]);
@@ -20,9 +23,10 @@ const participantes = () => {
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
-  const [opened, setOpened] = useState(false);
-  const [modal, setModal] = useState(0);
   const [search, setSearch] = useState("");
+  const [userDataToModal, setUserDataToModal] = useState({
+    person: [{ operationStatusId: 0 }],
+  });
 
   useEffect(() => {
     if (participantes.length === 0) setIsLoaded(true);
@@ -74,7 +78,24 @@ const participantes = () => {
     }
   }, [participantes, roles]);
 
-  const dataDummy = [];
+  const handleChangeCheckbox = (e) => {
+    axios.patch(
+      `${process.env.BACKURL}/users/${userDataToModal.id}`,
+      {
+        person: {
+          personId: userDataToModal.person[0]?.id,
+          operationStatusId: e.target.checked === false ? 5 : 4,
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  };
 
   function Table({ currentItems }) {
     return (
@@ -101,35 +122,55 @@ const participantes = () => {
           </thead>
           <tbody>
             {search !== ""
-              ? dataDummy
+              ? participantes
                   .filter(({ email }) =>
                     email.startsWith(search.toLocaleLowerCase())
                   )
-                  .map((user, index) => (
+                  .map((user2, index) => (
                     <tr
                       key={index}
-                      className="bg-white border-b dark:border-gray-500"
+                      className={`bg-white border-b dark:border-gray-500 ${
+                        user?.roleId === 1
+                          ? "cursor-pointer hover:bg-warning"
+                          : ""
+                      }`}
+                      onClick={() => {
+                        if (user?.roleId === 1) {
+                          setUserDataToModal(user2);
+                          return setOpened(true);
+                        }
+                      }}
                     >
-                      <td className="py-4 px-2">{user.id}</td>
-                      <td className="py-4 px-2">{user.name}</td>
-                      <td className="py-4 px-2">{user.email}</td>
-                      <td className="py-4 px-2">{user.rol}</td>
+                      <td className="py-4 px-2">{user2.id}</td>
+                      <td className="py-4 px-2">{user2.name}</td>
+                      <td className="py-4 px-2">{user2.email}</td>
+                      <td className="py-4 px-2">{user2.rol}</td>
                       <td className="py-4 px-2">
-                        {moment(user.date).format("MM/DD/YYYY")}
+                        {moment(user2.date).format("MM/DD/YYYY")}
                       </td>
                     </tr>
                   ))
-              : dataDummy.map((user, index) => (
+              : participantes.map((user2, index) => (
                   <tr
                     key={index}
-                    className="bg-white border-b dark:border-gray-500"
+                    className={`bg-white border-b dark:border-gray-500 ${
+                      user?.roleId === 1
+                        ? "cursor-pointer hover:bg-warning"
+                        : ""
+                    }`}
+                    onClick={() => {
+                      if (user?.roleId === 1) {
+                        setUserDataToModal(user2);
+                        return setOpened(true);
+                      }
+                    }}
                   >
-                    <td className="py-4 px-2">{user.id}</td>
-                    <td className="py-4 px-2">{user.name}</td>
-                    <td className="py-4 px-2">{user.email}</td>
-                    <td className="py-4 px-2">{user.rol}</td>
+                    <td className="py-4 px-2">{user2.id}</td>
+                    <td className="py-4 px-2">{user2.name}</td>
+                    <td className="py-4 px-2">{user2.email}</td>
+                    <td className="py-4 px-2">{user2.rol}</td>
                     <td className="py-4 px-2">
-                      {moment(user.date).format("MM/DD/YYYY")}
+                      {moment(user2.date).format("MM/DD/YYYY")}
                     </td>
                   </tr>
                 ))}
@@ -171,137 +212,22 @@ const participantes = () => {
     setItemOffset(newOffset);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    return setModal(1);
-  };
-
-  const typeModal = useMemo(() => {
-    if (modal === 0) {
-      return (
-        <div>
-          <div>
-            <h3 className="text-lg font-bold text-red-500">
-              Agregar Participante
-            </h3>
-            <p className="py-4">
-              Indica la información del usuario que vas a registrar
-            </p>
-            <div className="w-full flex flex-col items-center">
-              <h3 className="text-lg font-bold text-red-500">
-                Información de la Cuenta
-              </h3>
-              <div className="form-control w-9/12">
-                <label className="label">
-                  <span className="label-text">Nombre</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <label className="label">
-                  <span className="label-text">Apellido</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <label className="label">
-                  <span className="label-text">Correo Electrónico</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <label className="label">
-                  <span className="label-text">Rol</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <label className="label">
-                  <span className="label-text">Teléfono</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-
-                <label className="label">
-                  <span className="label-text">CPF</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <label className="label">
-                  <span className="label-text">Fecha de nacimiento</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <label className="label">
-                  <span className="label-text">Fecha de ingreso</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full"
-                />
-                <div className="pt-5 flex justify-center">
-                  <button
-                    onClick={handleSubmit}
-                    className="btn btn-outline btn-primary w-max"
-                  >
-                    Enviar solicitud
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    if (modal === 2) {
-      return (
-        <div>
-          <div>
-            <h3 className="text-lg font-bold text-red-500">Usuario agregado</h3>
-            <p className="py-4">Usuario agregado con exito.</p>
-          </div>
-        </div>
-      );
-    }
-  }, [modal]);
-  const isMobile = window.innerWidth <= 768;
-  const modalSize = isMobile
-    ? { initialWidth: "100%", initialHeight: "auto" }
-    : { initialWidth: "40%", initialHeight: "auto" };
-
   return (
     <>
+      <Modal opened={opened} onClose={() => setOpened(false)} size={"50%"}>
+        <div>
+          <h2>Activar/Desactivar Usuario</h2>
+          <input
+            type="checkbox"
+            className="toggle toggle-primary"
+            defaultChecked={
+              userDataToModal.person[0]?.operationStatusId === 4 ? true : false
+            }
+            onChange={handleChangeCheckbox}
+          />
+        </div>
+      </Modal>
       <ContainerContent pageTitle={"Participantes"}>
-        <Modal
-          opened={opened}
-          onClose={() => {
-            setOpened(false);
-          }}
-          centered
-          size={modalSize}
-        >
-          {typeModal}
-        </Modal>
         <div className="m-6 flex flex-col gap-16">
           <div className="flex flex-col gap-5">
             <h1 className="font-bold text-3xl">Participantes</h1>
@@ -330,21 +256,16 @@ const participantes = () => {
                       />
                     </div>
                   </div>
-                  {[1].includes(user?.roleId) && (
-                    <button
-                      onClick={() => {
-                        setOpened(true);
-                      }}
-                      className="btn bg-primary hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-max"
-                    >
-                      {t("tabla.agregarP")}
-                    </button>
-                  )}
+                  {[1].includes(user?.roleId) && <AgregarParticipante />}
                 </div>
               </div>
             </div>
-            {loading && <div className="lds-dual-ring"></div>}
-            {!loading && <Table currentItems={currentItems} />}
+            {loading ? (
+              <div className="lds-dual-ring"></div>
+            ) : (
+              <Table currentItems={currentItems} />
+            )}
+
             {/* {!loading && (
               <ReactPaginate
                 pageCount={pageCount}

@@ -16,7 +16,7 @@ const BnESP = () => {
         <a href="#">
           <img
             className="bannerDesk"
-            src="assets/dashboard/banners/bannerDP.png"
+            src="assets/dashboard/banners/bannerDP.webp"
             alt="bannerDigipoints"
           ></img>
           <img

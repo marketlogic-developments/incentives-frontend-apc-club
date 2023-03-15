@@ -55,8 +55,6 @@ const dashboard = () => {
 
   const redirection = () => {
     if (!user?.passwordReset) {
-      setOpened2(false);
-      //borrar esto ^
       setModalType(0);
       return setOpened(true);
     }
@@ -79,7 +77,6 @@ const dashboard = () => {
       .then((res) => {
         dispatch(policyAndPassword(res.data));
         setOpened(false);
-        setOpened2(true);
         const Toast = Swal.mixin({
           toast: true,
           position: "top",
@@ -140,9 +137,8 @@ const dashboard = () => {
               <button
                 className="btn btn-primary buttonResponsive"
                 onClick={() => {
-                  // setModalType(1);
-                  // setOpened(true);
-                  setOpened2(true);
+                  setModalType(1);
+                  setOpened(true);
                 }}
               >
                 {t("dashboard.conoce")}
@@ -164,19 +160,18 @@ const dashboard = () => {
         <figure
           className="w-full flex justify-center"
           onClick={() => {
-            // setModalType(2);
-            // setOpened(true);
-            setOpened2(true);
+            setModalType(2);
+            setOpened(true);
           }}
         >
           {i18n.resolvedLanguage === "por" ? (
             <img
-              src="assets/dashboard/banners/promPor.jpg"
+              src="assets/dashboard/banners/promPor.webp"
               className="bannersImg cursor-pointer"
             />
           ) : (
             <img
-              src="assets/dashboard/banners/prom.jpg"
+              src="assets/dashboard/banners/prom.webp"
               className="bannersImg cursor-pointer"
             />
           )}
@@ -191,12 +186,12 @@ const dashboard = () => {
         >
           {i18n.resolvedLanguage === "por" ? (
             <img
-              src="assets/dashboard/banners/htwPor.jpg"
+              src="assets/dashboard/banners/htwPor.webp"
               className="bannersImg"
             />
           ) : (
             <img
-              src="assets/dashboard/banners/htw.jpg"
+              src="assets/dashboard/banners/htw.webp"
               className="bannersImg"
             />
           )}
@@ -399,12 +394,6 @@ const dashboard = () => {
     ? { initialWidth: "100%", initialHeight: "auto" }
     : { initialWidth: "40%", initialHeight: "auto" };
 
-  const logout = () => {
-    window.sessionStorage.removeItem("infoDt");
-    Cookies.remove("dp");
-    route.push("/");
-  };
-
   return (
     <>
       <Modal
@@ -416,52 +405,15 @@ const dashboard = () => {
       >
         {typeModal}
       </Modal>
-      <Modal
-        opened={opened2}
-        centered
-        size={"90%"}
-        onClose={() => {
-          logout();
-          // setOpened2(false);
-        }}
-        className={"modalCloseDashboard"}
-      >
-        {
-          <a href="mailto:info@adobepcclub.com">
-            <figure>
-              {i18n.resolvedLanguage === "por" ? (
-                <img
-                  src="assets/dashboard/banners/bannerPApor.jpg"
-                  alt="Sales_PA"
-                  className="w-full"
-                ></img>
-              ) : (
-                <img
-                  src="assets/dashboard/banners/bannerPA.jpg"
-                  alt="Sales_PA"
-                  className="w-full"
-                ></img>
-              )}
-            </figure>
-          </a>
-        }
-      </Modal>
       <ContainerContent pageTitle={"Dashboard"}>
         {header}
         <div className="w-full flex justify-center gap-5">
-          <button
-            className={`btn btn-xs btn-accent`}
-            onClick={() => setOpened2(true)}
-          >
-            {t("dashboard.ventas")}
-          </button>
           <button
             className={`btn btn-xs ${
               typeHeader === 0 ? "btn-primary" : "btn-accent"
             }`}
             onClick={() => {
-              // setTypeHeader(0)
-              setOpened2(true);
+              setTypeHeader(0);
             }}
           >
             {t("dashboard.ranking")}
@@ -471,8 +423,7 @@ const dashboard = () => {
               typeHeader === 1 ? "btn-primary" : "btn-accent"
             } btn-xs`}
             onClick={() => {
-              // setTypeHeader(1)
-              setOpened2(true);
+              setTypeHeader(1);
             }}
           >
             {t("dashboard.promociones")}
@@ -482,8 +433,7 @@ const dashboard = () => {
               typeHeader === 2 ? "btn-primary" : "btn-accent"
             } btn-xs`}
             onClick={() => {
-              // setTypeHeader(2)
-              setOpened2(true);
+              setTypeHeader(2);
             }}
           >
             {t("dashboard.htw")}
@@ -495,7 +445,7 @@ const dashboard = () => {
             <div className="w-8/12 max-sm:mx-auto flex flex-col gap-5 progressiveBar justify-center">
               <div className="w-full h-16 flex items-center gap-10 gapBar">
                 <div className="flex items-center h-full cct max-sm:w-64 w-32 text-center">
-                  <img src="/assets/dashboard/cc.png" width={100}></img>
+                  <img src="/assets/dashboard/cc.webp" width={100}></img>
                 </div>
                 <div className="w-10/12 flex flex-col items-center justify-around h-full">
                   <div className="w-full flex justify-around">
@@ -527,7 +477,7 @@ const dashboard = () => {
               </div>
               <div className="w-full h-16 flex items-center gap-10 gapBar">
                 <div className="flex items-center h-full cci max-sm:w-64 w-32 text-center">
-                  <img src="/assets/dashboard/DC.png" width={100}></img>
+                  <img src="/assets/dashboard/DC.webp" width={100}></img>
                 </div>
                 <div className="w-10/12 flex flex-col items-center justify-around h-full">
                   <div className="w-full flex justify-around">
