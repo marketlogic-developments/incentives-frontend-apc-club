@@ -459,13 +459,13 @@ export default function Home() {
         <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] max-sm:max-h-[150px] flex w-full justify-between mt-10">
           <figure className="ml-10 max-sm:m-auto">
             <img
-              src="assets/login/adobe.png"
+              src="assets/login/adobe.webp"
               className="max-w-[250px] max-sm:m-auto "
             />
           </figure>
           <figure>
             <img
-              src="assets/login/pcc.png"
+              src="assets/login/pcc.webp"
               className="max-w-[400px] max-sm:m-auto"
             />
           </figure>
@@ -475,7 +475,7 @@ export default function Home() {
             <div className="w-fit h-full max-sm:h-auto max-sm:mb-5 flex justify-center items-center ">
               <figure id="apcLogo">
                 <img
-                  src="/assets/login/apcLogo.png"
+                  src="/assets/login/apcLogo.webp"
                   className="logoAPC w-5/6"
                 />
               </figure>

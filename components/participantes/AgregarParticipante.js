@@ -208,7 +208,7 @@ const AgregarParticipante = () => {
                   <span className="label-text">Fecha de Nacimiento</span>
                   <input
                     type="text"
-                    placeholder="AAAA/MM/DD"
+                    placeholder="AAAA-MM-DD"
                     className="input input-bordered w-full"
                     name="date"
                     onChange={handleChange}

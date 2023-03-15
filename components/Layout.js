@@ -814,7 +814,7 @@ const Layout = ({ children }) => {
             <div className="mt-10 flex flex-col h-[80%]">
               <div className="logoAdobe">
                 <figure className="flex">
-                  <img src="/assets/dashboard/logoapc.png"></img>
+                  <img src="/assets/dashboard/logoapc.webp"></img>
                 </figure>
               </div>
               <div className="containerRedirections">{menu}</div>
@@ -850,7 +850,7 @@ const Layout = ({ children }) => {
           <div className="w-full">
             <div className="navbar">
               <figure className="w-[30%]">
-                <img src="/assets/dashboard/years.png" className="!w-[60%] " />
+                <img src="/assets/dashboard/years.webp" className="!w-[60%] " />
               </figure>
 
               <div className="w-[35%] justify-around">

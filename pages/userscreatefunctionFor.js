@@ -127,9 +127,9 @@ const userscreatefunctionFor = () => {
       usersEmailFile.includes(data.email)
     );
 
-    return usersMatch
-      .map(({ id }) => {
-        axios.patch(
+    return usersMatch.map(({ id }) => {
+      axios
+        .patch(
           `${process.env.BACKURL}/users/${id}`,
           {
             policy: true,
@@ -141,14 +141,12 @@ const userscreatefunctionFor = () => {
               Authorization: `Bearer ${token}`,
             },
           }
-        );
-      })
-      .then(() => {
-        console.log("all users are updated");
-      });
+        )
+        .then(() => {
+          console.log("user Update");
+        });
+    });
   };
-
-  console.table(users);
 
   return (
     <div>
