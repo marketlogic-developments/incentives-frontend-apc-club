@@ -121,16 +121,14 @@ const user = () => {
   const handleSubmitImgProfile = (e) => {
     e.preventDefault();
 
-    console.log(image);
-
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", "ADOBEAPC");
+    const form = new FormData();
+    form.append("file", image);
+    form.append("upload_preset", "ADOBEAPC");
 
     axios
       .post(
         `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`,
-        formData
+        form
       )
       .then((res) =>
         setFormData({
