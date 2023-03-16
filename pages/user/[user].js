@@ -37,10 +37,6 @@ const user = () => {
       email: user?.email,
       role: user?.roleId,
       position: user?.person[0]?.position,
-      emailP:
-        user?.person[0]?.secondaryEmail === null
-          ? ""
-          : user?.person[0]?.secondaryEmail,
       region: user?.region,
       imgProfile: user?.profilePhotoPath,
       birthDate: user?.person[0]?.birthDate,
@@ -57,10 +53,18 @@ const user = () => {
       imgProfile: user?.profilePhotoPath,
       birthDate: user?.person[0]?.birthDate,
       phone: user?.person[0]?.phoneNumber,
-    }).filter((e) => e !== null).length;
+    }).filter((e) => e !== null || e !== "").length;
 
     setNInputs(parseInt((num * 100) / 9));
   }, [user]);
+
+  const handleChangeInputs = () => {
+    const num = Object.values(formData).filter((e) => e !== "").length;
+
+    console.log(num);
+
+    setNInputs(parseInt((num * 100) / 9));
+  };
 
   const handleChange = (e) => {
     if (e.target.name === "roleId") {
@@ -140,7 +144,6 @@ const user = () => {
   };
 
   const typeModal = useMemo(() => {
-    console.log(modal);
     if (modal === 0) {
       return (
         <div>
@@ -213,9 +216,7 @@ const user = () => {
                 <div
                   className="circular-progress"
                   style={{
-                    background: `conic-gradient(#d75050 ${
-                      nInputs * 3.6
-                    }deg, #ededed 0deg)`,
+                    "--progress": `${nInputs * 3.6}deg`,
                   }}
                 >
                   <div className="flip-card-imgPhoto">
@@ -259,6 +260,8 @@ const user = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
+                      onBlur={handleChangeInputs}
+                      required
                     />
                   </div>
                   <div className="form-control w-full max-w-xs">
@@ -272,6 +275,8 @@ const user = () => {
                       className="input input-ghost w-full max-w-xs border border-accent"
                       value={formData.lastname}
                       onChange={handleChange}
+                      required
+                      onBlur={handleChangeInputs}
                     />
                   </div>
                   <div className="form-control w-full max-w-xs">
@@ -356,6 +361,8 @@ const user = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       name="phone"
+                      required
+                      onBlur={handleChangeInputs}
                     />
                   </div>
                   <div className="form-control w-full max-w-xs">
@@ -366,11 +373,13 @@ const user = () => {
                     </label>
                     <input
                       type="text"
-                      placeholder={t("user.escriba")}
+                      placeholder="AAAA-MM-DD"
                       className="input input-ghost w-full max-w-xs border border-accent"
                       value={formData.birthDate}
                       onChange={handleChange}
                       name="birthDate"
+                      required
+                      onBlur={handleChangeInputs}
                     />
                   </div>
                 </div>

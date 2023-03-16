@@ -469,7 +469,7 @@ const dashboard = () => {
                       style={{ width: "33.3%" }}
                     />
                     <span
-                      className="bg-warning h-full"
+                      className="bg-success h-full"
                       style={{ width: "33.3%" }}
                     />
                   </div>
