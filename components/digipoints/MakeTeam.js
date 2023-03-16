@@ -12,7 +12,7 @@ import { getUsersData } from "../../store/reducers/users.reducer";
 const MakeTeam = () => {
   const token = useSelector((state) => state.user.token);
   const teams = useSelector((state) => state.teams.teams);
-  const users = [];
+  const users = useSelector((state) => state.user.users);
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);

@@ -317,6 +317,22 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: t("menu.Reportes"),
     },
+    {
+      page: "/userscreatefunctionFor",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="#ffffff"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="m20.925 6.412-1.5-3A.77.77 0 0 0 18.75 3H5.25a.769.769 0 0 0-.675.413l-1.5 3A.844.844 0 0 0 3 6.75V19.5A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5V6.75a.844.844 0 0 0-.075-.338Zm-5.213 8.185-3.178 3.187a.769.769 0 0 1-1.068 0l-3.178-3.187a.75.75 0 0 1 1.059-1.06l1.903 1.904V9.75a.75.75 0 1 1 1.5 0v5.69l1.903-1.902a.75.75 0 0 1 1.06 1.059ZM4.96 6l.75-1.5h12.582l.75 1.5H4.959Z" />
+        </svg>
+      ),
+      iconactive: "",
+      text: "Importación",
+    },
   ];
   const locationsPP = [
     {
