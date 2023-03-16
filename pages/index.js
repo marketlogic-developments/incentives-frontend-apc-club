@@ -165,6 +165,9 @@ export default function Home() {
         } else {
           return route.push("/terminosycondiciones");
         }
+      })
+      .catch(() => {
+        dispatch(changeLoadingData(false));
       });
   };
 
