@@ -21,7 +21,6 @@ const AgregarParticipante = () => {
     region: "",
     date: "",
     phone: "",
-    posId: "",
   });
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
@@ -100,9 +99,6 @@ const AgregarParticipante = () => {
         operationStatusId: 4,
         academicDegreeId: 1,
         languageId: form.region === "BRAZIL" ? 1 : 2,
-      },
-      employeePos: {
-        posId: form.posId,
       },
     });
   };
@@ -222,22 +218,6 @@ const AgregarParticipante = () => {
                     className="input input-bordered w-full"
                     name="phone"
                     onChange={handleChange}
-                  />
-                </label>
-                <label className="inputCreateUser col-span-2 w-full">
-                  <span className="label-text">Canal</span>
-                  <Autocomplete
-                    size="md"
-                    dropdownPosition="flip"
-                    placeholder="Selecciona el Canal"
-                    data={pos}
-                    name="posId"
-                    onItemSubmit={({ id }) =>
-                      setForm({
-                        ...form,
-                        posId: id,
-                      })
-                    }
                   />
                 </label>
 
