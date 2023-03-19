@@ -153,8 +153,6 @@ const userscreatefunctionFor = () => {
       });
     }
 
-    console.log(usersMatch);
-
     const usersProcessed = usersMatch.map(async ({ id }) =>
       axios.patch(
         `${process.env.BACKURL}/users/${id}`,
@@ -250,12 +248,12 @@ const userscreatefunctionFor = () => {
                         >
                           <th
                             scope="row"
-                            className="py-4 px-6 font-medium text-white"
+                            className="py-4 px-6 text-white font-bold"
                           >
                             {email}
                           </th>
-                          <td className="py-4 px-6">
-                            {processed ? "si" : "no"}
+                          <td className="py-4 px-6 font-bold">
+                            {processed ? "Si" : "No"}
                           </td>
                         </tr>
                       );

@@ -1,16 +1,17 @@
+import Head from "next/head";
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import ContainerContent from "../containerContent";
+import { getUsersData, getRolesData } from "../../store/reducers/users.reducer";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Modal } from "@mantine/core";
 import axios from "axios";
-import { getRolesData, getUsersData } from "../../store/reducers/users.reducer";
-import AgregarParticipante from "../participantes/AgregarParticipante";
+import ButtonParticipants from "./ButtonParticipants";
 
-const Participantes = () => {
+const AllParticipants = () => {
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
   const token = useSelector((state) => state.user.token);
@@ -103,10 +104,16 @@ const Participantes = () => {
           <thead className="text-xs text-black-500 uppercase">
             <tr>
               <th scope="col" className="py-2 px-2">
+                ID
+              </th>
+              <th scope="col" className="py-2 px-2">
                 {t("participantes.nombre")}
               </th>
               <th scope="col" className="py-2 px-2">
                 {t("participantes.correo")}
+              </th>
+              <th scope="col" className="py-2 px-2">
+                {t("participantes.rol")}
               </th>
               <th scope="col" className="py-2 px-2">
                 {t("participantes.fecha")}
@@ -134,8 +141,10 @@ const Participantes = () => {
                         }
                       }}
                     >
+                      <td className="py-4 px-2">{user2.id}</td>
                       <td className="py-4 px-2">{user2.name}</td>
                       <td className="py-4 px-2">{user2.email}</td>
+                      <td className="py-4 px-2">{user2.rol}</td>
                       <td className="py-4 px-2">
                         {moment(user2.date).format("MM/DD/YYYY")}
                       </td>
@@ -156,8 +165,10 @@ const Participantes = () => {
                       }
                     }}
                   >
+                    <td className="py-4 px-2">{user2.id}</td>
                     <td className="py-4 px-2">{user2.name}</td>
                     <td className="py-4 px-2">{user2.email}</td>
+                    <td className="py-4 px-2">{user2.rol}</td>
                     <td className="py-4 px-2">
                       {moment(user2.date).format("MM/DD/YYYY")}
                     </td>
@@ -216,16 +227,6 @@ const Participantes = () => {
           />
         </div>
       </Modal>
-      {user.roleId === 5 && (
-        <div className="px-5 flex">
-          <p className="text-2xl">
-            <strong className="text-[#eb1000] font-bold text-2xl">
-              Partner Admin:
-            </strong>{" "}
-            username
-          </p>
-        </div>
-      )}
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white flex flex-col gap-5">
         <div>
           <div className="flex justify-between items-center">
@@ -250,7 +251,7 @@ const Participantes = () => {
                   />
                 </div>
               </div>
-              {[1, 3].includes(user?.roleId) && <AgregarParticipante />}
+              {[1].includes(user?.roleId) && <ButtonParticipants />}
             </div>
           </div>
         </div>
@@ -288,4 +289,4 @@ const Participantes = () => {
   );
 };
 
-export default Participantes;
+export default AllParticipants;

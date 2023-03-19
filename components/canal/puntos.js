@@ -5,7 +5,7 @@ const Puntos = () => {
   const [t, i18n] = useTranslation("global");
   return (
     <>
-      <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white flex flex-col gap-5">
+      <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white flex flex-col gap-5">
         <div>
           <div className="flex justify-between items-center">
             <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-4 mt-4 w-full place-items-center">

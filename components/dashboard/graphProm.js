@@ -5,7 +5,7 @@ const GraphProm = () => {
   return (
     <>
       <div className="m-6">
-        <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
+        <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
           <div>
             <div className="relative">
               <div className="absolute flex items-center ml-2 h-full">

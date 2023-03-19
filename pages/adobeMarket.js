@@ -92,7 +92,7 @@ const adobeMarket = () => {
           </button>
         </div>
 
-        <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
+        <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
           <div className="none">
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
               <select className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">

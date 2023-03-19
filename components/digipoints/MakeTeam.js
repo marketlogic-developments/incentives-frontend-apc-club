@@ -447,7 +447,7 @@ const MakeTeam = () => {
           {typeModal}
         </div>
       </Modal>
-      <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
+      <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
         <div className="flex justify-between w-full">
           <div className="w-max">
             <button
