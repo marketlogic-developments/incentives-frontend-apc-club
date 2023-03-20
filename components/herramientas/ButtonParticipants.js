@@ -1,13 +1,13 @@
+import React from "react";
 import { Autocomplete, Modal } from "@mantine/core";
 import axios from "axios";
-import React from "react";
 import { useEffect } from "react";
 import { useMemo } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
-const AgregarParticipante = () => {
+const ButtonParticipants = () => {
   const [opened, setOpened] = useState(false);
   const [modal, setModal] = useState(0);
   const token = useSelector((state) => state.user.token);
@@ -21,6 +21,7 @@ const AgregarParticipante = () => {
     region: "",
     date: "",
     phone: "",
+    posId: "",
   });
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
@@ -99,6 +100,9 @@ const AgregarParticipante = () => {
         operationStatusId: 4,
         academicDegreeId: 1,
         languageId: form.region === "BRAZIL" ? 1 : 2,
+      },
+      employeePos: {
+        posId: form.posId,
       },
     });
   };
@@ -220,6 +224,22 @@ const AgregarParticipante = () => {
                     onChange={handleChange}
                   />
                 </label>
+                <label className="inputCreateUser col-span-2 w-full">
+                  <span className="label-text">Canal</span>
+                  <Autocomplete
+                    size="md"
+                    dropdownPosition="flip"
+                    placeholder="Selecciona el Canal"
+                    data={pos}
+                    name="posId"
+                    onItemSubmit={({ id }) =>
+                      setForm({
+                        ...form,
+                        posId: id,
+                      })
+                    }
+                  />
+                </label>
 
                 <button
                   type="submit"
@@ -265,7 +285,7 @@ const AgregarParticipante = () => {
         onClick={() => {
           setOpened(true);
         }}
-        className="btn bg-primary hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-max"
+        className="btn bg-primary hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-max justify-self-end"
       >
         {t("tabla.agregarP")}
       </button>
@@ -273,4 +293,4 @@ const AgregarParticipante = () => {
   );
 };
 
-export default AgregarParticipante;
+export default ButtonParticipants;

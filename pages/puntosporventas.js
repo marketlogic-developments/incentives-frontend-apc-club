@@ -229,7 +229,7 @@ const puntosporventas = () => {
         <div className="flex flex-col gap-5">
           <h1 className="font-bold text-3xl">{t("tabla.ppventas")}</h1>
         </div>
-        <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white flex flex-col items-end gap-10">
+        <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white flex flex-col items-end gap-10">
           <div className="w-full grid grid-cols-2 place-items-center gap-3">
             <div className="flex w-full gap-5">
               <select

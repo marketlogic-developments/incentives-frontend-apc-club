@@ -124,7 +124,7 @@ const digipoints = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
+          <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
             <div>
               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                 <select
@@ -206,40 +206,7 @@ const digipoints = () => {
       >
         <div className="gap-10 flex flex-col h-full w-5/6">
           <div class="m-6 flex flex-col gap-16">
-            {user?.roleId !== 3 ? (
-              <div className="grid grid-cols-3">
-                <h1
-                  className={`font-bold text-3xl ${
-                    page === 0
-                      ? "titleGraphCarouselSelected"
-                      : "titleGraphCarousel"
-                  }  titleDigipoints cursor-pointer`}
-                  onClick={() => setPage(0)}
-                >
-                  {t("menu.Digipoints")}
-                </h1>
-                <h1
-                  className={`font-bold text-3xl ${
-                    page === 1
-                      ? "titleGraphCarouselSelected"
-                      : "titleGraphCarousel"
-                  }  titleDigipoints cursor-pointer`}
-                  onClick={() => setPage(1)}
-                >
-                  {t("digipoints.Crear")}
-                </h1>
-                <h1
-                  className={`font-bold text-3xl ${
-                    page === 2
-                      ? "titleGraphCarouselSelected"
-                      : "titleGraphCarousel"
-                  }  titleDigipoints cursor-pointer`}
-                  onClick={() => setPage(2)}
-                >
-                  {t("digipoints.DDigipoints")} <br /> DigiPoints
-                </h1>
-              </div>
-            ) : (
+            {user?.roleId === 3 ? (
               <div className="grid grid-cols-3">
                 <h1
                   className={`font-bold text-3xl ${
@@ -272,6 +239,45 @@ const digipoints = () => {
                   onClick={() => setPage(0)}
                 >
                   {t("menu.Digipoints")}
+                </h1>
+              </div>
+            ) : user?.roleId === 5 ? (
+              <div className="flex">
+                <h1 className={`font-bold text-3xl titleDigipoints`}>
+                  {t("menu.Digipoints")}
+                </h1>
+              </div>
+            ) : (
+              <div className="grid grid-cols-3">
+                <h1
+                  className={`font-bold text-3xl ${
+                    page === 0
+                      ? "titleGraphCarouselSelected"
+                      : "titleGraphCarousel"
+                  }  titleDigipoints cursor-pointer`}
+                  onClick={() => setPage(0)}
+                >
+                  {t("menu.Digipoints")}
+                </h1>
+                <h1
+                  className={`font-bold text-3xl ${
+                    page === 1
+                      ? "titleGraphCarouselSelected"
+                      : "titleGraphCarousel"
+                  }  titleDigipoints cursor-pointer`}
+                  onClick={() => setPage(1)}
+                >
+                  {t("digipoints.Crear")}
+                </h1>
+                <h1
+                  className={`font-bold text-3xl ${
+                    page === 2
+                      ? "titleGraphCarouselSelected"
+                      : "titleGraphCarousel"
+                  }  titleDigipoints cursor-pointer`}
+                  onClick={() => setPage(2)}
+                >
+                  {t("digipoints.DDigipoints")} <br /> DigiPoints
                 </h1>
               </div>
             )}

@@ -2,7 +2,7 @@ const TableFilter = () => {
   return (
     <>
       <div className="m-6">
-        <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
+        <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
           <div className="flex items-center justify-between mt-4">
             <p className="font-medium">Filters</p>
             <button className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md">

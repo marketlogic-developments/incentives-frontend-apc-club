@@ -109,7 +109,7 @@ const cargaventas = () => {
           <div className="flex flex-col gap-5">
             <h1 className="font-bold text-3xl"> {t("menu.Carga_de_Ventas")}</h1>
           </div>
-          <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
+          <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
             <div>
               <div className="relative">
                 <div className="absolute flex items-center ml-2 h-full none">

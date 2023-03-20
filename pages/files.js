@@ -13,7 +13,7 @@ const files = () => {
         </div>
         <div className="grid grid-cols-3 gap-y-7">
           {array.map(() => (
-            <div className="card w-3/4  bg-base-100 shadow-xl">
+            <div className="card w-3/4  bg-base-100 shadow-xl-xl">
               <figure>
                 <img
                   src="https://media.istockphoto.com/id/1175215972/es/vector/carpeta-de-archivos-en-plano-sobre-fondo-blanco.jpg?s=2048x2048&w=is&k=20&c=3CxT-aiLUm9pcQvfMX4mrJQUZPKtk_87j1JWSZ4xT7Q="

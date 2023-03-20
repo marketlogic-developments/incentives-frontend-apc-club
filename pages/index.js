@@ -348,6 +348,7 @@ export default function Home() {
                 />
                 <button
                   type="button"
+                  title="viewPassword"
                   onClick={() => {
                     view === "password" ? setView("text") : setView("password");
                   }}
@@ -464,12 +465,14 @@ export default function Home() {
             <img
               src="assets/login/adobe.webp"
               className="max-w-[250px] max-sm:m-auto "
+              alt="Principal-Adobe-Logo"
             />
           </figure>
           <figure>
             <img
               src="assets/login/pcc.webp"
               className="max-w-[400px] max-sm:m-auto"
+              alt="10years-Logo"
             />
           </figure>
         </div>
@@ -480,6 +483,7 @@ export default function Home() {
                 <img
                   src="/assets/login/apcLogo.webp"
                   className="logoAPC w-5/6"
+                  alt="logoAPC"
                 />
               </figure>
             </div>

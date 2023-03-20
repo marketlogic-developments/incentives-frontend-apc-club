@@ -12,7 +12,7 @@ import { getUsersData } from "../../store/reducers/users.reducer";
 const MakeTeam = () => {
   const token = useSelector((state) => state.user.token);
   const teams = useSelector((state) => state.teams.teams);
-  const users = [];
+  const users = useSelector((state) => state.user.users);
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
@@ -447,7 +447,7 @@ const MakeTeam = () => {
           {typeModal}
         </div>
       </Modal>
-      <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
+      <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
         <div className="flex justify-between w-full">
           <div className="w-max">
             <button

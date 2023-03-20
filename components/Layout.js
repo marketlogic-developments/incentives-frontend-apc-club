@@ -120,7 +120,7 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/participantes",
+      page: "/canal",
       icon: (
         <svg
           width="30"
@@ -317,6 +317,38 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: t("menu.Reportes"),
     },
+    {
+      page: "/userscreatefunctionFor",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="#ffffff"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="m20.925 6.412-1.5-3A.77.77 0 0 0 18.75 3H5.25a.769.769 0 0 0-.675.413l-1.5 3A.844.844 0 0 0 3 6.75V19.5A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5V6.75a.844.844 0 0 0-.075-.338Zm-5.213 8.185-3.178 3.187a.769.769 0 0 1-1.068 0l-3.178-3.187a.75.75 0 0 1 1.059-1.06l1.903 1.904V9.75a.75.75 0 1 1 1.5 0v5.69l1.903-1.902a.75.75 0 0 1 1.06 1.059ZM4.96 6l.75-1.5h12.582l.75 1.5H4.959Z" />
+        </svg>
+      ),
+      iconactive: "",
+      text: "Importación",
+    },
+    {
+      page: "/herramientas",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="#ffffff"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M19.772 13.77a6.806 6.806 0 0 1-7.49 1.416L7.405 20.83c-.01.018-.028.028-.037.037a2.99 2.99 0 0 1-4.238 0 2.992 2.992 0 0 1 0-4.237l.038-.038 5.643-4.875a6.75 6.75 0 0 1 8.822-8.925.74.74 0 0 1 .441.544.75.75 0 0 1-.206.675l-3.647 3.647.347 1.772 1.772.346 3.646-3.646a.75.75 0 0 1 1.22.234 6.721 6.721 0 0 1-1.435 7.406Z" />
+        </svg>
+      ),
+      iconactive: "",
+      text: "Herramientas administrativas",
+    },
   ];
   const locationsPP = [
     {
@@ -342,7 +374,7 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/participantes",
+      page: "/canal",
       icon: (
         <svg
           width="30"
@@ -455,7 +487,7 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/participantes",
+      page: "/canal",
       icon: (
         <svg
           width="30"
@@ -632,6 +664,29 @@ const Layout = ({ children }) => {
       ),
       iconactive: "",
       text: t("menu.Dashboard"),
+    },
+    {
+      page: "/canal",
+      icon: (
+        <svg
+          width="30"
+          height="30"
+          fill="none"
+          stroke="#fff"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M8.25 15a4.875 4.875 0 1 0 0-9.75 4.875 4.875 0 0 0 0 9.75Z"></path>
+          <path d="M14.568 5.428a5.093 5.093 0 0 1 1.322-.178 4.875 4.875 0 1 1 0 9.75"></path>
+          <path d="M1.5 18.507a8.25 8.25 0 0 1 13.5 0"></path>
+          <path d="M15.89 15a8.241 8.241 0 0 1 6.75 3.506"></path>
+        </svg>
+      ),
+      iconactive: "",
+      text: t("menu.Participantes"),
     },
     {
       page: "/digipoints",
@@ -957,16 +1012,22 @@ const Layout = ({ children }) => {
                       <Menu trigger="hover" openDelay={100} closeDelay={400}>
                         <Menu.Target>
                           <div className="userPreMenu">
-                            <svg
-                              width={30}
-                              height={30}
-                              fill="#2c2c2c"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path d="M12 15.375a4.125 4.125 0 1 0 0-8.25 4.125 4.125 0 0 0 0 8.25Z" />
-                              <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25Zm6.169 15.225a7.624 7.624 0 0 0-2.297-2.156 5.597 5.597 0 0 1-7.744 0 7.622 7.622 0 0 0-2.297 2.156 8.25 8.25 0 1 1 12.338 0Z" />
-                            </svg>
+                            {userRedux.profilePhotoPath !== null ? (
+                              <figure>
+                                <img src={userRedux.profilePhotoPath} />
+                              </figure>
+                            ) : (
+                              <svg
+                                width={30}
+                                height={30}
+                                fill="#2c2c2c"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M12 15.375a4.125 4.125 0 1 0 0-8.25 4.125 4.125 0 0 0 0 8.25Z" />
+                                <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25Zm6.169 15.225a7.624 7.624 0 0 0-2.297-2.156 5.597 5.597 0 0 1-7.744 0 7.622 7.622 0 0 0-2.297 2.156 8.25 8.25 0 1 1 12.338 0Z" />
+                              </svg>
+                            )}
                           </div>
                         </Menu.Target>
 
