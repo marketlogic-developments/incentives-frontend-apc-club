@@ -37,13 +37,7 @@ const AllParticipants = () => {
       setLoading(true);
       dispatch(getUsersData(token))
         .then((participantes) => {
-          console.log(
-            participantes.payload.filter(({ roleId }) => roleId === 5)
-          );
-
-          setParticipantes(
-            participantes.payload.filter(({ roleId }) => roleId === 5)
-          );
+          setParticipantes(participantes.payload);
           setLoading(false);
         })
         .catch((error) => {
@@ -97,15 +91,44 @@ const AllParticipants = () => {
     );
   };
 
+  const viewTable = (data) => {
+    return data.map((user2, index) => (
+      <tr
+        key={index}
+        className={`bg-white border-b dark:border-gray-500 ${
+          user?.roleId === 1 ? "cursor-pointer hover:bg-warning" : ""
+        }`}
+        onClick={() => {
+          if (user?.roleId === 1) {
+            setUserDataToModal(user2);
+            return setOpened(true);
+          }
+        }}
+      >
+        <td className="py-4 px-2">{user2.name}</td>
+        <td className="py-4 px-2">{user2.email}</td>
+        <td className="py-4 px-2">
+          {user2.roleId === 1
+            ? "SuperAdmin"
+            : user2.roleId === 2
+            ? "Partner Principal"
+            : user2.roleId === 3
+            ? "Partner Admin"
+            : user2.roleId === 5
+            ? "Sales Rep"
+            : ""}
+        </td>
+        <td className="py-4 px-2">{moment(user2.date).format("MM/DD/YYYY")}</td>
+      </tr>
+    ));
+  };
+
   function Table({ currentItems }) {
     return (
       <>
         <table className="w-full text-sm text-left text-black-500">
           <thead className="text-xs text-black-500 uppercase">
             <tr>
-              <th scope="col" className="py-2 px-2">
-                ID
-              </th>
               <th scope="col" className="py-2 px-2">
                 {t("participantes.nombre")}
               </th>
@@ -122,58 +145,12 @@ const AllParticipants = () => {
           </thead>
           <tbody>
             {search !== ""
-              ? participantes
-                  .filter(({ email }) =>
+              ? viewTable(
+                  participantes.filter(({ email }) =>
                     email.startsWith(search.toLocaleLowerCase())
                   )
-                  .map((user2, index) => (
-                    <tr
-                      key={index}
-                      className={`bg-white border-b dark:border-gray-500 ${
-                        user?.roleId === 1
-                          ? "cursor-pointer hover:bg-warning"
-                          : ""
-                      }`}
-                      onClick={() => {
-                        if (user?.roleId === 1) {
-                          setUserDataToModal(user2);
-                          return setOpened(true);
-                        }
-                      }}
-                    >
-                      <td className="py-4 px-2">{user2.id}</td>
-                      <td className="py-4 px-2">{user2.name}</td>
-                      <td className="py-4 px-2">{user2.email}</td>
-                      <td className="py-4 px-2">{user2.rol}</td>
-                      <td className="py-4 px-2">
-                        {moment(user2.date).format("MM/DD/YYYY")}
-                      </td>
-                    </tr>
-                  ))
-              : participantes.map((user2, index) => (
-                  <tr
-                    key={index}
-                    className={`bg-white border-b dark:border-gray-500 ${
-                      user?.roleId === 1
-                        ? "cursor-pointer hover:bg-warning"
-                        : ""
-                    }`}
-                    onClick={() => {
-                      if (user?.roleId === 1) {
-                        setUserDataToModal(user2);
-                        return setOpened(true);
-                      }
-                    }}
-                  >
-                    <td className="py-4 px-2">{user2.id}</td>
-                    <td className="py-4 px-2">{user2.name}</td>
-                    <td className="py-4 px-2">{user2.email}</td>
-                    <td className="py-4 px-2">{user2.rol}</td>
-                    <td className="py-4 px-2">
-                      {moment(user2.date).format("MM/DD/YYYY")}
-                    </td>
-                  </tr>
-                ))}
+                )
+              : viewTable(participantes)}
             {/* {currentItems &&
               currentItems.map((user, index) => (
                 <tr

@@ -53,7 +53,7 @@ const canal = () => {
                 }`}
                 onClick={() => setOneSection(1)}
               >
-                Puntos
+                DigiPoints
               </p>
               <p
                 className={`h-full w-full p-3 ${

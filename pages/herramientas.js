@@ -40,25 +40,23 @@ const canalesyDistribuidores = () => {
           </div>
           <div className="grid grid-cols-4 place-items-center text-center border-b">
             <p
-              className={`h-full w-full p-3 ${
-                content === 0 &&
-                "border-b-2 border-[#eb1000] text-[#eb1000] cursor-pointer"
+              className={`h-full w-full p-3 cursor-pointer ${
+                content === 0 && "border-b-2 border-[#eb1000] text-[#eb1000]"
               }`}
               onClick={() => setContent(0)}
             >
               Canales
             </p>
             <p
-              className={`h-full w-full p-3 ${
-                content === 1 &&
-                "border-b-2 border-[#eb1000] text-[#eb1000] cursor-pointer"
+              className={`h-full w-full p-3 cursor-pointer ${
+                content === 1 && "border-b-2 border-[#eb1000] text-[#eb1000]"
               }`}
               onClick={() => setContent(1)}
             >
               Distribuidores
             </p>
             <p
-              className={`h-full w-full p-3 ${
+              className={`h-full w-full p-3 cursor-pointer ${
                 content === 2 &&
                 "border-b-2 border-[#eb1000] text-[#eb1000] cursor-pointer"
               }`}
@@ -67,7 +65,7 @@ const canalesyDistribuidores = () => {
               Todos los Participantes
             </p>
             <p
-              className={`h-full w-full p-3 ${
+              className={`h-full w-full p-3 cursor-pointer ${
                 content === 3 &&
                 "border-b-2 border-[#eb1000] text-[#eb1000] cursor-pointer"
               }`}

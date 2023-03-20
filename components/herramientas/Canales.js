@@ -1,5 +1,7 @@
 import { Modal } from "@mantine/core";
 import React, { useMemo, useState } from "react";
+import ButtonCanalAgregar from "./ButtonCanalAgregar";
+import InfoCanal from "./infoCanal";
 
 const Canales = () => {
   const [opened, setOpened] = useState(false);
@@ -108,16 +110,16 @@ const Canales = () => {
 
   const typeModal = useMemo(() => {
     if (modal === 0) {
-      return <div></div>;
+      return <ButtonCanalAgregar />;
     }
     if (modal === 1) {
-      return <div></div>;
+      return <InfoCanal data={"data"} />;
     }
   }, [modal]);
 
   return (
     <>
-      <Modal opened={opened} onClose={() => setOpened(false)}>
+      <Modal opened={opened} onClose={() => setOpened(false)} size={"60%"}>
         {typeModal}
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white h-full flex flex-col gap-5">
