@@ -318,7 +318,7 @@ const Layout = ({ children }) => {
       text: t("menu.Reportes"),
     },
     {
-      page: "/userscreatefunctionFor",
+      page: "/reportTyC",
       icon: (
         <svg
           width={30}
@@ -331,7 +331,7 @@ const Layout = ({ children }) => {
         </svg>
       ),
       iconactive: "",
-      text: "Importación",
+      text: "Reporte T&C",
     },
     {
       page: "/herramientas",
@@ -847,7 +847,10 @@ const Layout = ({ children }) => {
     return (
       <>
         {loadingData && (
-          <div className="fixed h-screen w-screen flex items-center justify-center z-50 bg-[rgba(255,255,255,0.8)]">
+          <div
+            className="fixed h-screen w-screen flex items-center justify-center bg-[rgba(255,255,255,0.8)]"
+            style={{ zIndex: 201 }}
+          >
             <div className="spinner"></div>
           </div>
         )}
@@ -859,7 +862,10 @@ const Layout = ({ children }) => {
   return (
     <>
       {loadingData && (
-        <div className="fixed h-screen w-screen flex items-center justify-center z-50 bg-[rgba(255,255,255,0.8)]">
+        <div
+          className="fixed h-screen w-screen flex items-center justify-center z-50 bg-[rgba(255,255,255,0.8)]"
+          style={{ zIndex: 201 }}
+        >
           <div className="spinner"></div>
         </div>
       )}

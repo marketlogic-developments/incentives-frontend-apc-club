@@ -1,3 +1,4 @@
+import axios from "axios";
 import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -5,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ContainerContent from "../components/containerContent";
 import DigipointsDistribution from "../components/digipoints/DigipointsDistribution";
 import MakeTeam from "../components/digipoints/MakeTeam";
+import { teamsPush } from "../store/reducers/teams.reducer";
 import { getUsers, getUsersData } from "../store/reducers/users.reducer";
 
 const digipoints = () => {
@@ -18,11 +20,28 @@ const digipoints = () => {
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    if (user?.roleId === 3) {
+    if (user.roleId === 3) {
       return setPage(1);
     }
 
-    dispatch(getUsersData(token));
+    if ([1, 2, 3].includes(user?.roleId)) {
+      axios
+        .get(
+          `${process.env.BACKURL}/reporters/all-users-by-groupname-where-id/${user.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          return dispatch(teamsPush(data));
+        });
+    }
+
+    return dispatch(getUsersData(token));
   }, []);
 
   const datosdummy = [];

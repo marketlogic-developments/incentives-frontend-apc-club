@@ -6,6 +6,8 @@ import { useMemo } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import ImportUsers from "./importaciones/ImportUsers";
 
 const ButtonParticipants = () => {
   const [opened, setOpened] = useState(false);
@@ -82,7 +84,7 @@ const ButtonParticipants = () => {
     //   }
     // );
 
-    return console.log({
+    console.log({
       name: `${form.name} ${form.lastName}`,
       email: form.email,
       password: form.password,
@@ -105,6 +107,23 @@ const ButtonParticipants = () => {
         posId: form.posId,
       },
     });
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    return Toast.fire({
+      icon: "success",
+      title: "Usuario agregado con éxito",
+    });
   };
 
   const handleChange = (e) => {
@@ -118,16 +137,10 @@ const ButtonParticipants = () => {
     if (modal === 0) {
       return (
         <div>
-          <div>
-            <h3 className="text-lg font-bold text-red-500">
-              Agregar Participante
-            </h3>
-            <p className="py-4">
-              Indica la información del usuario que vas a registrar
-            </p>
+          <div className="flex flex-col items-center my-5">
             <div className="w-full flex flex-col items-center">
               <h3 className="text-lg font-bold text-red-500">
-                Información de la Cuenta
+                Información del usuario
               </h3>
               <form
                 className="grid grid-cols-2 gap-5 w-11/12"
@@ -254,20 +267,13 @@ const ButtonParticipants = () => {
       );
     }
 
-    if (modal === 2) {
-      return (
-        <div>
-          <div>
-            <h3 className="text-lg font-bold text-red-500">Usuario agregado</h3>
-            <p className="py-4">Usuario agregado con exito.</p>
-          </div>
-        </div>
-      );
+    if (modal === 1) {
+      return <ImportUsers />;
     }
   }, [modal, pos, form]);
 
-  const isMobile = window.innerWidth <= 768;
-  const modalSize = isMobile ? "100%" : "60%";
+  // const isMobile = window.innerWidth <= 768;
+  // const modalSize = isMobile ? "100%" : "60%";
 
   return (
     <>
@@ -277,8 +283,26 @@ const ButtonParticipants = () => {
           setOpened(false);
         }}
         centered
-        size={modalSize}
+        size={"70%"}
       >
+        <div className="grid grid-cols-2 place-items-center text-center border-b">
+          <p
+            className={`h-full w-full p-3 cursor-pointer ${
+              modal === 0 && "border-b-2 border-[#eb1000] text-[#eb1000]"
+            }`}
+            onClick={() => setModal(0)}
+          >
+            Agregar Participantes
+          </p>
+          <p
+            className={`h-full w-full p-3 cursor-pointer ${
+              modal === 1 && "border-b-2 border-[#eb1000] text-[#eb1000]"
+            }`}
+            onClick={() => setModal(1)}
+          >
+            Importar Participantes
+          </p>
+        </div>
         {typeModal}
       </Modal>
       <button
