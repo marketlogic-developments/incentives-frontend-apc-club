@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loadingUser,
+  setCompany,
   setDigipoints,
   userLogin,
   userToken,
@@ -31,6 +32,7 @@ const Layout = ({ children }) => {
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
       const userGetData = JSON.parse(window.sessionStorage.getItem("infoDt"));
+
       axios
         .get(`${process.env.BACKURL}/users/${userGetData?.id}`, {
           headers: {
@@ -39,7 +41,7 @@ const Layout = ({ children }) => {
             Authorization: `Bearer ${userGetData?.token}`,
           },
         })
-        .then((res1) => {
+        .then((userInfo) => {
           axios
             .get(
               `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/${userGetData?.id}`,
@@ -51,25 +53,39 @@ const Layout = ({ children }) => {
                 },
               }
             )
-            .then((res2) => {
-              dispatch(userLogin(res1.data));
-              dispatch(userToken(userGetData.token));
-              language(res1.data.person[0].languageId);
-              redirection(res1.data.policy);
+            .then((dpInfo) => {
+              axios
+                .get(
+                  `${process.env.BACKURL}/companies/${userInfo.data.companyId}`,
+                  {
+                    headers: {
+                      "Content-Type": "application/json",
+                      "Access-Control-Allow-Origin": "*",
+                      Authorization: `Bearer ${userGetData.token}`,
+                    },
+                  }
+                )
+                .then((companyData) => {
+                  dispatch(userLogin(userInfo.data));
+                  dispatch(userToken(userGetData.token));
+                  dispatch(setCompany(companyData.data));
+                  language(userInfo.data.person[0].languageId);
+                  redirection(userInfo.data.policy);
 
-              const [digipoints] = res2.data;
-              if (res2.data.length === 0) {
-                dispatch(
-                  setDigipoints({
-                    assigned_points: 0,
-                    cart_points: 0,
-                  })
-                );
-              } else {
-                dispatch(setDigipoints(digipoints));
-              }
+                  const [digipoints] = dpInfo.data;
+                  if (dpInfo.data.length === 0) {
+                    dispatch(
+                      setDigipoints({
+                        assigned_points: 0,
+                        cart_points: 0,
+                      })
+                    );
+                  } else {
+                    dispatch(setDigipoints(digipoints));
+                  }
 
-              dispatch(loadingUser(true));
+                  dispatch(loadingUser(true));
+                });
             });
         });
     } else {
