@@ -34,8 +34,8 @@ const ButtonCanalAgregar = ({ data }) => {
         >
           Importar Canales
         </p>
-        {typeContent}
       </div>
+      {typeContent}
     </div>
   );
 };

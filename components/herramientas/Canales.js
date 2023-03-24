@@ -1,112 +1,52 @@
 import { Modal } from "@mantine/core";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import ButtonCanalAgregar from "./ButtonCanalAgregar";
 import InfoCanal from "./infoCanal";
+import { useDispatch, useSelector } from "react-redux";
+import { getCompanyAll } from "../../store/reducers/company.reducer";
 
 const Canales = () => {
+  const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
   const [modal, setModal] = useState(0);
-  const data = [
-    {
-      id: 1,
-      name: "EMPRESA1",
-      representativeId: 4,
-      phoneNumber: "45321465522",
-      operationStatusId: 4,
-      distChannelsId: 1,
-      CreatedAt: "2023-03-15T16:49:18.587Z",
-      maxDayAssign: 15,
-      resellerMasterId: "AM05537179",
-      goalsPerQuarter: "25000",
-      goalsPerYear: "300000",
-      distChannels: {
-        id: 1,
-        name: "GOLD",
-        CreatedAt: "2023-03-14T06:00:00.000Z",
-      },
-      distributionChannel: [
-        {
-          id: 1,
-          nameDist: "MICRO COMPUTER Telemarketing",
-          soldToParty: "1433538",
-          partnerAdmId: 7,
-          companyId: 1,
-          distChannelsId: 2,
-          phoneNumberDist: "8546259556",
-          operationStatusDistId: 4,
-          goalsPerQuarterDist: "10000",
-          goalsPerYearDist: "120000",
-          CreatedAt: "2023-03-15T16:49:18.587Z",
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "EMPRESA2",
-      representativeId: 6,
-      phoneNumber: "45321465522",
-      operationStatusId: 4,
-      distChannelsId: 1,
-      CreatedAt: "2023-03-15T16:49:18.587Z",
-      maxDayAssign: 15,
-      resellerMasterId: "AM05537179",
-      goalsPerQuarter: "25000",
-      goalsPerYear: "300000",
-      distChannels: {
-        id: 1,
-        name: "GOLD",
-        CreatedAt: "2023-03-14T06:00:00.000Z",
-      },
-      distributionChannel: [
-        {
-          id: 1,
-          nameDist: "MICRO COMPUTER Telemarketing",
-          soldToParty: "1433538",
-          partnerAdmId: 7,
-          companyId: 1,
-          distChannelsId: 2,
-          phoneNumberDist: "8546259556",
-          operationStatusDistId: 4,
-          goalsPerQuarterDist: "10000",
-          goalsPerYearDist: "120000",
-          CreatedAt: "2023-03-15T16:49:18.587Z",
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: "EMPRESA3",
-      representativeId: 7,
-      phoneNumber: "45321465522",
-      operationStatusId: 4,
-      distChannelsId: 1,
-      CreatedAt: "2023-03-15T16:49:18.587Z",
-      maxDayAssign: 15,
-      resellerMasterId: "AM05537179",
-      goalsPerQuarter: "25000",
-      goalsPerYear: "300000",
-      distChannels: {
-        id: 1,
-        name: "GOLD",
-        CreatedAt: "2023-03-14T06:00:00.000Z",
-      },
-      distributionChannel: [
-        {
-          id: 1,
-          nameDist: "MICRO COMPUTER Telemarketing",
-          soldToParty: "1433538",
-          partnerAdmId: 7,
-          companyId: 1,
-          distChannelsId: 2,
-          phoneNumberDist: "8546259556",
-          operationStatusDistId: 4,
-          goalsPerQuarterDist: "10000",
-          goalsPerYearDist: "120000",
-          CreatedAt: "2023-03-15T16:49:18.587Z",
-        },
-      ],
-    },
-  ];
+  const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user.users);
+
+  const currentPage = useSelector((state) => state.currentPage || 1);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [data, setData] = useState([]);
+  const [postsPerPage, setPostsPerPage] = useState(10);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
+  const itemsPerPage = 10;
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isLoaded || !token || !user) {
+      return;
+    }
+
+    setLoading(true);
+
+    dispatch(getCompanyAll(token))
+      .then((data) => {
+        const filteredData = data;
+
+        filteredData.sort((a, b) => new Date(b.saleDates) - new Date(a.saleDates));
+
+        setData(filteredData);
+
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [isLoaded, token, currentPage, postsPerPage, user]);
 
   const typeModal = useMemo(() => {
     if (modal === 0) {
