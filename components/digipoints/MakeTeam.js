@@ -1,4 +1,5 @@
 import { Modal } from "@mantine/core";
+import axios from "axios";
 import React, { useEffect } from "react";
 import { useMemo } from "react";
 import { useId } from "react";
@@ -12,6 +13,7 @@ import { getUsersData } from "../../store/reducers/users.reducer";
 const MakeTeam = () => {
   const token = useSelector((state) => state.user.token);
   const teams = useSelector((state) => state.teams.teams);
+  const user = useSelector((state) => state.user.user);
   const users = useSelector((state) => state.user.users);
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
@@ -79,7 +81,7 @@ const MakeTeam = () => {
   const componentMenuUsers = useMemo(() => {
     if (listUsers) {
       return (
-        <div className="w-full absolute bg-accent p-5 max-h-52 flex flex-col gap-3 overflow-y-auto">
+        <div className="w-full absolute bg-[#e6e6e6] p-5 max-h-52 flex flex-col gap-3 overflow-y-auto">
           {searchUser()}
         </div>
       );
@@ -124,21 +126,25 @@ const MakeTeam = () => {
   const tableTeams = useMemo(() => {
     return (
       <tbody>
-        {teams?.map((data) => (
-          <tr
-            className="bg-white border-b dark:border-gray-500 hover:bg-base-200 cursor-pointer"
-            onClick={() => {
-              setInfoModal(data);
-              setDataModal(data?.participants);
-              setOpened(true);
-            }}
-          >
-            <td className="py-4 px-6">{data?.nameTeam}</td>
-            <td className="py-4 px-6">{data?.description}</td>
-            <td className="py-4 px-6">{data?.participants?.length}</td>
-            <td className="py-4 px-6">{data?.creation}</td>
-          </tr>
-        ))}
+        {teams?.map((data) => {
+          const time = new Date(data?.CreatedAt);
+
+          return (
+            <tr
+              className="bg-white border-b dark:border-gray-500 hover:bg-base-200 cursor-pointer"
+              onClick={() => {
+                setInfoModal(data);
+                setDataModal(data?.participants);
+                setOpened(true);
+              }}
+            >
+              <td className="py-4 px-6">{data?.nameGroup}</td>
+              <td className="py-4 px-6">{data?.description}</td>
+              <td className="py-4 px-6">{data?.participants?.length}</td>
+              <td className="py-4 px-6">{time.toLocaleDateString("en-GB")}</td>
+            </tr>
+          );
+        })}
       </tbody>
     );
   }, [teams]);
@@ -149,7 +155,7 @@ const MakeTeam = () => {
     if (e.target[2].name === "update") {
       setInfoModal({
         ...infoModal,
-        nameTeam: e.target[0].value,
+        nameGroup: e.target[0].value,
         description: e.target[1].value,
       });
       return setModal(1);
@@ -157,7 +163,7 @@ const MakeTeam = () => {
 
     if (e.target[2].name === "create") {
       setInfoModal({
-        nameTeam: e.target[0].value,
+        nameGroup: e.target[0].value,
         description: e.target[1].value,
       });
       return setModal(1);
@@ -184,11 +190,12 @@ const MakeTeam = () => {
     const newData = dataModal.map((user) => {
       const modifiedUser = modifiedValues.find((obj) => obj.id === user.id);
       if (modifiedUser) {
-        return { ...user, percentage: modifiedUser.percentage };
+        return { memberId: user.id, percentage: modifiedUser.percentage };
       }
-      return user;
+      return { memberId: user.id, percentage: user.percentage };
     });
 
+    // calculatePercentage function defines if the result of the sum of the inputs is equal to 100
     const calculatePercentage = newData
       .map(({ percentage }) => percentage)
       .reduce((prev, counter) => prev + counter);
@@ -212,6 +219,8 @@ const MakeTeam = () => {
       });
     }
 
+    //Function updates the teams if the team has an id
+
     if (infoModal?.id !== undefined) {
       const teamUpdate = {
         ...infoModal,
@@ -232,28 +241,35 @@ const MakeTeam = () => {
       return setOpened(false);
     }
 
+    //Function makes a team if the team doesn't have an id
+
     if (infoModal?.id === undefined) {
-      const randomId = function (length = 6) {
-        return Math.random()
-          .toString(36)
-          .substring(2, length + 2);
-      };
-
-      const team = {
-        ...infoModal,
-        id: randomId(),
-        participants: newData,
-        creation: new Date().toLocaleString("en-US", {
-          timeZone: "America/New_York",
-        }),
-      };
-
-      dispatch(teamsPush(team));
-      setInfoModal({});
-      setDataModal([]);
-      setModifiedValues([]);
-      setModal(0);
-      return setOpened(false);
+      axios
+        .post(
+          `${process.env.BACKURL}/partner-admin-group-headers`,
+          {
+            ...infoModal,
+            partnerAdminId: user.id,
+            PartnerAdminGroupD: {
+              members: newData,
+            },
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          dispatch(teamsPush(res.data));
+          setInfoModal({});
+          setDataModal([]);
+          setModifiedValues([]);
+          setModal(0);
+          return setOpened(false);
+        });
     }
   }
 
@@ -274,10 +290,11 @@ const MakeTeam = () => {
         >
           <div className="flex flex-col gap-5">
             <p>{t("modalEquipos.nequipo")}</p>
-            {infoModal?.nameTeam === undefined ? (
+            {infoModal?.nameGroup === undefined ? (
               <input
                 className="input input-primary"
                 type="text"
+                name="nameGroup"
                 placeholder={t("modalEquipos.nequipo")}
                 required
               />
@@ -287,18 +304,19 @@ const MakeTeam = () => {
                 type="text"
                 placeholder={t("modalEquipos.nequipo")}
                 required
-                name="nameTeam"
-                value={infoModal?.nameTeam}
+                name="nameGroup"
+                value={infoModal?.nameGroup}
                 onChange={handleChange}
               />
             )}
           </div>
           <div className="flex flex-col gap-5">
             <p>{t("modalEquipos.descripcion")}</p>
-            {infoModal?.nameTeam === undefined ? (
+            {infoModal?.description === undefined ? (
               <textarea
                 className="textarea textarea-lg textarea-primary"
                 type="text"
+                name="description"
                 placeholder={t("modalEquipos.dEquipo")}
                 required
               />
@@ -314,7 +332,7 @@ const MakeTeam = () => {
               />
             )}
           </div>
-          {infoModal?.nameTeam === undefined ? (
+          {infoModal?.nameGroup === undefined ? (
             <button
               type="submit"
               className="btn btn-primary w-max"

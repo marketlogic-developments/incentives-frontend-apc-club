@@ -36,13 +36,7 @@ const Participantes = () => {
       setLoading(true);
       dispatch(getUsersData(token))
         .then((participantes) => {
-          console.log(
-            participantes.payload.filter(({ roleId }) => roleId === 5)
-          );
-
-          setParticipantes(
-            participantes.payload.filter(({ roleId }) => roleId === 5)
-          );
+          setParticipantes(participantes.payload);
           setLoading(false);
         })
         .catch((error) => {

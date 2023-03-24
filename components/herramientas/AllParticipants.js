@@ -118,7 +118,9 @@ const AllParticipants = () => {
             ? "Sales Rep"
             : ""}
         </td>
-        <td className="py-4 px-2">{moment(user2.date).format("MM/DD/YYYY")}</td>
+        <td className="py-4 px-2">
+          {moment(user2.CreatedAt).format("MM/DD/YYYY")}
+        </td>
       </tr>
     ));
   };
