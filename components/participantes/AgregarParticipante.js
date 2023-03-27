@@ -6,12 +6,13 @@ import { useMemo } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
-const AgregarParticipante = () => {
+const AgregarParticipante = ({ setParticipantes, participantes }) => {
   const [opened, setOpened] = useState(false);
   const [modal, setModal] = useState(0);
   const token = useSelector((state) => state.user.token);
-  const [pos, setPos] = useState([]);
+  const company = useSelector((state) => state.user.company);
   const [form, setForm] = useState({
     name: "",
     lastName: "",
@@ -25,82 +26,77 @@ const AgregarParticipante = () => {
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
 
-  useEffect(() => {
-    axios
-      .get(`${process.env.BACKURL}/pos`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setPos(
-          res.data.map(({ id, description }) => ({
-            value: description,
-            id: id,
-          }))
-        );
-      });
-  }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // axios.post(
-    //   `${process.env.BACKURL}/pos`,
-    //   {
-    //     name: `${form.name} ${form.lastName}`,
-    //     email: form.email,
-    //     password: form.password,
-    //     roleId: Number(form.role.split("-")[0]),
-    //     policy: false,
-    //     passwordReset: false,
-    //     region: form.region,
-    //     cpf: "N/A",
-    //     person: {
-    //       names: form.name,
-    //       lastName: form.lastName,
-    //       birthDate: form.date,
-    //       position: form.role.split("-")[1],
-    //       phoneNumber: form.phone,
-    //       operationStatusId: 4,
-    //       academicDegreeId: 1,
-    //       languageId: form.region === "BRAZIL" ? 1 : 2,
-    //     },
-    //     employeePos: {
-    //       posId: form.posId,
-    //     },
-    //   },
-    //   {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "Access-Control-Allow-Origin": "*",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   }
-    // );
-
-    return console.log({
-      name: `${form.name} ${form.lastName}`,
-      email: form.email,
-      password: form.password,
-      roleId: Number(form.role.split("-")[0]),
-      policy: false,
-      passwordReset: false,
-      region: form.region,
-      cpf: "N/A",
-      person: {
-        names: form.name,
-        lastName: form.lastName,
-        birthDate: form.date,
-        position: form.role.split("-")[1],
-        phoneNumber: form.phone,
-        operationStatusId: 4,
-        academicDegreeId: 1,
-        languageId: form.region === "BRAZIL" ? 1 : 2,
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
       },
     });
+
+    axios
+      .post(
+        `${process.env.BACKURL}/users`,
+        {
+          name: `${form.name} ${form.lastName}`,
+          email: form.email,
+          password: form.password,
+          roleId: Number(form.role.split("-")[0]),
+          policy: false,
+          passwordReset: false,
+          region: form.region,
+          cpf: "N/A",
+          companyId: company.id,
+          person: {
+            names: form.name,
+            lastName: form.lastName,
+            birthDate: form.date,
+            position: form.role.split("-")[1],
+            phoneNumber: form.phone,
+            operationStatusId: 4,
+            academicDegreeId: 1,
+            languageId: form.region === "BRAZIL" ? 1 : 2,
+          },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        const newPerson = res.data;
+        setParticipantes([newPerson, ...participantes]);
+
+        return Toast.fire({
+          icon: "success",
+          title: "¡El participante ha sido creado exitosamente!",
+        });
+      })
+      .catch((err) => {
+        if (err.response.data.errors[0].message === "email must be unique") {
+          return Toast.fire({
+            icon: "error",
+            title: "Este email ya está en uso, intenta uno diferente",
+          });
+        }
+
+        return Toast.fire({
+          icon: "error",
+          title: "Ha ocurrido un error, inténtalo más tarde",
+        });
+      });
+
+    return console.log();
   };
 
   const handleChange = (e) => {
@@ -115,15 +111,9 @@ const AgregarParticipante = () => {
       return (
         <div>
           <div>
-            <h3 className="text-lg font-bold text-red-500">
-              Agregar Participante
-            </h3>
-            <p className="py-4">
-              Indica la información del usuario que vas a registrar
-            </p>
             <div className="w-full flex flex-col items-center">
               <h3 className="text-lg font-bold text-red-500">
-                Información de la Cuenta
+                Agregar Participante
               </h3>
               <form
                 className="grid grid-cols-2 gap-5 w-11/12"
@@ -178,11 +168,9 @@ const AgregarParticipante = () => {
                     onChange={handleChange}
                   >
                     <option value="">Seleccione el rol</option>
-                    <option value="1-SuperAdmin">SuperAdmin</option>
                     <option value="2-Partner Principal">
                       Partner Principal
                     </option>
-                    <option value="3-Partner Admin">Partner Admin</option>
                     <option value="5-Sales Rep">Sales Rep</option>
                   </select>
                 </label>
@@ -244,7 +232,7 @@ const AgregarParticipante = () => {
         </div>
       );
     }
-  }, [modal, pos, form]);
+  }, [modal, form]);
 
   const isMobile = window.innerWidth <= 768;
   const modalSize = isMobile ? "100%" : "60%";

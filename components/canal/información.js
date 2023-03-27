@@ -60,7 +60,7 @@ const Información = () => {
           <label className="label">
             <span className="label-text">Partner Admin</span>
           </label>
-          <p className="text-xl">{company.representative?.names}</p>
+          <p className="text-xl">{company.partnerAdmin?.name}</p>
         </div>
         <div>
           <label className="label">

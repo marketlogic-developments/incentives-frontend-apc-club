@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {importCompany} from "../../../store/reducers/company.reducer";
+import { importCompany } from "../../../store/reducers/company.reducer";
 
 const FormCanal = () => {
   const [fileName, setFileName] = useState("");
@@ -17,17 +17,18 @@ const FormCanal = () => {
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = function() {
+    reader.onloadend = function () {
       setFileB64(reader.result);
     };
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("fileName", fileName);
-    formData.append("base64String", fileB64.split(",")[1]);
-    formData.append("type", 3);
+    const formData = {
+      fileName: fileName,
+      base64String: fileB64.split(",")[1],
+      type: 3,
+    };
     if (fileB64) {
       dispatch(importCompany(token, formData))
         .then(() => {
@@ -55,16 +56,16 @@ const FormCanal = () => {
   };
 
   const formatDate = (dateString) => {
-    const options = { 
-      year: 'numeric', 
-      month: 'numeric', 
-      day: 'numeric', 
-      hour: 'numeric', 
-      minute: 'numeric', 
-      hour12: true 
+    const options = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
     };
     const date = new Date(dateString);
-    return date.toLocaleString('es-GT', options);
+    return date.toLocaleString("es-GT", options);
   };
 
   return (
@@ -75,10 +76,7 @@ const FormCanal = () => {
           <div className="form-control text-center">
             <div className=" w-full  gap-8">
               <div>
-                <strong className="text-sm">
-                  Subir archivo (xls)
-                </strong>
-                
+                <strong className="text-sm">Subir archivo (xls)</strong>
               </div>
               <input
                 input
@@ -106,7 +104,9 @@ const FormCanal = () => {
           </div>
         </form>
         {formSubmitted && (
-          <p className="rounded-lg border-solid border-2 px-4 py-2 mt-2 text-white bg-[#00405d]">Archivo enviado</p>
+          <p className="rounded-lg border-solid border-2 px-4 py-2 mt-2 text-white bg-[#00405d]">
+            Archivo enviado
+          </p>
         )}
       </div>
     </>

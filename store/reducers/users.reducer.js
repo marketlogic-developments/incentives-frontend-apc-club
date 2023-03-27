@@ -10,6 +10,7 @@ const initialState = {
   error: null,
   users: [],
   company: [],
+  companyUsers: [],
   digipoints: {},
 };
 
@@ -42,6 +43,9 @@ export const userActions = createSlice({
     setCompany: (state, action) => {
       state.company = action.payload;
     },
+    setCompanyUsers: (state, action) => {
+      state.companyUsers = action.payload;
+    },
   },
 });
 
@@ -55,6 +59,7 @@ export const {
   setDigipoints,
   userToken,
   setCompany,
+  setCompanyUsers,
 } = userActions.actions;
 
 export default userActions.reducer;

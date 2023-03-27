@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import moment from "moment";
@@ -15,6 +15,7 @@ const Participantes = () => {
   const [opened, setOpened] = useState(false);
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
+  const company = useSelector((state) => state.user.company);
   const [participantes, setParticipantes] = useState([]);
   const [roles, setRoles] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -34,13 +35,19 @@ const Participantes = () => {
   useEffect(() => {
     if (isLoaded && token) {
       setLoading(true);
-      dispatch(getUsersData(token))
-        .then((participantes) => {
-          setParticipantes(participantes.payload);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
+      axios
+        .get(
+          `${process.env.BACKURL}/reporters/company-all-users-by-id/${company.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          setParticipantes(data);
         });
 
       dispatch(getRolesData(token))
@@ -90,6 +97,45 @@ const Participantes = () => {
     );
   };
 
+  const getUser = (userData) => {
+    axios
+      .get(`${process.env.BACKURL}/users/${userData.id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setUserDataToModal(res.data);
+        return setOpened(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const quitUser = () => {
+    axios
+      .patch(
+        `${process.env.BACKURL}/users/${userDataToModal.id}`,
+        { companyId: 0 },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setParticipantes(
+          participantes.filter(({ email }) => email !== res.data.email)
+        );
+        return setOpened(false);
+      });
+  };
+
   function Table({ currentItems }) {
     return (
       <>
@@ -117,14 +163,13 @@ const Participantes = () => {
                     <tr
                       key={index}
                       className={`bg-white border-b dark:border-gray-500 ${
-                        user?.roleId === 1
+                        [1, 3].includes(user.roleId)
                           ? "cursor-pointer hover:bg-warning"
                           : ""
                       }`}
                       onClick={() => {
-                        if (user?.roleId === 1) {
-                          setUserDataToModal(user2);
-                          return setOpened(true);
+                        if ([1, 3].includes(user.roleId)) {
+                          return getUser(user2);
                         }
                       }}
                     >
@@ -139,14 +184,13 @@ const Participantes = () => {
                   <tr
                     key={index}
                     className={`bg-white border-b dark:border-gray-500 ${
-                      user?.roleId === 1
+                      [1, 3].includes(user.roleId)
                         ? "cursor-pointer hover:bg-warning"
                         : ""
                     }`}
                     onClick={() => {
-                      if (user?.roleId === 1) {
-                        setUserDataToModal(user2);
-                        return setOpened(true);
+                      if ([1, 3].includes(user.roleId)) {
+                        return getUser(user2);
                       }
                     }}
                   >
@@ -197,26 +241,40 @@ const Participantes = () => {
 
   return (
     <>
-      <Modal opened={opened} onClose={() => setOpened(false)} size={"50%"}>
-        <div>
-          <h2>Activar/Desactivar Usuario</h2>
-          <input
-            type="checkbox"
-            className="toggle toggle-primary"
-            defaultChecked={
-              userDataToModal.person[0]?.operationStatusId === 4 ? true : false
-            }
-            onChange={handleChangeCheckbox}
-          />
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        size={"30%"}
+        centered
+      >
+        <div className="grid grid-cols-2 place-items-center">
+          <div className="flex flex-col items-center gap-10 w-full border-r-2">
+            <h2 className="text-2xl text-center">Activar/Desactivar Usuario</h2>
+            <input
+              type="checkbox"
+              className="toggle toggle-primary"
+              defaultChecked={
+                userDataToModal.person[0]?.operationStatusId === 4
+                  ? true
+                  : false
+              }
+              onChange={handleChangeCheckbox}
+            />
+          </div>
+          <div className="flex flex-col items-center gap-10 w-full">
+            <button className="btn btn-primary" onClick={quitUser}>
+              Quitar participante
+            </button>
+          </div>
         </div>
       </Modal>
-      {user.roleId === 5 && (
+      {[2, 5].includes(user.roleId) && (
         <div className="px-5 flex">
           <p className="text-2xl">
             <strong className="text-[#eb1000] font-bold text-2xl">
               Partner Admin:
             </strong>{" "}
-            username
+            {company.partnerAdmin?.name}
           </p>
         </div>
       )}
@@ -244,7 +302,12 @@ const Participantes = () => {
                   />
                 </div>
               </div>
-              {[1, 3].includes(user?.roleId) && <AgregarParticipante />}
+              {[1, 3].includes(user?.roleId) && (
+                <AgregarParticipante
+                  setParticipantes={setParticipantes}
+                  participantes={participantes}
+                />
+              )}
             </div>
           </div>
         </div>

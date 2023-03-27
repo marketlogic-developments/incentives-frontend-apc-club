@@ -6,8 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import ContainerContent from "../components/containerContent";
 import DigipointsDistribution from "../components/digipoints/DigipointsDistribution";
 import MakeTeam from "../components/digipoints/MakeTeam";
-import { teamsPush } from "../store/reducers/teams.reducer";
-import { getUsers, getUsersData } from "../store/reducers/users.reducer";
+import { getAllTeams, teamsPush } from "../store/reducers/teams.reducer";
+import {
+  getUsers,
+  getUsersData,
+  setCompanyUsers,
+} from "../store/reducers/users.reducer";
 
 const digipoints = () => {
   const [t, i18n] = useTranslation("global");
@@ -15,13 +19,14 @@ const digipoints = () => {
   const digipoints = useSelector((state) => state.user.digipoints);
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
+  const company = useSelector((state) => state.user.company);
   const [searchInvoice, setSearchInvoice] = useState("");
   const [selectDate, setSelectDate] = useState("");
   const [page, setPage] = useState(0);
 
   useEffect(() => {
     if (user.roleId === 3) {
-      return setPage(1);
+      setPage(1);
     }
 
     if ([1, 2, 3].includes(user?.roleId)) {
@@ -37,11 +42,24 @@ const digipoints = () => {
           }
         )
         .then(({ data }) => {
-          return dispatch(teamsPush(data));
+          if (data.length !== 0) dispatch(getAllTeams(data));
         });
     }
 
-    return dispatch(getUsersData(token));
+    axios
+      .get(
+        `${process.env.BACKURL}/reporters/company-all-users-by-id/${company.id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(({ data }) => {
+        dispatch(setCompanyUsers(data));
+      });
   }, []);
 
   const datosdummy = [];
