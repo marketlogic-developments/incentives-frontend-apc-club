@@ -27,7 +27,7 @@ const FormCanal = () => {
     const formData = new FormData();
     formData.append("fileName", fileName);
     formData.append("base64String", fileB64.split(",")[1]);
-    formData.append("type", 3);
+    formData.append("type", Number(3));
     if (fileB64) {
       dispatch(importCompany(token, formData))
         .then(() => {
