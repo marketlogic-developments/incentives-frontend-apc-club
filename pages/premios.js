@@ -13,6 +13,7 @@ import * as XLSX from "xlsx";
 import { Modal } from "@mantine/core";
 import axios from "axios";
 import Swal from "sweetalert2";
+import ImportacionPremios from "../components/premios/ImportacionPremios";
 
 const premios = () => {
   const [formData, setFormData] = useState({
@@ -31,6 +32,7 @@ const premios = () => {
   const itemsPerPage = 7;
   const [loading, setLoading] = useState(false);
   const [opened, setOpened] = useState(false);
+  const [modal, setModal] = useState(0);
 
   useEffect(() => {
     if (token && awards.length === 0) {
@@ -172,10 +174,10 @@ const premios = () => {
     XLSX.writeFile(workbook, "Liste_De_Premios.xlsx");
   };
 
-  return (
-    <>
-      <Modal opened={opened} onClose={() => setOpened(false)} size={"50%"}>
-        <div className="flex flex-col items-center">
+  const typeModal = useMemo(() => {
+    if (modal === 0) {
+      return (
+        <div className="flex flex-col items-center p-10">
           <h3 className="text-lg font-bold text-red-500">Agregar Premio</h3>
           <p className="py-4">Indica la información del premio</p>
           <form
@@ -269,6 +271,36 @@ const premios = () => {
             </div>
           </form>
         </div>
+      );
+    }
+
+    if (modal === 1) {
+      return <ImportacionPremios />;
+    }
+  }, [modal, formData]);
+
+  return (
+    <>
+      <Modal opened={opened} onClose={() => setOpened(false)} size={"50%"}>
+        <div className="grid grid-cols-2 place-items-center">
+          <p
+            className={`p-3 w-full text-center ${
+              modal === 0 && "border-b-2 border-[#eb1000] text-[#eb1000]"
+            }`}
+            onClick={() => setModal(0)}
+          >
+            Agregar premio
+          </p>
+          <p
+            className={`p-3 w-full text-center ${
+              modal === 1 && "border-b-2 border-[#eb1000] text-[#eb1000]"
+            }`}
+            onClick={() => setModal(1)}
+          >
+            Importar premios
+          </p>
+        </div>
+        {typeModal}
       </Modal>
       <ContainerContent pageTitle={"Premios"}>
         <div className="m-6 flex flex-col gap-16">

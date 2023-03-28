@@ -137,27 +137,63 @@ export default function Home() {
   };
 
   const handleDigipoints = async (userData) => {
-    const urls = [
-      `companies/${userData.user.companyId}`,
-      `reporters/digipoints-redeem-status/2/1/${userData.user.id}`,
-    ];
-
-    const res = urls.map((item) =>
-      axios.get(`${process.env.BACKURL}/${item}`, {
+    axios
+      .get(`${process.env.BACKURL}/companies/${userData.user.companyId}`, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
           Authorization: `Bearer ${userData.token}`,
         },
       })
-    );
+      .then((companyData) => {
+        dispatch(setCompany(companyData.data));
+      })
+      .catch((err) => {
+        if (err.message === "Request failed with status code 404") {
+          dispatch(
+            setCompany({
+              CreatedAt: 0,
+              id: 0,
+              name: "Sin canal / distribuidor",
+              representativeId: 0,
+              phoneNumber: "000000",
+              operationStatusId: 0,
+              distChannelsId: "No",
+              maxDayAssign: 0,
+              resellerMasterId: "",
+              goalsPerQuarter: "",
+              goalsPerYear: "",
+              partnerAdmin: {
+                name: "No",
+              },
+            })
+          );
+        }
+      })
+      .finally(() => {
+        if (userData.user.policy) {
+          route.push("/dashboard");
+        } else {
+          route.push("/terminosycondiciones");
+        }
 
-    return Promise.all(res)
-      .then((res) => {
-        dispatch(setCompany(res[0].data));
+        dispatch(changeLoadingData(false));
+      });
 
-        const [digipoints] = res[1].data;
-
-        if (res[1].data.length === 0) {
+    axios
+      .get(
+        `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/${userData.user.id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${userData.token}`,
+          },
+        }
+      )
+      .then((dpInfo) => {
+        const [digipoints] = dpInfo.data;
+        if (dpInfo.data.length === 0) {
           dispatch(
             setDigipoints({
               assigned_points: 0,
@@ -167,21 +203,12 @@ export default function Home() {
         } else {
           dispatch(setDigipoints(digipoints));
         }
-
-        if (userData.user.policy) {
-          return route.push("/dashboard");
-        } else {
-          return route.push("/terminosycondiciones");
-        }
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        dispatch(changeLoadingData(false));
       });
   };
 
   const handleSubmitNewPass = (data) => {
     data.preventDefault();
+
     axios
       .post(`${process.env.BACKURL}/auth/change-password`, {
         token: tokeNewPass,
