@@ -382,6 +382,22 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: "Herramientas administrativas",
     },
+    {
+      page: "/reglas",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="#ffffff"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M19.772 13.77a6.806 6.806 0 0 1-7.49 1.416L7.405 20.83c-.01.018-.028.028-.037.037a2.99 2.99 0 0 1-4.238 0 2.992 2.992 0 0 1 0-4.237l.038-.038 5.643-4.875a6.75 6.75 0 0 1 8.822-8.925.74.74 0 0 1 .441.544.75.75 0 0 1-.206.675l-3.647 3.647.347 1.772 1.772.346 3.646-3.646a.75.75 0 0 1 1.22.234 6.721 6.721 0 0 1-1.435 7.406Z" />
+        </svg>
+      ),
+      iconactive: "",
+      text: "Reglas",
+    },
   ];
   const locationsPP = [
     {
