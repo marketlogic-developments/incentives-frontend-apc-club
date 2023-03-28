@@ -35,7 +35,9 @@ const Información = () => {
               ? "Gold Certify"
               : company.distChannelsId === 2
               ? "Gold"
-              : "Platinum"}
+              : company.distChannelsId === 3
+              ? "Distribuidor"
+              : "No"}
           </p>
         </div>
         <div>

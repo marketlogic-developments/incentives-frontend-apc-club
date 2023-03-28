@@ -61,16 +61,18 @@ const Layout = ({ children }) => {
                   setCompany({
                     CreatedAt: 0,
                     id: 0,
-                    name: "",
+                    name: "Sin canal / distribuidor",
                     representativeId: 0,
-                    phoneNumber: "",
+                    phoneNumber: "000000",
                     operationStatusId: 0,
-                    distChannelsId: 0,
+                    distChannelsId: "No",
                     maxDayAssign: 0,
                     resellerMasterId: "",
                     goalsPerQuarter: "",
                     goalsPerYear: "",
-                    partnerAdminId: null,
+                    partnerAdmin: {
+                      name: "No",
+                    },
                   })
                 );
               }
