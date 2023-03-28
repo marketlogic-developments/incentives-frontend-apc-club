@@ -32,9 +32,9 @@ const Información = () => {
           </label>
           <p className="text-xl">
             {company.distChannelsId === 1
-              ? "Gold Certify"
-              : company.distChannelsId === 2
               ? "Gold"
+              : company.distChannelsId === 2
+              ? "Platinum"
               : company.distChannelsId === 3
               ? "Distribuidor"
               : "No"}
@@ -51,12 +51,6 @@ const Información = () => {
             <span className="label-text">Meta por Año</span>
           </label>
           <p className="text-xl">${company.goalsPerYear}</p>
-        </div>
-        <div>
-          <label className="label">
-            <span className="label-text">Días para asignar</span>
-          </label>
-          <p className="text-xl">{company.maxDayAssign}</p>
         </div>
         <div>
           <label className="label">

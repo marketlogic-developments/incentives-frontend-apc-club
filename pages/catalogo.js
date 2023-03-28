@@ -36,7 +36,6 @@ const catalogo = () => {
   }, [token]);
 
   const handleShoppingCard = () => {
-    dispatch(changeLoadingData(true));
     Cookies.set("shoppCar", JSON.stringify(globalAwards), { expires: 365 });
     dispatch(productsPush([...car, ...globalAwards]));
     awardsDelete();
@@ -84,7 +83,6 @@ const catalogo = () => {
           <button
             className="btn btn-primary"
             onClick={() => {
-              dispatch(changeLoadingData(true));
               route.push("/estadoProducto");
             }}
           >

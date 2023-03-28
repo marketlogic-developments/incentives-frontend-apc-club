@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { importCompany } from "../../../store/reducers/company.reducer";
 
-const FormCanal = () => {
+const FormCanal = ({ type }) => {
   const [fileName, setFileName] = useState("");
   const [fileB64, setFileB64] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -27,7 +27,7 @@ const FormCanal = () => {
     const formData = {
       fileName: fileName,
       base64String: fileB64.split(",")[1],
-      type: 3,
+      type: type,
     };
     if (fileB64) {
       dispatch(importCompany(token, formData))
@@ -49,28 +49,11 @@ const FormCanal = () => {
     }
   }, [formSubmitted]);
 
-  const getValue = (str) => {
-    const parts = str.split("-");
-    parts.shift();
-    return parts.join("-");
-  };
-
-  const formatDate = (dateString) => {
-    const options = {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    };
-    const date = new Date(dateString);
-    return date.toLocaleString("es-GT", options);
-  };
-
   return (
     <>
-      <p className="py-4 text-center">Agrega el archivo de la venta</p>
+      <p className="py-4 text-center">
+        Agrega el archivo de los {type === 3 ? "Canales" : "Distribuidores"}
+      </p>
       <div className="w-full">
         <form onSubmit={handleSubmit} className="w-full">
           <div className="form-control text-center">

@@ -119,7 +119,7 @@ export const createUserData = (token, data) => async (dispatch) => {
 };
 export const getPointsData = (token) => async (dispatch) => {
   return axios
-    .get(`${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/`, {
+    .get(`${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1`, {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",

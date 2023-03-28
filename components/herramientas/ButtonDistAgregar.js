@@ -1,17 +1,18 @@
 import React, { useMemo, useState } from "react";
 import FormCanal from "./CanalOpcionesModal/FormCanal";
 import ImportExcel from "./CanalOpcionesModal/ImportExcel";
+import FormDist from "./DistOpcionesModal/FormDist";
 
-const ButtonCanalAgregar = ({ data }) => {
+const ButtonDistAgregar = ({ data }) => {
   const [content, setContent] = useState(0);
 
   const typeContent = useMemo(() => {
     if (content === 0) {
-      return <FormCanal />;
+      return <FormDist />;
     }
 
     if (content === 1) {
-      return <ImportExcel type={3} />;
+      return <ImportExcel type={4} />;
     }
   }, [content]);
 
@@ -24,7 +25,7 @@ const ButtonCanalAgregar = ({ data }) => {
           }`}
           onClick={() => setContent(0)}
         >
-          Agregar Canal
+          Agregar Distribuidor
         </p>
         <p
           className={`h-full w-full p-3 cursor-pointer ${
@@ -32,7 +33,7 @@ const ButtonCanalAgregar = ({ data }) => {
           }`}
           onClick={() => setContent(1)}
         >
-          Importar Canales
+          Importar Distribuidores
         </p>
       </div>
       {typeContent}
@@ -40,4 +41,4 @@ const ButtonCanalAgregar = ({ data }) => {
   );
 };
 
-export default ButtonCanalAgregar;
+export default ButtonDistAgregar;

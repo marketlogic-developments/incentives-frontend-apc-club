@@ -61,7 +61,7 @@ const shoppingCar = () => {
         <div className="modal-action">
           <label
             htmlFor="my-modal"
-            className="btn btn-outline btn-error"
+            className="btn btn-primary"
             onClick={() => route.push("/estadoProducto")}
           >
             {t("shoopingcar.ir")}
@@ -164,7 +164,14 @@ const shoppingCar = () => {
 
   return (
     <>
-      <Modal opened={opened} onClose={() => setOpened(false)} centered>
+      <Modal
+        opened={opened}
+        onClose={() => {
+          route.push("/estadoProducto");
+          setOpened(false);
+        }}
+        centered
+      >
         {testModal()}
       </Modal>
       <ContainerContent pageTitle={"Carrito"}>
@@ -219,7 +226,7 @@ const shoppingCar = () => {
 
                 <label
                   htmlFor="my-modal"
-                  className="btn btn-outline btn-error col-span-2"
+                  className="btn btn-primary col-span-2"
                   onClick={handleOrder}
                 >
                   {t("shoopingcar.procesar")}
