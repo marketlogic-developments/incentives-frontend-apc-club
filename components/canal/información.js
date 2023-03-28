@@ -10,7 +10,6 @@ const Información = () => {
   const token = useSelector((state) => state.user.token);
   const company = useSelector((state) => state.user.company);
 
-  console.log(company);
   return (
     <div className="w-full flex justify-center">
       <div className="grid grid-cols-3 w-8/12 gap-10">
