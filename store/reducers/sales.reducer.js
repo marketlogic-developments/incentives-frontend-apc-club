@@ -28,6 +28,9 @@ export const saleActions = createSlice({
     getSalesPoints: (state, action) => {
       state.sales = [...state.users, action.payload];
     },
+    pushSalesFile: (state, action) => {
+      state.sales = action.payload;
+    },
   },
 });
 
@@ -37,6 +40,7 @@ export const {
   getSalesPoints,
   getStatusSale,
   getProducts,
+  pushSalesFile,
 } = saleActions.actions;
 
 export default saleActions.reducer;
@@ -44,14 +48,40 @@ export default saleActions.reducer;
 export const getSalesData = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/csv-files`, {
+      .get(`${process.env.BACKURL}/reporters/files-so`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => dispatch(createSale(res.data)));
+      .then((res) => {
+        console.log(res.data)
+        dispatch(pushSalesFile(res.data))
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const processFile = (token, data) => async (dispatch) => {
+  try {
+    return axios
+      .post(`${process.env.BACKURL}/csv-files/`, {
+        "fileProcess": data,
+        "userAssign": 1
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .finally(() => {
+        dispatch(getSalesData(token));
+      });
   } catch (err) {
     console.log(err);
   }
@@ -74,7 +104,7 @@ export const getSalesPointsData = (token) => async (dispatch) => {
   }
 };
 
-export const getProductsData = (token) => async (dispatch) => {
+export const getProductsData = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(`${process.env.BACKURL}/products/`, {
@@ -118,7 +148,10 @@ export const createSaleData = (token, data) => async (dispatch) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => dispatch(createSale([res.data])));
+      .then((res) => {
+        console.log(res.data)
+        dispatch(getSalesData(token));
+      });
   } catch (err) {
     console.log(err);
   }
