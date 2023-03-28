@@ -18,7 +18,7 @@ const CardProduct = ({ info, index }) => {
               </p>
               <p className="text-title">
                 {t("redenciones.precio")} <br />
-                {`${info.price * info.quantity} DigiPoints`}
+                {`${info.digipoints * info.quantity} DigiPoints`}
               </p>
             </div>
           </div>
