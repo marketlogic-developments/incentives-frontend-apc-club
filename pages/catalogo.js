@@ -18,7 +18,7 @@ import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { changeLoadingData } from "../store/reducers/loading.reducer";
 
-const adobeMarket = () => {
+const catalogo = () => {
   const [globalAwards, setGlobalAwards] = useState([]);
   const route = useRouter();
   const dispatch = useDispatch();
@@ -168,4 +168,4 @@ export async function getStaticProps(context) {
   };
 }
 
-export default adobeMarket;
+export default catalogo;

@@ -36,38 +36,38 @@ const canal = () => {
             <h1 className="font-bold text-3xl">{t("menu.Participantes")}</h1>
           </div>
           {user.roleId !== 5 ? (
-            <div className="grid grid-cols-4 place-items-center text-center border-b">
+            <div className="grid grid-cols-4 place-items-center text-center border-b cursor-pointer">
               <p
                 className={`h-full w-full p-3 ${
                   oneSection === 0 &&
-                  "border-b-2 border-[#eb1000] text-[#eb1000] cursor-pointer"
+                  "border-b-2 border-[#eb1000] text-[#eb1000]"
                 }`}
                 onClick={() => setOneSection(0)}
               >
                 Participantes
               </p>
               <p
-                className={`h-full w-full p-3 ${
+                className={`h-full w-full p-3 cursor-pointer ${
                   oneSection === 1 &&
-                  "border-b-2 border-[#eb1000] text-[#eb1000] cursor-pointer"
+                  "border-b-2 border-[#eb1000] text-[#eb1000]"
                 }`}
                 onClick={() => setOneSection(1)}
               >
                 DigiPoints
               </p>
               <p
-                className={`h-full w-full p-3 ${
+                className={`h-full w-full p-3 cursor-pointer ${
                   oneSection === 2 &&
-                  "border-b-2 border-[#eb1000] text-[#eb1000] cursor-pointer"
+                  "border-b-2 border-[#eb1000] text-[#eb1000]"
                 }`}
                 onClick={() => setOneSection(2)}
               >
                 Redenciones
               </p>
               <p
-                className={`h-full w-full p-3 ${
+                className={`h-full w-full p-3 cursor-pointer ${
                   oneSection === 3 &&
-                  "border-b-2 border-[#eb1000] text-[#eb1000] cursor-pointer"
+                  "border-b-2 border-[#eb1000] text-[#eb1000]"
                 }`}
                 onClick={() => setOneSection(3)}
               >
@@ -77,18 +77,18 @@ const canal = () => {
           ) : (
             <div className="grid grid-cols-2 place-items-center text-center border-b">
               <p
-                className={`h-full w-full p-3 ${
+                className={`h-full w-full p-3 cursor-pointer ${
                   oneSection === 0 &&
-                  "border-b-2 border-[#eb1000] text-[#eb1000] cursor-pointer"
+                  "border-b-2 border-[#eb1000] text-[#eb1000] "
                 }`}
                 onClick={() => setOneSection(0)}
               >
                 Participantes
               </p>
               <p
-                className={`h-full w-full p-3 ${
+                className={`h-full w-full p-3 cursor-pointer ${
                   oneSection === 3 &&
-                  "border-b-2 border-[#eb1000] text-[#eb1000] cursor-pointer"
+                  "border-b-2 border-[#eb1000] text-[#eb1000]"
                 }`}
                 onClick={() => setOneSection(3)}
               >

@@ -23,11 +23,10 @@ export const { getCompany, getUsersCompany } = companyAction.actions;
 
 export default companyAction.reducer;
 
-
 export const importCompany = (token, data) => async (dispatch) => {
   try {
     axios
-      .post(`${process.env.BACKURL}/process/file-catalogo`, data, {
+      .post(`${process.env.BACKURL}/process/file-catalog`, data, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

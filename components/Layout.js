@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loadingUser,
+  setCompany,
   setDigipoints,
   userLogin,
   userToken,
@@ -25,12 +26,12 @@ const Layout = ({ children }) => {
     typeof window !== "undefined" ? window.location.pathname : "";
   const router = useRouter();
   const sections = ["/", "/terminosycondiciones", "/registro"];
-
   const [t, i18n] = useTranslation("global");
 
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
       const userGetData = JSON.parse(window.sessionStorage.getItem("infoDt"));
+
       axios
         .get(`${process.env.BACKURL}/users/${userGetData?.id}`, {
           headers: {
@@ -39,7 +40,49 @@ const Layout = ({ children }) => {
             Authorization: `Bearer ${userGetData?.token}`,
           },
         })
-        .then((res1) => {
+        .then((userInfo) => {
+          axios
+            .get(
+              `${process.env.BACKURL}/companies/${userInfo.data.companyId}`,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin": "*",
+                  Authorization: `Bearer ${userGetData.token}`,
+                },
+              }
+            )
+            .then((companyData) => {
+              dispatch(setCompany(companyData.data));
+            })
+            .catch((err) => {
+              if (err.message === "Request failed with status code 404") {
+                dispatch(
+                  setCompany({
+                    CreatedAt: 0,
+                    id: 0,
+                    name: "",
+                    representativeId: 0,
+                    phoneNumber: "",
+                    operationStatusId: 0,
+                    distChannelsId: 0,
+                    maxDayAssign: 0,
+                    resellerMasterId: "",
+                    goalsPerQuarter: "",
+                    goalsPerYear: "",
+                    partnerAdminId: null,
+                  })
+                );
+              }
+            })
+            .finally(() => {
+              dispatch(userLogin(userInfo.data));
+              dispatch(userToken(userGetData.token));
+              language(userInfo.data.person[0].languageId);
+              redirection(userInfo.data.policy);
+              dispatch(loadingUser(true));
+            });
+
           axios
             .get(
               `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/${userGetData?.id}`,
@@ -51,14 +94,9 @@ const Layout = ({ children }) => {
                 },
               }
             )
-            .then((res2) => {
-              dispatch(userLogin(res1.data));
-              dispatch(userToken(userGetData.token));
-              language(res1.data.person[0].languageId);
-              redirection(res1.data.policy);
-
-              const [digipoints] = res2.data;
-              if (res2.data.length === 0) {
+            .then((dpInfo) => {
+              const [digipoints] = dpInfo.data;
+              if (dpInfo.data.length === 0) {
                 dispatch(
                   setDigipoints({
                     assigned_points: 0,
@@ -68,8 +106,6 @@ const Layout = ({ children }) => {
               } else {
                 dispatch(setDigipoints(digipoints));
               }
-
-              dispatch(loadingUser(true));
             });
         });
     } else {
@@ -123,20 +159,15 @@ const Layout = ({ children }) => {
       page: "/canal",
       icon: (
         <svg
-          width="30"
-          height="30"
-          fill="none"
-          stroke="#fff"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1"
+          width={30}
+          height={30}
+          fill="#ffffff"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M8.25 15a4.875 4.875 0 1 0 0-9.75 4.875 4.875 0 0 0 0 9.75Z"></path>
-          <path d="M14.568 5.428a5.093 5.093 0 0 1 1.322-.178 4.875 4.875 0 1 1 0 9.75"></path>
-          <path d="M1.5 18.507a8.25 8.25 0 0 1 13.5 0"></path>
-          <path d="M15.89 15a8.241 8.241 0 0 1 6.75 3.506"></path>
+          <path d="M22.5 19.5h-.75V9.75a1.5 1.5 0 0 0-1.5-1.5h-6v-4.5a1.5 1.5 0 0 0-1.5-1.5h-9a1.5 1.5 0 0 0-1.5 1.5V19.5H1.5a.75.75 0 1 0 0 1.5h21a.75.75 0 1 0 0-1.5Zm-11.25-6.75a.75.75 0 0 1-.75.75h-3a.75.75 0 1 1 0-1.5h3a.75.75 0 0 1 .75.75ZM6 6h3a.75.75 0 0 1 0 1.5H6A.75.75 0 0 1 6 6Zm0 9.75h3a.75.75 0 1 1 0 1.5H6a.75.75 0 1 1 0-1.5Zm8.25-6h6v9.75h-6V9.75Z" />
+          <path d="M18 15.75h-1.5a.75.75 0 1 0 0 1.5H18a.75.75 0 1 0 0-1.5Z" />
+          <path d="M16.5 13.5H18a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 1 0 0 1.5Z" />
         </svg>
       ),
       iconactive: "",
@@ -377,20 +408,15 @@ const Layout = ({ children }) => {
       page: "/canal",
       icon: (
         <svg
-          width="30"
-          height="30"
-          fill="none"
-          stroke="#fff"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1"
+          width={30}
+          height={30}
+          fill="#ffffff"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M8.25 15a4.875 4.875 0 1 0 0-9.75 4.875 4.875 0 0 0 0 9.75Z"></path>
-          <path d="M14.568 5.428a5.093 5.093 0 0 1 1.322-.178 4.875 4.875 0 1 1 0 9.75"></path>
-          <path d="M1.5 18.507a8.25 8.25 0 0 1 13.5 0"></path>
-          <path d="M15.89 15a8.241 8.241 0 0 1 6.75 3.506"></path>
+          <path d="M22.5 19.5h-.75V9.75a1.5 1.5 0 0 0-1.5-1.5h-6v-4.5a1.5 1.5 0 0 0-1.5-1.5h-9a1.5 1.5 0 0 0-1.5 1.5V19.5H1.5a.75.75 0 1 0 0 1.5h21a.75.75 0 1 0 0-1.5Zm-11.25-6.75a.75.75 0 0 1-.75.75h-3a.75.75 0 1 1 0-1.5h3a.75.75 0 0 1 .75.75ZM6 6h3a.75.75 0 0 1 0 1.5H6A.75.75 0 0 1 6 6Zm0 9.75h3a.75.75 0 1 1 0 1.5H6a.75.75 0 1 1 0-1.5Zm8.25-6h6v9.75h-6V9.75Z" />
+          <path d="M18 15.75h-1.5a.75.75 0 1 0 0 1.5H18a.75.75 0 1 0 0-1.5Z" />
+          <path d="M16.5 13.5H18a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 1 0 0 1.5Z" />
         </svg>
       ),
       iconactive: "",
@@ -490,20 +516,15 @@ const Layout = ({ children }) => {
       page: "/canal",
       icon: (
         <svg
-          width="30"
-          height="30"
-          fill="none"
-          stroke="#fff"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1"
+          width={30}
+          height={30}
+          fill="#ffffff"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M8.25 15a4.875 4.875 0 1 0 0-9.75 4.875 4.875 0 0 0 0 9.75Z"></path>
-          <path d="M14.568 5.428a5.093 5.093 0 0 1 1.322-.178 4.875 4.875 0 1 1 0 9.75"></path>
-          <path d="M1.5 18.507a8.25 8.25 0 0 1 13.5 0"></path>
-          <path d="M15.89 15a8.241 8.241 0 0 1 6.75 3.506"></path>
+          <path d="M22.5 19.5h-.75V9.75a1.5 1.5 0 0 0-1.5-1.5h-6v-4.5a1.5 1.5 0 0 0-1.5-1.5h-9a1.5 1.5 0 0 0-1.5 1.5V19.5H1.5a.75.75 0 1 0 0 1.5h21a.75.75 0 1 0 0-1.5Zm-11.25-6.75a.75.75 0 0 1-.75.75h-3a.75.75 0 1 1 0-1.5h3a.75.75 0 0 1 .75.75ZM6 6h3a.75.75 0 0 1 0 1.5H6A.75.75 0 0 1 6 6Zm0 9.75h3a.75.75 0 1 1 0 1.5H6a.75.75 0 1 1 0-1.5Zm8.25-6h6v9.75h-6V9.75Z" />
+          <path d="M18 15.75h-1.5a.75.75 0 1 0 0 1.5H18a.75.75 0 1 0 0-1.5Z" />
+          <path d="M16.5 13.5H18a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 1 0 0 1.5Z" />
         </svg>
       ),
       iconactive: "",
@@ -669,20 +690,15 @@ const Layout = ({ children }) => {
       page: "/canal",
       icon: (
         <svg
-          width="30"
-          height="30"
-          fill="none"
-          stroke="#fff"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1"
+          width={30}
+          height={30}
+          fill="#ffffff"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M8.25 15a4.875 4.875 0 1 0 0-9.75 4.875 4.875 0 0 0 0 9.75Z"></path>
-          <path d="M14.568 5.428a5.093 5.093 0 0 1 1.322-.178 4.875 4.875 0 1 1 0 9.75"></path>
-          <path d="M1.5 18.507a8.25 8.25 0 0 1 13.5 0"></path>
-          <path d="M15.89 15a8.241 8.241 0 0 1 6.75 3.506"></path>
+          <path d="M22.5 19.5h-.75V9.75a1.5 1.5 0 0 0-1.5-1.5h-6v-4.5a1.5 1.5 0 0 0-1.5-1.5h-9a1.5 1.5 0 0 0-1.5 1.5V19.5H1.5a.75.75 0 1 0 0 1.5h21a.75.75 0 1 0 0-1.5Zm-11.25-6.75a.75.75 0 0 1-.75.75h-3a.75.75 0 1 1 0-1.5h3a.75.75 0 0 1 .75.75ZM6 6h3a.75.75 0 0 1 0 1.5H6A.75.75 0 0 1 6 6Zm0 9.75h3a.75.75 0 1 1 0 1.5H6a.75.75 0 1 1 0-1.5Zm8.25-6h6v9.75h-6V9.75Z" />
+          <path d="M18 15.75h-1.5a.75.75 0 1 0 0 1.5H18a.75.75 0 1 0 0-1.5Z" />
+          <path d="M16.5 13.5H18a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 1 0 0 1.5Z" />
         </svg>
       ),
       iconactive: "",
@@ -744,7 +760,6 @@ const Layout = ({ children }) => {
   };
 
   const href = (page) => {
-    dispatch(changeLoadingData(true));
     router.push(page);
   };
 
@@ -885,7 +900,7 @@ const Layout = ({ children }) => {
                 className="adobeMarket z-10"
                 onClick={() => {
                   dispatch(changeLoadingData(true));
-                  router.push("/adobeMarket");
+                  router.push("/catalogo");
                 }}
               >
                 <svg

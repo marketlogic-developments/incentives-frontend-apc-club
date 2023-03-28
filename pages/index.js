@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setCompany,
   setDigipoints,
   userLogin,
   userToken,
@@ -135,21 +136,28 @@ export default function Home() {
       });
   };
 
-  const handleDigipoints = (userData) => {
-    axios
-      .get(
-        `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/${userData.user.id}`,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            Authorization: `Bearer ${userData.token}`,
-          },
-        }
-      )
-      .then((res) => {
-        const [digipoints] = res.data;
+  const handleDigipoints = async (userData) => {
+    const urls = [
+      `companies/${userData.user.companyId}`,
+      `reporters/digipoints-redeem-status/2/1/${userData.user.id}`,
+    ];
 
-        if (res.data.length === 0) {
+    const res = urls.map((item) =>
+      axios.get(`${process.env.BACKURL}/${item}`, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          Authorization: `Bearer ${userData.token}`,
+        },
+      })
+    );
+
+    return Promise.all(res)
+      .then((res) => {
+        dispatch(setCompany(res[0].data));
+
+        const [digipoints] = res[1].data;
+
+        if (res[1].data.length === 0) {
           dispatch(
             setDigipoints({
               assigned_points: 0,
@@ -166,7 +174,8 @@ export default function Home() {
           return route.push("/terminosycondiciones");
         }
       })
-      .catch(() => {
+      .catch((err) => console.log(err))
+      .finally(() => {
         dispatch(changeLoadingData(false));
       });
   };
