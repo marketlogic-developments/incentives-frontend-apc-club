@@ -87,7 +87,7 @@ const Layout = ({ children }) => {
 
           axios
             .get(
-              `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/${userGetData?.id}`,
+              `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/${userGetData?.id}`,
               {
                 headers: {
                   "Content-Type": "application/json",

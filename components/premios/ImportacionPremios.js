@@ -5,6 +5,7 @@ import * as XLSX from "xlsx";
 
 import axios from "axios";
 import { changeLoadingData } from "../../store/reducers/loading.reducer";
+import Image from "next/image";
 
 const ImportacionPremios = () => {
   const dispatch = useDispatch();
@@ -47,13 +48,13 @@ const ImportacionPremios = () => {
       axios.post(
         `${process.env.BACKURL}/awards`,
         {
-          name: "",
-          digipoints: 0,
-          price: 0,
-          imagePath: "",
-          status: true,
-          description: "",
-          imagePathSecond: "",
+          name: data.name,
+          digipoints: data.digipoints,
+          price: data.price,
+          imagePath: data.imagePath,
+          status: data.status,
+          description: data.description,
+          processed: true,
         },
         {
           headers: {
@@ -66,28 +67,28 @@ const ImportacionPremios = () => {
 
     Promise.all(promises)
       .then((values) => {
-        console.log(values);
+        dispatch(getDataAwards(token));
         setJsonData(
           values.map(({ data }) => ({
             name: data.name,
-            digipoints: 0,
-            price: 0,
-            imagePath: "",
-            status: true,
-            description: "",
-            imagePathSecond: "",
+            digipoints: data.digipoints,
+            price: data.price,
+            imagePath: data.imagePath,
+            status: "activo",
+            description: data.description,
           }))
         );
+
         return Toast.fire({
           icon: "success",
-          title: `Se han creado ${values.length} usuarios`,
+          title: `Se han creado ${values.length} Premios`,
         });
       })
       .catch((error) => {
         console.log(error);
         return Toast.fire({
           icon: "error",
-          title: "Ya hay usuarios que están creados en esta lista",
+          title: "No se pudieron subir los premios",
         });
       })
       .finally(() => {
@@ -122,10 +123,16 @@ const ImportacionPremios = () => {
                   Precio
                 </th>
                 <th scope="col" className="py-3 px-6">
-                  Región
+                  PathName
                 </th>
                 <th scope="col" className="py-3 px-6">
-                  PathName
+                  Status
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  Description
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  Procesado
                 </th>
               </tr>
             </thead>
@@ -149,11 +156,14 @@ const ImportacionPremios = () => {
                       <th className="py-4 px-6 text-white font-bold">
                         {data.price}
                       </th>
-                      <th className="py-4 px-6 text-white font-bold">
-                        {data.imagePath}
+                      <th className="py- px-6 text-white font-bold w-[200px]">
+                        <img
+                          src={data.imagePath}
+                          className="w-[50%] inline-flex"
+                        ></img>
                       </th>
                       <th className="py-4 px-6 text-white font-bold">
-                        {data.status}
+                        {data.status === true && "activo"}
                       </th>
                       <th className="py-4 px-6 text-white font-bold">
                         {data.description}

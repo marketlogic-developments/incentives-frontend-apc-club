@@ -182,7 +182,7 @@ export default function Home() {
 
     axios
       .get(
-        `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/${userData.user.id}`,
+        `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/${userData.user.id}`,
         {
           headers: {
             "Content-Type": "application/json",
