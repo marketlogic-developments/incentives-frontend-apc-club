@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
   awards: [],
   shoopingCar: [],
+  rules: [],
 };
 
 export const awardsAction = createSlice({
@@ -22,10 +23,16 @@ export const awardsAction = createSlice({
     shoopingCarPush: (state, action) => {
       state.shoopingCar = action.payload;
     },
+    rulesGetAll: (state, action) => {
+      state.rules = [...state.rules, ...action.payload];
+    },
+    rulesPush: (state, action) => {
+      state.rules = action.payload;
+    },
   },
 });
 
-export const { shoopingCarPush, awardsPush, awardsDelete, productsPush } =
+export const { shoopingCarPush, awardsPush, awardsDelete, productsPush, rulesGetAll, rulesPush } =
   awardsAction.actions;
 
 export default awardsAction.reducer;
@@ -58,6 +65,24 @@ export const getDataAwards = (token) => async (dispatch) => {
       })
       .then((res) => {
         dispatch(awardsPush(res.data));
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getDataRules = (token) => async (dispatch) => {
+  try {
+    axios
+      .get(`${process.env.BACKURL}/rules`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        dispatch(rulesGetAll(res.data));
       });
   } catch (err) {
     console.log(err);
