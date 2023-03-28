@@ -1,37 +1,72 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const Información = () => {
   const [t, i18n] = useTranslation("global");
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
+  const company = useSelector((state) => state.user.company);
 
-  const dataDummy = {
-    name: "MICRO COMPUTER CARIBBEAN LTD TT",
-    representativeId: 1,
-    phoneNumber: "45321465522",
-    operationStatusId: 4,
-    distChannelsId: 1,
-    CreatedAt: "2023-03-17T19:17:04.683Z",
-    maxDayAssign: 15,
-    resellerMasterId: "AM05537179",
-    goalsPerQuarter: "25000",
-    goalsPerYear: "300000",
-    distChannels: {
-      id: 1,
-      name: "GOLD",
-      CreatedAt: "2023-03-14T06:00:00.000Z",
-    },
-  };
-
-  useEffect(() => {});
+  console.log(company);
   return (
-    <div>
-      <div className="grid grid-cols-2">
+    <div className="w-full flex justify-center">
+      <div className="grid grid-cols-3 w-8/12 gap-10">
         <div>
           <label className="label">
-            <span className="label-text">Pick the best fantasy franchise</span>
+            <span className="label-text">Nombre del Canal</span>
           </label>
-          <p className="text-xl">{dataDummy.name}</p>
+          <p className="text-xl">{company.name}</p>
+        </div>
+        <div>
+          <label className="label">
+            <span className="label-text">Reseller ID</span>
+          </label>
+          <p className="text-xl">{company.resellerMasterId}</p>
+        </div>
+        <div>
+          <label className="label">
+            <span className="label-text">Tipo</span>
+          </label>
+          <p className="text-xl">
+            {company.distChannelsId === 1
+              ? "Gold Certify"
+              : company.distChannelsId === 2
+              ? "Gold"
+              : "Platinum"}
+          </p>
+        </div>
+        <div>
+          <label className="label">
+            <span className="label-text">Meta por Q</span>
+          </label>
+          <p className="text-xl">${company.goalsPerQuarter}</p>
+        </div>
+        <div>
+          <label className="label">
+            <span className="label-text">Meta por Año</span>
+          </label>
+          <p className="text-xl">${company.goalsPerYear}</p>
+        </div>
+        <div>
+          <label className="label">
+            <span className="label-text">Días para asignar</span>
+          </label>
+          <p className="text-xl">{company.maxDayAssign}</p>
+        </div>
+        <div>
+          <label className="label">
+            <span className="label-text">Partner Admin</span>
+          </label>
+          <p className="text-xl">{company.partnerAdmin?.name}</p>
+        </div>
+        <div>
+          <label className="label">
+            <span className="label-text">Número telefónico</span>
+          </label>
+          <p className="text-xl">{company.phoneNumber}</p>
         </div>
       </div>
     </div>

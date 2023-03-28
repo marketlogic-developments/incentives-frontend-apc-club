@@ -46,9 +46,7 @@ const TableTyc = () => {
         (data) => data.cpf === "active" && data.policy === false
       );
     }
-  }, [typeFilter]);
-
-  console.table(dataTyc);
+  }, [typeFilter, users]);
 
   return (
     <div className="flex flex-col gap-5">

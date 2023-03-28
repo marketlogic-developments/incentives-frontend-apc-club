@@ -69,6 +69,7 @@ const ImportUsers = () => {
           passwordReset: false,
           region: data.region,
           cpf: "N/A",
+          companyId: 144,
           person: {
             names: data.firstName,
             lastName: data.lastName,

@@ -10,7 +10,7 @@ const DigipointsDistribution = () => {
   const [opened, setOpened] = useState(false);
   const [t, i18n] = useTranslation("global");
   const teams = useSelector((state) => state.teams.teams);
-  const users = useSelector((state) => state.user.users);
+  const users = useSelector((state) => state.user.companyUsers);
   const [salesOption, setSalesOption] = useState("salesRep");
   const [numModal, setNumModal] = useState(0);
   const [teamInfo, setTeamInfo] = useState({});

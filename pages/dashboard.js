@@ -544,7 +544,7 @@ const dashboard = () => {
             {user?.roleId !== 2 && (
               <button
                 className="btn btn-primary btn-wide"
-                onClick={() => route.push("/adobeMarket")}
+                onClick={() => route.push("/catalogo")}
               >
                 {t("dashboard.redimir")}
               </button>

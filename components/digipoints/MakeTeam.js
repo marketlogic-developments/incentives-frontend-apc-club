@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import { changeLoadingData } from "../../store/reducers/loading.reducer";
 import { teamsPush, teamsUpdate } from "../../store/reducers/teams.reducer";
 import { getUsersData } from "../../store/reducers/users.reducer";
 
@@ -14,7 +15,7 @@ const MakeTeam = () => {
   const token = useSelector((state) => state.user.token);
   const teams = useSelector((state) => state.teams.teams);
   const user = useSelector((state) => state.user.user);
-  const users = useSelector((state) => state.user.users);
+  const users = useSelector((state) => state.user.companyUsers);
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
@@ -25,6 +26,8 @@ const MakeTeam = () => {
   const [infoModal, setInfoModal] = useState({});
   const [modifiedValues, setModifiedValues] = useState([]);
   const [modal, setModal] = useState(0);
+
+  console.log(infoModal, dataModal);
 
   const searchUser = () => {
     const searchValue = users.filter(({ email }) =>
@@ -88,14 +91,6 @@ const MakeTeam = () => {
     }
   }, [listUsers, searchByEmail]);
 
-  const getUsers = (token) => {
-    if (users.length === 0) {
-      return dispatch(getUsersData(token));
-    }
-
-    return;
-  };
-
   const verifyUserInToTable = (data) => {
     const dataModalFilter = dataModal.map(({ email }) => email);
 
@@ -123,51 +118,59 @@ const MakeTeam = () => {
     }
   };
 
-  const tableTeams = useMemo(() => {
-    return (
-      <tbody>
-        {teams?.map((data) => {
-          const time = new Date(data?.CreatedAt);
+  const getTeamData = (data) => {
+    dispatch(changeLoadingData(true));
 
-          return (
-            <tr
-              className="bg-white border-b dark:border-gray-500 hover:bg-base-200 cursor-pointer"
-              onClick={() => {
-                setInfoModal(data);
-                setDataModal(data?.participants);
-                setOpened(true);
-              }}
-            >
-              <td className="py-4 px-6">{data?.nameGroup}</td>
-              <td className="py-4 px-6">{data?.description}</td>
-              <td className="py-4 px-6">{data?.participants?.length}</td>
-              <td className="py-4 px-6">{time.toLocaleDateString("en-GB")}</td>
-            </tr>
-          );
-        })}
-      </tbody>
-    );
-  }, [teams]);
+    axios
+      .get(`${process.env.BACKURL}/partner-admin-group-headers/${data.id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res1) => {
+        const getTeamMembers = res1.data.PartnerAdminGroupD.map(
+          ({ memberId }) =>
+            axios.get(`${process.env.BACKURL}/users/${memberId}`, {
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                Authorization: `Bearer ${token}`,
+              },
+            })
+        );
 
-  const handleSubmit = (e) => {
+        Promise.all(getTeamMembers)
+          .then((res) => {
+            const teamMembers = res.map(({ data }) => data);
+            setInfoModal(res1.data);
+            setDataModal(teamMembers);
+            setOpened(true);
+          })
+          .finally(() => dispatch(changeLoadingData(false)));
+      });
+  };
+
+  //This function skips to the next modal, if infoModal.id exist then response previousData and new values
+
+  const handleButtonNext = (e) => {
     e.preventDefault();
 
-    if (e.target[2].name === "update") {
+    if (infoModal?.id) {
       setInfoModal({
         ...infoModal,
         nameGroup: e.target[0].value,
         description: e.target[1].value,
       });
-      return setModal(1);
-    }
-
-    if (e.target[2].name === "create") {
+    } else {
       setInfoModal({
         nameGroup: e.target[0].value,
         description: e.target[1].value,
       });
-      return setModal(1);
     }
+
+    return setModal(1);
   };
 
   function handleInputChange(e, id) {
@@ -184,6 +187,8 @@ const MakeTeam = () => {
       ]);
     }
   }
+
+  //This function sends
 
   function handleSaveChanges(event) {
     event.preventDefault();
@@ -225,9 +230,6 @@ const MakeTeam = () => {
       const teamUpdate = {
         ...infoModal,
         participants: newData,
-        creation: new Date().toLocaleString("en-US", {
-          timeZone: "America/New_York",
-        }),
       };
 
       const update = teams.filter(({ id }) => id !== infoModal?.id);
@@ -262,8 +264,14 @@ const MakeTeam = () => {
             },
           }
         )
-        .then((res) => {
-          dispatch(teamsPush(res.data));
+        .then(({ data }) => {
+          dispatch(
+            teamsPush({
+              ...data,
+              total_users: data.PartnerAdminGroupD.length,
+              name_group: data.nameGroup,
+            })
+          );
           setInfoModal({});
           setDataModal([]);
           setModifiedValues([]);
@@ -286,7 +294,7 @@ const MakeTeam = () => {
         <form
           className="flex flex-col gap-5 p-10 w-full"
           autoComplete="off"
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={(e) => handleButtonNext(e)}
         >
           <div className="flex flex-col gap-5">
             <p>{t("modalEquipos.nequipo")}</p>
@@ -332,23 +340,10 @@ const MakeTeam = () => {
               />
             )}
           </div>
-          {infoModal?.nameGroup === undefined ? (
-            <button
-              type="submit"
-              className="btn btn-primary w-max"
-              name="create"
-            >
-              {t("modalEquipos.next")}
-            </button>
-          ) : (
-            <button
-              type="submit"
-              className="btn btn-primary w-max"
-              name="update"
-            >
-              {t("modalEquipos.next")}
-            </button>
-          )}
+
+          <button type="submit" className="btn btn-primary w-max">
+            {t("modalEquipos.next")}
+          </button>
         </form>
       );
     }
@@ -438,6 +433,28 @@ const MakeTeam = () => {
     modal,
   ]);
 
+  const tableTeams = useMemo(() => {
+    return (
+      <tbody>
+        {teams?.map((data) => {
+          const time = new Date(data?.CreatedAt || data?.created_at);
+
+          return (
+            <tr
+              className="bg-white border-b dark:border-gray-500 hover:bg-base-200 cursor-pointer"
+              onClick={() => getTeamData(data)}
+            >
+              <td className="py-4 px-6">{data?.name_group}</td>
+              <td className="py-4 px-6">{data?.description}</td>
+              <td className="py-4 px-6">{data?.total_users}</td>
+              <td className="py-4 px-6">{time.toLocaleDateString("en-GB")}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    );
+  }, [teams]);
+
   return (
     <>
       <Modal
@@ -471,7 +488,6 @@ const MakeTeam = () => {
             <button
               className="btn btn-primary"
               onClick={() => {
-                getUsers(token);
                 setOpened(true);
               }}
             >
@@ -489,20 +505,18 @@ const MakeTeam = () => {
           <div className="overflow-x-auto relative">
             <table className="w-full text-sm text-left text-black-500">
               <thead className="text-xs text-black-500 uppercase">
-                <tr>
-                  <th scope="col" className="py-3 px-6">
-                    {t("tabla.nEquipo")}
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    {t("tabla.descripcion")}
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    {t("tabla.nParticipantes")}
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    {t("tabla.fechaCreacion")}
-                  </th>
-                </tr>
+                <th scope="col" className="py-3 px-6">
+                  {t("tabla.nEquipo")}
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  {t("tabla.descripcion")}
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  {t("tabla.nParticipantes")}
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  {t("tabla.fechaCreacion")}
+                </th>
               </thead>
               {tableTeams}
             </table>
