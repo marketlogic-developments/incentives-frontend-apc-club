@@ -8,7 +8,7 @@ import Puntos from "../components/canal/puntos";
 import Redenciones from "../components/canal/redenciones";
 import ContainerContent from "../components/containerContent";
 
-const canal = () => {
+const organizacion = () => {
   const [oneSection, setOneSection] = useState(0);
   const user = useSelector((state) => state.user.user);
   const [t, i18n] = useTranslation("global");
@@ -113,4 +113,4 @@ export async function getStaticProps(context) {
   };
 }
 
-export default canal;
+export default organizacion;

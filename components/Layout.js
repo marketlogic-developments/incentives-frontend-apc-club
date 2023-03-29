@@ -158,7 +158,7 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/canal",
+      page: "/organizacion",
       icon: (
         <svg
           width={30}
@@ -423,7 +423,7 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/canal",
+      page: "/organizacion",
       icon: (
         <svg
           width={30}
@@ -531,7 +531,7 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/canal",
+      page: "/organizacion",
       icon: (
         <svg
           width={30}
@@ -705,7 +705,7 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/canal",
+      page: "/organizacion",
       icon: (
         <svg
           width={30}
@@ -941,7 +941,7 @@ const Layout = ({ children }) => {
             )}
           </div>
           <span className="h-screen barra"></span>
-          <div className="w-4/5">
+          <div className="w-[82%]">
             <div className="navbar">
               <figure className="w-[30%]">
                 <img src="/assets/dashboard/years.webp" className="!w-[60%] " />
