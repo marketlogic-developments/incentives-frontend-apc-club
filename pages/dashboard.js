@@ -24,6 +24,7 @@ import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
 } from "react-icons/ai";
+import TableStats from "../components/dashboard/TableStats";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
@@ -441,82 +442,7 @@ const dashboard = () => {
         </div>
         <hr color="red" />
         <div className="gap-10 flex flex-col h-full">
-          <div className="container w-full h-full bg-base-100 flex flex-col sm:flex-row justify-between max-sm:justify-center">
-            <div className="w-8/12 max-sm:mx-auto flex flex-col gap-5 progressiveBar justify-center">
-              <div className="w-full h-16 flex items-center gap-10 gapBar">
-                <div className="flex items-center h-full cct max-sm:w-64 w-32 text-center">
-                  <img src="/assets/dashboard/cc.webp" width={100}></img>
-                </div>
-                <div className="w-10/12 flex flex-col items-center justify-around h-full">
-                  <div className="w-full flex justify-around">
-                    <p className="text-sm font-semibold border-b-2 border-b-orange-500">
-                      Teams
-                    </p>
-                    <p className="text-sm font-semibold border-b-sky-600 border-b-2 ">
-                      Enterprise
-                    </p>
-                    <p className="text-sm font-semibold border-b-2 border-b-green-600">
-                      Education
-                    </p>
-                  </div>
-                  <div className="w-full bg-base-200 h-4 flex">
-                    <span
-                      className="bg-primary h-full"
-                      style={{ width: "33.3%" }}
-                    />
-                    <span
-                      className="bg-secondary h-full"
-                      style={{ width: "33.3%" }}
-                    />
-                    <span
-                      className="bg-success h-full"
-                      style={{ width: "33.3%" }}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="w-full h-16 flex items-center gap-10 gapBar">
-                <div className="flex items-center h-full cci max-sm:w-64 w-32 text-center">
-                  <img src="/assets/dashboard/DC.webp" width={100}></img>
-                </div>
-                <div className="w-10/12 flex flex-col items-center justify-around h-full">
-                  <div className="w-full flex justify-around">
-                    <p className="text-sm font-semibold border-b-2 border-b-orange-500">
-                      Teams
-                    </p>
-                    <p className="text-sm font-semibold border-b-sky-600 border-b-2">
-                      Enterprise
-                    </p>
-                    <p className="text-sm font-semibold border-b-2 border-b-red-600">
-                      Education
-                    </p>
-                  </div>
-                  <div className="w-full bg-base-200 h-4 flex"></div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center w-4/12 max-sm:w-full justify-center gap-10">
-              <div className="flex flex-col gap-5">
-                <p className="font-semibold text-center">Partner Goal:</p>
-                <p className="text-center font-bold text-3xl">{`${0}`}</p>
-              </div>
-              <div className="h-full w-min">
-                <div
-                  className="radial-progress flex justify-center items-center text-primary"
-                  style={{
-                    "--value": "0",
-                    "--size": "9rem",
-                    "--thickness": "2px",
-                  }}
-                >
-                  <div className="w-5/6 h-5/6 bg-primary text-center p-5 flex flex-col items-center justify-center rounded-full text-white">
-                    <p className="font-bold text-xl">${"0M"}</p>
-                    <p className="text-sm">0%</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <TableStats />
           <Carousel
             sx={{ width: "100%", height: "100%" }}
             mx="auto"

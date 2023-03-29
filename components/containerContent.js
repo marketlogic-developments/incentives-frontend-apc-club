@@ -9,10 +9,10 @@ const ContainerContent = ({ pageTitle, children }) => {
         <link rel="icon" href="/favicon.png"></link>
       </Head>
       <main
-        className="px-8 pt-10 relative"
+        className="relative flex justify-center"
         style={{ marginTop: "5vh" }}
       >
-        <div className="gap-10 flex flex-col h-full">{children}</div>
+        <div className="gap-10 flex flex-col h-full w-[90%]">{children}</div>
       </main>
     </>
   );

@@ -336,10 +336,19 @@
 .checkitem {
   color: #047857;
 }
-.logoAdobe{
-  figure{
-    img{
-      width: 140px;
+.logoAdobe {
+  figure {
+    img {
+      width: 60%;
     }
+  }
+}
+
+.tooltip {
+  &::before {
+    padding: 15px;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 20px;
   }
 }
