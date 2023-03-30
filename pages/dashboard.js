@@ -46,7 +46,7 @@ const dashboard = () => {
 
   const userData = useMemo(() => {
     if (user !== 0) {
-      return user?.person[0].names;
+      return user?.names;
     }
   }, [user]);
 

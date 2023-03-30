@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import FormCanal from "./CanalOpcionesModal/FormCanal";
-import ImportExcel from "./CanalOpcionesModal/ImportExcel";
+import ImportExcel from "./ImportExcel";
 import FormDist from "./DistOpcionesModal/FormDist";
 
 const ButtonDistAgregar = ({ data }) => {

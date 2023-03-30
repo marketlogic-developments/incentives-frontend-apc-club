@@ -88,7 +88,7 @@ export default function Home() {
         password: password,
       })
       .then((res) => {
-        if (res.data.user.person[0]?.operationStatusId === 5) {
+        if (res.data.user.operationStatusId === 5) {
           Swal.fire({
             title: t("login.sorry"),
             html:

@@ -120,7 +120,7 @@ const terminosycondiciones = () => {
               <p>{t("terminosycondiciones.aceptar")}</p>
             </div>
 
-            {user?.person[0]?.languageId === 1 ? (
+            {user?.languageId === 1 ? (
               <iframe
                 title="TermsAndContidionsAdobeSign"
                 src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCcW5vpqipVeP4okcl4cwzhtHBOExs8xsfkD9ObSqH_IqLxxQKpBR8Mcsy_xC5UXls*"

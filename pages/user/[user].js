@@ -32,27 +32,27 @@ const user = () => {
 
   useEffect(() => {
     setFormData({
-      name: user?.person[0]?.names,
-      lastname: user?.person[0]?.lastName,
+      name: user?.names,
+      lastname: user?.lastName,
       email: user?.email,
       role: user?.roleId,
-      position: user?.person[0]?.position,
+      position: user?.position,
       region: user?.region,
       imgProfile: user?.profilePhotoPath,
-      birthDate: user?.person[0]?.birthDate,
-      phone: user?.person[0]?.phoneNumber,
+      birthDate: user?.birthDate,
+      phone: user?.phoneNumber,
     });
 
     const num = Object.values({
-      name: user?.person[0]?.names,
-      lastname: user?.person[0]?.lastName,
+      name: user?.names,
+      lastname: user?.lastName,
       email: user?.email,
       role: user?.roleId,
-      position: user?.person[0]?.position,
+      position: user?.position,
       region: user?.region,
       imgProfile: user?.profilePhotoPath,
-      birthDate: user?.person[0]?.birthDate,
-      phone: user?.person[0]?.phoneNumber,
+      birthDate: user?.birthDate,
+      phone: user?.phoneNumber,
     }).filter((e) => e !== null || e !== "").length;
 
     setNInputs(parseInt((num * 100) / 9));
@@ -86,13 +86,10 @@ const user = () => {
     const jsonData = () => {
       return {
         profilePhotoPath: formData.imgProfile,
-        person: {
-          names: formData.name,
-          lastName: formData.lastname,
-          birthDate: formData.birthDate,
-          phoneNumber: formData.phone,
-          personId: user.person[0].id,
-        },
+        names: formData.name,
+        lastName: formData.lastname,
+        birthDate: formData.birthDate,
+        phoneNumber: formData.phone,
         region: formData.region,
       };
     };
@@ -106,12 +103,7 @@ const user = () => {
       })
       .then((res) => {
         console.log(res.data);
-        dispatch(
-          policyAndPassword({
-            ...res.data,
-            person: [{ ...user.person[0], ...res.data.person[0] }],
-          })
-        );
+        dispatch(policyAndPassword(res.data));
         setModal(0);
         setOpened(true);
       });

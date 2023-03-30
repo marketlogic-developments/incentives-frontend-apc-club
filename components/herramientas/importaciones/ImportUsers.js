@@ -70,20 +70,18 @@ const ImportUsers = () => {
           region: data.region,
           cpf: "N/A",
           companyId: 144,
-          person: {
-            names: data.firstName,
-            lastName: data.lastName,
-            birthDate: "1980-07-05",
-            position: data.userRol.includes("Partner Admin")
-              ? "Partner Admin"
-              : data.userRol.includes("Partner Principal")
-              ? "Partner Principal"
-              : "Sales Rep",
-            phoneNumber: "45645646",
-            operationStatusId: 4,
-            academicDegreeId: 1,
-            languageId: data.region === "BRAZIL" ? 1 : 2,
-          },
+          names: data.firstName,
+          lastName: data.lastName,
+          birthDate: "1980-07-05",
+          position: data.userRol.includes("Partner Admin")
+            ? "Partner Admin"
+            : data.userRol.includes("Partner Principal")
+            ? "Partner Principal"
+            : "Sales Rep",
+          phoneNumber: "45645646",
+          operationStatusId: 4,
+          academicDegreeId: 1,
+          languageId: data.region === "BRAZIL" ? 1 : 2,
         },
         {
           headers: {
@@ -99,8 +97,8 @@ const ImportUsers = () => {
         console.log(values);
         setJsonData(
           values.map(({ data }) => ({
-            firstName: data.person[0].names,
-            lastName: data.person[0].lastName,
+            firstName: data.names,
+            lastName: data.lastName,
             email: data.email,
             password: "--",
             region: data.region,

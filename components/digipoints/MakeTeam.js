@@ -27,8 +27,6 @@ const MakeTeam = () => {
   const [modifiedValues, setModifiedValues] = useState([]);
   const [modal, setModal] = useState(0);
 
-  console.log(infoModal, dataModal);
-
   const searchUser = () => {
     const searchValue = users.filter(({ email }) =>
       email.startsWith(searchByEmail.toLocaleLowerCase())

@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import ImportUsers from "./importaciones/ImportUsers";
+import ImportExcel from "./ImportExcel";
 
 const ButtonParticipants = () => {
   const [opened, setOpened] = useState(false);
@@ -61,7 +61,7 @@ const ButtonParticipants = () => {
     //     passwordReset: false,
     //     region: form.region,
     //     cpf: "N/A",
-    //     person: {
+    //
     //       names: form.name,
     //       lastName: form.lastName,
     //       birthDate: form.date,
@@ -70,7 +70,7 @@ const ButtonParticipants = () => {
     //       operationStatusId: 4,
     //       academicDegreeId: 1,
     //       languageId: form.region === "BRAZIL" ? 1 : 2,
-    //     },
+    //
     //     employeePos: {
     //       posId: form.posId,
     //     },
@@ -93,19 +93,14 @@ const ButtonParticipants = () => {
       passwordReset: false,
       region: form.region,
       cpf: "N/A",
-      person: {
-        names: form.name,
-        lastName: form.lastName,
-        birthDate: form.date,
-        position: form.role.split("-")[1],
-        phoneNumber: form.phone,
-        operationStatusId: 4,
-        academicDegreeId: 1,
-        languageId: form.region === "BRAZIL" ? 1 : 2,
-      },
-      employeePos: {
-        posId: form.posId,
-      },
+      names: form.name,
+      lastName: form.lastName,
+      birthDate: form.date,
+      position: form.role.split("-")[1],
+      phoneNumber: form.phone,
+      operationStatusId: 4,
+      academicDegreeId: 1,
+      languageId: form.region === "BRAZIL" ? 1 : 2,
     });
 
     const Toast = Swal.mixin({
@@ -268,7 +263,7 @@ const ButtonParticipants = () => {
     }
 
     if (modal === 1) {
-      return <ImportUsers />;
+      return <ImportExcel type={5} />;
     }
   }, [modal, pos, form]);
 

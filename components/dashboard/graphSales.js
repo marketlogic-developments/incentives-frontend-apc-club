@@ -46,16 +46,6 @@ const GraphSales = () => {
                   </div>
                 </div>
               </div>
-              <button
-                className="btn btn-sm btn-secondary w-max"
-                onClick={() => {
-                  renewalCC === ""
-                    ? setRenewalCC("activeButton")
-                    : setRenewalCC("");
-                }}
-              >
-                Ver Digipoints
-              </button>
             </div>
           </div>
           <div className="flex w-1/2 justify-center items-center  ">
@@ -96,16 +86,6 @@ const GraphSales = () => {
                   </div>
                 </div>
               </div>
-              <button
-                className="btn btn-sm btn-secondary w-max"
-                onClick={() => {
-                  nbusinessCC === ""
-                    ? setNbusinessCC("activeButton")
-                    : setNbusinessCC("");
-                }}
-              >
-                Ver Digipoints
-              </button>
             </div>
           </div>
         </div>
@@ -144,16 +124,6 @@ const GraphSales = () => {
                   </div>
                 </div>
               </div>
-              <button
-                className="btn btn-sm btn-primary w-max"
-                onClick={() => {
-                  renewalDC === ""
-                    ? setRenewalDC("activeButton")
-                    : setRenewalDC("");
-                }}
-              >
-                Ver Digipoints
-              </button>
             </div>
           </div>
           <div className="flex w-[60%] justify-center items-center  ">
@@ -192,16 +162,6 @@ const GraphSales = () => {
                   </div>
                 </div>
               </div>
-              <button
-                className="btn btn-sm btn-primary w-max"
-                onClick={() => {
-                  nbusinessDC === ""
-                    ? setNbusinessDC("activeButton")
-                    : setNbusinessDC("");
-                }}
-              >
-                Ver Digipoints
-              </button>
             </div>
           </div>
         </div>
