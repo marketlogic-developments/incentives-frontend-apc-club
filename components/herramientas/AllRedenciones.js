@@ -29,7 +29,6 @@ const AllRedenciones = () => {
     if (token) {
       dispatch(getOrdersAll(token));
       if (isLoaded && orders.length > 0) {
-        console.log(orders);
       }
     }
   }, [isLoaded, token]);
@@ -110,8 +109,6 @@ const AllRedenciones = () => {
       );
     }
   }, [searchInvoice]);
-
-  console.log(data);
 
   return (
     <>

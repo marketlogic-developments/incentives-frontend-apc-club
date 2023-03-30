@@ -49,7 +49,7 @@ const catalogo = () => {
   }, [user]);
 
   const language = () => {
-    if (user?.person[0]?.languageId === 1) {
+    if (user?.languageId === 1) {
       return i18n.changeLanguage("por");
     }
 
@@ -78,7 +78,7 @@ const catalogo = () => {
         <div className="flex flex-col gap-5">
           <h1 className="font-bold text-3xl">{t("menu.catalogo")}</h1>
         </div>
-        {user?.person[0]?.languageId === 1 ? <BnPor /> : <BnEsp />}
+        {user?.languageId === 1 ? <BnPor /> : <BnEsp />}
         <div className="w-full h-full">
           <button
             className="btn btn-primary"

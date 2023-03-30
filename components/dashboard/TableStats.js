@@ -11,8 +11,6 @@ const TableStats = () => {
   const [percentageCC, setpercentageCC] = useState([]);
   const [percentageDC, setpercentageDC] = useState([]);
 
-  console.log(company);
-
   const dataFromAxios = [
     {
       sale_type: "CC",

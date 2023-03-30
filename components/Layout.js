@@ -80,7 +80,7 @@ const Layout = ({ children }) => {
             .finally(() => {
               dispatch(userLogin(userInfo.data));
               dispatch(userToken(userGetData.token));
-              language(userInfo.data.person[0].languageId);
+              language(userInfo.data.languageId);
               redirection(userInfo.data.policy);
               dispatch(loadingUser(true));
             });
@@ -113,7 +113,7 @@ const Layout = ({ children }) => {
     } else {
       if (userRedux !== 0) {
         redirection(userRedux.policy);
-        language(userRedux?.person[0]?.languageId);
+        language(userRedux?.languageId);
       } else {
         dispatch(loadingUser(true));
       }
@@ -1076,9 +1076,7 @@ const Layout = ({ children }) => {
                               className="buttonLayoutDropdown"
                               onClick={() => {
                                 dispatch(changeLoadingData(true));
-                                router.push(
-                                  `/user/${userRedux?.person[0].names}`
-                                );
+                                router.push(`/user/${userRedux?.names}`);
                               }}
                             >
                               <p>Ver Perfil</p>
@@ -1093,7 +1091,7 @@ const Layout = ({ children }) => {
                       </Menu>
                     </div>
                     <div className="username">
-                      <p>{userRedux?.person[0]?.names}</p>
+                      <p>{userRedux?.names}</p>
                     </div>
                   </div>
                 </div>

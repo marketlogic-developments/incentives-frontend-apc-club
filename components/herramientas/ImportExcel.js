@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { importCompany } from "../../../store/reducers/company.reducer";
+import Swal from "sweetalert2";
+import { importCompany } from "../../store/reducers/company.reducer";
 
-const FormCanal = ({ type }) => {
+const ImportExcel = ({ type }) => {
   const [fileName, setFileName] = useState("");
   const [fileB64, setFileB64] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -29,14 +30,34 @@ const FormCanal = ({ type }) => {
       base64String: fileB64.split(",")[1],
       type: type,
     };
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
     if (fileB64) {
       dispatch(importCompany(token, formData))
         .then(() => {
-          console.log("Archivo cargado");
           inputRef.value = null;
+          return Toast.fire({
+            icon: "success",
+            title: "Archivo cargado de forma exitosa",
+          });
         })
         .catch((error) => {
           console.log(error);
+          return Toast.fire({
+            icon: "error",
+            title: "El archivo no pudo ser cargado",
+          });
         });
     }
   };
@@ -52,14 +73,26 @@ const FormCanal = ({ type }) => {
   return (
     <>
       <p className="py-4 text-center">
-        Agrega el archivo de los {type === 3 ? "Canales" : "Distribuidores"}
+        Agrega el archivo de{" "}
+        {type === 1
+          ? "los productos"
+          : type === 2
+          ? "las metas por mes"
+          : type === 3
+          ? "los canales"
+          : type === 4
+          ? "los distribuidores"
+          : type === 5
+          ? "los usuarios"
+          : type === 6 && "las promociones"}{" "}
+        a importar
       </p>
       <div className="w-full">
         <form onSubmit={handleSubmit} className="w-full">
           <div className="form-control text-center">
             <div className=" w-full  gap-8">
               <div>
-                <strong className="text-sm">Subir archivo (xls)</strong>
+                <strong className="text-sm">Subir archivo (.xlsx)</strong>
               </div>
               <input
                 input
@@ -96,4 +129,4 @@ const FormCanal = ({ type }) => {
   );
 };
 
-export default FormCanal;
+export default ImportExcel;

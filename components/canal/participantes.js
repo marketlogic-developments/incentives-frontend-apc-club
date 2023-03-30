@@ -24,9 +24,7 @@ const Participantes = () => {
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-  const [userDataToModal, setUserDataToModal] = useState({
-    person: [{ operationStatusId: 0 }],
-  });
+  const [userDataToModal, setUserDataToModal] = useState({});
 
   useEffect(() => {
     if (participantes.length === 0) setIsLoaded(true);
@@ -82,10 +80,7 @@ const Participantes = () => {
     axios.patch(
       `${process.env.BACKURL}/users/${userDataToModal.id}`,
       {
-        person: {
-          personId: userDataToModal.person[0]?.id,
-          operationStatusId: e.target.checked === false ? 5 : 4,
-        },
+        operationStatusId: e.target.checked === false ? 5 : 4,
       },
       {
         headers: {
@@ -254,9 +249,7 @@ const Participantes = () => {
               type="checkbox"
               className="toggle toggle-primary"
               defaultChecked={
-                userDataToModal.person[0]?.operationStatusId === 4
-                  ? true
-                  : false
+                userDataToModal.operationStatusId === 4 ? true : false
               }
               onChange={handleChangeCheckbox}
             />

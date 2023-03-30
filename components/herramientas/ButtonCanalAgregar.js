@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import FormCanal from "./CanalOpcionesModal/FormCanal";
-import ImportExcel from "./CanalOpcionesModal/ImportExcel";
+import ImportExcel from "./ImportExcel";
 
 const ButtonCanalAgregar = ({ data }) => {
   const [content, setContent] = useState(0);
