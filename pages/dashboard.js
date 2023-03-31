@@ -30,7 +30,7 @@ const dashboard = () => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const [opened, setOpened] = useState(false);
-  const [opened2, setOpened2] = useState(true);
+  const [opened2, setOpened2] = useState(false);
   const [view, setView] = useState("password");
   const dispatch = useDispatch();
   const route = useRouter();
@@ -395,6 +395,12 @@ const dashboard = () => {
     ? { initialWidth: "100%", initialHeight: "auto" }
     : { initialWidth: "40%", initialHeight: "auto" };
 
+  const logout = () => {
+    window.sessionStorage.removeItem("infoDt");
+    Cookies.remove("dp");
+    route.push("/");
+  };
+
   return (
     <>
       <Modal
@@ -405,6 +411,36 @@ const dashboard = () => {
         draggable={false}
       >
         {typeModal}
+      </Modal>
+      <Modal
+        opened={opened2}
+        centered
+        size={"90%"}
+        onClose={() => {
+          logout();
+          // setOpened2(false);
+        }}
+        className={"modalCloseDashboard"}
+      >
+        {
+          <a href="mailto:info@adobepcclub.com">
+            <figure>
+              {i18n.resolvedLanguage === "por" ? (
+                <img
+                  src="assets/dashboard/banners/bannerPApor.webp"
+                  alt="Sales_PA"
+                  className="w-full"
+                ></img>
+              ) : (
+                <img
+                  src="assets/dashboard/banners/bannerPA.webp"
+                  alt="Sales_PA"
+                  className="w-full"
+                ></img>
+              )}
+            </figure>
+          </a>
+        }
       </Modal>
       <ContainerContent pageTitle={"Dashboard"}>
         {header}
