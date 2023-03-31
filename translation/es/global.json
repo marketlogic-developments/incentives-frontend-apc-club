@@ -32,10 +32,12 @@
   },
 
   "tyc": {
-    "title1": "¡Gracias! \n Te hemos enviado un vínculo por correo electrónico para verificar tu identidad.",
-    "title12": "Debes confirmar que eres tú para continuar con la aprobación de los Términos y Condiciones del APC Club. Si no completas este paso, no podremos aceptar tu aprobación.",
-    "title2": "Estamos procesando la activación de tu usuario, en un plazo de 24 horas recibirás un correo electrónico con la notificación para que puedas acceder a la plataforma.",
-    "title3": "Si en 24 horas no la has recibido, puedes escribirnos a info@adobepcclub.com para verificar el estado de tu solicitud.",
+    "title1": "Solo hace falta un paso",
+    "title12": "Verificar tu identidad.",
+    "title2": "Ve a tu correo, busca en tu bandeja de entrada el mail con el asunto:",
+    "title21": "Confirme su aprobación de APC Club - Términos y Condiciones",
+    "title22": "sigue las instrucciones para hacerlo.",
+    "title3": "Posterior a tu confirmación, espera la notificación de activación de tu usuario en un plazo de 24 horas. Dudas a",
     "firmar": "firmar",
     "borrar": "Limpiar"
   },
