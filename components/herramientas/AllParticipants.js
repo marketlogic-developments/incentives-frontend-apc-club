@@ -28,7 +28,22 @@ const AllParticipants = () => {
 
   useEffect(() => {
     if (participantes.length === 0) setIsLoaded(true);
+    ipGet();
   }, [participantes]);
+
+  const ipGet = async () => {
+    const ipAddress = await fetch("https://api.ipify.org?format=json")
+      .then((response) => response.json())
+      .then((data) => data.ip)
+      .catch((error) => {
+        console.error("Error fetching IP address:", error);
+        return null;
+      });
+
+    console.log(ipAddress);
+
+    return ipAddress;
+  };
 
   useEffect(() => {
     if (isLoaded && token) {
