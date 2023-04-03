@@ -78,7 +78,10 @@ const terminosycondiciones = () => {
           opened={opened}
           centered
           size={"80%"}
-          onClose={() => null}
+          onClose={() => {
+            window.sessionStorage.removeItem("infoDt");
+            route.push("/");
+          }}
           id="modalterminos"
         >
           <div className="w-full p-10 flex flex-col justify-center gap-10">
