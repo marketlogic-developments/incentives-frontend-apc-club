@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import PerUsers from "./DigiPointsDistributionModals/PerUsers";
-import PerTeams from "./DigiPointsDistributionModals/PerUsers";
+import PerTeams from "./DigiPointsDistributionModals/PerTeams";
 
 const DigipointsDistribution = () => {
   const [opened, setOpened] = useState(false);
@@ -185,8 +185,8 @@ const DigipointsDistribution = () => {
             <select
               className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
               onChange={(e) => {
-                const [team] = teams.filter(
-                  (data) => e.target.value === data.id
+                const team = teams.find(
+                  (data) => Number(e.target.value) === data.id
                 );
                 return setTeamInfo(team);
               }}
@@ -220,69 +220,22 @@ const DigipointsDistribution = () => {
     }
     if (numModal === 2) {
       return (
-        <div className="flex flex-col gap-10 items-center">
-          <div className="flex justify-between relative px-10 w-full">
-            <div className="flex flex-col gap-5 w-full">
-              <p>Detalles de la factura</p>
-              <div className="grid grid-cols-4 text-sm">
-                <div className="border-2 p-3">
-                  <p className="text-primary">No. Factura:</p>
-                  <p>{invoiceData.factura}</p>
-                </div>
-                <div className="border-2 p-3">
-                  <p className="text-primary">Fecha:</p>
-                  <p>{invoiceData.fecha}</p>
-                </div>
-                <div className="border-2  p-3">
-                  <p className="text-primary">Cliente:</p>
-                  <p>{invoiceData.cliente}</p>
-                </div>
-                <div className="border-2 p-3">
-                  <p className="text-primary">Cantidad:</p>
-                  <p>{invoiceData.cantidad}</p>
-                </div>
-                <div className="border-2 p-3 col-span-4 flex flex-col justify-evenly">
-                  <p className="text-primary ">DigiPoints Disponibles:</p>
-                  <p className="text-center font-bold text-2xl">
-                    {invoiceData.digipoints}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="px-10 w-full">
-            <div className="text-xs text-black-500 uppercase border-2 w-full grid grid-cols-3 place-items-center tableHeader">
-              <p scope="col" className="py-3 px-6">
-                Nombre
-              </p>
-              <p scope="col" className="py-3 px-6">
-                Email
-              </p>
-              <p scope="col" className="py-3 px-6">
-                Digipoints
-              </p>
-            </div>
-            <div className="w-full overflow-y-scroll">
-              <table className="border-2 w-full text-sm">
-                {teamInfo?.participants?.map((data) => (
-                  <tr className="bg-white border-b dark:border-gray-500">
-                    <td className="py-[1.1rem] w-1/3">{data.name}</td>
-                    <td>{data.email}</td>
-                    <td className="w-1/3">
-                      {invoiceData.digipoints * (data.percentage / 100)}
-                    </td>
-                  </tr>
-                ))}
-              </table>
-            </div>
-          </div>
-          <button className="btn btn-primary w-max" onClick={handleSubmit}>
-            Asignar
-          </button>
-        </div>
+        <PerTeams
+          invoiceData={invoiceData}
+          teamInfo={teamInfo}
+          handleSubmit={handleSubmit}
+        />
       );
     }
-  }, [numModal, salesOption, listUsers, searchByEmail, hover, dataModal]);
+  }, [
+    numModal,
+    salesOption,
+    listUsers,
+    searchByEmail,
+    hover,
+    dataModal,
+    teamInfo,
+  ]);
 
   const nextModal = () => {
     if (salesOption === "salesTeam") {

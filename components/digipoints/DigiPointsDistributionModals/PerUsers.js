@@ -1,4 +1,6 @@
+import axios from "axios";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const PerUsers = ({
   invoiceData,
@@ -11,7 +13,41 @@ const PerUsers = ({
   handleSubmit,
   hover,
 }) => {
+  const user = useSelector((state) => state.user.user);
+
   console.log(dataModal);
+
+  const handleAsign = () => {
+    const usersAsign = dataModal.map((data) => ({
+      invoiceId: invoiceData.factura.toString(),
+      vendorId: data.id,
+      digipoints: Number(invoiceData.digipoints) / dataModal.length,
+    }));
+
+    // axios.post(
+    //   `${process.env.BACKURL}/users/${userDataToModal.id}`,
+    //   {
+    //     partnerAdminId: user.id,
+    //     assignType: "amount",
+    //     assignValues: usersAsign,
+    //   },
+    //   {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "Access-Control-Allow-Origin": "*",
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   }
+    // );
+
+    console.log({
+      partnerAdminId: user.id,
+      assignType: "amount",
+      assignValues: usersAsign,
+    });
+
+    handleSubmit();
+  };
 
   return (
     <div className="grid grid-cols-2 h-[500px]">
@@ -76,7 +112,7 @@ const PerUsers = ({
           <button
             type="submit"
             className="btn btn-primary w-max"
-            onClick={handleSubmit}
+            onClick={handleAsign}
           >
             Asignar
           </button>
