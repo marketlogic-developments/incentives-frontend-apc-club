@@ -12,8 +12,6 @@ const ImportExcel = ({ type }) => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
 
-  console.log(fileB64);
-
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setFileName(file.name);

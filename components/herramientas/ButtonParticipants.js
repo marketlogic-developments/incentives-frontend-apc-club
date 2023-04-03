@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import ImportExcel from "./ImportExcel";
+import ImportUsers from "./importaciones/ImportUsers";
 
 const ButtonParticipants = () => {
   const [opened, setOpened] = useState(false);
@@ -265,6 +266,10 @@ const ButtonParticipants = () => {
     if (modal === 1) {
       return <ImportExcel type={5} />;
     }
+
+    if (modal === 2) {
+      return <ImportUsers />;
+    }
   }, [modal, pos, form]);
 
   // const isMobile = window.innerWidth <= 768;
@@ -296,6 +301,14 @@ const ButtonParticipants = () => {
             onClick={() => setModal(1)}
           >
             Importar Participantes
+          </p>
+          <p
+            className={`h-full w-full p-3 cursor-pointer ${
+              modal === 2 && "border-b-2 border-[#eb1000] text-[#eb1000]"
+            }`}
+            onClick={() => setModal(2)}
+          >
+            Actualizar Usuarios
           </p>
         </div>
         {typeModal}
