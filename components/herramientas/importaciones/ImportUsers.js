@@ -51,8 +51,6 @@ const ImportUsers = () => {
       console.log(userFind);
     });
 
-    console.log(usersAllMapEmail);
-
     // const validationUsers = jsonData.filter(
     //   ({ email }) => !usersAllMapEmail.includes(email)
     // );

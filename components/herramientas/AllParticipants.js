@@ -35,7 +35,6 @@ const AllParticipants = () => {
       setLoading(true);
       dispatch(getUsersData(token))
         .then((participantes) => {
-          console.log(participantes);
           setParticipantes(participantes.payload);
           setLoading(false);
         })

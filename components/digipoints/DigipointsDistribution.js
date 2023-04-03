@@ -168,8 +168,6 @@ const DigipointsDistribution = () => {
     setOpened(false);
   };
 
-  console.log(teams);
-
   const typeModal = useMemo(() => {
     if (numModal === 0) {
       return (
