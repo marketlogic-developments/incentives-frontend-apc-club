@@ -705,24 +705,6 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/organizacion",
-      icon: (
-        <svg
-          width={30}
-          height={30}
-          fill="#ffffff"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M22.5 19.5h-.75V9.75a1.5 1.5 0 0 0-1.5-1.5h-6v-4.5a1.5 1.5 0 0 0-1.5-1.5h-9a1.5 1.5 0 0 0-1.5 1.5V19.5H1.5a.75.75 0 1 0 0 1.5h21a.75.75 0 1 0 0-1.5Zm-11.25-6.75a.75.75 0 0 1-.75.75h-3a.75.75 0 1 1 0-1.5h3a.75.75 0 0 1 .75.75ZM6 6h3a.75.75 0 0 1 0 1.5H6A.75.75 0 0 1 6 6Zm0 9.75h3a.75.75 0 1 1 0 1.5H6a.75.75 0 1 1 0-1.5Zm8.25-6h6v9.75h-6V9.75Z" />
-          <path d="M18 15.75h-1.5a.75.75 0 1 0 0 1.5H18a.75.75 0 1 0 0-1.5Z" />
-          <path d="M16.5 13.5H18a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 1 0 0 1.5Z" />
-        </svg>
-      ),
-      iconactive: "",
-      text: t("menu.Participantes"),
-    },
-    {
       page: "/digipoints",
       icon: (
         <svg

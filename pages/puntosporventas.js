@@ -7,6 +7,10 @@ import axios from "axios";
 import * as XLSX from "xlsx";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import {
+  getSalesAll,
+  getSalesAllByChannel
+} from "../store/reducers/sales.reducer";
 
 const puntosporventas = () => {
   const [t, i18n] = useTranslation("global");
@@ -14,7 +18,6 @@ const puntosporventas = () => {
   const token = useSelector((state) => state.user.token);
   const currentPage = useSelector((state) => state.currentPage || 1);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [data, setData] = useState([]);
   const [postsPerPage, setPostsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
@@ -22,6 +25,8 @@ const puntosporventas = () => {
   const [searchInvoice, setSearchInvoice] = useState("");
   const [selectSale, setSelectSale] = useState("");
   const [selectDate, setSelectDate] = useState("");
+  const data = useSelector((state) => state.sales.salesall);
+
 
   const itemsPerPage = 10;
 
@@ -30,169 +35,59 @@ const puntosporventas = () => {
   }, []);
 
   useEffect(() => {
-    if (isLoaded && token) {
-      const fetchData = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-          const res = await axios.get(
-            `${process.env.BACKURL}/reporters/assigned/`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          setData(res.data);
-        } catch (err) {
-          setError(err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchData();
+    console.log(data)
+    if (token && data.length === 0) {
+      dispatch(getSalesAllByChannel(token, 'AM00133713'));
     }
-  }, [isLoaded, token, currentPage, postsPerPage]);
+  }, [isLoaded, token]);
 
-  const datosdummy = [];
-
-  const search = useMemo(() => {
-    const newData = datosdummy.map((data) => ({
-      ...data,
-      date: new Date(data.date),
-    }));
-
-    if (searchEmail !== "" || searchInvoice !== "" || selectSale !== "") {
-      return datosdummy
-        .filter(({ tipo_venta, factura, email }) => {
-          if (searchEmail !== "" && searchInvoice !== "" && selectSale !== "") {
-            return (
-              tipo_venta === selectSale &&
-              factura.startsWith(searchInvoice.toLocaleLowerCase()) &&
-              email.startsWith(searchEmail.toLocaleLowerCase())
-            );
-          }
-          if (searchEmail !== "" && selectSale !== "") {
-            return (
-              tipo_venta === selectSale &&
-              email.startsWith(searchEmail.toLocaleLowerCase())
-            );
-          }
-          if (searchInvoice !== "" && selectSale !== "") {
-            return (
-              factura.startsWith(searchInvoice.toLocaleLowerCase()) &&
-              email.startsWith(searchEmail.toLocaleLowerCase())
-            );
-          }
-          if (searchEmail !== "" && searchInvoice !== "") {
-            return (
-              factura.startsWith(searchInvoice.toLocaleLowerCase()) &&
-              email.startsWith(searchEmail.toLocaleLowerCase())
-            );
-          }
-          if (selectSale !== "") {
-            return tipo_venta === selectSale;
-          }
-          if (searchInvoice !== "") {
-            return factura.startsWith(searchInvoice.toLocaleLowerCase());
-          }
-          if (searchEmail !== "") {
-            return email.startsWith(searchEmail.toLocaleLowerCase());
-          }
-        })
-        .map((data, index) => (
-          <tr key={index} className="bg-white border-b dark:border-gray-500">
-            <td className="py-4 px-2">{data.date}</td>
-            <td className="py-4 px-2">{data.email}</td>
-            <td className="py-4 px-2">{data.factura}</td>
-            <td className="py-4 px-2">{data.digipoints}</td>
-            <td className="py-4 px-2">{data.tipo_venta}</td>
-            <td className="py-4 px-2">{parseFloat(data.monto).toFixed(2)}</td>
-          </tr>
-        ));
-    }
-
-    if (selectDate !== "") {
-      const dataSort = newData.sort((a, b) => {
-        if (selectDate === "upDown") {
-          return b.date - a.date;
-        }
-
-        return a.date - b.date;
-      });
-
-      return dataSort.map((data, index) => (
-        <tr key={index} className="bg-white border-b dark:border-gray-500">
-          <td className="py-4 px-2">{data.date.toISOString().slice(0, 10)}</td>
-          <td className="py-4 px-2">{data.email}</td>
-          <td className="py-4 px-2">{data.factura}</td>
-          <td className="py-4 px-2">{data.digipoints}</td>
-          <td className="py-4 px-2">{data.tipo_venta}</td>
-          <td className="py-4 px-2">{parseFloat(data.monto).toFixed(2)}</td>
-        </tr>
-      ));
-    }
-
-    return datosdummy.map((data, index) => (
-      <tr key={index} className="bg-white border-b dark:border-gray-500">
-        <td className="py-4 px-2">{data.date}</td>
-        <td className="py-4 px-2">{data.email}</td>
-        <td className="py-4 px-2">{data.factura}</td>
-        <td className="py-4 px-2">{data.digipoints}</td>
-        <td className="py-4 px-2">{data.tipo_venta}</td>
-        <td className="py-4 px-2">{parseFloat(data.monto).toFixed(2)}</td>
-      </tr>
-    ));
-  }, [searchInvoice, searchEmail, selectSale, selectDate]);
-
-  function Table({ currentItems }) {
+  function Table({ data }) {
     return (
       <>
         <table className="w-full text-sm text-left text-black-500">
           <thead className="text-xs text-black-500 uppercase">
             <tr>
               <th scope="col" className="py-2 px-2">
-                {t("tabla.fechaventa")}
+                Reseller
+              </th>
+              
+              <th scope="col" className="py-2 px-2">
+                Business Unit
               </th>
               <th scope="col" className="py-2 px-2">
-                {t("tabla.correo")}
+                Business Type
               </th>
               <th scope="col" className="py-2 px-2">
-                {t("tabla.nserie")}
+                SKU
               </th>
               <th scope="col" className="py-2 px-2">
-                {t("tabla.designados")}
+                Quarter
               </th>
               <th scope="col" className="py-2 px-2">
-                {t("tabla.tipodeventa")}
-              </th>
-              <th scope="col" className="py-2 px-2">
-                {t("tabla.amountTotal")}
+                Total Sales US
               </th>
             </tr>
           </thead>
           <tbody>
-            {search}
-            {/* {currentItems &&
-              currentItems.map((data, index) => (
+            {data &&
+              data.map((data, index) => (
                 <tr
                   key={index}
                   className="bg-white border-b dark:border-gray-500"
                 >
                   <td className="py-4 px-2">
-                    {moment(data.saleDates).format("MM/DD/YYYY")}
+                    {data.reseller_partner_rollup}
                   </td>
-                  <td className="py-4 px-2">{data.employAssigned.email}</td>
-                  <td className="py-4 px-2">{data.invoiceNumber}</td>
-                  <td className="py-4 px-2">{data.totalPoints}</td>
-                  <td className="py-4 px-2">{data.saleType}</td>
+                  <td className="py-4 px-2">{data.business_unit}</td>
+                  <td className="py-4 px-2">{data.business_type}</td>
+                  <td className="py-4 px-2">{data.materia_sku}</td>
+                  <td className="py-4 px-2">{data.quarter}</td>
                   <td className="py-4 px-2">
-                    {parseFloat(data.saleAmount).toFixed(2)}
+                    {parseFloat(data.total_sales_amount).toFixed(2)}
                   </td>
+
                 </tr>
-              ))} */}
+              ))}
           </tbody>
         </table>
       </>
@@ -233,7 +128,7 @@ const puntosporventas = () => {
           <div className="w-full grid grid-cols-2 place-items-center gap-3">
             <div className="flex w-full gap-5">
               <select
-                className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+                className="none px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                 onChange={(e) => setSelectDate(e.target.value)}
               >
                 <option value="">{t("tabla.ordenarFecha")}</option>
@@ -241,7 +136,7 @@ const puntosporventas = () => {
                 <option value="downUp">{t("tabla.antiguoR")}</option>
               </select>
               <select
-                className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm col-span-2"
+                className="none px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm col-span-2"
                 onChange={(e) => {
                   setSelectSale(e.target.value);
                 }}
@@ -276,7 +171,7 @@ const puntosporventas = () => {
           </div>
 
           {loading && <div className="lds-dual-ring"></div>}
-          {!loading && <Table currentItems={currentItems} />}
+          {!loading && <Table data={data} />}
           {/* {!loading && (
             <ReactPaginate
               pageCount={pageCount}

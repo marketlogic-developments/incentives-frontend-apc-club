@@ -10,6 +10,7 @@ const initialState = {
   digipa: [],
   salesgement: [],
   salesbType: [],
+  salesall: [],
 };
 
 export const saleActions = createSlice({
@@ -43,6 +44,10 @@ export const saleActions = createSlice({
     getSalesType: (state, action) => {
       state.salesbType = action.payload;
     },
+    getallSales: (state, action) => {
+      state.salesall = action.payload;
+    },
+    
   },
 });
 
@@ -56,6 +61,7 @@ export const {
   getDigiPa,
   getSalesSegment,
   getSalesType,
+  getallSales,
 } = saleActions.actions;
 
 export default saleActions.reducer;
@@ -241,6 +247,36 @@ export const getSalesByType = (token, data) => async (dispatch) => {
         console.log(res.data);
         dispatch(getSalesType(res.data));
       });
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const getSalesAll = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/salesall/`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getallSales(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const getSalesAllByChannel = (token,data) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/salesallbychanes/${data}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getallSales(res.data)));
   } catch (err) {
     console.log(err);
   }

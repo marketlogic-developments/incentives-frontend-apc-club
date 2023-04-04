@@ -167,7 +167,7 @@ const digipoints = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
+          <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white none">
             <div>
               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
                 <select

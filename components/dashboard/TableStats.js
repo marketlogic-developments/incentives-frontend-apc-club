@@ -17,7 +17,7 @@ const TableStats = () => {
 
   useEffect(() => {
     if (token && dataFromAxios.length === 0) {
-      dispatch(getSalesBySegment(token, user.company.resellerMasterId));
+      dispatch(getSalesBySegment(token, company.resellerMasterId));
     }
   }, [token]);
 
@@ -92,8 +92,6 @@ const TableStats = () => {
     setpercentageDC(arrayPercentageDC);
   };
 
-  console.log(dataFromAxios);
-
   return (
     <div className="container w-full h-full bg-base-100 flex flex-col sm:flex-row justify-between max-sm:justify-center">
       <div className="w-8/12 max-sm:mx-auto flex flex-col gap-5 progressiveBar justify-center">
@@ -123,7 +121,7 @@ const TableStats = () => {
                       ? "tooltip-secondary bg-secondary"
                       : "tooltip-success bg-success"
                   } h-full`}
-                  data-tip={`${new Intl.NumberFormat().format(
+                  data-tip={`$${new Intl.NumberFormat().format(
                     parseInt(data.sales)
                   )}`}
                   style={{ width: `${data.tablePercentage}%` }}
@@ -172,12 +170,12 @@ const TableStats = () => {
         </div>
       </div>
       <div className="flex items-center w-4/12 max-sm:w-full justify-center gap-10">
-        <div className="flex flex-col gap-5">
+        {/* <div className="flex flex-col gap-5">
           <p className="font-semibold text-center">Partner Goal:</p>
           <p className="text-center font-bold text-2xl">{`$${new Intl.NumberFormat().format(
             parseInt(Number(company.goalsPerQuarter))
           )}`}</p>
-        </div>
+        </div> */}
         <div className="h-full w-min">
           <div
             className="radial-progress flex justify-center items-center text-primary"
