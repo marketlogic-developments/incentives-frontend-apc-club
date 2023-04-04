@@ -9,6 +9,7 @@ const initialState = {
   products: [],
   digipa: [],
   salesgement: [],
+  salesbType: [],
 };
 
 export const saleActions = createSlice({
@@ -39,6 +40,9 @@ export const saleActions = createSlice({
     getSalesSegment: (state, action) => {
       state.salesgement = [...action.payload];
     },
+    getSalesType: (state, action) => {
+      state.salesbType = action.payload;
+    },
   },
 });
 
@@ -51,6 +55,7 @@ export const {
   pushSalesFile,
   getDigiPa,
   getSalesSegment,
+  getSalesType,
 } = saleActions.actions;
 
 export default saleActions.reducer;
@@ -206,7 +211,7 @@ export const getDigipointsPa = (token, data) => async (dispatch) => {
     console.log(err);
   }
 };
-export const getSalesBySegment = (token,data) => async (dispatch) => {
+export const getSalesBySegment = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(`${process.env.BACKURL}/reporters/salesbysegment/${data}`, {
@@ -217,6 +222,25 @@ export const getSalesBySegment = (token,data) => async (dispatch) => {
         },
       })
       .then((res) => dispatch(getSalesSegment(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getSalesByType = (token, data) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/salesbybtype/${data}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        dispatch(getSalesType(res.data));
+      });
   } catch (err) {
     console.log(err);
   }
