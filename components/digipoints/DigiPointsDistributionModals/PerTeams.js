@@ -28,13 +28,27 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
       });
   }, []);
 
-  const handleAsign=()=>{
-    
-  }
+  const handleAsign = () => {
+    console.log({
+      partnerAdminId: user.id,
+      assignType: "group",
+      assignValues: [
+        {
+          groupId: thisTeam.id,
+          invoiceId: invoiceData.invoices_included.toString(),
+          digiPoints: Number(invoiceData.digipoints),
+        },
+      ],
+    });
+
+    handleSubmit();
+  };
 
   if (loading) {
     return <div className="lds-dual-ring"></div>;
   }
+
+  console.log(invoiceData, thisTeam);
 
   return (
     <div className="flex flex-col gap-10 items-center">
@@ -44,19 +58,19 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
           <div className="grid grid-cols-4 text-sm">
             <div className="border-2 p-3">
               <p className="text-primary">No. Factura:</p>
-              <p>{invoiceData.factura}</p>
+              <p>{invoiceData.invoices_included}</p>
             </div>
             <div className="border-2 p-3">
               <p className="text-primary">Fecha:</p>
-              <p>{invoiceData.fecha}</p>
+              <p>{invoiceData.date}</p>
             </div>
             <div className="border-2  p-3">
               <p className="text-primary">Cliente:</p>
-              <p>{invoiceData.cliente}</p>
+              <p>{invoiceData.client}</p>
             </div>
             <div className="border-2 p-3">
               <p className="text-primary">Cantidad:</p>
-              <p>{invoiceData.cantidad}</p>
+              <p>{invoiceData.salesQuantity}</p>
             </div>
             <div className="border-2 p-3 col-span-4 flex flex-col justify-evenly">
               <p className="text-primary ">DigiPoints Disponibles:</p>
@@ -81,19 +95,26 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
         </div>
         <div className="w-full overflow-y-scroll">
           <table className="border-2 w-full text-sm">
-            {thisTeam?.PartnerAdminGroupD?.map((data) => (
-              <tr className="bg-white border-b dark:border-gray-500">
-                <td className="py-[1.1rem] w-1/3">{data.member.name}</td>
-                <td>{data.member.email}</td>
-                <td className="w-1/3">
-                  {invoiceData.digipoints * (data.percentage / 100)}
-                </td>
-              </tr>
-            ))}
+            <tbody>
+              {thisTeam?.PartnerAdminGroupD?.map((data) => (
+                <tr
+                  className="bg-white border-b dark:border-gray-500"
+                  key={data.id}
+                >
+                  <td className="py-[1.1rem] w-1/3">{data.member.name}</td>
+                  <td>{data.member.email}</td>
+                  <td className="w-1/3">
+                    {Math.round(
+                      invoiceData.digipoints * (data.percentage / 100)
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
-      <button className="btn btn-primary w-max" onClick={handleSubmit}>
+      <button className="btn btn-primary w-max" onClick={handleAsign}>
         Asignar
       </button>
     </div>

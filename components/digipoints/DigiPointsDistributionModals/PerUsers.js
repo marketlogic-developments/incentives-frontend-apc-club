@@ -49,7 +49,7 @@ const PerUsers = ({
 
     handleSubmit(e);
   };
-  console.log(invoiceData)
+  console.log(invoiceData);
 
   return (
     <div className="grid grid-cols-2 h-[500px]">
@@ -63,19 +63,16 @@ const PerUsers = ({
             </div>
             <div className="border-2 p-3">
               <p className="text-primary">Fecha:</p>
-              <p>{invoiceData.invoiceDetails[0].billing_date}</p>
+              <p>{invoiceData.date}</p>
             </div>
 
             <div className="border-2  p-3">
               <p className="text-primary">Cliente:</p>
-              <p>{invoiceData.invoiceDetails[0].end_user_name1}</p>
+              <p>{invoiceData.client}</p>
             </div>
             <div className="border-2 p-3">
               <p className="text-primary">Cantidad:</p>
-              <p>{invoiceData.invoiceDetails.map(({
-                total_sales_qty
-              }) => Number(total_sales_qty)
-              ).reduce((currently, prevValue) => currently + prevValue)}</p>
+              <p>{invoiceData.salesQuantity}</p>
             </div>
             <div className="border-2 p-3 col-span-2 flex flex-col justify-evenly">
               <p className="text-primary ">DigiPoints Disponibles:</p>
@@ -139,7 +136,10 @@ const PerUsers = ({
         <div className="w-full overflow-y-scroll">
           <table className="border-2 w-full text-sm">
             {dataModal?.map((data) => (
-              <tr className="bg-white border-b dark:border-gray-500">
+              <tr
+                className="bg-white border-b dark:border-gray-500"
+                key={data.id}
+              >
                 <td className="py-[1.1rem] w-1/3">{data.name}</td>
                 <td>{data.email}</td>
                 <td
