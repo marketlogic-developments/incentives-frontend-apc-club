@@ -26,6 +26,7 @@ const puntosporventas = () => {
   const [selectSale, setSelectSale] = useState("");
   const [selectDate, setSelectDate] = useState("");
   const data = useSelector((state) => state.sales.salesall);
+  const company = useSelector((state) => state.user.company);
 
 
   const itemsPerPage = 10;
@@ -37,7 +38,7 @@ const puntosporventas = () => {
   useEffect(() => {
     console.log(data)
     if (token && data.length === 0) {
-      dispatch(getSalesAllByChannel(token, 'AM00133713'));
+      dispatch(getSalesAllByChannel(token, company.resellerMasterId));
     }
   }, [isLoaded, token]);
 
