@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 const PerUsers = ({
   invoiceData,
@@ -16,40 +17,51 @@ const PerUsers = ({
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
 
-  console.log(dataModal);
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   const handleAsign = () => {
     const usersAsign = dataModal.map((data) => ({
       invoiceId: invoiceData.invoices_included.toString(),
       vendorId: data.id,
-      digipoints: Number(invoiceData.digipoints) / dataModal.length,
+      digiPoints: Number(invoiceData.digipoints) / dataModal.length,
     }));
 
-    axios.post(
-      `${process.env.BACKURL}/employee-poits-collects/assign-points/`,
-      {
-        partnerAdminId: user.id,
-        assignType: "amount",
-        assignValues: usersAsign,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
+    console.log(usersAsign);
+
+    axios
+      .post(
+        `${process.env.BACKURL}/employee-poits-collects/assign-points/`,
+        {
+          partnerAdminId: user.id,
+          assignType: "amount",
+          assignValues: usersAsign,
         },
-      }
-    );
-
-    console.log({
-      partnerAdminId: user.id,
-      assignType: "amount",
-      assignValues: usersAsign,
-    });
-
-    handleSubmit(e);
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        handleSubmit();
+        return Toast.fire({
+          icon: "success",
+          title: "Tu factura fue asignada de manera exitosa",
+        });
+      });
   };
-  console.log(invoiceData);
 
   return (
     <div className="grid grid-cols-2 h-[500px]">

@@ -24,6 +24,8 @@ const digipoints = () => {
   const [selectDate, setSelectDate] = useState("");
   const [page, setPage] = useState(0);
 
+  console.log(digipoints);
+
   useEffect(() => {
     if (user.roleId === 3) {
       setPage(1);
@@ -134,7 +136,11 @@ const digipoints = () => {
             <div class="flip-card">
               <div class="flip-card-inner">
                 <div class="flip-card-front">
-                  <p class="title">{digipoints?.cart_points}</p>
+                  <p class="title">
+                    {digipoints?.cart_points === null
+                      ? 0
+                      : digipoints?.cart_points}
+                  </p>
                   <p>{t("digipoints.Dredimidos")}</p>
                 </div>
                 <div class="flip-card-back">
