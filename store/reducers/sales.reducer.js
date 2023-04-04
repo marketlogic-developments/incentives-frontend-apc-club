@@ -34,7 +34,7 @@ export const saleActions = createSlice({
       state.sales = action.payload;
     },
     getDigiPa: (state, action) => {
-      state.digipa = [...state.digipa, action.payload];
+      state.digipa = action.payload;
     },
     getSalesSegment: (state, action) => {
       state.salesgement = [...action.payload];
@@ -66,8 +66,8 @@ export const getSalesData = (token) => async (dispatch) => {
         },
       })
       .then((res) => {
-        console.log(res.data)
-        dispatch(pushSalesFile(res.data))
+        console.log(res.data);
+        dispatch(pushSalesFile(res.data));
       });
   } catch (err) {
     console.log(err);
@@ -76,18 +76,22 @@ export const getSalesData = (token) => async (dispatch) => {
 export const processFile = (token, data) => async (dispatch) => {
   try {
     return axios
-      .post(`${process.env.BACKURL}/csv-files/`, {
-        "fileProcess": data,
-        "userAssign": 1
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
+      .post(
+        `${process.env.BACKURL}/csv-files/`,
+        {
+          fileProcess: data,
+          userAssign: 1,
         },
-      })
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
       })
       .finally(() => {
         dispatch(getSalesData(token));
@@ -159,7 +163,7 @@ export const createSaleData = (token, data) => async (dispatch) => {
         },
       })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         dispatch(getSalesData(token));
       });
   } catch (err) {
@@ -167,9 +171,9 @@ export const createSaleData = (token, data) => async (dispatch) => {
   }
 };
 
-export const getDigipointsPa = (token,data) => async (dispatch) => {
+export const getDigipointsPa = (token, data) => async (dispatch) => {
   try {
-    return axios
+    axios
       .get(`${process.env.BACKURL}/partner-admin-accums/${data}`, {
         headers: {
           "Content-Type": "application/json",
@@ -177,7 +181,27 @@ export const getDigipointsPa = (token,data) => async (dispatch) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => dispatch(getDigiPa([res.data])));
+      .then((res) => {
+        const dataObj = res.data.map((data) => ({
+          ...data,
+          date: data.invoiceDetails[0].billing_date.split(" ")[0],
+          country: data.invoiceDetails[0].deploy_to_country,
+          client: data.invoiceDetails[0].end_user_name1,
+          marketSegment: data.invoiceDetails[0].market_segment,
+          sku: data.invoiceDetails[0].materia_sku,
+          salesOrder: data.invoiceDetails[0].sales_order,
+          soldToParty: data.invoiceDetails[0].sold_to_party,
+          totalSalesAmount: data.invoiceDetails
+            .map(({ total_sales_amount }) => Number(total_sales_amount))
+            .reduce((currently, preValue) => currently + preValue),
+          salesQuantity: data.invoiceDetails
+            .map(({ total_sales_qty }) => Number(total_sales_qty))
+            .reduce((currently, preValue) => currently + preValue),
+          invoiceDetails: null,
+        }));
+
+        dispatch(getDigiPa(dataObj));
+      });
   } catch (err) {
     console.log(err);
   }

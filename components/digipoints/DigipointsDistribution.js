@@ -24,14 +24,13 @@ const DigipointsDistribution = () => {
   const [invoiceData, setInvoiceData] = useState({});
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
-
   const data = useSelector((state) => state.sales.digipa);
+  const [dataTest] = useSelector((state) => state.sales.digipa);
+
   useEffect(() => {
     console.log(data);
     if (token && data.length === 0) {
-
       dispatch(getDigipointsPa(token, 3));
-
     }
   }, [token]);
 
@@ -128,9 +127,7 @@ const DigipointsDistribution = () => {
     }
   }, [listUsers, searchByEmail]);
 
-  const handleSubmit = (/* e */) => {
-    /* e.preventDefault(); */
-
+  const handleSubmit = () => {
     /* const newData = data.filter(
       ({ factura }) => factura !== invoiceData.factura
     );
@@ -170,7 +167,9 @@ const DigipointsDistribution = () => {
             >
               <option value="">Elije tu equipo de ventas</option>
               {teams.map((data) => (
-                <option value={data.id}>{data.name_group}</option>
+                <option value={data.id} key={data.id}>
+                  {data.name_group}
+                </option>
               ))}
             </select>
           )}
@@ -223,6 +222,8 @@ const DigipointsDistribution = () => {
       return setNumModal(1);
     }
   };
+
+  console.log(data);
 
   return (
     <>
@@ -279,53 +280,36 @@ const DigipointsDistribution = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((array1) =>
-                  array1.map((array2) =>
-                    array2.map((obj) => (
-                      <tr className="bg-white border-b dark:border-gray-500">
-                        <td className="py-4 px-6">{obj?.digipoints}</td>
-                        <td className="py-4 px-6">{obj?.invoices_included}</td>
-                        {obj.invoiceDetails.map((details, index) => (
-                          <td className="py-4 px-6" key={index}>
-                            {details.end_user_name1}
-                          </td>
-                        ))[0]}
-                        {obj.invoiceDetails.map((details, index) => (
-                          <td className="py-4 px-6" key={index}>
-                            {details.market_segment}
-                          </td>
-                        ))[0]}
-                        {obj.invoiceDetails.map((details, index) => (
-                          <td className="py-4 px-6" key={index}>
-                            {details.deploy_to_country}
-                          </td>
-                        ))[0]}
-                        {obj.invoiceDetails.map((details, index) => (
-                          <td className="py-4 px-6" key={index}>
-                            {details.billing_date}
-                          </td>
-                        ))[0]}
-                        <td className="py-4 px-6">
-                          {obj.status === false ? (
-                            <button
-                              className="btn btn-primary btn-xs"
-                              onClick={() => {
-                                setInvoiceData(obj);
-                                setOpened(true);
-                              }}
-                            >
-                              Asignar
-                            </button>
-                          ) : (
-                            <button className="btn btn-secondary btn-xs">
-                              Asignado
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    ))
-                  )
-                )}
+                {data.map((obj) => (
+                  <tr
+                    className="bg-white border-b dark:border-gray-500"
+                    key={obj?.invoices_included}
+                  >
+                    <td className="py-4 px-6">{obj?.invoices_included}</td>
+                    <td className="py-4 px-6">{obj?.date}</td>
+                    <td className="py-4 px-6">{obj?.client}</td>
+                    <td className="py-4 px-6">{obj?.marketSegment}</td>
+                    <td className="py-4 px-6">{obj?.salesQuantity}</td>
+                    <td className="py-4 px-6">{obj?.digipoints}</td>
+                    <td className="py-4 px-6">
+                      {obj.status === false ? (
+                        <button
+                          className="btn btn-primary btn-xs"
+                          onClick={() => {
+                            setInvoiceData(obj);
+                            setOpened(true);
+                          }}
+                        >
+                          Asignar
+                        </button>
+                      ) : (
+                        <button className="btn btn-secondary btn-xs">
+                          Asignado
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
