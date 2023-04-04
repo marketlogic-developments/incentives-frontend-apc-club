@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSalesBySegment } from "../../store/reducers/sales.reducer";
 
-
 const TableStats = () => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
@@ -19,39 +18,43 @@ const TableStats = () => {
   useEffect(() => {
     if (token && dataFromAxios.length === 0) {
       dispatch(getSalesBySegment(token, user.company.resellerMasterId));
-      
     }
   }, [token]);
-  console.log(dataFromAxios);
 
   useEffect(() => {
-    console.log(user.company.resellerMasterId)
-    // axios
-    //   .get(`${process.env.BACKURL}/reporters/salesbysegment`, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "Access-Control-Allow-Origin": "*",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //   });
     setTotalSales(dataFromAxios);
-    const totalSales = dataFromAxios.reduce((acc, { total_sales_amount }) => acc + Number(total_sales_amount), 0);
-    const percentageTotal = parseInt((totalSales * 100) / company.goalsPerQuarter);
+    const totalSalesReduce = Math.round(
+      dataFromAxios.reduce(
+        (acc, { total_sales_amount }) => acc + Number(total_sales_amount),
+        0
+      )
+    );
 
-    setpercentageTotal(percentageTotal);
+    const percentageTotal = parseInt(
+      (totalSalesReduce * 100) / Number(company.goalsPerQuarter)
+    );
+    setpercentageTotal(
+      Number(company.goalsPerQuarter) === 0 ? 100 : percentageTotal
+    );
+
     const goalSales = dataFromAxios
-      .reduce((previous, { total_sales_amount }) => previous + Number(total_sales_amount), 0)
+      .reduce(
+        (previous, { total_sales_amount }) =>
+          previous + Number(total_sales_amount),
+        0
+      )
       .toLocaleString();
 
     setGoalSales(goalSales);
     infoPercentages(
-      dataFromAxios.filter(({ business_unit }) => business_unit === "Creative Cloud"),
-      dataFromAxios.filter(({ business_unit }) => business_unit === "Document Cloud")
+      dataFromAxios.filter(
+        ({ business_unit }) => business_unit === "Creative Cloud"
+      ),
+      dataFromAxios.filter(
+        ({ business_unit }) => business_unit === "Document Cloud"
+      )
     );
-  }, [totalSales]);
+  }, [dataFromAxios]);
 
   //This Function calculates the percentage of all CC business type and DC business type
   const infoPercentages = (ccInfoFilter, dcInfoFilter) => {
@@ -89,6 +92,8 @@ const TableStats = () => {
     setpercentageDC(arrayPercentageDC);
   };
 
+  console.log(dataFromAxios);
+
   return (
     <div className="container w-full h-full bg-base-100 flex flex-col sm:flex-row justify-between max-sm:justify-center">
       <div className="w-8/12 max-sm:mx-auto flex flex-col gap-5 progressiveBar justify-center">
@@ -111,12 +116,13 @@ const TableStats = () => {
             <div className="w-full bg-base-200 h-4 flex">
               {percentageCC.map((data) => (
                 <div
-                  className={`tooltip ${data.typeCC === "Teams"
-                    ? "tooltip-primary bg-primary"
-                    : data.typeCC === "Enterprise"
+                  className={`tooltip ${
+                    data.typeCC === "Teams"
+                      ? "tooltip-primary bg-primary"
+                      : data.typeCC === "Enterprise"
                       ? "tooltip-secondary bg-secondary"
                       : "tooltip-success bg-success"
-                    } h-full`}
+                  } h-full`}
                   data-tip={`${new Intl.NumberFormat().format(
                     parseInt(data.sales)
                   )}`}
@@ -145,12 +151,13 @@ const TableStats = () => {
             <div className="w-full bg-base-200 h-4 flex">
               {percentageDC.map((data) => (
                 <div
-                  className={`tooltip ${data.typeDC === "Teams"
-                    ? "tooltip-primary bg-primary"
-                    : data.typeDC === "Enterprise"
+                  className={`tooltip ${
+                    data.typeDC === "Teams"
+                      ? "tooltip-primary bg-primary"
+                      : data.typeDC === "Enterprise"
                       ? "tooltip-secondary bg-secondary"
                       : "tooltip-success bg-success"
-                    } h-full`}
+                  } h-full`}
                   data-tip={`$${new Intl.NumberFormat().format(
                     parseInt(data.sales)
                   )}`}

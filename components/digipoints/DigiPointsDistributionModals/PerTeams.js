@@ -29,6 +29,8 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
   }, []);
 
   const handleAsign = () => {
+    axios.post();
+
     console.log({
       partnerAdminId: user.id,
       assignType: "group",
