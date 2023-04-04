@@ -36,7 +36,7 @@ const organizacion = () => {
             <h1 className="font-bold text-3xl">{t("menu.Participantes")}</h1>
           </div>
           {user.roleId !== 5 ? (
-            <div className="grid grid-cols-4 place-items-center text-center border-b cursor-pointer">
+            <div className="grid grid-flow-col auto-cols-fr place-items-center text-center border-b cursor-pointer">
               <p
                 className={`h-full w-full p-3 ${
                   oneSection === 0 &&
@@ -46,7 +46,7 @@ const organizacion = () => {
               >
                 Participantes
               </p>
-              <p
+              {/* <p
                 className={`h-full w-full p-3 cursor-pointer ${
                   oneSection === 1 &&
                   "border-b-2 border-[#eb1000] text-[#eb1000]"
@@ -62,8 +62,8 @@ const organizacion = () => {
                 }`}
                 onClick={() => setOneSection(2)}
               >
-                Redenciones
-              </p>
+                {t("organizacion.redenciones")}
+              </p> */}
               <p
                 className={`h-full w-full p-3 cursor-pointer ${
                   oneSection === 3 &&
@@ -71,7 +71,7 @@ const organizacion = () => {
                 }`}
                 onClick={() => setOneSection(3)}
               >
-                Información
+                {t("organizacion.info")}
               </p>
             </div>
           ) : (
