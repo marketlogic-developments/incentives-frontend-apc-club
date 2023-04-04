@@ -1,42 +1,31 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getSalesBySegment } from "../../store/reducers/sales.reducer";
+
 
 const TableStats = () => {
   const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
   const company = useSelector((state) => state.user.company);
   const [totalSales, setTotalSales] = useState([]);
   const [percentageTotal, setpercentageTotal] = useState(0);
   const [goalSales, setGoalSales] = useState(0);
   const [percentageCC, setpercentageCC] = useState([]);
   const [percentageDC, setpercentageDC] = useState([]);
-
-  const dataFromAxios = [
-    {
-      sale_type: "CC",
-      market_segment: "TEAMS",
-      total_sales: "358047.61",
-    },
-    {
-      sale_type: "CC",
-      market_segment: "ENTERPRISE",
-      total_sales: "250982.55",
-    },
-    { sale_type: "CC", market_segment: "EDUCATION", total_sales: "26982.55" },
-    {
-      sale_type: "DC",
-      market_segment: "TEAMS",
-      total_sales: "336919.26",
-    },
-    {
-      sale_type: "DC",
-      market_segment: "ENTERPRISE",
-      total_sales: "250573.91",
-    },
-    { sale_type: "DC", market_segment: "EDUCATION", total_sales: "76573.91" },
-  ];
+  const dataFromAxios = useSelector((state) => state.sales.salesgement);
 
   useEffect(() => {
+    if (token && dataFromAxios.length === 0) {
+      dispatch(getSalesBySegment(token, user.company.resellerMasterId));
+      
+    }
+  }, [token]);
+  console.log(dataFromAxios);
+
+  useEffect(() => {
+    console.log(user.company.resellerMasterId)
     // axios
     //   .get(`${process.env.BACKURL}/reporters/salesbysegment`, {
     //     headers: {
@@ -49,59 +38,50 @@ const TableStats = () => {
     //     console.log(res.data);
     //   });
     setTotalSales(dataFromAxios);
-    setpercentageTotal(
-      parseInt(
-        (dataFromAxios
-          .map(({ total_sales }) => Number(total_sales))
-          .reduce((previous, currently) => previous + currently) *
-          100) /
-          company.goalsPerQuarter
-      )
-    );
-    setGoalSales(
-      new Intl.NumberFormat().format(
-        parseInt(
-          dataFromAxios
-            .map(({ total_sales }) => Number(total_sales))
-            .reduce((previous, currently) => previous + currently)
-        )
-      )
-    );
+    const totalSales = dataFromAxios.reduce((acc, { total_sales_amount }) => acc + Number(total_sales_amount), 0);
+    const percentageTotal = parseInt((totalSales * 100) / company.goalsPerQuarter);
+
+    setpercentageTotal(percentageTotal);
+    const goalSales = dataFromAxios
+      .reduce((previous, { total_sales_amount }) => previous + Number(total_sales_amount), 0)
+      .toLocaleString();
+
+    setGoalSales(goalSales);
     infoPercentages(
-      dataFromAxios.filter(({ sale_type }) => sale_type === "CC"),
-      dataFromAxios.filter(({ sale_type }) => sale_type === "DC")
+      dataFromAxios.filter(({ business_unit }) => business_unit === "Creative Cloud"),
+      dataFromAxios.filter(({ business_unit }) => business_unit === "Document Cloud")
     );
-  }, []);
+  }, [totalSales]);
 
   //This Function calculates the percentage of all CC business type and DC business type
   const infoPercentages = (ccInfoFilter, dcInfoFilter) => {
     const arrayPercentageCC = ccInfoFilter.map((data) => {
       const allSalesCC = dataFromAxios
-        .filter(({ sale_type }) => sale_type === "CC")
-        .map(({ total_sales }) => Number(total_sales))
+        .filter(({ business_unit }) => business_unit === "Creative Cloud")
+        .map(({ total_sales_amount }) => Number(total_sales_amount))
         .reduce((previous, currently) => previous + currently);
 
-      const percentage = (data.total_sales * 100) / allSalesCC;
+      const percentage = (data.total_sales_amount * 100) / allSalesCC;
 
       return {
-        typeCC: data.market_segment,
+        typeCC: data.sub_bu,
         tablePercentage: percentage,
-        sales: Number(data.total_sales),
+        sales: Number(data.total_sales_amount),
       };
     });
 
     const arrayPercentageDC = dcInfoFilter.map((data) => {
       const allSalesCC = dataFromAxios
-        .filter(({ sale_type }) => sale_type === "DC")
-        .map(({ total_sales }) => Number(total_sales))
+        .filter(({ business_unit }) => business_unit === "Document Cloud")
+        .map(({ total_sales_amount }) => Number(total_sales_amount))
         .reduce((previous, currently) => previous + currently);
 
-      const percentage = (data.total_sales * 100) / allSalesCC;
+      const percentage = (data.total_sales_amount * 100) / allSalesCC;
 
       return {
-        typeDC: data.market_segment,
+        typeDC: data.sub_bu,
         tablePercentage: percentage,
-        sales: Number(data.total_sales),
+        sales: Number(data.total_sales_amount),
       };
     });
 
@@ -131,14 +111,13 @@ const TableStats = () => {
             <div className="w-full bg-base-200 h-4 flex">
               {percentageCC.map((data) => (
                 <div
-                  className={`tooltip ${
-                    data.typeCC === "TEAMS"
-                      ? "tooltip-primary bg-primary"
-                      : data.typeCC === "ENTERPRISE"
+                  className={`tooltip ${data.typeCC === "Teams"
+                    ? "tooltip-primary bg-primary"
+                    : data.typeCC === "Enterprise"
                       ? "tooltip-secondary bg-secondary"
                       : "tooltip-success bg-success"
-                  } h-full`}
-                  data-tip={`$${new Intl.NumberFormat().format(
+                    } h-full`}
+                  data-tip={`${new Intl.NumberFormat().format(
                     parseInt(data.sales)
                   )}`}
                   style={{ width: `${data.tablePercentage}%` }}
@@ -166,13 +145,12 @@ const TableStats = () => {
             <div className="w-full bg-base-200 h-4 flex">
               {percentageDC.map((data) => (
                 <div
-                  className={`tooltip ${
-                    data.typeDC === "TEAMS"
-                      ? "tooltip-primary bg-primary"
-                      : data.typeDC === "ENTERPRISE"
+                  className={`tooltip ${data.typeDC === "Teams"
+                    ? "tooltip-primary bg-primary"
+                    : data.typeDC === "Enterprise"
                       ? "tooltip-secondary bg-secondary"
                       : "tooltip-success bg-success"
-                  } h-full`}
+                    } h-full`}
                   data-tip={`$${new Intl.NumberFormat().format(
                     parseInt(data.sales)
                   )}`}

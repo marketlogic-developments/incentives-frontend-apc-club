@@ -8,6 +8,7 @@ const initialState = {
   statusSale: [],
   products: [],
   digipa: [],
+  salesgement: [],
 };
 
 export const saleActions = createSlice({
@@ -35,6 +36,9 @@ export const saleActions = createSlice({
     getDigiPa: (state, action) => {
       state.digipa = action.payload;
     },
+    getSalesSegment: (state, action) => {
+      state.salesgement = [...action.payload];
+    },
   },
 });
 
@@ -46,6 +50,7 @@ export const {
   getProducts,
   pushSalesFile,
   getDigiPa,
+  getSalesSegment,
 } = saleActions.actions;
 
 export default saleActions.reducer;
@@ -197,6 +202,21 @@ export const getDigipointsPa = (token, data) => async (dispatch) => {
 
         dispatch(getDigiPa(dataObj));
       });
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const getSalesBySegment = (token,data) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/salesbysegment/${data}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getSalesSegment(res.data)));
   } catch (err) {
     console.log(err);
   }
