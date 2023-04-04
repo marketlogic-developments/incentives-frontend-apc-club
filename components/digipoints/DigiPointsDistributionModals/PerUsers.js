@@ -14,31 +14,32 @@ const PerUsers = ({
   hover,
 }) => {
   const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
 
   console.log(dataModal);
 
   const handleAsign = () => {
     const usersAsign = dataModal.map((data) => ({
-      invoiceId: invoiceData.factura.toString(),
+      invoiceId: invoiceData.invoices_included.toString(),
       vendorId: data.id,
       digipoints: Number(invoiceData.digipoints) / dataModal.length,
     }));
 
-    // axios.post(
-    //   `${process.env.BACKURL}/users/${userDataToModal.id}`,
-    //   {
-    //     partnerAdminId: user.id,
-    //     assignType: "amount",
-    //     assignValues: usersAsign,
-    //   },
-    //   {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "Access-Control-Allow-Origin": "*",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   }
-    // );
+    axios.post(
+      `${process.env.BACKURL}/employee-poits-collects/assign-points/`,
+      {
+        partnerAdminId: user.id,
+        assignType: "amount",
+        assignValues: usersAsign,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     console.log({
       partnerAdminId: user.id,
@@ -46,8 +47,9 @@ const PerUsers = ({
       assignValues: usersAsign,
     });
 
-    handleSubmit();
+    handleSubmit(e);
   };
+  console.log(invoiceData)
 
   return (
     <div className="grid grid-cols-2 h-[500px]">
@@ -57,19 +59,23 @@ const PerUsers = ({
           <div className="grid grid-cols-4 text-sm">
             <div className="border-2 p-3">
               <p className="text-primary">No. Factura:</p>
-              <p>{invoiceData.factura}</p>
+              <p>{invoiceData.invoices_included}</p>
             </div>
             <div className="border-2 p-3">
               <p className="text-primary">Fecha:</p>
-              <p>{invoiceData.fecha}</p>
+              <p>{invoiceData.invoiceDetails[0].billing_date}</p>
             </div>
+
             <div className="border-2  p-3">
               <p className="text-primary">Cliente:</p>
-              <p>{invoiceData.cliente}</p>
+              <p>{invoiceData.invoiceDetails[0].end_user_name1}</p>
             </div>
             <div className="border-2 p-3">
               <p className="text-primary">Cantidad:</p>
-              <p>{invoiceData.cantidad}</p>
+              <p>{invoiceData.invoiceDetails.map(({
+                total_sales_qty
+              }) => Number(total_sales_qty)
+              ).reduce((currently, prevValue) => currently + prevValue)}</p>
             </div>
             <div className="border-2 p-3 col-span-2 flex flex-col justify-evenly">
               <p className="text-primary ">DigiPoints Disponibles:</p>
