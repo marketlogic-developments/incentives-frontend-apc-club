@@ -7,6 +7,7 @@ const initialState = {
   error: null,
   statusSale: [],
   products: [],
+  digipa: [],
 };
 
 export const saleActions = createSlice({
@@ -31,6 +32,9 @@ export const saleActions = createSlice({
     pushSalesFile: (state, action) => {
       state.sales = action.payload;
     },
+    getDigiPa: (state, action) => {
+      state.digipa = [...state.digipa, action.payload];
+    },
   },
 });
 
@@ -41,6 +45,7 @@ export const {
   getStatusSale,
   getProducts,
   pushSalesFile,
+  getDigiPa,
 } = saleActions.actions;
 
 export default saleActions.reducer;
@@ -152,6 +157,22 @@ export const createSaleData = (token, data) => async (dispatch) => {
         console.log(res.data)
         dispatch(getSalesData(token));
       });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getDigipointsPa = (token,data) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/partner-admin-accums/${data}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getDigiPa([res.data])));
   } catch (err) {
     console.log(err);
   }
