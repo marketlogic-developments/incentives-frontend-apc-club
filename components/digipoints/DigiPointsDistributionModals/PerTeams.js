@@ -28,7 +28,9 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
       });
   }, []);
 
-  console.log(thisTeam);
+  const handleAsign=()=>{
+    
+  }
 
   if (loading) {
     return <div className="lds-dual-ring"></div>;
