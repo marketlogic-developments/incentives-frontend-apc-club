@@ -55,16 +55,19 @@ const productos = () => {
           <thead className="text-xs text-black-500 uppercase">
             <tr>
               <th scope="col" className="py-3 px-6">
-                {t("tabla.tipoproducto")}
+                Nombre
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Unidad de negocio
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Tipo de negocio
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Categoría
               </th>
               <th scope="col" className="py-3 px-6">
                 SKU
-              </th>
-              <th scope="col" className="py-3 px-6">
-                Estado
-              </th>
-              <th scope="col" className="py-3 px-6">
-                {t("tabla.creado")}
               </th>
             </tr>
           </thead>
@@ -75,14 +78,11 @@ const productos = () => {
                   key={index}
                   className="bg-white border-b dark:border-gray-500"
                 >
-                  <td className="py-4 px-6">{product.description}</td>
-                  <td className="py-4 px-6">{product.skuUuid}</td>
-                  <td className="py-4 px-6">
-                    {product.status ? "Activo" : "Inactivo"}
-                  </td>
-                  <td className="py-4 px-6">
-                    {moment(product.CreatedAt).format("YYYY/MM/DD")}
-                  </td>
+                  <td className="py-4 px-6">{product.family}</td>
+                  <td className="py-4 px-6">{product.businessUnit}</td>
+                  <td className="py-4 px-6">{product.businessType}</td>
+                  <td className="py-4 px-6">{product.categoryType}</td>
+                  <td className="py-4 px-6">{product.code}</td>
                 </tr>
               ))}
           </tbody>

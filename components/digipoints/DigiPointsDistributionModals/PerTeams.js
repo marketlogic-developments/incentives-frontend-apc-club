@@ -1,12 +1,25 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const [loading, setLoading] = useState(false);
   const [thisTeam, setThisTeam] = useState({});
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   useEffect(() => {
     setLoading(true);
@@ -29,28 +42,51 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
   }, []);
 
   const handleAsign = () => {
-    axios.post();
-
-    console.log({
-      partnerAdminId: user.id,
-      assignType: "group",
-      assignValues: [
+    axios
+      .post(
+        `${process.env.BACKURL}/employee-poits-collects/assign-points/`,
         {
-          groupId: thisTeam.id,
-          invoiceId: invoiceData.invoices_included.toString(),
-          digiPoints: Number(invoiceData.digipoints),
+          partnerAdminId: user.id,
+          assignType: "group",
+          assignValues: [
+            {
+              groupId: thisTeam.id,
+              invoiceId: invoiceData.invoices_included.toString(),
+              digiPoints: Number(invoiceData.digipoints),
+            },
+          ],
         },
-      ],
-    });
-
-    handleSubmit();
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        console.log({
+          partnerAdminId: user.id,
+          assignType: "group",
+          assignValues: [
+            {
+              groupId: thisTeam.id,
+              invoiceId: invoiceData.invoices_included.toString(),
+              digiPoints: Number(invoiceData.digipoints),
+            },
+          ],
+        });
+        handleSubmit();
+        return Toast.fire({
+          icon: "success",
+          title: "Tu factura fue asignada de manera exitosa",
+        });
+      });
   };
 
   if (loading) {
     return <div className="lds-dual-ring"></div>;
   }
-
-  console.log(invoiceData, thisTeam);
 
   return (
     <div className="flex flex-col gap-10 items-center">
