@@ -30,7 +30,7 @@ const DigipointsDistribution = () => {
   useEffect(() => {
     console.log(data);
     if (token && data.length === 0) {
-      dispatch(getDigipointsPa(token, 3));
+      dispatch(getDigipointsPa(token, iduser));
     }
   }, [token]);
 
