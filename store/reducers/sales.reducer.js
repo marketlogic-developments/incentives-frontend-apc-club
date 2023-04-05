@@ -47,7 +47,6 @@ export const saleActions = createSlice({
     getallSales: (state, action) => {
       state.salesall = action.payload;
     },
-    
   },
 });
 
@@ -266,7 +265,7 @@ export const getSalesAll = (token) => async (dispatch) => {
     console.log(err);
   }
 };
-export const getSalesAllByChannel = (token,data) => async (dispatch) => {
+export const getSalesAllByChannel = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(`${process.env.BACKURL}/reporters/salesallbychanes/${data}`, {
