@@ -49,7 +49,7 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
         {
           partnerAdminId: user.id,
           assignType: "group",
-          isGold: company.distChannelsId === 1 ? true : false,
+          isGold: false,
           assignValues: [
             {
               groupId: thisTeam.id,
