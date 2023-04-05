@@ -99,7 +99,10 @@
     "estado": "Ver el estado de tus premios",
     "carrito": "Agregar al carrito"
   },
-  "asignarventas": {},
+  "organizacion": {
+    "redenciones": "Redenciones",
+    "info": "Información"
+  },
   "cargaventas": {
     "cargar": "Cargar puntos",
     "id": "ID de archivo"

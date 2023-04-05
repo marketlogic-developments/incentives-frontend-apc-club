@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
-const Podio = ({ sortedData }) => {
+const Podio = ({ sortedData, participantes }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const date = new Date();
   const [t, i18n] = useTranslation("global");
+
+  console.log(participantes);
 
   const Months = [
     t("meses.enero"),
@@ -50,21 +52,21 @@ const Podio = ({ sortedData }) => {
             className="h-4/6 flex items-end px-5 rounded-t-3xl justify-center"
             style={{ backgroundColor: "#fc7d74" }}
           ></div>
-          <p className="text-center font-bold"></p>
+          <p className="text-center font-bold">{participantes[1]?.name}</p>
         </div>
         <div className="flex flex-col justify-end w-44">
           <div
             className="h-full flex items-end px-5 rounded-t-3xl justify-center"
             style={{ backgroundColor: "#eb1000" }}
           ></div>
-          <p className="text-center font-bold"></p>
+          <p className="text-center font-bold">{participantes[0]?.name}</p>
         </div>
         <div className="flex flex-col justify-end w-44 h-44">
           <div
             className="h-2/4 flex items-end px-5 rounded-t-3xl justify-center"
             style={{ backgroundColor: "#fc7d74" }}
           ></div>
-          <p className="text-center font-bold"></p>
+          <p className="text-center font-bold">{participantes[2]?.name}</p>
         </div>
       </div>
     </div>

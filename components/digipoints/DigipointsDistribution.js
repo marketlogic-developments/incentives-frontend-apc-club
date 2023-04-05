@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import PerUsers from "./DigiPointsDistributionModals/PerUsers";
 import PerTeams from "./DigiPointsDistributionModals/PerTeams";
-import { getDigipointsPa } from "../../store/reducers/sales.reducer";
+import { getDigiPa, getDigipointsPa } from "../../store/reducers/sales.reducer";
+import Cookies from "js-cookie";
 
 const DigipointsDistribution = () => {
   const [opened, setOpened] = useState(false);
@@ -25,14 +26,38 @@ const DigipointsDistribution = () => {
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
   const data = useSelector((state) => state.sales.digipa);
-  const [dataTest] = useSelector((state) => state.sales.digipa);
+
+  //DELETE THIS
+  const [test, setTest] = useState([]);
 
   useEffect(() => {
     console.log(data);
     if (token && data.length === 0) {
       dispatch(getDigipointsPa(token, iduser));
     }
-  }, [token]);
+
+    if (data.length > 0 && Cookies.get("invoices") !== undefined) {
+      const cookiesValues = JSON.parse(Cookies.get("invoices"));
+
+      const cookiesArray = cookiesValues.map(({ salesOrder }) => salesOrder);
+
+      const arrayOriginalData = data.filter(({ salesOrder }) => {
+        return !cookiesArray.includes(salesOrder);
+      });
+
+      const arrayCookiesData = data
+        .filter(({ salesOrder }) => {
+          return cookiesArray.includes(salesOrder);
+        })
+        .map((data) => ({ ...data, status: true }));
+
+      console.log(arrayOriginalData, arrayCookiesData);
+
+      setTest([...arrayCookiesData, ...arrayOriginalData]);
+    } else {
+      setTest(data);
+    }
+  }, [token, data]);
 
   const searchUser = () => {
     const searchValue = users.filter(({ email }) =>
@@ -127,12 +152,20 @@ const DigipointsDistribution = () => {
     }
   }, [listUsers, searchByEmail]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (invoice) => {
     /* const newData = data.filter(
       ({ factura }) => factura !== invoiceData.factura
     );
     setData([{ ...invoiceData, estatus: false }, ...newData]); */
 
+    //TEST
+    const newArray = test.filter(
+      ({ salesOrder }) => salesOrder !== invoice.salesOrder
+    );
+
+    setTest([invoice, ...newArray]);
+
+    //
     setSalesOption("salesRep");
     setNumModal(0);
     setOpened(false);
@@ -223,8 +256,6 @@ const DigipointsDistribution = () => {
     }
   };
 
-  console.log(data);
-
   return (
     <>
       <Modal
@@ -280,7 +311,7 @@ const DigipointsDistribution = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((obj) => (
+                {test.map((obj) => (
                   <tr
                     className="bg-white border-b dark:border-gray-500"
                     key={obj?.invoices_included}

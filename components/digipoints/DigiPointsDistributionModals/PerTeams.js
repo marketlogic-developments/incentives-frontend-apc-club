@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -42,6 +43,20 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
   }, []);
 
   const handleAsign = () => {
+    if (Cookies.get("invoices") === undefined) {
+      Cookies.set(
+        "invoices",
+        JSON.stringify([{ ...invoiceData, status: true }])
+      );
+    } else {
+      const prevCookies = JSON.parse(Cookies.get("invoices"));
+
+      Cookies.set(
+        "invoices",
+        JSON.stringify([...prevCookies, { ...invoiceData, status: true }])
+      );
+    }
+
     axios
       .post(
         `${process.env.BACKURL}/employee-poits-collects/assign-points/`,
@@ -65,18 +80,7 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
         }
       )
       .then(() => {
-        console.log({
-          partnerAdminId: user.id,
-          assignType: "group",
-          assignValues: [
-            {
-              groupId: thisTeam.id,
-              invoiceId: invoiceData.invoices_included.toString(),
-              digiPoints: Number(invoiceData.digipoints),
-            },
-          ],
-        });
-        handleSubmit();
+        handleSubmit({ ...invoiceData, status: true });
         return Toast.fire({
           icon: "success",
           title: "Tu factura fue asignada de manera exitosa",

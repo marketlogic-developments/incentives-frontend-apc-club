@@ -100,7 +100,10 @@
     "estado": "Veja o status de seus produtos",
     "carrito": "Adicionar ao carrinhos"
   },
-  "asignarventas": {},
+  "organizacion": {
+    "redenciones": "Resgates",
+    "info": "Informações"
+  },
   "cargaventas": {
     "asignar": "Atribuir pontos",
     "cargar": "Pontos de carregamento",

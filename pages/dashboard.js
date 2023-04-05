@@ -29,6 +29,7 @@ import TableStats from "../components/dashboard/TableStats";
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
+  const company = useSelector((state) => state.user.company);
   const [opened, setOpened] = useState(false);
   const [opened2, setOpened2] = useState(false);
   const [view, setView] = useState("password");
@@ -43,6 +44,8 @@ const dashboard = () => {
   const [lLoading, setLoading] = useState(false);
   const [sortedData, setSortedData] = useState([]);
   const [modalType, setModalType] = useState([]);
+
+  const [participantes, setParticipantes] = useState([]);
 
   const userData = useMemo(() => {
     if (user !== 0) {
@@ -107,6 +110,21 @@ const dashboard = () => {
   useEffect(() => {
     if (isLoaded && token) {
       setLoading(true);
+      axios
+        .get(
+          `${process.env.BACKURL}/reporters/company-all-users-by-id/${company.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          setParticipantes(data);
+        });
+
       dispatch(getPointsData(token))
         .then((puntos) => {
           setLoading(false);
@@ -126,7 +144,7 @@ const dashboard = () => {
     if (typeHeader === 0) {
       return (
         <div className="gap-10 flex flex w-full">
-          <div className="gap-10 w-6/12">
+          <div className="gap-10 w-[40%]">
             <div className="flex flex-col gap-5 texto_dash">
               <h1 className="font-bold text-2xl max-sm:text-xl">
                 {t("dashboard.Inicio")}
@@ -146,12 +164,32 @@ const dashboard = () => {
               </button>
             </div>
           </div>
-          <div className="flex flex-col gap-5 w-3/6 items-center">
-            <div className="h-full w-full">
+          <div
+            className="flex flex-col gap-5 w-full items-center cursor-pointer <-BORRAR_ESTO"
+            onClick={() => route.push("/digipoints")}
+          >
+            {/* <div className="h-full w-full">
               <div className="gap-10 w-full">
-                <Podio t={t} sortedData={sortedData} />
+                <Podio
+                  t={t}
+                  sortedData={sortedData}
+                  participantes={participantes}
+                />
               </div>
-            </div>
+            </div> */}
+            {i18n.resolvedLanguage === "por" ? (
+              <img
+                src="assets/dashboard/banners/htwPor.webp"
+                className="bannersImg"
+                style={{ width: "100%" }}
+              />
+            ) : (
+              <img
+                src="assets/dashboard/banners/htw.webp"
+                className="bannersImg"
+                style={{ width: "100%" }}
+              />
+            )}
           </div>
         </div>
       );
@@ -199,7 +237,7 @@ const dashboard = () => {
         </figure>
       );
     }
-  }, [typeHeader]);
+  }, [typeHeader, participantes]);
 
   const [passwordMatch, setPasswordMatch] = useState(""); // passwords match
   // booleans for password validations
@@ -374,7 +412,7 @@ const dashboard = () => {
     }
 
     if (modalType === 1) {
-      return <RankingTable />;
+      return <RankingTable participantes={participantes} />;
     }
     if (modalType === 2) {
       return <GraphProm />;
@@ -465,7 +503,7 @@ const dashboard = () => {
           >
             {t("dashboard.promociones")}
           </button>
-          <button
+          {/* <button
             className={`btn ${
               typeHeader === 2 ? "btn-primary" : "btn-accent"
             } btn-xs`}
@@ -474,7 +512,7 @@ const dashboard = () => {
             }}
           >
             {t("dashboard.htw")}
-          </button>
+          </button> */}
         </div>
         <hr color="red" />
         <div className="gap-10 flex flex-col h-full">
@@ -483,6 +521,8 @@ const dashboard = () => {
             sx={{ width: "100%", height: "100%" }}
             mx="auto"
             withIndicators={false}
+            //Delete with COntrols
+            withControls={false}
             controlSize={40}
             draggable={false}
             height={260}
@@ -496,9 +536,9 @@ const dashboard = () => {
                 <Carousel.Slide>
                   <GraphSales />
                 </Carousel.Slide>
-                <Carousel.Slide>
+                {/* <Carousel.Slide>
                   <Graph />
-                </Carousel.Slide>
+                </Carousel.Slide> */}
               </>
             )}
           </Carousel>
