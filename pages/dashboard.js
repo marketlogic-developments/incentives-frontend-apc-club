@@ -491,7 +491,8 @@ const dashboard = () => {
               setTypeHeader(0);
             }}
           >
-            {t("dashboard.ranking")}
+            {t("dashboard.htw")}
+            {/* {t("dashboard.ranking")} */}
           </button>
           <button
             className={`btn ${

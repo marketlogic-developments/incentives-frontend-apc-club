@@ -27,36 +27,11 @@ const DigipointsDistribution = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.sales.digipa);
 
-  //DELETE THIS
-  const [test, setTest] = useState([]);
-
   useEffect(() => {
     if (token && data.length === 0) {
       dispatch(getDigipointsPa(token, iduser));
     }
-
-    if (data.length > 0 && Cookies.get("invoices") !== undefined) {
-      const cookiesValues = JSON.parse(Cookies.get("invoices"));
-
-      const cookiesArray = cookiesValues.map(({ salesOrder }) => salesOrder);
-
-      const arrayOriginalData = data.filter(({ salesOrder }) => {
-        return !cookiesArray.includes(salesOrder);
-      });
-
-      const arrayCookiesData = data
-        .filter(({ salesOrder }) => {
-          return cookiesArray.includes(salesOrder);
-        })
-        .map((data) => ({ ...data, status: true }));
-
-      console.log(arrayOriginalData, arrayCookiesData);
-
-      setTest([...arrayCookiesData, ...arrayOriginalData]);
-    } else {
-      setTest(data);
-    }
-  }, [token, data]);
+  }, [token]);
 
   const searchUser = () => {
     const searchValue = users.filter(({ email }) =>
@@ -152,19 +127,14 @@ const DigipointsDistribution = () => {
   }, [listUsers, searchByEmail]);
 
   const handleSubmit = (invoice) => {
-    /* const newData = data.filter(
-      ({ factura }) => factura !== invoiceData.factura
-    );
-    setData([{ ...invoiceData, estatus: false }, ...newData]); */
+    let newData = [...data];
 
-    //TEST
-    const newArray = test.filter(
-      ({ salesOrder }) => salesOrder !== invoice.salesOrder
-    );
+    console.log(invoice.index);
 
-    setTest([invoice, ...newArray]);
+    newData[invoice.index] = { ...newData[invoice.index], status: true };
 
-    //
+    dispatch(getDigiPa(newData));
+
     setSalesOption("salesRep");
     setNumModal(0);
     setOpened(false);
@@ -310,7 +280,7 @@ const DigipointsDistribution = () => {
                 </tr>
               </thead>
               <tbody>
-                {test.map((obj) => (
+                {data.map((obj, index) => (
                   <tr
                     className="bg-white border-b dark:border-gray-500"
                     key={obj?.invoices_included}
@@ -326,7 +296,7 @@ const DigipointsDistribution = () => {
                         <button
                           className="btn btn-primary btn-xs"
                           onClick={() => {
-                            setInvoiceData(obj);
+                            setInvoiceData({ ...obj, index: index });
                             setOpened(true);
                           }}
                         >
