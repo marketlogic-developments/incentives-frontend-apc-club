@@ -24,8 +24,6 @@ const digipoints = () => {
   const [selectDate, setSelectDate] = useState("");
   const [page, setPage] = useState(0);
 
-  console.log(digipoints);
-
   useEffect(() => {
     if (user.roleId === 3) {
       setPage(1);
@@ -64,57 +62,55 @@ const digipoints = () => {
       });
   }, []);
 
-  const datosdummy = [];
+  // const search = useMemo(() => {
+  //   const newData = datosdummy.map((data) => ({
+  //     ...data,
+  //     fecha: new Date(data.fecha),
+  //   }));
 
-  const search = useMemo(() => {
-    const newData = datosdummy.map((data) => ({
-      ...data,
-      fecha: new Date(data.fecha),
-    }));
+  //   if (searchInvoice !== "") {
+  //     return datosdummy
+  //       .filter(({ invoice }) => {
+  //         return invoice.startsWith(searchInvoice.toLocaleLowerCase());
+  //       })
+  //       .map((data, index) => (
+  //         <tr key={index} className="bg-white border-b dark:border-gray-500">
+  //           <td className="py-4 px-2">{data.invoice}</td>
+  //           <td className="py-4 px-2">{data.digipoints}</td>
+  //           <td className="py-4 px-2">{data.NoSillas}</td>
+  //           <td className="py-4 px-2">{data.fecha}</td>
+  //         </tr>
+  //       ));
+  //   }
 
-    if (searchInvoice !== "") {
-      return datosdummy
-        .filter(({ invoice }) => {
-          return invoice.startsWith(searchInvoice.toLocaleLowerCase());
-        })
-        .map((data, index) => (
-          <tr key={index} className="bg-white border-b dark:border-gray-500">
-            <td className="py-4 px-2">{data.invoice}</td>
-            <td className="py-4 px-2">{data.digipoints}</td>
-            <td className="py-4 px-2">{data.NoSillas}</td>
-            <td className="py-4 px-2">{data.fecha}</td>
-          </tr>
-        ));
-    }
+  //   if (selectDate !== "") {
+  //     const dataSort = newData.sort((a, b) => {
+  //       if (selectDate === "upDown") {
+  //         return b.fecha - a.fecha;
+  //       }
 
-    if (selectDate !== "") {
-      const dataSort = newData.sort((a, b) => {
-        if (selectDate === "upDown") {
-          return b.fecha - a.fecha;
-        }
+  //       return a.fecha - b.fecha;
+  //     });
 
-        return a.fecha - b.fecha;
-      });
+  //     return dataSort.map((data, index) => (
+  //       <tr key={index} className="bg-white border-b dark:border-gray-500">
+  //         <td className="py-4 px-2">{data.invoice}</td>
+  //         <td className="py-4 px-2">{data.digipoints}</td>
+  //         <td className="py-4 px-2">{data.NoSillas}</td>
+  //         <td className="py-4 px-2">{data.fecha.toISOString().slice(0, 10)}</td>
+  //       </tr>
+  //     ));
+  //   }
 
-      return dataSort.map((data, index) => (
-        <tr key={index} className="bg-white border-b dark:border-gray-500">
-          <td className="py-4 px-2">{data.invoice}</td>
-          <td className="py-4 px-2">{data.digipoints}</td>
-          <td className="py-4 px-2">{data.NoSillas}</td>
-          <td className="py-4 px-2">{data.fecha.toISOString().slice(0, 10)}</td>
-        </tr>
-      ));
-    }
-
-    return datosdummy.map((data, index) => (
-      <tr key={index} className="bg-white border-b dark:border-gray-500">
-        <td className="py-4 px-2">{data.invoice}</td>
-        <td className="py-4 px-2">{data.digipoints}</td>
-        <td className="py-4 px-2">{data.NoSillas}</td>
-        <td className="py-4 px-2">{data.fecha}</td>
-      </tr>
-    ));
-  }, [searchInvoice, selectDate]);
+  //   return datosdummy.map((data, index) => (
+  //     <tr key={index} className="bg-white border-b dark:border-gray-500">
+  //       <td className="py-4 px-2">{data.invoice}</td>
+  //       <td className="py-4 px-2">{data.digipoints}</td>
+  //       <td className="py-4 px-2">{data.NoSillas}</td>
+  //       <td className="py-4 px-2">{data.fecha}</td>
+  //     </tr>
+  //   ));
+  // }, [searchInvoice, selectDate]);
 
   const sectionPage = useMemo(() => {
     if (page === 0) {
@@ -221,7 +217,7 @@ const digipoints = () => {
                       </th>
                     </tr>
                   </thead>
-                  <tbody>{search}</tbody>
+                  {/* <tbody>{search}</tbody> */}
                 </table>
               </div>
             </div>

@@ -31,7 +31,6 @@ const DigipointsDistribution = () => {
   const [test, setTest] = useState([]);
 
   useEffect(() => {
-    console.log(data);
     if (token && data.length === 0) {
       dispatch(getDigipointsPa(token, iduser));
     }

@@ -26,6 +26,7 @@ const MakeTeam = () => {
   const [infoModal, setInfoModal] = useState({});
   const [modifiedValues, setModifiedValues] = useState([]);
   const [modal, setModal] = useState(0);
+  const [selectDate, setSelectDate] = useState("");
 
   const searchUser = () => {
     const searchValue = users.filter(({ email }) =>
@@ -128,26 +129,17 @@ const MakeTeam = () => {
         },
       })
       .then((res1) => {
-        const getTeamMembers = res1.data.PartnerAdminGroupD.map(
-          ({ memberId }) =>
-            axios.get(`${process.env.BACKURL}/users/${memberId}`, {
-              headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                Authorization: `Bearer ${token}`,
-              },
-            })
+        console.log(res1.data);
+        setInfoModal(res1.data);
+        setOpened(true);
+        setDataModal(
+          res1.data.PartnerAdminGroupD.map((data) => ({
+            ...data.member,
+            ...data,
+          }))
         );
-
-        Promise.all(getTeamMembers)
-          .then((res) => {
-            const teamMembers = res.map(({ data }) => data);
-            setInfoModal(res1.data);
-            setDataModal(teamMembers);
-            setOpened(true);
-          })
-          .finally(() => dispatch(changeLoadingData(false)));
-      });
+      })
+      .finally(() => dispatch(changeLoadingData(false)));
   };
 
   //This function skips to the next modal, if infoModal.id exist then response previousData and new values
@@ -391,29 +383,31 @@ const MakeTeam = () => {
             </div>
             <div className="w-full overflow-y-scroll">
               <table className="border-2 w-full text-sm">
-                {dataModal?.map((user) => (
-                  <tr
-                    key={user.id}
-                    className="bg-white border-b dark:border-gray-500"
-                  >
-                    <td className="py-[1.1rem] w-1/3">{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>
-                      <input
-                        type="text"
-                        value={
-                          modifiedValues.find((obj) => obj.id === user.id)
-                            ? modifiedValues.find((obj) => obj.id === user.id)
-                                .percentage
-                            : user.percentage
-                        }
-                        onChange={(e) => handleInputChange(e, user.id)}
-                        className="input input-xs w-1/2 text-center"
-                      />
-                      %
-                    </td>
-                  </tr>
-                ))}
+                <tbody>
+                  {dataModal?.map((user) => (
+                    <tr
+                      key={user.id}
+                      className="bg-white border-b dark:border-gray-500"
+                    >
+                      <td className="py-[1.1rem] w-1/3">{user.name}</td>
+                      <td>{user.email}</td>
+                      <td>
+                        <input
+                          type="text"
+                          value={
+                            modifiedValues.find((obj) => obj.id === user.id)
+                              ? modifiedValues.find((obj) => obj.id === user.id)
+                                  .percentage
+                              : user.percentage
+                          }
+                          onChange={(e) => handleInputChange(e, user.id)}
+                          className="input input-xs w-1/2 text-center"
+                        />
+                        %
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
           </div>
@@ -434,7 +428,7 @@ const MakeTeam = () => {
   const tableTeams = useMemo(() => {
     return (
       <tbody>
-        {teams?.map((data) => {
+        {teams.map((data) => {
           const time = new Date(data?.CreatedAt || data?.created_at);
 
           return (
@@ -451,7 +445,7 @@ const MakeTeam = () => {
         })}
       </tbody>
     );
-  }, [teams]);
+  }, [teams, selectDate]);
 
   return (
     <>
@@ -492,7 +486,10 @@ const MakeTeam = () => {
               {t("digipoints.Crear")}
             </button>
           </div>
-          <select className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+          <select
+            className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+            onChange={(e) => setSelectDate(e.target.value)}
+          >
             <option value="">{t("tabla.ordenarFecha")}</option>
             <option value="upDown">{t("tabla.recienteA")}</option>
             <option value="downUp">{t("tabla.antiguoR")}</option>
