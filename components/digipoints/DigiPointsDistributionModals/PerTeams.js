@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
+  const company = useSelector((state) => state.user.company);
   const [loading, setLoading] = useState(false);
   const [thisTeam, setThisTeam] = useState({});
 
@@ -42,6 +43,8 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
       });
   }, []);
 
+  console.log(company);
+
   const handleAsign = () => {
     if (Cookies.get("invoices") === undefined) {
       Cookies.set(
@@ -63,6 +66,7 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
         {
           partnerAdminId: user.id,
           assignType: "group",
+          isGold: company.distChannelsId === 1 ? true : false,
           assignValues: [
             {
               groupId: thisTeam.id,

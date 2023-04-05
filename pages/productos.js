@@ -30,8 +30,6 @@ const productos = () => {
     XLSX.writeFile(workbook, "Productos_Participantes.xlsx");
   };
 
-  console.log(data);
-
   useEffect(() => {
     setIsLoaded(true);
   }, []);
@@ -126,8 +124,8 @@ const productos = () => {
 
           return a.CreatedAt - b.CreatedAt;
         })
-        .filter(({ skuUuid }) => {
-          return skuUuid.startsWith(searchSku.toLocaleLowerCase());
+        .filter(({ code }) => {
+          return code.startsWith(searchSku.toLocaleLowerCase());
         });
 
       return setData(dataSort);
@@ -135,8 +133,8 @@ const productos = () => {
 
     if (searchSku !== "") {
       return setData(
-        products.filter(({ skuUuid }) => {
-          return skuUuid.startsWith(searchSku.toLocaleLowerCase());
+        products.filter(({ code }) => {
+          return code.startsWith(searchSku.toLocaleLowerCase());
         })
       );
     }

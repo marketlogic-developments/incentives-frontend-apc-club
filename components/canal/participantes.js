@@ -46,35 +46,10 @@ const Participantes = () => {
         )
         .then(({ data }) => {
           setParticipantes(data);
-        });
-
-      dispatch(getRolesData(token))
-        .then((roles) => {
           setLoading(false);
-          setRoles(roles);
-        })
-        .catch((error) => {
-          console.log(error);
         });
     }
   }, [isLoaded, token]);
-
-  useEffect(() => {
-    if (participantes.length > 0 && roles.length > 0) {
-      const joinObjects = (participantes, roles) => {
-        const result = [];
-        participantes.forEach((part) => {
-          roles.forEach((rol) => {
-            if (part.roleId === rol.id) {
-              result.push({ ...part, nameRol: rol.name });
-            }
-          });
-        });
-        return result;
-      };
-      setParticipantesConRol(joinObjects(participantes, roles));
-    }
-  }, [participantes, roles]);
 
   const handleChangeCheckbox = (e) => {
     axios.patch(
@@ -131,6 +106,23 @@ const Participantes = () => {
       });
   };
 
+  const [itemOffset, setItemOffset] = useState(0);
+
+  const currentItems = useMemo(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    return participantes.slice(itemOffset, endOffset);
+  }, [itemOffset, participantes]);
+
+  const pageCount = useMemo(
+    () => Math.ceil(participantes.length / itemsPerPage),
+    [participantes, itemsPerPage]
+  );
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % participantes.length;
+    setItemOffset(newOffset);
+  };
+
   function Table({ currentItems }) {
     return (
       <>
@@ -150,7 +142,7 @@ const Participantes = () => {
           </thead>
           <tbody>
             {search !== ""
-              ? participantes
+              ? currentItems
                   .filter(({ email }) =>
                     email.startsWith(search.toLocaleLowerCase())
                   )
@@ -175,7 +167,7 @@ const Participantes = () => {
                       </td>
                     </tr>
                   ))
-              : participantes.map((user2, index) => (
+              : currentItems.map((user2, index) => (
                   <tr
                     key={index}
                     className={`bg-white border-b dark:border-gray-500 ${
@@ -196,43 +188,11 @@ const Participantes = () => {
                     </td>
                   </tr>
                 ))}
-            {/* {currentItems &&
-              currentItems.map((user, index) => (
-                <tr
-                  key={index}
-                  className="bg-white border-b dark:border-gray-500"
-                >
-                  <td className="py-4 px-2">{user.id}</td>
-                  <td className="py-4 px-2">{user.name}</td>
-                  <td className="py-4 px-2">{user.email}</td>
-                  <td className="py-4 px-2">{user.nameRol}</td>
-                  <td className="py-4 px-2">
-                    {moment(user.CreatedAt).format("MM/DD/YYYY")}
-                  </td>
-                </tr>
-              ))} */}
           </tbody>
         </table>
       </>
     );
   }
-
-  const [itemOffset, setItemOffset] = useState(0);
-
-  const currentItems = useMemo(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    return participantesConRol.slice(itemOffset, endOffset);
-  }, [itemOffset, participantesConRol]);
-  const pageCount = useMemo(
-    () => Math.ceil(participantesConRol.length / itemsPerPage),
-    [participantesConRol, itemsPerPage]
-  );
-
-  const handlePageClick = (event) => {
-    const newOffset =
-      (event.selected * itemsPerPage) % participantesConRol.length;
-    setItemOffset(newOffset);
-  };
 
   return (
     <>
@@ -310,29 +270,29 @@ const Participantes = () => {
           <Table currentItems={currentItems} />
         )}
 
-        {/* {!loading && (
-              <ReactPaginate
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={handlePageClick}
-                containerClassName={"pagination"}
-                subContainerClassName={"pages pagination"}
-                nextClassName={"item next "}
-                previousClassName={"item previous"}
-                activeClassName={"item active "}
-                breakClassName={"item break-me "}
-                breakLabel={"..."}
-                disabledClassName={"disabled-page"}
-                pageClassName={"item pagination-page "}
-                nextLabel={
-                  <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
-                }
-                previousLabel={
-                  <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
-                }
-              />
-            )} */}
+        {!loading && (
+          <ReactPaginate
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            nextClassName={"item next "}
+            previousClassName={"item previous"}
+            activeClassName={"item active "}
+            breakClassName={"item break-me "}
+            breakLabel={"..."}
+            disabledClassName={"disabled-page"}
+            pageClassName={"item pagination-page "}
+            nextLabel={
+              <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
+            }
+            previousLabel={
+              <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
+            }
+          />
+        )}
       </div>
     </>
   );

@@ -17,6 +17,7 @@ const PerUsers = ({
 }) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
+  const company = useSelector((state) => state.user.company);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -59,6 +60,7 @@ const PerUsers = ({
         {
           partnerAdminId: user.id,
           assignType: "amount",
+          isGold: company.distChannelsId === 1 ? true : false,
           assignValues: usersAsign,
         },
         {
