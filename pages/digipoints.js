@@ -231,7 +231,7 @@ const digipoints = () => {
     if (page === 2) {
       return <DigipointsDistribution />;
     }
-  }, [page, searchInvoice, selectDate]);
+  }, [page, searchInvoice, selectDate, digipoints]);
 
   return (
     <>
