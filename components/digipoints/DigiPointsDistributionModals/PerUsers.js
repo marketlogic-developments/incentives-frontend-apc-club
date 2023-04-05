@@ -43,7 +43,7 @@ const PerUsers = ({
         {
           partnerAdminId: user.id,
           assignType: "amount",
-          isGold: company.distChannelsId === 1 ? true : false,
+          isGold: false,
           assignValues: usersAsign,
         },
         {
