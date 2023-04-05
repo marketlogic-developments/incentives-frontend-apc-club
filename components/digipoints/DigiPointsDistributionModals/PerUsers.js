@@ -34,7 +34,7 @@ const PerUsers = ({
     const usersAsign = dataModal.map((data) => ({
       invoiceId: invoiceData.invoices_included.toString(),
       vendorId: data.id,
-      digiPoints: Number(invoiceData.digipoints) / dataModal.length,
+      digiPoints: Math.floor(Number(invoiceData.digipoints) / dataModal.length),
     }));
 
     axios

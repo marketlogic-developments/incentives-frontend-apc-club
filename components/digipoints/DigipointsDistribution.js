@@ -129,8 +129,6 @@ const DigipointsDistribution = () => {
   const handleSubmit = (invoice) => {
     let newData = [...data];
 
-    console.log(invoice.index);
-
     newData[invoice.index] = { ...newData[invoice.index], status: true };
 
     dispatch(getDigiPa(newData));
