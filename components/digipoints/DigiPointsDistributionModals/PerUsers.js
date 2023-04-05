@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import React from "react";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -36,7 +37,21 @@ const PerUsers = ({
       digiPoints: Number(invoiceData.digipoints) / dataModal.length,
     }));
 
-    console.log(usersAsign);
+    //Test to change invoices
+
+    if (Cookies.get("invoices") === undefined) {
+      Cookies.set(
+        "invoices",
+        JSON.stringify([{ ...invoiceData, status: true }])
+      );
+    } else {
+      const prevCookies = JSON.parse(Cookies.get("invoices"));
+
+      Cookies.set(
+        "invoices",
+        JSON.stringify([...prevCookies, { ...invoiceData, status: true }])
+      );
+    }
 
     axios
       .post(
@@ -55,7 +70,7 @@ const PerUsers = ({
         }
       )
       .then(() => {
-        handleSubmit();
+        handleSubmit({ ...invoiceData, status: true });
         return Toast.fire({
           icon: "success",
           title: "Tu factura fue asignada de manera exitosa",

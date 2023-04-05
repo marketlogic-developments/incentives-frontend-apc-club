@@ -164,7 +164,10 @@ const dashboard = () => {
               </button>
             </div>
           </div>
-          <div className="flex flex-col gap-5 w-full items-center">
+          <div
+            className="flex flex-col gap-5 w-full items-center cursor-pointer <-BORRAR_ESTO"
+            onClick={() => route.push("/digipoints")}
+          >
             {/* <div className="h-full w-full">
               <div className="gap-10 w-full">
                 <Podio
@@ -518,6 +521,8 @@ const dashboard = () => {
             sx={{ width: "100%", height: "100%" }}
             mx="auto"
             withIndicators={false}
+            //Delete with COntrols
+            withControls={false}
             controlSize={40}
             draggable={false}
             height={260}
