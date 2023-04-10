@@ -7,11 +7,15 @@ import PerUsers from "./DigiPointsDistributionModals/PerUsers";
 import PerTeams from "./DigiPointsDistributionModals/PerTeams";
 import { getDigiPa, getDigipointsPa } from "../../store/reducers/sales.reducer";
 import Cookies from "js-cookie";
+import axios from "axios";
+import {
+  getDigiPoints,
+  setDigipoints,
+} from "../../store/reducers/users.reducer";
 
 const DigipointsDistribution = () => {
   const [opened, setOpened] = useState(false);
   const [t, i18n] = useTranslation("global");
-  const user = useSelector((state) => state.user.user);
   const iduser = useSelector((state) => state.user.user.id);
   const teams = useSelector((state) => state.teams.teams);
   const users = useSelector((state) => state.user.companyUsers);
@@ -34,8 +38,9 @@ const DigipointsDistribution = () => {
   }, [token]);
 
   const searchUser = () => {
-    const searchValue = users.filter(({ email }) =>
-      email.startsWith(searchByEmail.toLocaleLowerCase())
+    const searchValue = users.filter(
+      ({ email, role_id }) =>
+        email.startsWith(searchByEmail.toLocaleLowerCase()) && role_id === 5
     );
 
     if (searchValue.length !== 0) {
@@ -132,6 +137,7 @@ const DigipointsDistribution = () => {
     newData[invoice.index] = { ...newData[invoice.index], status: true };
 
     dispatch(getDigiPa(newData));
+    dispatch(getDigiPoints(token, iduser));
 
     setSalesOption("salesRep");
     setNumModal(0);
@@ -223,6 +229,49 @@ const DigipointsDistribution = () => {
     }
   };
 
+  const handleUnassign = (obj) => {
+    Swal.fire({
+      title: "Antes de desasignar la factura, ¿quieres confirmar tu decisión?",
+      showCancelButton: true,
+      confirmButtonColor: "#eb1000",
+      confirmButtonText: "Desasignar factura",
+      denyCancelText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(obj);
+
+        axios
+          .post(
+            `${process.env.BACKURL}/employee-poits-collects/unassign-invoice`,
+            {
+              isGold: false,
+              invoiceReference: obj.salesOrder,
+            },
+            {
+              headers: {
+                "Content-Type":
+                  "application/x-www-form-urlencoded; charset=UTF-8",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            let newData = [...data];
+
+            newData[obj.index] = {
+              ...newData[obj.index],
+              status: false,
+            };
+
+            dispatch(getDigiPoints(token, iduser));
+            dispatch(getDigiPa(newData));
+          });
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  };
+
   return (
     <>
       <Modal
@@ -301,7 +350,12 @@ const DigipointsDistribution = () => {
                           Asignar
                         </button>
                       ) : (
-                        <button className="btn btn-secondary btn-xs">
+                        <button
+                          className="btn btn-secondary btn-xs"
+                          onClick={() =>
+                            handleUnassign({ ...obj, index: index })
+                          }
+                        >
                           Asignado
                         </button>
                       )}

@@ -28,9 +28,12 @@ const MakeTeam = () => {
   const [modal, setModal] = useState(0);
   const [selectDate, setSelectDate] = useState("");
 
+  console.log(users);
+
   const searchUser = () => {
-    const searchValue = users.filter(({ email }) =>
-      email.startsWith(searchByEmail.toLocaleLowerCase())
+    const searchValue = users.filter(
+      ({ email, role_id }) =>
+        email.startsWith(searchByEmail.toLocaleLowerCase()) && role_id === 5
     );
 
     if (searchValue.length !== 0) {
