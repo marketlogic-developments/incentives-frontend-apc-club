@@ -933,6 +933,10 @@ const Layout = ({ children }) => {
                 <div className="digipoints">
                   <button
                     onClick={() => {
+                      if (location === "/digipoints") {
+                        return;
+                      }
+
                       dispatch(changeLoadingData(true));
                       router.push("/digipoints");
                     }}
