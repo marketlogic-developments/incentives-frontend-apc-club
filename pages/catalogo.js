@@ -17,6 +17,7 @@ import { useMemo } from "react";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { changeLoadingData } from "../store/reducers/loading.reducer";
+import { Modal } from "@mantine/core";
 
 const catalogo = () => {
   const [globalAwards, setGlobalAwards] = useState([]);
@@ -28,6 +29,7 @@ const catalogo = () => {
   const user = useSelector((state) => state.user.user);
   const itemsPerPage = 6;
   const [loading, setLoading] = useState(false);
+  const [opened, setOpened] = useState(false);
 
   useEffect(() => {
     if (token && arrayAwards.length === 0) {
@@ -72,14 +74,51 @@ const catalogo = () => {
     setItemOffset(newOffset);
   };
 
+  const typeInstructionsCard = useMemo(() => {
+    if (user.countryId === "Chile") {
+      return {
+        link: "https://www.giftcard.cl",
+        path: "assets/infoCards/cencosud.webp",
+      };
+    }
+
+    if (user.region === "BRAZIL") {
+      return { link: "#", path: "assets/infoCards/VisaPor.webp" };
+    }
+
+    return {
+      link: "https://www.myprepaidcenter.com/redeem",
+      path: "assets/infoCards/MC.webp",
+    };
+  }, [user]);
+
   return (
     <ContainerContent pageTitle={t("menu.catalogo")}>
+      <Modal
+        opened={opened}
+        centered
+        size={"90%"}
+        onClose={() => {
+          setOpened(false);
+        }}
+        className={"modalCloseDashboard"}
+      >
+        <a href={typeInstructionsCard.link} target="_blank">
+          <figure>
+            <img
+              src={typeInstructionsCard.path}
+              alt="targetInfo"
+              className="w-full"
+            ></img>
+          </figure>
+        </a>
+      </Modal>
       <div className="m-6 flex flex-col gap-4">
         <div className="flex flex-col gap-5">
           <h1 className="font-bold text-3xl">{t("menu.catalogo")}</h1>
         </div>
         {user?.languageId === 1 ? <BnPor /> : <BnEsp />}
-        <div className="w-full h-full">
+        <div className="flex w-full h-full justify-center gap-5">
           <button
             className="btn btn-primary"
             onClick={() => {
@@ -87,6 +126,9 @@ const catalogo = () => {
             }}
           >
             {t("adobeMarket.estado")}
+          </button>
+          <button className="btn btn-primary" onClick={() => setOpened(true)}>
+            Guía de uso de tarjetas
           </button>
         </div>
 

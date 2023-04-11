@@ -94,7 +94,7 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
         });
       });
 
-    return console.log();
+    return;
   };
 
   const handleChange = (e) => {

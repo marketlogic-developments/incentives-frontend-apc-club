@@ -16,8 +16,6 @@ const estadoProducto = () => {
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
 
-  console.log(orders);
-
   useEffect(() => {
     if (user) {
       dispatch(getOrders(token, user?.id));

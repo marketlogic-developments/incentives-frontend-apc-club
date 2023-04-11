@@ -8,6 +8,7 @@ import {
   loadingUser,
   setCompany,
   setDigipoints,
+  setDistribuitor,
   userLogin,
   userToken,
 } from "../store/reducers/users.reducer";
@@ -41,9 +42,49 @@ const Layout = ({ children }) => {
           },
         })
         .then((userInfo) => {
+          //Get user digiPoints
           axios
             .get(
-              `${process.env.BACKURL}/companies/${userInfo.data.companyId}`,
+              `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/${userGetData?.id}`,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin": "*",
+                  Authorization: `Bearer ${userGetData?.token}`,
+                },
+              }
+            )
+            .then((dpInfo) => {
+              const [digipoints] = dpInfo.data;
+              if (dpInfo.data.length === 0) {
+                dispatch(
+                  setDigipoints({
+                    assigned_points: 0,
+                    cart_points: 0,
+                  })
+                );
+              } else {
+                dispatch(setDigipoints(digipoints));
+              }
+            });
+
+          //Verify if user is associate with a company or Distribuitor
+
+          const compOrDist =
+            userInfo.data.companyId !== null &&
+            userInfo.data.distributionChannelId === null
+              ? {
+                  endpoint: "companies",
+                  byId: userInfo.data.companyId,
+                }
+              : {
+                  endpoint: "distribution-channel",
+                  byId: userInfo.data.distributionChannelId,
+                };
+
+          axios
+            .get(
+              `${process.env.BACKURL}/${compOrDist.endpoint}/${compOrDist.byId}`,
               {
                 headers: {
                   "Content-Type": "application/json",
@@ -52,8 +93,12 @@ const Layout = ({ children }) => {
                 },
               }
             )
-            .then((companyData) => {
-              dispatch(setCompany(companyData.data));
+            .then(({ data }) => {
+              if (compOrDist.endpoint === "distribution-channel") {
+                dispatch(setDistribuitor(data));
+              } else {
+                dispatch(setCompany(data));
+              }
             })
             .catch((err) => {
               if (err.message === "Request failed with status code 404") {
@@ -83,31 +128,6 @@ const Layout = ({ children }) => {
               language(userInfo.data.languageId);
               redirection(userInfo.data.policy);
               dispatch(loadingUser(true));
-            });
-
-          axios
-            .get(
-              `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/${userGetData?.id}`,
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  "Access-Control-Allow-Origin": "*",
-                  Authorization: `Bearer ${userGetData?.token}`,
-                },
-              }
-            )
-            .then((dpInfo) => {
-              const [digipoints] = dpInfo.data;
-              if (dpInfo.data.length === 0) {
-                dispatch(
-                  setDigipoints({
-                    assigned_points: 0,
-                    cart_points: 0,
-                  })
-                );
-              } else {
-                dispatch(setDigipoints(digipoints));
-              }
             });
         });
     } else {

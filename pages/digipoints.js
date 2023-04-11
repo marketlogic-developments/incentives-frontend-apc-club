@@ -60,7 +60,7 @@ const digipoints = () => {
       .then(({ data }) => {
         dispatch(setCompanyUsers(data));
       });
-  }, []);
+  }, [token]);
 
   // const search = useMemo(() => {
   //   const newData = datosdummy.map((data) => ({

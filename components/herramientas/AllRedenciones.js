@@ -108,8 +108,6 @@ const AllRedenciones = () => {
     }
   }, [searchInvoice]);
 
-  console.log(data);
-
   return (
     <>
       <Modal
