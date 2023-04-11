@@ -28,8 +28,6 @@ const MakeTeam = () => {
   const [modal, setModal] = useState(0);
   const [selectDate, setSelectDate] = useState("");
 
-  console.log(users);
-
   const searchUser = () => {
     const searchValue = users.filter(
       ({ email, role_id }) =>
@@ -132,7 +130,6 @@ const MakeTeam = () => {
         },
       })
       .then((res1) => {
-        console.log(res1.data);
         setInfoModal(res1.data);
         setOpened(true);
         setDataModal(

@@ -35,7 +35,7 @@ const dashboard = () => {
   const [view, setView] = useState("password");
   const dispatch = useDispatch();
   const route = useRouter();
-  const [typeHeader, setTypeHeader] = useState(0);
+  const [typeHeader, setTypeHeader] = useState(3);
 
   const [t, i18n] = useTranslation("global");
 
@@ -108,11 +108,11 @@ const dashboard = () => {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     if (isLoaded && token) {
-      setLoading(true);
       axios
         .get(
-          `${process.env.BACKURL}/reporters/company-all-users-by-id/${company.id}`,
+          `${process.env.BACKURL}/reporters/digipoints-redeem-status-all-compa/${company.id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -122,6 +122,7 @@ const dashboard = () => {
           }
         )
         .then(({ data }) => {
+          console.log(data);
           setParticipantes(data);
         });
 
@@ -138,7 +139,7 @@ const dashboard = () => {
           return;
         });
     }
-  }, [isLoaded, token]);
+  }, [token]);
 
   const header = useMemo(() => {
     if (typeHeader === 0) {
@@ -146,7 +147,7 @@ const dashboard = () => {
         <div className="gap-10 flex flex w-full">
           <div className="gap-10 w-[40%]">
             <div className="flex flex-col gap-5 texto_dash">
-              <h1 className="font-bold text-2xl max-sm:text-xl">
+              <h1 className="font-bold text-2xl max-sm:text-xl none">
                 {t("dashboard.Inicio")}
               </h1>
               <h2 className="font-bold text-4xl max-sm:text-xl">
@@ -164,11 +165,8 @@ const dashboard = () => {
               </button>
             </div>
           </div>
-          <div
-            className="flex flex-col gap-5 w-full items-center cursor-pointer <-BORRAR_ESTO"
-            onClick={() => route.push("/digipoints")}
-          >
-            {/* <div className="h-full w-full">
+          <div className="flex flex-col gap-5 w-full items-center">
+            <div className="h-full w-full">
               <div className="gap-10 w-full">
                 <Podio
                   t={t}
@@ -176,24 +174,40 @@ const dashboard = () => {
                   participantes={participantes}
                 />
               </div>
-            </div> */}
-            {i18n.resolvedLanguage === "por" ? (
-              <img
-                src="assets/dashboard/banners/htwPor.webp"
-                className="bannersImg"
-                style={{ width: "100%" }}
-              />
-            ) : (
-              <img
-                src="assets/dashboard/banners/htw.webp"
-                className="bannersImg"
-                style={{ width: "100%" }}
-              />
-            )}
+            </div>
           </div>
         </div>
       );
     }
+
+    //Delete this when finished Ranking
+    if (typeHeader === 3) {
+      return (
+        <div className="w-full flex flex-col gap-5">
+          <h2 className="font-bold text-4xl max-sm:text-xl">
+            {t("dashboard.Hola")} {userData}
+          </h2>
+          <a href="#" className="w-full flex justify-center">
+            <figure className="w-5/6">
+              {i18n.resolvedLanguage === "por" ? (
+                <img
+                  src="assets/dashboard/banners/htwPor.webp"
+                  className="bannersImg"
+                  style={{ width: "auto" }}
+                />
+              ) : (
+                <img
+                  src="assets/dashboard/banners/htw.png"
+                  className="bannersImg"
+                  style={{ width: "auto" }}
+                />
+              )}
+            </figure>
+          </a>
+        </div>
+      );
+    }
+
     if (typeHeader === 1) {
       return (
         <figure
@@ -232,6 +246,7 @@ const dashboard = () => {
             <img
               src="assets/dashboard/banners/htw.webp"
               className="bannersImg"
+              style={{ width: "90%" }}
             />
           )}
         </figure>
@@ -483,16 +498,27 @@ const dashboard = () => {
       <ContainerContent pageTitle={"Dashboard"}>
         {header}
         <div className="w-full flex justify-center gap-5">
-          <button
+          {/* <button
             className={`btn btn-xs ${
+              //Change this for 0
               typeHeader === 0 ? "btn-primary" : "btn-accent"
             }`}
             onClick={() => {
+              //Change this for 0
               setTypeHeader(0);
             }}
           >
+            {t("dashboard.ranking")}
+          </button> */}
+          <button
+            className={`btn ${
+              typeHeader === 3 ? "btn-primary" : "btn-accent"
+            } btn-xs`}
+            onClick={() => {
+              setTypeHeader(3);
+            }}
+          >
             {t("dashboard.htw")}
-            {/* {t("dashboard.ranking")} */}
           </button>
           <button
             className={`btn ${
@@ -504,16 +530,6 @@ const dashboard = () => {
           >
             {t("dashboard.promociones")}
           </button>
-          {/* <button
-            className={`btn ${
-              typeHeader === 2 ? "btn-primary" : "btn-accent"
-            } btn-xs`}
-            onClick={() => {
-              setTypeHeader(2);
-            }}
-          >
-            {t("dashboard.htw")}
-          </button> */}
         </div>
         <hr color="red" />
         <div className="gap-10 flex flex-col h-full">

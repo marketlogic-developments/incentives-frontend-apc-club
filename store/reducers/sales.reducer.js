@@ -76,7 +76,6 @@ export const getSalesData = (token) => async (dispatch) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         dispatch(pushSalesFile(res.data));
       });
   } catch (err) {
@@ -173,7 +172,6 @@ export const createSaleData = (token, data) => async (dispatch) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         dispatch(getSalesData(token));
       });
   } catch (err) {
@@ -243,7 +241,6 @@ export const getSalesByType = (token, data) => async (dispatch) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         dispatch(getSalesType(res.data));
       });
   } catch (err) {

@@ -12,6 +12,7 @@ const initialState = {
   company: [],
   companyUsers: [],
   digipoints: {},
+  distribuitor: {},
 };
 
 export const userActions = createSlice({
@@ -43,6 +44,9 @@ export const userActions = createSlice({
     setCompany: (state, action) => {
       state.company = action.payload;
     },
+    setDistribuitor: (state, action) => {
+      state.distribuitor = action.payload;
+    },
     setCompanyUsers: (state, action) => {
       state.companyUsers = action.payload;
     },
@@ -60,6 +64,7 @@ export const {
   userToken,
   setCompany,
   setCompanyUsers,
+  setDistribuitor,
 } = userActions.actions;
 
 export default userActions.reducer;
@@ -143,6 +148,16 @@ export const getDigiPoints = (token, id) => async (dispatch) => {
     .then((dpInfo) => {
       const [digipoints] = dpInfo.data;
 
-      dispatch(setDigipoints(digipoints));
+      console.log();
+
+      dispatch(
+        digipoints === undefined
+          ? setDigipoints({
+              employ_id: 1761,
+              assigned_points: 0,
+              cart_points: 0,
+            })
+          : setDigipoints(digipoints)
+      );
     });
 };

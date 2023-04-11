@@ -173,7 +173,6 @@ const ImportUsers = () => {
             <tbody>
               {jsonData !== null &&
                 jsonData.map((data) => {
-                  console.log(data.roleId);
                   return (
                     <tr
                       className={`bg-white border-b dark:border-gray-500 ${

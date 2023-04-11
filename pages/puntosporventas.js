@@ -9,7 +9,7 @@ import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
   getSalesAll,
-  getSalesAllByChannel
+  getSalesAllByChannel,
 } from "../store/reducers/sales.reducer";
 
 const puntosporventas = () => {
@@ -28,7 +28,6 @@ const puntosporventas = () => {
   const data = useSelector((state) => state.sales.salesall);
   const company = useSelector((state) => state.user.company);
 
-
   const itemsPerPage = 10;
 
   useEffect(() => {
@@ -36,7 +35,6 @@ const puntosporventas = () => {
   }, []);
 
   useEffect(() => {
-    console.log(data)
     if (token && data.length === 0) {
       dispatch(getSalesAllByChannel(token, company.resellerMasterId));
     }
@@ -51,7 +49,7 @@ const puntosporventas = () => {
               <th scope="col" className="py-2 px-2">
                 Reseller
               </th>
-              
+
               <th scope="col" className="py-2 px-2">
                 Business Unit
               </th>
@@ -76,9 +74,7 @@ const puntosporventas = () => {
                   key={index}
                   className="bg-white border-b dark:border-gray-500"
                 >
-                  <td className="py-4 px-2">
-                    {data.reseller_partner_rollup}
-                  </td>
+                  <td className="py-4 px-2">{data.reseller_partner_rollup}</td>
                   <td className="py-4 px-2">{data.business_unit}</td>
                   <td className="py-4 px-2">{data.business_type}</td>
                   <td className="py-4 px-2">{data.materia_sku}</td>
@@ -86,7 +82,6 @@ const puntosporventas = () => {
                   <td className="py-4 px-2">
                     {parseFloat(data.total_sales_amount).toFixed(2)}
                   </td>
-
                 </tr>
               ))}
           </tbody>

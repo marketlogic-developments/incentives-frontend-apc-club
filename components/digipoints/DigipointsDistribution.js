@@ -238,8 +238,6 @@ const DigipointsDistribution = () => {
       denyCancelText: `Cancelar`,
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(obj);
-
         axios
           .post(
             `${process.env.BACKURL}/employee-poits-collects/unassign-invoice`,
@@ -266,9 +264,9 @@ const DigipointsDistribution = () => {
             dispatch(getDigiPoints(token, iduser));
             dispatch(getDigiPa(newData));
           });
-      } else if (result.isDenied) {
-        Swal.fire("Changes are not saved", "", "info");
       }
+
+      return;
     });
   };
 

@@ -16,7 +16,6 @@ const canalesyDistribuidores = () => {
   const [content, setContent] = useState(0);
 
   const typeContent = useMemo(() => {
-    console.log(content === 0);
     if (content === 0) {
       return <Canales />;
     }

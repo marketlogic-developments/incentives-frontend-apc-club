@@ -45,8 +45,6 @@ const ModalProductsR = ({ data }) => {
     }
   }, [statusId]);
 
-  console.log(data);
-
   const handleChangeStatus = (num) => {
     const Toast = Swal.mixin({
       toast: true,

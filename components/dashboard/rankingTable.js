@@ -45,7 +45,7 @@ const RankingTable = ({ participantes }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {participantes.map(({ name, email, region }, index) => {
+                  {participantes.map(({ names, email, region }, index) => {
                     const position = index + 1;
                     return (
                       <tr className="bg-white border-b dark:border-gray-500">
@@ -53,7 +53,7 @@ const RankingTable = ({ participantes }) => {
                           scope="row"
                           className="py-4 px-6 font-medium text-black"
                         >
-                          {name}
+                          {names}
                         </th>
                         <td className="py-4 px-6">{email}</td>
                         <td className="py-4 px-6">{region}</td>

@@ -61,8 +61,6 @@ const user = () => {
   const handleChangeInputs = () => {
     const num = Object.values(formData).filter((e) => e !== "").length;
 
-    console.log(num);
-
     setNInputs(parseInt((num * 100) / 9));
   };
 
@@ -102,7 +100,6 @@ const user = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         dispatch(policyAndPassword(res.data));
         setModal(0);
         setOpened(true);
