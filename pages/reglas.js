@@ -311,14 +311,14 @@ const premios = () => {
                         <div>
                             <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-1 gap-4 mt-4 place-items-end">
                                 <div className="w-full flex justify-end gap-10">
-                                    {user.roleId === 1 && (
+                                    {/* {user.roleId === 1 && (
                                         <button
                                             className="btn btn-primary w-max"
                                             onClick={() => setOpened(true)}
                                         >
                                             {t("premios.agregar")}
                                         </button>
-                                    )}
+                                    )} */}
 
                                     <button
                                         className="btn btn-primary w-max"
