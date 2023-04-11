@@ -265,7 +265,7 @@ export const getSalesAll = (token) => async (dispatch) => {
 export const getSalesAllByChannel = (token, data) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/salesallbychanes/${data}`, {
+      .get(`${process.env.BACKURL}/reporters/salesallbychannels/${data}`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
