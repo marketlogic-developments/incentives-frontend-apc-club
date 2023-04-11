@@ -30,6 +30,7 @@ const dashboard = () => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const company = useSelector((state) => state.user.company);
+  const distribuitor = useSelector((state) => state.user.distribuitor);
   const [opened, setOpened] = useState(false);
   const [opened2, setOpened2] = useState(false);
   const [view, setView] = useState("password");
@@ -38,10 +39,6 @@ const dashboard = () => {
   const [typeHeader, setTypeHeader] = useState(3);
 
   const [t, i18n] = useTranslation("global");
-
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [puntos, setPuntos] = useState([]);
-  const [lLoading, setLoading] = useState(false);
   const [sortedData, setSortedData] = useState([]);
   const [modalType, setModalType] = useState([]);
 
@@ -101,15 +98,18 @@ const dashboard = () => {
   };
 
   useEffect(() => {
-    if (user.policy) {
-      Cookies.remove("t&c");
-    }
-    setIsLoaded(true);
-  }, []);
+    const compOrDist =
+      company.id !== undefined && distribuitor.id === undefined
+        ? {
+            endpoint: "digipoints-redeem-status-all-compa",
+            byId: company.id,
+          }
+        : {
+            endpoint: "distribution-channel",
+            byId: distribuitor.id,
+          };
 
-  useEffect(() => {
-    setLoading(true);
-    if (isLoaded && token) {
+    if (token) {
       axios
         .get(
           `${process.env.BACKURL}/reporters/digipoints-redeem-status-all-compa/${company.id}`,
@@ -124,19 +124,6 @@ const dashboard = () => {
         .then(({ data }) => {
           console.log(data);
           setParticipantes(data);
-        });
-
-      dispatch(getPointsData(token))
-        .then((puntos) => {
-          setLoading(false);
-          setPuntos(puntos);
-          const data = [...puntos].sort(
-            (a, b) => b.poins_assig - a.poins_assig
-          );
-          setSortedData(data);
-        })
-        .catch(() => {
-          return;
         });
     }
   }, [token]);
@@ -187,7 +174,12 @@ const dashboard = () => {
           <h2 className="font-bold text-4xl max-sm:text-xl">
             {t("dashboard.Hola")} {userData}
           </h2>
-          <a href="#" className="w-full flex justify-center">
+          <a
+            href="assets/pdf/HTW.pdf"
+            alt="HTW"
+            target="_blank"
+            className="w-full flex justify-center"
+          >
             <figure className="w-5/6">
               {i18n.resolvedLanguage === "por" ? (
                 <img
@@ -443,6 +435,7 @@ const dashboard = () => {
     allValid,
     passwordMatch,
   ]);
+
   const isMobile = window.innerWidth <= 768;
   const modalSize = isMobile
     ? { initialWidth: "100%", initialHeight: "auto" }
