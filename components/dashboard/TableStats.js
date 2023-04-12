@@ -24,7 +24,7 @@ const TableStats = () => {
     if (token && dataFromAxios.length === 0) {
       if (user.company === null) {
         dispatch(
-          getSalesBySegmentDist(token, user.distributionChannelId.soldToParty)
+          getSalesBySegmentDist(token, user.distributionChannel.soldToParty)
         );
       } else {
         dispatch(getSalesBySegmentComp(token, user.company.resellerMasterId));
@@ -42,10 +42,21 @@ const TableStats = () => {
     );
 
     const percentageTotal = parseInt(
-      (totalSalesReduce * 100) / Number(company.goalsPerQuarter)
+      (totalSalesReduce * 100) /
+        Number(
+          user.companyId === null
+            ? distribuitor.goalsPerYearDist
+            : company.goalsPerYear
+        )
     );
     setpercentageTotal(
-      Number(company.goalsPerQuarter) === 0 ? 100 : percentageTotal
+      Number(
+        user.companyId === null
+          ? distribuitor.goalsPerYearDist
+          : company.goalsPerYear
+      ) === 0
+        ? 100
+        : percentageTotal
     );
 
     const goalSales = dataFromAxios
@@ -69,39 +80,58 @@ const TableStats = () => {
 
   //This Function calculates the percentage of all CC business type and DC business type
   const infoPercentages = (ccInfoFilter, dcInfoFilter) => {
-    const arrayPercentageCC = ccInfoFilter.map((data) => {
-      const allSalesCC = dataFromAxios
-        .filter(({ business_unit }) => business_unit === "Creative Cloud")
-        .map(({ total_sales_amount }) => Number(total_sales_amount))
-        .reduce((previous, currently) => previous + currently);
+    const order = ["Teams", "Enterprise", "Education"];
 
-      const percentage = (data.total_sales_amount * 100) / allSalesCC;
+    const compareObjectsCC = (a, b) => {
+      const indexA = order.indexOf(a.typeCC);
+      const indexB = order.indexOf(b.typeCC);
+      return indexA - indexB;
+    };
+    const compareObjectsDC = (a, b) => {
+      const indexA = order.indexOf(a.typeDC);
+      const indexB = order.indexOf(b.typeDC);
+      return indexA - indexB;
+    };
 
-      return {
-        typeCC: data.sub_bu,
-        tablePercentage: percentage,
-        sales: Number(data.total_sales_amount),
-      };
-    });
+    const arrayPercentageCC = ccInfoFilter
+      .map((data) => {
+        const allSalesCC = dataFromAxios
+          .filter(({ business_unit }) => business_unit === "Creative Cloud")
+          .map(({ total_sales_amount }) => Number(total_sales_amount))
+          .reduce((previous, currently) => previous + currently);
 
-    const arrayPercentageDC = dcInfoFilter.map((data) => {
-      const allSalesCC = dataFromAxios
-        .filter(({ business_unit }) => business_unit === "Document Cloud")
-        .map(({ total_sales_amount }) => Number(total_sales_amount))
-        .reduce((previous, currently) => previous + currently);
+        const percentage = (data.total_sales_amount * 100) / allSalesCC;
 
-      const percentage = (data.total_sales_amount * 100) / allSalesCC;
+        return {
+          typeCC: data.sub_bu,
+          tablePercentage: percentage,
+          sales: Number(data.total_sales_amount),
+        };
+      })
+      .sort(compareObjectsCC);
 
-      return {
-        typeDC: data.sub_bu,
-        tablePercentage: percentage,
-        sales: Number(data.total_sales_amount),
-      };
-    });
+    const arrayPercentageDC = dcInfoFilter
+      .map((data) => {
+        const allSalesCC = dataFromAxios
+          .filter(({ business_unit }) => business_unit === "Document Cloud")
+          .map(({ total_sales_amount }) => Number(total_sales_amount))
+          .reduce((previous, currently) => previous + currently);
+
+        const percentage = (data.total_sales_amount * 100) / allSalesCC;
+
+        return {
+          typeDC: data.sub_bu,
+          tablePercentage: percentage,
+          sales: Number(data.total_sales_amount),
+        };
+      })
+      .sort(compareObjectsDC);
 
     setpercentageCC(arrayPercentageCC);
     setpercentageDC(arrayPercentageDC);
   };
+
+  console.log(percentageCC, percentageDC);
 
   return (
     <div className="container w-full h-full bg-base-100 flex flex-col sm:flex-row justify-between max-sm:justify-center">
@@ -112,7 +142,7 @@ const TableStats = () => {
           </div>
           <div className="w-10/12 flex flex-col items-center justify-around h-full">
             <div className="w-full flex justify-around">
-              <p className="text-sm font-semibold border-b-2 border-b-orange-500">
+              <p className="text-sm font-semibold border-b-2 border-b-red-600">
                 Teams
               </p>
               <p className="text-sm font-semibold border-b-sky-600 border-b-2 ">
@@ -147,13 +177,13 @@ const TableStats = () => {
           </div>
           <div className="w-10/12 flex flex-col items-center justify-around h-full">
             <div className="w-full flex justify-around">
-              <p className="text-sm font-semibold border-b-2 border-b-orange-500">
+              <p className="text-sm font-semibold border-b-2 border-b-red-600">
                 Teams
               </p>
               <p className="text-sm font-semibold border-b-sky-600 border-b-2">
                 Enterprise
               </p>
-              <p className="text-sm font-semibold border-b-2 border-b-red-600">
+              <p className="text-sm font-semibold border-b-2 border-b-green-600">
                 Education
               </p>
             </div>

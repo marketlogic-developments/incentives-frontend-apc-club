@@ -37,12 +37,13 @@ const dashboard = () => {
   const dispatch = useDispatch();
   const route = useRouter();
   const [typeHeader, setTypeHeader] = useState(0);
-
   const [t, i18n] = useTranslation("global");
   const [sortedData, setSortedData] = useState([]);
   const [modalType, setModalType] = useState([]);
 
   const [participantes, setParticipantes] = useState([]);
+
+  console.log(user);
 
   const userData = useMemo(() => {
     if (user !== 0) {
@@ -220,7 +221,7 @@ const dashboard = () => {
                 />
               ) : (
                 <img
-                  src="assets/dashboard/banners/htw.png"
+                  src="assets/dashboard/banners/htw.webp"
                   className="bannersImg"
                   style={{ width: "auto" }}
                 />

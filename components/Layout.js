@@ -1059,7 +1059,9 @@ const Layout = ({ children }) => {
                       <Menu trigger="hover" openDelay={100} closeDelay={400}>
                         <Menu.Target>
                           <div className="userPreMenu">
-                            {userRedux.profilePhotoPath !== null ? (
+                            {userRedux.profilePhotoPath !== null &&
+                            userRedux.profilePhotoPath.length !== 0 &&
+                            userRedux.profilePhotoPath !== undefined ? (
                               <figure>
                                 <img src={userRedux.profilePhotoPath} />
                               </figure>

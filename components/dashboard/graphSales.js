@@ -23,7 +23,7 @@ const GraphSales = () => {
     if (token && sales.length === 0) {
       if (user.company === null) {
         dispatch(
-          getSalesByTypeDist(token, user.distributionChannelId.soldToParty)
+          getSalesByTypeDist(token, user.distributionChannel.soldToParty)
         );
       } else {
         dispatch(getSalesByTypeComp(token, user.company.resellerMasterId));
