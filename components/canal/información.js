@@ -9,21 +9,34 @@ const Información = () => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const company = useSelector((state) => state.user.company);
+  const distribuitor = useSelector((state) => state.user.distribuitor);
 
   return (
     <div className="w-full flex justify-center">
       <div className="grid grid-cols-3 w-8/12 gap-10">
         <div>
           <label className="label">
-            <span className="label-text">Nombre del Canal</span>
+            <span className="label-text">
+              {user.company === null
+                ? "Nombre de Distribuidor"
+                : "Nombre del Canal"}
+            </span>
           </label>
-          <p className="text-xl">{company.name}</p>
+          <p className="text-xl">
+            {user.company === null ? distribuitor.nameDist : company.name}
+          </p>
         </div>
         <div>
           <label className="label">
-            <span className="label-text">Reseller ID</span>
+            <span className="label-text">
+              {user.company === null ? "Sold To Party" : "Reseller ID"}
+            </span>
           </label>
-          <p className="text-xl">{company.resellerMasterId}</p>
+          <p className="text-xl">
+            {user.company === null
+              ? distribuitor.soldToParty
+              : company.resellerMasterId}
+          </p>
         </div>
         <div>
           <label className="label">
@@ -34,7 +47,7 @@ const Información = () => {
               ? "Gold"
               : company.distChannelsId === 2
               ? "Platinum"
-              : company.distChannelsId === 3
+              : distribuitor.distChannelsId === 3
               ? "Distribuidor"
               : "No"}
           </p>
@@ -43,25 +56,43 @@ const Información = () => {
           <label className="label">
             <span className="label-text">Meta por Q</span>
           </label>
-          <p className="text-xl">${company.goalsPerQuarter}</p>
+          <p className="text-xl">
+            $
+            {user.company === null
+              ? distribuitor.goalsPerQuarterDist
+              : company.goalsPerQuarter}
+          </p>
         </div>
         <div>
           <label className="label">
             <span className="label-text">Meta por Año</span>
           </label>
-          <p className="text-xl">${company.goalsPerYear}</p>
+          <p className="text-xl">
+            $
+            {user.company === null
+              ? distribuitor.goalsPerYearDist
+              : company.goalsPerYear}
+          </p>
         </div>
         <div>
           <label className="label">
             <span className="label-text">Partner Admin</span>
           </label>
-          <p className="text-xl">{company.partnerAdmin?.name}</p>
+          <p className="text-xl">
+            {user.company === null
+              ? distribuitor.partnerAdmin?.name
+              : company.partnerAdmin?.name}
+          </p>
         </div>
         <div>
           <label className="label">
             <span className="label-text">Número telefónico</span>
           </label>
-          <p className="text-xl">{company.phoneNumber}</p>
+          <p className="text-xl">
+            {user.company === null
+              ? distribuitor.phoneNumberDist
+              : company.phoneNumber}
+          </p>
         </div>
       </div>
     </div>

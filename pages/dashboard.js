@@ -99,20 +99,20 @@ const dashboard = () => {
 
   useEffect(() => {
     const compOrDist =
-      company.id !== undefined && distribuitor.id === undefined
+      user.company === null
         ? {
-            endpoint: "digipoints-redeem-status-all-compa",
-            byId: company.id,
+            endpoint: "digipoints-redeem-status-all-distri",
+            byId: distribuitor.id,
           }
         : {
-            endpoint: "distribution-channel",
-            byId: distribuitor.id,
+            endpoint: "digipoints-redeem-status-all-compa",
+            byId: company.id,
           };
 
     if (token) {
       axios
         .get(
-          `${process.env.BACKURL}/reporters/digipoints-redeem-status-all-compa/${company.id}`,
+          `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
           {
             headers: {
               "Content-Type": "application/json",
