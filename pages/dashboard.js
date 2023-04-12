@@ -32,7 +32,7 @@ const dashboard = () => {
   const company = useSelector((state) => state.user.company);
   const distribuitor = useSelector((state) => state.user.distribuitor);
   const [opened, setOpened] = useState(false);
-  const [opened2, setOpened2] = useState(false);
+  const [opened2, setOpened2] = useState(true);
   const [view, setView] = useState("password");
   const dispatch = useDispatch();
   const route = useRouter();
