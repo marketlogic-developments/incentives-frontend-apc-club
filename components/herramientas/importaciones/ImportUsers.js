@@ -47,8 +47,6 @@ const ImportUsers = () => {
 
     const usersAllMapEmail = jsonData.map((data) => {
       const userFind = users.find(({ email }) => email === data.email);
-
-      console.log(userFind);
     });
 
     // const validationUsers = jsonData.filter(
