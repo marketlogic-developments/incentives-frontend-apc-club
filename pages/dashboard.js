@@ -36,7 +36,7 @@ const dashboard = () => {
   const [view, setView] = useState("password");
   const dispatch = useDispatch();
   const route = useRouter();
-  const [typeHeader, setTypeHeader] = useState(3);
+  const [typeHeader, setTypeHeader] = useState(0);
 
   const [t, i18n] = useTranslation("global");
   const [sortedData, setSortedData] = useState([]);
@@ -123,6 +123,11 @@ const dashboard = () => {
         )
         .then(({ data }) => {
           console.log(data);
+
+          if (data.length < 3) {
+            setTypeHeader(2);
+          }
+
           setParticipantes(data);
         });
     }
@@ -132,8 +137,8 @@ const dashboard = () => {
     if (typeHeader === 0) {
       return (
         <div className="gap-10 flex flex w-full">
-          <div className="gap-10 w-[40%]">
-            <div className="flex flex-col gap-5 texto_dash">
+          <div className="gap-10 w-1/2 flex items-center justify-center">
+            <div className="flex flex-col gap-5 texto_dash w-5/6">
               <h1 className="font-bold text-2xl max-sm:text-xl none">
                 {t("dashboard.Inicio")}
               </h1>
@@ -152,7 +157,7 @@ const dashboard = () => {
               </button>
             </div>
           </div>
-          <div className="flex flex-col gap-5 w-full items-center">
+          <div className="flex flex-col gap-5 w-1/2 items-center">
             <div className="h-full w-full">
               <div className="gap-10 w-full">
                 <Podio
@@ -163,39 +168,6 @@ const dashboard = () => {
               </div>
             </div>
           </div>
-        </div>
-      );
-    }
-
-    //Delete this when finished Ranking
-    if (typeHeader === 3) {
-      return (
-        <div className="w-full flex flex-col gap-5">
-          <h2 className="font-bold text-4xl max-sm:text-xl">
-            {t("dashboard.Hola")} {userData}
-          </h2>
-          <a
-            href="assets/pdf/HTW.pdf"
-            alt="HTW"
-            target="_blank"
-            className="w-full flex justify-center"
-          >
-            <figure className="w-5/6">
-              {i18n.resolvedLanguage === "por" ? (
-                <img
-                  src="assets/dashboard/banners/htwPor.webp"
-                  className="bannersImg"
-                  style={{ width: "auto" }}
-                />
-              ) : (
-                <img
-                  src="assets/dashboard/banners/htw.png"
-                  className="bannersImg"
-                  style={{ width: "auto" }}
-                />
-              )}
-            </figure>
-          </a>
         </div>
       );
     }
@@ -223,25 +195,39 @@ const dashboard = () => {
         </figure>
       );
     }
+
     if (typeHeader === 2) {
       return (
-        <figure
-          className="w-full flex justify-center cursor-pointer"
-          onClick={() => route.push("/digipoints")}
-        >
-          {i18n.resolvedLanguage === "por" ? (
-            <img
-              src="assets/dashboard/banners/htwPor.webp"
-              className="bannersImg"
-            />
-          ) : (
-            <img
-              src="assets/dashboard/banners/htw.webp"
-              className="bannersImg"
-              style={{ width: "90%" }}
-            />
+        <div className="w-full flex flex-col gap-5">
+          {participantes.length < 3 && (
+            <h2 className="font-bold text-4xl max-sm:text-xl">
+              {t("dashboard.Hola")} {userData}
+            </h2>
           )}
-        </figure>
+
+          <a
+            href="assets/pdf/HTW.pdf"
+            alt="HTW"
+            target="_blank"
+            className="w-full flex justify-center"
+          >
+            <figure className="w-5/6">
+              {i18n.resolvedLanguage === "por" ? (
+                <img
+                  src="assets/dashboard/banners/htwPor.webp"
+                  className="bannersImg"
+                  style={{ width: "auto" }}
+                />
+              ) : (
+                <img
+                  src="assets/dashboard/banners/htw.png"
+                  className="bannersImg"
+                  style={{ width: "auto" }}
+                />
+              )}
+            </figure>
+          </a>
+        </div>
       );
     }
   }, [typeHeader, participantes]);
@@ -491,24 +477,24 @@ const dashboard = () => {
       <ContainerContent pageTitle={"Dashboard"}>
         {header}
         <div className="w-full flex justify-center gap-5">
-          {/* <button
-            className={`btn btn-xs ${
-              //Change this for 0
-              typeHeader === 0 ? "btn-primary" : "btn-accent"
-            }`}
-            onClick={() => {
-              //Change this for 0
-              setTypeHeader(0);
-            }}
-          >
-            {t("dashboard.ranking")}
-          </button> */}
+          {participantes.length >= 3 && (
+            <button
+              className={`btn btn-xs ${
+                typeHeader === 0 ? "btn-primary" : "btn-accent"
+              }`}
+              onClick={() => {
+                setTypeHeader(0);
+              }}
+            >
+              {t("dashboard.ranking")}
+            </button>
+          )}
           <button
             className={`btn ${
-              typeHeader === 3 ? "btn-primary" : "btn-accent"
+              typeHeader === 2 ? "btn-primary" : "btn-accent"
             } btn-xs`}
             onClick={() => {
-              setTypeHeader(3);
+              setTypeHeader(2);
             }}
           >
             {t("dashboard.htw")}

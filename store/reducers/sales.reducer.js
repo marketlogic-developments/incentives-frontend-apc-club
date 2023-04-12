@@ -247,6 +247,7 @@ export const getSalesByType = (token, data) => async (dispatch) => {
     console.log(err);
   }
 };
+
 export const getSalesAll = (token) => async (dispatch) => {
   try {
     return axios
@@ -262,6 +263,7 @@ export const getSalesAll = (token) => async (dispatch) => {
     console.log(err);
   }
 };
+
 export const getSalesAllByChannel = (token, data) => async (dispatch) => {
   try {
     return axios
