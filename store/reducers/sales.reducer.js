@@ -316,3 +316,19 @@ export const getSalesAllByChannel = (token, data) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const getSalesAllByDist = (token, data) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/salesallbydistri/${data}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getallSales(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};

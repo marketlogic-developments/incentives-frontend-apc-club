@@ -142,7 +142,7 @@ const PerUsers = ({
             Email
           </p>
           <p scope="col" className="py-3 px-6">
-            Quitar
+            Borrar
           </p>
         </div>
         <div className="w-full overflow-y-scroll">

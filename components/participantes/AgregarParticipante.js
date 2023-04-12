@@ -12,6 +12,7 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
   const [opened, setOpened] = useState(false);
   const [modal, setModal] = useState(0);
   const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user.user);
   const company = useSelector((state) => state.user.company);
   const [form, setForm] = useState({
     name: "",
@@ -41,36 +42,39 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
       },
     });
 
+    const objAxios = {
+      name: `${form.name} ${form.lastName}`,
+      email: form.email,
+      password: form.password,
+      roleId: Number(form.role.split("-")[0]),
+      policy: false,
+      passwordReset: false,
+      region: form.region,
+      cpf: "N/A",
+      companyId: company.id,
+      names: form.name,
+      lastName: form.lastName,
+      birthDate: form.date,
+      position: form.role.split("-")[1],
+      phoneNumber: form.phone,
+      operationStatusId: 4,
+      academicDegreeId: 1,
+      languageId: form.region === "BRAZIL" ? 1 : 2,
+    };
+
+    const sendObj =
+      user.companyId === null
+        ? { ...objAxios, distributionChannelId: user.distributionChannelId }
+        : { ...objAxios, companyId: user.companyId };
+
     axios
-      .post(
-        `${process.env.BACKURL}/users`,
-        {
-          name: `${form.name} ${form.lastName}`,
-          email: form.email,
-          password: form.password,
-          roleId: Number(form.role.split("-")[0]),
-          policy: false,
-          passwordReset: false,
-          region: form.region,
-          cpf: "N/A",
-          companyId: company.id,
-          names: form.name,
-          lastName: form.lastName,
-          birthDate: form.date,
-          position: form.role.split("-")[1],
-          phoneNumber: form.phone,
-          operationStatusId: 4,
-          academicDegreeId: 1,
-          languageId: form.region === "BRAZIL" ? 1 : 2,
+      .post(`${process.env.BACKURL}/users`, sendObj, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      })
       .then((res) => {
         const newPerson = res.data;
         setParticipantes([newPerson, ...participantes]);
@@ -81,7 +85,7 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
         });
       })
       .catch((err) => {
-        if (err.response.data.errors[0].message === "email must be unique") {
+        if (err.response.data.message === "email must be unique") {
           return Toast.fire({
             icon: "error",
             title: "Este email ya está en uso, intenta uno diferente",

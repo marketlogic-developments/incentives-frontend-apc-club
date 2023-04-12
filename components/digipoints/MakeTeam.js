@@ -28,6 +28,8 @@ const MakeTeam = () => {
   const [modal, setModal] = useState(0);
   const [selectDate, setSelectDate] = useState("");
 
+  console.log(teams);
+
   const searchUser = () => {
     const searchValue = users.filter(
       ({ email, role_id }) =>
@@ -218,9 +220,30 @@ const MakeTeam = () => {
 
     if (infoModal?.id !== undefined) {
       const teamUpdate = {
-        ...infoModal,
-        participants: newData,
+        nameGroup: infoModal.nameGroup,
+        description: infoModal.description,
+        PartnerAdminGroupD: {
+          members: newData,
+        },
       };
+
+      console.log(teamUpdate, newData, infoModal);
+
+      axios
+        .patch(
+          `${process.env.BACKURL}/partner-admin-group-headers/${infoModal.id}`,
+          teamUpdate,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          console.log(data);
+        });
 
       const update = teams.filter(({ id }) => id !== infoModal?.id);
 
@@ -370,7 +393,7 @@ const MakeTeam = () => {
             </button>
           </div>
           <div>
-            <div className="text-xs text-black-500 uppercase border-2 w-full grid grid-cols-3 place-items-center tableHeader">
+            <div className="text-xs text-black-500 uppercase border-2 w-full grid grid-cols-4 place-items-center tableHeader">
               <p scope="col" className="py-3 px-6">
                 {t("tabla.nomParticipantes")}
               </p>
@@ -379,6 +402,9 @@ const MakeTeam = () => {
               </p>
               <p scope="col" className="py-3 px-6">
                 {t("modalEquipos.porcentajes")}
+              </p>
+              <p scope="col" className="py-3 px-6">
+                Borrar
               </p>
             </div>
             <div className="w-full overflow-y-scroll">
@@ -404,6 +430,26 @@ const MakeTeam = () => {
                           className="input input-xs w-1/2 text-center"
                         />
                         %
+                      </td>
+                      <td
+                        className="w-1/5"
+                        onClick={() => {
+                          const usersDelete = dataModal.filter(
+                            ({ id }) => id !== user.id
+                          );
+                          setDataModal(usersDelete);
+                        }}
+                      >
+                        <svg
+                          width="30"
+                          height="30"
+                          fill="#eb1000"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-full cursor-pointer"
+                        >
+                          <path d="M20.25 4.5H16.5v-.75a2.26 2.26 0 0 0-2.25-2.25h-4.5A2.26 2.26 0 0 0 7.5 3.75v.75H3.75a.75.75 0 0 0 0 1.5h.75v13.5A1.5 1.5 0 0 0 6 21h12a1.5 1.5 0 0 0 1.5-1.5V6h.75a.75.75 0 1 0 0-1.5ZM10.5 15.75a.75.75 0 1 1-1.5 0v-6a.75.75 0 0 1 1.5 0v6Zm4.5 0a.75.75 0 1 1-1.5 0v-6a.75.75 0 1 1 1.5 0v6ZM15 4.5H9v-.75A.75.75 0 0 1 9.75 3h4.5a.75.75 0 0 1 .75.75v.75Z"></path>
+                        </svg>
                       </td>
                     </tr>
                   ))}

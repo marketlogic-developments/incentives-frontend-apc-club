@@ -10,12 +10,14 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
   getSalesAll,
   getSalesAllByChannel,
+  getSalesAllByDist,
 } from "../store/reducers/sales.reducer";
 
 const puntosporventas = () => {
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user.user);
   const currentPage = useSelector((state) => state.currentPage || 1);
   const [isLoaded, setIsLoaded] = useState(false);
   const [postsPerPage, setPostsPerPage] = useState(10);
@@ -27,6 +29,7 @@ const puntosporventas = () => {
   const [selectDate, setSelectDate] = useState("");
   const data = useSelector((state) => state.sales.salesall);
   const company = useSelector((state) => state.user.company);
+  const distribuitor = useSelector((state) => state.user.distribuitor);
 
   const itemsPerPage = 10;
 
@@ -36,7 +39,11 @@ const puntosporventas = () => {
 
   useEffect(() => {
     if (token && data.length === 0) {
-      dispatch(getSalesAllByChannel(token, company.resellerMasterId));
+      if (user.companyId === null) {
+        dispatch(getSalesAllByDist(token, distribuitor.soldToParty));
+      } else {
+        dispatch(getSalesAllByChannel(token, company.resellerMasterId));
+      }
     }
   }, [isLoaded, token]);
 
