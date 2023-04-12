@@ -99,6 +99,7 @@ const dashboard = () => {
 
   useEffect(() => {
     const compOrDist =
+
       user.company === null
         ? {
             endpoint: "digipoints-redeem-status-all-distri",
@@ -122,12 +123,9 @@ const dashboard = () => {
           }
         )
         .then(({ data }) => {
-          console.log(data);
-
           if (data.length < 3) {
             setTypeHeader(2);
           }
-
           setParticipantes(data);
         });
     }
@@ -171,7 +169,6 @@ const dashboard = () => {
         </div>
       );
     }
-
     if (typeHeader === 1) {
       return (
         <figure
