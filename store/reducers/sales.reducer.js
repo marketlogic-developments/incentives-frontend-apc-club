@@ -214,10 +214,29 @@ export const getDigipointsPa = (token, data) => async (dispatch) => {
     console.log(err);
   }
 };
-export const getSalesBySegment = (token, data) => async (dispatch) => {
+export const getSalesBySegmentComp = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(`${process.env.BACKURL}/reporters/salesbysegment/${data}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        dispatch(getSalesSegment(res.data));
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getSalesBySegmentDist = (token, data) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/salesbysegment-distri/${data}`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -230,7 +249,7 @@ export const getSalesBySegment = (token, data) => async (dispatch) => {
   }
 };
 
-export const getSalesByType = (token, data) => async (dispatch) => {
+export const getSalesByTypeComp = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(`${process.env.BACKURL}/reporters/salesbybtype/${data}`, {
@@ -247,6 +266,25 @@ export const getSalesByType = (token, data) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const getSalesByTypeDist = (token, data) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/salesbybtype-distri/${data}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        dispatch(getSalesType(res.data));
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const getSalesAll = (token) => async (dispatch) => {
   try {
     return axios
@@ -262,6 +300,7 @@ export const getSalesAll = (token) => async (dispatch) => {
     console.log(err);
   }
 };
+
 export const getSalesAllByChannel = (token, data) => async (dispatch) => {
   try {
     return axios

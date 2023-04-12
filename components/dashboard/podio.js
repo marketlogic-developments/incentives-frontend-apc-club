@@ -22,15 +22,6 @@ const Podio = ({ sortedData, participantes }) => {
     t("meses.diciembre"),
   ];
 
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (isLoaded && sortedData) {
-      console.table(sortedData);
-    }
-  }, [isLoaded, sortedData]);
   return (
     <div className="w-full h-2/4 w-full bg-base-100 max-sm:flex max-sm:flex-col sm:flex-row justify-between">
       <div className="flex flex-col mx-auto items-center">

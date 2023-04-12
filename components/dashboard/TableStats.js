@@ -1,13 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSalesBySegment } from "../../store/reducers/sales.reducer";
+import {
+  getSalesBySegment,
+  getSalesBySegmentComp,
+  getSalesBySegmentDist,
+} from "../../store/reducers/sales.reducer";
 
 const TableStats = () => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const company = useSelector((state) => state.user.company);
+  const distribuitor = useSelector((state) => state.user.distribuitor);
   const [totalSales, setTotalSales] = useState([]);
   const [percentageTotal, setpercentageTotal] = useState(0);
   const [goalSales, setGoalSales] = useState(0);
@@ -17,7 +22,13 @@ const TableStats = () => {
 
   useEffect(() => {
     if (token && dataFromAxios.length === 0) {
-      dispatch(getSalesBySegment(token, company.resellerMasterId));
+      if (user.company === null) {
+        dispatch(
+          getSalesBySegmentDist(token, user.distributionChannelId.soldToParty)
+        );
+      } else {
+        dispatch(getSalesBySegmentComp(token, user.company.resellerMasterId));
+      }
     }
   }, [token]);
 

@@ -94,6 +94,8 @@ const Layout = ({ children }) => {
               }
             )
             .then(({ data }) => {
+              console.log(data);
+
               if (compOrDist.endpoint === "distribution-channel") {
                 dispatch(setDistribuitor(data));
               } else {
