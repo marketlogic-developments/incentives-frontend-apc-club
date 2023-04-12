@@ -151,7 +151,7 @@ const puntosporventas = () => {
             </div>
             <button
               className="btn btn-primary w-max justify-self-end"
-              onClick={() => importFile(datosdummy)}
+              onClick={() => importFile(data)}
             >
               Exportar
             </button>
