@@ -264,7 +264,7 @@ const Layout = ({ children }) => {
       text: t("menu.Puntos_por_ventas"),
     },
     {
-      page: "/digipoints",
+      page: "/digipointsall",
       icon: (
         <svg
           width={30}

@@ -5,6 +5,7 @@ import {
   getSalesBySegment,
   getSalesBySegmentComp,
   getSalesBySegmentDist,
+  getSalesBySegmentAll,
 } from "../../store/reducers/sales.reducer";
 
 const TableStats = () => {
@@ -22,7 +23,9 @@ const TableStats = () => {
 
   useEffect(() => {
     if (token && dataFromAxios.length === 0) {
-      if (user.company === null) {
+      if (user.roleId === 1) {
+        dispatch(getSalesBySegmentAll(token));
+      } else if (user.company === null) {
         dispatch(
           getSalesBySegmentDist(token, user.distributionChannel.soldToParty)
         );
@@ -30,7 +33,7 @@ const TableStats = () => {
         dispatch(getSalesBySegmentComp(token, user.company.resellerMasterId));
       }
     }
-  }, [token]);
+  }, [token, user]);
 
   useEffect(() => {
     setTotalSales(dataFromAxios);

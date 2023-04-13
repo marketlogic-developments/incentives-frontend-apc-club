@@ -52,7 +52,7 @@ const Información = () => {
               : "No"}
           </p>
         </div>
-        <div>
+        {/* <div>
           <label className="label">
             <span className="label-text">Meta por Q</span>
           </label>
@@ -73,7 +73,7 @@ const Información = () => {
               ? distribuitor.goalsPerYearDist
               : company.goalsPerYear}
           </p>
-        </div>
+        </div> */}
         <div>
           <label className="label">
             <span className="label-text">Partner Admin</span>

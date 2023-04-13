@@ -6,6 +6,7 @@ import {
   getSalesByType,
   getSalesByTypeComp,
   getSalesByTypeDist,
+  getSalesByTypeAll,
 } from "../../store/reducers/sales.reducer";
 
 const GraphSales = () => {
@@ -21,7 +22,9 @@ const GraphSales = () => {
 
   useEffect(() => {
     if (token && sales.length === 0) {
-      if (user.company === null) {
+      if (user.roleId === 1) {
+        dispatch(getSalesByTypeAll(token));
+      } else if (user.company === null) {
         dispatch(
           getSalesByTypeDist(token, user.distributionChannel.soldToParty)
         );

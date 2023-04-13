@@ -334,7 +334,7 @@ const DigipointsDistribution = () => {
                     <td className="py-4 px-6">{obj?.date}</td>
                     <td className="py-4 px-6">{obj?.client}</td>
                     <td className="py-4 px-6">{obj?.marketSegment}</td>
-                    <td className="py-4 px-6">{obj?.salesQuantity}</td>
+                    <td className="py-4 px-6">${obj?.salesQuantity}</td>
                     <td className="py-4 px-6">{obj?.digipoints}</td>
                     <td className="py-4 px-6">
                       {obj.status === false ? (

@@ -178,7 +178,23 @@ export const createSaleData = (token, data) => async (dispatch) => {
     console.log(err);
   }
 };
-
+export const getDigipointsAll = (token) => async (dispatch) => {
+  try {
+    axios
+      .get(`${process.env.BACKURL}/reporters/partner-admin-accums-all/`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        dispatch(getDigiPa(res.data));
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
 export const getDigipointsPa = (token, data) => async (dispatch) => {
   try {
     axios
@@ -214,6 +230,24 @@ export const getDigipointsPa = (token, data) => async (dispatch) => {
     console.log(err);
   }
 };
+export const getSalesBySegmentAll = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/salesbysegmentall/`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        dispatch(getSalesSegment(res.data));
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
 export const getSalesBySegmentComp = (token, data) => async (dispatch) => {
   try {
     return axios
@@ -244,6 +278,23 @@ export const getSalesBySegmentDist = (token, data) => async (dispatch) => {
         },
       })
       .then((res) => dispatch(getSalesSegment(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const getSalesByTypeAll = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/salesbybtypeall/`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        dispatch(getSalesType(res.data));
+      });
   } catch (err) {
     console.log(err);
   }
