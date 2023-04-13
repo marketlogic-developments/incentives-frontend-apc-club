@@ -350,8 +350,9 @@ const DigipointsDistribution = () => {
                       ) : (
                         <button
                           className="btn btn-secondary btn-xs"
-                          onClick={() =>
-                            handleUnassign({ ...obj, index: index })
+                          onClick={
+                            () => console.log("")
+                            // handleUnassign({ ...obj, index: index })
                           }
                         >
                           Asignado
