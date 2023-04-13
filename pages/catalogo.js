@@ -33,7 +33,7 @@ const catalogo = () => {
 
   useEffect(() => {
     if (token && arrayAwards.length === 0) {
-      dispatch(getDataAwards(token));
+      dispatch(getDataAwards(token, user));
     }
   }, [token]);
 

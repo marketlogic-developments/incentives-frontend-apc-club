@@ -31,6 +31,13 @@ const PerUsers = ({
   });
 
   const handleAsign = () => {
+    if (dataModal.length === 0) {
+      return Toast.fire({
+        icon: "error",
+        title: "Debes elegir al menos un usuario para asignar esta factura",
+      });
+    }
+
     const usersAsign = dataModal.map((data) => ({
       invoiceId: invoiceData.invoices_included.toString(),
       vendorId: data.id,

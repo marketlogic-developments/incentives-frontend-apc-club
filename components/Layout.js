@@ -9,6 +9,7 @@ import {
   setCompany,
   setDigipoints,
   setDistribuitor,
+  setInitialStateUser,
   userLogin,
   userToken,
 } from "../store/reducers/users.reducer";
@@ -16,6 +17,11 @@ import MobileMenu from "./MobileMenu";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { changeLoadingData } from "../store/reducers/loading.reducer";
+import { setInitialStateAwards } from "../store/reducers/awards.reducer";
+import { setInitialStateCompany } from "../store/reducers/company.reducer";
+import { setInitialStateOrders } from "../store/reducers/orders.reducer";
+import { setInitialStateSales } from "../store/reducers/sales.reducer";
+import { setInitialStateTeams } from "../store/reducers/teams.reducer";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -786,6 +792,13 @@ const Layout = ({ children }) => {
   };
 
   const logout = () => {
+    dispatch(setInitialStateAwards());
+    dispatch(setInitialStateCompany());
+    dispatch(setInitialStateOrders());
+    dispatch(setInitialStateTeams());
+    dispatch(setInitialStateSales());
+    dispatch(setInitialStateUser());
+
     dispatch(changeLoadingData(true));
     window.sessionStorage.removeItem("infoDt");
     Cookies.remove("dp");
