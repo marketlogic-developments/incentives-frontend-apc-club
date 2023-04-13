@@ -311,7 +311,7 @@ const DigipointsDistribution = () => {
                     Cliente
                   </th>
                   <th scope="col" className="py-3 px-6">
-                    {t("tabla.hproductos")}
+                    Segmento de mercado
                   </th>
                   <th scope="col" className="py-3 px-6">
                     {t("tabla.cantidad")}
@@ -331,10 +331,10 @@ const DigipointsDistribution = () => {
                     key={obj?.invoices_included}
                   >
                     <td className="py-4 px-6">{obj?.invoices_included}</td>
-                    <td className="py-4 px-6">{obj?.date}</td>
+                    <td className="py-4 px-6 min-w-[130px]">{obj?.date}</td>
                     <td className="py-4 px-6">{obj?.client}</td>
                     <td className="py-4 px-6">{obj?.marketSegment}</td>
-                    <td className="py-4 px-6">${obj?.salesQuantity}</td>
+                    <td className="py-4 px-6">{obj?.salesQuantity}</td>
                     <td className="py-4 px-6">{obj?.digipoints}</td>
                     <td className="py-4 px-6">
                       {obj.status === false ? (
