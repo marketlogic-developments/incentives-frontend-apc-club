@@ -231,7 +231,7 @@ const TableStats = () => {
           >
             <div className="w-5/6 h-5/6 bg-primary text-center p-5 flex flex-col items-center justify-center rounded-full text-white">
               <p className="font-bold text-md">${goalSales}</p>
-              <p className="text-sm">{percentageTotal}%</p>
+              {/* <p className="text-sm">{percentageTotal}%</p> */}
             </div>
           </div>
         </div>

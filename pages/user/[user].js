@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import ContainerContent from "../../components/containerContent";
 import { policyAndPassword } from "../../store/reducers/users.reducer";
+import ModalPassword from "../../components/user/modalPassword";
 
 const user = () => {
   const user = useSelector((state) => state.user.user);
@@ -16,10 +17,11 @@ const user = () => {
   const [nInputs, setNInputs] = useState(0);
   const [modal, setModal] = useState(0);
   const [image, setImage] = useState({});
+  const [viewimage, setviewImage] = useState("");
   const [t, i18n] = useTranslation("global");
 
   const [formData, setFormData] = useState({
-    name: "",
+    names: "",
     lastname: "",
     email: "",
     role: "",
@@ -32,7 +34,7 @@ const user = () => {
 
   useEffect(() => {
     setFormData({
-      name: user?.names,
+      names: user?.names,
       lastname: user?.lastName,
       email: user?.email,
       role: user?.roleId,
@@ -44,24 +46,26 @@ const user = () => {
     });
 
     const num = Object.values({
-      name: user?.names,
-      lastname: user?.lastName,
-      email: user?.email,
-      role: user?.roleId,
-      position: user?.position,
-      region: user?.region,
-      imgProfile: user?.profilePhotoPath,
-      birthDate: user?.birthDate,
-      phone: user?.phoneNumber,
-    }).filter((e) => e !== null || e !== "").length;
+      name: user.names,
+      lastname: user.lastName,
+      imgProfile: user.profilePhotoPath,
+      birthDate: user.birthDate,
+      phone: user.phoneNumber,
+    }).filter((e) => e !== "" && e !== null).length;
 
-    setNInputs(parseInt((num * 100) / 9));
+    setNInputs(parseInt((num * 100) / 5));
   }, [user]);
 
   const handleChangeInputs = () => {
-    const num = Object.values(formData).filter((e) => e !== "").length;
+    const num = Object.values({
+      name: formData.names,
+      lastname: formData.lastname,
+      imgProfile: formData.imgProfile,
+      birthDate: formData.birthDate,
+      phone: formData.phone,
+    }).filter((e) => e !== "" && e !== null).length;
 
-    setNInputs(parseInt((num * 100) / 9));
+    setNInputs(parseInt((num * 100) / 5));
   };
 
   const handleChange = (e) => {
@@ -83,7 +87,6 @@ const user = () => {
 
     const jsonData = () => {
       return {
-        profilePhotoPath: formData.imgProfile,
         names: formData.name,
         lastName: formData.lastname,
         birthDate: formData.birthDate,
@@ -107,7 +110,15 @@ const user = () => {
   };
 
   const handleImgProfile = (e) => {
+    const reader = new FileReader();
     const file = e.target.files[0];
+
+    reader.onload = (e) => {
+      const dataURL = e.target.result;
+      setviewImage({ path: dataURL });
+    };
+
+    reader.readAsDataURL(file);
     setImage(file);
   };
 
@@ -123,12 +134,25 @@ const user = () => {
         `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`,
         form
       )
-      .then((res) =>
-        setFormData({
-          ...formData,
-          imgProfile: res.data.url,
-        })
-      )
+      .then((res) => {
+        axios
+          .patch(
+            `${process.env.BACKURL}/users/${user.id}`,
+            { profilePhotoPath: res.data.url },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res2) => {
+            setFormData({
+              ...formData,
+              imgProfile: res.data.url,
+            });
+          });
+      })
       .catch((error) => console.log(error));
   };
 
@@ -142,10 +166,23 @@ const user = () => {
     }
     if (modal === 1) {
       return (
-        <>
+        <div className="flex flex-col w-full justify-center items-center gap-10">
+          <div className="w-1/5">
+            <figure className="imgPhoto border-red-600 border rounded-full">
+              <img
+                src={
+                  viewimage === ""
+                    ? formData.imgProfile === null || formData.imgProfile === ""
+                      ? "/assets/Icons/user.webp"
+                      : formData.imgProfile
+                    : viewimage.path
+                }
+              />
+            </figure>
+          </div>
           <div className="max-w-xl">
-            <label className="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
-              <span className="flex items-center space-x-2">
+            <label className="flex flex-col justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+              <span className="flex flex-col jusitfy-center items-center space-x-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-6 text-gray-600"
@@ -160,9 +197,8 @@ const user = () => {
                     d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                   />
                 </svg>
-                <span className="font-medium text-gray-600">
-                  Drop files to Attach, or
-                  <span className="text-blue-600 underline"> rowse</span>
+                <span className="font-medium text-gray-600 text-center">
+                  Arrastra tu foto aquí o selecciona una de tu equipo
                 </span>
               </span>
               <input
@@ -174,18 +210,28 @@ const user = () => {
             </label>
           </div>
           <button className="btn btn-primary" onClick={handleSubmitImgProfile}>
-            Actualizar foto de perfil
+            Subir mi nueva foto
           </button>
-        </>
+        </div>
       );
     }
-  }, [modal, opened, image]);
 
-  console.log(formData);
+    if (modal === 2) {
+      return <ModalPassword setOpened={setOpened} />;
+    }
+  }, [modal, opened, image, viewimage]);
 
   return (
     <>
-      <Modal opened={opened} onClose={() => setOpened(false)} centered>
+      <Modal
+        opened={opened}
+        onClose={() => {
+          setviewImage("");
+          setOpened(false);
+        }}
+        centered
+        size={"50%"}
+      >
         {typeModal}
       </Modal>
       <ContainerContent pageTitle={"Ajustes de perfil"}>
@@ -246,8 +292,8 @@ const user = () => {
                       type="text"
                       placeholder={t("user.escriba")}
                       className="input input-ghost w-full max-w-xs border border-accent"
-                      name="name"
-                      value={formData.name}
+                      name="names"
+                      value={formData.names}
                       onChange={handleChange}
                       onBlur={handleChangeInputs}
                       required
@@ -298,6 +344,17 @@ const user = () => {
                         : formData.role === 5
                         ? "Sales Rep"
                         : ""}
+                    </span>
+                  </div>
+                  <div className="form-control w-full max-w-xs py-10">
+                    <span
+                      className="btn btn-primary"
+                      onClick={() => {
+                        setModal(2);
+                        setOpened(true);
+                      }}
+                    >
+                      Cambiar contraseña
                     </span>
                   </div>
                 </div>

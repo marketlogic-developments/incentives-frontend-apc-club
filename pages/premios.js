@@ -14,6 +14,8 @@ import { Modal } from "@mantine/core";
 import axios from "axios";
 import Swal from "sweetalert2";
 import ImportacionPremios from "../components/premios/ImportacionPremios";
+import jsonexport from "jsonexport";
+import { saveAs } from "file-saver";
 
 const premios = () => {
   const [formData, setFormData] = useState({
@@ -168,10 +170,19 @@ const premios = () => {
   };
 
   const importFile = (data) => {
-    const workbook = XLSX.utils.book_new();
-    const sheet = XLSX.utils.json_to_sheet(data);
-    XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
-    XLSX.writeFile(workbook, "Liste_De_Premios.xlsx");
+    // const workbook = XLSX.utils.book_new();
+    // const sheet = XLSX.utils.json_to_sheet(data);
+    // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
+    // XLSX.writeFile(workbook, "Liste_De_Premios.xlsx");
+
+    jsonexport(data, (error, csv) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "Tarjetas-2023.csv");
+    });
   };
 
   const typeModal = useMemo(() => {

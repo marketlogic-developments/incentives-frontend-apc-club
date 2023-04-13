@@ -1055,7 +1055,7 @@ const Layout = ({ children }) => {
                     />
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="user">
+                    <div className="user min-w-[34px]">
                       <Menu trigger="hover" openDelay={100} closeDelay={400}>
                         <Menu.Target>
                           <div className="userPreMenu">

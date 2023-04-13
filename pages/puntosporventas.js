@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import ContainerContent from "../components/containerContent";
 import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import ReactPaginate from "react-paginate";
@@ -12,6 +11,8 @@ import {
   getSalesAllByChannel,
   getSalesAllByDist,
 } from "../store/reducers/sales.reducer";
+import jsonexport from "jsonexport";
+import { saveAs } from "file-saver";
 
 const puntosporventas = () => {
   const [t, i18n] = useTranslation("global");
@@ -41,21 +42,21 @@ const puntosporventas = () => {
     if (token && data.length === 0) {
       setLoading(true);
       if (user.roleId === 1) {
-        dispatch(getSalesAll(token))
-          .then((response) => {
-            setLoading(false);
-          });
-
+        dispatch(getSalesAll(token)).then((response) => {
+          setLoading(false);
+        });
       } else if (user.companyId === null) {
-        dispatch(getSalesAllByDist(token, distribuitor.soldToParty))
-          .then((response) => {
+        dispatch(getSalesAllByDist(token, distribuitor.soldToParty)).then(
+          (response) => {
             setLoading(false);
-          });
+          }
+        );
       } else {
-        dispatch(getSalesAllByChannel(token, company.resellerMasterId))
-          .then((response) => {
+        dispatch(getSalesAllByChannel(token, company.resellerMasterId)).then(
+          (response) => {
             setLoading(false);
-          });;
+          }
+        );
       }
     }
   }, [isLoaded, token]);
@@ -72,10 +73,21 @@ const puntosporventas = () => {
   };
 
   const filteredUsers = data.filter((user) => {
-    if (emailFilter && !user.reseller_partner_rollup.toLowerCase().includes(emailFilter.toLowerCase())) {
+    if (
+      emailFilter &&
+      !user.reseller_partner_rollup
+        .toLowerCase()
+        .includes(emailFilter.toLowerCase())
+    ) {
       return false;
     }
-    if (reasonAssignFilter && !user.business_unit.toString().toLowerCase().includes(reasonAssignFilter.toLowerCase())) {
+    if (
+      reasonAssignFilter &&
+      !user.business_unit
+        .toString()
+        .toLowerCase()
+        .includes(reasonAssignFilter.toLowerCase())
+    ) {
       return false;
     }
     return true;
@@ -86,10 +98,14 @@ const puntosporventas = () => {
     setReasonAssignFilter("");
   };
 
-  const uniqueEmails = [...new Set(data.map(user => user.reseller_partner_rollup))];
+  const uniqueEmails = [
+    ...new Set(data.map((user) => user.reseller_partner_rollup)),
+  ];
   uniqueEmails.sort((a, b) => a.localeCompare(b));
 
-  const uniqueReasonAssign = [...new Set(data.map(user => user.business_unit))];
+  const uniqueReasonAssign = [
+    ...new Set(data.map((user) => user.business_unit)),
+  ];
 
   function Table({ currentItems }) {
     return (
@@ -152,7 +168,10 @@ const puntosporventas = () => {
     return filteredUsers.slice(itemOffset, endOffset);
   }, [itemOffset, data, filteredUsers]);
 
-  const pageCount = useMemo(() => Math.ceil(filteredUsers.length / itemsPerPage), [filteredUsers, itemsPerPage]);
+  const pageCount = useMemo(
+    () => Math.ceil(filteredUsers.length / itemsPerPage),
+    [filteredUsers, itemsPerPage]
+  );
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % filteredUsers.length;
@@ -163,10 +182,19 @@ const puntosporventas = () => {
   };
 
   const importFile = (data) => {
-    const workbook = XLSX.utils.book_new();
-    const sheet = XLSX.utils.json_to_sheet(data);
-    XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
-    XLSX.writeFile(workbook, "Puntos_Por_Ventas.xlsx");
+    // const workbook = XLSX.utils.book_new();
+    // const sheet = XLSX.utils.json_to_sheet(data);
+    // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
+    // XLSX.writeFile(workbook, "Puntos_Por_Ventas.xlsx");
+
+    jsonexport(data, (error, csv) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "Puntos_por_ventas.csv");
+    });
   };
 
   return (
@@ -176,9 +204,8 @@ const puntosporventas = () => {
           <h1 className="font-bold text-3xl">{t("tabla.ppventas")}</h1>
         </div>
         <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
-          {!loading &&
+          {!loading && (
             <div className="w-full grid grid-cols-3 gap-4 mb-4">
-
               <div className="relative">
                 <select
                   value={emailFilter}
@@ -186,7 +213,7 @@ const puntosporventas = () => {
                   className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                 >
                   <option value="">Organizacion</option>
-                  {uniqueEmails.map(email => (
+                  {uniqueEmails.map((email) => (
                     <option key={email} value={email}>
                       {email}
                     </option>
@@ -214,7 +241,7 @@ const puntosporventas = () => {
                   className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                 >
                   <option value="">Unidad de negocio</option>
-                  {uniqueReasonAssign.map(reason => (
+                  {uniqueReasonAssign.map((reason) => (
                     <option key={reason} value={reason}>
                       {reason}
                     </option>
@@ -235,7 +262,10 @@ const puntosporventas = () => {
                 </div>
               </div>
               <div className="relative justify-items-center grid grid-flow-col">
-                <button className="btn bg-red-500 hover:bg-red-700 text-white font-bold text-[12px] h-1 min-h-full rounded-full" onClick={handleResetFilters}>
+                <button
+                  className="btn bg-red-500 hover:bg-red-700 text-white font-bold text-[12px] h-1 min-h-full rounded-full"
+                  onClick={handleResetFilters}
+                >
                   Limpiar filtro
                 </button>
                 <button
@@ -245,7 +275,8 @@ const puntosporventas = () => {
                   Exportar
                 </button>
               </div>
-            </div>}
+            </div>
+          )}
 
           {loading && <div className="lds-dual-ring"></div>}
           {!loading && <Table currentItems={currentItems} />}
