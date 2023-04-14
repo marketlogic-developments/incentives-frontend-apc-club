@@ -321,9 +321,6 @@ const DigipointsDistribution = () => {
                     Digipoints
                   </th>
                   <th scope="col" className="py-3 px-6">
-                    {t("tabla.valorVenta")}
-                  </th>
-                  <th scope="col" className="py-3 px-6">
                     {t("tabla.asignar")}
                   </th>
                 </tr>
@@ -339,9 +336,6 @@ const DigipointsDistribution = () => {
                     <td className="py-4 px-6">{obj?.client}</td>
                     <td className="py-4 px-6">{obj?.marketSegment}</td>
                     <td className="py-4 px-6">{obj?.digipoints}</td>
-                    <td className="py-4 px-6">
-                      ${Math.round(obj?.totalSalesAmount)}
-                    </td>
                     <td className="py-4 px-6">
                       {obj.status === false ? (
                         <button
