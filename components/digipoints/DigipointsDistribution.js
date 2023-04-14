@@ -314,9 +314,6 @@ const DigipointsDistribution = () => {
                     Segmento de mercado
                   </th>
                   <th scope="col" className="py-3 px-6">
-                    {t("tabla.cantidad")}
-                  </th>
-                  <th scope="col" className="py-3 px-6">
                     Digipoints
                   </th>
                   <th scope="col" className="py-3 px-6">
@@ -334,7 +331,6 @@ const DigipointsDistribution = () => {
                     <td className="py-4 px-6 min-w-[130px]">{obj?.date}</td>
                     <td className="py-4 px-6">{obj?.client}</td>
                     <td className="py-4 px-6">{obj?.marketSegment}</td>
-                    <td className="py-4 px-6">{obj?.salesQuantity}</td>
                     <td className="py-4 px-6">{obj?.digipoints}</td>
                     <td className="py-4 px-6">
                       {obj.status === false ? (
