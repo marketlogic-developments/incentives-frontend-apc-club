@@ -94,7 +94,7 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
 
         return Toast.fire({
           icon: "error",
-          title: "Ha ocurrido un error, inténtalo más tarde",
+          title: t("table.notiError"),
         });
       });
 

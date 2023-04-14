@@ -36,7 +36,7 @@ const PerUsers = ({
     if (dataModal.length === 0) {
       return Toast.fire({
         icon: "error",
-        title: "Debes elegir al menos un usuario para asignar esta factura",
+        title: t("digipoints.notiUser"),
       });
     }
 
@@ -77,6 +77,8 @@ const PerUsers = ({
         });
       });
   };
+
+  console.log(dataModal);
 
   return (
     <div className="grid grid-cols-2 h-[500px]">
@@ -127,7 +129,15 @@ const PerUsers = ({
               type="text"
               placeholder={t("tabla.buscarEmail")}
               onChange={(e) => setSearchByEmail(e.target.value)}
-              onFocus={() => setListUsers(true)}
+              onFocus={() => {
+                if (dataModal.length === 1) {
+                  return Toast.fire({
+                    icon: "error",
+                    title: "Ya tienes un usuario en la fila",
+                  });
+                }
+                setListUsers(true);
+              }}
               onBlur={() => {
                 if (hover === false) {
                   return setListUsers(false);

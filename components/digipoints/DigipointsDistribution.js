@@ -321,7 +321,7 @@ const DigipointsDistribution = () => {
                     Digipoints
                   </th>
                   <th scope="col" className="py-3 px-6">
-                    Valor de la venta
+                    {t("tabla.valorVenta")}
                   </th>
                   <th scope="col" className="py-3 px-6">
                     {t("tabla.asignar")}

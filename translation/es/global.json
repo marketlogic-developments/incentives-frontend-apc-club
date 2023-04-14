@@ -131,7 +131,8 @@
     "NoFactura": "No. Factura",
     "digiEstimados": "DigiPoints estimados por Representante de ventas",
     "asignarRep": "Asignar Representante de Ventas",
-    "successFact": "Tu factura fue asignada de manera exitosa"
+    "successFact": "Tu factura fue asignada de manera exitosa",
+    "notiUser": "Debes elegir al menos un usuario para asignar esta factura"
   },
   "files": {},
   "participantes": {
@@ -195,7 +196,9 @@
     "tipoDist": "Tipo",
     "nombreDist": "Nombre de distribuidor",
     "nombreCanal": "Nombre del Canal",
-    "addParticipante": "Agregar Participante"
+    "addParticipante": "Agregar Participante",
+    "valorVenta": "de Venta",
+    "notiError": "Ha ocurrido un error, intentalo más tarde"
   },
   "shoopingcar": {
     "carrito": "Carrito",
