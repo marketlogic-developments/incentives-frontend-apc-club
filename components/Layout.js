@@ -923,7 +923,10 @@ const Layout = ({ children }) => {
         <div className="globalContent bg-primary">
           <div className="containerLayout">
             <div className="mt-10 flex flex-col h-[80%]">
-              <div className="logoAdobe">
+              <div
+                className="logoAdobe cursor-pointer"
+                onClick={() => router.push("/dashboard")}
+              >
                 <figure className="flex">
                   <img src="/assets/dashboard/logoapc.webp"></img>
                 </figure>

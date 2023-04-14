@@ -52,7 +52,7 @@ const PerUsers = ({
         {
           partnerAdminId: user.id,
           assignType: "amount",
-          isGold: false,
+          isGold: user.companyId === null ? true : false,
           assignValues: usersAsign,
         },
         {
@@ -68,6 +68,12 @@ const PerUsers = ({
         return Toast.fire({
           icon: "success",
           title: t("digipoints.successFact"),
+        });
+      })
+      .catch(() => {
+        return Toast.fire({
+          icon: "error",
+          title: "An error has occurred",
         });
       });
   };

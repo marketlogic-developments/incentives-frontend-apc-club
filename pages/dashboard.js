@@ -100,7 +100,6 @@ const dashboard = () => {
 
   useEffect(() => {
     const compOrDist =
-
       user.company === null
         ? {
             endpoint: "digipoints-redeem-status-all-distri",
@@ -204,7 +203,11 @@ const dashboard = () => {
           )}
 
           <a
-            href="assets/pdf/HTW.pdf"
+            href={
+              user.companyId === null
+                ? t("dashboard.pdfDist")
+                : t("dashboard.pdfComp")
+            }
             alt="HTW"
             target="_blank"
             className="w-full flex justify-center"
