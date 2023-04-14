@@ -164,7 +164,7 @@ const puntosporventas = () => {
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+
     return filteredUsers.slice(itemOffset, endOffset);
   }, [itemOffset, data, filteredUsers]);
 
@@ -175,9 +175,7 @@ const puntosporventas = () => {
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % filteredUsers.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+
     setItemOffset(newOffset);
   };
 

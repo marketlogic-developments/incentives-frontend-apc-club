@@ -32,7 +32,7 @@ const dashboard = () => {
   const company = useSelector((state) => state.user.company);
   const distribuitor = useSelector((state) => state.user.distribuitor);
   const [opened, setOpened] = useState(false);
-  const [opened2, setOpened2] = useState(true);
+  const [opened2, setOpened2] = useState(false);
   const [view, setView] = useState("password");
   const dispatch = useDispatch();
   const route = useRouter();
@@ -42,8 +42,6 @@ const dashboard = () => {
   const [modalType, setModalType] = useState([]);
 
   const [participantes, setParticipantes] = useState([]);
-
-  console.log(user);
 
   const userData = useMemo(() => {
     if (user !== 0) {

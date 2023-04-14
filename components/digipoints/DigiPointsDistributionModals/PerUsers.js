@@ -78,8 +78,6 @@ const PerUsers = ({
       });
   };
 
-  console.log(dataModal);
-
   return (
     <div className="grid grid-cols-2 h-[500px]">
       <div className="flex flex-col justify-between relative px-10">
