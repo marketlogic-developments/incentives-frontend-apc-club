@@ -336,9 +336,6 @@ const DigipointsAll = () => {
               ID ORG
             </th>
             <th scope="col" className="py-3 px-6">
-              {t("tabla.cantidad")}
-            </th>
-            <th scope="col" className="py-3 px-6">
               Digipoints
             </th>
             <th scope="col" className="py-3 px-6">
@@ -357,7 +354,6 @@ const DigipointsAll = () => {
                 <td className="py-4 px-6">{obj?.invoices_included}</td>
                 <td className="py-4 px-6">{obj?.company_or_channel_name}</td>
                 <td className="py-4 px-6">{obj?.company_or_channel_id}</td>
-                <td className="py-4 px-6">${obj?.invoice_amount}</td>
                 <td className="py-4 px-6">{obj?.digipoints_allocate}</td>
                 <td className="py-4 px-6">
                   {obj.status === false ? (
