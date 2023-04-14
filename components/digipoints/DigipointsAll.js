@@ -12,7 +12,7 @@ import {
   getDigiPoints,
   setDigipoints,
 } from "../../store/reducers/users.reducer";
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const DigipointsAll = () => {
@@ -155,7 +155,7 @@ const DigipointsAll = () => {
       return (
         <div className="flex flex-col gap-10">
           <h2 className="font-bold">Distribución de DigiPoints</h2>
-          <p>Seleccione una opción para distribuir los DigiPoints</p>
+          <p>Selecciona una opción para distribuir los DigiPoints</p>
           <select
             className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
             onChange={(e) => setSalesOption(e.target.value)}
@@ -299,10 +299,21 @@ const DigipointsAll = () => {
   };
 
   const filteredUsers = data.filter((user) => {
-    if (emailFilter && !user.company_or_channel_name.toLowerCase().includes(emailFilter.toLowerCase())) {
+    if (
+      emailFilter &&
+      !user.company_or_channel_name
+        .toLowerCase()
+        .includes(emailFilter.toLowerCase())
+    ) {
       return false;
     }
-    if (reasonAssignFilter && !user.invoices_included.toString().toLowerCase().includes(reasonAssignFilter.toLowerCase())) {
+    if (
+      reasonAssignFilter &&
+      !user.invoices_included
+        .toString()
+        .toLowerCase()
+        .includes(reasonAssignFilter.toLowerCase())
+    ) {
       return false;
     }
     return true;
@@ -313,75 +324,80 @@ const DigipointsAll = () => {
     setReasonAssignFilter("");
   };
 
-  const uniqueEmails = [...new Set(data.map(user => user.company_or_channel_name))];
+  const uniqueEmails = [
+    ...new Set(data.map((user) => user.company_or_channel_name)),
+  ];
   uniqueEmails.sort((a, b) => a.localeCompare(b));
 
-  const uniqueReasonAssign = [...new Set(data.map(user => user.invoices_included))];
+  const uniqueReasonAssign = [
+    ...new Set(data.map((user) => user.invoices_included)),
+  ];
 
   function Table({ currentItems }) {
-    return (<>
-      <table className="w-full text-sm text-left text-black-500">
-        <thead className="text-xs text-black-500 uppercase">
-          <tr>
-            <th scope="col" className="py-3 px-6">
-              {t("tabla.fecha")}
-            </th>
-            <th scope="col" className="py-3 px-6">
-              {t("tabla.nfactura")}
-            </th>
-            <th scope="col" className="py-3 px-6">
-              ORGANIZACION
-            </th>
-            <th scope="col" className="py-3 px-6">
-              ID ORG
-            </th>
-            <th scope="col" className="py-3 px-6">
-              Digipoints
-            </th>
-            <th scope="col" className="py-3 px-6">
-              Estado
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentItems &&
-            currentItems.map((obj, index) => (
-              <tr
-                className="bg-white border-b dark:border-gray-500"
-                key={index}
-              >
-                <td className="py-4 px-6">{formatDate(obj?.load_date)}</td>
-                <td className="py-4 px-6">{obj?.invoices_included}</td>
-                <td className="py-4 px-6">{obj?.company_or_channel_name}</td>
-                <td className="py-4 px-6">{obj?.company_or_channel_id}</td>
-                <td className="py-4 px-6">{obj?.digipoints_allocate}</td>
-                <td className="py-4 px-6">
-                  {obj.status === false ? (
-                    <span
-                    /* className="btn btn-primary btn-xs"
+    return (
+      <>
+        <table className="w-full text-sm text-left text-black-500">
+          <thead className="text-xs text-black-500 uppercase">
+            <tr>
+              <th scope="col" className="py-3 px-6">
+                {t("tabla.fecha")}
+              </th>
+              <th scope="col" className="py-3 px-6">
+                {t("tabla.nfactura")}
+              </th>
+              <th scope="col" className="py-3 px-6">
+                ORGANIZACION
+              </th>
+              <th scope="col" className="py-3 px-6">
+                ID ORG
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Digipoints
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Estado
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentItems &&
+              currentItems.map((obj, index) => (
+                <tr
+                  className="bg-white border-b dark:border-gray-500"
+                  key={index}
+                >
+                  <td className="py-4 px-6">{formatDate(obj?.load_date)}</td>
+                  <td className="py-4 px-6">{obj?.invoices_included}</td>
+                  <td className="py-4 px-6">{obj?.company_or_channel_name}</td>
+                  <td className="py-4 px-6">{obj?.company_or_channel_id}</td>
+                  <td className="py-4 px-6">{obj?.digipoints_allocate}</td>
+                  <td className="py-4 px-6">
+                    {obj.status === false ? (
+                      <span
+                      /* className="btn btn-primary btn-xs"
                     onClick={() => {
                       setInvoiceData({ ...obj, index: index });
                       setOpened(true);
                     }} */
-                    >
-                      Sin asignar
-                    </span>
-                  ) : (
-                    <span
-                    /* className="btn btn-secondary btn-xs"
+                      >
+                        Sin asignar
+                      </span>
+                    ) : (
+                      <span
+                      /* className="btn btn-secondary btn-xs"
                     onClick={() =>
                       handleUnassign({ ...obj, index: index })
                     } */
-                    >
-                      Asignado
-                    </span>
-                  )}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-    </>
+                      >
+                        Asignado
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </>
     );
   }
   const [itemOffset, setItemOffset] = useState(0);
@@ -392,7 +408,10 @@ const DigipointsAll = () => {
     return filteredUsers.slice(itemOffset, endOffset);
   }, [itemOffset, data, filteredUsers]);
 
-  const pageCount = useMemo(() => Math.ceil(filteredUsers.length / itemsPerPage), [filteredUsers, itemsPerPage]);
+  const pageCount = useMemo(
+    () => Math.ceil(filteredUsers.length / itemsPerPage),
+    [filteredUsers, itemsPerPage]
+  );
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % filteredUsers.length;
@@ -421,9 +440,8 @@ const DigipointsAll = () => {
       </Modal>
       <div className="m-6 flex flex-col gap-16">
         <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
-          {!loading &&
+          {!loading && (
             <div className="w-full grid grid-cols-3 gap-4 mb-4">
-
               <div className="relative">
                 <select
                   value={emailFilter}
@@ -431,7 +449,7 @@ const DigipointsAll = () => {
                   className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                 >
                   <option value="">Organizacion</option>
-                  {uniqueEmails.map(email => (
+                  {uniqueEmails.map((email) => (
                     <option key={email} value={email}>
                       {email}
                     </option>
@@ -459,7 +477,7 @@ const DigipointsAll = () => {
                   className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                 >
                   <option value="">Invoice</option>
-                  {uniqueReasonAssign.map(reason => (
+                  {uniqueReasonAssign.map((reason) => (
                     <option key={reason} value={reason}>
                       {reason}
                     </option>
@@ -480,7 +498,10 @@ const DigipointsAll = () => {
                 </div>
               </div>
               <div className="relative justify-items-center grid grid-flow-col">
-                <button className="btn bg-red-500 hover:bg-red-700 text-white font-bold text-[12px] h-1 min-h-full rounded-full" onClick={handleResetFilters}>
+                <button
+                  className="btn bg-red-500 hover:bg-red-700 text-white font-bold text-[12px] h-1 min-h-full rounded-full"
+                  onClick={handleResetFilters}
+                >
                   Limpiar filtro
                 </button>
                 <button
@@ -490,28 +511,34 @@ const DigipointsAll = () => {
                   Exportar
                 </button>
               </div>
-            </div>}
+            </div>
+          )}
           {loading && <div className="lds-dual-ring"></div>}
 
           {!loading && <Table currentItems={currentItems} />}
-          {!loading &&
+          {!loading && (
             <ReactPaginate
               pageCount={pageCount}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
               onPageChange={handlePageClick}
-              containerClassName={'pagination'}
-              subContainerClassName={'pages pagination'}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
               nextClassName={"item next "}
               previousClassName={"item previous"}
-              activeClassName={'item active '}
-              breakClassName={'item break-me '}
-              breakLabel={'...'}
-              disabledClassName={'disabled-page'}
-              pageClassName={'item pagination-page '}
-              nextLabel={<FaChevronRight style={{ color: '#000', fontSize: '20' }} />}
-              previousLabel={<FaChevronLeft style={{ color: '#000', fontSize: '20' }} />}
-            />}
+              activeClassName={"item active "}
+              breakClassName={"item break-me "}
+              breakLabel={"..."}
+              disabledClassName={"disabled-page"}
+              pageClassName={"item pagination-page "}
+              nextLabel={
+                <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
+              }
+              previousLabel={
+                <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
+              }
+            />
+          )}
         </div>
       </div>
     </>

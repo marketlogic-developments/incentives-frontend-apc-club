@@ -68,7 +68,7 @@ const productos = () => {
           <thead className="text-xs text-black-500 uppercase">
             <tr>
               <th scope="col" className="py-3 px-6">
-                Unidad de negocio
+                {t("tabla.unidadNegocio")}
               </th>
               <th scope="col" className="py-3 px-6">
                 SubBu
@@ -77,7 +77,7 @@ const productos = () => {
                 Categoría
               </th>
               <th scope="col" className="py-3 px-6">
-                Tipo de negocio
+                Tipo de {t("tabla.negocio")}
               </th>
               <th scope="col" className="py-3 px-6">
                 SKU

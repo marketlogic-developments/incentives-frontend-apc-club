@@ -354,7 +354,7 @@ const user = () => {
                         setOpened(true);
                       }}
                     >
-                      Cambiar contraseña
+                      {t("dashboard.cambiarpass")}
                     </span>
                   </div>
                 </div>
