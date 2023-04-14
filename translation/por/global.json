@@ -239,7 +239,8 @@
     "pEquipo": "Participantes da equipe",
     "guardar": "Salvar alterações",
     "suma": "A soma das porcentagens deve ser equivalente a 100%",
-    "lista": "Este participante já está na lista"
+    "lista": "Este participante já está na lista",
+    "teamCre": "A equipe foi criada com sucesso"
   },
   "user": {
     "ajustesdeperfil": "Ajustes do perfil",

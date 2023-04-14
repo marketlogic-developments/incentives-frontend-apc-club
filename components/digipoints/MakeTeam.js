@@ -184,6 +184,19 @@ const MakeTeam = () => {
 
   function handleSaveChanges(event) {
     event.preventDefault();
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
     const newData = dataModal.map((user) => {
       const modifiedUser = modifiedValues.find((obj) => obj.id === user.id);
       if (modifiedUser) {
@@ -198,18 +211,6 @@ const MakeTeam = () => {
       .reduce((prev, counter) => prev + counter);
 
     if (calculatePercentage > 100 || calculatePercentage < 100) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
       return Toast.fire({
         icon: "error",
         title: t("modalEquipos.suma"),
@@ -259,6 +260,8 @@ const MakeTeam = () => {
     //Function makes a team if the team doesn't have an id
 
     if (infoModal?.id === undefined) {
+      dispatch(changeLoadingData(true));
+
       axios
         .post(
           `${process.env.BACKURL}/partner-admin-group-headers`,
@@ -289,8 +292,19 @@ const MakeTeam = () => {
           setDataModal([]);
           setModifiedValues([]);
           setModal(0);
+          Toast.fire({
+            icon: "success",
+            title: t("modalEquipos.teamCre"),
+          });
           return setOpened(false);
-        });
+        })
+        .catch(() =>
+          Toast.fire({
+            icon: "error",
+            title: t("tabla.notiError"),
+          })
+        )
+        .finally(() => dispatch(changeLoadingData(false)));
     }
   }
 
