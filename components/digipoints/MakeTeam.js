@@ -479,8 +479,11 @@ const MakeTeam = () => {
 
           return (
             <tr
-              className="bg-white border-b dark:border-gray-500 hover:bg-base-200 cursor-pointer"
-              onClick={() => getTeamData(data)}
+              className="bg-white border-b dark:border-gray-500 hover:bg-base-200--cursor-pointer <- BORRAR DOBLE LINEA ENTRE HOVER Y CURSOR"
+              onClick={
+                () => console.log("")
+                // getTeamData(data)
+              }
             >
               <td className="py-4 px-6">{data?.name_group}</td>
               <td className="py-4 px-6">{data?.description}</td>

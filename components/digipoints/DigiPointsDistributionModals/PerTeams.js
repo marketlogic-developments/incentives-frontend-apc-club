@@ -51,7 +51,7 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
         {
           partnerAdminId: user.id,
           assignType: "group",
-          isGold: false,
+          isGold: user.companyId === null ? true : false,
           assignValues: [
             {
               groupId: thisTeam.id,
@@ -73,6 +73,12 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
         return Toast.fire({
           icon: "success",
           title: t("digipoints.successFact"),
+        });
+      })
+      .catch(() => {
+        return Toast.fire({
+          icon: "error",
+          title: "An error has occurred",
         });
       });
   };
