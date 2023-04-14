@@ -16,10 +16,9 @@ const Participantes = () => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const company = useSelector((state) => state.user.company);
+  const distribuitor = useSelector((state) => state.user.distribuitor);
   const [participantes, setParticipantes] = useState([]);
-  const [roles, setRoles] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [participantesConRol, setParticipantesConRol] = useState([]);
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
@@ -33,9 +32,15 @@ const Participantes = () => {
   useEffect(() => {
     if (isLoaded && token) {
       setLoading(true);
+
+      const compOrDist =
+        user.company === null
+          ? { endpoint: "distri-all-users-by-id", byId: distribuitor.id }
+          : { endpoint: "company-all-users-by-id", byId: company.id };
+
       axios
         .get(
-          `${process.env.BACKURL}/reporters/company-all-users-by-id/${company.id}`,
+          `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
           {
             headers: {
               "Content-Type": "application/json",

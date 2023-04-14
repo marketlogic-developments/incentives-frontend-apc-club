@@ -6,6 +6,7 @@ import * as XLSX from "xlsx";
 import axios from "axios";
 import { changeLoadingData } from "../../store/reducers/loading.reducer";
 import Image from "next/image";
+import user from "../../pages/user/[user]";
 
 const ImportacionPremios = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ const ImportacionPremios = () => {
 
     Promise.all(promises)
       .then((values) => {
-        dispatch(getDataAwards(token));
+        dispatch(getDataAwards(token, user));
         setJsonData(
           values.map(({ data }) => ({
             name: data.name,

@@ -9,6 +9,7 @@ import {
   setCompany,
   setDigipoints,
   setDistribuitor,
+  setInitialStateUser,
   userLogin,
   userToken,
 } from "../store/reducers/users.reducer";
@@ -16,6 +17,11 @@ import MobileMenu from "./MobileMenu";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { changeLoadingData } from "../store/reducers/loading.reducer";
+import { setInitialStateAwards } from "../store/reducers/awards.reducer";
+import { setInitialStateCompany } from "../store/reducers/company.reducer";
+import { setInitialStateOrders } from "../store/reducers/orders.reducer";
+import { setInitialStateSales } from "../store/reducers/sales.reducer";
+import { setInitialStateTeams } from "../store/reducers/teams.reducer";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -94,6 +100,8 @@ const Layout = ({ children }) => {
               }
             )
             .then(({ data }) => {
+              console.log(data);
+
               if (compOrDist.endpoint === "distribution-channel") {
                 dispatch(setDistribuitor(data));
               } else {
@@ -262,7 +270,7 @@ const Layout = ({ children }) => {
       text: t("menu.Puntos_por_ventas"),
     },
     {
-      page: "/digipoints",
+      page: "/digipointsall",
       icon: (
         <svg
           width={30}
@@ -677,28 +685,6 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: t("menu.Productos"),
     },
-    {
-      page: "/premios",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          width="30"
-          height="30"
-          viewBox="0 0 36 41"
-        >
-          <image
-            id="Capa_31"
-            data-name="Capa 31"
-            width="36"
-            height="41"
-            xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAApCAYAAABdnotGAAAABHNCSVQICAgIfAhkiAAAAsdJREFUWEftmE9IF0EUx9uisg6BEaH9U0swAiVLTIJAOilBRUKRhBUdDD3UIUI7BmlQhzxU2EmLiAQhiw6dwjoFaQUVEkWWURZEGkIQ2c/PN2ZlWfQ3O7LdZuHD7s68ee+7b2fe/gnm/Yctk8ksxO0GWAF/YSQIgpEkoYIkRi42iCnH/h6sjo3rRNRxmy9nQQTMwWkJjBLgazQAfYWcP4VcOAvdkAdXQEJ3MuZhNlFOgghYg7ObsNw4vcu+gSDj9M3n+DFsh0baroWB6avmWELaaT+TiiCTmc84Www3oAK2wgOohUNwHXoIeiCWuUrOn8B5+lrTElSGoxdwFadNCFyg4LAPWqDZZG49/d9igro4Pwy76dP8mnVLfMsQoLnwBQahEseTtC3jeAjyTYQLtJ8OoxnRbZyrTRdTQf+fVATJCQFus9sPd+Aozsdoa+L4sglSTNs7Y1vKXvOoCl5BDX2fsolRX+IMmSDKSB9Um2ydY6+J/RZ+wBojQMu73vjXvGpGzIRNzD9BXGE/+4IkxsZGRW9VxF63QCtM/IZFMV8fHHwPS1CGAT/hvcNAma4D1Zs38MuMVQaLQNn47uhvJfZLQkF9pHSviwOuowt7rZxyxj7XWNr0uNDt66DtpKM/zcs9aQsqNJn2gnR7ZrplqWVolFSrtLtsWzBeG5tDoSDVmwEXZ9hugzzNIb2nqH7MdYtO6lDQXH19lCDVDy3Xi3AMSlkhL+MesVN9WRpp1yvFwVkydIt2VXDbpmr+CDqhRZV/ulIT8BKNJ6CIjmGbJ8sc6sbHkQQ+NmPzDKZXpRcUzRpZ9hnKOo18hvwqIwPx14+wUvs6ZHva+wz5DPmnffiV4l8//OsHGdAneaqFcQcOrb9NsNFHQR3sgtfmVujrRb/1euGU7WlP/ya4b3unTuAndZMZX/L192EjOP0zSkGa/r4Mhb8BpwAbxJ3LxUUDqAAAAABJRU5ErkJggg=="
-          />
-        </svg>
-      ),
-      iconactive: "",
-      text: t("menu.Premios"),
-    },
   ];
 
   const locationsVendedor = [
@@ -784,6 +770,13 @@ const Layout = ({ children }) => {
   };
 
   const logout = () => {
+    dispatch(setInitialStateAwards());
+    dispatch(setInitialStateCompany());
+    dispatch(setInitialStateOrders());
+    dispatch(setInitialStateTeams());
+    dispatch(setInitialStateSales());
+    dispatch(setInitialStateUser());
+
     dispatch(changeLoadingData(true));
     window.sessionStorage.removeItem("infoDt");
     Cookies.remove("dp");
@@ -908,7 +901,10 @@ const Layout = ({ children }) => {
         <div className="globalContent bg-primary">
           <div className="containerLayout">
             <div className="mt-10 flex flex-col h-[80%]">
-              <div className="logoAdobe">
+              <div
+                className="logoAdobe cursor-pointer"
+                onClick={() => router.push("/dashboard")}
+              >
                 <figure className="flex">
                   <img src="/assets/dashboard/logoapc.webp"></img>
                 </figure>
@@ -1053,11 +1049,13 @@ const Layout = ({ children }) => {
                     />
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="user">
+                    <div className="user min-w-[34px]">
                       <Menu trigger="hover" openDelay={100} closeDelay={400}>
                         <Menu.Target>
                           <div className="userPreMenu">
-                            {userRedux.profilePhotoPath !== null ? (
+                            {userRedux.profilePhotoPath !== null &&
+                            userRedux.profilePhotoPath.length !== 0 &&
+                            userRedux.profilePhotoPath !== undefined ? (
                               <figure>
                                 <img src={userRedux.profilePhotoPath} />
                               </figure>

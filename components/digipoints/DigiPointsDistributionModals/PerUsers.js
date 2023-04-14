@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
@@ -17,6 +18,7 @@ const PerUsers = ({
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const company = useSelector((state) => state.user.company);
+  const [t, i18n] = useTranslation("global");
 
   const Toast = Swal.mixin({
     toast: true,
@@ -31,6 +33,13 @@ const PerUsers = ({
   });
 
   const handleAsign = () => {
+    if (dataModal.length === 0) {
+      return Toast.fire({
+        icon: "error",
+        title: t("digipoints.notiUser"),
+      });
+    }
+
     const usersAsign = dataModal.map((data) => ({
       invoiceId: invoiceData.invoices_included.toString(),
       vendorId: data.id,
@@ -43,7 +52,7 @@ const PerUsers = ({
         {
           partnerAdminId: user.id,
           assignType: "amount",
-          isGold: false,
+          isGold: user.companyId === null ? true : false,
           assignValues: usersAsign,
         },
         {
@@ -58,23 +67,31 @@ const PerUsers = ({
         handleSubmit(invoiceData);
         return Toast.fire({
           icon: "success",
-          title: "Tu factura fue asignada de manera exitosa",
+          title: t("digipoints.successFact"),
+        });
+      })
+      .catch(() => {
+        return Toast.fire({
+          icon: "error",
+          title: "An error has occurred",
         });
       });
   };
+
+  console.log(dataModal);
 
   return (
     <div className="grid grid-cols-2 h-[500px]">
       <div className="flex flex-col justify-between relative px-10">
         <div className="flex flex-col gap-5">
-          <p>Detalles de la factura</p>
+          <p>{t("digipoints.detallesFactura")}</p>
           <div className="grid grid-cols-4 text-sm">
             <div className="border-2 p-3">
-              <p className="text-primary">No. Factura:</p>
+              <p className="text-primary">{t("digipoints.NoFactura")}:</p>
               <p>{invoiceData.invoices_included}</p>
             </div>
             <div className="border-2 p-3">
-              <p className="text-primary">Fecha:</p>
+              <p className="text-primary">{t("tabla.fecha")}:</p>
               <p>{invoiceData.date}</p>
             </div>
 
@@ -83,19 +100,17 @@ const PerUsers = ({
               <p>{invoiceData.client}</p>
             </div>
             <div className="border-2 p-3">
-              <p className="text-primary">Cantidad:</p>
+              <p className="text-primary">{t("tabla.cantidad")}:</p>
               <p>{invoiceData.salesQuantity}</p>
             </div>
             <div className="border-2 p-3 col-span-2 flex flex-col justify-evenly">
-              <p className="text-primary ">DigiPoints Disponibles:</p>
+              <p className="text-primary ">DigiPoints:</p>
               <p className="text-center font-bold text-2xl">
                 {invoiceData.digipoints}
               </p>
             </div>
             <div className="border-2 p-3 col-span-2 flex flex-col justify-evenly">
-              <p className="text-primary">
-                DigiPoints estimados por Representante de ventas:
-              </p>
+              <p className="text-primary">{t("digipoints.digiEstimados")}:</p>
               <p className="text-center font-bold text-2xl">
                 {dataModal.length === 0
                   ? 0
@@ -106,15 +121,23 @@ const PerUsers = ({
         </div>
 
         <div className="flex flex-col gap-5">
-          <p>Asignar Representante de Ventas</p>
+          <p>{t("digipoints.asignarRep")}</p>
           <div className="relative w-full">
             <input
               value={searchByEmail}
               className="input input-primary w-full"
               type="text"
-              placeholder="Buscar por email"
+              placeholder={t("tabla.buscarEmail")}
               onChange={(e) => setSearchByEmail(e.target.value)}
-              onFocus={() => setListUsers(true)}
+              onFocus={() => {
+                if (dataModal.length === 1) {
+                  return Toast.fire({
+                    icon: "error",
+                    title: "Ya tienes un usuario en la fila",
+                  });
+                }
+                setListUsers(true);
+              }}
               onBlur={() => {
                 if (hover === false) {
                   return setListUsers(false);
@@ -129,20 +152,20 @@ const PerUsers = ({
             className="btn btn-primary w-max"
             onClick={handleAsign}
           >
-            Asignar
+            {t("tabla.asignar")}
           </button>
         </div>
       </div>
       <div>
         <div className="text-xs text-black-500 uppercase border-2 w-full grid grid-cols-3 place-items-center tableHeader">
           <p scope="col" className="py-3 px-6">
-            Nombre
+            {t("tabla.nombre")}
           </p>
           <p scope="col" className="py-3 px-6">
-            Email
+            {t("tabla.correo")}
           </p>
           <p scope="col" className="py-3 px-6">
-            Quitar
+            {t("tabla.borrar")}
           </p>
         </div>
         <div className="w-full overflow-y-scroll">

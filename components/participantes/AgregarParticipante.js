@@ -12,6 +12,7 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
   const [opened, setOpened] = useState(false);
   const [modal, setModal] = useState(0);
   const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user.user);
   const company = useSelector((state) => state.user.company);
   const [form, setForm] = useState({
     name: "",
@@ -41,36 +42,39 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
       },
     });
 
+    const objAxios = {
+      name: `${form.name} ${form.lastName}`,
+      email: form.email,
+      password: form.password,
+      roleId: Number(form.role.split("-")[0]),
+      policy: false,
+      passwordReset: false,
+      region: form.region,
+      cpf: "N/A",
+      companyId: company.id,
+      names: form.name,
+      lastName: form.lastName,
+      birthDate: form.date,
+      position: form.role.split("-")[1],
+      phoneNumber: form.phone,
+      operationStatusId: 4,
+      academicDegreeId: 1,
+      languageId: form.region === "BRAZIL" ? 1 : 2,
+    };
+
+    const sendObj =
+      user.companyId === null
+        ? { ...objAxios, distributionChannelId: user.distributionChannelId }
+        : { ...objAxios, companyId: user.companyId };
+
     axios
-      .post(
-        `${process.env.BACKURL}/users`,
-        {
-          name: `${form.name} ${form.lastName}`,
-          email: form.email,
-          password: form.password,
-          roleId: Number(form.role.split("-")[0]),
-          policy: false,
-          passwordReset: false,
-          region: form.region,
-          cpf: "N/A",
-          companyId: company.id,
-          names: form.name,
-          lastName: form.lastName,
-          birthDate: form.date,
-          position: form.role.split("-")[1],
-          phoneNumber: form.phone,
-          operationStatusId: 4,
-          academicDegreeId: 1,
-          languageId: form.region === "BRAZIL" ? 1 : 2,
+      .post(`${process.env.BACKURL}/users`, sendObj, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      })
       .then((res) => {
         const newPerson = res.data;
         setParticipantes([newPerson, ...participantes]);
@@ -81,7 +85,7 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
         });
       })
       .catch((err) => {
-        if (err.response.data.errors[0].message === "email must be unique") {
+        if (err.response.data.message === "email must be unique") {
           return Toast.fire({
             icon: "error",
             title: "Este email ya está en uso, intenta uno diferente",
@@ -90,7 +94,7 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
 
         return Toast.fire({
           icon: "error",
-          title: "Ha ocurrido un error, inténtalo más tarde",
+          title: t("table.notiError"),
         });
       });
 
@@ -111,27 +115,27 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
           <div>
             <div className="w-full flex flex-col items-center">
               <h3 className="text-lg font-bold text-red-500">
-                Agregar Participante
+                {t("tabla.addParticipante")}
               </h3>
               <form
                 className="grid grid-cols-2 gap-5 w-11/12"
                 onSubmit={handleSubmit}
               >
                 <label className="inputCreateUser">
-                  <span className="label-text">Nombre</span>
+                  <span className="label-text"> {t("user.nombre")}</span>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder={t("user.escriba")}
                     className="input input-bordered w-full"
                     name="name"
                     onChange={handleChange}
                   />
                 </label>
                 <label className="inputCreateUser">
-                  <span className="label-text">Apellido</span>
+                  <span className="label-text">{t("user.apellido")}</span>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder={t("user.escriba")}
                     className="input input-bordered w-full"
                     name="lastName"
                     onChange={handleChange}
@@ -139,33 +143,35 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
                 </label>
 
                 <label className="inputCreateUser">
-                  <span className="label-text">Correo Electrónico</span>
+                  <span className="label-text">
+                    {t("participantes.correo")}
+                  </span>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder={t("user.escriba")}
                     className="input input-bordered w-full"
                     name="email"
                     onChange={handleChange}
                   />
                 </label>
                 <label className="inputCreateUser">
-                  <span className="label-text">Contraseña</span>
+                  <span className="label-text">{t("login.Password")}</span>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder={t("user.escriba")}
                     className="input input-bordered w-full"
                     name="password"
                     onChange={handleChange}
                   />
                 </label>
                 <label className="inputCreateUser">
-                  <span className="label-text">Rol</span>
+                  <span className="label-text">{t("participantes.rol")}</span>
                   <select
                     className="select select-bordered w-full"
                     name="role"
                     onChange={handleChange}
                   >
-                    <option value="">Seleccione el rol</option>
+                    <option value="">{t("user.seleccionarRol")}</option>
                     <option value="2-Partner Principal">
                       Partner Principal
                     </option>
@@ -173,13 +179,15 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
                   </select>
                 </label>
                 <label className="inputCreateUser">
-                  <span className="label-text">Región</span>
+                  <span className="label-text">
+                    {t("participantes.Region")}
+                  </span>
                   <select
                     className="select select-bordered w-full"
                     name="region"
                     onChange={handleChange}
                   >
-                    <option value="">Región</option>
+                    <option value="">{t("participantes.Region")}</option>
                     <option value="NOLA">NOLA</option>
                     <option value="SOLA">SOLA</option>
                     <option value="MÉXICO">MÉXICO</option>
@@ -187,7 +195,9 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
                   </select>
                 </label>
                 <label className="inputCreateUser">
-                  <span className="label-text">Fecha de Nacimiento</span>
+                  <span className="label-text">
+                    {t("user.FechaNacimiento")}
+                  </span>
                   <input
                     type="text"
                     placeholder="AAAA-MM-DD"
@@ -197,10 +207,10 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
                   />
                 </label>
                 <label className="inputCreateUser">
-                  <span className="label-text">Número de Teléfono</span>
+                  <span className="label-text">{t("login.telefono")}</span>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder={t("user.escriba")}
                     className="input input-bordered w-full"
                     name="phone"
                     onChange={handleChange}
@@ -211,7 +221,7 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
                   type="submit"
                   className="btn btn-primary w-max col-span-2 justify-self-center"
                 >
-                  Enviar solicitud
+                  {t("user.enviarSol")}
                 </button>
               </form>
             </div>
