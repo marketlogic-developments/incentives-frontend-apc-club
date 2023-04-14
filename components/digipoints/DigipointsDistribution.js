@@ -345,7 +345,7 @@ const DigipointsDistribution = () => {
                             setOpened(true);
                           }}
                         >
-                          Asignar
+                          {t("tabla.asignar")}
                         </button>
                       ) : (
                         <button
@@ -355,7 +355,7 @@ const DigipointsDistribution = () => {
                             // handleUnassign({ ...obj, index: index })
                           }
                         >
-                          Asignado
+                          {t("tabla.asignado")}
                         </button>
                       )}
                     </td>
