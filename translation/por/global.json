@@ -133,7 +133,8 @@
     "NoFactura": "Nº da fatura",
     "digiEstimados": "Estimativa de DigiPoints por Representante de Vendas",
     "asignarRep": "Atribuir o representante de vendas",
-    "successFact": "Sua fatura foi atribuída com sucesso"
+    "successFact": "Sua fatura foi atribuída com sucesso",
+    "notiUser": "Você deve selecionar pelo menos um usuário para atribuir esta fatura."
   },
 
   "files": {},
@@ -197,7 +198,9 @@
     "tipoDist": "Nível",
     "nombreDist": "Nome da Revenda",
     "nombreCanal": "Nome da Revenda",
-    "addParticipante": "Adicionar Participante"
+    "addParticipante": "Adicionar Participante",
+    "valorVenta": "de Venda",
+    "notiError": "Ocorreu um erro, tente novamente mais tarde"
   },
   "shoopingcar": {
     "carrito": "Carrinho de compras",

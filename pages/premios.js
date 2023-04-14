@@ -386,7 +386,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       protected: true,
-      userTypes: [1, 3],
+      userTypes: [1],
     },
   };
 }
