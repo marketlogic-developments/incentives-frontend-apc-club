@@ -237,7 +237,8 @@
     "pEquipo": "Participantes del equipo",
     "guardar": "Guardar Cambios",
     "suma": "La suma de los porcentajes debe ser equivalente a 100%",
-    "lista": "Este participante ya está dentro de la lista"
+    "lista": "Este participante ya está dentro de la lista",
+    "teamCre": "El equipo ha sido creado exitosamente"
   },
   "user": {
     "ajustesdeperfil": "Ajustes de perfil",
