@@ -84,7 +84,9 @@
     "contieneN": "Un número (0-9)",
     "contieneSC": "Un carácter especial (!@#$)",
     "contiene8C": "Al menos 8 caracteres",
-    "coincidenContraseñas": "Las contraseñas coinciden"
+    "coincidenContraseñas": "Las contraseñas coinciden",
+    "pdfDist": "assets/pdf/HTWDist.pdf",
+    "pdfComp": "assets/pdf/HTW.pdf"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
