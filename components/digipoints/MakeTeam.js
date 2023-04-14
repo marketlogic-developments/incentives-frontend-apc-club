@@ -364,10 +364,10 @@ const MakeTeam = () => {
     if (modal === 1) {
       return (
         <form
-          className="grid grid-cols-2 h-[400px] w-full p-[50px]"
+          className="grid grid-cols-5 h-[400px] w-full p-[50px]"
           onSubmit={handleSaveChanges}
         >
-          <div className="flex flex-col gap-5 relative p-5 h-full justify-evenly">
+          <div className="flex flex-col gap-5 relative p-5 h-full justify-evenly col-span-2">
             <div>
               <p>{t("modalEquipos.pEquipo")}</p>
               <div className="relative w-full">
@@ -392,7 +392,7 @@ const MakeTeam = () => {
               {t("modalEquipos.guardar")}
             </button>
           </div>
-          <div>
+          <div className="col-span-3">
             <div className="text-xs text-black-500 uppercase border-2 w-full grid grid-cols-4 place-items-center tableHeader">
               <p scope="col" className="py-3 px-6">
                 {t("tabla.nomParticipantes")}

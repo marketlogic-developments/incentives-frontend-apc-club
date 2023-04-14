@@ -198,7 +198,7 @@ const puntosporventas = () => {
   };
 
   return (
-    <ContainerContent pageTitle={"Puntos por ventas"}>
+    <ContainerContent pageTitle={"DigiPoints por ventas"}>
       <div className="m-6 flex flex-col gap-16">
         <div className="flex flex-col gap-5">
           <h1 className="font-bold text-3xl">{t("tabla.ppventas")}</h1>
@@ -212,7 +212,7 @@ const puntosporventas = () => {
                   onChange={handleEmailFilterChange}
                   className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                 >
-                  <option value="">Organizacion</option>
+                  <option value="">{t("organizacion.organizacion")}</option>
                   {uniqueEmails.map((email) => (
                     <option key={email} value={email}>
                       {email}
@@ -240,7 +240,7 @@ const puntosporventas = () => {
                   onChange={handleReasonAssignFilterChange}
                   className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                 >
-                  <option value="">Unidad de negocio</option>
+                  <option value="">{t("tabla.unidadNegocio")}</option>
                   {uniqueReasonAssign.map((reason) => (
                     <option key={reason} value={reason}>
                       {reason}
@@ -266,7 +266,7 @@ const puntosporventas = () => {
                   className="btn bg-red-500 hover:bg-red-700 text-white font-bold text-[12px] h-1 min-h-full rounded-full"
                   onClick={handleResetFilters}
                 >
-                  Limpiar filtro
+                  Remover filtros
                 </button>
                 <button
                   className="btn bg-red-500 hover:bg-red-700 text-white font-bold text-[12px] h-1 min-h-full rounded-full"

@@ -141,6 +141,7 @@
         width: 90% !important;
 
         .tableHeader {
+          word-break: keep-all;
           p {
             font-size: 0.6rem !important;
           }
@@ -351,4 +352,8 @@
     font-weight: 500;
     font-size: 20px;
   }
+}
+
+.tableHeader {
+  word-break: keep-all;
 }

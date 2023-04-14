@@ -15,10 +15,14 @@ export const ordersAction = createSlice({
     getAllOrders: (state, action) => {
       state.orders = action.payload;
     },
+    setInitialStateOrders: (state, action) => {
+      return initialState;
+    },
   },
 });
 
-export const { ordersPush, getAllOrders } = ordersAction.actions;
+export const { ordersPush, getAllOrders, setInitialStateOrders } =
+  ordersAction.actions;
 
 export default ordersAction.reducer;
 

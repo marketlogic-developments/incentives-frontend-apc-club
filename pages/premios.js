@@ -38,7 +38,7 @@ const premios = () => {
 
   useEffect(() => {
     if (token && awards.length === 0) {
-      dispatch(getDataAwards(token));
+      dispatch(getDataAwards(token, user));
     }
   }, [token]);
 
@@ -156,6 +156,7 @@ const premios = () => {
 
     return awards.slice(itemOffset, endOffset);
   }, [itemOffset, awards]);
+
   const pageCount = useMemo(
     () => Math.ceil(awards.length / itemsPerPage),
     [awards, itemsPerPage]

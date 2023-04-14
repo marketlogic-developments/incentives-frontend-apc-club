@@ -44,11 +44,11 @@
 
   "menu": {
     "Dashboard": "Painél de controle",
-    "Participantes": "Organización",
-    "Puntos_por_ventas": "Pontos por vendas",
+    "Participantes": "Organização",
+    "Puntos_por_ventas": "DigiPoints por vendas",
     "Reportes": "Relatórios",
     "Digipoints": "Meus DigiPoints",
-    "DDigipoints": "DigiPoints por vendas",
+    "DDigipoints": "Distribuição de DigiPoints",
     "Productos": "Produtos Participantes",
     "Premios": "Meus Prêmios",
     "Carga_de_Ventas": "Carga de vendas",
@@ -102,7 +102,8 @@
   },
   "organizacion": {
     "redenciones": "Resgates",
-    "info": "Informações"
+    "info": "Informações",
+    "organizacion": "Organização"
   },
   "cargaventas": {
     "asignar": "Atribuir pontos",
@@ -121,7 +122,16 @@
     "txtredencion": "Foi sua última redenção",
     "txtactuales": "Estes são os DigiPoints que você tem disponíveis para o resgate",
     "redencion": "Tipo de redenção",
-    "Dredimidos": "DigiPoints Resgatados"
+    "Dredimidos": "DigiPoints Resgatados",
+    "selectType": "Selecione uma opção para distribuir os DigiPoints",
+    "represV": "Representante de vendas",
+    "teamV": "Equipe de vendas",
+    "elegirTeam": "Selecione sua equipe de vendas",
+    "detallesFactura": "Detalhes da fatura",
+    "NoFactura": "Nº da fatura",
+    "digiEstimados": "Estimativa de DigiPoints por Representante de Vendas",
+    "asignarRep": "Atribuir o representante de vendas",
+    "successFact": "Sua fatura foi atribuída com sucesso"
   },
 
   "files": {},
@@ -136,7 +146,7 @@
     "agregar": "Adicionar prêmio"
   },
   "tabla": {
-    "ppventas": "Pontos por vendas",
+    "ppventas": "DigiPoints por vendas",
     "rol": "Papel",
     "exportar": "Exportação",
     "buscar": "Busca",
@@ -178,7 +188,14 @@
     "fecha": "Data",
     "cantidad": "Quantidade",
     "asignar": "Atribuir",
-    "nomParticipantes": "NOME DO PARTICIPANTE"
+    "nomParticipantes": "NOME DO PARTICIPANTE",
+    "borrar": "EXCLUIR",
+    "unidadNegocio": "Unidade de negócio",
+    "negocio": "Negócio",
+    "tipoDist": "Nível",
+    "nombreDist": "Nome da Revenda",
+    "nombreCanal": "Nome da Revenda",
+    "addParticipante": "Adicionar Participante"
   },
   "shoopingcar": {
     "carrito": "Carrinho de compras",
@@ -189,7 +206,8 @@
     "exito": "Seu pedido foi recebido com sucesso ",
     "norden": "No. do pedido:",
     "ir": "Ir para o status do produto",
-    "notienes": "Ainda não há itens no seu carrinho de compras"
+    "notienes": "Ainda não há itens no seu carrinho de compras",
+    "bannerTarg": "GUIA DE USO DE CARTÕES"
   },
   "estadoProducto": {
     "estado": "Status de seus produtos"
@@ -231,7 +249,9 @@
     "cel": "Telefone",
     "FechaNacimiento": "Data de nascimento",
     "boton": "Atualizar dados",
-    "escriba": "Digite aqui"
+    "escriba": "Digite aqui",
+    "seleccionarRol": "Selecione o papel",
+    "enviarSol": "ENVIAR PEDIDO DE INSCRIÇÃO"
   },
   "meses": {
     "enero": "Janeiro",

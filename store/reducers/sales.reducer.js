@@ -47,6 +47,10 @@ export const saleActions = createSlice({
     getallSales: (state, action) => {
       state.salesall = action.payload;
     },
+
+    setInitialStateSales: (state, action) => {
+      return initialState;
+    },
   },
 });
 
@@ -61,6 +65,7 @@ export const {
   getSalesSegment,
   getSalesType,
   getallSales,
+  setInitialStateSales,
 } = saleActions.actions;
 
 export default saleActions.reducer;

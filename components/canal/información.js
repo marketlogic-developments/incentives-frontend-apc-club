@@ -18,8 +18,8 @@ const Información = () => {
           <label className="label">
             <span className="label-text">
               {user.company === null
-                ? "Nombre de Distribuidor"
-                : "Nombre del Canal"}
+                ? t("tabla.nombreDist")
+                : t("tabla.nombreCanal")}
             </span>
           </label>
           <p className="text-xl">
@@ -40,7 +40,7 @@ const Información = () => {
         </div>
         <div>
           <label className="label">
-            <span className="label-text">Tipo</span>
+            <span className="label-text">{t("tabla.tipoDist")}</span>
           </label>
           <p className="text-xl">
             {company.distChannelsId === 1
@@ -86,7 +86,7 @@ const Información = () => {
         </div>
         <div>
           <label className="label">
-            <span className="label-text">Número telefónico</span>
+            <span className="label-text">{t("login.telefono")}</span>
           </label>
           <p className="text-xl">
             {user.company === null
