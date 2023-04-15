@@ -132,9 +132,9 @@ const puntosporventas = () => {
               <th scope="col" className="py-2 px-2">
                 Quarter
               </th>
-              <th scope="col" className="py-2 px-2">
+              {/* <th scope="col" className="py-2 px-2">
                 Total Sales US
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>
