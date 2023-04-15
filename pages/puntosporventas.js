@@ -150,9 +150,9 @@ const puntosporventas = () => {
                   <td className="py-4 px-2">{data.business_type}</td>
                   <td className="py-4 px-2">{data.materia_sku}</td>
                   <td className="py-4 px-2">{data.quarter}</td>
-                  <td className="py-4 px-2">
+                  {/* <td className="py-4 px-2">
                     ${parseFloat(data.total_sales_amount).toFixed(2)}
-                  </td>
+                  </td> */}
                 </tr>
               ))}
           </tbody>
