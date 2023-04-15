@@ -498,7 +498,7 @@ const dashboard = () => {
           >
             {t("dashboard.htw")}
           </button>
-          <button
+          {/* <button
             className={`btn ${
               typeHeader === 1 ? "btn-primary" : "btn-accent"
             } btn-xs`}
@@ -507,7 +507,7 @@ const dashboard = () => {
             }}
           >
             {t("dashboard.promociones")}
-          </button>
+          </button> */}
         </div>
         <hr color="red" />
         <div className="gap-10 flex flex-col h-full">
