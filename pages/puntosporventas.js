@@ -132,9 +132,9 @@ const puntosporventas = () => {
               <th scope="col" className="py-2 px-2">
                 Quarter
               </th>
-              <th scope="col" className="py-2 px-2">
+              {/* <th scope="col" className="py-2 px-2">
                 Total Sales US
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>
@@ -150,9 +150,9 @@ const puntosporventas = () => {
                   <td className="py-4 px-2">{data.business_type}</td>
                   <td className="py-4 px-2">{data.materia_sku}</td>
                   <td className="py-4 px-2">{data.quarter}</td>
-                  <td className="py-4 px-2">
+                  {/* <td className="py-4 px-2">
                     ${parseFloat(data.total_sales_amount).toFixed(2)}
-                  </td>
+                  </td> */}
                 </tr>
               ))}
           </tbody>
@@ -164,7 +164,7 @@ const puntosporventas = () => {
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+
     return filteredUsers.slice(itemOffset, endOffset);
   }, [itemOffset, data, filteredUsers]);
 
@@ -175,9 +175,7 @@ const puntosporventas = () => {
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % filteredUsers.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+
     setItemOffset(newOffset);
   };
 
