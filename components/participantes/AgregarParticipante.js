@@ -127,13 +127,23 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
         `https://hooks.zapier.com/hooks/catch/666990/3ut1c6c/`,
         objectToFormData(sendObj)
       )
-      .then((res) => {})
-      .catch((err) => {});
-
-    return Toast.fire({
-      icon: "error",
-      title: t("tabla.notiError"),
-    });
+      .then((res) => {
+        return Swal.fire({
+          icon: "success",
+          title: `${t("participantes.solSend")}`,
+          text: `${t("participantes.solRes")}`,
+          confirmButtonColor: "#eb1000",
+          footer: `<p class="text-center">${t(
+            "participantes.contact"
+          )} <a href='mailto:info@adobepcclub.com' class="text-[#eb1000] font-bold text-center">info@adobepcclub.com</a></p>`,
+        });
+      })
+      .catch((err) => {
+        return Toast.fire({
+          icon: "error",
+          title: t("tabla.notiError"),
+        });
+      });
 
     return;
   };
