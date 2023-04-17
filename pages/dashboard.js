@@ -43,8 +43,6 @@ const dashboard = () => {
 
   const [participantes, setParticipantes] = useState([]);
 
-  console.log(user);
-
   const userData = useMemo(() => {
     if (user !== 0) {
       return user?.names;
@@ -490,17 +488,27 @@ const dashboard = () => {
               {t("dashboard.ranking")}
             </button>
           )}
-          <button
-            className={`btn ${
-              typeHeader === 2 ? "btn-primary" : "btn-accent"
-            } btn-xs`}
-            onClick={() => {
-              setTypeHeader(2);
-            }}
+          <a
+            href={
+              user.companyId === null
+                ? t("dashboard.pdfDist")
+                : t("dashboard.pdfComp")
+            }
+            alt="HTW"
+            target="_blank"
           >
-            {t("dashboard.htw")}
-          </button>
-          <button
+            <button
+              className={`btn ${
+                typeHeader === 2 ? "btn-primary" : "btn-accent"
+              } btn-xs`}
+              onClick={() => {
+                setTypeHeader(2);
+              }}
+            >
+              {t("dashboard.htw")}
+            </button>
+          </a>
+          {/* <button
             className={`btn ${
               typeHeader === 1 ? "btn-primary" : "btn-accent"
             } btn-xs`}
@@ -509,7 +517,7 @@ const dashboard = () => {
             }}
           >
             {t("dashboard.promociones")}
-          </button>
+          </button> */}
         </div>
         <hr color="red" />
         <div className="gap-10 flex flex-col h-full">

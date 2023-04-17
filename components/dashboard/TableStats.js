@@ -134,8 +134,6 @@ const TableStats = () => {
     setpercentageDC(arrayPercentageDC);
   };
 
-  console.log(percentageCC, percentageDC);
-
   return (
     <div className="container w-full h-full bg-base-100 flex flex-col sm:flex-row justify-between max-sm:justify-center">
       <div className="w-8/12 max-sm:mx-auto flex flex-col gap-5 progressiveBar justify-center">

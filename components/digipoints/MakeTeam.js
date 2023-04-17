@@ -28,8 +28,6 @@ const MakeTeam = () => {
   const [modal, setModal] = useState(0);
   const [selectDate, setSelectDate] = useState("");
 
-  console.log(teams);
-
   const searchUser = () => {
     const searchValue = users.filter(
       ({ email, role_id }) =>
@@ -227,8 +225,6 @@ const MakeTeam = () => {
           members: newData,
         },
       };
-
-      console.log(teamUpdate, newData, infoModal);
 
       axios
         .patch(

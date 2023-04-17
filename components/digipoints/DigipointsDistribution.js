@@ -272,8 +272,6 @@ const DigipointsDistribution = () => {
     });
   };
 
-  console.log(data);
-
   return (
     <>
       <Modal
