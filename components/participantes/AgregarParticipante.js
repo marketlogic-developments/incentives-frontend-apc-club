@@ -202,7 +202,9 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
                   />
                 </label>
                 <label className="inputCreateUser">
-                  <span className="label-text">{t("login.Password")}</span>
+                  <span className="label-text">
+                    {t("participantes.password")}
+                  </span>
                   <input
                     type="text"
                     placeholder={t("user.escriba")}
