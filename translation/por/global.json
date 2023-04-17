@@ -146,7 +146,8 @@
     "fecha": "Data de ativação",
     "solSend": "Pedido de registro enviado!",
     "solRes": "Recebemos sua solicitação para criar um novo usuário. Nas próximas 24 horas, você receberá um e-mail de confirmação com os detalhes dos usuários criados.",
-    "contact": "Se tiver alguma pergunta, não hesite em nos contatar."
+    "contact": "Se tiver alguma pergunta, não hesite em nos contatar.",
+    "password": "Senha temporária"
   },
   "premios": {
     "agregar": "Adicionar prêmio"
