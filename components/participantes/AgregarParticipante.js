@@ -21,11 +21,48 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
     password: "",
     role: "",
     region: "",
-    date: "",
-    phone: "",
+    country: "",
   });
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
+
+  const paisesAmerica = [
+    "Antigua y Barbuda",
+    "Argentina",
+    "Bahamas",
+    "Barbados",
+    "Belice",
+    "Bolivia",
+    "Brasil",
+    "Canadá",
+    "Chile",
+    "Colombia",
+    "Costa Rica",
+    "Cuba",
+    "Dominica",
+    "Ecuador",
+    "El Salvador",
+    "Estados Unidos",
+    "Granada",
+    "Guatemala",
+    "Guyana",
+    "Haití",
+    "Honduras",
+    "Jamaica",
+    "México",
+    "Nicaragua",
+    "Panamá",
+    "Paraguay",
+    "Perú",
+    "República Dominicana",
+    "San Cristóbal y Nieves",
+    "Santa Lucía",
+    "San Vicente y las Granadinas",
+    "Surinam",
+    "Trinidad y Tobago",
+    "Uruguay",
+    "Venezuela",
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,6 +79,16 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
       },
     });
 
+    function objectToFormData(obj) {
+      const formData = new FormData();
+      for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          formData.append(key, obj[key]);
+        }
+      }
+      return formData;
+    }
+
     const objAxios = {
       name: `${form.name} ${form.lastName}`,
       email: form.email,
@@ -52,9 +99,9 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
       region: form.region,
       cpf: "N/A",
       companyId: company.id,
+      countryId: form.country,
       names: form.name,
       lastName: form.lastName,
-      birthDate: form.date,
       position: form.role.split("-")[1],
       phoneNumber: form.phone,
       operationStatusId: 4,
@@ -64,37 +111,37 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
 
     const sendObj =
       user.companyId === null
-        ? { ...objAxios, distributionChannelId: user.distributionChannelId }
-        : { ...objAxios, companyId: user.companyId };
+        ? {
+            ...objAxios,
+            distributionChannelId: user.distributionChannel.soldToParty,
+            companyId: null,
+          }
+        : {
+            ...objAxios,
+            companyId: user.company.resellerMasterId,
+            distributionChannelId: null,
+          };
 
     axios
-      .post(`${process.env.BACKURL}/users`, sendObj, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        `https://hooks.zapier.com/hooks/catch/666990/3ut1c6c/`,
+        objectToFormData(sendObj)
+      )
       .then((res) => {
-        const newPerson = res.data;
-        setParticipantes([newPerson, ...participantes]);
-
-        return Toast.fire({
+        return Swal.fire({
           icon: "success",
-          title: "¡El participante ha sido creado exitosamente!",
+          title: `${t("participantes.solSend")}`,
+          text: `${t("participantes.solRes")}`,
+          confirmButtonColor: "#eb1000",
+          footer: `<p class="text-center">${t(
+            "participantes.contact"
+          )} <a href='mailto:info@adobepcclub.com' class="text-[#eb1000] font-bold text-center">info@adobepcclub.com</a></p>`,
         });
       })
       .catch((err) => {
-        if (err.response.data.message === "email must be unique") {
-          return Toast.fire({
-            icon: "error",
-            title: "Este email ya está en uso, intenta uno diferente",
-          });
-        }
-
         return Toast.fire({
           icon: "error",
-          title: t("table.notiError"),
+          title: t("tabla.notiError"),
         });
       });
 
@@ -195,26 +242,17 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
                   </select>
                 </label>
                 <label className="inputCreateUser">
-                  <span className="label-text">
-                    {t("user.FechaNacimiento")}
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="AAAA-MM-DD"
-                    className="input input-bordered w-full"
-                    name="date"
+                  <span className="label-text">País</span>
+                  <select
+                    className="select select-bordered w-full"
+                    name="country"
                     onChange={handleChange}
-                  />
-                </label>
-                <label className="inputCreateUser">
-                  <span className="label-text">{t("login.telefono")}</span>
-                  <input
-                    type="text"
-                    placeholder={t("user.escriba")}
-                    className="input input-bordered w-full"
-                    name="phone"
-                    onChange={handleChange}
-                  />
+                  >
+                    <option value="">País</option>
+                    {paisesAmerica.map((e) => {
+                      return <option value={e}>{e}</option>;
+                    })}
+                  </select>
                 </label>
 
                 <button

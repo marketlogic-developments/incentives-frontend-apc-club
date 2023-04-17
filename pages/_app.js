@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { store } from "../store/store";
 import { Provider } from "react-redux";
-import Cookies from "js-cookie";
 import Footer from "../components/Footer";
 import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
 import global_es from "../translation/es/global.json";
 import global_por from "../translation/por/global.json";
+import { Html } from "next/document";
+import Head from "next/head";
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -89,16 +90,39 @@ export default function MyApp({ Component, pageProps }) {
   }, [location]);
 
   return render === "" ? (
-    <I18nextProvider i18n={i18next}>
-      <Provider store={store}>
-        <MantineProvider withGlobalStyles withNormalizeCSS>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-          <Footer />
-        </MantineProvider>
-      </Provider>
-    </I18nextProvider>
+    <>
+      <Head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-TH6V5GN');
+              `,
+          }}
+        />
+      </Head>
+      <I18nextProvider i18n={i18next}>
+        <Provider store={store}>
+          <MantineProvider withGlobalStyles withNormalizeCSS>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            <Footer />
+          </MantineProvider>
+        </Provider>
+      </I18nextProvider>
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-TH6V5GN"
+          height="0"
+          width="0"
+          style={{ display: "none", visibility: "hidden" }}
+        ></iframe>
+      </noscript>
+    </>
   ) : (
     render
   );
