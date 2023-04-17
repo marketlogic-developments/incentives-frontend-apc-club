@@ -29,8 +29,6 @@ export default function Home() {
   const user = useSelector((state) => state.user);
   const dataFromAxios = useSelector((state) => state.sales);
 
-  console.log(user, dataFromAxios);
-
   const [t, i18n] = useTranslation("global");
 
   const dispatch = useDispatch();
