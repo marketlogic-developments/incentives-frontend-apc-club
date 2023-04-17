@@ -13,6 +13,7 @@ import global_es from "../translation/es/global.json";
 import global_por from "../translation/por/global.json";
 import { Html } from "next/document";
 import Head from "next/head";
+import Script from "next/script";
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -92,7 +93,7 @@ export default function MyApp({ Component, pageProps }) {
   return render === "" ? (
     <>
       <Head>
-        <script
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
                 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
