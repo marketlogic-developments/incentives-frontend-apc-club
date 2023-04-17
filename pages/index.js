@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setCompany,
   setDigipoints,
+  setDistribuitor,
   userLogin,
   userToken,
 } from "../store/reducers/users.reducer";
@@ -25,6 +26,9 @@ import {
 import { changeLoadingData } from "../store/reducers/loading.reducer";
 
 export default function Home() {
+  const user = useSelector((state) => state.user);
+  const dataFromAxios = useSelector((state) => state.sales);
+
   const [t, i18n] = useTranslation("global");
 
   const dispatch = useDispatch();
@@ -137,16 +141,31 @@ export default function Home() {
   };
 
   const handleDigipoints = async (userData) => {
+    const compOrDist =
+      userData.user.companyId === null
+        ? {
+            endpoint: "distribution-channel",
+            byId: userData.user.distributionChannelId,
+          }
+        : {
+            endpoint: "companies",
+            byId: userData.user.companyId,
+          };
+
     axios
-      .get(`${process.env.BACKURL}/companies/${userData.user.companyId}`, {
+      .get(`${process.env.BACKURL}/${compOrDist.endpoint}/${compOrDist.byId}`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
           Authorization: `Bearer ${userData.token}`,
         },
       })
-      .then((companyData) => {
-        dispatch(setCompany(companyData.data));
+      .then(({ data }) => {
+        if (compOrDist.endpoint === "distribution-channel") {
+          dispatch(setDistribuitor(data));
+        } else {
+          dispatch(setCompany(data));
+        }
       })
       .catch((err) => {
         if (err.message === "Request failed with status code 404") {

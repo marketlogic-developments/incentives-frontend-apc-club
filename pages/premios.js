@@ -14,6 +14,8 @@ import { Modal } from "@mantine/core";
 import axios from "axios";
 import Swal from "sweetalert2";
 import ImportacionPremios from "../components/premios/ImportacionPremios";
+import jsonexport from "jsonexport";
+import { saveAs } from "file-saver";
 
 const premios = () => {
   const [formData, setFormData] = useState({
@@ -36,7 +38,7 @@ const premios = () => {
 
   useEffect(() => {
     if (token && awards.length === 0) {
-      dispatch(getDataAwards(token));
+      dispatch(getDataAwards(token, user));
     }
   }, [token]);
 
@@ -154,6 +156,7 @@ const premios = () => {
 
     return awards.slice(itemOffset, endOffset);
   }, [itemOffset, awards]);
+
   const pageCount = useMemo(
     () => Math.ceil(awards.length / itemsPerPage),
     [awards, itemsPerPage]
@@ -161,17 +164,24 @@ const premios = () => {
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % awards.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+
     setItemOffset(newOffset);
   };
 
   const importFile = (data) => {
-    const workbook = XLSX.utils.book_new();
-    const sheet = XLSX.utils.json_to_sheet(data);
-    XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
-    XLSX.writeFile(workbook, "Liste_De_Premios.xlsx");
+    // const workbook = XLSX.utils.book_new();
+    // const sheet = XLSX.utils.json_to_sheet(data);
+    // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
+    // XLSX.writeFile(workbook, "Liste_De_Premios.xlsx");
+
+    jsonexport(data, (error, csv) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "Tarjetas-2023.csv");
+    });
   };
 
   const typeModal = useMemo(() => {
@@ -374,7 +384,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       protected: true,
-      userTypes: [1, 3],
+      userTypes: [1],
     },
   };
 }

@@ -24,10 +24,15 @@ export const companyAction = createSlice({
     getUsersDistri: (state, action) => {
       state.usersCompany = action.payload;
     },
+
+    setInitialStateCompany: (state, action) => {
+      return initialState;
+    },
   },
 });
 
-export const { getCompany, getUsersCompany } = companyAction.actions;
+export const { getCompany, getUsersCompany, setInitialStateCompany } =
+  companyAction.actions;
 
 export default companyAction.reducer;
 

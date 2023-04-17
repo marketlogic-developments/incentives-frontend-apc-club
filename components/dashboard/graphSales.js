@@ -2,7 +2,12 @@ import React, { useMemo, useState } from "react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { getSalesByType } from "../../store/reducers/sales.reducer";
+import {
+  getSalesByType,
+  getSalesByTypeComp,
+  getSalesByTypeDist,
+  getSalesByTypeAll,
+} from "../../store/reducers/sales.reducer";
 
 const GraphSales = () => {
   const user = useSelector((state) => state.user.user);
@@ -17,7 +22,15 @@ const GraphSales = () => {
 
   useEffect(() => {
     if (token && sales.length === 0) {
-      dispatch(getSalesByType(token, user.company.resellerMasterId));
+      if (user.roleId === 1) {
+        dispatch(getSalesByTypeAll(token));
+      } else if (user.company === null) {
+        dispatch(
+          getSalesByTypeDist(token, user.distributionChannel.soldToParty)
+        );
+      } else {
+        dispatch(getSalesByTypeComp(token, user.company.resellerMasterId));
+      }
     }
   }, [token]);
 

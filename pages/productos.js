@@ -7,6 +7,8 @@ import { useTranslation } from "react-i18next";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import * as XLSX from "xlsx";
+import jsonexport from "jsonexport";
+import { saveAs } from "file-saver";
 
 const productos = () => {
   const dispatch = useDispatch();
@@ -24,10 +26,21 @@ const productos = () => {
   const [selectDate, setSelectDate] = useState("");
 
   const importFile = (data) => {
-    const workbook = XLSX.utils.book_new();
-    const sheet = XLSX.utils.json_to_sheet(data);
-    XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
-    XLSX.writeFile(workbook, "Productos_Participantes.xlsx");
+    // const workbook = XLSX.utils.book_new();
+    // const sheet = XLSX.utils.json_to_sheet(data);
+    // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
+    // XLSX.writeFile(workbook, "Productos_Participantes.xlsx");
+
+    data.shift();
+
+    jsonexport(data, (error, csv) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "Productos Participantes.csv");
+    });
   };
 
   useEffect(() => {
@@ -55,7 +68,7 @@ const productos = () => {
           <thead className="text-xs text-black-500 uppercase">
             <tr>
               <th scope="col" className="py-3 px-6">
-                Unidad de negocio
+                {t("tabla.unidadNegocio")}
               </th>
               <th scope="col" className="py-3 px-6">
                 SubBu
@@ -64,7 +77,7 @@ const productos = () => {
                 Categoría
               </th>
               <th scope="col" className="py-3 px-6">
-                Tipo de negocio
+                Tipo de {t("tabla.negocio")}
               </th>
               <th scope="col" className="py-3 px-6">
                 SKU

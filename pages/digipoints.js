@@ -20,6 +20,7 @@ const digipoints = () => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const company = useSelector((state) => state.user.company);
+  const distribuitor = useSelector((state) => state.user.distribuitor);
   const [searchInvoice, setSearchInvoice] = useState("");
   const [selectDate, setSelectDate] = useState("");
   const [page, setPage] = useState(0);
@@ -46,9 +47,14 @@ const digipoints = () => {
         });
     }
 
+    const compOrDist =
+      user.company === null
+        ? { endpoint: "distri-all-users-by-id", byId: distribuitor.id }
+        : { endpoint: "company-all-users-by-id", byId: company.id };
+
     axios
       .get(
-        `${process.env.BACKURL}/reporters/company-all-users-by-id/${company.id}`,
+        `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
         {
           headers: {
             "Content-Type": "application/json",

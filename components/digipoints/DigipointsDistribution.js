@@ -152,14 +152,16 @@ const DigipointsDistribution = () => {
     if (numModal === 0) {
       return (
         <div className="flex flex-col gap-10">
-          <h2 className="font-bold">Distribución de DigiPoints</h2>
-          <p>Seleccione una opción para distribuir los DigiPoints</p>
+          <h2 className="font-bold">
+            {t("digipoints.DDigipoints")} DigiPoints
+          </h2>
+          <p>{t("digipoints.selectType")}</p>
           <select
             className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
             onChange={(e) => setSalesOption(e.target.value)}
           >
-            <option value="salesRep">Representante de ventas</option>
-            <option value="salesTeam">Equipo de ventas</option>
+            <option value="salesRep">{t("digipoints.represV")}</option>
+            <option value="salesTeam">{t("digipoints.teamV")}</option>
           </select>
           {salesOption === "salesTeam" && (
             <select
@@ -171,7 +173,7 @@ const DigipointsDistribution = () => {
                 return setTeamInfo(team);
               }}
             >
-              <option value="">Elije tu equipo de ventas</option>
+              <option value="">{t("digipoints.elegirTeam")}</option>
               {teams.map((data) => (
                 <option value={data.id} key={data.id}>
                   {data.name_group}
@@ -311,10 +313,7 @@ const DigipointsDistribution = () => {
                     Cliente
                   </th>
                   <th scope="col" className="py-3 px-6">
-                    {t("tabla.hproductos")}
-                  </th>
-                  <th scope="col" className="py-3 px-6">
-                    {t("tabla.cantidad")}
+                    Segmento de mercado
                   </th>
                   <th scope="col" className="py-3 px-6">
                     Digipoints
@@ -331,10 +330,9 @@ const DigipointsDistribution = () => {
                     key={obj?.invoices_included}
                   >
                     <td className="py-4 px-6">{obj?.invoices_included}</td>
-                    <td className="py-4 px-6">{obj?.date}</td>
+                    <td className="py-4 px-6 min-w-[130px]">{obj?.date}</td>
                     <td className="py-4 px-6">{obj?.client}</td>
                     <td className="py-4 px-6">{obj?.marketSegment}</td>
-                    <td className="py-4 px-6">{obj?.salesQuantity}</td>
                     <td className="py-4 px-6">{obj?.digipoints}</td>
                     <td className="py-4 px-6">
                       {obj.status === false ? (
@@ -345,16 +343,17 @@ const DigipointsDistribution = () => {
                             setOpened(true);
                           }}
                         >
-                          Asignar
+                          {t("tabla.asignar")}
                         </button>
                       ) : (
                         <button
                           className="btn btn-secondary btn-xs"
-                          onClick={() =>
-                            handleUnassign({ ...obj, index: index })
+                          onClick={
+                            () => console.log("")
+                            // handleUnassign({ ...obj, index: index })
                           }
                         >
-                          Asignado
+                          {t("tabla.asignado")}
                         </button>
                       )}
                     </td>

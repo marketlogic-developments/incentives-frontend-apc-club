@@ -50,6 +50,10 @@ export const userActions = createSlice({
     setCompanyUsers: (state, action) => {
       state.companyUsers = action.payload;
     },
+
+    setInitialStateUser: (state, action) => {
+      return initialState;
+    },
   },
 });
 
@@ -65,6 +69,7 @@ export const {
   setCompany,
   setCompanyUsers,
   setDistribuitor,
+  setInitialStateUser,
 } = userActions.actions;
 
 export default userActions.reducer;

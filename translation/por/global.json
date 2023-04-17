@@ -44,8 +44,8 @@
 
   "menu": {
     "Dashboard": "Painél de controle",
-    "Participantes": "Organización",
-    "Puntos_por_ventas": "Pontos por vendas",
+    "Participantes": "Organização",
+    "Puntos_por_ventas": "DigiPoints por vendas",
     "Reportes": "Relatórios",
     "Digipoints": "Meus DigiPoints",
     "DDigipoints": "Distribuição de DigiPoints",
@@ -85,7 +85,9 @@
     "contieneN": "Um número (0-9)",
     "contieneSC": "Um caractere especial (!@#$)",
     "contiene8C": "Pelo menos 8 caracteres",
-    "coincidenContraseñas": "Las contraseñas coinciden"
+    "coincidenContraseñas": "Las contraseñas coinciden",
+    "pdfDist": "assets/pdf/HTWDistPor.pdf",
+    "pdfComp": "assets/pdf/HTWPor.pdf"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",
@@ -102,7 +104,8 @@
   },
   "organizacion": {
     "redenciones": "Resgates",
-    "info": "Informações"
+    "info": "Informações",
+    "organizacion": "Organização"
   },
   "cargaventas": {
     "asignar": "Atribuir pontos",
@@ -121,7 +124,17 @@
     "txtredencion": "Foi sua última redenção",
     "txtactuales": "Estes são os DigiPoints que você tem disponíveis para o resgate",
     "redencion": "Tipo de redenção",
-    "Dredimidos": "DigiPoints Resgatados"
+    "Dredimidos": "DigiPoints Resgatados",
+    "selectType": "Selecione uma opção para distribuir os DigiPoints",
+    "represV": "Representante de vendas",
+    "teamV": "Equipe de vendas",
+    "elegirTeam": "Selecione sua equipe de vendas",
+    "detallesFactura": "Detalhes da fatura",
+    "NoFactura": "Nº da fatura",
+    "digiEstimados": "Estimativa de DigiPoints por Representante de Vendas",
+    "asignarRep": "Atribuir o representante de vendas",
+    "successFact": "Sua fatura foi atribuída com sucesso",
+    "notiUser": "Você deve selecionar pelo menos um usuário para atribuir esta fatura."
   },
 
   "files": {},
@@ -130,13 +143,17 @@
     "nombre": "Nome",
     "correo": "E-mail",
     "rol": "Papel",
-    "fecha": "Data de ativação"
+    "fecha": "Data de ativação",
+    "solSend": "Pedido de registro enviado!",
+    "solRes": "Recebemos sua solicitação para criar um novo usuário. Nas próximas 24 horas, você receberá um e-mail de confirmação com os detalhes dos usuários criados.",
+    "contact": "Se tiver alguma pergunta, não hesite em nos contatar.",
+    "password": "Senha temporária"
   },
   "premios": {
     "agregar": "Adicionar prêmio"
   },
   "tabla": {
-    "ppventas": "Pontos por vendas",
+    "ppventas": "DigiPoints por vendas",
     "rol": "Papel",
     "exportar": "Exportação",
     "buscar": "Busca",
@@ -178,7 +195,17 @@
     "fecha": "Data",
     "cantidad": "Quantidade",
     "asignar": "Atribuir",
-    "nomParticipantes": "NOME DO PARTICIPANTE"
+    "asignado": "Atribuido",
+    "nomParticipantes": "NOME DO PARTICIPANTE",
+    "borrar": "EXCLUIR",
+    "unidadNegocio": "Unidade de negócio",
+    "negocio": "Negócio",
+    "tipoDist": "Nível",
+    "nombreDist": "Nome da Revenda",
+    "nombreCanal": "Nome da Revenda",
+    "addParticipante": "Adicionar Participante",
+    "valorVenta": "de Venda",
+    "notiError": "Ocorreu um erro, tente novamente mais tarde"
   },
   "shoopingcar": {
     "carrito": "Carrinho de compras",
@@ -189,7 +216,8 @@
     "exito": "Seu pedido foi recebido com sucesso ",
     "norden": "No. do pedido:",
     "ir": "Ir para o status do produto",
-    "notienes": "Ainda não há itens no seu carrinho de compras"
+    "notienes": "Ainda não há itens no seu carrinho de compras",
+    "bannerTarg": "GUIA DE USO DE CARTÕES"
   },
   "estadoProducto": {
     "estado": "Status de seus produtos"
@@ -215,7 +243,8 @@
     "pEquipo": "Participantes da equipe",
     "guardar": "Salvar alterações",
     "suma": "A soma das porcentagens deve ser equivalente a 100%",
-    "lista": "Este participante já está na lista"
+    "lista": "Este participante já está na lista",
+    "teamCre": "A equipe foi criada com sucesso"
   },
   "user": {
     "ajustesdeperfil": "Ajustes do perfil",
@@ -231,7 +260,9 @@
     "cel": "Telefone",
     "FechaNacimiento": "Data de nascimento",
     "boton": "Atualizar dados",
-    "escriba": "Digite aqui"
+    "escriba": "Digite aqui",
+    "seleccionarRol": "Selecione o papel",
+    "enviarSol": "ENVIAR PEDIDO DE INSCRIÇÃO"
   },
   "meses": {
     "enero": "Janeiro",

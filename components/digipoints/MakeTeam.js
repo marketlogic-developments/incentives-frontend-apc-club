@@ -182,6 +182,19 @@ const MakeTeam = () => {
 
   function handleSaveChanges(event) {
     event.preventDefault();
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
     const newData = dataModal.map((user) => {
       const modifiedUser = modifiedValues.find((obj) => obj.id === user.id);
       if (modifiedUser) {
@@ -196,18 +209,6 @@ const MakeTeam = () => {
       .reduce((prev, counter) => prev + counter);
 
     if (calculatePercentage > 100 || calculatePercentage < 100) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
       return Toast.fire({
         icon: "error",
         title: t("modalEquipos.suma"),
@@ -218,9 +219,28 @@ const MakeTeam = () => {
 
     if (infoModal?.id !== undefined) {
       const teamUpdate = {
-        ...infoModal,
-        participants: newData,
+        nameGroup: infoModal.nameGroup,
+        description: infoModal.description,
+        PartnerAdminGroupD: {
+          members: newData,
+        },
       };
+
+      axios
+        .patch(
+          `${process.env.BACKURL}/partner-admin-group-headers/${infoModal.id}`,
+          teamUpdate,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          console.log(data);
+        });
 
       const update = teams.filter(({ id }) => id !== infoModal?.id);
 
@@ -236,6 +256,8 @@ const MakeTeam = () => {
     //Function makes a team if the team doesn't have an id
 
     if (infoModal?.id === undefined) {
+      dispatch(changeLoadingData(true));
+
       axios
         .post(
           `${process.env.BACKURL}/partner-admin-group-headers`,
@@ -266,8 +288,19 @@ const MakeTeam = () => {
           setDataModal([]);
           setModifiedValues([]);
           setModal(0);
+          Toast.fire({
+            icon: "success",
+            title: t("modalEquipos.teamCre"),
+          });
           return setOpened(false);
-        });
+        })
+        .catch(() =>
+          Toast.fire({
+            icon: "error",
+            title: t("tabla.notiError"),
+          })
+        )
+        .finally(() => dispatch(changeLoadingData(false)));
     }
   }
 
@@ -341,10 +374,10 @@ const MakeTeam = () => {
     if (modal === 1) {
       return (
         <form
-          className="grid grid-cols-2 h-[400px] w-full p-[50px]"
+          className="grid grid-cols-5 h-[400px] w-full p-[50px]"
           onSubmit={handleSaveChanges}
         >
-          <div className="flex flex-col gap-5 relative p-5 h-full justify-evenly">
+          <div className="flex flex-col gap-5 relative p-5 h-full justify-evenly col-span-2">
             <div>
               <p>{t("modalEquipos.pEquipo")}</p>
               <div className="relative w-full">
@@ -369,8 +402,8 @@ const MakeTeam = () => {
               {t("modalEquipos.guardar")}
             </button>
           </div>
-          <div>
-            <div className="text-xs text-black-500 uppercase border-2 w-full grid grid-cols-3 place-items-center tableHeader">
+          <div className="col-span-3">
+            <div className="text-xs text-black-500 uppercase border-2 w-full grid grid-cols-4 place-items-center tableHeader">
               <p scope="col" className="py-3 px-6">
                 {t("tabla.nomParticipantes")}
               </p>
@@ -379,6 +412,9 @@ const MakeTeam = () => {
               </p>
               <p scope="col" className="py-3 px-6">
                 {t("modalEquipos.porcentajes")}
+              </p>
+              <p scope="col" className="py-3 px-6">
+                Borrar
               </p>
             </div>
             <div className="w-full overflow-y-scroll">
@@ -404,6 +440,26 @@ const MakeTeam = () => {
                           className="input input-xs w-1/2 text-center"
                         />
                         %
+                      </td>
+                      <td
+                        className="w-1/5"
+                        onClick={() => {
+                          const usersDelete = dataModal.filter(
+                            ({ id }) => id !== user.id
+                          );
+                          setDataModal(usersDelete);
+                        }}
+                      >
+                        <svg
+                          width="30"
+                          height="30"
+                          fill="#eb1000"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-full cursor-pointer"
+                        >
+                          <path d="M20.25 4.5H16.5v-.75a2.26 2.26 0 0 0-2.25-2.25h-4.5A2.26 2.26 0 0 0 7.5 3.75v.75H3.75a.75.75 0 0 0 0 1.5h.75v13.5A1.5 1.5 0 0 0 6 21h12a1.5 1.5 0 0 0 1.5-1.5V6h.75a.75.75 0 1 0 0-1.5ZM10.5 15.75a.75.75 0 1 1-1.5 0v-6a.75.75 0 0 1 1.5 0v6Zm4.5 0a.75.75 0 1 1-1.5 0v-6a.75.75 0 1 1 1.5 0v6ZM15 4.5H9v-.75A.75.75 0 0 1 9.75 3h4.5a.75.75 0 0 1 .75.75v.75Z"></path>
+                        </svg>
                       </td>
                     </tr>
                   ))}
@@ -433,8 +489,11 @@ const MakeTeam = () => {
 
           return (
             <tr
-              className="bg-white border-b dark:border-gray-500 hover:bg-base-200 cursor-pointer"
-              onClick={() => getTeamData(data)}
+              className="bg-white border-b dark:border-gray-500 hover:bg-base-200--cursor-pointer <- BORRAR DOBLE LINEA ENTRE HOVER Y CURSOR"
+              onClick={
+                () => console.log("")
+                // getTeamData(data)
+              }
             >
               <td className="py-4 px-6">{data?.name_group}</td>
               <td className="py-4 px-6">{data?.description}</td>

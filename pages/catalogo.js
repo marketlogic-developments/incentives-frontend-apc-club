@@ -33,7 +33,7 @@ const catalogo = () => {
 
   useEffect(() => {
     if (token && arrayAwards.length === 0) {
-      dispatch(getDataAwards(token));
+      dispatch(getDataAwards(token, user));
     }
   }, [token]);
 
@@ -128,7 +128,7 @@ const catalogo = () => {
             {t("adobeMarket.estado")}
           </button>
           <button className="btn btn-primary" onClick={() => setOpened(true)}>
-            Guía de uso de tarjetas
+            {t("shoopingcar.bannerTarg")}
           </button>
         </div>
 

@@ -45,10 +45,10 @@
   "menu": {
     "Dashboard": "Dashboard",
     "Participantes": "Organización",
-    "Puntos_por_ventas": "Puntos por ventas",
+    "Puntos_por_ventas": "DigiPoints por ventas",
     "Reportes": "Mis reportes",
     "Digipoints": "Mis DigiPoints",
-    "DDigipoints": "Distribución DigiPoints",
+    "DDigipoints": "Distribución de DigiPoints",
     "Productos": "Productos participantes",
     "Premios": "Mis premios",
     "Carga_de_Ventas": "Carga de ventas",
@@ -84,7 +84,9 @@
     "contieneN": "Un número (0-9)",
     "contieneSC": "Un carácter especial (!@#$)",
     "contiene8C": "Al menos 8 caracteres",
-    "coincidenContraseñas": "Las contraseñas coinciden"
+    "coincidenContraseñas": "Las contraseñas coinciden",
+    "pdfDist": "assets/pdf/HTWDist.pdf",
+    "pdfComp": "assets/pdf/HTW.pdf"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
@@ -101,7 +103,8 @@
   },
   "organizacion": {
     "redenciones": "Redenciones",
-    "info": "Información"
+    "info": "Información",
+    "organizacion": "Organización"
   },
   "cargaventas": {
     "cargar": "Cargar puntos",
@@ -119,7 +122,17 @@
     "txtredencion": "Fue tu última redención",
     "txtactuales": "Estos son los DigiPoints que tienes disponibles para redimir",
     "redencion": "Tipo de redención",
-    "Dredimidos": "DigiPoints Redimidos"
+    "Dredimidos": "DigiPoints Redimidos",
+    "selectType": "Selecciona una opción para distribuir los DigiPoints",
+    "represV": "Representante de ventas",
+    "teamV": "Equipo de ventas",
+    "elegirTeam": "Elije tu equipo de ventas",
+    "detallesFactura": "Detalles de la factura",
+    "NoFactura": "No. Factura",
+    "digiEstimados": "DigiPoints estimados por Representante de ventas",
+    "asignarRep": "Asignar Representante de Ventas",
+    "successFact": "Tu factura fue asignada de manera exitosa",
+    "notiUser": "Debes elegir al menos un usuario para asignar esta factura"
   },
   "files": {},
   "participantes": {
@@ -127,13 +140,17 @@
     "Region": "Región",
     "correo": "Correo",
     "rol": "rol",
-    "fecha": "Fecha de activación"
+    "fecha": "Fecha de activación",
+    "solSend": "¡Solicitud de registro enviada!",
+    "solRes": "Hemos recibido tu solicitud para crear un nuevo usuario. En las próximas 24 horas, recibirás un correo de confirmación con los detalles de los usuarios creados.",
+    "contact": "Si tienes alguna pregunta, no dudes en contactarnos:",
+    "password": "Contraseña temporal"
   },
   "premios": {
     "agregar": "Agregar premio"
   },
   "tabla": {
-    "ppventas": "Puntos por ventas",
+    "ppventas": "DigiPoints por ventas",
     "rol": "Rol",
     "exportar": "Exportar",
     "buscar": "Buscar",
@@ -173,10 +190,20 @@
     "fechaCreacion": "FECHA DE CREACIÓN",
     "nfactura": "No. Factura",
     "fecha": "Fecha",
-    "cantidad": "cantidad",
+    "cantidad": "Cantidad",
     "asignar": "Asignar",
+    "asignado": "Asignado",
     "nomParticipantes": "NOMBRE DEL PARTICIPANTE",
-    "sillas": "No. de sillas"
+    "sillas": "No. de sillas",
+    "borrar": "Borrar",
+    "unidadNegocio": "Unidad de negocio",
+    "negocio": "Negocio",
+    "tipoDist": "Tipo",
+    "nombreDist": "Nombre de distribuidor",
+    "nombreCanal": "Nombre del Canal",
+    "addParticipante": "Agregar Participante",
+    "valorVenta": "de Venta",
+    "notiError": "Ha ocurrido un error, intentalo más tarde"
   },
   "shoopingcar": {
     "carrito": "Carrito",
@@ -187,7 +214,8 @@
     "exito": "Tu orden fue recibida con exito",
     "norden": "No. de Orden:",
     "ir": "Ir al estado de tus premios",
-    "notienes": "Aún no tienes artículos en tu carrito de compras"
+    "notienes": "Aún no tienes artículos en tu carrito de compras",
+    "bannerTarg": "Guía de uso de tarjetas"
   },
   "estadoProducto": {
     "estado": "Estado de tus premios"
@@ -213,7 +241,8 @@
     "pEquipo": "Participantes del equipo",
     "guardar": "Guardar Cambios",
     "suma": "La suma de los porcentajes debe ser equivalente a 100%",
-    "lista": "Este participante ya está dentro de la lista"
+    "lista": "Este participante ya está dentro de la lista",
+    "teamCre": "El equipo ha sido creado exitosamente"
   },
   "user": {
     "ajustesdeperfil": "Ajustes de perfil",
@@ -229,7 +258,9 @@
     "cel": "Teléfono",
     "FechaNacimiento": "Fecha de nacimiento",
     "boton": "Actualizar datos",
-    "escriba": "Escriba aquí"
+    "escriba": "Escriba aquí",
+    "seleccionarRol": "Selecione el rol",
+    "enviarSol": "Enviar solicitud"
   },
   "meses": {
     "enero": "Enero",
