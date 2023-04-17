@@ -783,24 +783,38 @@ const Layout = ({ children }) => {
 
   const menu = useMemo(() => {
     if (userRedux?.roleId === 1) {
-      return locations.map(({ icon, page, text }, index) => {
-        return (
-          <div className="containerItemLayout" key={index}>
-            <div
-              className={
-                window.location.pathname === page
-                  ? "itemLayoutSelect"
-                  : "itemLayout"
-              }
-              key={index}
-              onClick={() => href(page)}
-            >
-              {icon}
-              <p>{text}</p>
+      return locations
+        .filter(({ page }) => {
+          if (userRedux.email.split("@")[1] === "adobe.com") {
+            return ![
+              "/digipointsall",
+              "/reportTyC",
+              "/premios",
+              "/cargaventas",
+              "/reglas",
+            ].includes(page);
+          }
+
+          return;
+        })
+        .map(({ icon, page, text }, index) => {
+          return (
+            <div className="containerItemLayout" key={index}>
+              <div
+                className={
+                  window.location.pathname === page
+                    ? "itemLayoutSelect"
+                    : "itemLayout"
+                }
+                key={index}
+                onClick={() => href(page)}
+              >
+                {icon}
+                <p>{text}</p>
+              </div>
             </div>
-          </div>
-        );
-      });
+          );
+        });
     } else if (userRedux?.roleId === 2) {
       return locationsPP.map(({ icon, page, text }, index) => {
         return (
