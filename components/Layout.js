@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { Menu, Modal } from "@mantine/core";
+import { Menu } from "@mantine/core";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loadingUser,
