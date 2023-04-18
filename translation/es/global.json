@@ -140,7 +140,11 @@
     "Region": "Región",
     "correo": "Correo",
     "rol": "rol",
-    "fecha": "Fecha de activación"
+    "fecha": "Fecha de activación",
+    "solSend": "¡Solicitud de registro enviada!",
+    "solRes": "Hemos recibido tu solicitud para crear un nuevo usuario. En las próximas 24 horas, recibirás un correo de confirmación con los detalles de los usuarios creados.",
+    "contact": "Si tienes alguna pregunta, no dudes en contactarnos:",
+    "password": "Contraseña temporal"
   },
   "premios": {
     "agregar": "Agregar premio"
