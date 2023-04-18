@@ -795,7 +795,7 @@ const Layout = ({ children }) => {
             ].includes(page);
           }
 
-          return;
+          return page;
         })
         .map(({ icon, page, text }, index) => {
           return (
