@@ -205,7 +205,8 @@
     "nombreCanal": "Nome da Revenda",
     "addParticipante": "Adicionar Participante",
     "valorVenta": "de Venda",
-    "notiError": "Ocorreu um erro, tente novamente mais tarde"
+    "notiError": "Ocorreu um erro, tente novamente mais tarde",
+    "continuar": "SEGUINTE"
   },
   "shoopingcar": {
     "carrito": "Carrinho de compras",
@@ -262,7 +263,8 @@
     "boton": "Atualizar dados",
     "escriba": "Digite aqui",
     "seleccionarRol": "Selecione o papel",
-    "enviarSol": "ENVIAR PEDIDO DE INSCRIÇÃO"
+    "enviarSol": "ENVIAR PEDIDO DE INSCRIÇÃO",
+    "cambiarFoto": "Alterar"
   },
   "meses": {
     "enero": "Janeiro",

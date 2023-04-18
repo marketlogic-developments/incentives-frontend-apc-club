@@ -203,7 +203,8 @@
     "nombreCanal": "Nombre del Canal",
     "addParticipante": "Agregar Participante",
     "valorVenta": "de Venta",
-    "notiError": "Ha ocurrido un error, intentalo más tarde"
+    "notiError": "Ha ocurrido un error, intentalo más tarde",
+    "continuar": "Continuar"
   },
   "shoopingcar": {
     "carrito": "Carrito",
@@ -260,7 +261,8 @@
     "boton": "Actualizar datos",
     "escriba": "Escriba aquí",
     "seleccionarRol": "Selecione el rol",
-    "enviarSol": "Enviar solicitud"
+    "enviarSol": "Enviar solicitud",
+    "cambiarFoto": "Cambiar"
   },
   "meses": {
     "enero": "Enero",
