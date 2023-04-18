@@ -1,3 +1,5 @@
+"use client";
+
 import "../styles/global.scss";
 import Layout from "../components/Layout";
 import { MantineProvider } from "@mantine/core";
