@@ -279,7 +279,7 @@ const user = () => {
                     setOpened(true);
                   }}
                 >
-                  Cambiar foto de perfil
+                  {t("user.cambiarFoto")} foto de perfil
                 </div>
               </div>
               <div className="w-4/6 flex items-center">
