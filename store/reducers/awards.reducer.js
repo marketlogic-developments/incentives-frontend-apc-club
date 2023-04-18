@@ -78,6 +78,10 @@ export const getDataAwards = (token, user) => async (dispatch) => {
         dispatch(
           awardsPush(
             res.data.filter((e) => {
+              if (user.roleId === 1) {
+                return e;
+              }
+
               if (user.countryId === "Chile") {
                 return e.description !== "BRASIL";
               }
@@ -87,10 +91,6 @@ export const getDataAwards = (token, user) => async (dispatch) => {
 
               if (["SOLA", "NOLA", "MEXICO"].includes(user.region)) {
                 return e.description === "NOLA - SOLA - MEX";
-              }
-
-              if (user.roleId === 1) {
-                return;
               }
             })
           )
