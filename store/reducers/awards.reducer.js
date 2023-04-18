@@ -79,7 +79,7 @@ export const getDataAwards = (token, user) => async (dispatch) => {
           awardsPush(
             res.data.filter((e) => {
               if (user.countryId === "Chile") {
-                return e.description === "CHILE";
+                return e.description !== "BRASIL";
               }
               if (user.region === "BRAZIL") {
                 return e.description === "BRASIL";
