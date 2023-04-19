@@ -21,11 +21,15 @@ const TableStats = () => {
   const [percentageDC, setpercentageDC] = useState([]);
   const dataFromAxios = useSelector((state) => state.sales.salesgement);
 
+  console.log(user);
+
   useEffect(() => {
     if (token && dataFromAxios.length === 0) {
       if (user.roleId === 1) {
         dispatch(getSalesBySegmentAll(token));
-      } else if (user.company === null) {
+      }
+
+      if (user.companyId === null) {
         dispatch(
           getSalesBySegmentDist(token, user.distributionChannel.soldToParty)
         );

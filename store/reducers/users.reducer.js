@@ -9,7 +9,7 @@ const initialState = {
   loading: false,
   error: null,
   users: [],
-  company: [],
+  company: {},
   companyUsers: [],
   digipoints: {},
   distribuitor: {},

@@ -104,9 +104,7 @@ export const processFile = (token, data) => async (dispatch) => {
           },
         }
       )
-      .then((res) => {
-        console.log(res.data);
-      })
+      .then((res) => {})
       .finally(() => {
         dispatch(getSalesData(token));
       });
@@ -246,7 +244,6 @@ export const getSalesBySegmentAll = (token) => async (dispatch) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         dispatch(getSalesSegment(res.data));
       });
   } catch (err) {
@@ -264,7 +261,6 @@ export const getSalesBySegmentComp = (token, data) => async (dispatch) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         dispatch(getSalesSegment(res.data));
       });
   } catch (err) {
