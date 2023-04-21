@@ -11,6 +11,7 @@ import { Modal } from "@mantine/core";
 import axios from "axios";
 import ButtonParticipants from "./ButtonParticipants";
 import ModalUsers from "./ModalUsers/ModalUsers";
+import { getCompanyAll } from "../../store/reducers/company.reducer";
 
 const AllParticipants = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const AllParticipants = () => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [userDataToModal, setUserDataToModal] = useState({});
+  const [dataCompany, setDataCompany] = useState([]);
 
   useEffect(() => {
     if (participantes.length === 0) setIsLoaded(true);
@@ -38,15 +40,6 @@ const AllParticipants = () => {
         .then((participantes) => {
           setParticipantes(participantes.payload);
           setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      dispatch(getRolesData(token))
-        .then((roles) => {
-          setLoading(false);
-          setRoles(roles);
         })
         .catch((error) => {
           console.log(error);
@@ -79,10 +72,8 @@ const AllParticipants = () => {
           user?.roleId === 1 ? "cursor-pointer hover:bg-warning" : ""
         }`}
         onClick={() => {
-          if (user?.roleId === 1) {
-            setUserDataToModal(user2);
-            return setOpened(true);
-          }
+          setUserDataToModal(user2);
+          setOpened(true);
         }}
       >
         <td className="py-4 px-2">{user2.name}</td>
@@ -173,7 +164,7 @@ const AllParticipants = () => {
 
   return (
     <>
-      <Modal opened={opened} onClose={() => setOpened(false)} size={"50%"}>
+      <Modal opened={opened} onClose={() => setOpened(false)} size={"60%"}>
         <ModalUsers userDataToModal={userDataToModal} token={token} />
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white flex flex-col gap-5">
