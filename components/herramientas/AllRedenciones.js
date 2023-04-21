@@ -207,19 +207,19 @@ const AllRedenciones = () => {
                       scope="row"
                       className="py-4 px-6 font-medium text-black"
                     >
-                      #{data.orderNumber}
+                      #{data.ordernumber}
                     </th>
                     <td className="py-4 px-6">
-                      {data.productsObject
+                      {data.productsobject
                         .map((e) => Number(e.quantity))
                         .reduce(
                           (initialValue, current) => initialValue + current
                         )}
                     </td>
-                    <td className="py-4 px-6">{data.digipointSubstract}</td>
-                    <td className="py-4 px-6">{formatDate(data.CreatedAt)}</td>
+                    <td className="py-4 px-6">{data.digipoint_substract}</td>
+                    <td className="py-4 px-6">{formatDate(data.created_at)}</td>
                     <td className="py-4 px-6">
-                      {orderStatusNumber(data.operationStatusId)}
+                      {orderStatusNumber(data.operationstatusid)}
                     </td>
                   </tr>
                 </tbody>
