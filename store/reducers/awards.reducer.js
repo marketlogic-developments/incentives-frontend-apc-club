@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
   awards: [],
   shoopingCar: [],
+  rules: [],
 };
 
 export const awardsAction = createSlice({
@@ -22,11 +23,28 @@ export const awardsAction = createSlice({
     shoopingCarPush: (state, action) => {
       state.shoopingCar = action.payload;
     },
+    rulesGetAll: (state, action) => {
+      state.rules = [...state.rules, ...action.payload];
+    },
+    rulesPush: (state, action) => {
+      state.rules = action.payload;
+    },
+
+    setInitialStateAwards: (state, action) => {
+      return initialState;
+    },
   },
 });
 
-export const { shoopingCarPush, awardsPush, awardsDelete, productsPush } =
-  awardsAction.actions;
+export const {
+  shoopingCarPush,
+  awardsPush,
+  awardsDelete,
+  productsPush,
+  rulesGetAll,
+  rulesPush,
+  setInitialStateAwards,
+} = awardsAction.actions;
 
 export default awardsAction.reducer;
 
@@ -46,7 +64,7 @@ export const pushReward = (token, data) => async (dispatch) => {
   }
 };
 
-export const getDataAwards = (token) => async (dispatch) => {
+export const getDataAwards = (token, user) => async (dispatch) => {
   try {
     axios
       .get(`${process.env.BACKURL}/awards`, {
@@ -57,7 +75,44 @@ export const getDataAwards = (token) => async (dispatch) => {
         },
       })
       .then((res) => {
-        dispatch(awardsPush(res.data));
+        dispatch(
+          awardsPush(
+            res.data.filter((e) => {
+              if (user.roleId === 1) {
+                return e;
+              }
+
+              if (user.countryId === "Chile") {
+                return e.description !== "BRASIL";
+              }
+              if (user.region === "BRAZIL") {
+                return e.description === "BRASIL";
+              }
+
+              if (["SOLA", "NOLA", "MEXICO"].includes(user.region)) {
+                return e.description === "NOLA - SOLA - MEX";
+              }
+            })
+          )
+        );
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getDataRules = (token) => async (dispatch) => {
+  try {
+    axios
+      .get(`${process.env.BACKURL}/rules`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        dispatch(rulesGetAll(res.data));
       });
   } catch (err) {
     console.log(err);

@@ -52,7 +52,7 @@ const estadoProducto = () => {
           <div className="flex flex-col gap-5">
             <h1 className="font-bold text-3xl">{t("estadoProducto.estado")}</h1>
           </div>
-          <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
+          <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
             <div>
               <br></br>
               <div className="relative">

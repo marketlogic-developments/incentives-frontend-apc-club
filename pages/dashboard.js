@@ -24,28 +24,28 @@ import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
 } from "react-icons/ai";
+import TableStats from "../components/dashboard/TableStats";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
+  const company = useSelector((state) => state.user.company);
+  const distribuitor = useSelector((state) => state.user.distribuitor);
   const [opened, setOpened] = useState(false);
-  const [opened2, setOpened2] = useState(true);
+  const [opened2, setOpened2] = useState(false);
   const [view, setView] = useState("password");
   const dispatch = useDispatch();
   const route = useRouter();
   const [typeHeader, setTypeHeader] = useState(0);
-
   const [t, i18n] = useTranslation("global");
-
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [puntos, setPuntos] = useState([]);
-  const [lLoading, setLoading] = useState(false);
   const [sortedData, setSortedData] = useState([]);
   const [modalType, setModalType] = useState([]);
 
+  const [participantes, setParticipantes] = useState([]);
+
   const userData = useMemo(() => {
     if (user !== 0) {
-      return user?.person[0].names;
+      return user?.names;
     }
   }, [user]);
 
@@ -55,8 +55,6 @@ const dashboard = () => {
 
   const redirection = () => {
     if (!user?.passwordReset) {
-      setOpened2(false);
-      //borrar esto ^
       setModalType(0);
       return setOpened(true);
     }
@@ -79,7 +77,6 @@ const dashboard = () => {
       .then((res) => {
         dispatch(policyAndPassword(res.data));
         setOpened(false);
-        setOpened2(true);
         const Toast = Swal.mixin({
           toast: true,
           position: "top",
@@ -100,37 +97,45 @@ const dashboard = () => {
   };
 
   useEffect(() => {
-    if (user.policy) {
-      Cookies.remove("t&c");
-    }
-    setIsLoaded(true);
-  }, []);
+    const compOrDist =
+      user.company === null
+        ? {
+            endpoint: "digipoints-redeem-status-all-distri",
+            byId: distribuitor.id,
+          }
+        : {
+            endpoint: "digipoints-redeem-status-all-compa",
+            byId: company.id,
+          };
 
-  useEffect(() => {
-    if (isLoaded && token) {
-      setLoading(true);
-      dispatch(getPointsData(token))
-        .then((puntos) => {
-          setLoading(false);
-          setPuntos(puntos);
-          const data = [...puntos].sort(
-            (a, b) => b.poins_assig - a.poins_assig
-          );
-          setSortedData(data);
-        })
-        .catch(() => {
-          return;
+    if (token) {
+      axios
+        .get(
+          `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          if (data.length < 3) {
+            setTypeHeader(2);
+          }
+          setParticipantes(data);
         });
     }
-  }, [isLoaded, token]);
+  }, [token]);
 
   const header = useMemo(() => {
     if (typeHeader === 0) {
       return (
         <div className="gap-10 flex flex w-full">
-          <div className="gap-10 w-6/12">
-            <div className="flex flex-col gap-5 texto_dash">
-              <h1 className="font-bold text-2xl max-sm:text-xl">
+          <div className="gap-10 w-1/2 flex items-center justify-center">
+            <div className="flex flex-col gap-5 texto_dash w-5/6">
+              <h1 className="font-bold text-2xl max-sm:text-xl none">
                 {t("dashboard.Inicio")}
               </h1>
               <h2 className="font-bold text-4xl max-sm:text-xl">
@@ -140,19 +145,22 @@ const dashboard = () => {
               <button
                 className="btn btn-primary buttonResponsive"
                 onClick={() => {
-                  // setModalType(1);
-                  // setOpened(true);
-                  setOpened2(true);
+                  setModalType(1);
+                  setOpened(true);
                 }}
               >
                 {t("dashboard.conoce")}
               </button>
             </div>
           </div>
-          <div className="flex flex-col gap-5 w-3/6 items-center">
+          <div className="flex flex-col gap-5 w-1/2 items-center">
             <div className="h-full w-full">
               <div className="gap-10 w-full">
-                <Podio t={t} sortedData={sortedData} />
+                <Podio
+                  t={t}
+                  sortedData={sortedData}
+                  participantes={participantes}
+                />
               </div>
             </div>
           </div>
@@ -164,46 +172,64 @@ const dashboard = () => {
         <figure
           className="w-full flex justify-center"
           onClick={() => {
-            // setModalType(2);
-            // setOpened(true);
-            setOpened2(true);
+            setModalType(2);
+            setOpened(true);
           }}
         >
           {i18n.resolvedLanguage === "por" ? (
             <img
-              src="assets/dashboard/banners/promPor.jpg"
+              src="assets/dashboard/banners/promPor.webp"
               className="bannersImg cursor-pointer"
             />
           ) : (
             <img
-              src="assets/dashboard/banners/prom.jpg"
+              src="assets/dashboard/banners/prom.webp"
               className="bannersImg cursor-pointer"
             />
           )}
         </figure>
       );
     }
+
     if (typeHeader === 2) {
       return (
-        <figure
-          className="w-full flex justify-center cursor-pointer"
-          onClick={() => route.push("/digipoints")}
-        >
-          {i18n.resolvedLanguage === "por" ? (
-            <img
-              src="assets/dashboard/banners/htwPor.jpg"
-              className="bannersImg"
-            />
-          ) : (
-            <img
-              src="assets/dashboard/banners/htw.jpg"
-              className="bannersImg"
-            />
+        <div className="w-full flex flex-col gap-5">
+          {participantes.length < 3 && (
+            <h2 className="font-bold text-4xl max-sm:text-xl">
+              {t("dashboard.Hola")} {userData}
+            </h2>
           )}
-        </figure>
+
+          <a
+            href={
+              user.companyId === null
+                ? t("dashboard.pdfDist")
+                : t("dashboard.pdfComp")
+            }
+            alt="HTW"
+            target="_blank"
+            className="w-full flex justify-center"
+          >
+            <figure className="w-5/6">
+              {i18n.resolvedLanguage === "por" ? (
+                <img
+                  src="assets/dashboard/banners/htwPor.webp"
+                  className="bannersImg"
+                  style={{ width: "auto" }}
+                />
+              ) : (
+                <img
+                  src="assets/dashboard/banners/htw.webp"
+                  className="bannersImg"
+                  style={{ width: "auto" }}
+                />
+              )}
+            </figure>
+          </a>
+        </div>
       );
     }
-  }, [typeHeader]);
+  }, [typeHeader, participantes]);
 
   const [passwordMatch, setPasswordMatch] = useState(""); // passwords match
   // booleans for password validations
@@ -378,7 +404,7 @@ const dashboard = () => {
     }
 
     if (modalType === 1) {
-      return <RankingTable />;
+      return <RankingTable participantes={participantes} />;
     }
     if (modalType === 2) {
       return <GraphProm />;
@@ -394,6 +420,7 @@ const dashboard = () => {
     allValid,
     passwordMatch,
   ]);
+
   const isMobile = window.innerWidth <= 768;
   const modalSize = isMobile
     ? { initialWidth: "100%", initialHeight: "auto" }
@@ -431,13 +458,13 @@ const dashboard = () => {
             <figure>
               {i18n.resolvedLanguage === "por" ? (
                 <img
-                  src="assets/dashboard/banners/bannerPApor.jpg"
+                  src="assets/dashboard/banners/bannerPApor.webp"
                   alt="Sales_PA"
                   className="w-full"
                 ></img>
               ) : (
                 <img
-                  src="assets/dashboard/banners/bannerPA.jpg"
+                  src="assets/dashboard/banners/bannerPA.webp"
                   alt="Sales_PA"
                   className="w-full"
                 ></img>
@@ -449,128 +476,58 @@ const dashboard = () => {
       <ContainerContent pageTitle={"Dashboard"}>
         {header}
         <div className="w-full flex justify-center gap-5">
-          <button
-            className={`btn btn-xs btn-accent`}
-            onClick={() => setOpened2(true)}
+          {participantes.length >= 3 && (
+            <button
+              className={`btn btn-xs ${
+                typeHeader === 0 ? "btn-primary" : "btn-accent"
+              }`}
+              onClick={() => {
+                setTypeHeader(0);
+              }}
+            >
+              {t("dashboard.ranking")}
+            </button>
+          )}
+          <a
+            href={
+              user.companyId === null
+                ? t("dashboard.pdfDist")
+                : t("dashboard.pdfComp")
+            }
+            alt="HTW"
+            target="_blank"
           >
-            {t("dashboard.ventas")}
-          </button>
-          <button
-            className={`btn btn-xs ${
-              typeHeader === 0 ? "btn-primary" : "btn-accent"
-            }`}
-            onClick={() => {
-              // setTypeHeader(0)
-              setOpened2(true);
-            }}
-          >
-            {t("dashboard.ranking")}
-          </button>
-          <button
+            <button
+              className={`btn ${
+                typeHeader === 2 ? "btn-primary" : "btn-accent"
+              } btn-xs`}
+              onClick={() => {
+                setTypeHeader(2);
+              }}
+            >
+              {t("dashboard.htw")}
+            </button>
+          </a>
+          {/* <button
             className={`btn ${
               typeHeader === 1 ? "btn-primary" : "btn-accent"
             } btn-xs`}
             onClick={() => {
-              // setTypeHeader(1)
-              setOpened2(true);
+              setTypeHeader(1);
             }}
           >
             {t("dashboard.promociones")}
-          </button>
-          <button
-            className={`btn ${
-              typeHeader === 2 ? "btn-primary" : "btn-accent"
-            } btn-xs`}
-            onClick={() => {
-              // setTypeHeader(2)
-              setOpened2(true);
-            }}
-          >
-            {t("dashboard.htw")}
-          </button>
+          </button> */}
         </div>
         <hr color="red" />
         <div className="gap-10 flex flex-col h-full">
-          <div className="container w-full h-full bg-base-100 flex flex-col sm:flex-row justify-between max-sm:justify-center">
-            <div className="w-8/12 max-sm:mx-auto flex flex-col gap-5 progressiveBar justify-center">
-              <div className="w-full h-16 flex items-center gap-10 gapBar">
-                <div className="flex items-center h-full cct max-sm:w-64 w-32 text-center">
-                  <img src="/assets/dashboard/cc.png" width={100}></img>
-                </div>
-                <div className="w-10/12 flex flex-col items-center justify-around h-full">
-                  <div className="w-full flex justify-around">
-                    <p className="text-sm font-semibold border-b-2 border-b-orange-500">
-                      Teams
-                    </p>
-                    <p className="text-sm font-semibold border-b-sky-600 border-b-2 ">
-                      Enterprise
-                    </p>
-                    <p className="text-sm font-semibold border-b-2 border-b-green-600">
-                      Education
-                    </p>
-                  </div>
-                  <div className="w-full bg-base-200 h-4 flex">
-                    <span
-                      className="bg-primary h-full"
-                      style={{ width: "33.3%" }}
-                    />
-                    <span
-                      className="bg-secondary h-full"
-                      style={{ width: "33.3%" }}
-                    />
-                    <span
-                      className="bg-warning h-full"
-                      style={{ width: "33.3%" }}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="w-full h-16 flex items-center gap-10 gapBar">
-                <div className="flex items-center h-full cci max-sm:w-64 w-32 text-center">
-                  <img src="/assets/dashboard/DC.png" width={100}></img>
-                </div>
-                <div className="w-10/12 flex flex-col items-center justify-around h-full">
-                  <div className="w-full flex justify-around">
-                    <p className="text-sm font-semibold border-b-2 border-b-orange-500">
-                      Teams
-                    </p>
-                    <p className="text-sm font-semibold border-b-sky-600 border-b-2">
-                      Enterprise
-                    </p>
-                    <p className="text-sm font-semibold border-b-2 border-b-red-600">
-                      Education
-                    </p>
-                  </div>
-                  <div className="w-full bg-base-200 h-4 flex"></div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center w-4/12 max-sm:w-full justify-center gap-10">
-              <div className="flex flex-col gap-5">
-                <p className="font-semibold text-center">Partner Goal:</p>
-                <p className="text-center font-bold text-3xl">{`${0}`}</p>
-              </div>
-              <div className="h-full w-min">
-                <div
-                  className="radial-progress flex justify-center items-center text-primary"
-                  style={{
-                    "--value": "0",
-                    "--size": "9rem",
-                    "--thickness": "2px",
-                  }}
-                >
-                  <div className="w-5/6 h-5/6 bg-primary text-center p-5 flex flex-col items-center justify-center rounded-full text-white">
-                    <p className="font-bold text-xl">${"0M"}</p>
-                    <p className="text-sm">0%</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <TableStats />
           <Carousel
             sx={{ width: "100%", height: "100%" }}
             mx="auto"
             withIndicators={false}
+            //Delete with COntrols
+            withControls={false}
             controlSize={40}
             draggable={false}
             height={260}
@@ -584,9 +541,9 @@ const dashboard = () => {
                 <Carousel.Slide>
                   <GraphSales />
                 </Carousel.Slide>
-                <Carousel.Slide>
+                {/* <Carousel.Slide>
                   <Graph />
-                </Carousel.Slide>
+                </Carousel.Slide> */}
               </>
             )}
           </Carousel>
@@ -594,7 +551,7 @@ const dashboard = () => {
             {user?.roleId !== 2 && (
               <button
                 className="btn btn-primary btn-wide"
-                onClick={() => route.push("/adobeMarket")}
+                onClick={() => route.push("/catalogo")}
               >
                 {t("dashboard.redimir")}
               </button>

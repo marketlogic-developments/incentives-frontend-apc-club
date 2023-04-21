@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import ContainerContent from "../../components/containerContent";
 import { policyAndPassword } from "../../store/reducers/users.reducer";
+import ModalPassword from "../../components/user/modalPassword";
 
 const user = () => {
   const user = useSelector((state) => state.user.user);
@@ -14,15 +15,17 @@ const user = () => {
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
   const [nInputs, setNInputs] = useState(0);
+  const [modal, setModal] = useState(0);
+  const [image, setImage] = useState({});
+  const [viewimage, setviewImage] = useState("");
   const [t, i18n] = useTranslation("global");
 
   const [formData, setFormData] = useState({
-    name: "",
+    names: "",
     lastname: "",
     email: "",
     role: "",
     position: "",
-    emailP: "",
     region: "",
     imgProfile: "",
     birthDate: "",
@@ -31,36 +34,39 @@ const user = () => {
 
   useEffect(() => {
     setFormData({
-      name: user?.person[0]?.names,
-      lastname: user?.person[0]?.lastName,
+      names: user?.names,
+      lastname: user?.lastName,
       email: user?.email,
       role: user?.roleId,
-      position: user?.person[0]?.position,
-      emailP:
-        user?.person[0]?.secondaryEmail === null
-          ? ""
-          : user?.person[0]?.secondaryEmail,
+      position: user?.position,
       region: user?.region,
       imgProfile: user?.profilePhotoPath,
-      birthDate: user?.person[0]?.birthDate,
-      phone: user?.person[0]?.phoneNumber,
+      birthDate: user?.birthDate,
+      phone: user?.phoneNumber,
     });
 
     const num = Object.values({
-      name: user?.person[0]?.names,
-      lastname: user?.person[0]?.lastName,
-      email: user?.email,
-      role: user?.roleId,
-      position: user?.person[0]?.position,
-      emailP: user?.person[0]?.secondaryEmail,
-      region: user?.region,
-      imgProfile: user?.profilePhotoPath,
-      birthDate: user?.person[0]?.birthDate,
-      phone: user?.person[0]?.phoneNumber,
-    }).filter((e) => e !== null).length;
+      name: user.names,
+      lastname: user.lastName,
+      imgProfile: user.profilePhotoPath,
+      birthDate: user.birthDate,
+      phone: user.phoneNumber,
+    }).filter((e) => e !== "" && e !== null).length;
 
-    setNInputs(num * 10);
+    setNInputs(parseInt((num * 100) / 5));
   }, [user]);
+
+  const handleChangeInputs = () => {
+    const num = Object.values({
+      name: formData.names,
+      lastname: formData.lastname,
+      imgProfile: formData.imgProfile,
+      birthDate: formData.birthDate,
+      phone: formData.phone,
+    }).filter((e) => e !== "" && e !== null).length;
+
+    setNInputs(parseInt((num * 100) / 5));
+  };
 
   const handleChange = (e) => {
     if (e.target.name === "roleId") {
@@ -80,28 +86,11 @@ const user = () => {
     e.preventDefault();
 
     const jsonData = () => {
-      if (formData.emailP === "") {
-        return {
-          person: {
-            names: formData.name,
-            lastName: formData.lastname,
-            birthDate: formData.birthDate,
-            phoneNumber: formData.phone,
-            personId: user.person[0].id,
-          },
-          region: formData.region,
-        };
-      }
-
       return {
-        person: {
-          names: formData.name,
-          lastName: formData.lastname,
-          birthDate: formData.birthDate,
-          phoneNumber: formData.phone,
-          personId: user.person[0].id,
-          secondaryEmail: formData.emailP,
-        },
+        names: formData.name,
+        lastName: formData.lastname,
+        birthDate: formData.birthDate,
+        phoneNumber: formData.phone,
         region: formData.region,
       };
     };
@@ -114,23 +103,136 @@ const user = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
-        dispatch(
-          policyAndPassword({
-            ...res.data,
-            person: [{ ...user.person[0], ...res.data.person[0] }],
-          })
-        );
+        dispatch(policyAndPassword(res.data));
+        setModal(0);
         setOpened(true);
       });
   };
 
-  return (
-    <>
-      <Modal opened={opened} onClose={() => setOpened(false)} centered>
+  const handleImgProfile = (e) => {
+    const reader = new FileReader();
+    const file = e.target.files[0];
+
+    reader.onload = (e) => {
+      const dataURL = e.target.result;
+      setviewImage({ path: dataURL });
+    };
+
+    reader.readAsDataURL(file);
+    setImage(file);
+  };
+
+  const handleSubmitImgProfile = (e) => {
+    e.preventDefault();
+
+    const form = new FormData();
+    form.append("file", image);
+    form.append("upload_preset", "ADOBEAPC");
+
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`,
+        form
+      )
+      .then((res) => {
+        axios
+          .patch(
+            `${process.env.BACKURL}/users/${user.id}`,
+            { profilePhotoPath: res.data.url },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res2) => {
+            setFormData({
+              ...formData,
+              imgProfile: res.data.url,
+            });
+          });
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const typeModal = useMemo(() => {
+    if (modal === 0) {
+      return (
         <div>
           <p>¡Tus datos fueron actualizados!</p>
         </div>
+      );
+    }
+    if (modal === 1) {
+      return (
+        <div className="flex flex-col w-full justify-center items-center gap-10">
+          <div className="w-1/5">
+            <figure className="imgPhoto border-red-600 border rounded-full">
+              <img
+                src={
+                  viewimage === ""
+                    ? formData.imgProfile === null || formData.imgProfile === ""
+                      ? "/assets/Icons/user.webp"
+                      : formData.imgProfile
+                    : viewimage.path
+                }
+              />
+            </figure>
+          </div>
+          <div className="max-w-xl">
+            <label className="flex flex-col justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+              <span className="flex flex-col jusitfy-center items-center space-x-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6 text-gray-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  />
+                </svg>
+                <span className="font-medium text-gray-600 text-center">
+                  Arrastra tu foto aquí o selecciona una de tu equipo
+                </span>
+              </span>
+              <input
+                type="file"
+                name="file_upload"
+                className="hidden"
+                onChange={handleImgProfile}
+              />
+            </label>
+          </div>
+          <button className="btn btn-primary" onClick={handleSubmitImgProfile}>
+            Subir mi nueva foto
+          </button>
+        </div>
+      );
+    }
+
+    if (modal === 2) {
+      return <ModalPassword setOpened={setOpened} />;
+    }
+  }, [modal, opened, image, viewimage]);
+
+  return (
+    <>
+      <Modal
+        opened={opened}
+        onClose={() => {
+          setviewImage("");
+          setOpened(false);
+        }}
+        centered
+        size={"50%"}
+      >
+        {typeModal}
       </Modal>
       <ContainerContent pageTitle={"Ajustes de perfil"}>
         <div className="m-6 flex flex-col">
@@ -149,9 +251,7 @@ const user = () => {
                 <div
                   className="circular-progress"
                   style={{
-                    background: `conic-gradient(#d75050 ${
-                      nInputs * 3.6
-                    }deg, #ededed 0deg)`,
+                    "--progress": `${nInputs * 3.6}deg`,
                   }}
                 >
                   <div className="flip-card-imgPhoto">
@@ -160,7 +260,7 @@ const user = () => {
                         <figure className="imgPhoto">
                           <img
                             src={
-                              formData.imgProfile || "/assets/Icons/avatar.png"
+                              formData.imgProfile || "/assets/Icons/user.webp"
                             }
                           />
                         </figure>
@@ -171,6 +271,15 @@ const user = () => {
                       </div>
                     </div>
                   </div>
+                </div>
+                <div
+                  className="btn btn-primary"
+                  onClick={() => {
+                    setModal(1);
+                    setOpened(true);
+                  }}
+                >
+                  Cambiar foto de perfil
                 </div>
               </div>
               <div className="w-4/6 flex items-center">
@@ -183,9 +292,11 @@ const user = () => {
                       type="text"
                       placeholder={t("user.escriba")}
                       className="input input-ghost w-full max-w-xs border border-accent"
-                      name="name"
-                      value={formData.name}
+                      name="names"
+                      value={formData.names}
                       onChange={handleChange}
+                      onBlur={handleChangeInputs}
+                      required
                     />
                   </div>
                   <div className="form-control w-full max-w-xs">
@@ -199,6 +310,8 @@ const user = () => {
                       className="input input-ghost w-full max-w-xs border border-accent"
                       value={formData.lastname}
                       onChange={handleChange}
+                      required
+                      onBlur={handleChangeInputs}
                     />
                   </div>
                   <div className="form-control w-full max-w-xs">
@@ -233,6 +346,17 @@ const user = () => {
                         : ""}
                     </span>
                   </div>
+                  <div className="form-control w-full max-w-xs py-10">
+                    <span
+                      className="btn btn-primary"
+                      onClick={() => {
+                        setModal(2);
+                        setOpened(true);
+                      }}
+                    >
+                      {t("dashboard.cambiarpass")}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -242,19 +366,6 @@ const user = () => {
               </div>
               <div className="w-full flex items-center">
                 <div className="w-full grid grid-cols-3 h-fit gap-y-5">
-                  <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                      <span className="label-text">{t("user.correo2")}</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="emailP"
-                      placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs border border-accent"
-                      value={formData.emailP}
-                      onChange={handleChange}
-                    />
-                  </div>
                   <div className="form-control w-full max-w-xs">
                     <label className="label">
                       <span className="label-text">{t("user.region")}</span>
@@ -296,6 +407,8 @@ const user = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       name="phone"
+                      required
+                      onBlur={handleChangeInputs}
                     />
                   </div>
                   <div className="form-control w-full max-w-xs">
@@ -306,11 +419,13 @@ const user = () => {
                     </label>
                     <input
                       type="text"
-                      placeholder={t("user.escriba")}
+                      placeholder="AAAA-MM-DD"
                       className="input input-ghost w-full max-w-xs border border-accent"
                       value={formData.birthDate}
                       onChange={handleChange}
                       name="birthDate"
+                      required
+                      onBlur={handleChangeInputs}
                     />
                   </div>
                 </div>

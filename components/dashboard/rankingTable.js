@@ -1,11 +1,10 @@
-const RankingTable = () => {
-  const data = [];
+const RankingTable = ({ participantes }) => {
   return (
     <>
       <div className="m-6">
-        <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
-          <div>
-            <div className="relative">
+        <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
+          <div className="w-full flex justify-center">
+            {/* <div className="relative">
               <div className="absolute flex items-center ml-2 h-full">
                 <svg
                   className="w-4 h-4 fill-current text-primary-gray-dark"
@@ -22,7 +21,8 @@ const RankingTable = () => {
                 placeholder="Buscar por email"
                 className="px-8 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
               />
-            </div>
+            </div> */}
+            <p className="font-bold text-2xl text-[#eb1000]">Ranking</p>
           </div>
           <br></br>
           <div className="container">
@@ -45,18 +45,19 @@ const RankingTable = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map(({ name, email, reg, top }) => {
+                  {participantes.map(({ names, email, region }, index) => {
+                    const position = index + 1;
                     return (
                       <tr className="bg-white border-b dark:border-gray-500">
                         <th
                           scope="row"
                           className="py-4 px-6 font-medium text-black"
                         >
-                          {name}
+                          {names}
                         </th>
                         <td className="py-4 px-6">{email}</td>
-                        <td className="py-4 px-6">{reg}</td>
-                        <td className="py-4 px-6">{top}</td>
+                        <td className="py-4 px-6">{region}</td>
+                        <td className="py-4 px-6">{position}</td>
                       </tr>
                     );
                   })}

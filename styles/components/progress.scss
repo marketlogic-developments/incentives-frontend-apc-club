@@ -7,16 +7,26 @@
   flex-direction: column;
   align-items: center;
 }
+
+@property --a {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 .circular-progress {
+  --a: var(--progress);
   position: relative;
   height: 250px;
   width: 250px;
   border-radius: 50%;
-  background: conic-gradient(#fecd03 3.6deg, #fecd03 0deg);
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: --a 0.5s;
+  background: conic-gradient(#d75050 var(--a), #ededed 0deg);
 }
+
 .circular-progress::before {
   content: "";
   position: absolute;

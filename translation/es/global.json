@@ -25,25 +25,30 @@
     "doneregister": "Se han enviado tus datos, pronto te contactaremos.",
     "notregister": "Ha habido un error al enviar tus datos, intenta de nuevo.",
     "registro": "¿Quieres unirte a APC Club?",
-    "linkRegistro": "Regístrate Aquí"
+    "linkRegistro": "Regístrate Aquí",
+    "sorry": "¡Lo sentimos!",
+    "userNoActivo1": "<p class='text-justify'>No hemos encontrado activa tu cuenta en el programa de PartnerConnectionClub. Si tienes alguna pregunta o inquietud acerca de ella, por favor contáctanos a través de nuestro correo electrónico de soporte:</p> <br/>",
+    "userNoActivo2": "<br/> <p class='text-justify'>Nuestro equipo está listo para ayudarte a resolver tus dudas.</p>"
   },
 
   "tyc": {
-    "title1": "¡Gracias! \n Te hemos enviado un vínculo por correo electrónico para verificar tu identidad.",
-    "title12": "Debes confirmar que eres tú para continuar con la aprobación de los Términos y Condiciones del APC Club. Si no completas este paso, no podremos aceptar tu aprobación.",
-    "title2": "Estamos procesando la activación de tu usuario, en un plazo de 24 horas recibirás un correo electrónico con la notificación para que puedas acceder a la plataforma.",
-    "title3": "Si en 24 horas no la has recibido, puedes escribirnos a info@adobepcclub.com para verificar el estado de tu solicitud.",
+    "title1": "Solo hace falta un paso",
+    "title12": "Verificar tu identidad.",
+    "title2": "Ve a tu correo, busca en tu bandeja de entrada el mail con el asunto:",
+    "title21": "Confirme su aprobación de APC Club - Términos y Condiciones",
+    "title22": "sigue las instrucciones para hacerlo.",
+    "title3": "Posterior a tu confirmación, espera la notificación de activación de tu usuario en un plazo de 24 horas. Dudas a",
     "firmar": "firmar",
     "borrar": "Limpiar"
   },
 
   "menu": {
     "Dashboard": "Dashboard",
-    "Participantes": "Participantes",
-    "Puntos_por_ventas": "Puntos por ventas",
+    "Participantes": "Organización",
+    "Puntos_por_ventas": "DigiPoints por ventas",
     "Reportes": "Mis reportes",
     "Digipoints": "Mis DigiPoints",
-    "DDigipoints": "Distribución DigiPoints",
+    "DDigipoints": "Distribución de DigiPoints",
     "Productos": "Productos participantes",
     "Premios": "Mis premios",
     "Carga_de_Ventas": "Carga de ventas",
@@ -79,7 +84,9 @@
     "contieneN": "Un número (0-9)",
     "contieneSC": "Un carácter especial (!@#$)",
     "contiene8C": "Al menos 8 caracteres",
-    "coincidenContraseñas": "Las contraseñas coinciden"
+    "coincidenContraseñas": "Las contraseñas coinciden",
+    "pdfDist": "assets/pdf/HTWDist.pdf",
+    "pdfComp": "assets/pdf/HTW.pdf"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
@@ -94,7 +101,11 @@
     "estado": "Ver el estado de tus premios",
     "carrito": "Agregar al carrito"
   },
-  "asignarventas": {},
+  "organizacion": {
+    "redenciones": "Redenciones",
+    "info": "Información",
+    "organizacion": "Organización"
+  },
   "cargaventas": {
     "cargar": "Cargar puntos",
     "id": "ID de archivo"
@@ -111,7 +122,17 @@
     "txtredencion": "Fue tu última redención",
     "txtactuales": "Estos son los DigiPoints que tienes disponibles para redimir",
     "redencion": "Tipo de redención",
-    "Dredimidos": "DigiPoints Redimidos"
+    "Dredimidos": "DigiPoints Redimidos",
+    "selectType": "Selecciona una opción para distribuir los DigiPoints",
+    "represV": "Representante de ventas",
+    "teamV": "Equipo de ventas",
+    "elegirTeam": "Elije tu equipo de ventas",
+    "detallesFactura": "Detalles de la factura",
+    "NoFactura": "No. Factura",
+    "digiEstimados": "DigiPoints estimados por Representante de ventas",
+    "asignarRep": "Asignar Representante de Ventas",
+    "successFact": "Tu factura fue asignada de manera exitosa",
+    "notiUser": "Debes elegir al menos un usuario para asignar esta factura"
   },
   "files": {},
   "participantes": {
@@ -119,13 +140,17 @@
     "Region": "Región",
     "correo": "Correo",
     "rol": "rol",
-    "fecha": "Fecha de activación"
+    "fecha": "Fecha de activación",
+    "solSend": "¡Solicitud de registro enviada!",
+    "solRes": "Hemos recibido tu solicitud para crear un nuevo usuario. En las próximas 24 horas, recibirás un correo de confirmación con los detalles de los usuarios creados.",
+    "contact": "Si tienes alguna pregunta, no dudes en contactarnos:",
+    "password": "Contraseña temporal"
   },
   "premios": {
     "agregar": "Agregar premio"
   },
   "tabla": {
-    "ppventas": "Puntos por ventas",
+    "ppventas": "DigiPoints por ventas",
     "rol": "Rol",
     "exportar": "Exportar",
     "buscar": "Buscar",
@@ -165,10 +190,20 @@
     "fechaCreacion": "FECHA DE CREACIÓN",
     "nfactura": "No. Factura",
     "fecha": "Fecha",
-    "cantidad": "cantidad",
+    "cantidad": "Cantidad",
     "asignar": "Asignar",
+    "asignado": "Asignado",
     "nomParticipantes": "NOMBRE DEL PARTICIPANTE",
-    "sillas": "No. de sillas"
+    "sillas": "No. de sillas",
+    "borrar": "Borrar",
+    "unidadNegocio": "Unidad de negocio",
+    "negocio": "Negocio",
+    "tipoDist": "Tipo",
+    "nombreDist": "Nombre de distribuidor",
+    "nombreCanal": "Nombre del Canal",
+    "addParticipante": "Agregar Participante",
+    "valorVenta": "de Venta",
+    "notiError": "Ha ocurrido un error, intentalo más tarde"
   },
   "shoopingcar": {
     "carrito": "Carrito",
@@ -179,7 +214,8 @@
     "exito": "Tu orden fue recibida con exito",
     "norden": "No. de Orden:",
     "ir": "Ir al estado de tus premios",
-    "notienes": "Aún no tienes artículos en tu carrito de compras"
+    "notienes": "Aún no tienes artículos en tu carrito de compras",
+    "bannerTarg": "Guía de uso de tarjetas"
   },
   "estadoProducto": {
     "estado": "Estado de tus premios"
@@ -205,7 +241,8 @@
     "pEquipo": "Participantes del equipo",
     "guardar": "Guardar Cambios",
     "suma": "La suma de los porcentajes debe ser equivalente a 100%",
-    "lista": "Este participante ya está dentro de la lista"
+    "lista": "Este participante ya está dentro de la lista",
+    "teamCre": "El equipo ha sido creado exitosamente"
   },
   "user": {
     "ajustesdeperfil": "Ajustes de perfil",
@@ -221,7 +258,9 @@
     "cel": "Teléfono",
     "FechaNacimiento": "Fecha de nacimiento",
     "boton": "Actualizar datos",
-    "escriba": "Escriba aquí"
+    "escriba": "Escriba aquí",
+    "seleccionarRol": "Selecione el rol",
+    "enviarSol": "Enviar solicitud"
   },
   "meses": {
     "enero": "Enero",

@@ -6,6 +6,7 @@ import {
   getSalesData,
   getStatus,
   createSaleData,
+  processFile,
 } from "../store/reducers/sales.reducer";
 import moment from "moment";
 import Link from "next/link";
@@ -32,34 +33,9 @@ const cargaventas = () => {
   useEffect(() => {
     if (isLoaded && token) {
       dispatch(getSalesData(token));
-      dispatch(getStatus(token))
-        .then((status) => {
-          setStatus(status);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+
     }
   }, [isLoaded, token]);
-
-  useEffect(() => {
-    if (salesfiles.length > 0 && status.length > 0) {
-      const joinObjects = (salesfiles, status) => {
-        const result = [];
-        salesfiles.forEach((sale) => {
-          status.forEach((stat) => {
-            if (sale.operationStatusId === stat.id) {
-              result.push({ ...sale, nameStatus: stat.name });
-            }
-          });
-        });
-        return result;
-      };
-      setSaleStatus(joinObjects(salesfiles, status));
-      //const setSaleStatus2 = joinObjects(sales, status);
-      //console.log(setSaleStatus2);
-    }
-  }, [salesfiles, status]);
 
   const [fileName, setFileName] = useState("");
   const [fileB64, setFileB64] = useState("");
@@ -102,6 +78,10 @@ const cargaventas = () => {
     }
   }, [formSubmitted]);
 
+  const handleClick = (miId) => {
+    dispatch(processFile(token, miId));
+  };
+
   return (
     <>
       <ContainerContent pageTitle={"Carga de Ventas"}>
@@ -109,7 +89,7 @@ const cargaventas = () => {
           <div className="flex flex-col gap-5">
             <h1 className="font-bold text-3xl"> {t("menu.Carga_de_Ventas")}</h1>
           </div>
-          <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
+          <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
             <div>
               <div className="relative">
                 <div className="absolute flex items-center ml-2 h-full none">
@@ -158,23 +138,41 @@ const cargaventas = () => {
                         Estado
                       </th>
                       <th scope="col" className="py-3 px-6">
-                        {t("tabla.activo")}
+                        Procesar
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {saleStatus.map((ventas) => (
+                    {salesfiles.map((ventas) => (
                       <tr
                         key={ventas.id}
                         className="bg-white border-b dark:border-gray-500"
                       >
-                        <td className="py-4 px-6">{ventas.nameUuid}</td>
+                        <td className="py-4 px-6">{ventas.name_uuid}</td>
                         <td className="py-4 px-6">
                           {moment(ventas.CreatedAt).format("MM/DD/YYYY")}
                         </td>
-                        <td className="py-4 px-6">{ventas.nameStatus}</td>
+                        <td className="py-4 px-6">{ventas.name} - {ventas.status_id}</td>
                         <td className="py-4 px-6">
-                          {ventas.complete ? "Activo" : "Inactivo"}
+                          {
+                            ventas.status_id === 2
+                              ? (
+                                <button
+                                  type="submit"
+                                  onClick={() => handleClick(ventas.id)}
+                                  className="btn btn-primary justify-self-center rounded-full  w-max col-span-2"
+                                >
+                                  Procesar
+                                </button>
+                              ) : (
+                                <button
+                                  type="submit"
+                                  className="text-white bg-black focus:outline-none btn justify-self-center rounded-full disabled:opacity-100" disabled
+                                >
+                                  Procesado
+                                </button>
+                              )
+                          }
                         </td>
                       </tr>
                     ))}
@@ -196,35 +194,36 @@ const cargaventas = () => {
           </label>
 
           <>
-            <h3 className="text-lg font-bold text-red-500">Cargar Ventas</h3>
-            <p className="py-4">Indica la información de la venta</p>
-            <div className="w-full flex flex-col items-center">
+            <p className="py-4 text-center">Agrega el archivo de la venta</p>
+            <div className="w-full">
               <form onSubmit={handleSubmit} className="w-full">
                 <div className="form-control text-center">
-                  <span className="label-text pb-4">
-                    Agrega el archivo de la venta
-                  </span>
-                  <div className="flex w-full justify-center gap-8">
+                  <div className=" w-full  gap-8">
                     <div>
                       <strong className="text-sm">
-                        Subir archivo (csv, xls)
+                        Subir archivo (xls)
                       </strong>
-                      <p className="text-xs">Peso máximo 500MB</p>
+
                     </div>
                     <input
                       input
                       type="file"
                       onChange={handleFileChange}
                       name="base64String"
-                      className="file-input file-input-bordered file-input-error w-full max-w-xs"
+                      className="text-sm text-slate-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-secondary-50 mt-4 mb-4"
                       ref={(input) => setInputRef(input)}
                     />
+                    <p className="text-xs">Peso máximo 5MB</p>
                   </div>
                   <div className="pt-5 flex justify-center">
                     <button
                       type="submit"
                       htmlFor="my-modal-3"
-                      className="btn btn-outline btn-error w-2/4"
+                      className="btn btn-primary justify-self-center rounded-full  w-max col-span-2"
                     >
                       Upload
                     </button>
@@ -232,9 +231,7 @@ const cargaventas = () => {
                 </div>
               </form>
               {formSubmitted && (
-                <p className="rounded-lg border-solid border-2 px-4 py-2 mt-2 text-white bg-[#00405d]">
-                  Archivo enviado
-                </p>
+                <p className="rounded-lg border-solid border-2 px-4 py-2 mt-2 text-white bg-[#00405d]">Archivo enviado</p>
               )}
             </div>
           </>

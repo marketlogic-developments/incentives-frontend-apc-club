@@ -78,30 +78,34 @@ const terminosycondiciones = () => {
           opened={opened}
           centered
           size={"80%"}
-          onClose={() => null}
+          onClose={() => {
+            window.sessionStorage.removeItem("infoDt");
+            route.push("/");
+          }}
           id="modalterminos"
         >
           <div className="w-full p-10 flex flex-col justify-center gap-10">
-            <h2 className="font-medium text-justify text-xl">
-              {t("tyc.title1")} <strong>{t("tyc.title12")}</strong>
+            <h2 className="font-medium text-center text-xl">
+              <strong>
+                {t("tyc.title1")} <br /> {t("tyc.title12")}
+              </strong>
             </h2>
-            <h2 className="font-medium text-justify text-xl">
-              {t("tyc.title2")}
+            <h2 className="font-medium text-center text-md">
+              {t("tyc.title2")} <br /> <strong>{t("tyc.title21")}</strong>{" "}
+              <br />
+              {t("tyc.title22")}
             </h2>
-            <h2 className="font-medium text-justify text-xl">
+            <hr className="border-gray-300" />
+            <h2 className="font-medium text-center text-sm">
               {t("tyc.title3")}
-            </h2>
-            <div className="flex justify-center">
-              <button
-                className="btn btn-primary w-max text-lg"
-                onClick={() => {
-                  window.sessionStorage.removeItem("infoDt");
-                  route.push("/");
-                }}
+              <a
+                href="mailto:info@adobepcclub.com"
+                className="underline decoration-solid"
               >
-                {t("menu.salir")}
-              </button>
-            </div>
+                {" "}
+                info@adobepcclub.com
+              </a>
+            </h2>
           </div>
         </Modal>
         {user?.cpf !== "active" && (
@@ -120,7 +124,7 @@ const terminosycondiciones = () => {
               <p>{t("terminosycondiciones.aceptar")}</p>
             </div>
 
-            {user?.person[0]?.languageId === 1 ? (
+            {user?.languageId === 1 ? (
               <iframe
                 title="TermsAndContidionsAdobeSign"
                 src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCcW5vpqipVeP4okcl4cwzhtHBOExs8xsfkD9ObSqH_IqLxxQKpBR8Mcsy_xC5UXls*"

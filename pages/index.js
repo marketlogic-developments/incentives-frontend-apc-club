@@ -4,7 +4,9 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setCompany,
   setDigipoints,
+  setDistribuitor,
   userLogin,
   userToken,
 } from "../store/reducers/users.reducer";
@@ -21,8 +23,12 @@ import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
 } from "react-icons/ai";
+import { changeLoadingData } from "../store/reducers/loading.reducer";
 
 export default function Home() {
+  const user = useSelector((state) => state.user);
+  const dataFromAxios = useSelector((state) => state.sales);
+
   const [t, i18n] = useTranslation("global");
 
   const dispatch = useDispatch();
@@ -37,9 +43,22 @@ export default function Home() {
   const listRedirect = ["bcrservicos.com.br", "bcrcx.com"];
   const [open, setOpen] = useState("");
   const [view, setView] = useState("password");
+  const [viewLogin, setViewLogin] = useState("password");
   const [tokeNewPass, setTokeNewPass] = useState("");
 
+  const [passwordMatch, setPasswordMatch] = useState(""); // passwords match
+  // booleans for password validations
+  const [containsUL, setContainsUL] = useState(false); // uppercase letter
+  const [containsLL, setContainsLL] = useState(false); // lowercase letter
+  const [containsN, setContainsN] = useState(false); // number
+  const [containsSC, setContainsSC] = useState(false); // special character
+  const [contains8C, setContains8C] = useState(false); // min 8 characters
+
+  // checks all validations are true
+  const [allValid, setAllValid] = useState(false);
+
   const [showPopup, setShowPopup] = useState(false);
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("token")) {
@@ -57,6 +76,8 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    dispatch(changeLoadingData(true));
+
     if (listRedirect.includes(email.split("@")[1])) {
       return route.push("https://bcr.adobepcclub.net/");
     }
@@ -71,6 +92,20 @@ export default function Home() {
         password: password,
       })
       .then((res) => {
+        if (res.data.user.operationStatusId === 5) {
+          Swal.fire({
+            title: t("login.sorry"),
+            html:
+              t("login.userNoActivo1") +
+              '<a href="mailto:info@adobepcclub.com" class="text-[#eb1000] font-bold text-center">info@adobepcclub.com</a><br/>' +
+              t("login.userNoActivo2"),
+            icon: "warning",
+            confirmButtonColor: "#eb1000",
+            confirmButtonText: t("terminosycondiciones.aceptarBtn"),
+          });
+          return dispatch(changeLoadingData(false));
+        }
+
         window.sessionStorage.setItem(
           "infoDt",
           JSON.stringify({
@@ -96,28 +131,88 @@ export default function Home() {
           },
         });
 
-        return Toast.fire({
+        Toast.fire({
           icon: "error",
           title: t("login.errorLogin"),
         });
+
+        return dispatch(changeLoadingData(false));
       });
   };
 
-  const handleDigipoints = (userData) => {
+  const handleDigipoints = async (userData) => {
+    const compOrDist =
+      userData.user.companyId === null
+        ? {
+            endpoint: "distribution-channel",
+            byId: userData.user.distributionChannelId,
+          }
+        : {
+            endpoint: "companies",
+            byId: userData.user.companyId,
+          };
+
+    axios
+      .get(`${process.env.BACKURL}/${compOrDist.endpoint}/${compOrDist.byId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${userData.token}`,
+        },
+      })
+      .then(({ data }) => {
+        if (compOrDist.endpoint === "distribution-channel") {
+          dispatch(setDistribuitor(data));
+        } else {
+          dispatch(setCompany(data));
+        }
+      })
+      .catch((err) => {
+        if (err.message === "Request failed with status code 404") {
+          dispatch(
+            setCompany({
+              CreatedAt: 0,
+              id: 0,
+              name: "Sin canal / distribuidor",
+              representativeId: 0,
+              phoneNumber: "000000",
+              operationStatusId: 0,
+              distChannelsId: "No",
+              maxDayAssign: 0,
+              resellerMasterId: "",
+              goalsPerQuarter: "",
+              goalsPerYear: "",
+              partnerAdmin: {
+                name: "No",
+              },
+            })
+          );
+        }
+      })
+      .finally(() => {
+        if (userData.user.policy) {
+          route.push("/dashboard");
+        } else {
+          route.push("/terminosycondiciones");
+        }
+
+        dispatch(changeLoadingData(false));
+      });
+
     axios
       .get(
-        `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/${userData.user.id}`,
+        `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/${userData.user.id}`,
         {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
             Authorization: `Bearer ${userData.token}`,
           },
         }
       )
-      .then((res) => {
-        const [digipoints] = res.data;
-
-        if (res.data.length === 0) {
+      .then((dpInfo) => {
+        const [digipoints] = dpInfo.data;
+        if (dpInfo.data.length === 0) {
           dispatch(
             setDigipoints({
               assigned_points: 0,
@@ -127,17 +222,12 @@ export default function Home() {
         } else {
           dispatch(setDigipoints(digipoints));
         }
-
-        if (userData.user.policy) {
-          return route.push("/dashboard");
-        } else {
-          return route.push("/terminosycondiciones");
-        }
       });
   };
 
   const handleSubmitNewPass = (data) => {
     data.preventDefault();
+
     axios
       .post(`${process.env.BACKURL}/auth/change-password`, {
         token: tokeNewPass,
@@ -229,17 +319,6 @@ export default function Home() {
       });
   };
 
-  const [passwordMatch, setPasswordMatch] = useState(""); // passwords match
-  // booleans for password validations
-  const [containsUL, setContainsUL] = useState(false); // uppercase letter
-  const [containsLL, setContainsLL] = useState(false); // lowercase letter
-  const [containsN, setContainsN] = useState(false); // number
-  const [containsSC, setContainsSC] = useState(false); // special character
-  const [contains8C, setContains8C] = useState(false); // min 8 characters
-
-  // checks all validations are true
-  const [allValid, setAllValid] = useState(false);
-
   useEffect(() => {
     if (containsUL && containsLL && containsN && containsSC && contains8C) {
       return setAllValid(true);
@@ -324,6 +403,7 @@ export default function Home() {
                 />
                 <button
                   type="button"
+                  title="viewPassword"
                   onClick={() => {
                     view === "password" ? setView("text") : setView("password");
                   }}
@@ -394,10 +474,11 @@ export default function Home() {
                 )}
               </div>
               <button
-                className={`btn ${allValid
+                className={`btn ${
+                  allValid
                     ? "btn-primary"
                     : "btn-active btn-ghost pointer-events-none"
-                  }`}
+                }`}
               >
                 {t("dashboard.cambiarpass")}
               </button>
@@ -431,15 +512,23 @@ export default function Home() {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      <main className="mainIndex bg-primary flex flex-col w-full z-50 relative overflow-x-hidden overflow-y-hidden h-screen 2xl:gap-16 xl:gap-1">
+      <main className="mainIndex bg-primary flex flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden h-screen 2xl:gap-16 xl:gap-1">
         <Recovery opened={opened} setOpened={setOpened} t={t} />
         <Registro close={setRegister} register={register} />
         <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] max-sm:max-h-[150px] flex w-full justify-between mt-10">
           <figure className="ml-10 max-sm:m-auto">
-            <img src="assets/login/adobe.png" className="max-w-[250px] max-sm:m-auto " />
+            <img
+              src="assets/login/adobe.webp"
+              className="max-w-[250px] max-sm:m-auto "
+              alt="Principal-Adobe-Logo"
+            />
           </figure>
           <figure>
-            <img src="assets/login/pcc.png" className="max-w-[400px] max-sm:m-auto" />
+            <img
+              src="assets/login/pcc.webp"
+              className="max-w-[400px] max-sm:m-auto"
+              alt="10years-Logo"
+            />
           </figure>
         </div>
         <div className="container flex flex-col justify-center items-center w-full max-w-full relative">
@@ -447,8 +536,9 @@ export default function Home() {
             <div className="w-fit h-full max-sm:h-auto max-sm:mb-5 flex justify-center items-center ">
               <figure id="apcLogo">
                 <img
-                  src="/assets/login/apcLogo.png"
+                  src="/assets/login/apcLogo.webp"
                   className="logoAPC w-5/6"
+                  alt="logoAPC"
                 />
               </figure>
             </div>
@@ -487,15 +577,31 @@ export default function Home() {
                             }}
                           />
                         </label>
-                        <label className="label flex flex-col w-full items-start">
+                        <label className="label flex flex-col w-full items-start relative">
                           <input
-                            type="password"
+                            type={viewLogin}
                             placeholder={t("login.Password")}
                             className="input w-full text-black"
+                            required
                             onChange={(e) => {
                               setPassword(e.target.value);
                             }}
                           />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              viewLogin === "password"
+                                ? setViewLogin("text")
+                                : setViewLogin("password");
+                            }}
+                            className="absolute inset-y-0 right-0 flex items-center px-4 py-2 text-gray-700 hover:text-gray-600 focus:outline-none"
+                          >
+                            {viewLogin === "text" ? (
+                              <AiOutlineEyeInvisible className="h-5 w-5 fill-[#000]" />
+                            ) : (
+                              <AiOutlineEye className="h-5 w-5 fill-[#000]" />
+                            )}
+                          </button>
                         </label>
                       </div>
 

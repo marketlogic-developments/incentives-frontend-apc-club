@@ -18,9 +18,13 @@ export const teamsAction = createSlice({
     getAllTeams: (state, action) => {
       state.teams = action.payload;
     },
+    setInitialStateTeams: (state, action) => {
+      return initialState;
+    },
   },
 });
 
-export const { teamsPush, getAllTeams, teamsUpdate } = teamsAction.actions;
+export const { teamsPush, getAllTeams, teamsUpdate, setInitialStateTeams } =
+  teamsAction.actions;
 
 export default teamsAction.reducer;

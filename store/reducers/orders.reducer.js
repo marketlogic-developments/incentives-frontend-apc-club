@@ -15,10 +15,14 @@ export const ordersAction = createSlice({
     getAllOrders: (state, action) => {
       state.orders = action.payload;
     },
+    setInitialStateOrders: (state, action) => {
+      return initialState;
+    },
   },
 });
 
-export const { ordersPush, getAllOrders } = ordersAction.actions;
+export const { ordersPush, getAllOrders, setInitialStateOrders } =
+  ordersAction.actions;
 
 export default ordersAction.reducer;
 
@@ -32,5 +36,17 @@ export const getOrders = (token, id) => async (dispatch) => {
     .then((res) => {
       const data = res.data.filter(({ employeeId }) => employeeId === id);
       dispatch(getAllOrders(data));
+    });
+};
+
+export const getOrdersAll = (token) => async (dispatch) => {
+  axios
+    .get(`${process.env.BACKURL}/reporters/redeem`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      dispatch(getAllOrders(res.data));
     });
 };

@@ -9,7 +9,10 @@ const initialState = {
   loading: false,
   error: null,
   users: [],
+  company: [],
+  companyUsers: [],
   digipoints: {},
+  distribuitor: {},
 };
 
 export const userActions = createSlice({
@@ -38,6 +41,19 @@ export const userActions = createSlice({
     setDigipoints: (state, action) => {
       state.digipoints = action.payload;
     },
+    setCompany: (state, action) => {
+      state.company = action.payload;
+    },
+    setDistribuitor: (state, action) => {
+      state.distribuitor = action.payload;
+    },
+    setCompanyUsers: (state, action) => {
+      state.companyUsers = action.payload;
+    },
+
+    setInitialStateUser: (state, action) => {
+      return initialState;
+    },
   },
 });
 
@@ -50,6 +66,10 @@ export const {
   policyAndPassword,
   setDigipoints,
   userToken,
+  setCompany,
+  setCompanyUsers,
+  setDistribuitor,
+  setInitialStateUser,
 } = userActions.actions;
 
 export default userActions.reducer;
@@ -107,16 +127,29 @@ export const createUserData = (token, data) => async (dispatch) => {
     console.log(err);
   }
 };
-export const getPointsData = (token) => async (dispatch) => {
+
+export const getDigiPoints = (token, id) => async (dispatch) => {
   return axios
-    .get(`${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/`, {
+    .get(`${process.env.BACKURL}/reporters/digipoints-redeem-status/2/${id}`, {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((puntos) => {
-      return puntos.data;
+    .then((dpInfo) => {
+      const [digipoints] = dpInfo.data;
+
+      console.log();
+
+      dispatch(
+        digipoints === undefined
+          ? setDigipoints({
+              employ_id: 1761,
+              assigned_points: 0,
+              cart_points: 0,
+            })
+          : setDigipoints(digipoints)
+      );
     });
 };

@@ -7,6 +7,8 @@ import { useTranslation } from "react-i18next";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import * as XLSX from "xlsx";
+import jsonexport from "jsonexport";
+import { saveAs } from "file-saver";
 
 const productos = () => {
   const dispatch = useDispatch();
@@ -24,10 +26,21 @@ const productos = () => {
   const [selectDate, setSelectDate] = useState("");
 
   const importFile = (data) => {
-    const workbook = XLSX.utils.book_new();
-    const sheet = XLSX.utils.json_to_sheet(data);
-    XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
-    XLSX.writeFile(workbook, "Productos_Participantes.xlsx");
+    // const workbook = XLSX.utils.book_new();
+    // const sheet = XLSX.utils.json_to_sheet(data);
+    // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
+    // XLSX.writeFile(workbook, "Productos_Participantes.xlsx");
+
+    data.shift();
+
+    jsonexport(data, (error, csv) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "Productos Participantes.csv");
+    });
   };
 
   useEffect(() => {
@@ -55,16 +68,19 @@ const productos = () => {
           <thead className="text-xs text-black-500 uppercase">
             <tr>
               <th scope="col" className="py-3 px-6">
-                {t("tabla.tipoproducto")}
+                {t("tabla.unidadNegocio")}
+              </th>
+              <th scope="col" className="py-3 px-6">
+                SubBu
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Categoría
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Tipo de {t("tabla.negocio")}
               </th>
               <th scope="col" className="py-3 px-6">
                 SKU
-              </th>
-              <th scope="col" className="py-3 px-6">
-                Estado
-              </th>
-              <th scope="col" className="py-3 px-6">
-                {t("tabla.creado")}
               </th>
             </tr>
           </thead>
@@ -75,14 +91,11 @@ const productos = () => {
                   key={index}
                   className="bg-white border-b dark:border-gray-500"
                 >
-                  <td className="py-4 px-6">{product.description}</td>
-                  <td className="py-4 px-6">{product.skuUuid}</td>
-                  <td className="py-4 px-6">
-                    {product.status ? "Activo" : "Inactivo"}
-                  </td>
-                  <td className="py-4 px-6">
-                    {moment(product.CreatedAt).format("YYYY/MM/DD")}
-                  </td>
+                  <td className="py-4 px-6">{product.businessUnit}</td>
+                  <td className="py-4 px-6">{product.subBu}</td>
+                  <td className="py-4 px-6">{product.categoryType}</td>
+                  <td className="py-4 px-6">{product.businessType}</td>
+                  <td className="py-4 px-6">{product.code}</td>
                 </tr>
               ))}
           </tbody>
@@ -124,8 +137,8 @@ const productos = () => {
 
           return a.CreatedAt - b.CreatedAt;
         })
-        .filter(({ skuUuid }) => {
-          return skuUuid.startsWith(searchSku.toLocaleLowerCase());
+        .filter(({ code }) => {
+          return code.startsWith(searchSku.toLocaleLowerCase());
         });
 
       return setData(dataSort);
@@ -133,8 +146,8 @@ const productos = () => {
 
     if (searchSku !== "") {
       return setData(
-        products.filter(({ skuUuid }) => {
-          return skuUuid.startsWith(searchSku.toLocaleLowerCase());
+        products.filter(({ code }) => {
+          return code.startsWith(searchSku.toLocaleLowerCase());
         })
       );
     }
@@ -159,7 +172,7 @@ const productos = () => {
           <div className="flex flex-col gap-5">
             <h1 className="font-bold text-3xl">{t("menu.Productos")}</h1>
           </div>
-          <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
+          <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
             <div className="grid grid-cols-3 gap-3">
               <select
                 className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm col-span-2"

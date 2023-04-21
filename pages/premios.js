@@ -13,6 +13,9 @@ import * as XLSX from "xlsx";
 import { Modal } from "@mantine/core";
 import axios from "axios";
 import Swal from "sweetalert2";
+import ImportacionPremios from "../components/premios/ImportacionPremios";
+import jsonexport from "jsonexport";
+import { saveAs } from "file-saver";
 
 const premios = () => {
   const [formData, setFormData] = useState({
@@ -31,10 +34,11 @@ const premios = () => {
   const itemsPerPage = 7;
   const [loading, setLoading] = useState(false);
   const [opened, setOpened] = useState(false);
+  const [modal, setModal] = useState(0);
 
   useEffect(() => {
     if (token && awards.length === 0) {
-      dispatch(getDataAwards(token));
+      dispatch(getDataAwards(token, user));
     }
   }, [token]);
 
@@ -152,6 +156,7 @@ const premios = () => {
 
     return awards.slice(itemOffset, endOffset);
   }, [itemOffset, awards]);
+
   const pageCount = useMemo(
     () => Math.ceil(awards.length / itemsPerPage),
     [awards, itemsPerPage]
@@ -159,23 +164,30 @@ const premios = () => {
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % awards.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+
     setItemOffset(newOffset);
   };
 
   const importFile = (data) => {
-    const workbook = XLSX.utils.book_new();
-    const sheet = XLSX.utils.json_to_sheet(data);
-    XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
-    XLSX.writeFile(workbook, "Liste_De_Premios.xlsx");
+    // const workbook = XLSX.utils.book_new();
+    // const sheet = XLSX.utils.json_to_sheet(data);
+    // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
+    // XLSX.writeFile(workbook, "Liste_De_Premios.xlsx");
+
+    jsonexport(data, (error, csv) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "Tarjetas-2023.csv");
+    });
   };
 
-  return (
-    <>
-      <Modal opened={opened} onClose={() => setOpened(false)} size={"50%"}>
-        <div className="flex flex-col items-center">
+  const typeModal = useMemo(() => {
+    if (modal === 0) {
+      return (
+        <div className="flex flex-col items-center p-10">
           <h3 className="text-lg font-bold text-red-500">Agregar Premio</h3>
           <p className="py-4">Indica la información del premio</p>
           <form
@@ -269,13 +281,43 @@ const premios = () => {
             </div>
           </form>
         </div>
+      );
+    }
+
+    if (modal === 1) {
+      return <ImportacionPremios />;
+    }
+  }, [modal, formData]);
+
+  return (
+    <>
+      <Modal opened={opened} onClose={() => setOpened(false)} size={"50%"}>
+        <div className="grid grid-cols-2 place-items-center">
+          <p
+            className={`p-3 w-full text-center ${
+              modal === 0 && "border-b-2 border-[#eb1000] text-[#eb1000]"
+            }`}
+            onClick={() => setModal(0)}
+          >
+            Agregar premio
+          </p>
+          <p
+            className={`p-3 w-full text-center ${
+              modal === 1 && "border-b-2 border-[#eb1000] text-[#eb1000]"
+            }`}
+            onClick={() => setModal(1)}
+          >
+            Importar premios
+          </p>
+        </div>
+        {typeModal}
       </Modal>
       <ContainerContent pageTitle={"Premios"}>
         <div className="m-6 flex flex-col gap-16">
           <div className="flex flex-col gap-5">
             <h1 className="font-bold text-3xl">{t("menu.Premios")}</h1>
           </div>
-          <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
+          <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
             <div>
               <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-1 gap-4 mt-4 place-items-end">
                 <div className="w-full flex justify-end gap-10">
@@ -342,7 +384,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       protected: true,
-      userTypes: [1, 3],
+      userTypes: [1],
     },
   };
 }

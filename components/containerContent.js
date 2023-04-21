@@ -12,7 +12,7 @@ const ContainerContent = ({ pageTitle, children }) => {
         className="relative flex justify-center"
         style={{ marginTop: "5vh" }}
       >
-        <div className="gap-10 flex flex-col h-full w-5/6">{children}</div>
+        <div className="gap-10 flex flex-col h-full w-[90%]">{children}</div>
       </main>
     </>
   );

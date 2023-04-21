@@ -1,35 +1,44 @@
 import { useMemo } from "react";
-import { Menu, Modal } from "@mantine/core";
+import { Menu } from "@mantine/core";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loadingUser,
+  setCompany,
   setDigipoints,
+  setDistribuitor,
+  setInitialStateUser,
   userLogin,
   userToken,
 } from "../store/reducers/users.reducer";
 import MobileMenu from "./MobileMenu";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import { changeLoadingData } from "../store/reducers/loading.reducer";
+import { setInitialStateAwards } from "../store/reducers/awards.reducer";
+import { setInitialStateCompany } from "../store/reducers/company.reducer";
+import { setInitialStateOrders } from "../store/reducers/orders.reducer";
+import { setInitialStateSales } from "../store/reducers/sales.reducer";
+import { setInitialStateTeams } from "../store/reducers/teams.reducer";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
   const userRedux = useSelector((state) => state.user.user);
   const loading = useSelector((state) => state.user.loading);
+  const loadingData = useSelector((state) => state.loadingData.loadingData);
   const dispatch = useDispatch();
   const location =
     typeof window !== "undefined" ? window.location.pathname : "";
   const router = useRouter();
   const sections = ["/", "/terminosycondiciones", "/registro"];
-  const [opened2, setOpened2] = useState(false);
-
   const [t, i18n] = useTranslation("global");
 
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
       const userGetData = JSON.parse(window.sessionStorage.getItem("infoDt"));
+
       axios
         .get(`${process.env.BACKURL}/users/${userGetData?.id}`, {
           headers: {
@@ -38,10 +47,11 @@ const Layout = ({ children }) => {
             Authorization: `Bearer ${userGetData?.token}`,
           },
         })
-        .then((res1) => {
+        .then((userInfo) => {
+          //Get user digiPoints
           axios
             .get(
-              `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/1/${userGetData?.id}`,
+              `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/${userGetData?.id}`,
               {
                 headers: {
                   "Content-Type": "application/json",
@@ -50,14 +60,9 @@ const Layout = ({ children }) => {
                 },
               }
             )
-            .then((res2) => {
-              dispatch(userLogin(res1.data));
-              dispatch(userToken(userGetData.token));
-              language(res1.data.person[0].languageId);
-              redirection(res1.data.policy);
-
-              const [digipoints] = res2.data;
-              if (res2.data.length === 0) {
+            .then((dpInfo) => {
+              const [digipoints] = dpInfo.data;
+              if (dpInfo.data.length === 0) {
                 dispatch(
                   setDigipoints({
                     assigned_points: 0,
@@ -67,17 +72,83 @@ const Layout = ({ children }) => {
               } else {
                 dispatch(setDigipoints(digipoints));
               }
+            });
 
+          //Verify if user is associate with a company or Distribuitor
+
+          const compOrDist =
+            userInfo.data.companyId !== null &&
+            userInfo.data.distributionChannelId === null
+              ? {
+                  endpoint: "companies",
+                  byId: userInfo.data.companyId,
+                }
+              : {
+                  endpoint: "distribution-channel",
+                  byId: userInfo.data.distributionChannelId,
+                };
+
+          axios
+            .get(
+              `${process.env.BACKURL}/${compOrDist.endpoint}/${compOrDist.byId}`,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin": "*",
+                  Authorization: `Bearer ${userGetData.token}`,
+                },
+              }
+            )
+            .then(({ data }) => {
+              if (compOrDist.endpoint === "distribution-channel") {
+                dispatch(setDistribuitor(data));
+              } else {
+                dispatch(setCompany(data));
+              }
+            })
+            .catch((err) => {
+              if (err.message === "Request failed with status code 404") {
+                dispatch(
+                  setCompany({
+                    CreatedAt: 0,
+                    id: 0,
+                    name: "Sin canal / distribuidor",
+                    representativeId: 0,
+                    phoneNumber: "000000",
+                    operationStatusId: 0,
+                    distChannelsId: "No",
+                    maxDayAssign: 0,
+                    resellerMasterId: "",
+                    goalsPerQuarter: "",
+                    goalsPerYear: "",
+                    partnerAdmin: {
+                      name: "No",
+                    },
+                  })
+                );
+              }
+            })
+            .finally(() => {
+              dispatch(userLogin(userInfo.data));
+              dispatch(userToken(userGetData.token));
+              language(userInfo.data.languageId);
+              redirection(userInfo.data.policy);
               dispatch(loadingUser(true));
             });
         });
     } else {
       if (userRedux !== 0) {
         redirection(userRedux.policy);
-        language(userRedux?.person[0]?.languageId);
+        language(userRedux?.languageId);
       } else {
         dispatch(loadingUser(true));
       }
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (loadingData) {
+      dispatch(changeLoadingData(false));
     }
   }, [location]);
 
@@ -113,23 +184,18 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/participantes",
+      page: "/organizacion",
       icon: (
         <svg
-          width="30"
-          height="30"
-          fill="none"
-          stroke="#fff"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1"
+          width={30}
+          height={30}
+          fill="#ffffff"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M8.25 15a4.875 4.875 0 1 0 0-9.75 4.875 4.875 0 0 0 0 9.75Z"></path>
-          <path d="M14.568 5.428a5.093 5.093 0 0 1 1.322-.178 4.875 4.875 0 1 1 0 9.75"></path>
-          <path d="M1.5 18.507a8.25 8.25 0 0 1 13.5 0"></path>
-          <path d="M15.89 15a8.241 8.241 0 0 1 6.75 3.506"></path>
+          <path d="M22.5 19.5h-.75V9.75a1.5 1.5 0 0 0-1.5-1.5h-6v-4.5a1.5 1.5 0 0 0-1.5-1.5h-9a1.5 1.5 0 0 0-1.5 1.5V19.5H1.5a.75.75 0 1 0 0 1.5h21a.75.75 0 1 0 0-1.5Zm-11.25-6.75a.75.75 0 0 1-.75.75h-3a.75.75 0 1 1 0-1.5h3a.75.75 0 0 1 .75.75ZM6 6h3a.75.75 0 0 1 0 1.5H6A.75.75 0 0 1 6 6Zm0 9.75h3a.75.75 0 1 1 0 1.5H6a.75.75 0 1 1 0-1.5Zm8.25-6h6v9.75h-6V9.75Z" />
+          <path d="M18 15.75h-1.5a.75.75 0 1 0 0 1.5H18a.75.75 0 1 0 0-1.5Z" />
+          <path d="M16.5 13.5H18a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 1 0 0 1.5Z" />
         </svg>
       ),
       iconactive: "",
@@ -202,7 +268,7 @@ const Layout = ({ children }) => {
       text: t("menu.Puntos_por_ventas"),
     },
     {
-      page: "/digipoints",
+      page: "/digipointsall",
       icon: (
         <svg
           width={30}
@@ -310,6 +376,54 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: t("menu.Reportes"),
     },
+    {
+      page: "/reportTyC",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="#ffffff"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="m20.925 6.412-1.5-3A.77.77 0 0 0 18.75 3H5.25a.769.769 0 0 0-.675.413l-1.5 3A.844.844 0 0 0 3 6.75V19.5A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5V6.75a.844.844 0 0 0-.075-.338Zm-5.213 8.185-3.178 3.187a.769.769 0 0 1-1.068 0l-3.178-3.187a.75.75 0 0 1 1.059-1.06l1.903 1.904V9.75a.75.75 0 1 1 1.5 0v5.69l1.903-1.902a.75.75 0 0 1 1.06 1.059ZM4.96 6l.75-1.5h12.582l.75 1.5H4.959Z" />
+        </svg>
+      ),
+      iconactive: "",
+      text: "Reporte T&C",
+    },
+    {
+      page: "/herramientas",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="#ffffff"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M19.772 13.77a6.806 6.806 0 0 1-7.49 1.416L7.405 20.83c-.01.018-.028.028-.037.037a2.99 2.99 0 0 1-4.238 0 2.992 2.992 0 0 1 0-4.237l.038-.038 5.643-4.875a6.75 6.75 0 0 1 8.822-8.925.74.74 0 0 1 .441.544.75.75 0 0 1-.206.675l-3.647 3.647.347 1.772 1.772.346 3.646-3.646a.75.75 0 0 1 1.22.234 6.721 6.721 0 0 1-1.435 7.406Z" />
+        </svg>
+      ),
+      iconactive: "",
+      text: "Herramientas administrativas",
+    },
+    {
+      page: "/reglas",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="#ffffff"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M19.772 13.77a6.806 6.806 0 0 1-7.49 1.416L7.405 20.83c-.01.018-.028.028-.037.037a2.99 2.99 0 0 1-4.238 0 2.992 2.992 0 0 1 0-4.237l.038-.038 5.643-4.875a6.75 6.75 0 0 1 8.822-8.925.74.74 0 0 1 .441.544.75.75 0 0 1-.206.675l-3.647 3.647.347 1.772 1.772.346 3.646-3.646a.75.75 0 0 1 1.22.234 6.721 6.721 0 0 1-1.435 7.406Z" />
+        </svg>
+      ),
+      iconactive: "",
+      text: "Reglas",
+    },
   ];
   const locationsPP = [
     {
@@ -335,23 +449,18 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/participantes",
+      page: "/organizacion",
       icon: (
         <svg
-          width="30"
-          height="30"
-          fill="none"
-          stroke="#fff"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1"
+          width={30}
+          height={30}
+          fill="#ffffff"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M8.25 15a4.875 4.875 0 1 0 0-9.75 4.875 4.875 0 0 0 0 9.75Z"></path>
-          <path d="M14.568 5.428a5.093 5.093 0 0 1 1.322-.178 4.875 4.875 0 1 1 0 9.75"></path>
-          <path d="M1.5 18.507a8.25 8.25 0 0 1 13.5 0"></path>
-          <path d="M15.89 15a8.241 8.241 0 0 1 6.75 3.506"></path>
+          <path d="M22.5 19.5h-.75V9.75a1.5 1.5 0 0 0-1.5-1.5h-6v-4.5a1.5 1.5 0 0 0-1.5-1.5h-9a1.5 1.5 0 0 0-1.5 1.5V19.5H1.5a.75.75 0 1 0 0 1.5h21a.75.75 0 1 0 0-1.5Zm-11.25-6.75a.75.75 0 0 1-.75.75h-3a.75.75 0 1 1 0-1.5h3a.75.75 0 0 1 .75.75ZM6 6h3a.75.75 0 0 1 0 1.5H6A.75.75 0 0 1 6 6Zm0 9.75h3a.75.75 0 1 1 0 1.5H6a.75.75 0 1 1 0-1.5Zm8.25-6h6v9.75h-6V9.75Z" />
+          <path d="M18 15.75h-1.5a.75.75 0 1 0 0 1.5H18a.75.75 0 1 0 0-1.5Z" />
+          <path d="M16.5 13.5H18a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 1 0 0 1.5Z" />
         </svg>
       ),
       iconactive: "",
@@ -448,23 +557,18 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/participantes",
+      page: "/organizacion",
       icon: (
         <svg
-          width="30"
-          height="30"
-          fill="none"
-          stroke="#fff"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1"
+          width={30}
+          height={30}
+          fill="#ffffff"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M8.25 15a4.875 4.875 0 1 0 0-9.75 4.875 4.875 0 0 0 0 9.75Z"></path>
-          <path d="M14.568 5.428a5.093 5.093 0 0 1 1.322-.178 4.875 4.875 0 1 1 0 9.75"></path>
-          <path d="M1.5 18.507a8.25 8.25 0 0 1 13.5 0"></path>
-          <path d="M15.89 15a8.241 8.241 0 0 1 6.75 3.506"></path>
+          <path d="M22.5 19.5h-.75V9.75a1.5 1.5 0 0 0-1.5-1.5h-6v-4.5a1.5 1.5 0 0 0-1.5-1.5h-9a1.5 1.5 0 0 0-1.5 1.5V19.5H1.5a.75.75 0 1 0 0 1.5h21a.75.75 0 1 0 0-1.5Zm-11.25-6.75a.75.75 0 0 1-.75.75h-3a.75.75 0 1 1 0-1.5h3a.75.75 0 0 1 .75.75ZM6 6h3a.75.75 0 0 1 0 1.5H6A.75.75 0 0 1 6 6Zm0 9.75h3a.75.75 0 1 1 0 1.5H6a.75.75 0 1 1 0-1.5Zm8.25-6h6v9.75h-6V9.75Z" />
+          <path d="M18 15.75h-1.5a.75.75 0 1 0 0 1.5H18a.75.75 0 1 0 0-1.5Z" />
+          <path d="M16.5 13.5H18a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 1 0 0 1.5Z" />
         </svg>
       ),
       iconactive: "",
@@ -579,28 +683,6 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: t("menu.Productos"),
     },
-    {
-      page: "/premios",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          width="30"
-          height="30"
-          viewBox="0 0 36 41"
-        >
-          <image
-            id="Capa_31"
-            data-name="Capa 31"
-            width="36"
-            height="41"
-            xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAApCAYAAABdnotGAAAABHNCSVQICAgIfAhkiAAAAsdJREFUWEftmE9IF0EUx9uisg6BEaH9U0swAiVLTIJAOilBRUKRhBUdDD3UIUI7BmlQhzxU2EmLiAQhiw6dwjoFaQUVEkWWURZEGkIQ2c/PN2ZlWfQ3O7LdZuHD7s68ee+7b2fe/gnm/Yctk8ksxO0GWAF/YSQIgpEkoYIkRi42iCnH/h6sjo3rRNRxmy9nQQTMwWkJjBLgazQAfYWcP4VcOAvdkAdXQEJ3MuZhNlFOgghYg7ObsNw4vcu+gSDj9M3n+DFsh0baroWB6avmWELaaT+TiiCTmc84Www3oAK2wgOohUNwHXoIeiCWuUrOn8B5+lrTElSGoxdwFadNCFyg4LAPWqDZZG49/d9igro4Pwy76dP8mnVLfMsQoLnwBQahEseTtC3jeAjyTYQLtJ8OoxnRbZyrTRdTQf+fVATJCQFus9sPd+Aozsdoa+L4sglSTNs7Y1vKXvOoCl5BDX2fsolRX+IMmSDKSB9Um2ydY6+J/RZ+wBojQMu73vjXvGpGzIRNzD9BXGE/+4IkxsZGRW9VxF63QCtM/IZFMV8fHHwPS1CGAT/hvcNAma4D1Zs38MuMVQaLQNn47uhvJfZLQkF9pHSviwOuowt7rZxyxj7XWNr0uNDt66DtpKM/zcs9aQsqNJn2gnR7ZrplqWVolFSrtLtsWzBeG5tDoSDVmwEXZ9hugzzNIb2nqH7MdYtO6lDQXH19lCDVDy3Xi3AMSlkhL+MesVN9WRpp1yvFwVkydIt2VXDbpmr+CDqhRZV/ulIT8BKNJ6CIjmGbJ8sc6sbHkQQ+NmPzDKZXpRcUzRpZ9hnKOo18hvwqIwPx14+wUvs6ZHva+wz5DPmnffiV4l8//OsHGdAneaqFcQcOrb9NsNFHQR3sgtfmVujrRb/1euGU7WlP/ya4b3unTuAndZMZX/L192EjOP0zSkGa/r4Mhb8BpwAbxJ3LxUUDqAAAAABJRU5ErkJggg=="
-          />
-        </svg>
-      ),
-      iconactive: "",
-      text: t("menu.Premios"),
-    },
   ];
 
   const locationsVendedor = [
@@ -686,6 +768,14 @@ const Layout = ({ children }) => {
   };
 
   const logout = () => {
+    dispatch(setInitialStateAwards());
+    dispatch(setInitialStateCompany());
+    dispatch(setInitialStateOrders());
+    dispatch(setInitialStateTeams());
+    dispatch(setInitialStateSales());
+    dispatch(setInitialStateUser());
+
+    dispatch(changeLoadingData(true));
     window.sessionStorage.removeItem("infoDt");
     Cookies.remove("dp");
     router.push("/");
@@ -693,24 +783,38 @@ const Layout = ({ children }) => {
 
   const menu = useMemo(() => {
     if (userRedux?.roleId === 1) {
-      return locations.map(({ icon, page, text }, index) => {
-        return (
-          <div className="containerItemLayout" key={index}>
-            <div
-              className={
-                window.location.pathname === page
-                  ? "itemLayoutSelect"
-                  : "itemLayout"
-              }
-              key={index}
-              onClick={() => href(page)}
-            >
-              {icon}
-              <p>{text}</p>
+      return locations
+        .filter(({ page }) => {
+          if (userRedux.email.split("@")[1] === "adobe.com") {
+            return ![
+              "/digipointsall",
+              "/reportTyC",
+              "/premios",
+              "/cargaventas",
+              "/reglas",
+            ].includes(page);
+          }
+
+          return page;
+        })
+        .map(({ icon, page, text }, index) => {
+          return (
+            <div className="containerItemLayout" key={index}>
+              <div
+                className={
+                  window.location.pathname === page
+                    ? "itemLayoutSelect"
+                    : "itemLayout"
+                }
+                key={index}
+                onClick={() => href(page)}
+              >
+                {icon}
+                <p>{text}</p>
+              </div>
             </div>
-          </div>
-        );
-      });
+          );
+        });
     } else if (userRedux?.roleId === 2) {
       return locationsPP.map(({ icon, page, text }, index) => {
         return (
@@ -780,214 +884,240 @@ const Layout = ({ children }) => {
   }
 
   if (sections.includes(location)) {
-    return <>{children}</>;
+    return (
+      <>
+        {loadingData && (
+          <div
+            className="fixed h-screen w-screen flex items-center justify-center bg-[rgba(255,255,255,0.8)]"
+            style={{ zIndex: 201 }}
+          >
+            <div className="spinner"></div>
+          </div>
+        )}
+        {children}
+      </>
+    );
   }
 
   return (
-    <div className="containerGlobal">
-      <Modal
-        opened={opened2}
-        centered
-        size={"70%"}
-        onClose={() => setOpened2(false)}
-      >
-        {
-          <a href="mailto:info@adobepcclub.com">
-            <figure>
-              {i18n.resolvedLanguage === "por" ? (
-                <img
-                  src="assets/dashboard/banners/bannerPApor.jpg"
-                  alt="Sales_PA"
-                  className="w-full"
-                ></img>
-              ) : (
-                <img
-                  src="assets/dashboard/banners/bannerPA.jpg"
-                  alt="Sales_PA"
-                  className="w-full"
-                ></img>
-              )}
-            </figure>
-          </a>
-        }
-      </Modal>
-      <div className="globalContent bg-primary">
-        <div className="containerLayout">
-          <div className="mt-10 flex flex-col h-[80%]">
-            <div className="logoAdobe">
-              <figure className="flex">
-                <img src="/assets/dashboard/logoapc.png"></img>
-              </figure>
-            </div>
-            <div className="containerRedirections">{menu}</div>
-          </div>
-          {userRedux?.roleId !== 2 && (
-            <div className="adobeMarket z-10" onClick={() => setOpened2(true)}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                xmlnsXlink="http://www.w3.org/1999/xlink"
-                width="30"
-                height="30"
-                viewBox="0 0 45 42"
-              >
-                <image
-                  id="Capa_33"
-                  data-name="Capa 33"
-                  width="45"
-                  height="42"
-                  xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAqCAYAAAAnH9IiAAAABHNCSVQICAgIfAhkiAAABTpJREFUWEfNmXuIVVUUh2eKyt5vexk9DCoSckR7QTVpREWRURlZ1vQUzeqPFLSHIhFUZKLZ255qaaFRRNjLrLAHFUn6TxZqKplOWWHZS7Pvk72HM3fOzD1nvOdwN/zY++6zz96/vc9aa6+1bmPrPg3nNTQ0PAn+BS8ErKX+E9RlaYT0AzAbU8HuFX7PAJ+DDeCfemIv6d4QmgDOBL3ADgmCK2g/A54Hq+uFuKRj6UfjEtAMbPdIkJT4reCPeiCeJB359KRxbsBF1LuBb8AQ8HW9ko68/AbTwJVAJXUjCypIN/J7l/B8S1kbSjvp5Not/Hg2dFxBPTvxsC/tx8B/YDNQWa3F3wEbqf8CWiJFa1MY93vo91nsc6zj7HNsbHcwAtVIn8PLbwWid1PfF0jZdRe4J7nDKm2/RIQbs+2G0/ric5/Fthv9DkyrRro/g94AB4GXwCigCbQcB1RQLY4isneot4bnik4RZU410kex6kxwGvgKXAy+TzCRrOQ0k5LdCWh19gIq8K6hbd/uYM+wsT3CM8c41n7H2m87jrdvZ6B+ObeiMqkaaSdUGYcB5dSTX5ogXVbTA1OHvKkHVyMtqfFgYmDXTP1BWUzDOgdQ/wh2BItBUxbS1zHw6TDBCOrpQOUoq9zGQpPDmlOox2QhrQV5EewPNHGjgWaqrPIxC50KNIlneNpZSPdhoMp4IlgELgS/lMT4YNZZAhQR/aCjXTcL6f0Yp8d3PtDo62CtK4m0/o53g1ZkKlBUMpF23BPgpkD0WOplJZF+h3XODmtpub7MQ/oOBt8bXr6Ueh6Il0hR/I9gYn0dRaIV6MhtK1nEw3H6HY8Cjbyf607gFVxk0VLdD7xsXPvmvKRP5gWV8RjwNlC+i/bqXmaNywJRb+RP8pI+kBdeA5oefQ99kSJttco+F2ixfgOa27ZDyioebvJ1oLmzOEl0nOIB1LL2QtNa6K8oGjpqbTqUh/TD4WXJqdHv1ZJlxVxJa+WF8lHyeR7SKoaRu57YWKCSFFG0FuqPouglponVerSVPKTP4q1Z4BCgklxeBGPmVPkkrUv6OLgdtHMb8pCW7Pth596IVwM9r1oVZVbf/NpA3HlNJM2vXCAPad81eePNZClCEQ0mVD4d/h+AuRhDrHYlL2k/lyfhpEWFU/HEH2ENdcfYcLtIeyMOBbcAY0RP+ylgGJTMTFWuk+e3IqcbqlyvSnsx70nHOdbQUMYNbG/Mw6gWY7tDeiALe5WbnzgdGL+VWrpDeg4MNUvGbQYIKk4t5du5fgYdZDmeTF7SOuPLgRGFE3vKphFqWSStXTag/ixt4rykDwtEdaCKLtewgEn+DiUvaU/Bm/EEoEOTVhbS+SYwaZlWfqWzBehTVIqVVkOiRiy6outrQTrOYR7Ez6fcmVL4FmhFTKh4KQwIddqaRiC6uacARc20gK6uUb5Xd1ss2MmmM0cule+rhIqIGdUbwkOtihswlWZaWAuTFpLps5iK2Dds0mhbsiPBJPAFML3caRyaVzwieS8TCY0DD4XOI6m1LCeBFmAEnxaSGTaZfFF8DgU6+RY3rbsr2auALkNq6S5pT0dzZx7EfwvMJV8PDH6N6QYBnau0k9YXfw6o1MPBq0B3V5EzZyhxSfs1a0raQNesk0UZ9rptApq/d4Ei0JVDlYz/PmWsaeLjgV/Qf9o6U/JtC3b3pH3XhLq5kBjau+CHQIVc2dkphf7DqRWRC8JG/SI/AWXdE+8y0t8e0pL13wBvR1PCyqALLgRZciK6AJ6q/6TpEpi8fxDo13RZ/gfYlTv9foGsJAAAAABJRU5ErkJggg=="
-                />
-              </svg>
-              <p>{t("menu.catalogo")}</p>
-            </div>
-          )}
+    <>
+      {loadingData && (
+        <div
+          className="fixed h-screen w-screen flex items-center justify-center z-50 bg-[rgba(255,255,255,0.8)]"
+          style={{ zIndex: 201 }}
+        >
+          <div className="spinner"></div>
         </div>
-        <span className="h-screen barra"></span>
-        <div className="w-full">
-          <div className="navbar">
-            <figure className="w-[30%]">
-              <img src="/assets/dashboard/years.png" className="!w-[60%] " />
-            </figure>
+      )}
+      <div className="containerGlobal">
+        <div className="globalContent bg-primary">
+          <div className="containerLayout">
+            <div className="mt-10 flex flex-col h-[80%]">
+              <div
+                className="logoAdobe cursor-pointer"
+                onClick={() => router.push("/dashboard")}
+              >
+                <figure className="flex">
+                  <img src="/assets/dashboard/logoapc.webp"></img>
+                </figure>
+              </div>
+              <div className="containerRedirections">{menu}</div>
+            </div>
+            {userRedux?.roleId !== 2 && (
+              <div
+                className="adobeMarket z-10"
+                onClick={() => {
+                  dispatch(changeLoadingData(true));
+                  router.push("/catalogo");
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 45 42"
+                >
+                  <image
+                    id="Capa_33"
+                    data-name="Capa 33"
+                    width="45"
+                    height="42"
+                    xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAqCAYAAAAnH9IiAAAABHNCSVQICAgIfAhkiAAABTpJREFUWEfNmXuIVVUUh2eKyt5vexk9DCoSckR7QTVpREWRURlZ1vQUzeqPFLSHIhFUZKLZ255qaaFRRNjLrLAHFUn6TxZqKplOWWHZS7Pvk72HM3fOzD1nvOdwN/zY++6zz96/vc9aa6+1bmPrPg3nNTQ0PAn+BS8ErKX+E9RlaYT0AzAbU8HuFX7PAJ+DDeCfemIv6d4QmgDOBL3ADgmCK2g/A54Hq+uFuKRj6UfjEtAMbPdIkJT4reCPeiCeJB359KRxbsBF1LuBb8AQ8HW9ko68/AbTwJVAJXUjCypIN/J7l/B8S1kbSjvp5Not/Hg2dFxBPTvxsC/tx8B/YDNQWa3F3wEbqf8CWiJFa1MY93vo91nsc6zj7HNsbHcwAtVIn8PLbwWid1PfF0jZdRe4J7nDKm2/RIQbs+2G0/ric5/Fthv9DkyrRro/g94AB4GXwCigCbQcB1RQLY4isneot4bnik4RZU410kex6kxwGvgKXAy+TzCRrOQ0k5LdCWh19gIq8K6hbd/uYM+wsT3CM8c41n7H2m87jrdvZ6B+ObeiMqkaaSdUGYcB5dSTX5ogXVbTA1OHvKkHVyMtqfFgYmDXTP1BWUzDOgdQ/wh2BItBUxbS1zHw6TDBCOrpQOUoq9zGQpPDmlOox2QhrQV5EewPNHGjgWaqrPIxC50KNIlneNpZSPdhoMp4IlgELgS/lMT4YNZZAhQR/aCjXTcL6f0Yp8d3PtDo62CtK4m0/o53g1ZkKlBUMpF23BPgpkD0WOplJZF+h3XODmtpub7MQ/oOBt8bXr6Ueh6Il0hR/I9gYn0dRaIV6MhtK1nEw3H6HY8Cjbyf607gFVxk0VLdD7xsXPvmvKRP5gWV8RjwNlC+i/bqXmaNywJRb+RP8pI+kBdeA5oefQ99kSJttco+F2ixfgOa27ZDyioebvJ1oLmzOEl0nOIB1LL2QtNa6K8oGjpqbTqUh/TD4WXJqdHv1ZJlxVxJa+WF8lHyeR7SKoaRu57YWKCSFFG0FuqPouglponVerSVPKTP4q1Z4BCgklxeBGPmVPkkrUv6OLgdtHMb8pCW7Pth596IVwM9r1oVZVbf/NpA3HlNJM2vXCAPad81eePNZClCEQ0mVD4d/h+AuRhDrHYlL2k/lyfhpEWFU/HEH2ENdcfYcLtIeyMOBbcAY0RP+ylgGJTMTFWuk+e3IqcbqlyvSnsx70nHOdbQUMYNbG/Mw6gWY7tDeiALe5WbnzgdGL+VWrpDeg4MNUvGbQYIKk4t5du5fgYdZDmeTF7SOuPLgRGFE3vKphFqWSStXTag/ixt4rykDwtEdaCKLtewgEn+DiUvaU/Bm/EEoEOTVhbS+SYwaZlWfqWzBehTVIqVVkOiRiy6outrQTrOYR7Ez6fcmVL4FmhFTKh4KQwIddqaRiC6uacARc20gK6uUb5Xd1ss2MmmM0cule+rhIqIGdUbwkOtihswlWZaWAuTFpLps5iK2Dds0mhbsiPBJPAFML3caRyaVzwieS8TCY0DD4XOI6m1LCeBFmAEnxaSGTaZfFF8DgU6+RY3rbsr2auALkNq6S5pT0dzZx7EfwvMJV8PDH6N6QYBnau0k9YXfw6o1MPBq0B3V5EzZyhxSfs1a0raQNesk0UZ9rptApq/d4Ei0JVDlYz/PmWsaeLjgV/Qf9o6U/JtC3b3pH3XhLq5kBjau+CHQIVc2dkphf7DqRWRC8JG/SI/AWXdE+8y0t8e0pL13wBvR1PCyqALLgRZciK6AJ6q/6TpEpi8fxDo13RZ/gfYlTv9foGsJAAAAABJRU5ErkJggg=="
+                  />
+                </svg>
+                <p>{t("menu.catalogo")}</p>
+              </div>
+            )}
+          </div>
+          <span className="h-screen barra"></span>
+          <div className="w-[82%]">
+            <div className="navbar">
+              <figure className="w-[30%]">
+                <img src="/assets/dashboard/years.webp" className="!w-[60%] " />
+              </figure>
 
-            <div className="w-[35%] justify-around">
-              <div className="digipoints">
-                <button onClick={() => router.push("/digipoints")}>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>{" "}
-                  <strong>
-                    {typeof digipoints?.assigned_points !== "undefined" &&
-                    typeof digipoints?.cart_points !== "undefined"
-                      ? digipoints?.assigned_points - digipoints?.cart_points
-                      : typeof digipoints?.assigned_points !== "undefined"
-                      ? digipoints?.assigned_points
-                      : 0}
-                  </strong>{" "}
-                  <strong className="text-digi-desk">- DIGIPOINTS</strong>{" "}
-                  <strong className="text-digi-mobi">- DGS</strong>
-                </button>
-              </div>
-              <div className="infomations none">
-                <svg
-                  width={30}
-                  height={30}
-                  fill="#d9d9d9"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M4.256 16.594a8.99 8.99 0 1 1 3.15 3.15v0l-3.112.882a.74.74 0 0 1-.919-.92l.881-3.112Z"></path>
-                </svg>
-                <svg
-                  width={30}
-                  height={30}
-                  fill="#d9d9d9"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25ZM12 18a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 18Zm.75-4.584v.084a.75.75 0 1 1-1.5 0v-.75A.75.75 0 0 1 12 12a1.875 1.875 0 1 0-1.875-1.875.75.75 0 1 1-1.5 0 3.375 3.375 0 1 1 4.125 3.29Z"></path>
-                </svg>
-              </div>
-              <div className="notifications">
-                <div
-                  className="shoopingMarket cursor-pointer"
-                  onClick={() => router.push("/shoppingCar")}
-                >
+              <div className="w-[35%] justify-around">
+                <div className="digipoints">
+                  <button
+                    onClick={() => {
+                      if (location === "/digipoints") {
+                        return;
+                      }
+
+                      dispatch(changeLoadingData(true));
+                      router.push("/digipoints");
+                    }}
+                  >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>{" "}
+                    <strong>
+                      {typeof digipoints?.assigned_points !== "undefined" &&
+                      typeof digipoints?.cart_points !== "undefined"
+                        ? digipoints?.assigned_points - digipoints?.cart_points
+                        : typeof digipoints?.assigned_points !== "undefined"
+                        ? digipoints?.assigned_points
+                        : 0}
+                    </strong>{" "}
+                    <strong className="text-digi-desk">- DIGIPOINTS</strong>{" "}
+                    <strong className="text-digi-mobi">- DGS</strong>
+                  </button>
+                </div>
+                <div className="infomations none">
                   <svg
-                    width={35}
-                    height={35}
-                    fill="#ffffff"
+                    width={30}
+                    height={30}
+                    fill="#d9d9d9"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path d="m20.99 6.131-1.143 6.272a2.25 2.25 0 0 1-2.213 1.847H6.76l.413 2.25H17.25A2.25 2.25 0 1 1 15 18.75c0-.256.044-.51.131-.75H9.62a2.25 2.25 0 1 1-3.825-.712L3.197 3H1.5a.75.75 0 0 1 0-1.5h1.697a1.5 1.5 0 0 1 1.472 1.228l.46 2.522H20.25a.74.74 0 0 1 .572.272.722.722 0 0 1 .169.61Z" />
+                    <path d="M4.256 16.594a8.99 8.99 0 1 1 3.15 3.15v0l-3.112.882a.74.74 0 0 1-.919-.92l.881-3.112Z"></path>
                   </svg>
-                  <p className="none">1</p>
+                  <svg
+                    width={30}
+                    height={30}
+                    fill="#d9d9d9"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25ZM12 18a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 18Zm.75-4.584v.084a.75.75 0 1 1-1.5 0v-.75A.75.75 0 0 1 12 12a1.875 1.875 0 1 0-1.875-1.875.75.75 0 1 1-1.5 0 3.375 3.375 0 1 1 4.125 3.29Z"></path>
+                  </svg>
                 </div>
-                <svg
-                  className="none"
-                  width={30}
-                  height={30}
-                  fill="#d9d9d9"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M20.719 16.49c-.553-.956-1.219-2.774-1.219-5.99v-.666c0-4.153-3.337-7.556-7.444-7.584H12a7.49 7.49 0 0 0-7.5 7.5v.75c0 3.216-.666 5.034-1.219 5.99a1.481 1.481 0 0 0-.01 1.51 1.49 1.49 0 0 0 1.304.75h14.85a1.49 1.49 0 0 0 1.303-.75 1.481 1.481 0 0 0-.01-1.51Z" />
-                  <path d="M14.99 20.25h-6a.75.75 0 1 0 0 1.5h6a.75.75 0 1 0 0-1.5Z" />
-                </svg>
-                <svg
-                  className="none"
-                  width={30}
-                  height={30}
-                  fill="#d9d9d9"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="m22.012 14.099-1.396-1.856c.009-.17 0-.347 0-.479L22.012 9.9a.73.73 0 0 0 .122-.647 10.765 10.765 0 0 0-1.022-2.475.769.769 0 0 0-.543-.375l-2.297-.328-.347-.347-.328-2.297a.788.788 0 0 0-.366-.544 11.014 11.014 0 0 0-2.484-1.021.731.731 0 0 0-.647.121l-1.856 1.388h-.488L9.9 1.986a.731.731 0 0 0-.647-.121c-.864.236-1.696.58-2.475 1.021a.769.769 0 0 0-.375.544l-.328 2.297-.347.347-2.297.328a.769.769 0 0 0-.544.375c-.442.78-.785 1.61-1.021 2.475a.731.731 0 0 0 .121.647l1.397 1.856v.478L1.987 14.1a.731.731 0 0 0-.121.647c.236.864.58 1.696 1.021 2.475a.769.769 0 0 0 .544.375l2.297.328.347.347.328 2.297a.769.769 0 0 0 .375.543c.78.443 1.61.786 2.475 1.022a.722.722 0 0 0 .647-.122l1.856-1.387h.488L14.1 22.01a.731.731 0 0 0 .647.122 10.593 10.593 0 0 0 2.475-1.022.769.769 0 0 0 .375-.543l.328-2.307c.112-.112.244-.234.337-.337l2.307-.328a.77.77 0 0 0 .543-.375c.443-.78.786-1.61 1.022-2.475a.732.732 0 0 0-.122-.647ZM12 16.124a4.125 4.125 0 1 1 0-8.25 4.125 4.125 0 0 1 0 8.25Z" />
-                </svg>
-              </div>
-
-              <div className="userDrop">
-                <div className="menumobile">
-                  <MobileMenu
-                    className="bannerMob"
-                    locations={locations}
-                    locationsPP={locationsPP}
-                    locationsPA={locationsPA}
-                    locationsVendedor={locationsVendedor}
-                  />
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="user">
-                    <Menu trigger="hover" openDelay={100} closeDelay={400}>
-                      <Menu.Target>
-                        <div className="userPreMenu">
-                          <svg
-                            width={30}
-                            height={30}
-                            fill="#2c2c2c"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M12 15.375a4.125 4.125 0 1 0 0-8.25 4.125 4.125 0 0 0 0 8.25Z" />
-                            <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25Zm6.169 15.225a7.624 7.624 0 0 0-2.297-2.156 5.597 5.597 0 0 1-7.744 0 7.622 7.622 0 0 0-2.297 2.156 8.25 8.25 0 1 1 12.338 0Z" />
-                          </svg>
-                        </div>
-                      </Menu.Target>
-
-                      <Menu.Dropdown>
-                        <Menu.Item>
-                          <div
-                            className="buttonLayoutDropdown"
-                            onClick={() =>
-                              router.push(`/user/${userRedux?.person[0].names}`)
-                            }
-                          >
-                            <p> Ver Perfil</p>
-                          </div>
-                        </Menu.Item>
-                        <Menu.Item onClick={() => logout()}>
-                          <div className="buttonLayoutDropdown">
-                            <p>{t("menu.salir")}</p>
-                          </div>
-                        </Menu.Item>
-                      </Menu.Dropdown>
-                    </Menu>
+                <div className="notifications">
+                  <div
+                    className="shoopingMarket cursor-pointer"
+                    onClick={() => {
+                      dispatch(changeLoadingData(true));
+                      router.push("/shoppingCar");
+                    }}
+                  >
+                    <svg
+                      width={35}
+                      height={35}
+                      fill="#ffffff"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="m20.99 6.131-1.143 6.272a2.25 2.25 0 0 1-2.213 1.847H6.76l.413 2.25H17.25A2.25 2.25 0 1 1 15 18.75c0-.256.044-.51.131-.75H9.62a2.25 2.25 0 1 1-3.825-.712L3.197 3H1.5a.75.75 0 0 1 0-1.5h1.697a1.5 1.5 0 0 1 1.472 1.228l.46 2.522H20.25a.74.74 0 0 1 .572.272.722.722 0 0 1 .169.61Z" />
+                    </svg>
+                    <p className="none">1</p>
                   </div>
-                  <div className="username">
-                    <p>{userRedux?.person[0]?.names}</p>
+                  <svg
+                    className="none"
+                    width={30}
+                    height={30}
+                    fill="#d9d9d9"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M20.719 16.49c-.553-.956-1.219-2.774-1.219-5.99v-.666c0-4.153-3.337-7.556-7.444-7.584H12a7.49 7.49 0 0 0-7.5 7.5v.75c0 3.216-.666 5.034-1.219 5.99a1.481 1.481 0 0 0-.01 1.51 1.49 1.49 0 0 0 1.304.75h14.85a1.49 1.49 0 0 0 1.303-.75 1.481 1.481 0 0 0-.01-1.51Z" />
+                    <path d="M14.99 20.25h-6a.75.75 0 1 0 0 1.5h6a.75.75 0 1 0 0-1.5Z" />
+                  </svg>
+                  <svg
+                    className="none"
+                    width={30}
+                    height={30}
+                    fill="#d9d9d9"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="m22.012 14.099-1.396-1.856c.009-.17 0-.347 0-.479L22.012 9.9a.73.73 0 0 0 .122-.647 10.765 10.765 0 0 0-1.022-2.475.769.769 0 0 0-.543-.375l-2.297-.328-.347-.347-.328-2.297a.788.788 0 0 0-.366-.544 11.014 11.014 0 0 0-2.484-1.021.731.731 0 0 0-.647.121l-1.856 1.388h-.488L9.9 1.986a.731.731 0 0 0-.647-.121c-.864.236-1.696.58-2.475 1.021a.769.769 0 0 0-.375.544l-.328 2.297-.347.347-2.297.328a.769.769 0 0 0-.544.375c-.442.78-.785 1.61-1.021 2.475a.731.731 0 0 0 .121.647l1.397 1.856v.478L1.987 14.1a.731.731 0 0 0-.121.647c.236.864.58 1.696 1.021 2.475a.769.769 0 0 0 .544.375l2.297.328.347.347.328 2.297a.769.769 0 0 0 .375.543c.78.443 1.61.786 2.475 1.022a.722.722 0 0 0 .647-.122l1.856-1.387h.488L14.1 22.01a.731.731 0 0 0 .647.122 10.593 10.593 0 0 0 2.475-1.022.769.769 0 0 0 .375-.543l.328-2.307c.112-.112.244-.234.337-.337l2.307-.328a.77.77 0 0 0 .543-.375c.443-.78.786-1.61 1.022-2.475a.732.732 0 0 0-.122-.647ZM12 16.124a4.125 4.125 0 1 1 0-8.25 4.125 4.125 0 0 1 0 8.25Z" />
+                  </svg>
+                </div>
+
+                <div className="userDrop">
+                  <div className="menumobile">
+                    <MobileMenu
+                      className="bannerMob"
+                      locations={locations}
+                      locationsPP={locationsPP}
+                      locationsPA={locationsPA}
+                      locationsVendedor={locationsVendedor}
+                    />
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="user min-w-[34px]">
+                      <Menu trigger="hover" openDelay={100} closeDelay={400}>
+                        <Menu.Target>
+                          <div className="userPreMenu">
+                            {userRedux.profilePhotoPath !== null &&
+                            userRedux.profilePhotoPath.length !== 0 &&
+                            userRedux.profilePhotoPath !== undefined ? (
+                              <figure>
+                                <img src={userRedux.profilePhotoPath} />
+                              </figure>
+                            ) : (
+                              <svg
+                                width={30}
+                                height={30}
+                                fill="#2c2c2c"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M12 15.375a4.125 4.125 0 1 0 0-8.25 4.125 4.125 0 0 0 0 8.25Z" />
+                                <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25Zm6.169 15.225a7.624 7.624 0 0 0-2.297-2.156 5.597 5.597 0 0 1-7.744 0 7.622 7.622 0 0 0-2.297 2.156 8.25 8.25 0 1 1 12.338 0Z" />
+                              </svg>
+                            )}
+                          </div>
+                        </Menu.Target>
+
+                        <Menu.Dropdown>
+                          <Menu.Item>
+                            <div
+                              className="buttonLayoutDropdown"
+                              onClick={() => {
+                                dispatch(changeLoadingData(true));
+                                router.push(`/user/${userRedux?.names}`);
+                              }}
+                            >
+                              <p>Ver Perfil</p>
+                            </div>
+                          </Menu.Item>
+                          <Menu.Item onClick={() => logout()}>
+                            <div className="buttonLayoutDropdown">
+                              <p>{t("menu.salir")}</p>
+                            </div>
+                          </Menu.Item>
+                        </Menu.Dropdown>
+                      </Menu>
+                    </div>
+                    <div className="username">
+                      <p>{userRedux?.names}</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            {children}
           </div>
-          {children}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

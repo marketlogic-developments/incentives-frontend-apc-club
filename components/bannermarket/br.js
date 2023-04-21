@@ -16,11 +16,11 @@ const BnPor = () => {
         <a href="#">
           <img
             className="bannerDesk"
-            src="assets/dashboard/banners/dppor.png"
+            src="assets/dashboard/banners/dppor.webp"
           ></img>
           <img
             className="bannerMob"
-            src="assets/dashboard/banners/dppormob.jpg"
+            src="assets/dashboard/banners/dppormob.webp"
           ></img>
         </a>
       </Carousel.Slide>
