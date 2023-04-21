@@ -50,7 +50,8 @@
 }
 
 .mantine-Modal-close {
-  visibility: hidden;
+  visibility: visible;
+  color: black !important;
 }
 
 .modalCloseDashboard {

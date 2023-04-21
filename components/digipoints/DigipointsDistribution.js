@@ -30,14 +30,13 @@ const DigipointsDistribution = () => {
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
   const data = useSelector((state) => state.sales.digipa);
+  const [dataToTable, setDataToTable] = useState([]);
   const [filtersTable, setFiltersTable] = useState({
     date: "",
     marketSegment: "",
     invoiceattributed: "",
   });
   const [loading, setLoading] = useState(false);
-
-  console.log(listUsers);
 
   useEffect(() => {
     setLoading(true);
@@ -48,78 +47,52 @@ const DigipointsDistribution = () => {
     setLoading(false);
   }, [token]);
 
-  const filters = () => {
-    return [...data]
-      .sort((prev, curr) => {
-        const datePrev = new Date(prev.date);
-        const dateCurr = new Date(curr.date);
+  const filters = useMemo(() => {
+    setDataToTable(
+      [...data]
+        .sort((prev, curr) => {
+          const datePrev = new Date(prev.date);
+          const dateCurr = new Date(curr.date);
 
-        if (filtersTable.date === "downUp") {
-          return datePrev - dateCurr;
-        }
+          if (filtersTable.date === "downUp") {
+            return datePrev - dateCurr;
+          }
 
-        return dateCurr - datePrev;
-      })
-      .filter((invoice) => {
-        if (
-          filtersTable.marketSegment !== "" &&
-          filtersTable.invoiceattributed !== ""
-        ) {
-          return invoice.marketSegment === filtersTable.marketSegment &&
-            filtersTable.invoiceattributed === "unassigned"
-            ? invoice.status === true
-            : filtersTable.invoiceattributed === "attributed"
-            ? invoice.status === false
-            : invoice.status === true || invoice.status === false;
-        }
+          return dateCurr - datePrev;
+        })
+        .filter((invoice) => {
+          if (
+            filtersTable.marketSegment !== "" &&
+            filtersTable.invoiceattributed !== ""
+          ) {
+            const assigned =
+              filtersTable.invoiceattributed === "unassigned"
+                ? invoice.status === true
+                : filtersTable.invoiceattributed === "attributed"
+                ? invoice.status === false
+                : invoice.status === true || invoice.status === false;
 
-        if (filtersTable.marketSegment !== "") {
-          return invoice.marketSegment === filtersTable.marketSegment;
-        }
+            return (
+              invoice.marketSegment === filtersTable.marketSegment && assigned
+            );
+          }
 
-        if (filtersTable.invoiceattributed !== "") {
-          return filtersTable.invoiceattributed === "unassigned"
-            ? invoice.status === true
-            : filtersTable.invoiceattributed === "attributed"
-            ? invoice.status === false
-            : invoice.status === true || invoice.status === false;
-        }
+          if (filtersTable.marketSegment !== "") {
+            return invoice.marketSegment === filtersTable.marketSegment;
+          }
 
-        return invoice;
-      })
-      .map((obj, index) => (
-        <tr
-          className="bg-white border-b dark:border-gray-500"
-          key={obj?.invoices_included}
-        >
-          <td className="py-4 px-6">{obj?.invoices_included}</td>
-          <td className="py-4 px-6 min-w-[130px]">{obj?.date}</td>
-          <td className="py-4 px-6">{obj?.client}</td>
-          <td className="py-4 px-6">{obj?.marketSegment}</td>
-          <td className="py-4 px-6">{obj?.digipoints}</td>
-          <td className="py-4 px-6">
-            {obj.status === false ? (
-              <button
-                className="btn btn-primary btn-xs"
-                onClick={() => {
-                  setInvoiceData({ ...obj, index: index });
-                  setOpened(true);
-                }}
-              >
-                {t("tabla.asignar")}
-              </button>
-            ) : (
-              <button
-                className="btn btn-secondary btn-xs"
-                onClick={() => handleUnassign({ ...obj, index: index })}
-              >
-                {t("tabla.asignado")}
-              </button>
-            )}
-          </td>
-        </tr>
-      ));
-  };
+          if (filtersTable.invoiceattributed !== "") {
+            return filtersTable.invoiceattributed === "unassigned"
+              ? invoice.status === true
+              : filtersTable.invoiceattributed === "attributed"
+              ? invoice.status === false
+              : invoice.status === true || invoice.status === false;
+          }
+
+          return invoice;
+        })
+    );
+  }, [data, filtersTable]);
 
   const uniqueData = (data) => {
     const thisData = new Set(data);
@@ -135,6 +108,190 @@ const DigipointsDistribution = () => {
       [e.target.name]: [e.target.value][0],
     });
   };
+
+  const searchUser = () => {
+    const searchValue = users.filter(
+      ({ email, role_id }) =>
+        email.startsWith(searchByEmail.toLocaleLowerCase()) && role_id === 5
+    );
+
+    if (searchValue.length !== 0) {
+      return searchValue.map((data) => (
+        <div
+          className="flex flex-col bg-base-100 rounded-xl p-2 hover:bg-base-300 cursor-pointer"
+          onClick={() => verifyUserInToTable(data)}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
+          <p>
+            <strong className="text-primary">Nombre:</strong>
+            <strong>{data.name}</strong>
+          </p>
+          <p>
+            <strong className="text-primary">Email:</strong> {data.email}
+          </p>
+        </div>
+      ));
+    }
+
+    if (searchByEmail === "") {
+      return users.map((data) => (
+        <div
+          className="flex flex-col bg-base-100 rounded-xl p-2 hover:bg-base-300 cursor-pointer"
+          onClick={() => verifyUserInToTable(data)}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
+          <p>
+            <strong className="text-primary">Nombre:</strong>
+            <strong>{data.name}</strong>
+          </p>
+          <p>
+            <strong className="text-primary">Email:</strong> {data.email}
+          </p>
+        </div>
+      ));
+    }
+
+    if (searchValue.length === 0 && searchByEmail !== "") {
+      return (
+        <div className="flex flex-col bg-base-100 rounded-xl p-2 hover:bg-base-300 cursor-pointer">
+          <p>No hay concidencias encontradas</p>
+        </div>
+      );
+    }
+  };
+
+  const nextModal = () => {
+    if (salesOption === "salesTeam") {
+      setSalesOption("salesRep");
+      return setNumModal(2);
+    } else {
+      setSalesOption("salesRep");
+      return setNumModal(1);
+    }
+  };
+
+  const verifyUserInToTable = (data) => {
+    const dataModalFilter = dataModal.map(({ email }) => email);
+
+    if (dataModalFilter.includes(data.email)) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      return (
+        Toast.fire({
+          icon: "error",
+          title: "Este participante ya está dentro de la lista",
+        }),
+        setSearchByEmail(""),
+        setListUsers(false)
+      );
+    } else {
+      setSearchByEmail("");
+      setListUsers(false);
+      setDataModal([...dataModal, { ...data, porcentaje: 0 }]);
+    }
+  };
+
+  const handleSubmit = (invoice) => {
+    let newData = [...dataToTable];
+    let dataRedux = [...data];
+
+    newData[invoice.index] = { ...newData[invoice.index], status: true };
+
+    const indexOfDataRedux = dataRedux.findIndex(
+      ({ salesOrder }) => invoice.salesOrder === salesOrder
+    );
+
+    dataRedux[indexOfDataRedux] = {
+      ...dataRedux[indexOfDataRedux],
+      status: true,
+    };
+
+    setDataToTable(newData);
+    dispatch(getDigiPa(dataRedux));
+    dispatch(getDigiPoints(token, iduser));
+
+    setSalesOption("salesRep");
+    setNumModal(0);
+    setOpened(false);
+    setDataModal([]);
+    setListUsers(false);
+    setHover(false);
+    setOpened(false);
+  };
+
+  const handleUnassign = (obj) => {
+    Swal.fire({
+      title: "Antes de desasignar la factura, ¿quieres confirmar tu decisión?",
+      showCancelButton: true,
+      confirmButtonColor: "#eb1000",
+      confirmButtonText: "Desasignar factura",
+      denyCancelText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `${process.env.BACKURL}/employee-poits-collects/unassign-invoice`,
+            {
+              isGold: false,
+              invoiceReference: obj.salesOrder,
+            },
+            {
+              headers: {
+                "Content-Type":
+                  "application/x-www-form-urlencoded; charset=UTF-8",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            let newData = [...dataToTable];
+            let dataRedux = [...data];
+
+            newData[obj.index] = {
+              ...newData[obj.index],
+              status: false,
+            };
+
+            const indexOfDataRedux = dataRedux.findIndex(
+              ({ salesOrder }) => obj.salesOrder === salesOrder
+            );
+
+            dataRedux[indexOfDataRedux] = {
+              ...dataRedux[indexOfDataRedux],
+              status: false,
+            };
+
+            dispatch(getDigiPoints(token, iduser));
+            dispatch(getDigiPa(dataRedux));
+            setDataToTable(newData);
+          });
+      }
+
+      return;
+    });
+  };
+
+  const componentMenuUsers = useMemo(() => {
+    if (listUsers) {
+      return (
+        <div className="w-full absolute bg-[#e6e6e6] p-5 max-h-52 flex flex-col gap-3 overflow-y-auto">
+          {searchUser()}
+        </div>
+      );
+    }
+  }, [listUsers, searchByEmail]);
 
   const typeModal = useMemo(() => {
     if (numModal === 0) {
@@ -208,168 +365,6 @@ const DigipointsDistribution = () => {
     dataModal,
     teamInfo,
   ]);
-
-  const nextModal = () => {
-    if (salesOption === "salesTeam") {
-      setSalesOption("salesRep");
-      return setNumModal(2);
-    } else {
-      setSalesOption("salesRep");
-      return setNumModal(1);
-    }
-  };
-
-  const searchUser = () => {
-    const searchValue = users.filter(
-      ({ email, role_id }) =>
-        email.startsWith(searchByEmail.toLocaleLowerCase()) && role_id === 5
-    );
-
-    if (searchValue.length !== 0) {
-      return searchValue.map((data) => (
-        <div
-          className="flex flex-col bg-base-100 rounded-xl p-2 hover:bg-base-300 cursor-pointer"
-          onClick={() => verifyUserInToTable(data)}
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-        >
-          <p>
-            <strong className="text-primary">Nombre:</strong>
-            <strong>{data.name}</strong>
-          </p>
-          <p>
-            <strong className="text-primary">Email:</strong> {data.email}
-          </p>
-        </div>
-      ));
-    }
-
-    if (searchByEmail === "") {
-      return users.map((data) => (
-        <div
-          className="flex flex-col bg-base-100 rounded-xl p-2 hover:bg-base-300 cursor-pointer"
-          onClick={() => verifyUserInToTable(data)}
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-        >
-          <p>
-            <strong className="text-primary">Nombre:</strong>
-            <strong>{data.name}</strong>
-          </p>
-          <p>
-            <strong className="text-primary">Email:</strong> {data.email}
-          </p>
-        </div>
-      ));
-    }
-
-    if (searchValue.length === 0 && searchByEmail !== "") {
-      return (
-        <div className="flex flex-col bg-base-100 rounded-xl p-2 hover:bg-base-300 cursor-pointer">
-          <p>No hay concidencias encontradas</p>
-        </div>
-      );
-    }
-  };
-
-  const verifyUserInToTable = (data) => {
-    const dataModalFilter = dataModal.map(({ email }) => email);
-
-    if (dataModalFilter.includes(data.email)) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
-      return (
-        Toast.fire({
-          icon: "error",
-          title: "Este participante ya está dentro de la lista",
-        }),
-        setSearchByEmail(""),
-        setListUsers(false)
-      );
-    } else {
-      setSearchByEmail("");
-      setListUsers(false);
-      setDataModal([...dataModal, { ...data, porcentaje: 0 }]);
-    }
-  };
-
-  const componentMenuUsers = useMemo(() => {
-    if (listUsers) {
-      return (
-        <div className="w-full absolute bg-[#e6e6e6] p-5 max-h-52 flex flex-col gap-3 overflow-y-auto">
-          {searchUser()}
-        </div>
-      );
-    }
-  }, [listUsers, searchByEmail]);
-
-  const handleSubmit = (invoice) => {
-    let newData = [...data];
-
-    newData[invoice.index] = { ...newData[invoice.index], status: true };
-
-    dispatch(getDigiPa(newData));
-    dispatch(getDigiPoints(token, iduser));
-
-    setSalesOption("salesRep");
-    setNumModal(0);
-    setOpened(false);
-    setDataModal([]);
-    setListUsers(false);
-    setHover(false);
-    setOpened(false);
-  };
-
-  const handleUnassign = (obj) => {
-    Swal.fire({
-      title: "Antes de desasignar la factura, ¿quieres confirmar tu decisión?",
-      showCancelButton: true,
-      confirmButtonColor: "#eb1000",
-      confirmButtonText: "Desasignar factura",
-      denyCancelText: `Cancelar`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .post(
-            `${process.env.BACKURL}/employee-poits-collects/unassign-invoice`,
-            {
-              isGold: false,
-              invoiceReference: obj.salesOrder,
-            },
-            {
-              headers: {
-                "Content-Type":
-                  "application/x-www-form-urlencoded; charset=UTF-8",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            let newData = [...data];
-
-            newData[obj.index] = {
-              ...newData[obj.index],
-              status: false,
-            };
-
-            dispatch(getDigiPoints(token, iduser));
-            dispatch(getDigiPa(newData));
-          });
-      }
-
-      return;
-    });
-  };
 
   return (
     <>
@@ -474,7 +469,43 @@ const DigipointsDistribution = () => {
               {loading ? (
                 <div className="lds-dual-ring"></div>
               ) : (
-                <tbody>{filters()}</tbody>
+                <tbody>
+                  {dataToTable.map((obj, index) => (
+                    <tr
+                      className="bg-white border-b dark:border-gray-500"
+                      key={obj?.invoices_included}
+                    >
+                      <td className="py-4 px-6">{obj?.invoices_included}</td>
+                      <td className="py-4 px-6 min-w-[130px]">{obj?.date}</td>
+                      <td className="py-4 px-6">{obj?.client}</td>
+                      <td className="py-4 px-6">{obj?.marketSegment}</td>
+                      <td className="py-4 px-6">{obj?.digipoints}</td>
+                      <td className="py-4 px-6">
+                        {obj.status === false ? (
+                          <button
+                            className="btn btn-primary btn-xs"
+                            onClick={() => {
+                              console.log(index);
+                              setInvoiceData({ ...obj, index: index });
+                              setOpened(true);
+                            }}
+                          >
+                            {t("tabla.asignar")}
+                          </button>
+                        ) : (
+                          <button
+                            className="btn btn-secondary btn-xs"
+                            onClick={() => {
+                              return handleUnassign({ ...obj, index: index });
+                            }}
+                          >
+                            {t("tabla.asignado")}
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
               )}
             </table>
           </div>

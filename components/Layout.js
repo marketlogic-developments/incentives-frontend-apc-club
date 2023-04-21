@@ -792,6 +792,7 @@ const Layout = ({ children }) => {
               "/premios",
               "/cargaventas",
               "/reglas",
+              "/herramientas",
             ].includes(page);
           }
 
