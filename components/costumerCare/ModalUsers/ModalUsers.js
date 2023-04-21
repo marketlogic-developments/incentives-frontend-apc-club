@@ -17,8 +17,6 @@ const ModalUsers = ({ userDataToModal, token }) => {
     );
   };
 
-  console.log(userDataToModal);
-
   return (
     <div>
       <div>
