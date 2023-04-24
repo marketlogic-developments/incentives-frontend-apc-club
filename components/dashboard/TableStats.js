@@ -18,10 +18,10 @@ const TableStats = () => {
   const [percentageCC, setpercentageCC] = useState([]);
   const [percentageDC, setpercentageDC] = useState([]);
   const [sales, setSales] = useState(0);
-  const [goal, setGoal] = useState([]);
+  const [goal, setGoal] = useState(0);
   const dataFromAxios = useSelector((state) => state.sales.salesgement);
 
-  console.log(totalSales);
+  console.log(goal);
 
   useEffect(() => {
     const obj =
