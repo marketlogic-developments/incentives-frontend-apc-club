@@ -12,7 +12,7 @@ import ImportUsers from "./importaciones/ImportUsers";
 
 const ButtonParticipants = () => {
   const [opened, setOpened] = useState(false);
-  const [modal, setModal] = useState(0);
+  const [modal, setModal] = useState(1);
   const token = useSelector((state) => state.user.token);
   const [pos, setPos] = useState([]);
   const [form, setForm] = useState({
