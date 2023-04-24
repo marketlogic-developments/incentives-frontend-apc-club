@@ -378,7 +378,7 @@ const DigipointsDistribution = () => {
           setListUsers(false);
           setHover(false);
         }}
-        size={numModal === 0 ? "40%" : "70%"}
+        size={numModal === 0 ? "50%" : "90%"}
         centered
       >
         {typeModal}
