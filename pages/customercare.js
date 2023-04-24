@@ -13,7 +13,7 @@ import Distribuidores from "../components/costumerCare/Distribuidores";
 
 const customercare = () => {
   const [t, i18n] = useTranslation("global");
-  const [content, setContent] = useState(0);
+  const [content, setContent] = useState(2);
 
   const typeContent = useMemo(() => {
     if (content === 0) {
