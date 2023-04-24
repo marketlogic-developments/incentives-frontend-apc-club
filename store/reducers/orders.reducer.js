@@ -41,7 +41,7 @@ export const getOrders = (token, id) => async (dispatch) => {
 
 export const getOrdersAll = (token) => async (dispatch) => {
   axios
-    .get(`${process.env.BACKURL}/order-carts`, {
+    .get(`${process.env.BACKURL}/reporters/redeem`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
