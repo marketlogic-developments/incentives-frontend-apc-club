@@ -75,7 +75,8 @@ const PerUser = ({ invoiceData, teamInfo, handleSubmit }) => {
           title: t("digipoints.successFact"),
         });
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         return Toast.fire({
           icon: "error",
           title: "An error has occurred",
