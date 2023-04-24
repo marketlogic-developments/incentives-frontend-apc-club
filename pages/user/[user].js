@@ -5,8 +5,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import ContainerContent from "../../components/containerContent";
-import { policyAndPassword } from "../../store/reducers/users.reducer";
+import {
+  policyAndPassword,
+  userUpdate,
+} from "../../store/reducers/users.reducer";
 import ModalPassword from "../../components/user/modalPassword";
+import Swal from "sweetalert2";
 
 const user = () => {
   const user = useSelector((state) => state.user.user);
@@ -19,6 +23,17 @@ const user = () => {
   const [image, setImage] = useState({});
   const [viewimage, setviewImage] = useState("");
   const [t, i18n] = useTranslation("global");
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   const [formData, setFormData] = useState({
     names: "",
@@ -147,13 +162,45 @@ const user = () => {
             }
           )
           .then((res2) => {
+            dispatch(userUpdate({ profilePhotoPath: res.data.url }));
             setFormData({
               ...formData,
               imgProfile: res.data.url,
             });
+            return Toast.fire({
+              icon: "success",
+              title: t("user.fotoUpdate"),
+            });
           });
       })
       .catch((error) => console.log(error));
+  };
+
+  const deleteProfileImage = () => {
+    return axios
+      .patch(
+        `${process.env.BACKURL}/users/${user.id}`,
+        {
+          profilePhotoPath: "noImage",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        dispatch(userUpdate({ profilePhotoPath: "noImage" }));
+        setFormData({
+          ...formData,
+          imgProfile: "noImage",
+        });
+        return Toast.fire({
+          icon: "success",
+          title: t("user.fotoDelete"),
+        });
+      });
   };
 
   const typeModal = useMemo(() => {
@@ -167,12 +214,22 @@ const user = () => {
     if (modal === 1) {
       return (
         <div className="flex flex-col w-full justify-center items-center gap-10">
-          <div className="w-1/5">
-            <figure className="imgPhoto border-red-600 border rounded-full">
+          <div className="w-1/5 relative">
+            <div
+              className="absolute rounded-full bg-primary w-[24px] h-[24px] flex justify-center right-0 cursor-pointer"
+              onClick={deleteProfileImage}
+            >
+              <div data-tip="Borrar foto de perfil" className="tooltip">
+                <p className="text-white">X</p>
+              </div>
+            </div>
+            <figure className="imgPhoto border-red-600 border-2 rounded-full">
               <img
                 src={
                   viewimage === ""
-                    ? formData.imgProfile === null || formData.imgProfile === ""
+                    ? formData.imgProfile === null ||
+                      formData.imgProfile === "" ||
+                      formData.imgProfile === "noImage"
                       ? "/assets/Icons/user.webp"
                       : formData.imgProfile
                     : viewimage.path
@@ -219,7 +276,7 @@ const user = () => {
     if (modal === 2) {
       return <ModalPassword setOpened={setOpened} />;
     }
-  }, [modal, opened, image, viewimage]);
+  }, [modal, opened, image, viewimage, formData]);
 
   return (
     <>
@@ -260,7 +317,11 @@ const user = () => {
                         <figure className="imgPhoto">
                           <img
                             src={
-                              formData.imgProfile || "/assets/Icons/user.webp"
+                              formData.imgProfile === null ||
+                              formData.imgProfile === "" ||
+                              formData.imgProfile === "noImage"
+                                ? "/assets/Icons/user.webp"
+                                : formData.imgProfile
                             }
                           />
                         </figure>

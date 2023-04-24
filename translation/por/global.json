@@ -264,7 +264,9 @@
     "escriba": "Digite aqui",
     "seleccionarRol": "Selecione o papel",
     "enviarSol": "ENVIAR PEDIDO DE INSCRIÇÃO",
-    "cambiarFoto": "Alterar"
+    "cambiarFoto": "Alterar",
+    "fotoUpdate": "Sua foto de perfil foi atualizada",
+    "fotoDelete": "Sua foto de perfil foi excluída."
   },
   "meses": {
     "enero": "Janeiro",

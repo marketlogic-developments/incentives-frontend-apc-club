@@ -239,7 +239,7 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
                     <option value="">{t("participantes.Region")}</option>
                     <option value="NOLA">NOLA</option>
                     <option value="SOLA">SOLA</option>
-                    <option value="MÉXICO">MÉXICO</option>
+                    <option value="MÉXICO">MEXICO</option>
                     <option value="BRAZIL">BRAZIL</option>
                   </select>
                 </label>

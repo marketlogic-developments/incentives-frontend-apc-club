@@ -30,12 +30,84 @@ const DigipointsDistribution = () => {
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
   const data = useSelector((state) => state.sales.digipa);
+  const [dataToTable, setDataToTable] = useState([]);
+  const [filtersTable, setFiltersTable] = useState({
+    date: "",
+    marketSegment: "",
+    invoiceattributed: "",
+  });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     if (token && data.length === 0) {
       dispatch(getDigipointsPa(token, iduser));
     }
+
+    setLoading(false);
   }, [token]);
+
+  const filters = useMemo(() => {
+    setDataToTable(
+      [...data]
+        .sort((prev, curr) => {
+          const datePrev = new Date(prev.date);
+          const dateCurr = new Date(curr.date);
+
+          if (filtersTable.date === "downUp") {
+            return datePrev - dateCurr;
+          }
+
+          return dateCurr - datePrev;
+        })
+        .filter((invoice) => {
+          if (
+            filtersTable.marketSegment !== "" &&
+            filtersTable.invoiceattributed !== ""
+          ) {
+            const assigned =
+              filtersTable.invoiceattributed === "unassigned"
+                ? invoice.status === true
+                : filtersTable.invoiceattributed === "attributed"
+                ? invoice.status === false
+                : invoice.status === true || invoice.status === false;
+
+            return (
+              invoice.marketSegment === filtersTable.marketSegment && assigned
+            );
+          }
+
+          if (filtersTable.marketSegment !== "") {
+            return invoice.marketSegment === filtersTable.marketSegment;
+          }
+
+          if (filtersTable.invoiceattributed !== "") {
+            return filtersTable.invoiceattributed === "unassigned"
+              ? invoice.status === true
+              : filtersTable.invoiceattributed === "attributed"
+              ? invoice.status === false
+              : invoice.status === true || invoice.status === false;
+          }
+
+          return invoice;
+        })
+    );
+  }, [data, filtersTable]);
+
+  const uniqueData = (data) => {
+    const thisData = new Set(data);
+
+    return [...thisData].map((item) => {
+      return <option value={item}>{item}</option>;
+    });
+  };
+
+  const handleFilters = (e) => {
+    return setFiltersTable({
+      ...filtersTable,
+      [e.target.name]: [e.target.value][0],
+    });
+  };
 
   const searchUser = () => {
     const searchValue = users.filter(
@@ -90,6 +162,16 @@ const DigipointsDistribution = () => {
     }
   };
 
+  const nextModal = () => {
+    if (salesOption === "salesTeam") {
+      setSalesOption("salesRep");
+      return setNumModal(2);
+    } else {
+      setSalesOption("salesRep");
+      return setNumModal(1);
+    }
+  };
+
   const verifyUserInToTable = (data) => {
     const dataModalFilter = dataModal.map(({ email }) => email);
 
@@ -121,22 +203,23 @@ const DigipointsDistribution = () => {
     }
   };
 
-  const componentMenuUsers = useMemo(() => {
-    if (listUsers) {
-      return (
-        <div className="w-full absolute bg-[#e6e6e6] p-5 max-h-52 flex flex-col gap-3 overflow-y-auto">
-          {searchUser()}
-        </div>
-      );
-    }
-  }, [listUsers, searchByEmail]);
-
   const handleSubmit = (invoice) => {
-    let newData = [...data];
+    let newData = [...dataToTable];
+    let dataRedux = [...data];
 
     newData[invoice.index] = { ...newData[invoice.index], status: true };
 
-    dispatch(getDigiPa(newData));
+    const indexOfDataRedux = dataRedux.findIndex(
+      ({ salesOrder }) => invoice.salesOrder === salesOrder
+    );
+
+    dataRedux[indexOfDataRedux] = {
+      ...dataRedux[indexOfDataRedux],
+      status: true,
+    };
+
+    setDataToTable(newData);
+    dispatch(getDigiPa(dataRedux));
     dispatch(getDigiPoints(token, iduser));
 
     setSalesOption("salesRep");
@@ -147,6 +230,68 @@ const DigipointsDistribution = () => {
     setHover(false);
     setOpened(false);
   };
+
+  const handleUnassign = (obj) => {
+    Swal.fire({
+      title: "Antes de desasignar la factura, ¿quieres confirmar tu decisión?",
+      showCancelButton: true,
+      confirmButtonColor: "#eb1000",
+      confirmButtonText: "Desasignar factura",
+      denyCancelText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(
+            `${process.env.BACKURL}/employee-poits-collects/unassign-invoice`,
+            {
+              isGold: false,
+              invoiceReference: obj.salesOrder,
+            },
+            {
+              headers: {
+                "Content-Type":
+                  "application/x-www-form-urlencoded; charset=UTF-8",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            let newData = [...dataToTable];
+            let dataRedux = [...data];
+
+            newData[obj.index] = {
+              ...newData[obj.index],
+              status: false,
+            };
+
+            const indexOfDataRedux = dataRedux.findIndex(
+              ({ salesOrder }) => obj.salesOrder === salesOrder
+            );
+
+            dataRedux[indexOfDataRedux] = {
+              ...dataRedux[indexOfDataRedux],
+              status: false,
+            };
+
+            dispatch(getDigiPoints(token, iduser));
+            dispatch(getDigiPa(dataRedux));
+            setDataToTable(newData);
+          });
+      }
+
+      return;
+    });
+  };
+
+  const componentMenuUsers = useMemo(() => {
+    if (listUsers) {
+      return (
+        <div className="w-full absolute bg-[#e6e6e6] p-5 max-h-52 flex flex-col gap-3 overflow-y-auto">
+          {searchUser()}
+        </div>
+      );
+    }
+  }, [listUsers, searchByEmail]);
 
   const typeModal = useMemo(() => {
     if (numModal === 0) {
@@ -221,57 +366,6 @@ const DigipointsDistribution = () => {
     teamInfo,
   ]);
 
-  const nextModal = () => {
-    if (salesOption === "salesTeam") {
-      setSalesOption("salesRep");
-      return setNumModal(2);
-    } else {
-      setSalesOption("salesRep");
-      return setNumModal(1);
-    }
-  };
-
-  const handleUnassign = (obj) => {
-    Swal.fire({
-      title: "Antes de desasignar la factura, ¿quieres confirmar tu decisión?",
-      showCancelButton: true,
-      confirmButtonColor: "#eb1000",
-      confirmButtonText: "Desasignar factura",
-      denyCancelText: `Cancelar`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .post(
-            `${process.env.BACKURL}/employee-poits-collects/unassign-invoice`,
-            {
-              isGold: false,
-              invoiceReference: obj.salesOrder,
-            },
-            {
-              headers: {
-                "Content-Type":
-                  "application/x-www-form-urlencoded; charset=UTF-8",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then((res) => {
-            let newData = [...data];
-
-            newData[obj.index] = {
-              ...newData[obj.index],
-              status: false,
-            };
-
-            dispatch(getDigiPoints(token, iduser));
-            dispatch(getDigiPa(newData));
-          });
-      }
-
-      return;
-    });
-  };
-
   return (
     <>
       <Modal
@@ -290,12 +384,61 @@ const DigipointsDistribution = () => {
         {typeModal}
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
-        <div className="flex justify-between w-full">
-          <select className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+        <div className="w-full flex justify-around">
+          <div className="flex gap-5 w-full">
+            <select
+              name="date"
+              onChange={handleFilters}
+              className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+              value={filtersTable.date}
+            >
+              <option value="">{t("tabla.ordenarFecha")}</option>
+              <option value="upDown">{t("tabla.recienteA")}</option>
+              <option value="downUp">{t("tabla.antiguoR")}</option>
+            </select>
+            {/* <select
+            name="typeBusiness"
+            onChange={handleFilters}
+            className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+          >
             <option value="">{t("tabla.ordenarFecha")}</option>
             <option value="upDown">{t("tabla.recienteA")}</option>
             <option value="downUp">{t("tabla.antiguoR")}</option>
-          </select>
+          </select> */}
+            <select
+              name="marketSegment"
+              onChange={handleFilters}
+              value={filtersTable.marketSegment}
+              className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+            >
+              <option value="">Segmento de Mercado</option>
+              {uniqueData(data.map(({ marketSegment }) => marketSegment))}
+            </select>
+            <select
+              name="invoiceattributed"
+              onChange={handleFilters}
+              value={filtersTable.invoiceattributed}
+              className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+            >
+              <option value="">Estatus</option>
+              <option value="attributed">{t("tabla.asignar")}</option>
+              <option value="unassigned">{t("tabla.asignado")}</option>
+            </select>
+          </div>
+          <div>
+            <button
+              className="btn btn-primary"
+              onClick={() =>
+                setFiltersTable({
+                  date: "",
+                  marketSegment: "",
+                  invoiceattributed: "",
+                })
+              }
+            >
+              Remover Filtros
+            </button>
+          </div>
         </div>
         <br></br>
         <div className="container">
@@ -323,43 +466,47 @@ const DigipointsDistribution = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                {data.map((obj, index) => (
-                  <tr
-                    className="bg-white border-b dark:border-gray-500"
-                    key={obj?.invoices_included}
-                  >
-                    <td className="py-4 px-6">{obj?.invoices_included}</td>
-                    <td className="py-4 px-6 min-w-[130px]">{obj?.date}</td>
-                    <td className="py-4 px-6">{obj?.client}</td>
-                    <td className="py-4 px-6">{obj?.marketSegment}</td>
-                    <td className="py-4 px-6">{obj?.digipoints}</td>
-                    <td className="py-4 px-6">
-                      {obj.status === false ? (
-                        <button
-                          className="btn btn-primary btn-xs"
-                          onClick={() => {
-                            setInvoiceData({ ...obj, index: index });
-                            setOpened(true);
-                          }}
-                        >
-                          {t("tabla.asignar")}
-                        </button>
-                      ) : (
-                        <button
-                          className="btn btn-secondary btn-xs"
-                          onClick={
-                            () => console.log("")
-                            // handleUnassign({ ...obj, index: index })
-                          }
-                        >
-                          {t("tabla.asignado")}
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+              {loading ? (
+                <div className="lds-dual-ring"></div>
+              ) : (
+                <tbody>
+                  {dataToTable.map((obj, index) => (
+                    <tr
+                      className="bg-white border-b dark:border-gray-500"
+                      key={obj?.invoices_included}
+                    >
+                      <td className="py-4 px-6">{obj?.invoices_included}</td>
+                      <td className="py-4 px-6 min-w-[130px]">{obj?.date}</td>
+                      <td className="py-4 px-6">{obj?.client}</td>
+                      <td className="py-4 px-6">{obj?.marketSegment}</td>
+                      <td className="py-4 px-6">{obj?.digipoints}</td>
+                      <td className="py-4 px-6">
+                        {obj.status === false ? (
+                          <button
+                            className="btn btn-primary btn-xs"
+                            onClick={() => {
+                              setInvoiceData({ ...obj, index: index });
+                              setOpened(true);
+                            }}
+                          >
+                            {t("tabla.asignar")}
+                          </button>
+                        ) : (
+                          <button
+                            className="btn btn-secondary btn-xs"
+                            onClick={() => {
+                              console.log("");
+                              // return handleUnassign({ ...obj, index: index });
+                            }}
+                          >
+                            {t("tabla.asignado")}
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
             </table>
           </div>
         </div>
