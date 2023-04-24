@@ -328,6 +328,7 @@ const MakeTeam = () => {
                 name="nameGroup"
                 placeholder={t("modalEquipos.nequipo")}
                 required
+                minLength={5}
               />
             ) : (
               <input
@@ -338,6 +339,7 @@ const MakeTeam = () => {
                 name="nameGroup"
                 value={infoModal?.nameGroup}
                 onChange={handleChange}
+                minLength={5}
               />
             )}
           </div>
@@ -350,6 +352,7 @@ const MakeTeam = () => {
                 name="description"
                 placeholder={t("modalEquipos.dEquipo")}
                 required
+                minLength={5}
               />
             ) : (
               <textarea
@@ -360,6 +363,7 @@ const MakeTeam = () => {
                 name="description"
                 value={infoModal?.description}
                 onChange={handleChange}
+                minLength={5}
               />
             )}
           </div>
