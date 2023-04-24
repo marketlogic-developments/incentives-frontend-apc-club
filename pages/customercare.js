@@ -35,7 +35,7 @@ const customercare = () => {
             <h1 className="font-bold text-3xl">Customer Care</h1>
           </div>
           <div className="grid grid-flow-col auto-cols-fr place-items-center text-center border-b ">
-            <p
+            {/* <p
               className={`h-full w-full p-3 cursor-pointer ${
                 content === 0 && "border-b-2 border-[#eb1000] text-[#eb1000]"
               }`}
@@ -50,7 +50,7 @@ const customercare = () => {
               onClick={() => setContent(1)}
             >
               Distribuidores
-            </p>
+            </p> */}
             <p
               className={`h-full w-full p-3 cursor-pointer ${
                 content === 2 &&

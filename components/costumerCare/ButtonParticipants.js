@@ -285,15 +285,15 @@ const ButtonParticipants = () => {
         centered
         size={"70%"}
       >
-        <div className="grid grid-cols-2 place-items-center text-center border-b">
-          <p
+        <div className="grid grid-cols-1 place-items-center text-center border-b">
+          {/* <p
             className={`h-full w-full p-3 cursor-pointer ${
               modal === 0 && "border-b-2 border-[#eb1000] text-[#eb1000]"
             }`}
             onClick={() => setModal(0)}
           >
             Agregar Participantes
-          </p>
+          </p> */}
           <p
             className={`h-full w-full p-3 cursor-pointer ${
               modal === 1 && "border-b-2 border-[#eb1000] text-[#eb1000]"
@@ -302,14 +302,14 @@ const ButtonParticipants = () => {
           >
             Importar Participantes
           </p>
-          <p
+          {/* <p
             className={`h-full w-full p-3 cursor-pointer ${
               modal === 2 && "border-b-2 border-[#eb1000] text-[#eb1000]"
             }`}
             onClick={() => setModal(2)}
           >
             Actualizar Usuarios
-          </p>
+          </p> */}
         </div>
         {typeModal}
       </Modal>

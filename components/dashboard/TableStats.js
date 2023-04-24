@@ -37,6 +37,7 @@ const TableStats = () => {
         },
       })
       .then((res) => {
+        console.log(res.data);
         setGoal(res.data[0].meta);
       });
 

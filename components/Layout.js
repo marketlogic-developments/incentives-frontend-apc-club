@@ -424,6 +424,24 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: "Reglas",
     },
+    {
+      page: "/customercare",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="#ffffff"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="m20.813 14.85-4.397-1.876a1.462 1.462 0 0 0-1.416.122l-2.353 1.566a7.172 7.172 0 0 1-3.3-3.282L10.903 9a1.49 1.49 0 0 0 .131-1.416L9.15 3.187a1.528 1.528 0 0 0-1.566-.9A5.269 5.269 0 0 0 3 7.499C3 14.943 9.056 21 16.5 21a5.268 5.268 0 0 0 5.212-4.584 1.528 1.528 0 0 0-.9-1.566Z" />
+          <path d="M14.756 4.473a6.806 6.806 0 0 1 4.772 4.772.75.75 0 0 0 .722.563c.067 0 .133-.01.197-.028a.74.74 0 0 0 .525-.92 8.25 8.25 0 0 0-5.832-5.83.75.75 0 1 0-.384 1.443Z" />
+          <path d="M13.978 7.368a3.788 3.788 0 0 1 2.653 2.653.74.74 0 0 0 .722.563.603.603 0 0 0 .188-.028.743.743 0 0 0 .534-.92 5.231 5.231 0 0 0-3.713-3.712.75.75 0 1 0-.384 1.444Z" />
+        </svg>
+      ),
+      iconactive: "",
+      text: "Customer Care",
+    },
   ];
   const locationsPP = [
     {
@@ -793,6 +811,7 @@ const Layout = ({ children }) => {
               "/cargaventas",
               "/reglas",
               "/herramientas",
+              "/customercare",
             ].includes(page);
           }
 
@@ -900,6 +919,8 @@ const Layout = ({ children }) => {
     );
   }
 
+  console.log(userRedux.profilePhotoPath);
+
   return (
     <>
       {loadingData && (
@@ -958,7 +979,7 @@ const Layout = ({ children }) => {
                 <img src="/assets/dashboard/years.webp" className="!w-[60%] " />
               </figure>
 
-              <div className="w-[35%] justify-around">
+              <div className="w-[35%] justify-around gap-2">
                 <div className="digipoints">
                   <button
                     onClick={() => {
@@ -1065,9 +1086,10 @@ const Layout = ({ children }) => {
                     <div className="user min-w-[34px]">
                       <Menu trigger="hover" openDelay={100} closeDelay={400}>
                         <Menu.Target>
-                          <div className="userPreMenu">
+                          <div className="userPreMenu flex">
                             {userRedux.profilePhotoPath !== null &&
-                            userRedux.profilePhotoPath.length !== 0 &&
+                            userRedux.profilePhotoPath !== "noImage" &&
+                            userRedux.profilePhotoPath !== "" &&
                             userRedux.profilePhotoPath !== undefined ? (
                               <figure>
                                 <img src={userRedux.profilePhotoPath} />

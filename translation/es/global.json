@@ -262,7 +262,9 @@
     "escriba": "Escriba aquí",
     "seleccionarRol": "Selecione el rol",
     "enviarSol": "Enviar solicitud",
-    "cambiarFoto": "Cambiar"
+    "cambiarFoto": "Cambiar",
+    "fotoUpdate": "Tu foto de perfil ha sido actualizada",
+    "fotoDelete": "Tu foto de perfil ha sido eliminada"
   },
   "meses": {
     "enero": "Enero",

@@ -25,6 +25,10 @@ export const userActions = createSlice({
     userToken: (state, action) => {
       state.token = action.payload;
     },
+    userUpdate: (state, action) => {
+      const actionPay = action.payload;
+      state.user = { ...state.user, ...actionPay };
+    },
     loadingUser: (state, action) => {
       state.loading = action.payload;
     },
@@ -70,6 +74,7 @@ export const {
   setCompanyUsers,
   setDistribuitor,
   setInitialStateUser,
+  userUpdate,
 } = userActions.actions;
 
 export default userActions.reducer;
