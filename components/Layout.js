@@ -919,8 +919,6 @@ const Layout = ({ children }) => {
     );
   }
 
-  console.log(userRedux.profilePhotoPath);
-
   return (
     <>
       {loadingData && (
