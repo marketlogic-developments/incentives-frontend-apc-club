@@ -19,13 +19,34 @@ const TableStats = () => {
   const [goalSales, setGoalSales] = useState(0);
   const [percentageCC, setpercentageCC] = useState([]);
   const [percentageDC, setpercentageDC] = useState([]);
+  const [goal, setGoal] = useState([]);
   const dataFromAxios = useSelector((state) => state.sales.salesgement);
 
   useEffect(() => {
+    const obj =
+      user.companyId === null
+        ? `/reporters/goalsbydistri/${user.distributionChannel.soldToParty}`
+        : `/reporters/goalsbycompanies/${user.company.resellerMasterId}`;
+
+    axios
+      .get(`${process.env.BACKURL}${obj}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setGoal(res.data[0].meta);
+      });
+
     if (token && dataFromAxios.length === 0) {
       if (user.roleId === 1) {
         dispatch(getSalesBySegmentAll(token));
-      } else if (user.company === null) {
+      }
+
+      if (user.companyId === null) {
         dispatch(
           getSalesBySegmentDist(token, user.distributionChannel.soldToParty)
         );
@@ -44,23 +65,8 @@ const TableStats = () => {
       )
     );
 
-    const percentageTotal = parseInt(
-      (totalSalesReduce * 100) /
-        Number(
-          user.companyId === null
-            ? distribuitor.goalsPerYearDist
-            : company.goalsPerYear
-        )
-    );
-    setpercentageTotal(
-      Number(
-        user.companyId === null
-          ? distribuitor.goalsPerYearDist
-          : company.goalsPerYear
-      ) === 0
-        ? 100
-        : percentageTotal
-    );
+    const percentageTotal = parseInt((totalSalesReduce * 100) / Number(goal));
+    setpercentageTotal(Number(goal) === 0 ? 100 : percentageTotal);
 
     const goalSales = dataFromAxios
       .reduce(
@@ -79,7 +85,7 @@ const TableStats = () => {
         ({ business_unit }) => business_unit === "Document Cloud"
       )
     );
-  }, [dataFromAxios]);
+  }, [dataFromAxios, goal]);
 
   //This Function calculates the percentage of all CC business type and DC business type
   const infoPercentages = (ccInfoFilter, dcInfoFilter) => {
@@ -212,12 +218,12 @@ const TableStats = () => {
         </div>
       </div>
       <div className="flex items-center w-4/12 max-sm:w-full justify-center gap-10">
-        {/* <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5">
           <p className="font-semibold text-center">Partner Goal:</p>
           <p className="text-center font-bold text-2xl">{`$${new Intl.NumberFormat().format(
-            parseInt(Number(company.goalsPerQuarter))
+            parseInt(Number(goal))
           )}`}</p>
-        </div> */}
+        </div>
         <div className="h-full w-min">
           <div
             className="radial-progress flex justify-center items-center text-primary"
@@ -228,8 +234,8 @@ const TableStats = () => {
             }}
           >
             <div className="w-5/6 h-5/6 bg-primary text-center p-5 flex flex-col items-center justify-center rounded-full text-white">
-              <p className="font-bold text-md">${goalSales}</p>
-              {/* <p className="text-sm">{percentageTotal}%</p> */}
+              <p className="font-bold text-md">${goal}</p>
+              <p className="text-sm">{percentageTotal}%</p>
             </div>
           </div>
         </div>

@@ -17,7 +17,6 @@ const PerUsers = ({
 }) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
-  const company = useSelector((state) => state.user.company);
   const [t, i18n] = useTranslation("global");
 
   const Toast = Swal.mixin({
@@ -134,7 +133,8 @@ const PerUsers = ({
                     title: "Ya tienes un usuario en la fila",
                   });
                 }
-                setListUsers(true);
+
+                return setListUsers(true);
               }}
               onBlur={() => {
                 if (hover === false) {

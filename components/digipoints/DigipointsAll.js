@@ -182,7 +182,7 @@ const DigipointsAll = () => {
             </select>
           )}
           <button className="btn btn-primary" onClick={() => nextModal()}>
-            Continuar
+            {t("tabla.continuar")}
           </button>
         </div>
       );
