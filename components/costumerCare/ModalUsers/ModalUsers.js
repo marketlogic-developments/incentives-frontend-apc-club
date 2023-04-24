@@ -358,6 +358,7 @@ const ModalUsers = ({ userDataToModal, token }) => {
             onChange={handleInputChange}
             className="input input-bordered w-full input-sm"
           >
+            <option value={""}>Elegir país</option>
             {paisesAmerica.map((e) => (
               <option key={e} value={e}>
                 {e}

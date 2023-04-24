@@ -67,7 +67,7 @@ const TableStats = () => {
 
     setSales(totalSalesReduce);
 
-    const percentageTotal = parseInt((totalSalesReduce * 100) / Number(goal));
+    const percentageTotal = Math.round((totalSalesReduce * 100) / Number(goal));
     setpercentageTotal(Number(goal) === 0 ? 100 : percentageTotal);
 
     const goalSales = dataFromAxios
