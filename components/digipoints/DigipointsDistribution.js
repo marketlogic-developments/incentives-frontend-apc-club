@@ -485,7 +485,6 @@ const DigipointsDistribution = () => {
                           <button
                             className="btn btn-primary btn-xs"
                             onClick={() => {
-                              console.log(index);
                               setInvoiceData({ ...obj, index: index });
                               setOpened(true);
                             }}
@@ -496,7 +495,8 @@ const DigipointsDistribution = () => {
                           <button
                             className="btn btn-secondary btn-xs"
                             onClick={() => {
-                              return handleUnassign({ ...obj, index: index });
+                              console.log("");
+                              // return handleUnassign({ ...obj, index: index });
                             }}
                           >
                             {t("tabla.asignado")}

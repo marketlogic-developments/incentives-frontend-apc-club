@@ -72,7 +72,7 @@ const AllParticipants = () => {
           user?.roleId === 1 ? "cursor-pointer hover:bg-warning" : ""
         }`}
         onClick={() => {
-          setUserDataToModal(user2);
+          setUserDataToModal({ ...user2, index: index });
           setOpened(true);
         }}
       >

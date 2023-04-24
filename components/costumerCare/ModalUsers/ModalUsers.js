@@ -1,5 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../../store/reducers/users.reducer";
+import Swal from "sweetalert2";
 
 const ModalUsers = ({ userDataToModal, token }) => {
   const [formData, setFormData] = useState({
@@ -20,6 +23,8 @@ const ModalUsers = ({ userDataToModal, token }) => {
     roleId: "",
   });
 
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.user.users);
   const [companyData, setCompanyData] = useState([]);
   const [distribuitorData, setDistribuitorData] = useState([]);
   const [changePassword, setChangePassword] = useState("");
@@ -63,10 +68,20 @@ const ModalUsers = ({ userDataToModal, token }) => {
     "Venezuela",
   ];
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   useEffect(() => {
     setFormData(userDataToModal);
-
-    console.log(userDataToModal.companyId);
 
     if (userDataToModal.companyId === null) {
       axios
@@ -153,7 +168,18 @@ const ModalUsers = ({ userDataToModal, token }) => {
         }
       )
       .then(() => {
-        console.log("usuario actualizado");
+        console.log([obj, ...users]);
+        dispatch(getUsers([obj, ...users]));
+        return Toast.fire({
+          icon: "success",
+          title: "Usuario actualizado",
+        });
+      })
+      .catch(() => {
+        return Toast.fire({
+          icon: "error",
+          title: "El usuario no pudo ser actualizado",
+        });
       });
   };
 
@@ -173,7 +199,17 @@ const ModalUsers = ({ userDataToModal, token }) => {
         }
       )
       .then(() => {
-        console.log("contraseña de usuario actualizado");
+        dispatch(getUsers());
+        return Toast.fire({
+          icon: "success",
+          title: "Contraseña de usuario actualizado",
+        });
+      })
+      .catch(() => {
+        return Toast.fire({
+          icon: "error",
+          title: "El usuario no pudo ser actualizado",
+        });
       });
   };
 
