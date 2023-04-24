@@ -519,7 +519,7 @@ const MakeTeam = () => {
           setModal(0);
         }}
         centered
-        size={modal === 0 ? "50%" : "70%"}
+        size={modal === 0 ? "50%" : "90%"}
       >
         <div className="flex flex-col w-full items-center">
           <div className="text-sm breadcrumbs">

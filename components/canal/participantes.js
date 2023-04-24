@@ -204,7 +204,7 @@ const Participantes = () => {
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        size={"30%"}
+        size={"50%"}
         centered
       >
         <div className="grid grid-cols-2 place-items-center">
