@@ -104,7 +104,7 @@
 }
 
 .bannersImg {
-  width: 80%;
+  width: 100%;
 }
 .menu_Mobile .itemLayout p {
   color: #fff;
@@ -121,4 +121,10 @@
 .mantine-1v23321 {
   display: flex;
   justify-content: center;
+}
+
+.modalChangePassword {
+  .mantine-Modal-close {
+    display: none;
+  }
 }
