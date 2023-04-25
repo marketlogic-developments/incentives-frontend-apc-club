@@ -210,7 +210,7 @@ const dashboard = () => {
             target="_blank"
             className="w-full flex justify-center"
           >
-            <figure className="w-5/6">
+            <figure className="w-full">
               {i18n.resolvedLanguage === "por" ? (
                 <img
                   src="assets/dashboard/banners/htwPor.webp"
@@ -221,7 +221,6 @@ const dashboard = () => {
                 <img
                   src="assets/dashboard/banners/htw.webp"
                   className="bannersImg"
-                  style={{ width: "auto" }}
                 />
               )}
             </figure>
@@ -437,9 +436,10 @@ const dashboard = () => {
       <Modal
         opened={opened}
         centered
-        size={modalSize}
+        size={"80%"}
         onClose={() => (modalType === 0 ? setOpened(true) : setOpened(false))}
         draggable={false}
+        className={modalType === 0 && "modalChangePassword"}
       >
         {typeModal}
       </Modal>

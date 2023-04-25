@@ -19,11 +19,14 @@ const TableStats = () => {
   const [percentageDC, setpercentageDC] = useState([]);
   const [sales, setSales] = useState(0);
   const [goal, setGoal] = useState(0);
+  const [loading, setLoading] = useState(0);
   const dataFromAxios = useSelector((state) => state.sales.salesgement);
 
   console.log(goal);
 
   useEffect(() => {
+    setLoading(true);
+
     const obj =
       user.companyId === null
         ? `/reporters/goalsbydistri/${user.distributionChannel.soldToParty}`
@@ -54,40 +57,50 @@ const TableStats = () => {
         dispatch(getSalesBySegmentComp(token, user.company.resellerMasterId));
       }
     }
+    setLoading(false);
   }, [token]);
 
   useEffect(() => {
-    setTotalSales(dataFromAxios);
-    const totalSalesReduce = Math.round(
-      dataFromAxios.reduce(
-        (acc, { total_sales_amount }) => acc + Number(total_sales_amount),
-        0
-      )
-    );
+    if (dataFromAxios.length !== 0) {
+      setLoading(true);
 
-    setSales(totalSalesReduce);
+      setTotalSales(dataFromAxios);
+      console.log(dataFromAxios);
+      const totalSalesReduce = Math.round(
+        dataFromAxios.reduce(
+          (acc, { total_sales_amount }) => acc + Number(total_sales_amount),
+          0
+        )
+      );
 
-    const percentageTotal = Math.round((totalSalesReduce * 100) / Number(goal));
-    setpercentageTotal(Number(goal) === 0 ? 100 : percentageTotal);
+      setSales(totalSalesReduce);
 
-    const goalSales = dataFromAxios
-      .reduce(
-        (previous, { total_sales_amount }) =>
-          previous + Number(total_sales_amount),
-        0
-      )
-      .toLocaleString();
+      const percentageTotal = Math.round(
+        (totalSalesReduce * 100) / Number(goal)
+      );
+      setpercentageTotal(Number(goal) === 0 ? 100 : percentageTotal);
 
-    setGoalSales(goalSales);
+      const goalSales = dataFromAxios
+        .reduce(
+          (previous, { total_sales_amount }) =>
+            previous + Number(total_sales_amount),
+          0
+        )
+        .toLocaleString();
 
-    infoPercentages(
-      dataFromAxios.filter(
-        ({ business_unit }) => business_unit === "Creative Cloud"
-      ),
-      dataFromAxios.filter(
-        ({ business_unit }) => business_unit === "Document Cloud"
-      )
-    );
+      setGoalSales(goalSales);
+
+      infoPercentages(
+        dataFromAxios.filter(
+          ({ business_unit }) => business_unit === "Creative Cloud"
+        ),
+        dataFromAxios.filter(
+          ({ business_unit }) => business_unit === "Document Cloud"
+        )
+      );
+
+      setLoading(false);
+    }
   }, [dataFromAxios]);
 
   //This Function calculates the percentage of all CC business type and DC business type
@@ -142,6 +155,10 @@ const TableStats = () => {
     setpercentageCC(arrayPercentageCC);
     setpercentageDC(arrayPercentageDC);
   };
+
+  if (loading) {
+    return <div className="lds-dual-ring"></div>;
+  }
 
   return (
     <div className="container w-full h-full bg-base-100 flex flex-col sm:flex-row justify-between max-sm:justify-center">
