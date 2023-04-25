@@ -122,3 +122,9 @@
   display: flex;
   justify-content: center;
 }
+
+.modalChangePassword {
+  .mantine-Modal-close {
+    display: none;
+  }
+}

@@ -436,9 +436,10 @@ const dashboard = () => {
       <Modal
         opened={opened}
         centered
-        size={modalSize}
+        size={"80%"}
         onClose={() => (modalType === 0 ? setOpened(true) : setOpened(false))}
         draggable={false}
+        className={modalType === 0 && "modalChangePassword"}
       >
         {typeModal}
       </Modal>
