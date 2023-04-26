@@ -434,7 +434,7 @@ const user = () => {
                     <span
                       type="text"
                       placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs p-3 border"
+                      className="input input-ghost w-full max-w-xs p-3"
                     >
                       {formData.region}
                     </span>
