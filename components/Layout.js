@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Menu } from "@mantine/core";
+import { Menu, Modal } from "@mantine/core";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
@@ -22,6 +22,8 @@ import { setInitialStateCompany } from "../store/reducers/company.reducer";
 import { setInitialStateOrders } from "../store/reducers/orders.reducer";
 import { setInitialStateSales } from "../store/reducers/sales.reducer";
 import { setInitialStateTeams } from "../store/reducers/teams.reducer";
+import { useState } from "react";
+import ModalFormCustomer from "./Lay0ut/ModalFormCustomer";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -34,6 +36,8 @@ const Layout = ({ children }) => {
   const router = useRouter();
   const sections = ["/", "/terminosycondiciones", "/registro"];
   const [t, i18n] = useTranslation("global");
+  const [modal, setModal] = useState(0);
+  const [opened, setOpened] = useState(false);
 
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
@@ -289,6 +293,31 @@ const Layout = ({ children }) => {
       text: t("menu.Digipoints"),
     },
     {
+      page: "/promociones",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="none"
+          stroke="#ffffff"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="m11.503 2.428-7.566 1.51-1.509 7.565a.75.75 0 0 0 .206.675l9.788 9.787a.741.741 0 0 0 1.06 0l8.483-8.484a.74.74 0 0 0 0-1.06l-9.787-9.787a.75.75 0 0 0-.675-.206v0Z" />
+          <path
+            fill="#ffffff"
+            stroke="none"
+            d="M7.875 9.375a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
+          />
+        </svg>
+      ),
+      iconactive: "",
+      text: "Promociones",
+    },
+    {
       page: "/productos",
       icon: (
         <svg
@@ -402,7 +431,7 @@ const Layout = ({ children }) => {
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M19.772 13.77a6.806 6.806 0 0 1-7.49 1.416L7.405 20.83c-.01.018-.028.028-.037.037a2.99 2.99 0 0 1-4.238 0 2.992 2.992 0 0 1 0-4.237l.038-.038 5.643-4.875a6.75 6.75 0 0 1 8.822-8.925.74.74 0 0 1 .441.544.75.75 0 0 1-.206.675l-3.647 3.647.347 1.772 1.772.346 3.646-3.646a.75.75 0 0 1 1.22.234 6.721 6.721 0 0 1-1.435 7.406Z" />
+          <path d="M19.5 2.25H6.75a3.01 3.01 0 0 0-3 3V21a.75.75 0 0 0 .75.75H18a.75.75 0 1 0 0-1.5H5.25a1.5 1.5 0 0 1 1.5-1.5H19.5a.75.75 0 0 0 .75-.75V3a.75.75 0 0 0-.75-.75Zm-2.25 9-2.4-1.8a.366.366 0 0 0-.45 0l-2.4 1.8v-7.5h5.25v7.5Z" />
         </svg>
       ),
       iconactive: "",
@@ -799,6 +828,13 @@ const Layout = ({ children }) => {
     router.push("/");
   };
 
+  const typeModal = useMemo(() => {
+    if (modal === 0) {
+      console.log("here comp");
+      return <ModalFormCustomer />;
+    }
+  }, [modal, opened]);
+
   const menu = useMemo(() => {
     if (userRedux?.roleId === 1) {
       return locations
@@ -929,6 +965,14 @@ const Layout = ({ children }) => {
           <div className="spinner"></div>
         </div>
       )}
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        size={"80%"}
+        centered
+      >
+        {typeModal}
+      </Modal>
       <div className="containerGlobal">
         <div className="globalContent bg-primary">
           <div className="containerLayout">
@@ -1047,27 +1091,23 @@ const Layout = ({ children }) => {
                     </svg>
                     <p className="none">1</p>
                   </div>
-                  <svg
-                    className="none"
-                    width={30}
-                    height={30}
-                    fill="#d9d9d9"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    className="shoopingMarket cursor-pointer"
+                    onClick={() => {
+                      setModal(0);
+                      setOpened(true);
+                    }}
                   >
-                    <path d="M20.719 16.49c-.553-.956-1.219-2.774-1.219-5.99v-.666c0-4.153-3.337-7.556-7.444-7.584H12a7.49 7.49 0 0 0-7.5 7.5v.75c0 3.216-.666 5.034-1.219 5.99a1.481 1.481 0 0 0-.01 1.51 1.49 1.49 0 0 0 1.304.75h14.85a1.49 1.49 0 0 0 1.303-.75 1.481 1.481 0 0 0-.01-1.51Z" />
-                    <path d="M14.99 20.25h-6a.75.75 0 1 0 0 1.5h6a.75.75 0 1 0 0-1.5Z" />
-                  </svg>
-                  <svg
-                    className="none"
-                    width={30}
-                    height={30}
-                    fill="#d9d9d9"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="m22.012 14.099-1.396-1.856c.009-.17 0-.347 0-.479L22.012 9.9a.73.73 0 0 0 .122-.647 10.765 10.765 0 0 0-1.022-2.475.769.769 0 0 0-.543-.375l-2.297-.328-.347-.347-.328-2.297a.788.788 0 0 0-.366-.544 11.014 11.014 0 0 0-2.484-1.021.731.731 0 0 0-.647.121l-1.856 1.388h-.488L9.9 1.986a.731.731 0 0 0-.647-.121c-.864.236-1.696.58-2.475 1.021a.769.769 0 0 0-.375.544l-.328 2.297-.347.347-2.297.328a.769.769 0 0 0-.544.375c-.442.78-.785 1.61-1.021 2.475a.731.731 0 0 0 .121.647l1.397 1.856v.478L1.987 14.1a.731.731 0 0 0-.121.647c.236.864.58 1.696 1.021 2.475a.769.769 0 0 0 .544.375l2.297.328.347.347.328 2.297a.769.769 0 0 0 .375.543c.78.443 1.61.786 2.475 1.022a.722.722 0 0 0 .647-.122l1.856-1.387h.488L14.1 22.01a.731.731 0 0 0 .647.122 10.593 10.593 0 0 0 2.475-1.022.769.769 0 0 0 .375-.543l.328-2.307c.112-.112.244-.234.337-.337l2.307-.328a.77.77 0 0 0 .543-.375c.443-.78.786-1.61 1.022-2.475a.732.732 0 0 0-.122-.647ZM12 16.124a4.125 4.125 0 1 1 0-8.25 4.125 4.125 0 0 1 0 8.25Z" />
-                  </svg>
+                    <svg
+                      width={30}
+                      height={30}
+                      fill="#ffffff"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25ZM12 18a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 18Zm.75-4.584v.084a.75.75 0 1 1-1.5 0v-.75A.75.75 0 0 1 12 12a1.875 1.875 0 1 0-1.875-1.875.75.75 0 1 1-1.5 0 3.375 3.375 0 1 1 4.125 3.29Z" />
+                    </svg>
+                  </div>
                 </div>
 
                 <div className="userDrop">

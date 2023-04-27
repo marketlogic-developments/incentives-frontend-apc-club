@@ -6,6 +6,7 @@ import saleActions from "./reducers/sales.reducer";
 import teamsAction from "./reducers/teams.reducer";
 import loadingData from "./reducers/loading.reducer";
 import companyAction from "./reducers/company.reducer";
+import promosAction from "./reducers/promos.reducer";
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     teams: teamsAction,
     loadingData: loadingData,
     company: companyAction,
+    promos: promosAction,
   },
 });
