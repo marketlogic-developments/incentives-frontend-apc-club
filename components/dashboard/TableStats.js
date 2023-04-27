@@ -205,7 +205,7 @@ const TableStats = () => {
           <div className="w-10/12 flex flex-col items-center justify-around h-full">
             <div className="w-full flex justify-around">
               <p className="text-sm font-semibold border-b-2 border-b-red-600">
-                Teams
+              Acrobat Pro
               </p>
               <p className="text-sm font-semibold border-b-sky-600 border-b-2">
                 Enterprise
