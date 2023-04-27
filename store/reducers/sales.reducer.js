@@ -130,7 +130,7 @@ export const getSalesPointsData = (token) => async (dispatch) => {
   }
 };
 
-export const getProductsData = (token, data) => async (dispatch) => {
+export const getProductsData = (token) => async (dispatch) => {
   try {
     return axios
       .get(`${process.env.BACKURL}/products/`, {
