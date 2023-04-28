@@ -1012,7 +1012,6 @@ const Layout = ({ children }) => {
               <div
                 className="adobeMarket z-10"
                 onClick={() => {
-                  dispatch(changeLoadingData(true));
                   router.push("/catalogo");
                 }}
               >
@@ -1050,7 +1049,6 @@ const Layout = ({ children }) => {
                         return;
                       }
 
-                      dispatch(changeLoadingData(true));
                       router.push("/digipoints");
                     }}
                   >
@@ -1097,7 +1095,6 @@ const Layout = ({ children }) => {
                   <div
                     className="shoopingMarket cursor-pointer"
                     onClick={() => {
-                      dispatch(changeLoadingData(true));
                       router.push("/shoppingCar");
                     }}
                   >
@@ -1173,7 +1170,6 @@ const Layout = ({ children }) => {
                             <div
                               className="buttonLayoutDropdown"
                               onClick={() => {
-                                dispatch(changeLoadingData(true));
                                 router.push(`/user/${userRedux?.names}`);
                               }}
                             >
