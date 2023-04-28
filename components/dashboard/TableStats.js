@@ -21,8 +21,9 @@ const TableStats = () => {
   const [goal, setGoal] = useState(0);
   const [loading, setLoading] = useState(0);
   const dataFromAxios = useSelector((state) => state.sales.salesgement);
+  const golprogram = useSelector((state) => state.user.company.goalsPerYear);
 
-  console.log(goal);
+  console.log(user);
 
   useEffect(() => {
     setLoading(true);
@@ -41,7 +42,13 @@ const TableStats = () => {
         },
       })
       .then((res) => {
-        if (res.data.length !== 0) setGoal(res.data[0].meta);
+        if (user.roleId === 1) {
+          setGoal(golprogram);
+        } else {
+          if (res.data.length !== 0) {
+            setGoal(res.data[0].meta);
+          }
+        }
       });
 
     if (token && dataFromAxios.length === 0) {
@@ -74,7 +81,7 @@ const TableStats = () => {
       );
 
       setSales(totalSalesReduce);
-
+      console.log(goal)
       const percentageTotal = Math.round(
         (totalSalesReduce * 100) / Number(goal)
       );
@@ -101,7 +108,7 @@ const TableStats = () => {
 
       setLoading(false);
     }
-  }, [dataFromAxios]);
+  }, [dataFromAxios,goal]);
 
   //This Function calculates the percentage of all CC business type and DC business type
   const infoPercentages = (ccInfoFilter, dcInfoFilter) => {
@@ -159,6 +166,14 @@ const TableStats = () => {
   if (loading) {
     return <div className="lds-dual-ring"></div>;
   }
+  function formatNumber(number) {
+    const formattedNumber = number >= 1000000
+      ? (number / 1000000).toFixed(1) + "M"
+      : number >= 1000
+        ? (number / 1000).toFixed(1) + "K"
+        : number.toLocaleString("en-US");
+    return formattedNumber;
+  }
 
   return (
     <div className="container w-full h-full bg-base-100 flex flex-col sm:flex-row justify-between max-sm:justify-center">
@@ -205,7 +220,7 @@ const TableStats = () => {
           <div className="w-10/12 flex flex-col items-center justify-around h-full">
             <div className="w-full flex justify-around">
               <p className="text-sm font-semibold border-b-2 border-b-red-600">
-                Teams
+              Acrobat Pro
               </p>
               <p className="text-sm font-semibold border-b-sky-600 border-b-2">
                 Enterprise
@@ -241,9 +256,13 @@ const TableStats = () => {
         {user.roleId !== 1 && (
           <div className="flex flex-col gap-5">
             <p className="font-semibold text-center">Partner Goal:</p>
-            <p className="text-center font-bold text-2xl">{`$${new Intl.NumberFormat().format(
-              parseInt(Number(goal))
-            )}`}</p>
+            <p className="text-center font-bold text-2xl">{formatNumber(goal)}</p>
+          </div>
+        )}
+        {user.roleId == 1 && (
+          <div className="flex flex-col gap-5">
+            <p className="font-semibold text-center">Program Goal:</p>
+            <p className="text-center font-bold text-2xl">{formatNumber(goal)}</p>
           </div>
         )}
 
@@ -257,7 +276,7 @@ const TableStats = () => {
             }}
           >
             <div className="w-5/6 h-5/6 bg-primary text-center p-5 flex flex-col items-center justify-center rounded-full text-white">
-              <p className="font-bold text-md">${sales}</p>
+              <p className="font-bold text-md">${formatNumber(sales)}</p>
               <p className="text-sm">{percentageTotal}%</p>
             </div>
           </div>

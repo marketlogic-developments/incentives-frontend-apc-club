@@ -43,6 +43,15 @@ const GraphSales = () => {
     );
   }, [sales]);
 
+  function formatNumber(number) {
+    const formattedNumber = number >= 1000000
+      ? (number / 1000000).toFixed(1) + "M"
+      : number >= 1000
+        ? (number / 1000).toFixed(1) + "K"
+        : number.toLocaleString("en-US");
+    return formattedNumber;
+  }
+
   const typeOfData = useMemo(() => {
     if (content === 0) {
       return (
@@ -106,7 +115,7 @@ const GraphSales = () => {
                         </p>
                         <p className="text-black">
                           $
-                          {Math.round(
+                          {formatNumber(Math.round(
                             CC.filter(
                               ({ business_type }) => business_type === "Renewal"
                             )
@@ -117,7 +126,7 @@ const GraphSales = () => {
                                 (currently, preValue) => currently + preValue,
                                 0
                               )
-                          )}
+                          ))}
                         </p>
                       </div>
                     </div>
@@ -141,11 +150,11 @@ const GraphSales = () => {
               </p>
               <p>
                 $
-                {Math.round(
+                {formatNumber(Math.round(
                   CC.map(({ total_sales_amount }) =>
                     Number(total_sales_amount)
                   ).reduce((currently, preValue) => currently + preValue, 0)
-                )}
+                ))}
               </p>
             </div>
           </div>
@@ -208,7 +217,7 @@ const GraphSales = () => {
                       </p>
                       <p className="text-black">
                         $
-                        {Math.round(
+                        {formatNumber(Math.round(
                           CC.filter(
                             ({ business_type }) =>
                               business_type === "New Business"
@@ -220,7 +229,7 @@ const GraphSales = () => {
                               (currently, preValue) => currently + preValue,
                               0
                             )
-                        )}
+                        ))}
                       </p>
                     </div>
                     <div className="flip-card-back-Graph text-xs text-black">
@@ -299,7 +308,7 @@ const GraphSales = () => {
                         </p>
                         <p className="text-black">
                           $
-                          {Math.round(
+                          {formatNumber(Math.round(
                             DC.filter(
                               ({ business_type }) => business_type === "Renewal"
                             )
@@ -310,7 +319,7 @@ const GraphSales = () => {
                                 (currently, preValue) => currently + preValue,
                                 0
                               )
-                          )}
+                          ))}
                         </p>
                       </div>
                     </div>
@@ -334,11 +343,11 @@ const GraphSales = () => {
               </p>
               <p>
                 $
-                {Math.round(
+                {formatNumber(Math.round(
                   DC.map(({ total_sales_amount }) =>
                     Number(total_sales_amount)
                   ).reduce((currently, preValue) => currently + preValue, 0)
-                )}
+                ))}
               </p>
             </div>
           </div>
@@ -399,7 +408,7 @@ const GraphSales = () => {
                       </p>
                       <p className="text-black">
                         $
-                        {Math.round(
+                        {formatNumber(Math.round(
                           DC.filter(
                             ({ business_type }) =>
                               business_type === "New Business"
@@ -411,7 +420,7 @@ const GraphSales = () => {
                               (currently, preValue) => currently + preValue,
                               0
                             )
-                        )}
+                        ))}
                       </p>
                     </div>
                     <div className="flip-card-back-Graph text-xs text-black">
