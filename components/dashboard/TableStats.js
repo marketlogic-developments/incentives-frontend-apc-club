@@ -255,13 +255,13 @@ const TableStats = () => {
       <div className="flex items-center w-4/12 max-sm:w-full justify-center gap-10">
         {user.roleId !== 1 && (
           <div className="flex flex-col gap-5">
-            <p className="font-semibold text-center">Meta:</p>
+            <p className="font-semibold text-center">Meta</p>
             <p className="text-center font-bold text-2xl">{formatNumber(goal)}</p>
           </div>
         )}
         {user.roleId == 1 && (
           <div className="flex flex-col gap-5">
-            <p className="font-semibold text-center">Meta:</p>
+            <p className="font-semibold text-center">Meta</p>
             <p className="text-center font-bold text-2xl">{formatNumber(goal)}</p>
           </div>
         )}
