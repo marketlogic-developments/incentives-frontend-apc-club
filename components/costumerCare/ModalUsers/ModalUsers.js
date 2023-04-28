@@ -270,7 +270,11 @@ const ModalUsers = ({ userDataToModal, token }) => {
             type="email"
             className="input input-bordered w-full input-sm"
             name="phoneNumber"
-            defaultValue={formData.phoneNumber}
+            defaultValue={
+              formData.phoneNumber === null || formData.phoneNumber.length === 0
+                ? "No tiene teléfono"
+                : formData.phoneNumber
+            }
             onChange={handleInputChange}
           />
         </div>
@@ -282,7 +286,11 @@ const ModalUsers = ({ userDataToModal, token }) => {
             type="email"
             className="input input-bordered w-full input-sm"
             name="phoneNumber"
-            defaultValue={formData.birthDate}
+            defaultValue={
+              formData.birthDate === null || formData.birthDate.length === 0
+                ? "No tiene fecha de nacimiento"
+                : formData.birthDate
+            }
             onChange={handleInputChange}
           />
         </div>
@@ -295,6 +303,7 @@ const ModalUsers = ({ userDataToModal, token }) => {
             className="input input-bordered w-full input-sm"
             name="phoneNumber"
             defaultValue={
+              formData.profilePhotoPath === null ||
               formData.profilePhotoPath.length === 0
                 ? "No tiene foto de perfil"
                 : formData.profilePhotoPath
@@ -358,6 +367,7 @@ const ModalUsers = ({ userDataToModal, token }) => {
             onChange={handleInputChange}
             className="input input-bordered w-full input-sm"
           >
+            <option value={""}>Elegir país</option>
             {paisesAmerica.map((e) => (
               <option key={e} value={e}>
                 {e}

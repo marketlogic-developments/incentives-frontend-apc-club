@@ -87,7 +87,9 @@
     "contiene8C": "Pelo menos 8 caracteres",
     "coincidenContraseñas": "Las contraseñas coinciden",
     "pdfDist": "assets/pdf/HTWDistPor.pdf",
-    "pdfComp": "assets/pdf/HTWPor.pdf"
+    "pdfComp": "assets/pdf/HTWPor.pdf",
+    "titleTickets": "Precisa de ajuda? Entre em contato conosco agora!",
+    "descripcionTickets": "Preencha nosso formulário de solicitações de clientes e receba ajuda de nossos especialistas para resolver seus problemas on-line. Deixe-nos ajudá-lo hoje mesmo!"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",
@@ -206,7 +208,13 @@
     "addParticipante": "Adicionar Participante",
     "valorVenta": "de Venda",
     "notiError": "Ocorreu um erro, tente novamente mais tarde",
-    "continuar": "SEGUINTE"
+    "continuar": "SEGUINTE",
+    "typeSolicitud": "Tipo de solicitação",
+    "tarjetasSolicitud": "Cartões",
+    "cambioRolSolicitud": "Mudança de função",
+    "cambioEmailSolicitud": "Mudança de e-mail",
+    "otroSolicitud": "Outro",
+    "elegirSol": "Escolha o seu tipo de solicitação."
   },
   "shoopingcar": {
     "carrito": "Carrinho de compras",
@@ -281,5 +289,8 @@
     "octubre": "Outubro",
     "noviembre": "Novembro",
     "diciembre": "Dezembro"
+  },
+  "notifications": {
+    "ticketZoho": "Sua solicitação foi recebida. Responderemos em breve. Obrigado/a!"
   }
 }
