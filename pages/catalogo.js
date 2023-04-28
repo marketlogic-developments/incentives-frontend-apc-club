@@ -29,6 +29,7 @@ const catalogo = () => {
   const arrayAwards = useSelector((state) => state.awards.awards);
   const car = useSelector((state) => state.awards.shoopingCar);
   const user = useSelector((state) => state.user.user);
+  const [dataSend, setDataSend] = useState([]);
   const itemsPerPage = 6;
   const [loading, setLoading] = useState(false);
   const [opened, setOpened] = useState(false);
@@ -46,15 +47,40 @@ const catalogo = () => {
 
   const handleShoppingCard = () => {
     if (Cookies.get("shoppCar") !== undefined) {
-      const prevProducts = JSON.parse(Cookies.get("shoppCar"));
+      const cookiesProducts = JSON.parse(Cookies.get("shoppCar"));
 
-      console.log([...prevProducts, ...globalAwards]);
+      let prevProducts = [...cookiesProducts];
+      let thisAwards = [...globalAwards];
+
+      const cookiesFilter = globalAwards.map((data) => {
+        const newData = prevProducts.find(({ id }) => id === data.id);
+
+        if (newData !== undefined) {
+          const indexData = prevProducts.findIndex(({ id }) => id === data.id);
+
+          return {
+            ...newData,
+            quantity: newData.quantity + data.quantity,
+            index: indexData,
+          };
+        }
+
+        return { ...data, index: null };
+      });
+
+      for (let item of cookiesFilter) {
+        if (item.index !== null) {
+          prevProducts[item.index] = item;
+          thisAwards = thisAwards.filter(({ id }) => id !== item.id);
+        }
+      }
+
       Cookies.set(
         "shoppCar",
-        JSON.stringify([...prevProducts, ...globalAwards]),
+        JSON.stringify([...prevProducts, ...thisAwards]),
         { expires: 365 }
       );
-      dispatch(productsPush([...prevProducts, ...globalAwards]));
+      dispatch(productsPush([...prevProducts, ...thisAwards]));
     } else {
       Cookies.set("shoppCar", JSON.stringify(globalAwards), { expires: 365 });
       dispatch(productsPush([...car, ...globalAwards]));
