@@ -39,9 +39,27 @@ const catalogo = () => {
     }
   }, [token]);
 
+  // if (Cookies.get("shoppCar") !== undefined) {
+  //   const prevProducts = JSON.parse(Cookies.get("shoppCar"));
+  //   console.log(prevProducts);
+  // }
+
   const handleShoppingCard = () => {
-    Cookies.set("shoppCar", JSON.stringify(globalAwards), { expires: 365 });
-    dispatch(productsPush([...car, ...globalAwards]));
+    if (Cookies.get("shoppCar") !== undefined) {
+      const prevProducts = JSON.parse(Cookies.get("shoppCar"));
+
+      console.log([...prevProducts, ...globalAwards]);
+      Cookies.set(
+        "shoppCar",
+        JSON.stringify([...prevProducts, ...globalAwards]),
+        { expires: 365 }
+      );
+      dispatch(productsPush([...prevProducts, ...globalAwards]));
+    } else {
+      Cookies.set("shoppCar", JSON.stringify(globalAwards), { expires: 365 });
+      dispatch(productsPush([...car, ...globalAwards]));
+    }
+
     awardsDelete();
     route.push("/shoppingCar");
   };
