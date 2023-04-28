@@ -156,6 +156,27 @@ const Layout = ({ children }) => {
     }
   }, [location]);
 
+  useEffect(() => {
+    if (userRedux !== 0) {
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === "hidden") {
+          setTimeout(function () {
+            logout();
+          }, 300000);
+        }
+      };
+
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+
+      return () => {
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange
+        );
+      };
+    }
+  }, [userRedux]);
+
   const language = (rolNum) => {
     if (rolNum === 1) {
       return i18n.changeLanguage("por");

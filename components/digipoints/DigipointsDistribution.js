@@ -496,7 +496,7 @@ const DigipointsDistribution = () => {
                             className="btn btn-secondary btn-xs"
                             onClick={() => {
                               console.log("");
-                              // return handleUnassign({ ...obj, index: index });
+                              return handleUnassign({ ...obj, index: index });
                             }}
                           >
                             {t("tabla.asignado")}
