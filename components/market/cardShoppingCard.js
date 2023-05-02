@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { shoopingCarPush } from "../../store/reducers/awards.reducer";
+import Cookies from "js-cookie";
 
 const CardShoppingCard = ({ info, arrProducts, setProducts }) => {
   const [counter, setCounter] = useState(info.quantity);
@@ -19,6 +20,12 @@ const CardShoppingCard = ({ info, arrProducts, setProducts }) => {
   };
 
   const handleDelete = () => {
+    const productsToCookies = JSON.parse(Cookies.get("shoppCar"));
+    const newProductsCookies = productsToCookies.filter(
+      ({ id }) => id !== info.id
+    );
+
+    Cookies.set("shoppCar", JSON.stringify(newProductsCookies));
     const awardFilter = arrProducts.filter(({ id }) => id !== info.id);
 
     return setProducts([...awardFilter]);
