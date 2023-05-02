@@ -157,7 +157,7 @@ const Layout = ({ children }) => {
   }, [location]);
 
   useEffect(() => {
-    if (userRedux !== 0) {
+    if (userRedux !== 0 && location !== "/") {
       const handleVisibilityChange = () => {
         if (document.visibilityState === "hidden") {
           setTimeout(function () {

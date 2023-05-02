@@ -28,6 +28,8 @@ const MakeTeam = () => {
   const [modal, setModal] = useState(0);
   const [selectDate, setSelectDate] = useState("");
 
+  console.log(teams);
+
   const searchUser = () => {
     const searchValue = users.filter(
       ({ email, role_id }) =>
@@ -221,6 +223,7 @@ const MakeTeam = () => {
       const teamUpdate = {
         nameGroup: infoModal.nameGroup,
         description: infoModal.description,
+        partnerAdminId: user.id,
         PartnerAdminGroupD: {
           members: newData,
         },
@@ -239,18 +242,30 @@ const MakeTeam = () => {
           }
         )
         .then(({ data }) => {
-          console.log(data);
+          console.log(infoModal);
+
+          const update = teams.filter(({ id }) => id !== infoModal?.id);
+
+          dispatch(
+            teamsUpdate([
+              ...update,
+              {
+                id: infoModal.id,
+                name_group: infoModal.nameGroup,
+                description: infoModal.description,
+                partner_admin_id: user.id,
+                created_at: infoModal.CreatedAt,
+                total_users: newData.length,
+              },
+            ])
+          );
+
+          setDataModal([]);
+          setModifiedValues([]);
+          setModal(0);
+          setInfoModal({});
+          return setOpened(false);
         });
-
-      const update = teams.filter(({ id }) => id !== infoModal?.id);
-
-      dispatch(teamsUpdate([...update, teamUpdate]));
-
-      setDataModal([]);
-      setModifiedValues([]);
-      setModal(0);
-      setInfoModal({});
-      return setOpened(false);
     }
 
     //Function makes a team if the team doesn't have an id
@@ -494,10 +509,10 @@ const MakeTeam = () => {
           return (
             <tr
               className="bg-white border-b dark:border-gray-500 hover:bg-base-200--cursor-pointer <- BORRAR DOBLE LINEA ENTRE HOVER Y CURSOR"
-              onClick={
-                () => console.log("")
-                // getTeamData(data)
-              }
+              onClick={() => {
+                console.log("");
+                // return getTeamData(data)
+              }}
             >
               <td className="py-4 px-6">{data?.name_group}</td>
               <td className="py-4 px-6">{data?.description}</td>
