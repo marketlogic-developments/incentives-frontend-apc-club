@@ -162,7 +162,7 @@ const Layout = ({ children }) => {
         if (document.visibilityState === "hidden") {
           setTimeout(function () {
             logout();
-          }, 300000);
+          }, 600000);
         }
       };
 
