@@ -136,7 +136,12 @@
     "digiEstimados": "Estimativa de DigiPoints por Representante de Vendas",
     "asignarRep": "Atribuir o representante de vendas",
     "successFact": "Sua fatura foi atribuída com sucesso",
-    "notiUser": "Você deve selecionar pelo menos um usuário para atribuir esta fatura."
+    "notiUser": "Você deve selecionar pelo menos um usuário para atribuir esta fatura.",
+    "deleteTeam": "Remover Equipe",
+    "copyDeleteTeam": "Esta ação removerá permanentemente o seu equipe. Tem certeza de que deseja continuar?",
+    "delete": "Remover",
+    "errorNotiTeams": "Houve um erro ao remover o seu equipe. Por favor, tente novamente mais tarde.",
+    "teamDeleteNoti": "O seu equipe foi removido"
   },
 
   "files": {},

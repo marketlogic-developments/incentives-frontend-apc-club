@@ -1,4 +1,4 @@
-import { Modal } from "@mantine/core";
+import { Menu, Modal } from "@mantine/core";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useMemo } from "react";
@@ -28,7 +28,17 @@ const MakeTeam = () => {
   const [modal, setModal] = useState(0);
   const [selectDate, setSelectDate] = useState("");
 
-  console.log(teams);
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   const searchUser = () => {
     const searchValue = users.filter(
@@ -185,24 +195,14 @@ const MakeTeam = () => {
   function handleSaveChanges(event) {
     event.preventDefault();
 
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
-
     const newData = dataModal.map((user) => {
       const modifiedUser = modifiedValues.find((obj) => obj.id === user.id);
-      if (modifiedUser) {
-        return { memberId: user.id, percentage: modifiedUser.percentage };
+
+      if (user.memberId !== undefined) {
+        return { memberId: user.memberId, percentage: modifiedUser.percentage };
       }
-      return { memberId: user.id, percentage: user.percentage };
+
+      return { memberId: user.id, percentage: modifiedUser.percentage };
     });
 
     // calculatePercentage function defines if the result of the sum of the inputs is equal to 100
@@ -242,8 +242,6 @@ const MakeTeam = () => {
           }
         )
         .then(({ data }) => {
-          console.log(infoModal);
-
           const update = teams.filter(({ id }) => id !== infoModal?.id);
 
           dispatch(
@@ -323,6 +321,47 @@ const MakeTeam = () => {
     return setInfoModal({
       ...infoModal,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleDeleteTeam = (data) => {
+    Swal.fire({
+      title: t("digipoints.deleteTeam"),
+      text: t("digipoints.copyDeleteTeam"),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#eb1000",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: t("digipoints.delete"),
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(
+            `${process.env.BACKURL}/partner-admin-group-headers/${data.id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then(() => {
+            const teamsFiltered = teams.filter((i) => i.id !== data.id);
+            dispatch(teamsUpdate(teamsFiltered));
+            return Toast.fire({
+              icon: "success",
+              title: t("digipoints.teamDeleteNoti"),
+            });
+          })
+          .catch(() => {
+            Toast.fire({
+              icon: "error",
+              title: t("digipoints.errorNotiTeams"),
+            });
+          });
+      }
     });
   };
 
@@ -507,17 +546,40 @@ const MakeTeam = () => {
           const time = new Date(data?.CreatedAt || data?.created_at);
 
           return (
-            <tr
-              className="bg-white border-b dark:border-gray-500 hover:bg-base-200--cursor-pointer <- BORRAR DOBLE LINEA ENTRE HOVER Y CURSOR"
-              onClick={() => {
-                console.log("");
-                // return getTeamData(data)
-              }}
-            >
+            <tr className="bg-white border-b dark:border-gray-500">
               <td className="py-4 px-6">{data?.name_group}</td>
               <td className="py-4 px-6">{data?.description}</td>
               <td className="py-4 px-6">{data?.total_users}</td>
               <td className="py-4 px-6">{time.toLocaleDateString("en-GB")}</td>
+              <td className="py-4 px-6">
+                <Menu>
+                  <Menu.Target>
+                    <svg
+                      width={20}
+                      height={20}
+                      className="optionsTeams cursor-pointer"
+                      fill="#00000"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M14.625 12A2.625 2.625 0 1 1 12 9.375 2.634 2.634 0 0 1 14.625 12ZM4.5 9.375A2.625 2.625 0 1 0 7.125 12 2.634 2.634 0 0 0 4.5 9.375Zm15 0A2.625 2.625 0 1 0 22.125 12 2.634 2.634 0 0 0 19.5 9.375Z" />
+                    </svg>
+                  </Menu.Target>
+
+                  <Menu.Dropdown>
+                    <Menu.Item
+                      onClick={() => {
+                        return getTeamData(data);
+                      }}
+                    >
+                      <p className="text-[#000000]">Editar</p>
+                    </Menu.Item>
+                    <Menu.Item onClick={() => handleDeleteTeam(data)}>
+                      <p className="text-[#eb1000]">{t("digipoints.delete")}</p>
+                    </Menu.Item>
+                  </Menu.Dropdown>
+                </Menu>
+              </td>
             </tr>
           );
         })}
@@ -575,7 +637,7 @@ const MakeTeam = () => {
         </div>
         <br></br>
         <div className="container">
-          <div className="overflow-x-auto relative">
+          <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-black-500">
               <thead className="text-xs text-black-500 uppercase">
                 <th scope="col" className="py-3 px-6">
@@ -589,6 +651,9 @@ const MakeTeam = () => {
                 </th>
                 <th scope="col" className="py-3 px-6">
                   {t("tabla.fechaCreacion")}
+                </th>
+                <th scope="col" className="py-3 px-6">
+                  Opciones
                 </th>
               </thead>
               {tableTeams}
