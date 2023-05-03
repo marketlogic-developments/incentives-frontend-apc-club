@@ -242,8 +242,6 @@ const MakeTeam = () => {
           }
         )
         .then(({ data }) => {
-          console.log(infoModal);
-
           const update = teams.filter(({ id }) => id !== infoModal?.id);
 
           dispatch(
@@ -328,13 +326,13 @@ const MakeTeam = () => {
 
   const handleDeleteTeam = (data) => {
     Swal.fire({
-      title: "Eliminar Equipo",
-      text: "Esta acción eliminará permanentemente tu equipo. ¿Está seguro de continuar?",
+      title: t("digipoints.deleteTeam"),
+      text: t("digipoints.copyDeleteTeam"),
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#eb1000",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Eliminar",
+      confirmButtonText: t("digipoints.delete"),
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
@@ -354,14 +352,13 @@ const MakeTeam = () => {
             dispatch(teamsUpdate(teamsFiltered));
             return Toast.fire({
               icon: "success",
-              title: "Tu equipo ha sido eliminado",
+              title: t("digipoints.teamDeleteNoti"),
             });
           })
           .catch(() => {
             Toast.fire({
               icon: "error",
-              title:
-                "Hubo un error al momento eliminar tu equipo intentalo más tarde",
+              title: t("digipoints.errorNotiTeams"),
             });
           });
       }
@@ -578,7 +575,7 @@ const MakeTeam = () => {
                       <p className="text-[#000000]">Editar</p>
                     </Menu.Item>
                     <Menu.Item onClick={() => handleDeleteTeam(data)}>
-                      <p className="text-[#eb1000]">Eliminar</p>
+                      <p className="text-[#eb1000]">{t("digipoints.delete")}</p>
                     </Menu.Item>
                   </Menu.Dropdown>
                 </Menu>

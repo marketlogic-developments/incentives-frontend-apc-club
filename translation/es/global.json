@@ -134,7 +134,12 @@
     "digiEstimados": "DigiPoints estimados por Representante de ventas",
     "asignarRep": "Asignar Representante de Ventas",
     "successFact": "Tu factura fue asignada de manera exitosa",
-    "notiUser": "Debes elegir al menos un usuario para asignar esta factura"
+    "notiUser": "Debes elegir al menos un usuario para asignar esta factura",
+    "deleteTeam": "Eliminar Equipo",
+    "copyDeleteTeam": "Esta acción eliminará permanentemente tu equipo. ¿Está seguro de continuar?",
+    "delete": "Eliminar",
+    "errorNotiTeams": "Hubo un error al momento eliminar tu equipo intentalo más tarde",
+    "teamDeleteNoti": "Tu equipo ha sido eliminado"
   },
   "files": {},
   "participantes": {
