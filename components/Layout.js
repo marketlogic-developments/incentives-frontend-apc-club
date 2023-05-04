@@ -156,13 +156,21 @@ const Layout = ({ children }) => {
     }
   }, [location]);
 
+  console.log(userRedux);
+
   useEffect(() => {
-    if (userRedux !== 0 && location !== "/") {
+    let timeoutId;
+    console.log(timeoutId);
+
+    if (userRedux !== 0) {
       const handleVisibilityChange = () => {
         if (document.visibilityState === "hidden") {
-          setTimeout(function () {
+          timeoutId = setTimeout(function () {
             logout();
-          }, 600000);
+          }, 300000);
+        } else {
+          // Si el usuario vuelve antes de que se ejecute el setTimeout, cancelarlo
+          clearTimeout(timeoutId);
         }
       };
 
@@ -173,6 +181,8 @@ const Layout = ({ children }) => {
           "visibilitychange",
           handleVisibilityChange
         );
+
+        clearTimeout(timeoutId);
       };
     }
   }, [userRedux]);
