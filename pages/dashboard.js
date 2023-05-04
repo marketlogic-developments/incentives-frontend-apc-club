@@ -200,15 +200,9 @@ const dashboard = () => {
             </h2>
           )}
 
-          <a
-            href={
-              user.companyId === null
-                ? t("dashboard.pdfDist")
-                : t("dashboard.pdfComp")
-            }
-            alt="HTW"
-            target="_blank"
-            className="w-full flex justify-center"
+          <div
+            className="w-full flex justify-center cursor-pointer"
+            onClick={() => route.push("/howtowin")}
           >
             <figure className="w-full">
               {i18n.resolvedLanguage === "por" ? (
@@ -224,7 +218,7 @@ const dashboard = () => {
                 />
               )}
             </figure>
-          </a>
+          </div>
         </div>
       );
     }
@@ -474,41 +468,35 @@ const dashboard = () => {
         }
       </Modal>
       <ContainerContent pageTitle={"Dashboard"}>
-        {header}
-        <div className="w-full flex justify-center gap-5">
-          {participantes.length >= 3 && (
-            <button
-              className={`btn btn-xs ${
-                typeHeader === 0 ? "btn-primary" : "btn-accent"
-              }`}
-              onClick={() => {
-                setTypeHeader(0);
-              }}
-            >
-              {t("dashboard.ranking")}
-            </button>
-          )}
-          <a
-            href={
-              user.companyId === null
-                ? t("dashboard.pdfDist")
-                : t("dashboard.pdfComp")
-            }
-            alt="HTW"
-            target="_blank"
-          >
+        <div className="m-6 flex flex-col gap-10 ">
+          {header}
+          <div className="w-full flex justify-center gap-5">
+            {participantes.length >= 3 && (
+              <button
+                className={`btn btn-xs ${
+                  typeHeader === 0 ? "btn-primary" : "btn-accent"
+                }`}
+                onClick={() => {
+                  setTypeHeader(0);
+                }}
+              >
+                {t("dashboard.ranking")}
+              </button>
+            )}
+
             <button
               className={`btn ${
                 typeHeader === 2 ? "btn-primary" : "btn-accent"
               } btn-xs`}
               onClick={() => {
+                route.push("/howtowin");
                 setTypeHeader(2);
               }}
             >
               {t("dashboard.htw")}
             </button>
-          </a>
-          {/* <button
+
+            {/* <button
             className={`btn ${
               typeHeader === 1 ? "btn-primary" : "btn-accent"
             } btn-xs`}
@@ -518,44 +506,45 @@ const dashboard = () => {
           >
             {t("dashboard.promociones")}
           </button> */}
-        </div>
-        <hr color="red" />
-        <div className="gap-10 flex flex-col h-full">
-          <TableStats />
-          <Carousel
-            sx={{ width: "100%", height: "100%" }}
-            mx="auto"
-            withIndicators={false}
-            //Delete with COntrols
-            withControls={false}
-            controlSize={40}
-            draggable={false}
-            height={260}
-          >
-            {user?.user?.roleId == 3 ? (
-              <Carousel.Slide>
-                <GraphSales />
-              </Carousel.Slide>
-            ) : (
-              <>
+          </div>
+          <hr color="red" />
+          <div className="gap-10 flex flex-col h-full">
+            <TableStats />
+            <Carousel
+              sx={{ width: "100%", height: "100%" }}
+              mx="auto"
+              withIndicators={false}
+              //Delete with COntrols
+              withControls={false}
+              controlSize={40}
+              draggable={false}
+              height={260}
+            >
+              {user?.user?.roleId == 3 ? (
                 <Carousel.Slide>
                   <GraphSales />
                 </Carousel.Slide>
-                {/* <Carousel.Slide>
+              ) : (
+                <>
+                  <Carousel.Slide>
+                    <GraphSales />
+                  </Carousel.Slide>
+                  {/* <Carousel.Slide>
                   <Graph />
                 </Carousel.Slide> */}
-              </>
-            )}
-          </Carousel>
-          <div className="w-full flex justify-center mb-5">
-            {user?.roleId !== 2 && (
-              <button
-                className="btn btn-primary btn-wide"
-                onClick={() => route.push("/catalogo")}
-              >
-                {t("dashboard.redimir")}
-              </button>
-            )}
+                </>
+              )}
+            </Carousel>
+            <div className="w-full flex justify-center mb-5">
+              {user?.roleId !== 2 && (
+                <button
+                  className="btn btn-primary btn-wide"
+                  onClick={() => route.push("/catalogo")}
+                >
+                  {t("dashboard.redimir")}
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </ContainerContent>
