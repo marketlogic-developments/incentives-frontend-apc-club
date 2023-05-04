@@ -156,11 +156,8 @@ const Layout = ({ children }) => {
     }
   }, [location]);
 
-  console.log(userRedux);
-
   useEffect(() => {
     let timeoutId;
-    console.log(timeoutId);
 
     if (userRedux !== 0) {
       const handleVisibilityChange = () => {
@@ -184,6 +181,8 @@ const Layout = ({ children }) => {
 
         clearTimeout(timeoutId);
       };
+    } else {
+      dispatch(loadingUser(true));
     }
   }, [userRedux]);
 
@@ -633,6 +632,30 @@ const Layout = ({ children }) => {
       ),
       iconactive: "",
       text: t("menu.Puntos_por_ventas"),
+    },
+    {
+      page: "/howtowin",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="none"
+          stroke="#ffffff"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M5.25 5.25v5.166c0 3.721 2.981 6.806 6.703 6.834a6.748 6.748 0 0 0 6.797-6.75V5.25A.75.75 0 0 0 18 4.5H6a.75.75 0 0 0-.75.75Z" />
+          <path d="M9 21h6" />
+          <path d="M12 17.25V21" />
+          <path d="M18.581 12h.919a3 3 0 0 0 3-3V7.5a.75.75 0 0 0-.75-.75h-3" />
+          <path d="M5.437 12H4.49a3 3 0 0 1-3-3V7.5a.75.75 0 0 1 .75-.75h3" />
+        </svg>
+      ),
+      iconactive: "",
+      text: t("dashboard.htw"),
     },
   ];
   const locationsPA = [
