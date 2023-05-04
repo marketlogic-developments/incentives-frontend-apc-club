@@ -178,226 +178,253 @@
     }
   }
 
-  .navbar {
-    display: flex;
-    max-height: 5vh;
+  .containerNavbar {
     width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    top: 0px;
-    z-index: 3;
     background-color: $greyColor;
-    padding: 10px;
-    gap: 20px;
+    display: flex;
+    justify-content: center;
 
-    @include desktop-xl {
-      gap: 20px;
-    }
-    /* Pantalla móvil */
-    @media (max-width: 767px) {
-      border-radius: 0px;
-      grid-template-columns: repeat(3, 1fr);
+    .navbar {
+      display: flex;
+      max-height: 5vh;
+      width: 90%;
       justify-content: space-between;
-    }
-
-    .digipoints {
-      @media (max-width: 767px) {
-        margin-left: 0;
-      }
-      button {
-        position: relative;
-        padding: 0.8em;
-        outline: none;
-        border: 1px solid $primaryColorRed;
-        background: $primaryColorRed;
-        color: $primaryColorWhite;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-size: 15px;
-        overflow: hidden;
-        transition: 0.2s;
-        border-radius: 20px;
-        cursor: pointer;
-        font-weight: bold;
-
-        @include desktop-xl {
-          font-size: 11px;
-        }
-
-        @media (max-width: 767px) {
-          margin: 0 auto;
-          display: inherit;
-          text-align: center;
-        }
-        .text-digi-mobi {
-          display: none;
-          @media (max-width: 767px) {
-            display: block;
-          }
-        }
-        .text-digi-desk {
-          @media (max-width: 767px) {
-            display: none;
-          }
-        }
-      }
-
-      button:hover {
-        box-shadow: 0 0 5px $primaryColorRed, 0 0 5px $primaryColorRedTrans,
-          0 0 10px $primaryColorRed;
-        transition-delay: 0.2s;
-      }
-
-      button span {
-        position: absolute;
-      }
-
-      button span:nth-child(1) {
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, $primaryColorRed);
-      }
-
-      button:hover span:nth-child(1) {
-        left: 100%;
-        transition: 0.7s;
-      }
-
-      button span:nth-child(3) {
-        bottom: 0;
-        right: -100%;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, $primaryColorRedTrans);
-      }
-
-      button:hover span:nth-child(3) {
-        right: 100%;
-        transition: 0.7s;
-        transition-delay: 0.35s;
-      }
-
-      button span:nth-child(2) {
-        top: -100%;
-        right: 0;
-        width: 2px;
-        height: 100%;
-        background: linear-gradient(180deg, transparent, $primaryColorRed);
-      }
-
-      button:hover span:nth-child(2) {
-        top: 100%;
-        transition: 0.7s;
-        transition-delay: 0.17s;
-      }
-
-      button span:nth-child(4) {
-        bottom: -100%;
-        left: 0;
-        width: 2px;
-        height: 100%;
-        background: linear-gradient(360deg, transparent, $primaryColorRedTrans);
-      }
-
-      button:hover span:nth-child(4) {
-        bottom: 100%;
-        transition: 0.7s;
-        transition-delay: 0.52s;
-      }
-
-      button:active {
-        background: $primaryColorRed;
-        background: linear-gradient(
-          to top right,
-          $primaryColorRed,
-          $primaryColorRedTrans
-        );
-        color: $primaryColorWhite;
-        box-shadow: 0 0 8px $primaryColorRed, 0 0 8px $primaryColorRedTrans,
-          0 0 8px $primaryColorRedTrans;
-        transition: 0.1s;
-        border: 1px solid #ffffff;
-      }
-
-      button:active
-        span:nth-child(1)
-        span:nth-child(2)
-        span:nth-child(2)
-        span:nth-child(2) {
-        transition: none;
-        transition-delay: none;
-      }
-    }
-
-    .notifications {
-      display: flex;
       align-items: center;
+      position: relative;
+      top: 0px;
+      z-index: 3;
+      padding: 0px 1.6rem;
       gap: 20px;
-      padding: 0px 30px;
-      border: 0px solid #d9d9d9;
-      border-width: 0px 3px;
-      z-index: 5;
-      @media (max-width: 767px) {
-        display: none;
-      }
 
-      svg {
-        @include desktop-xl {
-          width: 25px;
-          height: 25px;
-        }
+      @include desktop-xl {
+        gap: 20px;
       }
-    }
-    .infomations {
-      display: flex;
-      gap: 20px;
-      padding: 0px 00px 0px 30px;
-      border: 0px solid #d9d9d9;
-      border-width: 0px 0px 0px 3px;
-      z-index: 5;
-      @media (max-width: 767px) {
-        display: none;
-      }
-
-      svg {
-        @include desktop-xl {
-          width: 25px;
-          height: 25px;
-        }
-      }
-    }
-
-    .userDrop {
-      display: flex;
-      align-items: center;
-      height: 80%;
-      border-radius: 100px;
-      padding: 10px 0px;
-      justify-content: space-between;
-      z-index: 5;
       /* Pantalla móvil */
       @media (max-width: 767px) {
-        justify-content: end;
+        border-radius: 0px;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: space-between;
       }
 
-      .user {
-        .userPreMenu {
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          background-color: $primaryColorWhite;
-          border-radius: 50px;
+      .digipoints {
+        margin: 0px 1rem;
+        @media (max-width: 767px) {
+          margin-left: 0;
+        }
+        button {
+          position: relative;
+          padding: 0.8em;
+          outline: none;
+          border: 1px solid $primaryColorRed;
+          background: $primaryColorRed;
+          color: $primaryColorWhite;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          font-size: 15px;
+          overflow: hidden;
+          transition: 0.2s;
+          border-radius: 20px;
+          cursor: pointer;
+          font-weight: bold;
 
-          figure {
-            border: 2px solid $primaryColorRed;
-            border-radius: 50%;
-            img {
+          @include desktop-xl {
+            font-size: 11px;
+          }
+
+          @media (max-width: 767px) {
+            margin: 0 auto;
+            display: inherit;
+            text-align: center;
+          }
+          .text-digi-mobi {
+            display: none;
+            @media (max-width: 767px) {
+              display: block;
+            }
+          }
+          .text-digi-desk {
+            @media (max-width: 767px) {
+              display: none;
+            }
+          }
+        }
+
+        button:hover {
+          box-shadow: 0 0 5px $primaryColorRed, 0 0 5px $primaryColorRedTrans,
+            0 0 10px $primaryColorRed;
+          transition-delay: 0.2s;
+        }
+
+        button span {
+          position: absolute;
+        }
+
+        button span:nth-child(1) {
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 2px;
+          background: linear-gradient(90deg, transparent, $primaryColorRed);
+        }
+
+        button:hover span:nth-child(1) {
+          left: 100%;
+          transition: 0.7s;
+        }
+
+        button span:nth-child(3) {
+          bottom: 0;
+          right: -100%;
+          width: 100%;
+          height: 2px;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            $primaryColorRedTrans
+          );
+        }
+
+        button:hover span:nth-child(3) {
+          right: 100%;
+          transition: 0.7s;
+          transition-delay: 0.35s;
+        }
+
+        button span:nth-child(2) {
+          top: -100%;
+          right: 0;
+          width: 2px;
+          height: 100%;
+          background: linear-gradient(180deg, transparent, $primaryColorRed);
+        }
+
+        button:hover span:nth-child(2) {
+          top: 100%;
+          transition: 0.7s;
+          transition-delay: 0.17s;
+        }
+
+        button span:nth-child(4) {
+          bottom: -100%;
+          left: 0;
+          width: 2px;
+          height: 100%;
+          background: linear-gradient(
+            360deg,
+            transparent,
+            $primaryColorRedTrans
+          );
+        }
+
+        button:hover span:nth-child(4) {
+          bottom: 100%;
+          transition: 0.7s;
+          transition-delay: 0.52s;
+        }
+
+        button:active {
+          background: $primaryColorRed;
+          background: linear-gradient(
+            to top right,
+            $primaryColorRed,
+            $primaryColorRedTrans
+          );
+          color: $primaryColorWhite;
+          box-shadow: 0 0 8px $primaryColorRed, 0 0 8px $primaryColorRedTrans,
+            0 0 8px $primaryColorRedTrans;
+          transition: 0.1s;
+          border: 1px solid #ffffff;
+        }
+
+        button:active
+          span:nth-child(1)
+          span:nth-child(2)
+          span:nth-child(2)
+          span:nth-child(2) {
+          transition: none;
+          transition-delay: none;
+        }
+      }
+
+      .notifications {
+        display: flex;
+        width: fit-content;
+        gap: 1rem;
+        padding: 0px 1rem;
+        place-items: center;
+        align-items: center;
+        border: 0px solid #d9d9d9;
+        border-width: 0px 3px;
+        z-index: 5;
+        @media (max-width: 767px) {
+          display: none;
+        }
+
+        svg {
+          @include desktop-xl {
+            width: 25px;
+            height: 25px;
+          }
+        }
+      }
+      .infomations {
+        display: flex;
+        gap: 20px;
+        padding: 0px 00px 0px 30px;
+        border: 0px solid #d9d9d9;
+        border-width: 0px 0px 0px 3px;
+        z-index: 5;
+        @media (max-width: 767px) {
+          display: none;
+        }
+
+        svg {
+          @include desktop-xl {
+            width: 25px;
+            height: 25px;
+          }
+        }
+      }
+
+      .userDrop {
+        display: flex;
+        align-items: center;
+        height: 80%;
+        border-radius: 100px;
+        justify-content: flex-end;
+        padding-left: 1rem;
+        z-index: 5;
+        /* Pantalla móvil */
+        @media (max-width: 767px) {
+          justify-content: end;
+        }
+
+        .user {
+          .userPreMenu {
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: $primaryColorWhite;
+            border-radius: 50px;
+
+            figure {
+              border: 2px solid $primaryColorRed;
+              border-radius: 50%;
+              img {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+
+                @include desktop-xl {
+                  width: 30px;
+                  height: 30px;
+                }
+              }
+            }
+
+            svg {
               width: 35px;
               height: 35px;
-              border-radius: 50%;
 
               @include desktop-xl {
                 width: 30px;
@@ -405,91 +432,79 @@
               }
             }
           }
-
-          svg {
-            width: 35px;
-            height: 35px;
-
-            @include desktop-xl {
-              width: 30px;
-              height: 30px;
-            }
+          /* Pantalla móvil */
+          @media (max-width: 767px) {
+            display: none;
           }
         }
-        /* Pantalla móvil */
-        @media (max-width: 767px) {
-          display: none;
-        }
-      }
 
-      .username {
-        min-width: 100px;
-        @media (max-width: 767px) {
-          display: none;
-        }
-      }
-
-      .buttonLayoutDropdown {
-        cursor: pointer;
-        color: $primaryColorRed !important;
-      }
-
-      .shoopingMarket {
-        display: flex;
-        justify-content: center;
-        width: 30%;
-        /* Pantalla móvil */
-        @media (max-width: 767px) {
-          display: none;
+        .username {
+          @media (max-width: 767px) {
+            display: none;
+          }
         }
 
-        p {
-          position: absolute;
-          text-align: center;
-          min-width: 20px !important;
-          background-color: $primaryColorWhite;
-          border: 1px solid $primaryColorRed;
-          color: $primaryColorBlack;
-          height: 20px;
-          padding: 0px 5px;
-          border-radius: 50px;
+        .buttonLayoutDropdown {
+          cursor: pointer;
+          color: $primaryColorRed !important;
+        }
+
+        .shoopingMarket {
           display: flex;
-          align-items: center;
           justify-content: center;
+          width: 30%;
+          /* Pantalla móvil */
+          @media (max-width: 767px) {
+            display: none;
+          }
+
+          p {
+            position: absolute;
+            text-align: center;
+            min-width: 20px !important;
+            background-color: $primaryColorWhite;
+            border: 1px solid $primaryColorRed;
+            color: $primaryColorBlack;
+            height: 20px;
+            padding: 0px 5px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
         }
       }
-    }
 
-    figure {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      img {
-        width: 60px;
-        cursor: pointer;
+      figure {
+        width: 18%;
+        img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
       }
-    }
 
-    .logoAdobeLayout {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      justify-content: center;
-      width: 400px;
-      @media (max-width: 767px) {
-        width: auto;
-      }
-      .logo-header {
-        width: 60px;
-      }
-      p {
-        font-size: 22px;
-        font-weight: bold;
-        color: $primaryColorWhite;
-        /* Pantalla móvil */
+      .logoAdobeLayout {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        width: 400px;
         @media (max-width: 767px) {
-          display: none;
+          width: auto;
+        }
+        .logo-header {
           width: 60px;
+        }
+        p {
+          font-size: 22px;
+          font-weight: bold;
+          color: $primaryColorWhite;
+          /* Pantalla móvil */
+          @media (max-width: 767px) {
+            display: none;
+            width: 60px;
+          }
         }
       }
     }
