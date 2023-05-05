@@ -40,11 +40,6 @@ const catalogo = () => {
     }
   }, [token]);
 
-  // if (Cookies.get("shoppCar") !== undefined) {
-  //   const prevProducts = JSON.parse(Cookies.get("shoppCar"));
-  //   console.log(prevProducts);
-  // }
-
   const handleShoppingCard = () => {
     if (Cookies.get("shoppCar") !== undefined) {
       const cookiesProducts = JSON.parse(Cookies.get("shoppCar"));
