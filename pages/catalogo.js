@@ -29,6 +29,7 @@ const catalogo = () => {
   const arrayAwards = useSelector((state) => state.awards.awards);
   const car = useSelector((state) => state.awards.shoopingCar);
   const user = useSelector((state) => state.user.user);
+  const modalCard = useSelector((state) => state.awards.modalCard);
   const [dataSend, setDataSend] = useState([]);
   const itemsPerPage = 6;
   const [loading, setLoading] = useState(false);
@@ -159,22 +160,9 @@ const catalogo = () => {
           <h1 className="font-bold text-3xl">{t("menu.catalogo")}</h1>
         </div>
         {user?.languageId === 1 ? <BnPor /> : <BnEsp />}
-        <div className="flex w-full h-full justify-center gap-5">
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              route.push("/estadoProducto");
-            }}
-          >
-            {t("adobeMarket.estado")}
-          </button>
-          <button className="btn btn-primary" onClick={() => setOpened(true)}>
-            {t("shoopingcar.bannerTarg")}
-          </button>
-        </div>
 
         <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
-          <div className="none">
+          <div>
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
               <select className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
                 <option value="">Menor a mayor precio</option>
@@ -182,6 +170,16 @@ const catalogo = () => {
                 <option value="partially-furnished">Orden Alfabético</option>
                 <option value="not-furnished">Más recientes</option>
               </select>
+              <div className="col-start-3 w-full">
+                <button
+                  className="btn !btn-outline btn-sm w-full"
+                  onClick={() => {
+                    route.push("/estadoProducto");
+                  }}
+                >
+                  {t("adobeMarket.estado")}
+                </button>
+              </div>
               <div></div>
             </div>
           </div>
@@ -197,6 +195,7 @@ const catalogo = () => {
                     info={info}
                     setAwards={setGlobalAwards}
                     awards={globalAwards}
+                    handleAdd={handleShoppingCard}
                   />
                 ))}
               </div>
@@ -227,15 +226,6 @@ const catalogo = () => {
           )}
         </div>
       </div>
-      {globalAwards.length > 0 && (
-        <div className="h-16 max-w-full bottom-0 sticky self-center flex bg-primary justify-center items-center withButtonsBuy gap-5 ">
-          <div>
-            <button className="btn btn-primary" onClick={handleShoppingCard}>
-              {t("adobeMarket.carrito")}
-            </button>
-          </div>
-        </div>
-      )}
     </ContainerContent>
   );
 };
