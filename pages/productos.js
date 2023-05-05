@@ -31,8 +31,6 @@ const productos = () => {
     // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
     // XLSX.writeFile(workbook, "Productos_Participantes.xlsx");
 
-    data.shift();
-
     jsonexport(data, (error, csv) => {
       if (error) {
         console.error(error);

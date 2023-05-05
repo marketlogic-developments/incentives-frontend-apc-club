@@ -136,7 +136,12 @@
     "digiEstimados": "Estimativa de DigiPoints por Representante de Vendas",
     "asignarRep": "Atribuir o representante de vendas",
     "successFact": "Sua fatura foi atribuída com sucesso",
-    "notiUser": "Você deve selecionar pelo menos um usuário para atribuir esta fatura."
+    "notiUser": "Você deve selecionar pelo menos um usuário para atribuir esta fatura.",
+    "deleteTeam": "Remover Equipe",
+    "copyDeleteTeam": "Esta ação removerá permanentemente o seu equipe. Tem certeza de que deseja continuar?",
+    "delete": "Remover",
+    "errorNotiTeams": "Houve um erro ao remover o seu equipe. Por favor, tente novamente mais tarde.",
+    "teamDeleteNoti": "O seu equipe foi removido"
   },
 
   "files": {},
@@ -292,5 +297,13 @@
   },
   "notifications": {
     "ticketZoho": "Sua solicitação foi recebida. Responderemos em breve. Obrigado/a!"
+  },
+  "htw": {
+    "copyCanal": "Alinhe-se às prioridades do <strong>FY23</strong> e acumule mais DigiPoints, <strong>migrando, renovando e vendendo através do Market Place.</strong><br/> Agora todas as vendas de <strong>CC</strong> e <strong>DC</strong>, tanto em renovações quanto em novos negócios, ganham igualmente no MP.<br/> Sua oportunidade de <strong>GANHAR</strong> mais é hoje, combinando as melhores estratégias de renovação, retenção e crescimento. </br></br> Veja a tabela completa de atribuição de DigiPoints:",
+    "copyDist": "Anime-se para atingir as metas do <strong>FY23</strong> e acumular mais DigiPoints apoiando a gestão das suas <strong>Revendas Gold</strong>, com todas as vendas dos produtos participantes da marca <strong>Adobe</strong>. Durante este novo período, você acumulará pontos da seguinte forma: <strong>Ganhe 10 DigiPoints</strong> para cada <strong>US $1,000 FOB</strong>, em vendas das <strong>Revendas GOLD</strong> de qualquer licença de produto participante, com Renovações e Novos Negócios. </br></br> Veja a tabela completa de atribuição de DigiPoints:",
+    "pathTableCanal": "assets/htw/tablaHTWCanalesPor.webp",
+    "pathTableDist": "assets/htw/tablaHTWDistPor.webp",
+    "pathBanner": "/assets/htw/bannerHTWsectionPor.webp",
+    "copyTextFooter": "Venda, Ganhe e Resgate!"
   }
 }

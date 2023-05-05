@@ -156,6 +156,36 @@ const Layout = ({ children }) => {
     }
   }, [location]);
 
+  useEffect(() => {
+    let timeoutId;
+
+    if (userRedux !== 0) {
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === "hidden") {
+          timeoutId = setTimeout(function () {
+            logout();
+          }, 300000);
+        } else {
+          // Si el usuario vuelve antes de que se ejecute el setTimeout, cancelarlo
+          clearTimeout(timeoutId);
+        }
+      };
+
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+
+      return () => {
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange
+        );
+
+        clearTimeout(timeoutId);
+      };
+    } else {
+      dispatch(loadingUser(true));
+    }
+  }, [userRedux]);
+
   const language = (rolNum) => {
     if (rolNum === 1) {
       return i18n.changeLanguage("por");
@@ -270,6 +300,30 @@ const Layout = ({ children }) => {
       ),
       iconactive: "",
       text: t("menu.Puntos_por_ventas"),
+    },
+    {
+      page: "/howtowin",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="none"
+          stroke="#ffffff"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M5.25 5.25v5.166c0 3.721 2.981 6.806 6.703 6.834a6.748 6.748 0 0 0 6.797-6.75V5.25A.75.75 0 0 0 18 4.5H6a.75.75 0 0 0-.75.75Z" />
+          <path d="M9 21h6" />
+          <path d="M12 17.25V21" />
+          <path d="M18.581 12h.919a3 3 0 0 0 3-3V7.5a.75.75 0 0 0-.75-.75h-3" />
+          <path d="M5.437 12H4.49a3 3 0 0 1-3-3V7.5a.75.75 0 0 1 .75-.75h3" />
+        </svg>
+      ),
+      iconactive: "",
+      text: t("dashboard.htw"),
     },
     {
       page: "/digipointsall",
@@ -579,6 +633,30 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: t("menu.Puntos_por_ventas"),
     },
+    {
+      page: "/howtowin",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="none"
+          stroke="#ffffff"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M5.25 5.25v5.166c0 3.721 2.981 6.806 6.703 6.834a6.748 6.748 0 0 0 6.797-6.75V5.25A.75.75 0 0 0 18 4.5H6a.75.75 0 0 0-.75.75Z" />
+          <path d="M9 21h6" />
+          <path d="M12 17.25V21" />
+          <path d="M18.581 12h.919a3 3 0 0 0 3-3V7.5a.75.75 0 0 0-.75-.75h-3" />
+          <path d="M5.437 12H4.49a3 3 0 0 1-3-3V7.5a.75.75 0 0 1 .75-.75h3" />
+        </svg>
+      ),
+      iconactive: "",
+      text: t("dashboard.htw"),
+    },
   ];
   const locationsPA = [
     {
@@ -688,6 +766,30 @@ const Layout = ({ children }) => {
       text: t("menu.Puntos_por_ventas"),
     },
     {
+      page: "/howtowin",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="none"
+          stroke="#ffffff"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M5.25 5.25v5.166c0 3.721 2.981 6.806 6.703 6.834a6.748 6.748 0 0 0 6.797-6.75V5.25A.75.75 0 0 0 18 4.5H6a.75.75 0 0 0-.75.75Z" />
+          <path d="M9 21h6" />
+          <path d="M12 17.25V21" />
+          <path d="M18.581 12h.919a3 3 0 0 0 3-3V7.5a.75.75 0 0 0-.75-.75h-3" />
+          <path d="M5.437 12H4.49a3 3 0 0 1-3-3V7.5a.75.75 0 0 1 .75-.75h3" />
+        </svg>
+      ),
+      iconactive: "",
+      text: t("dashboard.htw"),
+    },
+    {
       page: "/digipoints",
       icon: (
         <svg
@@ -754,6 +856,30 @@ const Layout = ({ children }) => {
       ),
       iconactive: "",
       text: t("menu.Dashboard"),
+    },
+    {
+      page: "/howtowin",
+      icon: (
+        <svg
+          width={30}
+          height={30}
+          fill="none"
+          stroke="#ffffff"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M5.25 5.25v5.166c0 3.721 2.981 6.806 6.703 6.834a6.748 6.748 0 0 0 6.797-6.75V5.25A.75.75 0 0 0 18 4.5H6a.75.75 0 0 0-.75.75Z" />
+          <path d="M9 21h6" />
+          <path d="M12 17.25V21" />
+          <path d="M18.581 12h.919a3 3 0 0 0 3-3V7.5a.75.75 0 0 0-.75-.75h-3" />
+          <path d="M5.437 12H4.49a3 3 0 0 1-3-3V7.5a.75.75 0 0 1 .75-.75h3" />
+        </svg>
+      ),
+      iconactive: "",
+      text: t("dashboard.htw"),
     },
     {
       page: "/digipoints",
@@ -991,7 +1117,6 @@ const Layout = ({ children }) => {
               <div
                 className="adobeMarket z-10"
                 onClick={() => {
-                  dispatch(changeLoadingData(true));
                   router.push("/catalogo");
                 }}
               >
@@ -1016,159 +1141,157 @@ const Layout = ({ children }) => {
           </div>
           <span className="h-screen barra"></span>
           <div className="w-[82%]">
-            <div className="navbar">
-              <figure className="w-[30%]">
-                <img src="/assets/dashboard/years.webp" className="!w-[60%] " />
-              </figure>
+            <div className="containerNavbar">
+              <div className="navbar">
+                <figure>
+                  <img src="/assets/dashboard/years.webp" />
+                </figure>
+                <div className="flex">
+                  <div className="digipoints">
+                    <button
+                      onClick={() => {
+                        if (location === "/digipoints") {
+                          return;
+                        }
 
-              <div className="w-[35%] justify-around gap-2">
-                <div className="digipoints">
-                  <button
-                    onClick={() => {
-                      if (location === "/digipoints") {
-                        return;
-                      }
-
-                      dispatch(changeLoadingData(true));
-                      router.push("/digipoints");
-                    }}
-                  >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>{" "}
-                    <strong>
-                      {typeof digipoints?.assigned_points !== "undefined" &&
-                      typeof digipoints?.cart_points !== "undefined"
-                        ? digipoints?.assigned_points - digipoints?.cart_points
-                        : typeof digipoints?.assigned_points !== "undefined"
-                        ? digipoints?.assigned_points
-                        : 0}
-                    </strong>{" "}
-                    <strong className="text-digi-desk">- DIGIPOINTS</strong>{" "}
-                    <strong className="text-digi-mobi">- DGS</strong>
-                  </button>
-                </div>
-                <div className="infomations none">
-                  <svg
-                    width={30}
-                    height={30}
-                    fill="#d9d9d9"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M4.256 16.594a8.99 8.99 0 1 1 3.15 3.15v0l-3.112.882a.74.74 0 0 1-.919-.92l.881-3.112Z"></path>
-                  </svg>
-                  <svg
-                    width={30}
-                    height={30}
-                    fill="#d9d9d9"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25ZM12 18a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 18Zm.75-4.584v.084a.75.75 0 1 1-1.5 0v-.75A.75.75 0 0 1 12 12a1.875 1.875 0 1 0-1.875-1.875.75.75 0 1 1-1.5 0 3.375 3.375 0 1 1 4.125 3.29Z"></path>
-                  </svg>
-                </div>
-                <div className="notifications">
-                  <div
-                    className="shoopingMarket cursor-pointer"
-                    onClick={() => {
-                      dispatch(changeLoadingData(true));
-                      router.push("/shoppingCar");
-                    }}
-                  >
-                    <svg
-                      width={35}
-                      height={35}
-                      fill="#ffffff"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
+                        router.push("/digipoints");
+                      }}
                     >
-                      <path d="m20.99 6.131-1.143 6.272a2.25 2.25 0 0 1-2.213 1.847H6.76l.413 2.25H17.25A2.25 2.25 0 1 1 15 18.75c0-.256.044-.51.131-.75H9.62a2.25 2.25 0 1 1-3.825-.712L3.197 3H1.5a.75.75 0 0 1 0-1.5h1.697a1.5 1.5 0 0 1 1.472 1.228l.46 2.522H20.25a.74.74 0 0 1 .572.272.722.722 0 0 1 .169.61Z" />
-                    </svg>
-                    <p className="none">1</p>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>{" "}
+                      <strong>
+                        {typeof digipoints?.assigned_points !== "undefined" &&
+                        typeof digipoints?.cart_points !== "undefined"
+                          ? digipoints?.assigned_points -
+                            digipoints?.cart_points
+                          : typeof digipoints?.assigned_points !== "undefined"
+                          ? digipoints?.assigned_points
+                          : 0}
+                      </strong>{" "}
+                      <strong className="text-digi-desk">- DIGIPOINTS</strong>{" "}
+                      <strong className="text-digi-mobi">- DGS</strong>
+                    </button>
                   </div>
-                  <div
-                    className="shoopingMarket cursor-pointer"
-                    onClick={() => {
-                      setModal(0);
-                      setOpened(true);
-                    }}
-                  >
+                  <div className="infomations none">
                     <svg
                       width={30}
                       height={30}
-                      fill="#ffffff"
+                      fill="#d9d9d9"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25ZM12 18a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 18Zm.75-4.584v.084a.75.75 0 1 1-1.5 0v-.75A.75.75 0 0 1 12 12a1.875 1.875 0 1 0-1.875-1.875.75.75 0 1 1-1.5 0 3.375 3.375 0 1 1 4.125 3.29Z" />
+                      <path d="M4.256 16.594a8.99 8.99 0 1 1 3.15 3.15v0l-3.112.882a.74.74 0 0 1-.919-.92l.881-3.112Z"></path>
+                    </svg>
+                    <svg
+                      width={30}
+                      height={30}
+                      fill="#d9d9d9"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25ZM12 18a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 18Zm.75-4.584v.084a.75.75 0 1 1-1.5 0v-.75A.75.75 0 0 1 12 12a1.875 1.875 0 1 0-1.875-1.875.75.75 0 1 1-1.5 0 3.375 3.375 0 1 1 4.125 3.29Z"></path>
                     </svg>
                   </div>
-                </div>
-
-                <div className="userDrop">
-                  <div className="menumobile">
-                    <MobileMenu
-                      className="bannerMob"
-                      locations={locations}
-                      locationsPP={locationsPP}
-                      locationsPA={locationsPA}
-                      locationsVendedor={locationsVendedor}
-                    />
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="user min-w-[34px]">
-                      <Menu trigger="hover" openDelay={100} closeDelay={400}>
-                        <Menu.Target>
-                          <div className="userPreMenu flex">
-                            {userRedux.profilePhotoPath !== null &&
-                            userRedux.profilePhotoPath !== "noImage" &&
-                            userRedux.profilePhotoPath !== "" &&
-                            userRedux.profilePhotoPath !== undefined ? (
-                              <figure>
-                                <img src={userRedux.profilePhotoPath} />
-                              </figure>
-                            ) : (
-                              <svg
-                                width={30}
-                                height={30}
-                                fill="#2c2c2c"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path d="M12 15.375a4.125 4.125 0 1 0 0-8.25 4.125 4.125 0 0 0 0 8.25Z" />
-                                <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25Zm6.169 15.225a7.624 7.624 0 0 0-2.297-2.156 5.597 5.597 0 0 1-7.744 0 7.622 7.622 0 0 0-2.297 2.156 8.25 8.25 0 1 1 12.338 0Z" />
-                              </svg>
-                            )}
-                          </div>
-                        </Menu.Target>
-
-                        <Menu.Dropdown>
-                          <Menu.Item>
-                            <div
-                              className="buttonLayoutDropdown"
-                              onClick={() => {
-                                dispatch(changeLoadingData(true));
-                                router.push(`/user/${userRedux?.names}`);
-                              }}
-                            >
-                              <p>Ver Perfil</p>
-                            </div>
-                          </Menu.Item>
-                          <Menu.Item onClick={() => logout()}>
-                            <div className="buttonLayoutDropdown">
-                              <p>{t("menu.salir")}</p>
-                            </div>
-                          </Menu.Item>
-                        </Menu.Dropdown>
-                      </Menu>
+                  <div className="notifications">
+                    <div
+                      className="shoopingMarket cursor-pointer"
+                      onClick={() => {
+                        router.push("/shoppingCar");
+                      }}
+                    >
+                      <svg
+                        width={35}
+                        height={35}
+                        fill="#ffffff"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="m20.99 6.131-1.143 6.272a2.25 2.25 0 0 1-2.213 1.847H6.76l.413 2.25H17.25A2.25 2.25 0 1 1 15 18.75c0-.256.044-.51.131-.75H9.62a2.25 2.25 0 1 1-3.825-.712L3.197 3H1.5a.75.75 0 0 1 0-1.5h1.697a1.5 1.5 0 0 1 1.472 1.228l.46 2.522H20.25a.74.74 0 0 1 .572.272.722.722 0 0 1 .169.61Z" />
+                      </svg>
+                      <p className="none">1</p>
                     </div>
-                    <div className="username">
-                      <p>{userRedux?.names}</p>
+                    <div
+                      className="shoopingMarket cursor-pointer"
+                      onClick={() => {
+                        setModal(0);
+                        setOpened(true);
+                      }}
+                    >
+                      <svg
+                        width={30}
+                        height={30}
+                        fill="#ffffff"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25ZM12 18a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 18Zm.75-4.584v.084a.75.75 0 1 1-1.5 0v-.75A.75.75 0 0 1 12 12a1.875 1.875 0 1 0-1.875-1.875.75.75 0 1 1-1.5 0 3.375 3.375 0 1 1 4.125 3.29Z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="userDrop">
+                    <div className="menumobile">
+                      <MobileMenu
+                        className="bannerMob"
+                        locations={locations}
+                        locationsPP={locationsPP}
+                        locationsPA={locationsPA}
+                        locationsVendedor={locationsVendedor}
+                      />
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="user min-w-[34px]">
+                        <Menu trigger="hover" openDelay={100} closeDelay={400}>
+                          <Menu.Target>
+                            <div className="userPreMenu flex">
+                              {userRedux.profilePhotoPath !== null &&
+                              userRedux.profilePhotoPath !== "noImage" &&
+                              userRedux.profilePhotoPath !== "" &&
+                              userRedux.profilePhotoPath !== undefined ? (
+                                <figure>
+                                  <img src={userRedux.profilePhotoPath} />
+                                </figure>
+                              ) : (
+                                <svg
+                                  width={30}
+                                  height={30}
+                                  fill="#2c2c2c"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path d="M12 15.375a4.125 4.125 0 1 0 0-8.25 4.125 4.125 0 0 0 0 8.25Z" />
+                                  <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25Zm6.169 15.225a7.624 7.624 0 0 0-2.297-2.156 5.597 5.597 0 0 1-7.744 0 7.622 7.622 0 0 0-2.297 2.156 8.25 8.25 0 1 1 12.338 0Z" />
+                                </svg>
+                              )}
+                            </div>
+                          </Menu.Target>
+
+                          <Menu.Dropdown>
+                            <Menu.Item>
+                              <div
+                                className="buttonLayoutDropdown"
+                                onClick={() => {
+                                  router.push(`/user/${userRedux?.names}`);
+                                }}
+                              >
+                                <p>Ver Perfil</p>
+                              </div>
+                            </Menu.Item>
+                            <Menu.Item onClick={() => logout()}>
+                              <div className="buttonLayoutDropdown">
+                                <p>{t("menu.salir")}</p>
+                              </div>
+                            </Menu.Item>
+                          </Menu.Dropdown>
+                        </Menu>
+                      </div>
+                      <div className="username">
+                        <p>{userRedux?.names}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
