@@ -181,7 +181,9 @@ const Layout = ({ children }) => {
 
         clearTimeout(timeoutId);
       };
-    } else {
+    }
+    
+    if (location === "/") {
       dispatch(loadingUser(true));
     }
   }, [userRedux]);
