@@ -79,7 +79,9 @@ const CardMarket = ({ info, setAwards, awards, handleAdd }) => {
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-2">
                 <div className="flex gap-5">
-                  <p className="font-bold text-2xl">Cantidad:</p>
+                  <p className="font-bold text-2xl">
+                    {t("redenciones.cantidad")}
+                  </p>
                   <div className="containerCounter flex justify-center">
                     <button
                       className="buttonminus"
@@ -132,13 +134,15 @@ const CardMarket = ({ info, setAwards, awards, handleAdd }) => {
                     return handleAdd();
                   }}
                 >
-                  Añadir al carrito
+                  {t("adobeMarket.carrito")}
                 </button>
               </div>
             </div>
           </div>
           <div className="flex flex-col">
-            <p className="text-[#eb1000] font-bold text-2xl">Descripción:</p>
+            <p className="text-[#eb1000] font-bold text-2xl">
+              {t("modalEquipos.descripcion")}:
+            </p>
             <p
               className="text-sm overflow-y-scroll"
               dangerouslySetInnerHTML={{
