@@ -5,6 +5,7 @@ const initialState = {
   awards: [],
   shoopingCar: [],
   rules: [],
+  modalCard: false,
 };
 
 export const awardsAction = createSlice({
@@ -29,6 +30,9 @@ export const awardsAction = createSlice({
     rulesPush: (state, action) => {
       state.rules = action.payload;
     },
+    modalCardState: (state, action) => {
+      state.modalCard = action.payload;
+    },
 
     setInitialStateAwards: (state, action) => {
       return initialState;
@@ -44,6 +48,7 @@ export const {
   rulesGetAll,
   rulesPush,
   setInitialStateAwards,
+  modalCardState,
 } = awardsAction.actions;
 
 export default awardsAction.reducer;
