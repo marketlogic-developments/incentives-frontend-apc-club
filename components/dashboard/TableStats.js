@@ -23,8 +23,6 @@ const TableStats = () => {
   const dataFromAxios = useSelector((state) => state.sales.salesgement);
   const golprogram = useSelector((state) => state.user.company.goalsPerYear);
 
-  console.log(user);
-
   useEffect(() => {
     setLoading(true);
 
@@ -81,7 +79,7 @@ const TableStats = () => {
       );
 
       setSales(totalSalesReduce);
-      console.log(goal)
+      console.log(goal);
       const percentageTotal = Math.round(
         (totalSalesReduce * 100) / Number(goal)
       );
@@ -108,7 +106,7 @@ const TableStats = () => {
 
       setLoading(false);
     }
-  }, [dataFromAxios,goal]);
+  }, [dataFromAxios, goal]);
 
   //This Function calculates the percentage of all CC business type and DC business type
   const infoPercentages = (ccInfoFilter, dcInfoFilter) => {
@@ -167,9 +165,10 @@ const TableStats = () => {
     return <div className="lds-dual-ring"></div>;
   }
   function formatNumber(number) {
-    const formattedNumber = number >= 1000000
-      ? (number / 1000000).toFixed(1) + "M"
-      : number >= 1000
+    const formattedNumber =
+      number >= 1000000
+        ? (number / 1000000).toFixed(1) + "M"
+        : number >= 1000
         ? (number / 1000).toFixed(1) + "K"
         : number.toLocaleString("en-US");
     return formattedNumber;
@@ -220,7 +219,7 @@ const TableStats = () => {
           <div className="w-10/12 flex flex-col items-center justify-around h-full">
             <div className="w-full flex justify-around">
               <p className="text-sm font-semibold border-b-2 border-b-red-600">
-              Acrobat Pro
+                Acrobat Pro
               </p>
               <p className="text-sm font-semibold border-b-sky-600 border-b-2">
                 Enterprise
@@ -256,13 +255,17 @@ const TableStats = () => {
         {user.roleId !== 1 && (
           <div className="flex flex-col gap-5">
             <p className="font-semibold text-center">Meta</p>
-            <p className="text-center font-bold text-2xl">{formatNumber(goal)}</p>
+            <p className="text-center font-bold text-2xl">
+              {formatNumber(goal)}
+            </p>
           </div>
         )}
         {user.roleId == 1 && (
           <div className="flex flex-col gap-5">
             <p className="font-semibold text-center">Meta</p>
-            <p className="text-center font-bold text-2xl">{formatNumber(goal)}</p>
+            <p className="text-center font-bold text-2xl">
+              {formatNumber(goal)}
+            </p>
           </div>
         )}
 
