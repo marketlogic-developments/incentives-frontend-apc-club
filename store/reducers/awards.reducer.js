@@ -80,26 +80,42 @@ export const getDataAwards = (token, user) => async (dispatch) => {
         },
       })
       .then((res) => {
-        dispatch(
-          awardsPush(
-            res.data.filter((e) => {
-              if (user.roleId === 1) {
-                return e;
-              }
+        let obj = res.data
+          .filter((e) => {
+            if (user.roleId === 1) {
+              return e;
+            }
 
-              if (user.countryId === "Chile") {
-                return e.description !== "BRASIL";
-              }
-              if (user.region === "BRAZIL") {
-                return e.description === "BRASIL";
-              }
+            if (user.countryId === "Chile") {
+              return e.description !== "BRASIL";
+            }
+            if (user.region === "BRAZIL") {
+              return e.description === "BRASIL";
+            }
 
-              if (["SOLA", "NOLA", "MEXICO"].includes(user.region)) {
-                return e.description === "NOLA - SOLA - MEX";
+            if (["SOLA", "NOLA", "MEXICO"].includes(user.region)) {
+              return e.description === "NOLA - SOLA - MEX";
+            }
+          })
+          .sort(function (a, b) {
+            // Ordenar alfabéticamente por el description
+            if (a.description < b.description) {
+              return -1;
+            } else if (a.description > b.description) {
+              return 1;
+            } else {
+              // Si los descriptions son iguales, ordenar por price de menor a mayor
+              if (a.price < b.price) {
+                return -1;
+              } else if (a.price > b.price) {
+                return 1;
+              } else {
+                return 0;
               }
-            })
-          )
-        );
+            }
+          });
+
+        dispatch(awardsPush(obj));
       });
   } catch (err) {
     console.log(err);
