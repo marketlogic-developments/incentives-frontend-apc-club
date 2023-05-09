@@ -39,6 +39,8 @@ const Layout = ({ children }) => {
   const [modal, setModal] = useState(0);
   const [opened, setOpened] = useState(false);
 
+  console.log(userRedux);
+
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
       const userGetData = JSON.parse(window.sessionStorage.getItem("infoDt"));
@@ -182,7 +184,7 @@ const Layout = ({ children }) => {
         clearTimeout(timeoutId);
       };
     }
-    
+
     if (location === "/") {
       dispatch(loadingUser(true));
     }

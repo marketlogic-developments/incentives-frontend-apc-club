@@ -361,3 +361,7 @@
 .optionsTeams {
   width: -webkit-fill-available;
 }
+
+.btn {
+  @apply rounded-full;
+}

@@ -29,21 +29,15 @@ const catalogo = () => {
   const arrayAwards = useSelector((state) => state.awards.awards);
   const car = useSelector((state) => state.awards.shoopingCar);
   const user = useSelector((state) => state.user.user);
-  const [dataSend, setDataSend] = useState([]);
   const itemsPerPage = 6;
   const [loading, setLoading] = useState(false);
-  const [opened, setOpened] = useState(false);
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     if (token && arrayAwards.length === 0) {
       dispatch(getDataAwards(token, user));
     }
   }, [token]);
-
-  // if (Cookies.get("shoppCar") !== undefined) {
-  //   const prevProducts = JSON.parse(Cookies.get("shoppCar"));
-  //   console.log(prevProducts);
-  // }
 
   const handleShoppingCard = () => {
     if (Cookies.get("shoppCar") !== undefined) {
@@ -108,11 +102,30 @@ const catalogo = () => {
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
-    return arrayAwards.slice(itemOffset, endOffset);
-  }, [itemOffset, arrayAwards]);
+    console.log(filter);
+    return arrayAwards
+      .filter((i) => {
+        if (filter !== "") {
+          return i.name.split(" ")[0] === filter;
+        }
+
+        return i;
+      })
+      .slice(itemOffset, endOffset);
+  }, [itemOffset, arrayAwards, filter]);
+
   const pageCount = useMemo(
-    () => Math.ceil(arrayAwards.length / itemsPerPage),
-    [arrayAwards, itemsPerPage]
+    () =>
+      Math.ceil(
+        arrayAwards.filter((i) => {
+          if (filter !== "") {
+            return i.name.split(" ")[0] === filter;
+          }
+
+          return i;
+        }).length / itemsPerPage
+      ),
+    [arrayAwards, itemsPerPage, filter]
   );
 
   const handlePageClick = (event) => {
@@ -120,73 +133,42 @@ const catalogo = () => {
     setItemOffset(newOffset);
   };
 
-  const typeInstructionsCard = useMemo(() => {
-    if (user.countryId === "Chile") {
-      return {
-        link: "https://www.giftcard.cl",
-        path: "assets/infoCards/cencosud.webp",
-      };
-    }
+  const filtersArrayComponent = () => {
+    let newArray = [...new Set(arrayAwards.map((i) => i.name.split(" ")[0]))];
 
-    if (user.region === "BRAZIL") {
-      return { link: "#", path: "assets/infoCards/VisaPor.webp" };
-    }
-
-    return {
-      link: "https://www.myprepaidcenter.com/redeem",
-      path: "assets/infoCards/MC.webp",
-    };
-  }, [user]);
+    return newArray;
+  };
 
   return (
     <ContainerContent pageTitle={t("menu.catalogo")}>
-      <Modal
-        opened={opened}
-        centered
-        size={"90%"}
-        onClose={() => {
-          setOpened(false);
-        }}
-        className={"modalCloseDashboard"}
-      >
-        <a href={typeInstructionsCard.link} target="_blank">
-          <figure>
-            <img
-              src={typeInstructionsCard.path}
-              alt="targetInfo"
-              className="w-full"
-            ></img>
-          </figure>
-        </a>
-      </Modal>
       <div className="m-6 flex flex-col gap-4">
         <div className="flex flex-col gap-5">
           <h1 className="font-bold text-3xl">{t("menu.catalogo")}</h1>
         </div>
         {user?.languageId === 1 ? <BnPor /> : <BnEsp />}
-        <div className="flex w-full h-full justify-center gap-5">
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              route.push("/estadoProducto");
-            }}
-          >
-            {t("adobeMarket.estado")}
-          </button>
-          <button className="btn btn-primary" onClick={() => setOpened(true)}>
-            {t("shoopingcar.bannerTarg")}
-          </button>
-        </div>
 
         <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
-          <div className="none">
+          <div>
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">
-              <select className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                <option value="">Menor a mayor precio</option>
-                <option value="fully-furnished">Mayor a menor precio</option>
-                <option value="partially-furnished">Orden Alfabético</option>
-                <option value="not-furnished">Más recientes</option>
+              <select
+                onChange={(e) => setFilter(e.target.value)}
+                className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+              >
+                <option value="">Buscar por proveedor</option>
+                {filtersArrayComponent().map((i) => {
+                  return <option value={i}>{i}</option>;
+                })}
               </select>
+              <div className="col-start-3 w-full">
+                <button
+                  className="btn !btn-outline btn-sm w-full"
+                  onClick={() => {
+                    route.push("/estadoProducto");
+                  }}
+                >
+                  {t("adobeMarket.estado")}
+                </button>
+              </div>
               <div></div>
             </div>
           </div>
@@ -202,6 +184,7 @@ const catalogo = () => {
                     info={info}
                     setAwards={setGlobalAwards}
                     awards={globalAwards}
+                    handleAdd={handleShoppingCard}
                   />
                 ))}
               </div>
@@ -232,15 +215,6 @@ const catalogo = () => {
           )}
         </div>
       </div>
-      {globalAwards.length > 0 && (
-        <div className="h-16 max-w-full bottom-0 sticky self-center flex bg-primary justify-center items-center withButtonsBuy gap-5 ">
-          <div>
-            <button className="btn btn-primary" onClick={handleShoppingCard}>
-              {t("adobeMarket.carrito")}
-            </button>
-          </div>
-        </div>
-      )}
     </ContainerContent>
   );
 };

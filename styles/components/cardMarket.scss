@@ -109,17 +109,14 @@ figure {
 
   button {
     font-size: 1.7em;
-    background-color: $primaryColorRed;
-    color: $primaryColorWhite;
-  }
-
-  .buttonplus {
-    padding: 0px 5px 0px 15px;
-    border-radius: 0px 10px 10px 0px;
-  }
-  .buttonminus {
-    padding: 0px 15px 0px 5px;
-    border-radius: 10px 0px 0px 10px;
+    background-color: #d9d9d9;
+    color: #2c2c2c !important;
+    font-weight: 900;
+    min-width: 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 30%;
+    min-height: 30px;
   }
 }
 
@@ -175,7 +172,7 @@ figure {
       height: 100%;
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
-      border: 1px solid $orangeColor;
+      border: 1px solid #2c2c2c;
       border-radius: 1rem;
     }
   }
@@ -217,5 +214,37 @@ figure {
     backface-visibility: hidden;
     border: 1px solid $orangeColor;
     border-radius: 1rem;
+  }
+}
+
+.modalCardCatalogo {
+  .mantine-Modal-header {
+    background: #2c2c2c;
+    border-bottom: 11px solid #eb1000;
+
+    button {
+      color: #ffffff !important;
+      height: 40px;
+      width: 40px;
+
+      &:hover {
+        background-color: transparent;
+      }
+
+      svg {
+        height: 40px;
+        width: 40px;
+      }
+    }
+  }
+
+  .mantine-Modal-title {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 1.5em;
+    color: #ffffff;
+    line-height: 50px;
+    margin-left: 5%;
+    margin-left: 5%;
   }
 }

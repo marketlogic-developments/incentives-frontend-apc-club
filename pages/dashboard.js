@@ -122,7 +122,7 @@ const dashboard = () => {
         )
         .then(({ data }) => {
           if (data.length < 3) {
-            setTypeHeader(2);
+            setTypeHeader(3);
           }
           setParticipantes(data);
         });
@@ -219,6 +219,25 @@ const dashboard = () => {
               )}
             </figure>
           </div>
+        </div>
+      );
+    }
+    if (typeHeader === 3) {
+      return (
+        <div
+          className="w-full flex justify-center cursor-pointer"
+          onClick={() => route.push("/releases/marketplace")}
+        >
+          <figure className="w-full">
+            <img
+              src={
+                i18n.resolvedLanguage === "por"
+                  ? "assets/dashboard/banners/bannerMarketPlacePor.webp"
+                  : "assets/dashboard/banners/bannerMarketPlace.webp"
+              }
+              className="bannersImg"
+            />
+          </figure>
         </div>
       );
     }
@@ -486,10 +505,20 @@ const dashboard = () => {
 
             <button
               className={`btn ${
+                typeHeader === 3 ? "btn-primary" : "btn-accent"
+              } btn-xs`}
+              onClick={() => {
+                setTypeHeader(3);
+              }}
+            >
+              MarketPlace
+            </button>
+
+            <button
+              className={`btn ${
                 typeHeader === 2 ? "btn-primary" : "btn-accent"
               } btn-xs`}
               onClick={() => {
-                route.push("/howtowin");
                 setTypeHeader(2);
               }}
             >
