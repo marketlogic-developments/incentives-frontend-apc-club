@@ -170,6 +170,12 @@ const productos = () => {
           <div className="flex flex-col gap-5">
             <h1 className="font-bold text-3xl">{t("menu.Productos")}</h1>
           </div>
+          <div className="w-full flex justify-center flex-col">
+            <img
+              src="/assets/productos/productos.webp"
+              className="bannersImg"
+            />
+          </div>
           <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
             <div className="grid grid-cols-3 gap-3">
               <select
