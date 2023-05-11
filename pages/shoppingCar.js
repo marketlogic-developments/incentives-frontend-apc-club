@@ -158,7 +158,8 @@ const shoppingCar = () => {
 
       return Toast.fire({
         icon: "error",
-        title: "No tienes digipoints suficientes para hacer esta compra",
+        title:
+          "No cuentas con los DigiPoints suficientes para hacer esta redención",
       });
     }
   };

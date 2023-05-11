@@ -53,7 +53,7 @@
   }
 
   .cls-1 {
-    fill: #fff;
+    fill: #000000;
   }
 
   .mantine-ckt4nk {
@@ -338,9 +338,14 @@
   color: #047857;
 }
 .logoAdobe {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
   figure {
+    width: 35%;
+    align-items: center;
     img {
-      width: 60%;
+      width: 100%;
     }
   }
 }
@@ -364,4 +369,6 @@
 
 .btn {
   @apply rounded-full;
+  text-transform: none;
+  font-size: 0.87rem;
 }

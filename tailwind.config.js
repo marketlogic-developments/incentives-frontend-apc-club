@@ -14,6 +14,7 @@ module.exports = {
           neutral: "#ef5c00",
           "base-100": "#ffffff",
           warning: "#cccccc",
+          info: "#1473E6",
         },
       },
       "autumn",
