@@ -20,87 +20,27 @@ function MobileMenu({
   const userRedux = useSelector((state) => state.user.user);
 
   const menu = useMemo(() => {
-    if (userRedux?.roleId === 1) {
-      return locations.map(({ icon, page, text }, index) => {
-        return (
-          <div className="containerItemLayout" key={index}>
-            <div
-              className={
-                typeof window !== "undefined" &&
-                window.location.pathname === page
-                  ? "itemLayoutSelect"
-                  : "itemLayout"
-              }
-              key={index}
-              onClick={() => href(page)}
-            >
-              {icon}
-              <p>{text}</p>
-            </div>
+    return locations.map(({ icon, page, text }, index) => {
+      return (
+        <div className="containerItemLayout" key={index}>
+          <div
+            className={
+              typeof window !== "undefined" && window.location.pathname === page
+                ? "itemLayoutSelect"
+                : "itemLayout"
+            }
+            key={index}
+            onClick={() => href(page)}
+          >
+            {icon}
+            <p>{text}</p>
           </div>
-        );
-      });
-    } else if (userRedux?.roleId === 2) {
-      return locationsPP.map(({ icon, page, text }, index) => {
-        return (
-          <div className="containerItemLayout" key={index}>
-            <div
-              className={
-                typeof window !== "undefined" &&
-                window.location.pathname === page
-                  ? "itemLayoutSelect"
-                  : "itemLayout"
-              }
-              key={index}
-              onClick={() => href(page)}
-            >
-              {icon}
-              <p>{text}</p>
-            </div>
-          </div>
-        );
-      });
-    } else if (userRedux?.roleId === 3) {
-      return locationsPA.map(({ icon, page, text }, index) => {
-        return (
-          <div className="containerItemLayout" key={index}>
-            <div
-              className={
-                typeof window !== "undefined" &&
-                window.location.pathname === page
-                  ? "itemLayoutSelect"
-                  : "itemLayout"
-              }
-              key={index}
-              onClick={() => href(page)}
-            >
-              {icon}
-              <p>{text}</p>
-            </div>
-          </div>
-        );
-      });
-    } else if (userRedux?.roleId === 5) {
-      return locationsVendedor.map(({ icon, page, text }, index) => {
-        return (
-          <div className="containerItemLayout" key={index}>
-            <div
-              className={
-                window.location.pathname === page
-                  ? "itemLayoutSelect"
-                  : "itemLayout"
-              }
-              key={index}
-              onClick={() => href(page)}
-            >
-              {icon}
-              <p>{text}</p>
-            </div>
-          </div>
-        );
-      });
-    }
-  }, [locations, locationsVendedor, user]);
+        </div>
+      );
+    });
+
+    s;
+  }, [locations, user]);
 
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null) {

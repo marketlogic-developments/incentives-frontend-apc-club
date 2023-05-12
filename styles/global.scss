@@ -48,8 +48,8 @@
   }
 
   hr {
-    border-top-width: 3px;
-    border-color: $primaryColorRed;
+    border-top-width: 1px;
+    border-color: #bdbdbd;
   }
 
   .cls-1 {
@@ -203,6 +203,7 @@
       padding: 10px;
     }
     svg {
+      width: 18px;
       /* Pantalla móvil */
       @media (max-width: 767px) {
         stroke: #fff;
@@ -340,7 +341,6 @@
 .logoAdobe {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
   figure {
     width: 35%;
     align-items: center;

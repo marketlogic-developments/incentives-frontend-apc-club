@@ -43,68 +43,48 @@
         display: flex;
         flex-direction: column;
         max-height: 580px;
-        overflow-y: scroll;
-
-        @include desktop-l {
-          overflow-y: scroll;
-        }
+        // overflow-y: scroll;
 
         .containerItemLayout {
           .itemLayout {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 30px;
-            padding: 5px 0px;
             width: 100%;
-            transition: all 0.3s;
-            position: relative;
+            gap: 12px;
+            height: 34px;
             cursor: pointer;
+            border-radius: 50px;
+            padding: 8px;
+            color: #000000;
 
             p {
               text-align: left;
               text-shadow: 0px 0px 1px $primaryColorWhite;
               font-size: 14px;
-              max-width: 120px;
-              min-width: 120px;
               z-index: 2;
-
-              @include desktop-xl {
-                font-size: 11px;
-              }
             }
 
             svg {
               z-index: 2;
               @include desktop-xl {
-                max-width: 20px;
+                width: 18px;
               }
-            }
-
-            &:before {
-              content: "";
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              transition: all 0.5s;
-              z-index: 1;
             }
 
             &:hover {
               transition: all;
               transition-duration: 0.2s;
-              padding: 5px 0px;
-              color: $primaryColorWhite;
-              font-weight: bold;
-
-              &:before {
-                width: 0%;
-              }
 
               p {
                 text-shadow: none;
+              }
+            }
+
+            @media (min-width: 1536px) {
+              height: 100%;
+
+              p {
+                font-size: 16px;
               }
             }
           }
@@ -112,38 +92,45 @@
           .itemLayoutSelect {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 30px;
             width: 100%;
+            gap: 12px;
+            height: 34px;
             cursor: pointer;
-            background-color: $primaryColorRedTrans;
-            padding: 5px 0px;
+            background-color: #ffc8c5;
+            border-radius: 50px;
+            padding: 8px;
             color: $primaryColorWhite;
             font-weight: bold;
+
             p {
               text-align: left;
-              text-shadow: none;
-              text-shadow: 0px 0px 1px $primaryColorBlack;
+              font-weight: bold;
               font-size: 14px;
-              max-width: 120px;
-              min-width: 120px;
-              color: #fff;
+              color: $primaryColorRed;
+            }
+
+            svg {
+              stroke: $primaryColorRed;
+              fill: $primaryColorRed;
+              stroke-width: 1;
+            }
+
+            @media (min-width: 1536px) {
+              height: 100%;
+
+              p {
+                font-size: 16px;
+              }
             }
           }
-        }
-      }
-      .adobeMarket {
-        background-color: $primaryColorWhite;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: $primaryColorWhite;
-        height: 40px;
-        cursor: pointer;
-        gap: 10px;
 
-        p {
-          color: $primaryColorRed;
+          svg {
+            stroke-width: 1;
+            stroke: #000;
+            fill: transparent;
+            width: 10.4%;
+            height: 100%;
+          }
         }
       }
     }
@@ -595,4 +582,24 @@
 
 .previous {
   font-size: 4px;
+}
+
+.scrollMenu {
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+    background-color: transparent;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #ebcaca;
+  }
 }
