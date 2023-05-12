@@ -342,7 +342,7 @@
   display: flex;
   justify-content: center;
   figure {
-    width: 35%;
+    width: var(--wlogo);
     align-items: center;
     img {
       width: 100%;
@@ -370,5 +370,5 @@
 .btn {
   @apply rounded-full;
   text-transform: none;
-  font-size: 0.87rem;
+  font-size: 0.75rem;
 }

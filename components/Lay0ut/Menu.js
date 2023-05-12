@@ -2,30 +2,56 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const MenuAPC = ({ icon, page, text, index, subsections, href, location }) => {
+const MenuAPC = ({
+  icon,
+  page,
+  text,
+  index,
+  subsections,
+  href,
+  location,
+  collapse,
+  setFloatMenu,
+}) => {
   const [drop, setDrop] = useState(false);
 
   useEffect(() => {
-    if (subsections !== undefined) {
-      const pages = subsections.map(({ page }) => page);
+    if (!collapse) {
+      if (subsections !== undefined) {
+        const pages = subsections.map(({ page }) => page);
 
-      !pages.includes(location) && setDrop(false);
+        !pages.includes(location) ? setDrop(false) : setDrop(true);
+      }
+    } else {
+      if (subsections !== undefined) {
+        const pages = subsections.map(({ page }) => page);
+
+        !pages.includes(location) && setDrop(false);
+      }
     }
   }, [location]);
 
   return (
-    <div>
-      <div className="containerItemLayout px-6" key={index}>
+    <div className={collapse && "flex"}>
+      <div
+        className="containerItemLayout px-6 w-full"
+        key={index}
+        style={{ "--wicons": collapse ? "100%" : "10.4%" }}
+      >
         <div
-          className={
+          className={`${
             window.location.pathname === page
               ? "itemLayoutSelect"
               : "itemLayout"
-          }
+          } ${collapse && "justify-center"}`}
           key={index}
           onClick={() => {
-            if (subsections) {
+            if (subsections !== undefined) {
               const pages = subsections.map(({ page }) => page);
+
+              if (collapse) {
+                return setDrop(!drop);
+              }
 
               if (pages.includes(location)) {
                 return;
@@ -38,11 +64,15 @@ const MenuAPC = ({ icon, page, text, index, subsections, href, location }) => {
           }}
         >
           {icon}
-          <p className="whitespace-nowrap">{text}</p>
+          {!collapse && <p className="whitespace-nowrap">{text}</p>}
         </div>
       </div>
       {subsections !== undefined && drop && (
-        <div className="flex flex-col bg-[#E0E0E0] px-6 py-[8px] gap-[8px]">
+        <div
+          className={`flex flex-col bg-[#E0E0E0] px-6 py-[8px] gap-[8px] subsection rounded-[10px] ${
+            collapse && "absolute left-[90px]"
+          }`}
+        >
           {subsections.map(({ icon, page, text }, index) => (
             <div className="containerItemLayout" key={index}>
               <div
@@ -52,9 +82,15 @@ const MenuAPC = ({ icon, page, text, index, subsections, href, location }) => {
                     : "itemLayout"
                 }
                 key={index}
-                onClick={() => href(page)}
+                onClick={() => {
+                  if (collapse) {
+                    setDrop(false);
+                  }
+
+                  href(page);
+                }}
               >
-                {icon}
+                {!collapse && icon}
                 <p className="whitespace-nowrap">{text}</p>
               </div>
             </div>

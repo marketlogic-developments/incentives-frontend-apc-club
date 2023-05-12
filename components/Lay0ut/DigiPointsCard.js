@@ -2,7 +2,7 @@ import React from "react";
 
 const DigiPointsCard = ({ digipoints }) => {
   return (
-    <div className="flex px-3 py-3.5 bg-base-100 border-[1px] border-[#E0E0E0] rounded-[10px] min-w-[228px]">
+    <div className="flex px-3 py-3.5 bg-base-100 border-[1px] border-[#E0E0E0] rounded-[10px] w-full">
       <div className="flex flex-col w-full gap-6">
         <div className="flex gap-3 items-center">
           <svg
@@ -27,7 +27,7 @@ const DigiPointsCard = ({ digipoints }) => {
             />
           </svg>
           <div>
-            <p className="!text-2xl font-bold">
+            <p className="!text-xl font-bold">
               {typeof digipoints?.assigned_points !== "undefined" &&
               typeof digipoints?.cart_points !== "undefined"
                 ? digipoints?.assigned_points - digipoints?.cart_points
