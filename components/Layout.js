@@ -28,6 +28,7 @@ import DigiPointsCard from "./Lay0ut/DigiPointsCard";
 import MenuAPC from "./Lay0ut/Menu";
 import Logo10 from "./Lay0ut/Logo10";
 import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
+import UserOptions from "./Lay0ut/UserOptions";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -43,7 +44,7 @@ const Layout = ({ children }) => {
   const [modal, setModal] = useState(0);
   const [opened, setOpened] = useState(false);
   const [collapse, setCollapse] = useState(false);
-  const [menuFloat, setMenuFloat] = useState([]);
+  const [menuUser, setMenuUser] = useState([]);
 
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
@@ -780,10 +781,31 @@ const Layout = ({ children }) => {
             href={href}
             location={location}
             collapse={collapse}
-            setFloatMenu={setMenuFloat}
           />
         ));
     }
+  };
+
+  const textLocation = () => {
+    const item = locations.find((i) => i.page === location);
+
+    if (location.includes("user")) {
+      return "Ajustes de Perfil";
+    }
+
+    if (item === undefined) {
+      const locationsWithSubsections = locations
+        .filter(({ subsections }) => subsections)
+        .map(({ subsections }) => subsections);
+
+      const subsectionText = locationsWithSubsections
+        .flat()
+        .find((item) => item.page === location).text;
+
+      return subsectionText;
+    }
+
+    return item.text;
   };
 
   if (!loading) {
@@ -896,43 +918,15 @@ const Layout = ({ children }) => {
                 stroke-linecap="round"
               />
             </svg>
-            {collapse && (
-              <div className="flex flex-col bg-[#E0E0E0] px-6 py-[8px] gap-[8px] subsection rounded-[10px] absolute top-[15vh] left-[5px] h-[80vh]">
-                {menuFloat}
-              </div>
-            )}
           </div>
-          <div className="w-full">
+          <div className="w-full pt-1 px-6">
             <div className="containerNavbar">
               <div className="navbar">
-                <figure>
-                  <img src="/assets/dashboard/years.webp" />
-                </figure>
+                <div>
+                  <p className="!text-3xl font-bold">{textLocation()}</p>
+                </div>
                 <div className="flex">
-                  <div className="infomations none">
-                    <svg
-                      width={30}
-                      height={30}
-                      fill="#d9d9d9"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M4.256 16.594a8.99 8.99 0 1 1 3.15 3.15v0l-3.112.882a.74.74 0 0 1-.919-.92l.881-3.112Z"></path>
-                    </svg>
-                    <svg
-                      width={30}
-                      height={30}
-                      fill="#d9d9d9"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25ZM12 18a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 18Zm.75-4.584v.084a.75.75 0 1 1-1.5 0v-.75A.75.75 0 0 1 12 12a1.875 1.875 0 1 0-1.875-1.875.75.75 0 1 1-1.5 0 3.375 3.375 0 1 1 4.125 3.29Z"></path>
-                    </svg>
-                  </div>
-                  <div className="notifications">
+                  <div className="notifications relative">
                     <div
                       className="shoopingMarket cursor-pointer"
                       onClick={() => {
@@ -940,15 +934,41 @@ const Layout = ({ children }) => {
                       }}
                     >
                       <svg
-                        width={35}
-                        height={35}
-                        fill="#ffffff"
-                        viewBox="0 0 24 24"
+                        width="35"
+                        height="35"
+                        viewBox="0 0 30 30"
+                        fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path d="m20.99 6.131-1.143 6.272a2.25 2.25 0 0 1-2.213 1.847H6.76l.413 2.25H17.25A2.25 2.25 0 1 1 15 18.75c0-.256.044-.51.131-.75H9.62a2.25 2.25 0 1 1-3.825-.712L3.197 3H1.5a.75.75 0 0 1 0-1.5h1.697a1.5 1.5 0 0 1 1.472 1.228l.46 2.522H20.25a.74.74 0 0 1 .572.272.722.722 0 0 1 .169.61Z" />
+                        <path
+                          d="M10.0938 25.2301C10.6005 25.2301 11.0114 24.8193 11.0114 24.3125C11.0114 23.8057 10.6005 23.3949 10.0938 23.3949C9.58698 23.3949 9.17615 23.8057 9.17615 24.3125C9.17615 24.8193 9.58698 25.2301 10.0938 25.2301Z"
+                          stroke="black"
+                          stroke-width="1.83523"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M22.9403 25.2301C23.4471 25.2301 23.858 24.8193 23.858 24.3125C23.858 23.8057 23.4471 23.3949 22.9403 23.3949C22.4336 23.3949 22.0227 23.8057 22.0227 24.3125C22.0227 24.8193 22.4336 25.2301 22.9403 25.2301Z"
+                          stroke="black"
+                          stroke-width="1.83523"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M2.75284 5.0426H6.42329L9.17613 20.642H23.858"
+                          stroke="black"
+                          stroke-width="1.83523"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M9.17614 16.9716H23.4817C23.5878 16.9717 23.6907 16.9349 23.7728 16.8677C23.8549 16.8005 23.9111 16.7069 23.9319 16.6028L25.5836 8.34429C25.597 8.2777 25.5953 8.20897 25.5789 8.14308C25.5624 8.07719 25.5316 8.01578 25.4885 7.96327C25.4454 7.91076 25.3912 7.86847 25.3298 7.83945C25.2684 7.81042 25.2014 7.79539 25.1334 7.79544H7.34091"
+                          stroke="black"
+                          stroke-width="1.83523"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
                       </svg>
-                      <p className="none">1</p>
                     </div>
                     <div
                       className="shoopingMarket cursor-pointer"
@@ -958,70 +978,51 @@ const Layout = ({ children }) => {
                       }}
                     >
                       <svg
-                        width={30}
-                        height={30}
-                        fill="#ffffff"
-                        viewBox="0 0 24 24"
+                        width="35"
+                        height="35"
+                        viewBox="0 0 36 36"
+                        fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25ZM12 18a1.125 1.125 0 1 1 0-2.25A1.125 1.125 0 0 1 12 18Zm.75-4.584v.084a.75.75 0 1 1-1.5 0v-.75A.75.75 0 0 1 12 12a1.875 1.875 0 1 0-1.875-1.875.75.75 0 1 1-1.5 0 3.375 3.375 0 1 1 4.125 3.29Z" />
+                        <path
+                          d="M18.2954 5.53271C15.8881 5.53271 13.5348 6.24658 11.5331 7.58405C9.53146 8.92151 7.97136 10.8225 7.0501 13.0466C6.12884 15.2707 5.8878 17.7181 6.35745 20.0792C6.8271 22.4403 7.98636 24.6091 9.68863 26.3114C11.3909 28.0137 13.5597 29.1729 15.9208 29.6426C18.2819 30.1122 20.7293 29.8712 22.9534 28.9499C25.1775 28.0287 27.0785 26.4686 28.416 24.4669C29.7535 22.4653 30.4673 20.112 30.4673 17.7046C30.4673 14.4764 29.1849 11.3804 26.9023 9.09777C24.6196 6.81511 21.5236 5.53271 18.2954 5.53271Z"
+                          stroke="black"
+                          stroke-width="2.21307"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M14.4226 13.99C14.4226 13.99 14.4807 12.7798 15.776 11.7375C16.5444 11.1186 17.4655 10.9395 18.2954 10.927C19.0513 10.9173 19.7263 11.0425 20.1302 11.2348C20.8218 11.564 22.1683 12.3676 22.1683 14.0765C22.1683 15.8746 20.9926 16.6914 19.653 17.5897C18.3134 18.4881 17.9497 19.4632 17.9497 20.4709"
+                          stroke="black"
+                          stroke-width="1.93643"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M17.8805 25.4503C18.6444 25.4503 19.2637 24.831 19.2637 24.0671C19.2637 23.3032 18.6444 22.684 17.8805 22.684C17.1166 22.684 16.4973 23.3032 16.4973 24.0671C16.4973 24.831 17.1166 25.4503 17.8805 25.4503Z"
+                          fill="black"
+                        />
                       </svg>
                     </div>
-                  </div>
-                  <div className="userDrop">
-                    <div className="menumobile">
-                      <MobileMenu className="bannerMob" locations={locations} />
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="user min-w-[34px]">
-                        <Menu trigger="hover" openDelay={100} closeDelay={400}>
-                          <Menu.Target>
-                            <div className="userPreMenu flex">
-                              {userRedux.profilePhotoPath !== null &&
-                              userRedux.profilePhotoPath !== "noImage" &&
-                              userRedux.profilePhotoPath !== "" &&
-                              userRedux.profilePhotoPath !== undefined ? (
-                                <figure>
-                                  <img src={userRedux.profilePhotoPath} />
-                                </figure>
-                              ) : (
-                                <svg
-                                  width={30}
-                                  height={30}
-                                  fill="#2c2c2c"
-                                  viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path d="M12 15.375a4.125 4.125 0 1 0 0-8.25 4.125 4.125 0 0 0 0 8.25Z" />
-                                  <path d="M12 2.25A9.75 9.75 0 1 0 21.75 12 9.769 9.769 0 0 0 12 2.25Zm6.169 15.225a7.624 7.624 0 0 0-2.297-2.156 5.597 5.597 0 0 1-7.744 0 7.622 7.622 0 0 0-2.297 2.156 8.25 8.25 0 1 1 12.338 0Z" />
-                                </svg>
-                              )}
-                            </div>
-                          </Menu.Target>
-
-                          <Menu.Dropdown>
-                            <Menu.Item>
-                              <div
-                                className="buttonLayoutDropdown"
-                                onClick={() => {
-                                  router.push(`/user/${userRedux?.names}`);
-                                }}
-                              >
-                                <p>Ver Perfil</p>
-                              </div>
-                            </Menu.Item>
-                            <Menu.Item onClick={() => logout()}>
-                              <div className="buttonLayoutDropdown">
-                                <p>{t("menu.salir")}</p>
-                              </div>
-                            </Menu.Item>
-                          </Menu.Dropdown>
-                        </Menu>
+                    <div className="userDrop relative">
+                      <div className="menumobile">
+                        <MobileMenu
+                          className="bannerMob"
+                          locations={locations}
+                        />
                       </div>
-                      <div className="username">
-                        <p>{userRedux?.names}</p>
+                      <div
+                        className="flex items-center gap-3 bg-[#F5F5F5] rounded-full p-3 min-w-[217px] max-h-[55px] text-xs"
+                        onClick={() => setMenuUser(!menuUser)}
+                      >
+                        <div className="user p-2 bg-[#1473E6] rounded-full">
+                          <p className="text-white">AD</p>
+                        </div>
+                        <div className="username">
+                          <p className="text-[16px]">{userRedux?.names}</p>
+                        </div>
                       </div>
                     </div>
+                    {menuUser && <UserOptions user={userRedux} />}
                   </div>
                 </div>
               </div>

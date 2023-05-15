@@ -1,6 +1,8 @@
+import { useRouter } from "next/router";
 import React from "react";
 
 const DigiPointsCard = ({ digipoints }) => {
+  const router = useRouter();
   return (
     <div className="flex px-3 py-3.5 bg-base-100 border-[1px] border-[#E0E0E0] rounded-[10px] w-full">
       <div className="flex flex-col w-full gap-6">

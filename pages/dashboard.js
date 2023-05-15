@@ -487,7 +487,7 @@ const dashboard = () => {
         }
       </Modal>
       <ContainerContent pageTitle={"Dashboard"}>
-        <div className="m-6 flex flex-col gap-10 ">
+        <div className="flex flex-col gap-10">
           {header}
           <div className="w-full flex justify-center gap-5">
             {participantes.length >= 3 && (

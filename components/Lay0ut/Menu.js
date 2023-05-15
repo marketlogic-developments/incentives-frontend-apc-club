@@ -70,7 +70,7 @@ const MenuAPC = ({
       {subsections !== undefined && drop && (
         <div
           className={`flex flex-col bg-[#E0E0E0] px-6 py-[8px] gap-[8px] subsection rounded-[10px] ${
-            collapse && "absolute left-[90px]"
+            collapse && "absolute left-[90px] mt-[-100%]"
           }`}
         >
           {subsections.map(({ icon, page, text }, index) => (
