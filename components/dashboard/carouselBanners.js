@@ -1,15 +1,22 @@
 import { Carousel } from "@mantine/carousel";
 import { useRouter } from "next/router";
 import React from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const CarouselBanners = () => {
   const [t, i18n] = useTranslation("global");
   const route = useRouter();
+  const [counter, setCounter] = useState(0);
+
+  console.log(counter);
+
   return (
     <Carousel
       mx="auto"
       withIndicators
+      onSlideChange={(i) => setCounter(i)}
+      initialSlide={counter}
       styles={{
         indicator: {
           height: "1rem",
@@ -60,6 +67,28 @@ const CarouselBanners = () => {
             />
           </figure>
         </div>
+      </Carousel.Slide>
+      <Carousel.Slide>
+        <a
+          className="w-full flex justify-center cursor-pointer"
+          href={
+            i18n.resolvedLanguage === "por"
+              ? "assets/pdf/pdfPromo1Por.pdf"
+              : "assets/pdf/pdfPromo1Esp.pdf"
+          }
+          target="_blank"
+        >
+          <figure className="w-full">
+            <img
+              src={
+                i18n.resolvedLanguage === "por"
+                  ? "assets/dashboard/banners/bannerPromo1Por.webp"
+                  : "assets/dashboard/banners/bannerPromo1.webp"
+              }
+              className="bannersImg"
+            />
+          </figure>
+        </a>
       </Carousel.Slide>
     </Carousel>
   );
