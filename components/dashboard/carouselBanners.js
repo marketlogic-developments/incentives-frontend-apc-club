@@ -32,7 +32,7 @@ const CarouselBanners = () => {
     >
       <Carousel.Slide>
         <div
-          className="w-full flex justify-center cursor-pointer"
+          className="w-full flex justify-center cursor-pointer p-[1px]"
           onClick={() => route.push("/howtowin")}
         >
           <figure className="w-full">
@@ -53,7 +53,7 @@ const CarouselBanners = () => {
       </Carousel.Slide>
       <Carousel.Slide>
         <div
-          className="w-full flex justify-center cursor-pointer"
+          className="w-full flex justify-center cursor-pointer p-[1px]"
           onClick={() => route.push("/releases/marketplace")}
         >
           <figure className="w-full">
@@ -70,7 +70,7 @@ const CarouselBanners = () => {
       </Carousel.Slide>
       <Carousel.Slide>
         <a
-          className="w-full flex justify-center cursor-pointer"
+          className="w-full flex justify-center cursor-pointer p-[1px]"
           href={
             i18n.resolvedLanguage === "por"
               ? "assets/pdf/pdfPromo1Por.pdf"
