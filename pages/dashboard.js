@@ -25,6 +25,7 @@ import {
   AiOutlineCloseCircle,
 } from "react-icons/ai";
 import TableStats from "../components/dashboard/TableStats";
+import CarouselBanners from "../components/dashboard/carouselBanners";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
@@ -488,54 +489,7 @@ const dashboard = () => {
       </Modal>
       <ContainerContent pageTitle={"Dashboard"}>
         <div className="m-6 flex flex-col gap-10 ">
-          {header}
-          <div className="w-full flex justify-center gap-5">
-            {participantes.length >= 3 && (
-              <button
-                className={`btn btn-xs ${
-                  typeHeader === 0 ? "btn-primary" : "btn-accent"
-                }`}
-                onClick={() => {
-                  setTypeHeader(0);
-                }}
-              >
-                {t("dashboard.ranking")}
-              </button>
-            )}
-
-            <button
-              className={`btn ${
-                typeHeader === 3 ? "btn-primary" : "btn-accent"
-              } btn-xs`}
-              onClick={() => {
-                setTypeHeader(3);
-              }}
-            >
-              MarketPlace
-            </button>
-
-            <button
-              className={`btn ${
-                typeHeader === 2 ? "btn-primary" : "btn-accent"
-              } btn-xs`}
-              onClick={() => {
-                setTypeHeader(2);
-              }}
-            >
-              {t("dashboard.htw")}
-            </button>
-
-            {/* <button
-            className={`btn ${
-              typeHeader === 1 ? "btn-primary" : "btn-accent"
-            } btn-xs`}
-            onClick={() => {
-              setTypeHeader(1);
-            }}
-          >
-            {t("dashboard.promociones")}
-          </button> */}
-          </div>
+          <CarouselBanners />
           <hr color="red" />
           <div className="gap-10 flex flex-col h-full">
             <TableStats />
