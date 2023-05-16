@@ -36,7 +36,7 @@ const dashboard = () => {
   const [view, setView] = useState("password");
   const dispatch = useDispatch();
   const route = useRouter();
-  const [typeHeader, setTypeHeader] = useState(0);
+  const [typeHeader, setTypeHeader] = useState(3);
   const [t, i18n] = useTranslation("global");
   const [sortedData, setSortedData] = useState([]);
   const [modalType, setModalType] = useState([]);
@@ -121,8 +121,8 @@ const dashboard = () => {
           }
         )
         .then(({ data }) => {
-          if (data.length < 3) {
-            setTypeHeader(3);
+          if (data.length >= 3) {
+            setTypeHeader(0);
           }
           setParticipantes(data);
         });
