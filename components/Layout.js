@@ -44,7 +44,7 @@ const Layout = ({ children }) => {
   const [modal, setModal] = useState(0);
   const [opened, setOpened] = useState(false);
   const [collapse, setCollapse] = useState(false);
-  const [menuUser, setMenuUser] = useState([]);
+  const [menuUser, setMenuUser] = useState(false);
 
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
@@ -1022,7 +1022,9 @@ const Layout = ({ children }) => {
                         </div>
                       </div>
                     </div>
-                    {menuUser && <UserOptions user={userRedux} />}
+                    {menuUser && (
+                      <UserOptions user={userRedux} logout={logout} />
+                    )}
                   </div>
                 </div>
               </div>

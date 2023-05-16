@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-const UserOptions = ({ user }) => {
+const UserOptions = ({ user, logout }) => {
   const route = useRouter();
 
   const sections = [
@@ -91,7 +91,7 @@ const UserOptions = ({ user }) => {
 
   return (
     <div
-      className="w-full bg-[#FFFF] absolute top-[65px] left-0 p-4 max-w-[310px] left-auto flex flex-col gap-6"
+      className="w-full bg-[#FFFF] absolute top-[65px] left-0 p-4 max-w-[310px] left-auto flex flex-col gap-6 items-center"
       style={{
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         borderRadius: "10px",
@@ -188,20 +188,26 @@ const UserOptions = ({ user }) => {
             <p className="text-xs">{user.email}</p>
           </div>
           <button
-            className="btn !btn-outline btn-info w-3/4"
+            className="btn !btn-outline btn-info w-3/4 min-h-[2.563rem] h-[2.563rem]"
             onClick={() => route.push(`/user/${user.name}`)}
           >
             Ver perfil
           </button>
         </div>
       </div>
-      <div className="flex justify-center flex-col items-center">
+      <div className="flex justify-center flex-col items-center w-auto gap-1">
         {sections.map(({ svg, nombre }) => (
-          <div className="flex items-center">
+          <div className="flex items-center self-start text-left gap-3 p-2 hover:underline underline-offset-8 cursor-pointer hover:font-semibold">
             {svg}
             <p>{nombre}</p>
           </div>
         ))}
+      </div>
+      <div className="w-[70%] flex flex-col items-center">
+        <hr className="w-full" />
+        <p className="mt-6 font-bold cursor-pointer" onClick={logout}>
+          Cerrar Sesión
+        </p>
       </div>
     </div>
   );
