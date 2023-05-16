@@ -25,6 +25,7 @@ import {
   AiOutlineCloseCircle,
 } from "react-icons/ai";
 import TableStats from "../components/dashboard/TableStats";
+import CarouselBanners from "../components/dashboard/carouselBanners";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
@@ -121,127 +122,10 @@ const dashboard = () => {
           }
         )
         .then(({ data }) => {
-          if (data.length >= 3) {
-            setTypeHeader(0);
-          }
           setParticipantes(data);
         });
     }
   }, [token]);
-
-  const header = useMemo(() => {
-    if (typeHeader === 0) {
-      return (
-        <div className="gap-10 flex flex w-full">
-          <div className="gap-10 w-1/2 flex items-center justify-center">
-            <div className="flex flex-col gap-5 texto_dash w-5/6">
-              <h1 className="font-bold text-2xl max-sm:text-xl none">
-                {t("dashboard.Inicio")}
-              </h1>
-              <h2 className="font-bold text-4xl max-sm:text-xl">
-                {t("dashboard.Hola")} {userData}
-              </h2>
-              <p className="w-6/12 max-sm:w-full">{t("dashboard.enApc")}</p>
-              <button
-                className="btn btn-primary buttonResponsive"
-                onClick={() => {
-                  setModalType(1);
-                  setOpened(true);
-                }}
-              >
-                {t("dashboard.conoce")}
-              </button>
-            </div>
-          </div>
-          <div className="flex flex-col gap-5 w-1/2 items-center">
-            <div className="h-full w-full">
-              <div className="gap-10 w-full">
-                <Podio
-                  t={t}
-                  sortedData={sortedData}
-                  participantes={participantes}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-    if (typeHeader === 1) {
-      return (
-        <figure
-          className="w-full flex justify-center"
-          onClick={() => {
-            setModalType(2);
-            setOpened(true);
-          }}
-        >
-          {i18n.resolvedLanguage === "por" ? (
-            <img
-              src="assets/dashboard/banners/promPor.webp"
-              className="bannersImg cursor-pointer"
-            />
-          ) : (
-            <img
-              src="assets/dashboard/banners/prom.webp"
-              className="bannersImg cursor-pointer"
-            />
-          )}
-        </figure>
-      );
-    }
-
-    if (typeHeader === 2) {
-      return (
-        <div className="w-full flex flex-col gap-5">
-          {participantes.length < 3 && (
-            <h2 className="font-bold text-4xl max-sm:text-xl">
-              {t("dashboard.Hola")} {userData}
-            </h2>
-          )}
-
-          <div
-            className="w-full flex justify-center cursor-pointer"
-            onClick={() => route.push("/howtowin")}
-          >
-            <figure className="w-full">
-              {i18n.resolvedLanguage === "por" ? (
-                <img
-                  src="assets/dashboard/banners/htwPor.webp"
-                  className="bannersImg"
-                  style={{ width: "auto" }}
-                />
-              ) : (
-                <img
-                  src="assets/dashboard/banners/htw.webp"
-                  className="bannersImg"
-                />
-              )}
-            </figure>
-          </div>
-        </div>
-      );
-    }
-    if (typeHeader === 3) {
-      return (
-        <div
-          className="w-full flex justify-center cursor-pointer"
-          onClick={() => route.push("/releases/marketplace")}
-        >
-          <figure className="w-full">
-            <img
-              src={
-                i18n.resolvedLanguage === "por"
-                  ? "assets/dashboard/banners/bannerMarketPlacePor.webp"
-                  : "assets/dashboard/banners/bannerMarketPlace.webp"
-              }
-              className="bannersImg"
-            />
-          </figure>
-        </div>
-      );
-    }
-  }, [typeHeader, participantes]);
 
   const [passwordMatch, setPasswordMatch] = useState(""); // passwords match
   // booleans for password validations
@@ -488,54 +372,7 @@ const dashboard = () => {
       </Modal>
       <ContainerContent pageTitle={"Dashboard"}>
         <div className="m-6 flex flex-col gap-10 ">
-          {header}
-          <div className="w-full flex justify-center gap-5">
-            {participantes.length >= 3 && (
-              <button
-                className={`btn btn-xs ${
-                  typeHeader === 0 ? "btn-primary" : "btn-accent"
-                }`}
-                onClick={() => {
-                  setTypeHeader(0);
-                }}
-              >
-                {t("dashboard.ranking")}
-              </button>
-            )}
-
-            <button
-              className={`btn ${
-                typeHeader === 3 ? "btn-primary" : "btn-accent"
-              } btn-xs`}
-              onClick={() => {
-                setTypeHeader(3);
-              }}
-            >
-              MarketPlace
-            </button>
-
-            <button
-              className={`btn ${
-                typeHeader === 2 ? "btn-primary" : "btn-accent"
-              } btn-xs`}
-              onClick={() => {
-                setTypeHeader(2);
-              }}
-            >
-              {t("dashboard.htw")}
-            </button>
-
-            {/* <button
-            className={`btn ${
-              typeHeader === 1 ? "btn-primary" : "btn-accent"
-            } btn-xs`}
-            onClick={() => {
-              setTypeHeader(1);
-            }}
-          >
-            {t("dashboard.promociones")}
-          </button> */}
-          </div>
+          <CarouselBanners />
           <hr color="red" />
           <div className="gap-10 flex flex-col h-full">
             <TableStats />
