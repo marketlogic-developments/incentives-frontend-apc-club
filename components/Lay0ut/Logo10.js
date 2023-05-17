@@ -3,11 +3,10 @@ import React from "react";
 const Logo10 = () => {
   return (
     <svg
-      width="34"
       viewBox="0 0 34 74"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
+      className="w-1/2"
     >
       <rect width="34" height="74" fill="url(#pattern0)" />
       <defs>

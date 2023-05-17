@@ -873,8 +873,8 @@ const Layout = ({ children }) => {
               "--wminmenu": collapse ? "82px" : "256px",
             }}
           >
-            <div className="flex flex-col py-6 gap-6 h-screen">
-              <div className="flex flex-col gap-6 px-6">
+            <div className="flex flex-col py-6 h-screen justify-between">
+              <div className="flex flex-col gap-3 px-6">
                 <div
                   className="logoAdobe cursor-pointer"
                   style={{
@@ -889,13 +889,13 @@ const Layout = ({ children }) => {
                     ></img>
                   </figure>
                 </div>
+
                 {collapse ? (
                   <DigiPointsCollapse />
                 ) : (
                   <DigiPointsCard digipoints={digipoints} />
                 )}
               </div>
-
               <div className="flex flex-col gap-6 overflow-y-scroll scrollMenu w-full">
                 <div className="containerRedirections gap-2">{menu(1)}</div>
                 {userRedux.roleId !== 5 && (
@@ -905,6 +905,19 @@ const Layout = ({ children }) => {
                   </>
                 )}
               </div>
+
+              {collapse ? (
+                <div className="w-full flex justify-center w-full">
+                  <Logo10 />
+                </div>
+              ) : (
+                <figure className="flex">
+                  <img
+                    src="/assets/dashboard/years.webp"
+                    alt="apc_canales"
+                  ></img>
+                </figure>
+              )}
             </div>
           </div>
           <div className="pl-6 pt-6 cursor-pointer sticky top-0 h-screen">
