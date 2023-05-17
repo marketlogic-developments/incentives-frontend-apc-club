@@ -25,7 +25,9 @@ import {
   AiOutlineCloseCircle,
 } from "react-icons/ai";
 import TableStats from "../components/dashboard/TableStats";
+import BannerColombia from "../components/dashboard/BannerColombia";
 import CarouselBanners from "../components/dashboard/carouselBanners";
+
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
@@ -58,6 +60,21 @@ const dashboard = () => {
     if (!user?.passwordReset) {
       setModalType(0);
       return setOpened(true);
+    }
+
+    //Delete This When All Users have accepted TC
+
+    if (user.companyId) {
+      user.company.country === "Colombia" &&
+        user.cpf.split(" ")[1] !== "colTC" &&
+        user.roleId !== 1 &&
+        setOpened2(true);
+    }
+    if (user.distributionChannelId) {
+      user.distributionChannel.country === "Colombia" &&
+        user.roleId !== 1 &&
+        user.cpf.split(" ")[1] !== "colTC" &&
+        setOpened2(true);
     }
   };
 
@@ -350,25 +367,24 @@ const dashboard = () => {
         }}
         className={"modalCloseDashboard"}
       >
-        {
-          <a href="mailto:info@adobepcclub.com">
-            <figure>
-              {i18n.resolvedLanguage === "por" ? (
-                <img
-                  src="assets/dashboard/banners/bannerPApor.webp"
-                  alt="Sales_PA"
-                  className="w-full"
-                ></img>
-              ) : (
-                <img
-                  src="assets/dashboard/banners/bannerPA.webp"
-                  alt="Sales_PA"
-                  className="w-full"
-                ></img>
-              )}
-            </figure>
-          </a>
-        }
+        {/* <a href="mailto:info@adobepcclub.com">
+          <figure>
+            {i18n.resolvedLanguage === "por" ? (
+              <img
+                src="assets/dashboard/banners/bannerPApor.webp"
+                alt="Sales_PA"
+                className="w-full"
+              ></img>
+            ) : (
+              <img
+                src="assets/dashboard/banners/bannerPA.webp"
+                alt="Sales_PA"
+                className="w-full"
+              ></img>
+            )}
+          </figure>s
+        </a> */}
+        <BannerColombia user={user} token={token} />
       </Modal>
       <ContainerContent pageTitle={"Dashboard"}>
         <div className="m-6 flex flex-col gap-10 ">

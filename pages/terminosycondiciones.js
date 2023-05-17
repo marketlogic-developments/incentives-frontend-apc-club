@@ -25,7 +25,7 @@ const terminosycondiciones = () => {
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
-    if (user?.cpf === "active") {
+    if (user?.cpf.split(" ")[0] === "active") {
       return setOpened(true);
     }
   }, []);
@@ -42,7 +42,9 @@ const terminosycondiciones = () => {
         axios
           .patch(
             `${process.env.BACKURL}/users/${user?.id}`,
-            { cpf: "active" },
+            {
+              cpf: "active colTC",
+            },
             {
               headers: {
                 "Content-Type": "application/json",
@@ -108,7 +110,7 @@ const terminosycondiciones = () => {
             </h2>
           </div>
         </Modal>
-        {user?.cpf !== "active" && (
+        {user?.cpf.split(" ")[0] !== "active" && (
           <div className="flex flex-col items-center w-full gap-5">
             {/* <div className="m-6 flex flex-col gap-16">
             <div className="flex flex-col gap-5">
