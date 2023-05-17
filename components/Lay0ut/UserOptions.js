@@ -97,11 +97,6 @@ const UserOptions = ({ user, logout }) => {
         borderRadius: "10px",
       }}
     >
-      <div>
-        <figure className="!w-full">
-          <img src="/assets/dashboard/years.webp" alt="10_años_Adobe"></img>
-        </figure>
-      </div>
       <div className="w-full flex justify-center">
         <div className="w-3/4 justify-center flex flex-col items-center gap-3">
           <div className="relative bg-[#1473E6] rounded-full w-[80px] h-[80px] flex items-center justify-center">
@@ -195,14 +190,14 @@ const UserOptions = ({ user, logout }) => {
           </button>
         </div>
       </div>
-      <div className="flex justify-center flex-col items-center w-auto gap-1">
+      {/* <div className="flex justify-center flex-col items-center w-auto gap-1">
         {sections.map(({ svg, nombre }) => (
           <div className="flex items-center self-start text-left gap-3 p-2 hover:underline underline-offset-8 cursor-pointer hover:font-semibold">
             {svg}
             <p>{nombre}</p>
           </div>
         ))}
-      </div>
+      </div> */}
       <div className="w-[70%] flex flex-col items-center">
         <hr className="w-full" />
         <p className="mt-6 font-bold cursor-pointer" onClick={logout}>
