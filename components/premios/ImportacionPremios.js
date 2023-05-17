@@ -55,7 +55,6 @@ const ImportacionPremios = () => {
           imagePath: data.imagePath,
           status: data.status,
           description: data.description,
-          processed: true,
         },
         {
           headers: {

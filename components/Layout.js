@@ -789,10 +789,6 @@ const Layout = ({ children }) => {
   const textLocation = () => {
     const item = locations.find((i) => i.page === location);
 
-    if (location.includes("user")) {
-      return "Ajustes de Perfil";
-    }
-
     if (item === undefined) {
       const locationsWithSubsections = locations
         .filter(({ subsections }) => subsections)
@@ -800,9 +796,27 @@ const Layout = ({ children }) => {
 
       const subsectionText = locationsWithSubsections
         .flat()
-        .find((item) => item.page === location).text;
+        .find((item) => item.page === location);
 
-      return subsectionText;
+      if (subsectionText === undefined) {
+        if (location.includes("user")) {
+          return t("user.ajustesdeperfil");
+        }
+
+        if (location === "/catalogo") {
+          return t("menu.catalogo");
+        }
+
+        if (location === "/shoppingCar") {
+          return t("shoopingcar.carrito");
+        }
+
+        if (location === "/estadoProducto") {
+          return t("estadoProducto.estado");
+        }
+      }
+
+      return subsectionText.text;
     }
 
     return item.text;
