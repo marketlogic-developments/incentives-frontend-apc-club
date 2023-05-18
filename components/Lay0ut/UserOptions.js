@@ -91,7 +91,7 @@ const UserOptions = ({ user, logout }) => {
 
   return (
     <div
-      className="w-full bg-[#FFFF] absolute top-[65px] left-0 p-4 max-w-[310px] left-auto flex flex-col gap-6 items-center"
+      className="w-full bg-[#FFFF] absolute top-[65px] right-0 p-4 max-w-[310px] flex flex-col gap-6 items-center mr-6"
       style={{
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         borderRadius: "10px",
