@@ -28,7 +28,6 @@ import TableStats from "../components/dashboard/TableStats";
 import BannerColombia from "../components/dashboard/BannerColombia";
 import CarouselBanners from "../components/dashboard/carouselBanners";
 
-
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
@@ -39,18 +38,10 @@ const dashboard = () => {
   const [view, setView] = useState("password");
   const dispatch = useDispatch();
   const route = useRouter();
-  const [typeHeader, setTypeHeader] = useState(3);
   const [t, i18n] = useTranslation("global");
-  const [sortedData, setSortedData] = useState([]);
   const [modalType, setModalType] = useState([]);
 
   const [participantes, setParticipantes] = useState([]);
-
-  const userData = useMemo(() => {
-    if (user !== 0) {
-      return user?.names;
-    }
-  }, [user]);
 
   useEffect(() => {
     redirection();
