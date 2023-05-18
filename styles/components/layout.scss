@@ -301,13 +301,16 @@
       .notifications {
         display: flex;
         width: fit-content;
-        gap: 1rem;
         padding: 0px 1rem;
         place-items: center;
         align-items: center;
         z-index: 5;
         @media (max-width: 767px) {
           display: none;
+        }
+
+        .textShadowHTW:hover {
+          text-shadow: 0px 1px #9ba3a3;
         }
       }
 

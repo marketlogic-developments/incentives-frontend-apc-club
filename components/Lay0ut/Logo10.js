@@ -6,7 +6,7 @@ const Logo10 = () => {
       viewBox="0 0 34 74"
       fill="none"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      className="w-1/2"
+      className="w-1/3"
     >
       <rect width="34" height="74" fill="url(#pattern0)" />
       <defs>

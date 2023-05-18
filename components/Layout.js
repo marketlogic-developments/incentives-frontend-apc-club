@@ -377,30 +377,6 @@ const Layout = ({ children }) => {
       text: "Promociones",
     },
     {
-      page: "/howtowin",
-      icon: (
-        <svg
-          width={30}
-          height={30}
-          fill="none"
-          stroke="#000000"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M5.25 5.25v5.166c0 3.721 2.981 6.806 6.703 6.834a6.748 6.748 0 0 0 6.797-6.75V5.25A.75.75 0 0 0 18 4.5H6a.75.75 0 0 0-.75.75Z" />
-          <path d="M9 21h6" />
-          <path d="M12 17.25V21" />
-          <path d="M18.581 12h.919a3 3 0 0 0 3-3V7.5a.75.75 0 0 0-.75-.75h-3" />
-          <path d="M5.437 12H4.49a3 3 0 0 1-3-3V7.5a.75.75 0 0 1 .75-.75h3" />
-        </svg>
-      ),
-      iconactive: "",
-      text: t("dashboard.htw"),
-    },
-    {
       page: "/productos",
       icon: (
         <svg
@@ -814,6 +790,10 @@ const Layout = ({ children }) => {
         if (location === "/estadoProducto") {
           return t("estadoProducto.estado");
         }
+
+        if (location === "/howtowin") {
+          return t("dashboard.htw");
+        }
       }
 
       return subsectionText.text;
@@ -873,8 +853,8 @@ const Layout = ({ children }) => {
               "--wminmenu": collapse ? "82px" : "256px",
             }}
           >
-            <div className="flex flex-col py-6 h-screen justify-between">
-              <div className="flex flex-col gap-3 px-6">
+            <div className="flex flex-col py-6 h-screen gap-6">
+              <div className="flex flex-col gap-6 px-6">
                 <div
                   className="logoAdobe cursor-pointer"
                   style={{
@@ -905,19 +885,18 @@ const Layout = ({ children }) => {
                   </>
                 )}
               </div>
-
-              {collapse ? (
-                <div className="w-full flex justify-center w-full">
+              <div className="flex justify-center w-full mt-auto">
+                {collapse ? (
                   <Logo10 />
-                </div>
-              ) : (
-                <figure className="flex">
-                  <img
-                    src="/assets/dashboard/years.webp"
-                    alt="apc_canales"
-                  ></img>
-                </figure>
-              )}
+                ) : (
+                  <figure className="flex">
+                    <img
+                      src="/assets/dashboard/years.webp"
+                      alt="apc_canales"
+                    ></img>
+                  </figure>
+                )}
+              </div>
             </div>
           </div>
           <div className="pl-6 pt-6 cursor-pointer sticky top-0 h-screen">
@@ -953,7 +932,15 @@ const Layout = ({ children }) => {
                   <p className="!text-3xl font-bold">{textLocation()}</p>
                 </div>
                 <div className="flex">
-                  <div className="notifications relative">
+                  <div className="notifications relative gap-6">
+                    <div>
+                      <p
+                        className="text-[#1473E6] font-semibold cursor-pointer textShadowHTW"
+                        onClick={() => router.push("/howtowin")}
+                      >
+                        {t("dashboard.htw")}
+                      </p>
+                    </div>
                     <div
                       className="shoopingMarket cursor-pointer"
                       onClick={() => {
