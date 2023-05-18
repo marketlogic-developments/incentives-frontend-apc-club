@@ -794,6 +794,10 @@ const Layout = ({ children }) => {
         if (location === "/howtowin") {
           return t("dashboard.htw");
         }
+
+        if (location.includes("releases")) {
+          return "Comunicados";
+        }
       }
 
       return subsectionText.text;
