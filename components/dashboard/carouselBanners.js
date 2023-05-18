@@ -24,50 +24,12 @@ const CarouselBanners = () => {
           backgroundColor: "#eb1000",
         },
         control: {
-          marginLeft: "-60px",
-          marginRight: "-60px",
+          marginLeft: "-50px",
+          marginRight: "-50px",
           backgroundColor: "#eb1000",
         },
       }}
     >
-      <Carousel.Slide>
-        <div
-          className="w-full flex justify-center cursor-pointer p-[1px]"
-          onClick={() => route.push("/howtowin")}
-        >
-          <figure className="w-full">
-            {i18n.resolvedLanguage === "por" ? (
-              <img
-                src="assets/dashboard/banners/htwPor.webp"
-                className="bannersImg"
-                style={{ width: "auto" }}
-              />
-            ) : (
-              <img
-                src="assets/dashboard/banners/htw.webp"
-                className="bannersImg"
-              />
-            )}
-          </figure>
-        </div>
-      </Carousel.Slide>
-      <Carousel.Slide>
-        <div
-          className="w-full flex justify-center cursor-pointer p-[1px]"
-          onClick={() => route.push("/releases/marketplace")}
-        >
-          <figure className="w-full">
-            <img
-              src={
-                i18n.resolvedLanguage === "por"
-                  ? "assets/dashboard/banners/bannerMarketPlacePor.webp"
-                  : "assets/dashboard/banners/bannerMarketPlace.webp"
-              }
-              className="bannersImg"
-            />
-          </figure>
-        </div>
-      </Carousel.Slide>
       <Carousel.Slide>
         <a
           className="w-full flex justify-center cursor-pointer p-[1px]"
@@ -89,6 +51,44 @@ const CarouselBanners = () => {
             />
           </figure>
         </a>
+      </Carousel.Slide>
+      <Carousel.Slide>
+        <div
+          className="w-full flex justify-center cursor-pointer p-[1px]"
+          onClick={() => route.push("/releases/marketplace")}
+        >
+          <figure className="w-full">
+            <img
+              src={
+                i18n.resolvedLanguage === "por"
+                  ? "assets/dashboard/banners/bannerMarketPlacePor.webp"
+                  : "assets/dashboard/banners/bannerMarketPlace.webp"
+              }
+              className="bannersImg"
+            />
+          </figure>
+        </div>
+      </Carousel.Slide>
+      <Carousel.Slide>
+        <div
+          className="w-full flex justify-center cursor-pointer p-[1px]"
+          onClick={() => route.push("/howtowin")}
+        >
+          <figure className="w-full">
+            {i18n.resolvedLanguage === "por" ? (
+              <img
+                src="assets/dashboard/banners/htwPor.webp"
+                className="bannersImg"
+                style={{ width: "auto" }}
+              />
+            ) : (
+              <img
+                src="assets/dashboard/banners/htw.webp"
+                className="bannersImg"
+              />
+            )}
+          </figure>
+        </div>
       </Carousel.Slide>
     </Carousel>
   );

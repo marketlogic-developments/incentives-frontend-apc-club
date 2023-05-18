@@ -48,12 +48,12 @@
   }
 
   hr {
-    border-top-width: 3px;
-    border-color: $primaryColorRed;
+    border-top-width: 1px;
+    border-color: #bdbdbd;
   }
 
   .cls-1 {
-    fill: #fff;
+    fill: #000000;
   }
 
   .mantine-ckt4nk {
@@ -203,6 +203,7 @@
       padding: 10px;
     }
     svg {
+      width: 18px;
       /* Pantalla móvil */
       @media (max-width: 767px) {
         stroke: #fff;
@@ -338,9 +339,13 @@
   color: #047857;
 }
 .logoAdobe {
+  display: flex;
+  justify-content: center;
   figure {
+    width: var(--wlogo);
+    align-items: center;
     img {
-      width: 60%;
+      width: 100%;
     }
   }
 }
@@ -364,4 +369,6 @@
 
 .btn {
   @apply rounded-full;
+  text-transform: none;
+  font-size: 0.75rem;
 }
