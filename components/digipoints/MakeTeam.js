@@ -615,10 +615,40 @@ const MakeTeam = () => {
         </div>
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
-        <div className="flex justify-between w-full">
-          <div className="w-max">
+        <div className="w-full grid grid-cols-3 gap-1 mb-4">
+          <div className="relative">
+            <div className="absolute flex items-center ml-4 h-full">
+              <img
+                src="/assets/Icons/search.png"
+                alt="search"
+              />
+            </div>
+            <input type="text" placeholder="Buscar" 
+              className="px-11 py-3 w-11/12 rounded-full bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+            />
+          </div>
+          <div className="relative">
+            <select
+              className="block px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+              onChange={(e) => setSelectDate(e.target.value)}
+            >
+              <option value="">{t("tabla.ordenarPor")}</option>
+              <option value="upDown">{t("tabla.recienteA")}</option>
+              <option value="downUp">{t("tabla.antiguoR")}</option>
+            </select>
+          </div>
+          <div className="relative justify-items-center grid grid-flow-col">
+            <div className="flex items-center ml-4 h-full gap-1">
+              <img
+                src="/assets/Icons/download.png"
+                alt="search"
+              />
+              <p className="text-[#1473E6] font-semibold cursor-pointer textShadowHTW">
+                {t("digipoints.descargar")}
+              </p>
+            </div>
             <button
-              className="btn btn-primary"
+              className="btn btn-primary w-full"
               onClick={() => {
                 setOpened(true);
               }}
@@ -626,20 +656,13 @@ const MakeTeam = () => {
               {t("digipoints.Crear")}
             </button>
           </div>
-          <select
-            className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-            onChange={(e) => setSelectDate(e.target.value)}
-          >
-            <option value="">{t("tabla.ordenarFecha")}</option>
-            <option value="upDown">{t("tabla.recienteA")}</option>
-            <option value="downUp">{t("tabla.antiguoR")}</option>
-          </select>
         </div>
         <br></br>
         <div className="container">
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-black-500">
-              <thead className="text-xs text-black-500 uppercase">
+              {/* <thead className="text-xs text-black-500 uppercase"> */}
+              <thead className="rounded h-full flex bg-[#232B2F] text-xs text-white gap-5">
                 <th scope="col" className="py-3 px-6">
                   {t("tabla.nEquipo")}
                 </th>
@@ -652,9 +675,11 @@ const MakeTeam = () => {
                 <th scope="col" className="py-3 px-6">
                   {t("tabla.fechaCreacion")}
                 </th>
-                <th scope="col" className="py-3 px-6">
+                {/*<th scope="col" className="py-3 px-6">
                   Opciones
                 </th>
+                */}
+                <th scope="col" className="py-3 px-6"></th>
               </thead>
               {tableTeams}
             </table>

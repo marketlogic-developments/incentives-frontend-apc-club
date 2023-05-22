@@ -118,7 +118,8 @@
   "digipoints": {
     "mis": "Meus",
     "DDigipoints": "Distribuição de",
-    "Crear": "Criar equipe",
+    "Crear": "Equipes",
+    "crearEquipos": "Criar equipe",
     "historicos": "Históricos",
     "actuales": "Atuais",
     "txthistoricos": "Estes são os DigiPoints acumulados que você recebeu durante o ano fiscal de 23",

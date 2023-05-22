@@ -310,7 +310,7 @@ const Layout = ({ children }) => {
                     />
                   </svg>
                 ),
-                text: t("digipoints.Crear"),
+                text: t("digipoints.crearEquipos"),
               },
               {
                 page: "/digipoints/digipointdistribution",
