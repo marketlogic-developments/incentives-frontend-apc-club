@@ -2,35 +2,35 @@ import React from "react";
 
 const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
   return (
-    <div className="flex items-center w-full max-sm:w-full justify-center gap-10">
-      {user.roleId !== 1 && (
-        <div className="flex flex-col gap-5">
-          <p className="font-semibold text-center">Meta</p>
-          <p className="text-center font-bold text-2xl">{formatNumber(goal)}</p>
+    <div className="flex flex-col w-full p-6 gap-6 targetDashboard">
+      <div className="flex justify-between">
+        <div>
+          <h2 className="font-bold text-xl">Meta partners</h2>
         </div>
-      )}
-      {user.roleId == 1 && (
-        <div className="flex flex-col gap-5">
-          <p className="font-semibold text-center">Meta</p>
-          <p className="text-center font-bold text-2xl">{formatNumber(goal)}</p>
+        <div className="min-h-[45px] flex items-end">
+          <p className="!text-3xl font-bold text-[#1473E6]">
+            {formatNumber(goal)}
+          </p>
         </div>
-      )}
-
-      <div className="h-full w-min">
+      </div>
+      <div className="h-full w-full flex justify-center ">
         <div
-          className="radial-progress flex justify-center items-center text-primary"
+          className="radial-progress text-[#1473E6] flex justify-center items-center text-primary"
           style={{
             "--value": percentageTotal,
-            "--size": "9rem",
-            "--thickness": "2px",
+            "--size": "10rem",
+            "--thickness": "1rem",
           }}
         >
-          <div className="w-5/6 h-5/6 bg-primary text-center p-5 flex flex-col items-center justify-center rounded-full text-white">
-            <p className="font-bold text-md">${formatNumber(sales)}</p>
-            <p className="text-sm">{percentageTotal}%</p>
+          <div className="w-[80%] h-[80%] bg-white text-center p-5 flex flex-col items-center justify-center rounded-full text-white">
+            <p className="font-bold !text-xl text-black">
+              ${formatNumber(sales)}
+            </p>
+            <p className="!text-lg text-black">{percentageTotal}%</p>
           </div>
         </div>
       </div>
+      <div></div>
     </div>
   );
 };
