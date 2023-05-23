@@ -68,12 +68,6 @@
   width: 50px;
 }
 
-@include desktop-xl {
-  .progressiveBar {
-    width: 63%;
-  }
-}
-
 .titleGraphCarousel {
   &::after {
     content: "";
@@ -126,5 +120,23 @@
 .modalChangePassword {
   .mantine-Modal-close {
     display: none;
+  }
+}
+
+.targetDashboard {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.radial-progress {
+  background-color: #f2f2f2;
+
+  --thickness: 0.7rem;
+
+  @media (min-width: 1024px) {
+    --size: 5.5rem;
+  }
+  @media (min-width: 1280px) {
+    --size: 8rem;
   }
 }

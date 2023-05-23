@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^1.9.1",
     "autoprefixer": "10.4.13",
     "axios": "^1.2.2",
+    "chart.js": "^4.3.0",
     "cloudinary-react": "^1.8.1",
     "daisyui": "2.41.0",
     "dayjs": "^1.11.7",
@@ -37,6 +38,7 @@
     "postcss": "8.4.19",
     "powerbi-client": "^2.22.2",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.1.4",
     "react-icons": "^4.7.1",
@@ -45,7 +47,7 @@
     "react-redux": "^8.0.5",
     "react-responsive-carousel": "^3.2.23",
     "recharts": "^2.1.16",
-    "sweetalert2": "^11.7.1",
+    "sweetalert2": "^11.4.8",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
