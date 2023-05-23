@@ -100,7 +100,9 @@ const UserOptions = ({ user, logout }) => {
       <div className="w-full flex justify-center">
         <div className="w-3/4 justify-center flex flex-col items-center gap-3">
           <div className="relative bg-[#1473E6] rounded-full w-[80px] h-[80px] flex items-center justify-center">
-            <p className="text-white absolute">{user.names.split("")[0]}</p>
+            <p className="text-white absolute !text-base">
+              {user.names.split("")[0]}
+            </p>
             <svg
               width="43"
               height="43"
@@ -177,10 +179,10 @@ const UserOptions = ({ user, logout }) => {
             </svg>
           </div>
           <div className="text-center">
-            <p>
+            <p className="lg:!text-sm xl:!text-base">
               {user.name} {user.lastName}
             </p>
-            <p className="text-xs">{user.email}</p>
+            <p className="xl:!text-xs">{user.email}</p>
           </div>
           <button
             className="btn !btn-outline btn-info w-3/4 min-h-[2.563rem] h-[2.563rem]"
@@ -200,7 +202,7 @@ const UserOptions = ({ user, logout }) => {
       </div> */}
       <div className="w-[70%] flex flex-col items-center">
         <hr className="w-full" />
-        <p className="mt-6 font-bold cursor-pointer" onClick={logout}>
+        <p className="!text-xs mt-6 font-bold cursor-pointer" onClick={logout}>
           Cerrar Sesión
         </p>
       </div>

@@ -1,18 +1,18 @@
 import React from "react";
 
 const UserRanking = ({ data, index }) => {
+  console.log(data);
   return (
     <div className="flex justify-between items-center">
       <div className="flex gap-6">
-        <div class="user p-2 bg-[#1473E6] rounded-full w-fit h-fit">
-          <p class="text-white">AD</p>
+        <div class="user bg-[#1473E6] rounded-full w-[30px] h-[30px] flex items-center justify-center">
+          <p class="text-white text-center">{data.name[0]}</p>
         </div>
         <div>
-          <p className="text-sm font-bold">Juanito</p>
-          <p className="text-xs">contabilidad</p>
+          <p className="!text-xs font-bold">{data.name}</p>
         </div>
       </div>
-      <div>#{index}</div>
+      <div className="w-auto "># {index}</div>
     </div>
   );
 };

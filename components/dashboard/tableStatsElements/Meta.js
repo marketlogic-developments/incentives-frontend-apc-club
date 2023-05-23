@@ -5,10 +5,10 @@ const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
     <div className="flex flex-col w-full p-6 gap-6 targetDashboard">
       <div className="flex justify-between">
         <div>
-          <h2 className="font-bold text-xl">Meta partners</h2>
+          <h2 className="font-bold 2xl:text-xl">Meta partners</h2>
         </div>
         <div className="min-h-[45px] flex items-end">
-          <p className="!text-3xl font-bold text-[#1473E6]">
+          <p className="2xl:!text-3xl lg:!text-xl font-bold text-[#1473E6]">
             {formatNumber(goal)}
           </p>
         </div>
@@ -23,10 +23,10 @@ const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
           }}
         >
           <div className="w-[80%] h-[80%] bg-white text-center p-5 flex flex-col items-center justify-center rounded-full text-white">
-            <p className="font-bold !text-xl text-black">
+            <p className="font-bold !text-xs text-black">
               ${formatNumber(sales)}
             </p>
-            <p className="!text-lg text-black">{percentageTotal}%</p>
+            <p className="!text-xs text-black">{percentageTotal}%</p>
           </div>
         </div>
       </div>

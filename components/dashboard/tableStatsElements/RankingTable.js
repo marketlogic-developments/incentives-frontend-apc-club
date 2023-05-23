@@ -81,7 +81,7 @@ const RankingTable = () => {
       <div>
         <h2 className="!text-xl font-bold">Ranking</h2>
       </div>
-      <div>
+      <div className="flex flex-col max-h-[180px] overflow-y-scroll gap-3 scrollMenu pr-1">
         {participantes.map((data, index) => (
           <UserRanking data={data} index={index + 1} />
         ))}

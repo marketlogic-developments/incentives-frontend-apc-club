@@ -353,41 +353,7 @@ const dashboard = () => {
           <hr color="red" />
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
-            <Carousel
-              sx={{ width: "100%", height: "100%" }}
-              mx="auto"
-              withIndicators={false}
-              //Delete with COntrols
-              withControls={false}
-              controlSize={40}
-              draggable={false}
-              height={260}
-            >
-              {user?.user?.roleId == 3 ? (
-                <Carousel.Slide>
-                  <GraphSales />
-                </Carousel.Slide>
-              ) : (
-                <>
-                  <Carousel.Slide>
-                    <GraphSales />
-                  </Carousel.Slide>
-                  {/* <Carousel.Slide>
-                  <Graph />
-                </Carousel.Slide> */}
-                </>
-              )}
-            </Carousel>
-            <div className="w-full flex justify-center mb-5">
-              {user?.roleId !== 2 && (
-                <button
-                  className="btn btn-primary btn-wide"
-                  onClick={() => route.push("/catalogo")}
-                >
-                  {t("dashboard.redimir")}
-                </button>
-              )}
-            </div>
+            <GraphSales />
           </div>
         </div>
       </ContainerContent>

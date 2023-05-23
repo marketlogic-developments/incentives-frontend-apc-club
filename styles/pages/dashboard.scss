@@ -130,4 +130,13 @@
 
 .radial-progress {
   background-color: #f2f2f2;
+
+  --thickness: 0.7rem;
+
+  @media (min-width: 1024px) {
+    --size: 5.5rem;
+  }
+  @media (min-width: 1280px) {
+    --size: 8rem;
+  }
 }

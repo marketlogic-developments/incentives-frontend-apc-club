@@ -7,15 +7,15 @@ const BarBySegment = ({ percentageCC, percentageDC, formatNumber }) => {
         <h2 className="font-bold text-2xl">Licencias</h2>
         {/* <p></p> */}
       </div>
-      <div className="w-full h-16 flex items-center gap-6 gapBar">
-        <div className="flex items-center h-full cct text-center">
+      <div className="w-full h-16 flex items-center gap-6 gapBar lg:flex-col xl:flex-row">
+        <div className="flex items-center h-full cct text-center lg:mr-auto">
           <img
             src="/assets/dashboard/cc.webp"
             width={100}
             className="w-1/2 max-w-[58px]"
           ></img>
         </div>
-        <div className="w-10/12 flex flex-col items-center justify-around h-full">
+        <div className="w-full flex flex-col items-center justify-around h-full">
           <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
             {percentageCC.map((data) => (
               <div
@@ -53,14 +53,14 @@ const BarBySegment = ({ percentageCC, percentageDC, formatNumber }) => {
           </div>
         </div>
       </div>
-      <div className="w-full h-16 flex items-center gap-6 gapBar">
-        <div className="flex items-center h-full cci text-center">
+      <div className="w-full h-16 flex items-center gap-6 gapBar lg:flex-col xl:flex-row">
+        <div className="flex items-center h-full cci text-center lg:mr-auto">
           <img
             src="/assets/dashboard/DC.webp"
             className="w-1/2 max-w-[58px]"
           ></img>
         </div>
-        <div className="w-10/12 flex flex-col items-center justify-around h-full">
+        <div className="w-full flex flex-col items-center justify-around h-full">
           <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
             {percentageDC.map((data) => (
               <div
