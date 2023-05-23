@@ -257,7 +257,8 @@
   "modalEquipos": {
     "informacion": "Información",
     "porcentajes": "Porcentajes",
-    "nequipo": "Nombre del equipo",
+    "nequipo": "Nombre de equipo",
+    "dnequipo": "Define nombre de equipo",
     "descripcion": "Descripción",
     "dEquipo": "Descripción del equipo",
     "next": "Siguiente",
@@ -265,7 +266,16 @@
     "guardar": "Guardar Cambios",
     "suma": "La suma de los porcentajes debe ser equivalente a 100%",
     "lista": "Este participante ya está dentro de la lista",
-    "teamCre": "El equipo ha sido creado exitosamente"
+    "teamCre": "El equipo ha sido creado exitosamente",
+    "aParticipantes": "Agrega participantes",
+    "cEquiposDeTrabajo": "Crea un equipo de trabajo y agrega personas",
+    "pAgregados":"Participantes agregados",
+    "pDeParticipacion": "Porcentaje de participación",
+    "sParticipantes": "Aún no has agregado participantes",
+    "lUsuarios": "Haz clic en el campo 'agrega participantes' para visualizar el listado de usuarios.",
+    "gEquipo": "Guardar equipo",
+    "cancelar": "Cancelar",
+    "sParticipantesGrupo": "Selecciona participantes para este grupo"
   },
   "user": {
     "ajustesdeperfil": "Ajustes de perfil",

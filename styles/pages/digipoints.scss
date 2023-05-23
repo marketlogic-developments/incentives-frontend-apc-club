@@ -69,3 +69,16 @@
   justify-self: center;
   align-self: center;
 }
+
+.border-color {
+  border: 1px solid #FFEEED !important;
+}
+
+.btn-cancel {
+  background-color: #BDBDBD;
+  border: none;
+
+  &:hover {
+    background-color: #BDBDBD;
+  }
+}

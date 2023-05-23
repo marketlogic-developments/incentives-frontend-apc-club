@@ -373,14 +373,15 @@ const MakeTeam = () => {
           autoComplete="off"
           onSubmit={(e) => handleButtonNext(e)}
         >
-          <div className="flex flex-col gap-5">
-            <p>{t("modalEquipos.nequipo")}</p>
+          <div className="flex flex-col gap-5 font-bold">
+            <p className="!text-xs text-[#333333]">{t("modalEquipos.nequipo")}</p>
             {infoModal?.nameGroup === undefined ? (
               <input
-                className="input input-primary"
+                className="input rounded-md bg-gray-100 focus:border-gray-500 focus:bg-white 
+                focus:ring-0 text-xs text-[#828282]"
                 type="text"
                 name="nameGroup"
-                placeholder={t("modalEquipos.nequipo")}
+                placeholder={t("modalEquipos.dnequipo")}
                 required
                 minLength={5}
               />
@@ -397,11 +398,12 @@ const MakeTeam = () => {
               />
             )}
           </div>
-          <div className="flex flex-col gap-5">
-            <p>{t("modalEquipos.descripcion")}</p>
+          <div className="flex flex-col gap-5 font-bold">
+            <p className="!text-xs text-[#333333]">{t("modalEquipos.descripcion")}</p>
             {infoModal?.description === undefined ? (
               <textarea
-                className="textarea textarea-lg textarea-primary"
+                className="textarea textarea-lg rounded-md bg-gray-100 text-[#828282] 
+                  focus:border-gray-500 focus:bg-white focus:ring-0 text-xs"
                 type="text"
                 name="description"
                 placeholder={t("modalEquipos.dEquipo")}
@@ -410,7 +412,7 @@ const MakeTeam = () => {
               />
             ) : (
               <textarea
-                className="textarea textarea-lg textarea-primary"
+                className="textarea textarea-lg textarea-primary text-xs"
                 type="text"
                 placeholder={t("modalEquipos.dEquipo")}
                 required
@@ -422,9 +424,83 @@ const MakeTeam = () => {
             )}
           </div>
 
-          <button type="submit" className="btn btn-primary w-max">
-            {t("modalEquipos.next")}
-          </button>
+          <div className="flex flex-col gap-5 font-bold">
+            <p className="!text-xs text-[#333333]">{t("modalEquipos.aParticipantes")}</p>
+            {infoModal?.option === undefined ? (
+            <div className="block px-4 py-4 w-full rounded-md bg-gray-100 border-transparent 
+              focus:border-gray-500 focus:bg-white focus:ring-0 text-xs text-[#828282] h-12"
+            >
+              <span>{t("modalEquipos.sParticipantesGrupo")}</span>
+            </div>
+            ) : (
+              <select
+                className="block px-4 py-3 w-full rounded-md bg-gray-100 border-transparent 
+                focus:border-gray-500 focus:bg-white focus:ring-0 text-xs"
+              >
+                <option value="">{t("tabla.ordenarPor")}</option>
+                <option value="upDown">{t("tabla.recienteA")}</option>
+                <option value="downUp">{t("tabla.antiguoR")}</option>
+              </select>
+            )}
+          </div>
+          <div className="flex flex-col gap-5 font-bold">
+            <p className="!text-sm text-[#333333]">{t("modalEquipos.pAgregados") + " (4)"}</p>
+            {infoModal?.option === undefined ? (
+            <div className="container">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left text-black-500">
+                    <thead className="rounded h-12 flex bg-[#232B2F] text-xs text-[#F5F5F5] gap-1">
+                      <th scope="col" className="py-4 px-6">
+                        {t("user.nombre")}
+                      </th>
+                      <th scope="col" className="py-4 px-6">
+                        {t("tabla.correo")}
+                      </th>
+                      <th scope="col" className="py-4 px-6">
+                        {t("modalEquipos.pDeParticipacion")}
+                      </th>
+                    </thead>
+                    <tbody>
+                      <div className="border border-color">
+                        <div className="w-full flex justify-center mt-16">
+                          <img src="/assets/Icons/no_agregados.png" alt="noAgregados"/>
+                        </div>
+                        <div className="w-full flex justify-center mt-6 text-[#333333] text-sm">
+                          <span>{t("modalEquipos.pDeParticipacion")}</span>
+                        </div>
+                        <div className="w-full flex justify-center mt-2 mb-16">
+                          <p className="text-[#2C2C2C] text-xs font-normal w-7/12 text-center">{t("modalEquipos.lUsuarios")}</p>
+                        </div>
+                      </div>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+            ) : (
+              <select
+                className="block px-4 py-3 w-full rounded-md bg-gray-100 border-transparent 
+                focus:border-gray-500 focus:bg-white focus:ring-0 text-xs"
+              >
+                <option value="">{t("tabla.ordenarPor")}</option>
+                <option value="upDown">{t("tabla.recienteA")}</option>
+                <option value="downUp">{t("tabla.antiguoR")}</option>
+              </select>
+            )}
+          </div>
+          <div className="relative justify-items-center grid grid-flow-col mt-8">
+            <button type="cancel" className="btn btn-cancel w-48"
+              onClick={() => {
+                setOpened(false);
+              }}
+            >
+              {t("modalEquipos.cancelar")}
+            </button>
+            <button type="submit" className="btn btn-info w-48">
+              {t("modalEquipos.gEquipo")}
+            </button>
+            
+          </div>
+
         </form>
       );
     }
@@ -603,16 +679,21 @@ const MakeTeam = () => {
         size={modal === 0 ? "50%" : "90%"}
       >
         <div className="flex flex-col w-full items-center">
-          <div className="text-sm breadcrumbs">
+          <div>
+            <p className="!text-xl font-bold text-center">{t("digipoints.Crear")}</p>
+            <p className="text-[#2C2C2C] text-xs text-center m-4">{t("modalEquipos.cEquiposDeTrabajo")}</p>
+          </div>
+         {/* <div className="text-sm breadcrumbs">
             <ul>
               <li>
                 <a>{t("modalEquipos.informacion")}</a>
               </li>
               <li>{t("modalEquipos.porcentajes")}</li>
             </ul>
-          </div>
+          </div> */}
           {typeModal}
         </div>
+      
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
         <div className="w-full grid grid-cols-3 gap-1 mb-4">
@@ -662,17 +743,17 @@ const MakeTeam = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-black-500">
               {/* <thead className="text-xs text-black-500 uppercase"> */}
-              <thead className="rounded h-full flex bg-[#232B2F] text-xs text-white gap-5">
-                <th scope="col" className="py-3 px-6">
+              <thead className="rounded h-12 flex bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
+                <th scope="col" className="py-4 px-6">
                   {t("tabla.nEquipo")}
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="py-4 px-6">
                   {t("tabla.descripcion")}
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="py-4 px-6">
                   {t("tabla.nParticipantes")}
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="py-4 px-6">
                   {t("tabla.fechaCreacion")}
                 </th>
                 {/*<th scope="col" className="py-3 px-6">
