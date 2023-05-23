@@ -178,8 +178,12 @@ const TableStats = () => {
   }
 
   return (
-    <div className="container w-full h-full bg-base-100 grid grid-cols-3 sm:flex-row justify-between max-sm:justify-center">
-      <BarBySegment percentageCC={percentageCC} percentageDC={percentageDC} />
+    <div className="w-full h-full bg-base-100 grid grid-cols-3 sm:flex-row justify-between max-sm:justify-center gap-6">
+      <BarBySegment
+        percentageCC={percentageCC}
+        percentageDC={percentageDC}
+        formatNumber={formatNumber}
+      />
       <Meta
         user={user}
         formatNumber={formatNumber}

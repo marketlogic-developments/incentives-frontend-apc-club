@@ -105,36 +105,6 @@ const dashboard = () => {
       });
   };
 
-  useEffect(() => {
-    const compOrDist =
-      user.company === null
-        ? {
-            endpoint: "digipoints-redeem-status-all-distri",
-            byId: distribuitor.id,
-          }
-        : {
-            endpoint: "digipoints-redeem-status-all-compa",
-            byId: company.id,
-          };
-
-    if (token) {
-      axios
-        .get(
-          `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then(({ data }) => {
-          setParticipantes(data);
-        });
-    }
-  }, [token]);
-
   const [passwordMatch, setPasswordMatch] = useState(""); // passwords match
   // booleans for password validations
   const [containsUL, setContainsUL] = useState(false); // uppercase letter
@@ -381,43 +351,9 @@ const dashboard = () => {
         <div className="m-6 flex flex-col gap-10 ">
           <CarouselBanners />
           <hr color="red" />
-          <div className="gap-10 flex flex-col h-full">
+          <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
-            <Carousel
-              sx={{ width: "100%", height: "100%" }}
-              mx="auto"
-              withIndicators={false}
-              //Delete with COntrols
-              withControls={false}
-              controlSize={40}
-              draggable={false}
-              height={260}
-            >
-              {user?.user?.roleId == 3 ? (
-                <Carousel.Slide>
-                  <GraphSales />
-                </Carousel.Slide>
-              ) : (
-                <>
-                  <Carousel.Slide>
-                    <GraphSales />
-                  </Carousel.Slide>
-                  {/* <Carousel.Slide>
-                  <Graph />
-                </Carousel.Slide> */}
-                </>
-              )}
-            </Carousel>
-            <div className="w-full flex justify-center mb-5">
-              {user?.roleId !== 2 && (
-                <button
-                  className="btn btn-primary btn-wide"
-                  onClick={() => route.push("/catalogo")}
-                >
-                  {t("dashboard.redimir")}
-                </button>
-              )}
-            </div>
+            <GraphSales />
           </div>
         </div>
       </ContainerContent>

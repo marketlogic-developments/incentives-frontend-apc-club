@@ -939,7 +939,7 @@ const Layout = ({ children }) => {
                   <div className="notifications relative gap-6">
                     <div>
                       <p
-                        className="text-[#1473E6] font-semibold cursor-pointer textShadowHTW"
+                        className="text-[#1473E6] font-semibold cursor-pointer textShadowHTW !text-sm"
                         onClick={() => router.push("/howtowin")}
                       >
                         {t("dashboard.htw")}
@@ -1036,7 +1036,9 @@ const Layout = ({ children }) => {
                           <p className="text-white">AD</p>
                         </div>
                         <div className="username">
-                          <p className="text-[16px]">{userRedux?.names}</p>
+                          <p className="lg:!text-sm xl:!text-base">
+                            {userRedux?.names}
+                          </p>
                         </div>
                       </div>
                     </div>
