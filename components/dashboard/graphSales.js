@@ -50,10 +50,10 @@ const GraphSales = () => {
       <div>
         <h2 className="text-xl font-bold">Ventas de la organización</h2>
       </div>
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-3 gap-6">
         <TargetSales data={CC} />
         <TargetSales data={DC} />
-        {/* <PerformaceSales CC={CC} DC={DC} /> */}
+        <PerformaceSales CC={CC} DC={DC} />
       </div>
     </div>
   );

@@ -140,3 +140,12 @@
     --size: 8rem;
   }
 }
+
+.radialMeta {
+  @media (min-width: 1024px) {
+    --size: 7rem;
+  }
+  @media (min-width: 1280px) {
+    --size: 10rem;
+  }
+}
