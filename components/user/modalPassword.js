@@ -125,12 +125,12 @@ const ModalPassword = ({ setOpened }) => {
   return (
     <div className="flex flex-col w-full justify-center items-center gap-10">
       <form
-        className="flex flex-col items-center gap-5 w-full"
+        className="flex flex-col gap-5 w-full"
         onSubmit={(data) => {
           allValid ? handleSubmit(data) : handleError(data);
         }}
       >
-        <div className="relative w-2/4 max-sm:w-full">
+        <div className="relative max-sm:w-full">
           <input
             type={view}
             placeholder={t("dashboard.digitar")}
@@ -159,7 +159,7 @@ const ModalPassword = ({ setOpened }) => {
             )}
           </button>
         </div>
-        <div className="relative w-2/4 max-sm:w-full">
+        <div className="relative max-sm:w-full">
           <input
             type={view2}
             placeholder={"Confirma tu contraseña"}
@@ -251,8 +251,8 @@ const ModalPassword = ({ setOpened }) => {
         <button
           className={`btn ${
             allValid && passwordMatch === confirmPasswordMatch
-              ? "btn-primary"
-              : "btn-active btn-ghost pointer-events-none"
+              ? "btn btn-info hover:bg-black w-1/4"
+              : "btn-active btn-ghost pointer-events-none w-1/4"
           }`}
         >
           {t("dashboard.cambiarpass")}
