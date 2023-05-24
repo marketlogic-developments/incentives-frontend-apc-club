@@ -142,6 +142,7 @@ const MakeTeam = () => {
         },
       })
       .then((res1) => {
+        console.log(res1.data);
         setInfoModal(res1.data);
         setOpened(true);
         setDataModal(

@@ -47,7 +47,7 @@ const TargetSales = ({ data }) => {
   };
 
   return (
-    <div className="flex flex-col w-full p-3 gap-6 targetDashboard">
+    <div className="flex flex-col w-full p-3 gap-6 targetDashboard relative">
       <div className="flex justify-between">
         <h3 className="font-bold xl:!text-xl lg:!text-sm">
           {data[0]?.business_unit}
@@ -62,7 +62,7 @@ const TargetSales = ({ data }) => {
           )}
         </p>
       </div>
-      <div className="flex justify-around">
+      <div className="flex justify-around my-auto">
         <PieChart
           sales={sales.renewal}
           percentageTotal={sales.percentageRenewal}

@@ -140,3 +140,36 @@
     --size: 8rem;
   }
 }
+
+.radialMeta {
+  @media (min-width: 1024px) {
+    --size: 7rem;
+  }
+  @media (min-width: 1280px) {
+    --size: 10rem;
+  }
+}
+
+.metaLi {
+  .customLi {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .customLi::before {
+    content: ""; /* Agrega contenido al pseudo-elemento */
+    display: inline-block; /* Convierte el pseudo-elemento en un bloque en línea */
+    width: 10px; /* Ajusta el ancho del marcador personalizado */
+    height: 10px; /* Ajusta la altura del marcador personalizado */
+    background-color: var(
+      --colorBg
+    ); /* Estilo personalizado para el marcador */
+    margin-right: 5px; /* Ajusta el margen entre el marcador y el contenido */
+    border-radius: 100%;
+  }
+
+  // li::marker {
+  //   list-style-type: disc;
+  //   font-size: 1.5rem;
+  // }
+}
