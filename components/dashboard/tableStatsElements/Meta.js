@@ -8,9 +8,11 @@ const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
           <h2 className="font-bold 2xl:text-xl">Meta partners</h2>
         </div>
         <div className="min-h-[45px] flex items-end">
-          <p className="2xl:!text-3xl lg:!text-xl font-bold text-[#1473E6]">
-            {formatNumber(goal)}
-          </p>
+          {goal !== 0 && (
+            <p className="2xl:!text-3xl lg:!text-xl font-bold text-[#1473E6]">
+              {formatNumber(goal)}
+            </p>
+          )}
         </div>
       </div>
       <div className="h-full w-full flex justify-center ">
@@ -30,7 +32,20 @@ const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
           </div>
         </div>
       </div>
-      <div></div>
+      <div className="w-full flex justify-center metaLi gap-3">
+        <li
+          className="customLi lg:!text-xs xl:!text-base"
+          style={{ "--colorBg": "#2799F6" }}
+        >
+          Alcanzado
+        </li>
+        <li
+          className="customLi lg:!text-xs xl:!text-base"
+          style={{ "--colorBg": "#F2F2F2" }}
+        >
+          Faltante
+        </li>
+      </div>
     </div>
   );
 };
