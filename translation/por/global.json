@@ -74,10 +74,8 @@
     "htw": "Como ganhar?",
     "renovaciones": "Renew",
     "nbusiness": "Novos negócios",
-    "vCC": "Vendas de",
-    "vDC": "Vendas de",
-    "mvCC": "Minhas Vendas",
-    "mvDC": "Minhas Vendas",
+    "ventasOrg": "Vendas da organização",
+    "misVentas": "Minhas Vendas",
     "redimir": "RESGATAR",
     "dpObtenidos": "DigiPoints Ganhos",
     "contieneUL": "Uma letra maiúscula (A-Z)",
@@ -89,7 +87,8 @@
     "pdfDist": "assets/pdf/HTWDistPor.pdf",
     "pdfComp": "assets/pdf/HTWPor.pdf",
     "titleTickets": "Precisa de ajuda? Entre em contato conosco agora!",
-    "descripcionTickets": "Preencha nosso formulário de solicitações de clientes e receba ajuda de nossos especialistas para resolver seus problemas on-line. Deixe-nos ajudá-lo hoje mesmo!"
+    "descripcionTickets": "Preencha nosso formulário de solicitações de clientes e receba ajuda de nossos especialistas para resolver seus problemas on-line. Deixe-nos ajudá-lo hoje mesmo!",
+    "licencias": "Licenças"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",

@@ -1,7 +1,9 @@
+import { useTranslation } from "react-i18next";
 import PieChart from "./PieChart";
 
 const TargetSales = ({ data }) => {
-  console.log(data);
+  const [t, i18n] = useTranslation("global");
+
   function formatNumber(number) {
     const formattedNumber =
       number >= 1000000
@@ -67,13 +69,13 @@ const TargetSales = ({ data }) => {
           sales={sales.renewal}
           percentageTotal={sales.percentageRenewal}
           color={"#232B2F"}
-          type={"Renewal"}
+          type={t("dashboard.renovaciones")}
         />
         <PieChart
           sales={sales.newBusiness}
           percentageTotal={sales.percentageNewbusiness}
           color={"#21A5A2"}
-          type={"New Business"}
+          type={t("dashboard.nbusiness")}
         />
       </div>
     </div>

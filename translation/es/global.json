@@ -74,10 +74,8 @@
     "redimir": "Redimir",
     "renovaciones": "Renovaciones",
     "nbusiness": "Nuevos negocios",
-    "vCC": "Ventas",
-    "vDC": "Ventas",
-    "mvCC": "Mis ventas",
-    "mvDC": "Mis ventas",
+    "ventasOrg": "Ventas de mi organización",
+    "misVentas": "Mis ventas",
     "dpObtenidos": "DigiPoints Obtenidos",
     "contieneUL": "Una letra Mayúscula (A-Z)",
     "contieneLL": "Una letra minúscula (a-z)",
@@ -88,7 +86,8 @@
     "pdfDist": "assets/pdf/HTWDist.pdf",
     "pdfComp": "assets/pdf/HTW.pdf",
     "titleTickets": "¿Necesitas ayuda? ¡Contáctanos ahora!",
-    "descripcionTickets": "Completa nuestro formulario de solicitudes y recibe ayuda de nuestros expertos para resolver tus problemas en línea. ¡Déjanos ayudarte hoy!"
+    "descripcionTickets": "Completa nuestro formulario de solicitudes y recibe ayuda de nuestros expertos para resolver tus problemas en línea. ¡Déjanos ayudarte hoy!",
+    "licencias": "Licencias"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",

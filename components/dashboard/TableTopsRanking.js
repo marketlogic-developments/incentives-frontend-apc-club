@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import NoDataRanking from "./tableStatsElements/NoDataRanking";
 
 const TableTopsRanking = () => {
   const ranking = useSelector((state) => state.user.ranking);
@@ -18,16 +19,18 @@ const TableTopsRanking = () => {
           </tr>
         </thead>
         <tbody>
-          {ranking.map((data, index) => (
-            <tr className={`${(index + 1) % 2 === 0 && "bg-[#F5F5F5]"}`}>
-              <td className="py-3">{data.ranking}</td>
-              <td className="py-3">{data.names}</td>
-              <td className="py-3">{data.email}</td>
-              <td className="py-3">{data.region}</td>
-            </tr>
-          ))}
+          {ranking.length !== 0 &&
+            ranking.map((data, index) => (
+              <tr className={`${(index + 1) % 2 === 0 && "bg-[#F5F5F5]"}`}>
+                <td className="py-3">{data.ranking}</td>
+                <td className="py-3">{data.names}</td>
+                <td className="py-3">{data.email}</td>
+                <td className="py-3">{data.region}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
+      <div className="mb-6">{ranking.length === 0 && <NoDataRanking />}</div>
     </div>
   );
 };
