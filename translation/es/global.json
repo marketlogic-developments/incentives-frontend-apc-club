@@ -119,7 +119,7 @@
     "id": "ID de archivo"
   },
   "digipoints": {
-    "DDigipoints": "Distribución",
+    "DDigipoints": "Distribución DigiPoints",
     "Crear": "Crear equipo",
     "crearEquipos": "Equipos",
     "descargar": "Descargar",
@@ -147,7 +147,13 @@
     "copyDeleteTeam": "Esta acción eliminará permanentemente tu equipo. ¿Está seguro de continuar?",
     "delete": "Eliminar",
     "errorNotiTeams": "Hubo un error al momento eliminar tu equipo intentalo más tarde",
-    "teamDeleteNoti": "Tu equipo ha sido eliminado"
+    "teamDeleteNoti": "Tu equipo ha sido eliminado",
+    "sDistribuicionDigiPoints":"Selecciona a quién distribuirás la cantidad de digipoints",
+    "aDistribuicion": "Asignar la distribución a",
+    "asignacionDigipoints": "¿A quién asignarás estos digipoints?",
+    "sOpcionListadoUsuarios": "Selecciona una opción para visualizar el listado de usuarios.",
+    "cAsignacion": "Confirmar asignación",
+    "dFactura": "Detalle de factura"
   },
   "files": {},
   "participantes": {
@@ -208,6 +214,7 @@
     "fecha": "Fecha",
     "cantidad": "Cantidad",
     "asignar": "Asignar",
+    "aDigipoints": "Asignar digipoints",
     "asignado": "Asignado",
     "nomParticipantes": "NOMBRE DEL PARTICIPANTE",
     "sillas": "No. de sillas",
