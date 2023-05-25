@@ -933,7 +933,9 @@ const Layout = ({ children }) => {
             <div className="containerNavbar">
               <div className="navbar">
                 <div>
-                  <p className="!text-3xl font-bold">{textLocation()}</p>
+                  <p className="lg:!text-2xl xl:!text-3xl font-bold">
+                    {textLocation()}
+                  </p>
                 </div>
                 <div className="flex">
                   <div className="notifications relative gap-6">
@@ -1029,7 +1031,7 @@ const Layout = ({ children }) => {
                         />
                       </div>
                       <div
-                        className="flex items-center gap-3 bg-[#F5F5F5] rounded-full p-3 min-w-[217px] max-h-[55px] text-xs"
+                        className="flex items-center gap-3 bg-[#F5F5F5] rounded-full p-3 min-w-[217px] max-h-[55px] text-xs cursor-pointer"
                         onClick={() => setMenuUser(!menuUser)}
                       >
                         <div className="user p-2 bg-[#1473E6] rounded-full">
