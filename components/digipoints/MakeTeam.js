@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import { changeLoadingData } from "../../store/reducers/loading.reducer";
 import { teamsPush, teamsUpdate } from "../../store/reducers/teams.reducer";
 import { getUsersData } from "../../store/reducers/users.reducer";
+import ModalTargetParticipants from "./MakeTeam/ModalTargetParticipants";
 
 const MakeTeam = () => {
   const token = useSelector((state) => state.user.token);
@@ -27,6 +28,7 @@ const MakeTeam = () => {
   const [modifiedValues, setModifiedValues] = useState([]);
   const [modal, setModal] = useState(0);
   const [selectDate, setSelectDate] = useState("");
+  const [openParticipants, setOpenParticipants] = useState(false);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -375,7 +377,9 @@ const MakeTeam = () => {
           onSubmit={(e) => handleButtonNext(e)}
         >
           <div className="flex flex-col gap-5 font-bold">
-            <p className="!text-xs text-[#333333]">{t("modalEquipos.nequipo")}</p>
+            <p className="!text-xs text-[#333333]">
+              {t("modalEquipos.nequipo")}
+            </p>
             {infoModal?.nameGroup === undefined ? (
               <input
                 className="input rounded-md bg-gray-100 focus:border-gray-500 focus:bg-white 
@@ -400,7 +404,9 @@ const MakeTeam = () => {
             )}
           </div>
           <div className="flex flex-col gap-5 font-bold">
-            <p className="!text-xs text-[#333333]">{t("modalEquipos.descripcion")}</p>
+            <p className="!text-xs text-[#333333]">
+              {t("modalEquipos.descripcion")}
+            </p>
             {infoModal?.description === undefined ? (
               <textarea
                 className="textarea textarea-lg rounded-md bg-gray-100 text-[#828282] 
@@ -426,42 +432,26 @@ const MakeTeam = () => {
           </div>
 
           <div className="w-full flex flex-col gap-5 font-bold">
-            <p className="!text-xs text-[#333333]">{t("modalEquipos.aParticipantes")}</p>
+            <p className="!text-xs text-[#333333]">
+              {t("modalEquipos.aParticipantes")}
+            </p>
             {infoModal?.option === undefined ? (
-            <div className="block px-4 py-4 w-full rounded-md bg-gray-100 border-transparent 
-              focus:border-gray-500 focus:bg-white focus:ring-0 text-xs text-[#828282] h-12"
-            >
-              <span>{t("modalEquipos.sParticipantesGrupo")}</span>
-
-              <div className="relative max-w-full mt-10 rounded-md bg-gray-100">
-              <div className="container flex justify-center">
-                <div className="overflow-x-auto">
-                  <table className="w-11/12 text-sm text-left text-black-500">
-                    <div>
-                    <p className="!text-sm text-[#333333]">{t("modalEquipos.pAgregados") + " (1)"}</p>
-                    </div>
-
-                    <tbody>
-                      <tr className="bg-white border-b dark:border-gray-500">
-                        <td className="py-4 px-6">
-                          <input type="radio" value="option1" checked={false} />
-                          <label className="ml-3 align-middle">
-                            {t("digipoints.teamV")}
-                            </label>
-                        </td>
-                        <td className="py-4 px-6 min-w-[130px]">
-                          a.dubon@adobe.com
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <>
+                <div
+                  className={`block px-4 py-4 w-full rounded-md bg-gray-100 
+              focus:border-gray-500 focus:bg-white focus:ring-0 text-xs text-[#828282] h-12 ${
+                openParticipants && "border border-[#1473E6]"
+              }`}
+                  onClick={() => setOpenParticipants(!openParticipants)}
+                >
+                  <span>{t("modalEquipos.sParticipantesGrupo")}</span>
                 </div>
-              </div>
-            </div>
-            </div>
-
-           
-            
+                <div
+                  className={`relative max-w-full rounded-md bg-white drop-shadow-lg`}
+                >
+                  {openParticipants && <ModalTargetParticipants />}
+                </div>
+              </>
             ) : (
               <select
                 className="block px-4 py-3 w-full rounded-md bg-gray-100 border-transparent 
@@ -473,14 +463,15 @@ const MakeTeam = () => {
               </select>
             )}
           </div>
-          
 
-          <div className="flex flex-col gap-5 font-bold mt-64">
-            <p className="!text-sm text-[#333333]">{t("modalEquipos.pAgregados") + " (4)"}</p>
+          <div className="flex flex-col gap-5 font-bold">
+            <p className="!text-sm text-[#333333]">
+              {t("modalEquipos.pAgregados")}
+            </p>
             {infoModal?.option === undefined ? (
-            <div className="container">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm text-left text-black-500">
+              <div className="w-full">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm text-left text-black-500 tableJustify table-fixed">
                     <thead className="rounded h-12 flex bg-[#232B2F] text-xs text-[#F5F5F5] gap-1">
                       <th scope="col" className="py-5 px-6">
                         {t("user.nombre")}
@@ -495,19 +486,24 @@ const MakeTeam = () => {
                     <tbody>
                       <div className="border border-color">
                         <div className="w-full flex justify-center mt-16">
-                          <img src="/assets/Icons/no_agregados.png" alt="noAgregados"/>
+                          <img
+                            src="/assets/Icons/no_agregados.png"
+                            alt="noAgregados"
+                          />
                         </div>
                         <div className="w-full flex justify-center mt-6 text-[#333333] text-sm">
                           <span>{t("modalEquipos.pDeParticipacion")}</span>
                         </div>
                         <div className="w-full flex justify-center mt-2 mb-16">
-                          <p className="text-[#2C2C2C] text-xs font-normal w-7/12 text-center">{t("modalEquipos.lUsuarios")}</p>
+                          <p className="text-[#2C2C2C] text-xs font-normal w-7/12 text-center">
+                            {t("modalEquipos.lUsuarios")}
+                          </p>
                         </div>
                       </div>
                     </tbody>
-                </table>
+                  </table>
+                </div>
               </div>
-            </div>
             ) : (
               <select
                 className="block px-4 py-3 w-full rounded-md bg-gray-100 border-transparent 
@@ -521,7 +517,9 @@ const MakeTeam = () => {
           </div>
 
           <div className="relative justify-items-center grid grid-flow-col mt-8">
-            <button type="cancel" className="btn btn-cancel w-48"
+            <button
+              type="cancel"
+              className="btn btn-cancel w-48"
               onClick={() => {
                 setOpened(false);
               }}
@@ -531,9 +529,7 @@ const MakeTeam = () => {
             <button type="submit" className="btn btn-info w-48">
               {t("modalEquipos.gEquipo")}
             </button>
-            
           </div>
-
         </form>
       );
     }
@@ -646,6 +642,7 @@ const MakeTeam = () => {
     infoModal,
     modifiedValues,
     modal,
+    openParticipants,
   ]);
 
   const tableTeams = useMemo(() => {
@@ -709,36 +706,33 @@ const MakeTeam = () => {
           setModal(0);
         }}
         centered
-        size={modal === 0 ? "50%" : "90%"}
+        size={"100%"}
       >
-        <div className="flex flex-col w-full items-center">
+        <div className="flex flex-col w-1/2 items-center mx-auto">
           <div>
-            <p className="!text-xl font-bold text-center">{t("digipoints.Crear")}</p>
-            <p className="text-[#2C2C2C] text-xs text-center m-4">{t("modalEquipos.cEquiposDeTrabajo")}</p>
+            <p className="!text-xl font-bold text-center">
+              {t("digipoints.Crear")}
+            </p>
+            <p className="text-[#2C2C2C] text-xs text-center m-4">
+              {t("modalEquipos.cEquiposDeTrabajo")}
+            </p>
           </div>
-         {/* <div className="text-sm breadcrumbs">
-            <ul>
-              <li>
-                <a>{t("modalEquipos.informacion")}</a>
-              </li>
-              <li>{t("modalEquipos.porcentajes")}</li>
-            </ul>
-          </div> */}
           {typeModal}
         </div>
-      
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
         <div className="w-full grid grid-cols-3 gap-1 mb-4">
           <div className="relative">
             <div className="absolute flex items-center ml-4 h-full">
-              <img 
+              <img
                 className="mb-3"
                 src="/assets/Icons/search.png"
                 alt="search"
               />
             </div>
-            <input type="text" placeholder="Buscar" 
+            <input
+              type="text"
+              placeholder="Buscar"
               className="px-11 py-3 w-11/12 rounded-full bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
             />
           </div>
@@ -754,10 +748,7 @@ const MakeTeam = () => {
           </div>
           <div className="relative justify-items-center grid grid-flow-col">
             <div className="flex items-center ml-4 h-full gap-1">
-              <img
-                src="/assets/Icons/download.png"
-                alt="search"
-              />
+              <img src="/assets/Icons/download.png" alt="search" />
               <p className="text-[#1473E6] font-semibold cursor-pointer textShadowHTW">
                 {t("digipoints.descargar")}
               </p>
@@ -773,11 +764,11 @@ const MakeTeam = () => {
           </div>
         </div>
         <br></br>
-        <div className="container">
+        <div className="w-full">
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left text-black-500">
               {/* <thead className="text-xs text-black-500 uppercase"> */}
-              <thead className="rounded h-12 flex bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
+              <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5 table-fixed tableJustify">
                 <th scope="col" className="py-5 px-6">
                   {t("tabla.nEquipo")}
                 </th>
