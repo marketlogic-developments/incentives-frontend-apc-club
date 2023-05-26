@@ -1,25 +1,93 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setCompanyUsers } from "../../../store/reducers/users.reducer";
+import UserItemListTeams from "./UserItemListTeams";
 
-const ModalTargetParticipants = () => {
+const ModalTargetParticipants = ({ checkboxes, setCheckboxes }) => {
+  const token = useSelector((state) => state.user.token);
+  const usersCompany = useSelector((state) => state.user.companyUsers);
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+
+  const [searchByEmail, setSearchByEmail] = useState("");
+
+  useEffect(() => {
+    const compOrDist =
+      user.company === null
+        ? {
+            endpoint: "distri-all-users-by-id",
+            byId: user.distributionChannelId,
+          }
+        : { endpoint: "company-all-users-by-id", byId: user.companyId };
+
+    axios
+      .get(
+        `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(({ data }) => {
+        dispatch(setCompanyUsers(data));
+      });
+  }, [token]);
+
   return (
     <div className="w-full p-6 flex flex-col gap-6">
       <div className="flex justify-between items-center">
-        <p className="!text-base font-bold">Participantes</p>
-        <div className="relative flex">
+        <p className="!text-base font-bold">
+          Participantes {checkboxes.length !== 0 && `(${checkboxes.length})`}
+        </p>
+        <div className="relative flex w-1/2">
           <input
-            className="input input-bordered h-auto pl-8 py-2 text-sm font-normal"
+            className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full bg-[]"
             placeholder="Buscar"
             type="text"
+            value={searchByEmail}
+            onChange={(e) => setSearchByEmail(e.target.value)}
           />
           <div className="absolute h-full items-center flex ml-2">
             <AiOutlineSearch color="#eb1000" />
           </div>
         </div>
       </div>
-      <div>
-        <p className="font-bold text-[#1473E6]">Seleccionar todos</p>
-        <div></div>
+      <div className="flex flex-col gap-6">
+        <p
+          className="font-bold text-[#1473E6] cursor-pointer w-fit"
+          onClick={() =>
+            checkboxes.length === 0
+              ? setCheckboxes(usersCompany)
+              : setCheckboxes([])
+          }
+        >
+          Seleccionar todos
+        </p>
+        <div className="flex flex-col gap-4 items-start groupUserTeams">
+          {usersCompany
+            .filter((item) => {
+              if (searchByEmail !== "") {
+                return (
+                  item.email.startsWith(searchByEmail.toLocaleLowerCase()) &&
+                  item.role_id === 5
+                );
+              }
+
+              return item && item.role_id === 5;
+            })
+            .map((data) => (
+              <UserItemListTeams
+                data={data}
+                setCheckboxes={setCheckboxes}
+                checkboxes={checkboxes}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );

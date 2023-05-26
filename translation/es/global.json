@@ -148,7 +148,7 @@
     "delete": "Eliminar",
     "errorNotiTeams": "Hubo un error al momento eliminar tu equipo intentalo más tarde",
     "teamDeleteNoti": "Tu equipo ha sido eliminado",
-    "sDistribuicionDigiPoints":"Selecciona a quién distribuirás la cantidad de digipoints",
+    "sDistribuicionDigiPoints": "Selecciona a quién distribuirás la cantidad de digipoints",
     "aDistribuicion": "Asignar la distribución a",
     "asignacionDigipoints": "¿A quién asignarás estos digipoints?",
     "sOpcionListadoUsuarios": "Selecciona una opción para visualizar el listado de usuarios.",
@@ -276,13 +276,14 @@
     "teamCre": "El equipo ha sido creado exitosamente",
     "aParticipantes": "Agrega participantes",
     "cEquiposDeTrabajo": "Crea un equipo de trabajo y agrega personas",
-    "pAgregados":"Participantes agregados",
+    "pAgregados": "Participantes agregados",
     "pDeParticipacion": "Porcentaje de participación",
     "sParticipantes": "Aún no has agregado participantes",
     "lUsuarios": "Haz clic en el campo 'agrega participantes' para visualizar el listado de usuarios.",
     "gEquipo": "Guardar equipo",
     "cancelar": "Cancelar",
-    "sParticipantesGrupo": "Selecciona participantes para este grupo"
+    "sParticipantesGrupo": "Selecciona tus participantes para este grupo",
+    "sParticipantesGrupo2": "participantes seleccionados"
   },
   "user": {
     "ajustesdeperfil": "Ajustes de perfil",

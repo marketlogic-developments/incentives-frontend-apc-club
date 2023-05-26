@@ -260,7 +260,17 @@
     "guardar": "Salvar alterações",
     "suma": "A soma das porcentagens deve ser equivalente a 100%",
     "lista": "Este participante já está na lista",
-    "teamCre": "A equipe foi criada com sucesso"
+    "teamCre": "A equipe foi criada com sucesso",
+    "aParticipantes": "Adicionar participantes",
+    "cEquiposDeTrabajo": "Crie uma equipe de trabalho e adicione pessoas",
+    "pAgregados": "Participantes adicionados",
+    "pDeParticipacion": "Percentual de participação",
+    "sParticipantes": "Você ainda não adicionou participantes",
+    "lUsuarios": "Clique no campo 'adicionar participantes' para visualizar a lista de usuários.",
+    "gEquipo": "Salvar equipe",
+    "cancelar": "Cancelar",
+    "sParticipantesGrupo": "Selecione seus participantes para este grupo",
+    "sParticipantesGrupo2": "participantes selecionados"
   },
   "user": {
     "ajustesdeperfil": "Ajustes do perfil",
