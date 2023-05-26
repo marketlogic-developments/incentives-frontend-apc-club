@@ -299,11 +299,15 @@
     "ticketZoho": "Sua solicitação foi recebida. Responderemos em breve. Obrigado/a!"
   },
   "htw": {
-    "copyCanal": "Alinhe-se às prioridades do <strong>FY23</strong> e acumule mais DigiPoints, <strong>migrando, renovando e vendendo através do Market Place.</strong><br/> Agora todas as vendas de <strong>CC</strong> e <strong>DC</strong>, tanto em renovações quanto em novos negócios, ganham igualmente no MP.<br/> Sua oportunidade de <strong>GANHAR</strong> mais é hoje, combinando as melhores estratégias de renovação, retenção e crescimento. </br></br> Veja a tabela completa de atribuição de DigiPoints:",
+    "copyCanal": "Alinhe-se às prioridades do <strong>FY23</strong> e acumule mais DigiPoints, <strong>migrando, renovando e vendendo através do Marketplace.</strong><br/> Agora todas as vendas de <strong>Creative Cloud</strong> e <strong>Document Cloud</strong>, tanto em renovações quanto em novos negócios, ganham igualmente no Marketplace.<br/> Sua oportunidade de <strong>GANHAR</strong> mais é hoje, combinando as melhores estratégias de renovação, retenção e crescimento. </br></br> Veja a tabela completa de atribuição de DigiPoints:",
     "copyDist": "Anime-se para atingir as metas do <strong>FY23</strong> e acumular mais DigiPoints apoiando a gestão das suas <strong>Revendas Gold</strong>, com todas as vendas dos produtos participantes da marca <strong>Adobe</strong>. Durante este novo período, você acumulará pontos da seguinte forma: <strong>Ganhe 10 DigiPoints</strong> para cada <strong>US $1,000 FOB</strong>, em vendas das <strong>Revendas GOLD</strong> de qualquer licença de produto participante, com Renovações e Novos Negócios. </br></br> Veja a tabela completa de atribuição de DigiPoints:",
     "pathTableCanal": "assets/htw/tablaHTWCanalesPor.webp",
     "pathTableDist": "assets/htw/tablaHTWDistPor.webp",
     "pathBanner": "/assets/htw/bannerHTWsectionPor.webp",
     "copyTextFooter": "Venda, Ganhe e Resgate!"
+  },
+  "releases": {
+    "vip": "Por que usar o VIP Marketplace?",
+    "htw": "Saiba como ganhar"
   }
 }

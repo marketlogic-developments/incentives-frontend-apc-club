@@ -58,7 +58,7 @@ const CardShoppingCard = ({ info, arrProducts, setProducts }) => {
           <div>
             <p className="text-3xl font-semibold">{info.name}</p>
             <p className="text-sm">
-              {` ${t("shoopingcar.valorde")} ${info.description}${info.price}`}
+              {` ${t("shoopingcar.valorde")} $${info.price}`}
             </p>
           </div>
           <div className="flex flex-col self-center gap-4">

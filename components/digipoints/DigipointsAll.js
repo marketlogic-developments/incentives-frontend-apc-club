@@ -15,6 +15,9 @@ import {
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
+import jsonexport from "jsonexport";
+import { saveAs } from "file-saver";
+
 const DigipointsAll = () => {
   const [opened, setOpened] = useState(false);
   const [t, i18n] = useTranslation("global");
@@ -349,10 +352,13 @@ const DigipointsAll = () => {
                 ORGANIZACION
               </th>
               <th scope="col" className="py-3 px-6">
-                ID ORG
+                ORGANIZACION ID
               </th>
               <th scope="col" className="py-3 px-6">
                 Digipoints
+              </th>
+              <th scope="col" className="py-3 px-6">
+              Total Sales US
               </th>
               <th scope="col" className="py-3 px-6">
                 Estado
@@ -371,6 +377,9 @@ const DigipointsAll = () => {
                   <td className="py-4 px-6">{obj?.company_or_channel_name}</td>
                   <td className="py-4 px-6">{obj?.company_or_channel_id}</td>
                   <td className="py-4 px-6">{obj?.digipoints_allocate}</td>
+                  <td className="py-4 px-2">
+                    ${parseFloat(obj?.invoice_amount).toFixed(2)}
+                  </td>
                   <td className="py-4 px-6">
                     {obj.status === false ? (
                       <span
@@ -417,6 +426,21 @@ const DigipointsAll = () => {
     const newOffset = (event.selected * itemsPerPage) % filteredUsers.length;
 
     setItemOffset(newOffset);
+  };
+  const importFile = (data) => {
+    // const workbook = XLSX.utils.book_new();
+    // const sheet = XLSX.utils.json_to_sheet(data);
+    // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
+    // XLSX.writeFile(workbook, "Puntos_Por_Ventas.xlsx");
+
+    jsonexport(data, (error, csv) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "Puntos_por_ventas.csv");
+    });
   };
 
   return (

@@ -101,7 +101,10 @@
   },
   "adobeMarket": {
     "estado": "Ver el estado de tus premios",
-    "carrito": "Agregar al carrito"
+    "carrito": "Agregar al carrito",
+    "visaDescription": "Con la tarjeta digital recargable Visa, podrás hacer compras por Internet (comercio electrónico), permite uso internacional, transferencias entre Tarjetas OnlyPay o cuentas bancarias, pago de facturas y recargas del teléfono celular. Una vez que sea auditada y aprobada tu solicitud de premio, recibirás un correo electrónico para que realices el trámite de registro y desbloquees tu Tarjeta Virtual, de esta manera podrás verificar el saldo de la tarjeta y revisar el extracto de tu cuenta y fecha de expiración, la cual es <strong>24 meses</strong>. La tarjeta será recargada en moneda local y el valor dependerá a la variación del tipo de cambio del dólar a la fecha de solicitud. Para más información, por favor revisa los Términos y Condiciones del programa.",
+    "masterCardDescription": "Recibirás un correo electrónico con un código virtual. Solo tendrás <strong>90 DÍAS para activarlo</strong>. Deberás ingresar a https://www.myprepaidcenter.com/redeem y crear un perfil. Una vez hayas finalizado este proceso se te asignará una tarjeta debito virtual Mastercard de <strong>16 dígitos</strong>, con su respectivo código de verificación. Con esta tarjeta solo podrás realizar <strong>compras en tiendas virtuales</strong>. No olvides agregar la tarjeta a tu perfil. De esta manera podrás revisar los datos cómo el balance y fecha de expiración de tu premio, la cual es de <strong>6 MESES</strong>.",
+    "cencosudDescription": "Con la tarjeta digital recargable Cenconsud, puedes hacer compras en tiendas y locales Jumbo, Paris, Paris.cl, Easy y Santa Isabel a lo largo de Chile. Una vez que sea aprobado y auditado tu solicitud de premio, recibirás un correo  electrónico, el cual podrás imprimir o mostrar desde tu celular al momento de realizar la compra. Esta Gift Card tiene una vigencia de <strong>12 Meses</strong> para su uso y es normativa, lo que significa que puede ser utilizada solamente por el titular de la cuenta. No válida para uso en Easy.cl y Jumbo.cl. Para consultar tu saldo, ingresa a www.giftcard.cl, con el número tarjeta y clave impresos en el cupón. Para más información, por favor revisa los T&C del programa."
   },
   "organizacion": {
     "redenciones": "Redenciones",
@@ -297,11 +300,15 @@
     "ticketZoho": "Tu solicitud fue recibida. Te responderemos pronto. ¡Gracias!"
   },
   "htw": {
-    "copyCanal": "Alíneate a las prioridades del <strong> FY23 </strong> y acumula más DigiPoints <strong> migrando, renovando y vendiendo a través del Market Place.</strong> <br /> Ahora todas las ventas de <strong>CC</strong> y <strong>DC</strong>, tanto en renovaciones como nuevos negocios, ganan por igual en MP. <br /> Tu oportunidad de <strong>GANAR</strong> más es hoy, combinando las mejores estrategias de renovación, retención y crecimiento. <br/><br/> Conoce la tabla completa de asignación de DigiPoints:",
+    "copyCanal": "Alíneate a las prioridades del <strong> FY23 </strong> y acumula más DigiPoints <strong> migrando, renovando y vendiendo a través del Marketplace.</strong> <br /> Ahora todas las ventas de <strong>Creative Cloud</strong> y <strong>Document Cloud</strong>, tanto en renovaciones como nuevos negocios, ganan por igual en Marketplace. <br /> Tu oportunidad de <strong>GANAR</strong> más es hoy, combinando las mejores estrategias de renovación, retención y crecimiento. <br/><br/> Conoce la tabla completa de asignación de DigiPoints:",
     "copyDist": "Anímate a cumplir las metas del <strong>FY23</strong> y acumula más DigiPoints apoyando la gestión de <strong>tus canales Gold</strong>, con todas las ventas de los productos participantes de la marca <strong>Adobe</strong>. Durante este nuevo periodo, acumularás puntos de la siguiente manera: <strong>Gana 10 DigiPoints</strong> por cada <strong>$1,000 USD FOB,</strong> en ventas de <strong>canales GOLD</strong> de cualquier licencia de productos participantes, con Renovaciones y Nuevos Negocios. <br/><br/> Conoce la tabla completa de asignación de DigiPoints:",
     "pathTableCanal": "assets/htw/tablaHTW.webp",
     "pathTableDist": "assets/htw/tablaHTWDist.webp",
     "pathBanner": "assets/htw/bannerHTWsection.webp",
     "copyTextFooter": "¡Vende, Gana y Redime!"
+  },
+  "releases": {
+    "vip": "¿Por qué utilizar VIP Marketplace?",
+    "htw": "Cónoce como ganar"
   }
 }
