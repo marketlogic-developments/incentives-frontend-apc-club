@@ -524,25 +524,35 @@ export default function Home() {
               alt="Principal-Adobe-Logo"
             />
           </figure>
-          <figure>
-            <img
-              src="assets/login/pcc.webp"
-              className="max-w-[400px] max-sm:m-auto"
-              alt="10years-Logo"
-            />
-          </figure>
-        </div>
-        <div className="container flex flex-col justify-center items-center w-full max-w-full relative my-auto">
-          <div className="flex items-center max-sm:justify-start max-sm:flex-col justify-end max-sm:w-full h-[90%] containerLogin">
-            <LoginTarget
-              handleSubmit={handleSubmit}
-              viewLogin={viewLogin}
-              setViewLogin={setViewLogin}
-              setEmail={setEmail}
-              setPassword={setPassword}
-              setRegister={setRegister}
-            />
+          <div className="flex gap-6 mr-6 items-center">
+            <figure>
+              <img
+                src="assets/login/pcc.webp"
+                className="max-w-[400px] max-sm:m-auto ml-auto"
+                alt="10years-Logo"
+              />
+            </figure>
+            <select
+              className="select w-1/3 text-secondary lg:select-sm 2xl:select-md !h-[90%]"
+              onChange={(e) => {
+                i18n.changeLanguage(e.target.value);
+              }}
+              value={i18n.resolvedLanguage}
+            >
+              <option value="es">Español</option>
+              <option value="por">Português</option>
+            </select>
           </div>
+        </div>
+        <div className="container flex flex-col justify-center items-end w-full max-w-full relative my-auto h-3/4">
+          <LoginTarget
+            handleSubmit={handleSubmit}
+            viewLogin={viewLogin}
+            setViewLogin={setViewLogin}
+            setEmail={setEmail}
+            setPassword={setPassword}
+            setRegister={setRegister}
+          />
         </div>
         <figure className="absolute w-full z-[-1] opacity-25">
           <img src="/assets/login/bbapc.webp" className="w-full h-full"></img>

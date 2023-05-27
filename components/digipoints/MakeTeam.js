@@ -160,7 +160,7 @@ const MakeTeam = () => {
       return info;
     });
 
-    jsonexport(teams, (error, csv) => {
+    jsonexport(data, (error, csv) => {
       if (error) {
         console.error(error);
         return;

@@ -14,10 +14,10 @@ const LoginTarget = ({
 
   return (
     <div
-      className="card w-[45%] text-primary-content bg-white !rounded-lg"
+      className="card w-[35%] text-primary-content bg-white !rounded-lg mr-[10%] h-full"
       id="cardLogin"
     >
-      <div className="flex flex-col items-center lg:gap-6 xl:gap-3 max-sm:justify-center flex px-10 lg:py-20 xl:py-16 max-sm:px-5 internalCard">
+      <div className="flex flex-col items-center lg:gap-6 xl:gap-3 max-sm:justify-center flex px-10 lg:py-20 xl:py-12 max-sm:px-5 internalCard my-auto">
         <div className="w-full">
           <div className="flex flex-col lg:gap-6 xl:gap-3">
             <figure id="apcLogo">
