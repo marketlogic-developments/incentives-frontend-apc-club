@@ -54,7 +54,8 @@
     "Carga_de_Ventas": "Carga de vendas",
     "Adobe Market": "Adobe Market",
     "salir": "Sair",
-    "catalogo": "Catálogo de prêmios"
+    "catalogo": "Catálogo de prêmios",
+    "vercatalogo": "Ver catálogo de prêmios"
   },
   "dashboard": {
     "Estado_de_la_Meta": "Status da Meta",
@@ -88,7 +89,12 @@
     "pdfComp": "assets/pdf/HTWPor.pdf",
     "titleTickets": "Precisa de ajuda? Entre em contato conosco agora!",
     "descripcionTickets": "Preencha nosso formulário de solicitações de clientes e receba ajuda de nossos especialistas para resolver seus problemas on-line. Deixe-nos ajudá-lo hoje mesmo!",
-    "licencias": "Licenças"
+    "licencias": "Licenças",
+    "Alcanzado": "Alcançado",
+    "rankingsininfo": "Ainda não há informações disponíveis",
+    "motivarankingsininfo": "Motive seus representantes de vendas a obterem DigiPoints e resgatá-los.",
+    "motivalargorankingsininfo": "Venda com paixão e lidere no ranking!"
+
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",

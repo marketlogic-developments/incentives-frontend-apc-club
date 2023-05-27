@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
+  const [t, i18n] = useTranslation("global");
   return (
     <div className="flex flex-col w-full p-6 gap-6 targetDashboard">
       <div className="flex justify-between">
@@ -37,7 +39,7 @@ const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
           className="customLi lg:!text-xs xl:!text-base"
           style={{ "--colorBg": "#2799F6" }}
         >
-          Alcanzado
+          {t("dashboard.Alcanzado")}
         </li>
         <li
           className="customLi lg:!text-xs xl:!text-base"

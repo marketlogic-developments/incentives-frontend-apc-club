@@ -1048,7 +1048,7 @@ const Layout = ({ children }) => {
                       </div>
                     </div>
                     {menuUser && (
-                      <UserOptions user={userRedux} logout={logout} />
+                      <UserOptions user={userRedux} logout={logout} menuUser={menuUser} setMenuUser={setMenuUser} />
                     )}
                   </div>
                 </div>
