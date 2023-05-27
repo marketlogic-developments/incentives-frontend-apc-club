@@ -68,9 +68,6 @@ const asignarventas = () => {
     <>
       <ContainerContent pageTitle={"Carga de Ventas"}>
         <div className="m-6 flex flex-col gap-16">
-          <div className="flex flex-col gap-5">
-            <h1 className="font-bold text-3xl">Asignar Puntos</h1>
-          </div>
           <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
             <div>
               <div className="relative">

@@ -40,7 +40,7 @@ const MenuAPC = ({
       >
         <div
           className={`${
-            window.location.pathname === page
+            window.location.pathname === page && subsections === undefined
               ? "itemLayoutSelect"
               : "itemLayout"
           } ${collapse && "justify-center"}`}

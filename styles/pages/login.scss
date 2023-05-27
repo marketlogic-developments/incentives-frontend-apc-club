@@ -13,7 +13,8 @@
 }
 
 .mainIndex {
-  background-image: url(../../public/assets/login/bbapc.webp);
+  // background-image: url(../../public/assets/login/bbapc.webp);
+  background-color: #eb1000;
   background-repeat: round;
   max-width: 100%;
 
@@ -21,6 +22,10 @@
   @media (max-width: 767px) {
     background-size: cover !important;
     background-repeat: inherit !important;
+  }
+
+  .containerLogin {
+    width: 80%;
   }
 
   @include desktop-xl {
@@ -34,12 +39,6 @@
     }
 
     .containerLogin {
-      width: 80%;
-
-      @media (max-width: 767px) {
-        width: 100%;
-      }
-
       .containerCard {
         width: 60%;
 
@@ -47,28 +46,10 @@
           width: 90%;
         }
       }
-
-      #cardLogin {
-        width: 100%;
-      }
-
-      .internalCard {
-        padding: 1rem 2rem 1rem 2rem;
-
-        @include desktop-l {
-          padding: 0.8rem 3rem;
-        }
-      }
     }
 
     #apcLogo {
-      width: 80%;
-
       .logoAPC {
-        @include desktop-xl {
-          width: 80%;
-        }
-
         @media (max-width: 767px) {
           width: 150px;
         }

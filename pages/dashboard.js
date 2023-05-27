@@ -1,11 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Carousel } from "@mantine/carousel";
-import { useRef } from "react";
-import Graph from "../components/dashboard/graph";
 import ContainerContent from "../components/containerContent";
-import RankingTable from "../components/dashboard/rankingTable";
 import { useDispatch, useSelector } from "react-redux";
-import Podio from "../components/dashboard/podio";
 import { Modal } from "@mantine/core";
 import axios from "axios";
 import {
@@ -15,7 +10,6 @@ import {
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import GraphSales from "../components/dashboard/graphSales";
-import GraphProm from "../components/dashboard/graphProm";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 import {
@@ -27,12 +21,12 @@ import {
 import TableStats from "../components/dashboard/TableStats";
 import BannerColombia from "../components/dashboard/BannerColombia";
 import CarouselBanners from "../components/dashboard/carouselBanners";
+import TableTopsRanking from "../components/dashboard/TableTopsRanking";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
-  const company = useSelector((state) => state.user.company);
-  const distribuitor = useSelector((state) => state.user.distribuitor);
+  const ranking = useSelector((state) => state.user.ranking);
   const [opened, setOpened] = useState(false);
   const [opened2, setOpened2] = useState(false);
   const [view, setView] = useState("password");
@@ -40,8 +34,6 @@ const dashboard = () => {
   const route = useRouter();
   const [t, i18n] = useTranslation("global");
   const [modalType, setModalType] = useState([]);
-
-  const [participantes, setParticipantes] = useState([]);
 
   useEffect(() => {
     redirection();
@@ -104,36 +96,6 @@ const dashboard = () => {
         });
       });
   };
-
-  useEffect(() => {
-    const compOrDist =
-      user.company === null
-        ? {
-            endpoint: "digipoints-redeem-status-all-distri",
-            byId: distribuitor.id,
-          }
-        : {
-            endpoint: "digipoints-redeem-status-all-compa",
-            byId: company.id,
-          };
-
-    if (token) {
-      axios
-        .get(
-          `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then(({ data }) => {
-          setParticipantes(data);
-        });
-    }
-  }, [token]);
 
   const [passwordMatch, setPasswordMatch] = useState(""); // passwords match
   // booleans for password validations
@@ -306,13 +268,6 @@ const dashboard = () => {
         </div>
       );
     }
-
-    if (modalType === 1) {
-      return <RankingTable participantes={participantes} />;
-    }
-    if (modalType === 2) {
-      return <GraphProm />;
-    }
   }, [
     modalType,
     view,
@@ -381,43 +336,10 @@ const dashboard = () => {
         <div className="m-6 flex flex-col gap-10 ">
           <CarouselBanners />
           <hr color="red" />
-          <div className="gap-10 flex flex-col h-full">
+          <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
-            <Carousel
-              sx={{ width: "100%", height: "100%" }}
-              mx="auto"
-              withIndicators={false}
-              //Delete with COntrols
-              withControls={false}
-              controlSize={40}
-              draggable={false}
-              height={260}
-            >
-              {user?.user?.roleId == 3 ? (
-                <Carousel.Slide>
-                  <GraphSales />
-                </Carousel.Slide>
-              ) : (
-                <>
-                  <Carousel.Slide>
-                    <GraphSales />
-                  </Carousel.Slide>
-                  {/* <Carousel.Slide>
-                  <Graph />
-                </Carousel.Slide> */}
-                </>
-              )}
-            </Carousel>
-            <div className="w-full flex justify-center mb-5">
-              {user?.roleId !== 2 && (
-                <button
-                  className="btn btn-primary btn-wide"
-                  onClick={() => route.push("/catalogo")}
-                >
-                  {t("dashboard.redimir")}
-                </button>
-              )}
-            </div>
+            <GraphSales />
+            <TableTopsRanking />
           </div>
         </div>
       </ContainerContent>

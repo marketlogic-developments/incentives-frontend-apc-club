@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const DigiPointsCard = ({ digipoints }) => {
+  const [t, i18n] = useTranslation("global");
   const router = useRouter();
   return (
     <div className="flex px-3 py-3.5 bg-base-100 border-[1px] border-[#E0E0E0] rounded-[10px] w-full">
@@ -38,7 +40,7 @@ const DigiPointsCard = ({ digipoints }) => {
                 : 0}
             </p>
             <p className="text-[9.5px] 2xl:text-xs whitespace-nowrap">
-              DigiPoints acumulados
+              {t("dashboard.dpObtenidos")}
             </p>
           </div>
         </div>
@@ -48,7 +50,7 @@ const DigiPointsCard = ({ digipoints }) => {
             router.push("/catalogo");
           }}
         >
-          Ver catálogo de premios
+          {t("menu.vercatalogo")}
         </button>
       </div>
     </div>
