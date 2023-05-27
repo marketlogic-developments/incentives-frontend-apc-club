@@ -377,3 +377,11 @@
   background-color: white;
   color: black;
 }
+.mantine-UnstyledButton-root {
+  color: #000 !important;
+}
+.datepickerInput{
+  input{
+    @apply input input-ghost w-full bg-[#F4F4F4];
+  }
+}
