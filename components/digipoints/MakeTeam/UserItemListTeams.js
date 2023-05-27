@@ -1,6 +1,12 @@
 import React from "react";
 
-const UserItemListTeams = ({ data, setCheckboxes, checkboxes }) => {
+const UserItemListTeams = ({
+  data,
+  setCheckboxes,
+  checkboxes,
+  modifiedValues,
+  setModifiedValues,
+}) => {
   function handleCheckboxChange(data) {
     setCheckboxes((prevCheckboxes) => {
       if (prevCheckboxes.map(({ id }) => id).includes(data.id)) {
@@ -9,6 +15,21 @@ const UserItemListTeams = ({ data, setCheckboxes, checkboxes }) => {
       } else {
         // Si el checkbox no estaba seleccionado, se agrega al estado
         return [...prevCheckboxes, { ...data, percentage: 0 }];
+      }
+    });
+    setModifiedValues((prevModifiedValues) => {
+      if (
+        prevModifiedValues.map(({ memberId }) => memberId).includes(data.id)
+      ) {
+        console.log(data.id);
+        // Si el checkbox ya estaba seleccionado, se remueve del estado
+        return prevModifiedValues.filter(
+          ({ memberId }) => memberId !== data.id
+        );
+      } else {
+        console.log("b");
+        // Si el checkbox no estaba seleccionado, se agrega al estado
+        return [...prevModifiedValues, { memberId: data.id, percentage: 0 }];
       }
     });
   }

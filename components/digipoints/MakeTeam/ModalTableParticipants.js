@@ -1,29 +1,17 @@
 import { useTranslation } from "react-i18next";
 import { AiFillInfoCircle, AiFillDelete } from "react-icons/ai";
 
-const ModalTableParticipants = ({ dataUsers }) => {
+const ModalTableParticipants = ({ dataUsers, handleInputChange }) => {
   const [t, i18n] = useTranslation("global");
-
-  function handleInputChange(e, id) {
-    const { value } = e.target;
-    const existingIndex = modifiedValues.findIndex((obj) => obj.id === id);
-    if (existingIndex !== -1) {
-      const newValues = [...modifiedValues];
-      newValues[existingIndex] = { id, percentage: Number(value) };
-      setModifiedValues(newValues);
-    } else {
-      setModifiedValues((prevState) => [
-        ...prevState,
-        { id, percentage: Number(value) },
-      ]);
-    }
-  }
 
   return (
     <div className="w-full">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm text-left text-black-500 tableJustify table-fixed">
-          <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-1">
+        <table
+          className="w-full text-sm text-left text-black-500 tableJustify table-fixed overflow-hidden"
+          style={{ borderRadius: "10px" }}
+        >
+          <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-1 ">
             <th scope="col" className="py-5 px-6">
               {t("user.nombre")}
             </th>
@@ -58,7 +46,12 @@ const ModalTableParticipants = ({ dataUsers }) => {
                   <td className="py-3">
                     <input
                       type="number"
-                      className="input input-bordered input-xs w-1/3 text-center"
+                      className={`"input input-info ${
+                        index % 2 === 0 ? "bg-[#F5F5F5]" : "bg-white"
+                      } input-xs w-1/4 text-center overflow-hidden"`}
+                      style={{ borderRadius: "5px" }}
+                      defaultValue={item.percentage}
+                      onChange={(e) => handleInputChange(e, item.id)}
                     />
                   </td>
                   <td>

@@ -4,9 +4,16 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setCompanyUsers } from "../../../store/reducers/users.reducer";
 import UserItemListTeams from "./UserItemListTeams";
+import { useTranslation } from "react-i18next";
 
-const ModalTargetParticipants = ({ checkboxes, setCheckboxes }) => {
+const ModalTargetParticipants = ({
+  checkboxes,
+  setCheckboxes,
+  setModifiedValues,
+  modifiedValues,
+}) => {
   const token = useSelector((state) => state.user.token);
+  const [t, i18n] = useTranslation("global");
   const usersCompany = useSelector((state) => state.user.companyUsers);
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
@@ -66,7 +73,7 @@ const ModalTargetParticipants = ({ checkboxes, setCheckboxes }) => {
               : setCheckboxes([])
           }
         >
-          Seleccionar todos
+          {t("modalEquipos.select")} todos
         </p>
         <div className="flex flex-col gap-4 items-start groupUserTeams">
           {usersCompany
@@ -85,6 +92,8 @@ const ModalTargetParticipants = ({ checkboxes, setCheckboxes }) => {
                 data={data}
                 setCheckboxes={setCheckboxes}
                 checkboxes={checkboxes}
+                setModifiedValues={setModifiedValues}
+                modifiedValues={modifiedValues}
               />
             ))}
         </div>

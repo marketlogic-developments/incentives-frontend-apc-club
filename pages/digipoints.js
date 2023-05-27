@@ -25,29 +25,6 @@ const digipoints = () => {
   const [selectDate, setSelectDate] = useState("");
   const [page, setPage] = useState(0);
 
-  useEffect(() => {
-    if (user.roleId === 3) {
-      setPage(1);
-    }
-
-    if ([1, 2, 3].includes(user?.roleId)) {
-      axios
-        .get(
-          `${process.env.BACKURL}/reporters/all-users-by-groupname-where-id/${user.id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then(({ data }) => {
-          if (data.length !== 0) dispatch(getAllTeams(data));
-        });
-    }
-  }, [token]);
-
   // const search = useMemo(() => {
   //   const newData = datosdummy.map((data) => ({
   //     ...data,

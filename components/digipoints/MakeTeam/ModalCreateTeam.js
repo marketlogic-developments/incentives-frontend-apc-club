@@ -2,15 +2,53 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ModalTargetParticipants from "./ModalTargetParticipants";
 import ModalTableParticipants from "./ModalTableParticipants";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { changeLoadingData } from "../../../store/reducers/loading.reducer";
+import { teamsPush, teamsUpdate } from "../../../store/reducers/teams.reducer";
 
-const ModalCreateTeam = ({ infoModal, setInfoModal }) => {
+const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
   const [t, i18n] = useTranslation("global");
+  const teams = useSelector((state) => state.teams.teams);
+  const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user.user);
   const [openParticipants, setOpenParticipants] = useState({
     component: false,
     openEnter: false,
   });
   const [checkboxes, setCheckboxes] = useState([]);
+  const [modifiedValues, setModifiedValues] = useState([]);
   const componenteRef = useRef(null);
+  const dispatch = useDispatch();
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  useEffect(() => {
+    if (infoModal?.id !== undefined) {
+      setModifiedValues(
+        infoModal.PartnerAdminGroupD.map(({ memberId, percentage }) => ({
+          memberId,
+          percentage,
+        }))
+      );
+      setCheckboxes(
+        infoModal.PartnerAdminGroupD.map(({ member, percentage }) => ({
+          ...member,
+          percentage,
+        }))
+      );
+    }
+  }, []);
 
   useEffect(() => {
     const handleClickFuera = (event) => {
@@ -37,32 +75,132 @@ const ModalCreateTeam = ({ infoModal, setInfoModal }) => {
     });
   };
 
-  const verifyUserInToTable = (data) => {
-    const dataModalFilter = dataModal.map(({ email }) => email);
+  function handleInputChange(e, id) {
+    const { value } = e.target;
+    const existingIndex = modifiedValues.findIndex(
+      (obj) => obj.memberId === id
+    );
+    if (existingIndex !== -1) {
+      const newValues = [...modifiedValues];
+      newValues[existingIndex] = { memberId: id, percentage: Number(value) };
+      setModifiedValues(newValues);
+    } else {
+      setModifiedValues((prevState) => [
+        ...prevState,
+        { memberId: id, percentage: Number(value) },
+      ]);
+    }
+  }
 
-    if (dataModalFilter.includes(data.email)) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
+  function handleSaveChanges(event) {
+    event.preventDefault();
 
+    // calculatePercentage function defines if the result of the sum of the inputs is equal to 100
+    const calculatePercentage = modifiedValues
+      .map(({ percentage }) => percentage)
+      .reduce((prev, counter) => prev + counter);
+
+    if (calculatePercentage > 100 || calculatePercentage < 100) {
       return Toast.fire({
         icon: "error",
-        title: t("modalEquipos.lista"),
+        title: t("modalEquipos.suma"),
       });
-    } else {
-      setSearchByEmail("");
-      setListUsers(false);
-      setDataModal([...dataModal, { ...data, percentage: 0 }]);
     }
-  };
+
+    //Function updates the teams if the team has an id
+
+    if (infoModal?.id !== undefined) {
+      const teamUpdate = {
+        nameGroup: infoModal.nameGroup,
+        description: infoModal.description,
+        partnerAdminId: user.id,
+        PartnerAdminGroupD: {
+          members: modifiedValues,
+        },
+      };
+
+      axios
+        .patch(
+          `${process.env.BACKURL}/partner-admin-group-headers/${infoModal.id}`,
+          teamUpdate,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          const update = teams.filter(({ id }) => id !== infoModal?.id);
+
+          dispatch(
+            teamsUpdate([
+              ...update,
+              {
+                id: infoModal.id,
+                name_group: infoModal.nameGroup,
+                description: infoModal.description,
+                partner_admin_id: user.id,
+                created_at: infoModal.CreatedAt,
+                total_users: modifiedValues.length,
+              },
+            ])
+          );
+
+          setModifiedValues([]);
+          setInfoModal({});
+          return setOpened(false);
+        });
+    }
+
+    //Function makes a team if the team doesn't have an id
+
+    if (infoModal?.id === undefined) {
+      dispatch(changeLoadingData(true));
+
+      axios
+        .post(
+          `${process.env.BACKURL}/partner-admin-group-headers`,
+          {
+            nameGroup: event.target[0].value,
+            description: event.target[1].value,
+            partnerAdminId: user.id,
+            PartnerAdminGroupD: {
+              members: modifiedValues,
+            },
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          dispatch(
+            teamsPush({
+              ...data,
+              total_users: data.PartnerAdminGroupD.length,
+              name_group: data.nameGroup,
+            })
+          );
+          Toast.fire({
+            icon: "success",
+            title: t("modalEquipos.teamCre"),
+          });
+          return setOpened(false);
+        })
+        .catch((e) =>
+          Toast.fire({
+            icon: "error",
+            title: e,
+          })
+        )
+        .finally(() => dispatch(changeLoadingData(false)));
+    }
+  }
 
   return (
     <div>
@@ -78,7 +216,7 @@ const ModalCreateTeam = ({ infoModal, setInfoModal }) => {
         <form
           className="flex flex-col gap-5 p-10 w-full"
           autoComplete="off"
-          onSubmit={(e) => handleButtonNext(e)}
+          onSubmit={handleSaveChanges}
         >
           <div className="flex flex-col gap-5 font-bold">
             <p className="!text-xs text-[#333333]">
@@ -96,7 +234,8 @@ const ModalCreateTeam = ({ infoModal, setInfoModal }) => {
               />
             ) : (
               <input
-                className="input input-primary"
+                className="input rounded-md bg-gray-100 focus:border-gray-500 focus:bg-white 
+                focus:ring-0 text-xs text-[#828282]"
                 type="text"
                 placeholder={t("modalEquipos.nequipo")}
                 required
@@ -123,7 +262,8 @@ const ModalCreateTeam = ({ infoModal, setInfoModal }) => {
               />
             ) : (
               <textarea
-                className="textarea textarea-lg textarea-primary text-xs"
+                className="textarea textarea-lg rounded-md bg-gray-100 text-[#828282] 
+                  focus:border-gray-500 focus:bg-white focus:ring-0 text-xs"
                 type="text"
                 placeholder={t("modalEquipos.dEquipo")}
                 required
@@ -171,6 +311,8 @@ const ModalCreateTeam = ({ infoModal, setInfoModal }) => {
                 <ModalTargetParticipants
                   checkboxes={checkboxes}
                   setCheckboxes={setCheckboxes}
+                  modifiedValues={modifiedValues}
+                  setModifiedValues={setModifiedValues}
                 />
               )}
             </div>
@@ -181,7 +323,10 @@ const ModalCreateTeam = ({ infoModal, setInfoModal }) => {
               <p className="!text-sm text-[#333333]">
                 {t("modalEquipos.pAgregados")}
               </p>
-              <ModalTableParticipants dataUsers={checkboxes} />
+              <ModalTableParticipants
+                dataUsers={checkboxes}
+                handleInputChange={handleInputChange}
+              />
             </div>
           )}
 
