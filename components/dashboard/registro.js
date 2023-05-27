@@ -118,8 +118,8 @@ const Registro = ({ close, register }) => {
             <div className="w-full">
               <div className="flex justify-between max-sm:text-center max-sm:justify-center card-login">
                 <h1
-                  className="card-title text-black font-bold max-sm:text-center py-5 w-full justify-center"
-                  style={{ color: "#00405d", fontSize: "2.00rem" }}
+                  className="card-title font-bold max-sm:text-center py-5 w-full justify-center text-info"
+                  style={{ fontSize: "2.00rem" }}
                 >
                   Regístrate
                 </h1>
@@ -194,7 +194,7 @@ const Registro = ({ close, register }) => {
                   </label>
                 </div>
 
-                <button className="btn btn-secondary w-full" type="submit">
+                <button className="btn btn-info w-full" type="submit">
                   Enviar
                 </button>
               </form>

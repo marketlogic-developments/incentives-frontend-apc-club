@@ -198,9 +198,6 @@ const reportTyC = () => {
     <>
       <ContainerContent pageTitle={"Importaciones"}>
         <div className="m-6 flex flex-col gap-20">
-          <div className="flex flex-col gap-5">
-            <h1 className="font-bold text-3xl">Importaciones</h1>
-          </div>
           <div className="grid grid-cols-2 place-items-center">
             <p
               className={`p-3 w-full text-center ${

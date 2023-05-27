@@ -2,15 +2,20 @@ import React from "react";
 import UserRanking from "./userRanking";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
+import { setRanking } from "../../../store/reducers/users.reducer";
+import NoDataRanking from "./NoDataRanking";
 
 const RankingTable = () => {
   const [t, i18n] = useTranslation("global");
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
-  const [participantes, setParticipantes] = useState([]);
+  const ranking = useSelector((state) => state.user.ranking);
+  const dispatch = useDispatch();
+  const month = new Date().getMonth();
+  const year = new Date().getFullYear();
 
   const Months = [
     t("meses.enero"),
@@ -33,12 +38,10 @@ const RankingTable = () => {
         ? {
             endpoint: "digipoints-redeem-status-all-distri",
             byId: user.distribuitorChannelId,
-            endpointUsers: "distri-all-users-by-id",
           }
         : {
             endpoint: "digipoints-redeem-status-all-compa",
             byId: user.companyId,
-            endpointUsers: "company-all-users-by-id",
           };
 
     if (token) {
@@ -53,38 +56,24 @@ const RankingTable = () => {
             },
           }
         )
-        .then(({ data }) => {
-          if (data.length === 0) {
-            return axios
-              .get(
-                `${process.env.BACKURL}/reporters/${compOrDist.endpointUsers}/${compOrDist.byId}`,
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                    Authorization: `Bearer ${token}`,
-                  },
-                }
-              )
-              .then(({ data }) => setParticipantes(data));
-          }
-
-          return setParticipantes(data);
-        });
+        .then(({ data }) => dispatch(setRanking(data)));
     }
   }, [token]);
-
-  console.log(participantes);
 
   return (
     <div className="flex flex-col w-full p-6 gap-6 targetDashboard">
       <div>
         <h2 className="!text-xl font-bold">Ranking</h2>
+        <p className="!text-xs">{`${Months[month]} ${year}`}</p>
       </div>
-      <div className="flex flex-col max-h-[180px] overflow-y-scroll gap-3 scrollMenu pr-1">
-        {participantes.map((data, index) => (
-          <UserRanking data={data} index={index + 1} />
-        ))}
+      <div className="flex flex-col gap-6 h-full">
+        {ranking.length === 0 ? (
+          <NoDataRanking />
+        ) : (
+          ranking
+            .slice(0, 3)
+            .map((data, index) => <UserRanking data={data} index={index + 1} />)
+        )}
       </div>
     </div>
   );

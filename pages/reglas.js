@@ -322,9 +322,6 @@ const premios = () => {
       </Modal>
       <ContainerContent pageTitle={"Reglas"}>
         <div className="m-6 flex flex-col gap-16">
-          <div className="flex flex-col gap-5">
-            <h1 className="font-bold text-3xl">Reglas</h1>
-          </div>
           <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
             <div>
               <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-1 gap-4 mt-4 place-items-end">

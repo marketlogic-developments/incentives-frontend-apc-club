@@ -48,12 +48,16 @@ const GraphSales = () => {
   return (
     <div className="flex flex-col w-full gap-6">
       <div>
-        <h2 className="text-xl font-bold">Ventas de la organización</h2>
+        <h2 className="text-xl font-bold">
+          {user.roleId === 5
+            ? t("dashboard.misVentas")
+            : t("dashboard.ventasOrg")}
+        </h2>
       </div>
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-3 gap-6">
         <TargetSales data={CC} />
         <TargetSales data={DC} />
-        {/* <PerformaceSales CC={CC} DC={DC} /> */}
+        <PerformaceSales CC={CC} DC={DC} />
       </div>
     </div>
   );

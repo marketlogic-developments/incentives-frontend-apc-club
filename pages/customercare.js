@@ -31,9 +31,6 @@ const customercare = () => {
     <>
       <ContainerContent pageTitle={"Customer Care"}>
         <div className="m-6 flex flex-col gap-16">
-          <div className="flex flex-col gap-5">
-            <h1 className="font-bold text-3xl">Customer Care</h1>
-          </div>
           <div className="grid grid-flow-col auto-cols-fr place-items-center text-center border-b ">
             <p
               className={`h-full w-full p-3 cursor-pointer ${

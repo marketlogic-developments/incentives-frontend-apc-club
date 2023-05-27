@@ -34,9 +34,6 @@ const canalesyDistribuidores = () => {
     <>
       <ContainerContent pageTitle={"Herramientas administrativas"}>
         <div className="m-6 flex flex-col gap-16">
-          <div className="flex flex-col gap-5">
-            <h1 className="font-bold text-3xl">Herramientas administrativas</h1>
-          </div>
           <div className="grid grid-cols-4 place-items-center text-center border-b">
             <p
               className={`h-full w-full p-3 cursor-pointer ${

@@ -12,7 +12,7 @@ const BannerColombia = ({ user, token }) => {
     return axios
       .patch(
         `${process.env.BACKURL}/users/${user?.id}`,
-        { policy: false },
+        { policy: false, cpf: "null" },
         {
           headers: {
             "Content-Type": "application/json",
