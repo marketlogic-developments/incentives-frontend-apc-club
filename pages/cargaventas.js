@@ -33,7 +33,6 @@ const cargaventas = () => {
   useEffect(() => {
     if (isLoaded && token) {
       dispatch(getSalesData(token));
-
     }
   }, [isLoaded, token]);
 
@@ -86,9 +85,6 @@ const cargaventas = () => {
     <>
       <ContainerContent pageTitle={"Carga de Ventas"}>
         <div className="m-6 flex flex-col gap-16">
-          <div className="flex flex-col gap-5">
-            <h1 className="font-bold text-3xl"> {t("menu.Carga_de_Ventas")}</h1>
-          </div>
           <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
             <div>
               <div className="relative">
@@ -152,27 +148,27 @@ const cargaventas = () => {
                         <td className="py-4 px-6">
                           {moment(ventas.CreatedAt).format("MM/DD/YYYY")}
                         </td>
-                        <td className="py-4 px-6">{ventas.name} - {ventas.status_id}</td>
                         <td className="py-4 px-6">
-                          {
-                            ventas.status_id === 2
-                              ? (
-                                <button
-                                  type="submit"
-                                  onClick={() => handleClick(ventas.id)}
-                                  className="btn btn-primary justify-self-center rounded-full  w-max col-span-2"
-                                >
-                                  Procesar
-                                </button>
-                              ) : (
-                                <button
-                                  type="submit"
-                                  className="text-white bg-black focus:outline-none btn justify-self-center rounded-full disabled:opacity-100" disabled
-                                >
-                                  Procesado
-                                </button>
-                              )
-                          }
+                          {ventas.name} - {ventas.status_id}
+                        </td>
+                        <td className="py-4 px-6">
+                          {ventas.status_id === 2 ? (
+                            <button
+                              type="submit"
+                              onClick={() => handleClick(ventas.id)}
+                              className="btn btn-primary justify-self-center rounded-full  w-max col-span-2"
+                            >
+                              Procesar
+                            </button>
+                          ) : (
+                            <button
+                              type="submit"
+                              className="text-white bg-black focus:outline-none btn justify-self-center rounded-full disabled:opacity-100"
+                              disabled
+                            >
+                              Procesado
+                            </button>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -200,10 +196,7 @@ const cargaventas = () => {
                 <div className="form-control text-center">
                   <div className=" w-full  gap-8">
                     <div>
-                      <strong className="text-sm">
-                        Subir archivo (xls)
-                      </strong>
-
+                      <strong className="text-sm">Subir archivo (xls)</strong>
                     </div>
                     <input
                       input
@@ -231,7 +224,9 @@ const cargaventas = () => {
                 </div>
               </form>
               {formSubmitted && (
-                <p className="rounded-lg border-solid border-2 px-4 py-2 mt-2 text-white bg-[#00405d]">Archivo enviado</p>
+                <p className="rounded-lg border-solid border-2 px-4 py-2 mt-2 text-white bg-[#00405d]">
+                  Archivo enviado
+                </p>
               )}
             </div>
           </>

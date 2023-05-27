@@ -134,7 +134,6 @@ export default function MyApp({ Component, pageProps }) {
                 }}
               />
             </Layout>
-            <Footer />
           </MantineProvider>
         </Provider>
       </I18nextProvider>

@@ -24,8 +24,8 @@ const CarouselBanners = () => {
           backgroundColor: "#eb1000",
         },
         control: {
-          marginLeft: "-60px",
-          marginRight: "-60px",
+          marginLeft: "-50px",
+          marginRight: "-50px",
           backgroundColor: "#eb1000",
         },
       }}
@@ -52,7 +52,6 @@ const CarouselBanners = () => {
           </figure>
         </a>
       </Carousel.Slide>
-
       <Carousel.Slide>
         <div
           className="w-full flex justify-center cursor-pointer p-[1px]"

@@ -67,11 +67,19 @@ const CardMarket = ({ info, setAwards, awards, handleAdd }) => {
                 </p>
                 <p className="text-sm">
                   Item ID:{" "}
-                  {info.name.split(" ")[0] === "Visa"
+                  {info.name.split(" ")[0] === "Visa" &&
+                  info.description === "COLOMBIA"
+                    ? `BCO-ESP${info.price}`
+                    : info.name.split(" ")[0] === "Visa"
                     ? `OP-POR${info.price}`
                     : info.name.split(" ")[0] === "MasterCard"
                     ? `BHN-ESP${info.price}`
-                    : `CEN-ESP${info.price}`}
+                    : info.name.split(" ")[0] === "Falabella"
+                    ? `FL-ESP${info.price}`
+                    : info.name.split(" ")[0] === "Rappi"
+                    ? `RP-ESP${info.price}`
+                    : info.name.split(" ")[0] === "Cencosud" &&
+                      `CEN-ESP${info.price}`}
                 </p>
               </div>
             </div>
@@ -147,11 +155,19 @@ const CardMarket = ({ info, setAwards, awards, handleAdd }) => {
               className="text-sm overflow-y-scroll"
               dangerouslySetInnerHTML={{
                 __html:
-                  info.name.split(" ")[0] === "Visa"
-                    ? t("adobeMarket.visaDescription")
+                  info.name.split(" ")[0] === "Visa" &&
+                  info.description === "COLOMBIA"
+                    ? t("adobeMarket.visaBancolombiaDescription")
                     : info.name.split(" ")[0] === "MasterCard"
                     ? t("adobeMarket.masterCardDescription")
-                    : t("adobeMarket.cencosudDescription"),
+                    : info.name.split(" ")[0] === "Cencosud"
+                    ? t("adobeMarket.cencosudDescription")
+                    : info.name.split(" ")[0] === "Visa"
+                    ? t("adobeMarket.visaDescription")
+                    : info.name.split(" ")[0] === "Falabella"
+                    ? t("adobeMarket.falabellaDescription")
+                    : info.name.split(" ")[0] === "Rappi" &&
+                      t("adobeMarket.rappiDescription"),
               }}
             ></p>
           </div>
