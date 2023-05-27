@@ -904,7 +904,7 @@ const Layout = ({ children }) => {
               </div>
             </div>
           </div>
-          <div className="pl-6 pt-6 cursor-pointer sticky top-0 h-screen">
+          <div className="pl-6 pt-6 sticky top-0 h-screen">
             <svg
               width="23"
               height="23"
@@ -912,6 +912,7 @@ const Layout = ({ children }) => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               onClick={() => setCollapse(!collapse)}
+              className="cursor-pointer"
             >
               <path
                 d="M3.95312 6.82812H19.0469M3.95312 11.5H19.0469M3.95312 16.1719H19.0469"
