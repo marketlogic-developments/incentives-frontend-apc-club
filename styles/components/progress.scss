@@ -58,6 +58,17 @@
     z-index: 100;
   }
 }
+.imgPhotoperfil {
+  display: flex;
+  z-index: 1;
+  justify-content: center;
+  width: 150px;
+}
+.icons-user{
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
 
 .flip-card-imgPhoto {
   background-color: transparent;

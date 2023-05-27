@@ -9,7 +9,7 @@ const TableTopsRanking = () => {
       <div>
         <h2 className="text-xl font-bold">Top usuarios</h2>
       </div>
-      <table className="w-full table-fixed">
+      <table className="w-full table-fixed tableJustify">
         <thead className="bg-[#000000]">
           <tr className="text-white font-[700]">
             <th className="py-3">Puesto</th>

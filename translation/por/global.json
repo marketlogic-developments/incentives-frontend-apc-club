@@ -117,7 +117,10 @@
   "digipoints": {
     "mis": "Meus",
     "DDigipoints": "Distribuição de",
-    "Crear": "Criar equipe",
+
+    "Crear": "Equipes",
+    "descargar": "Baixar",
+    "crearEquipos": "Criar equipe",
     "historicos": "Históricos",
     "actuales": "Atuais",
     "txthistoricos": "Estes são os DigiPoints acumulados que você recebeu durante o ano fiscal de 23",
@@ -188,6 +191,7 @@
     "estado": "ESTATUS",
     "agregarP": "Adicionar participante",
     "ordenarFecha": "Ordenar por data",
+    "ordenarPor": "Ordenar por data",
     "recienteA": "Recentes / Antigos",
     "antiguoR": "Antigos / Recentes",
     "filtrarVenta": "Filtrar por tipo de venda",
@@ -251,6 +255,8 @@
     "informacion": "Informações",
     "porcentajes": "Porcentagens",
     "nequipo": "Nome da equipe",
+    "dnequipo": "Define nome da equipe",
+    "select": "Selecionar",
     "descripcion": "Descrição",
     "dEquipo": "Descrição da equipe",
     "next": "Próximo",
@@ -258,7 +264,17 @@
     "guardar": "Salvar alterações",
     "suma": "A soma das porcentagens deve ser equivalente a 100%",
     "lista": "Este participante já está na lista",
-    "teamCre": "A equipe foi criada com sucesso"
+    "teamCre": "A equipe foi criada com sucesso",
+    "aParticipantes": "Adicionar participantes",
+    "cEquiposDeTrabajo": "Crie uma equipe de trabalho e adicione pessoas",
+    "pAgregados": "Participantes adicionados",
+    "pDeParticipacion": "Percentual de participação",
+    "sParticipantes": "Você ainda não adicionou participantes",
+    "lUsuarios": "Clique no campo 'adicionar participantes' para visualizar a lista de usuários.",
+    "gEquipo": "Salvar equipe",
+    "cancelar": "Cancelar",
+    "sParticipantesGrupo": "Selecione seus participantes para este grupo",
+    "sParticipantesGrupo2": "participantes selecionados"
   },
   "user": {
     "ajustesdeperfil": "Ajustes do perfil",
