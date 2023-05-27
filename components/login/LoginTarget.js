@@ -8,18 +8,22 @@ const LoginTarget = ({
   setViewLogin,
   setEmail,
   setPassword,
+  setRegister,
 }) => {
   const [t, i18n] = useTranslation("global");
 
   return (
-    <div className="card w-[45%] text-primary-content bg-white" id="cardLogin">
-      <div className="flex flex-col items-center gap-6 max-sm:justify-center flex px-10 py-20 max-sm:px-5 internalCard">
+    <div
+      className="card w-[45%] text-primary-content bg-white !rounded-lg"
+      id="cardLogin"
+    >
+      <div className="flex flex-col items-center lg:gap-6 xl:gap-3 max-sm:justify-center flex px-10 lg:py-20 xl:py-16 max-sm:px-5 internalCard">
         <div className="w-full">
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col lg:gap-6 xl:gap-3">
             <figure id="apcLogo">
               <img
                 src="/assets/login/apcLogo.webp"
-                className="logoAPC w-[27%]"
+                className="logoAPC w-[31%]"
                 alt="logoAPC"
               />
             </figure>
@@ -28,7 +32,7 @@ const LoginTarget = ({
             </h1>
           </div>
         </div>
-        <div className="w-full gap-5 flex flex-col">
+        <div className="w-full gap-6 flex flex-col">
           <form
             className="form-control w-full flex items-center gap-6"
             onSubmit={handleSubmit}
@@ -42,7 +46,7 @@ const LoginTarget = ({
                   required
                   type="email"
                   placeholder={"email@example.com"}
-                  className="input w-full text-black bg-[#F4F4F4]"
+                  className="input w-full text-black bg-[#F4F4F4] !text-sm"
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -56,7 +60,7 @@ const LoginTarget = ({
                   <input
                     type={viewLogin}
                     placeholder={"*******"}
-                    className="input w-full text-black bg-[#F4F4F4]"
+                    className="input w-full text-black bg-[#F4F4F4] !text-sm"
                     required
                     onChange={(e) => {
                       setPassword(e.target.value);
@@ -82,25 +86,24 @@ const LoginTarget = ({
             </div>
             <div>
               <p
-                className="text-secondary w-full text-center decoration-solid cursor-pointer"
+                className="text-info font-bold w-full text-center decoration-solid cursor-pointer !text-sm"
                 onClick={() => setOpen(true)}
               >
                 {t("login.¿Has_olvidado_la_contraseña?")}
               </p>
             </div>
             <button
-              className="btn btn-secondary w-full lg:button-sm 2xl:input-md"
+              className="btn btn-info w-full lg:button-sm 2xl:input-md !text-sm"
               type="submit"
             >
               {t("login.continuar")}
             </button>
           </form>
           <div className="flex flex-col items-center">
-            <div className="border-separate border border-[#00405d] w-full mt-4 mb-4"></div>
-            <div className="w-full flex flex-col justify-center items-center text-secondary">
-              <p className="text-center">{t("login.registro")}</p>
+            <div className="w-full flex justify-center gap-3 items-center text-secondary">
+              <p className="text-center !text-xs">{t("login.registro")}</p>
               <p
-                className="underline decoration-solid cursor-pointer font-bold"
+                className="cursor-pointer font-bold !text-xs text-info"
                 onClick={() => setRegister(true)}
               >
                 {t("login.linkRegistro")}

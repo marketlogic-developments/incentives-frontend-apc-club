@@ -540,6 +540,7 @@ export default function Home() {
               setViewLogin={setViewLogin}
               setEmail={setEmail}
               setPassword={setPassword}
+              setRegister={setRegister}
             />
           </div>
         </div>
