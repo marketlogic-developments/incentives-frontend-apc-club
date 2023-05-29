@@ -741,6 +741,7 @@ const Layout = ({ children }) => {
                 "/cargaventas",
                 "/herramientas",
                 "/reportes",
+                "/puntosporventas",
               ].includes(page);
             }
             if (userRedux.roleId === 3) {
