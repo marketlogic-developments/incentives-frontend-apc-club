@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import TargetInvoice from "./TargetInvoice";
 
 const ModalDistribution = ({
-  salesOption,
   teams,
   setTeamInfo,
   setOpened,
@@ -11,37 +10,53 @@ const ModalDistribution = ({
   loading,
 }) => {
   const [t, i18n] = useTranslation("global");
+  const [salesOption, setSalesOption] = useState();
 
   return (
     <div className="grid grid-cols-3">
-      <div className="flex flex-col w-full col-start-2">
-        <h2 className="!text-xl font-bold text-center">
-          {t("tabla.aDigipoints")}
-        </h2>
-        <p className="text-[#2C2C2C] text-xs text-center mt-4">
-          {t("digipoints.sDistribuicionDigiPoints")}
-        </p>
-        <p className="text-[#333333] text-xs mt-10 mb-3 pl-10 font-bold">
-          {t("digipoints.aDistribuicion")}
-        </p>
-        <div className="pl-10">
-          <input
-            className="!bg-[#D9D9D9]"
-            type="radio"
-            value="option1"
-            checked={true}
-          />
-          <label className="ml-3 align-middle !text-xs">
-            {t("digipoints.represV")}
-          </label>
+      <div className="flex flex-col w-full col-start-2 gap-6">
+        <div className="flex flex-col gap-6">
+          <h2 className="!text-xl font-bold text-center">
+            {t("tabla.aDigipoints")}
+          </h2>
+          <p className="text-[#2C2C2C] text-xs text-center">
+            {t("digipoints.sDistribuicionDigiPoints")}
+          </p>
         </div>
-        <div className="pl-10">
-          <input type="radio" value="option2" checked={false} />
-          <label className="ml-3 align-middle !text-xs">
-            {t("digipoints.teamV")}
-          </label>
-        </div>
-        {salesOption === "salesTeam" && (
+        <form
+          onChange={(e) => setSalesOption(e.target.value)}
+          className="flex flex-col gap-4"
+        >
+          <p className="text-[#333333] text-xs font-bold">
+            {t("digipoints.aDistribuicion")}
+          </p>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center">
+              <input
+                className="radio radio-xs checked:bg-blue-500"
+                type="radio"
+                value="salesRep"
+                name="distribution"
+              />
+              <label className="ml-3 align-middle !text-xs">
+                {t("digipoints.represV")}
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="radio"
+                value="team"
+                name="distribution"
+                className="radio checked:bg-blue-500 radio-xs"
+              />
+              <label className="ml-3 align-middle !text-xs">
+                {t("digipoints.teamV")}
+              </label>
+            </div>
+          </div>
+        </form>
+
+        {salesOption === "team" ? (
           <select
             className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
             onChange={(e) => {
@@ -58,9 +73,13 @@ const ModalDistribution = ({
               </option>
             ))}
           </select>
+        ) : (
+          <div>
+            <p>Holi</p>
+          </div>
         )}
 
-        <div className="flex flex-col gap-5 font-bold p-10">
+        {/* <div className="flex flex-col gap-5 font-bold p-10">
           <div className="container">
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left text-black-500">
@@ -85,7 +104,7 @@ const ModalDistribution = ({
               </table>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="container">
           <div className="w-full gap-1 mb-4">
