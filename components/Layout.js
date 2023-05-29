@@ -338,7 +338,7 @@ const Layout = ({ children }) => {
                     />
                   </svg>
                 ),
-                text: t("digipoints.DDigipoints"),
+                text: t("menu.DDigipoints"),
               },
             ]
           : undefined,
