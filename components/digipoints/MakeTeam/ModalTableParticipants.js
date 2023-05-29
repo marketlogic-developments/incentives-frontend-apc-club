@@ -46,9 +46,9 @@ const ModalTableParticipants = ({ dataUsers, handleInputChange }) => {
                   <td className="py-3">
                     <input
                       type="number"
-                      className={`"input input-info ${
+                      className={`"input input-info min-w-[53px] ${
                         index % 2 === 0 ? "bg-[#F5F5F5]" : "bg-white"
-                      } input-xs w-2/4 text-center overflow-hidden"`}
+                      } input-xs w-1/4 text-center overflow-hidden"`}
                       style={{ borderRadius: "5px" }}
                       defaultValue={item.percentage}
                       onChange={(e) => handleInputChange(e, item.id)}
