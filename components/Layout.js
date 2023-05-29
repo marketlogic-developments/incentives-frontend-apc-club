@@ -581,6 +581,29 @@ const Layout = ({ children }) => {
           text: t("menu.Premios"),
         },
         {
+          page: "/allredeem",
+          icon: (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+              width="30"
+              height="30"
+              viewBox="0 0 36 41"
+              stroke="#000000"
+            >
+              <image
+                id="Capa_31"
+                data-name="Capa 31"
+                width="36"
+                height="41"
+                xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAApCAYAAABdnotGAAAABHNCSVQICAgIfAhkiAAAAsdJREFUWEftmE9IF0EUx9uisg6BEaH9U0swAiVLTIJAOilBRUKRhBUdDD3UIUI7BmlQhzxU2EmLiAQhiw6dwjoFaQUVEkWWURZEGkIQ2c/PN2ZlWfQ3O7LdZuHD7s68ee+7b2fe/gnm/Yctk8ksxO0GWAF/YSQIgpEkoYIkRi42iCnH/h6sjo3rRNRxmy9nQQTMwWkJjBLgazQAfYWcP4VcOAvdkAdXQEJ3MuZhNlFOgghYg7ObsNw4vcu+gSDj9M3n+DFsh0baroWB6avmWELaaT+TiiCTmc84Www3oAK2wgOohUNwHXoIeiCWuUrOn8B5+lrTElSGoxdwFadNCFyg4LAPWqDZZG49/d9igro4Pwy76dP8mnVLfMsQoLnwBQahEseTtC3jeAjyTYQLtJ8OoxnRbZyrTRdTQf+fVATJCQFus9sPd+Aozsdoa+L4sglSTNs7Y1vKXvOoCl5BDX2fsolRX+IMmSDKSB9Um2ydY6+J/RZ+wBojQMu73vjXvGpGzIRNzD9BXGE/+4IkxsZGRW9VxF63QCtM/IZFMV8fHHwPS1CGAT/hvcNAma4D1Zs38MuMVQaLQNn47uhvJfZLQkF9pHSviwOuowt7rZxyxj7XWNr0uNDt66DtpKM/zcs9aQsqNJn2gnR7ZrplqWVolFSrtLtsWzBeG5tDoSDVmwEXZ9hugzzNIb2nqH7MdYtO6lDQXH19lCDVDy3Xi3AMSlkhL+MesVN9WRpp1yvFwVkydIt2VXDbpmr+CDqhRZV/ulIT8BKNJ6CIjmGbJ8sc6sbHkQQ+NmPzDKZXpRcUzRpZ9hnKOo18hvwqIwPx14+wUvs6ZHva+wz5DPmnffiV4l8//OsHGdAneaqFcQcOrb9NsNFHQR3sgtfmVujrRb/1euGU7WlP/ya4b3unTuAndZMZX/L192EjOP0zSkGa/r4Mhb8BpwAbxJ3LxUUDqAAAAABJRU5ErkJggg=="
+              />
+            </svg>
+          ),
+          iconactive: "",
+          text: "Redenciones",
+        },
+        {
           page: "/cargaventas",
           icon: (
             <svg
