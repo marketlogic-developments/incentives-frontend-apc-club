@@ -79,7 +79,7 @@ const ModalDistribution = ({
           </div>
         )}
 
-        {/* <div className="flex flex-col gap-5 font-bold p-10">
+        <div className="flex flex-col gap-5 font-bold p-10">
           <div className="container">
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left text-black-500">
@@ -104,7 +104,7 @@ const ModalDistribution = ({
               </table>
             </div>
           </div>
-        </div> */}
+        </div>
 
         <div className="container">
           <div className="w-full gap-1 mb-4">
