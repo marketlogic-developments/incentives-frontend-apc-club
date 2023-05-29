@@ -49,9 +49,6 @@ const estadoProducto = () => {
       </Modal>
       <ContainerContent pageTitle={"Estado de Tus Premios"}>
         <div className="m-6 flex flex-col gap-16">
-          <div className="flex flex-col gap-5">
-            <h1 className="font-bold text-3xl">{t("estadoProducto.estado")}</h1>
-          </div>
           <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
             <div>
               <br></br>

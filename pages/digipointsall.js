@@ -134,25 +134,8 @@ const digipoints = () => {
         className="relative flex justify-center"
         style={{ marginTop: "5vh" }}
       >
-        <div className="gap-10 flex flex-col h-full w-5/6">
-          <div class="m-6 flex flex-col gap-16">
-            {user?.roleId === 1 && (
-              <div className="grid grid-cols-3">
-                <h1
-                  className={`font-bold text-3xl ${
-                    page === 0
-                      ? "titleGraphCarouselSelected"
-                      : "titleGraphCarousel"
-                  }  titleDigipoints cursor-pointer`}
-                  onClick={() => setPage(0)}
-                >
-                  {t("menu.Digipoints")}
-                </h1>
-              </div>
-            )}
-
-            {sectionPage}
-          </div>
+        <div className="gap-10 flex flex-col h-full w-full">
+          <div class="flex flex-col gap-16">{sectionPage}</div>
         </div>
       </main>
     </>

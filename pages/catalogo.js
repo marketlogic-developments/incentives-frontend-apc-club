@@ -142,11 +142,7 @@ const catalogo = () => {
   return (
     <ContainerContent pageTitle={t("menu.catalogo")}>
       <div className="m-6 flex flex-col gap-4">
-        <div className="flex flex-col gap-5">
-          <h1 className="font-bold text-3xl">{t("menu.catalogo")}</h1>
-        </div>
         {user?.languageId === 1 ? <BnPor /> : <BnEsp />}
-
         <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
           <div>
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 mt-4">

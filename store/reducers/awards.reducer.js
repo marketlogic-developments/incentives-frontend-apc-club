@@ -86,6 +86,18 @@ export const getDataAwards = (token, user) => async (dispatch) => {
               return e;
             }
 
+            if (user.companyId !== null) {
+              if (user.company.country === "Colombia") {
+                return e.description === "COLOMBIA";
+              }
+            }
+
+            if (user.distributionChannelId !== null) {
+              if (user.distributionChannel.country === "Colombia") {
+                return e.description === "COLOMBIA";
+              }
+            }
+
             if (user.countryId === "Chile") {
               return e.description !== "BRASIL";
             }
@@ -98,20 +110,17 @@ export const getDataAwards = (token, user) => async (dispatch) => {
             }
           })
           .sort(function (a, b) {
-            // Ordenar alfabéticamente por el description
-            if (a.description < b.description) {
-              return -1;
-            } else if (a.description > b.description) {
-              return 1;
+            // Comparar por nombre
+            const nameComparison = a.name
+              .split(" ")[0]
+              .localeCompare(b.name.split(" ")[0]);
+
+            if (nameComparison !== 0) {
+              // Si los nombres son diferentes, retorna la comparación alfabética
+              return nameComparison;
             } else {
-              // Si los descriptions son iguales, ordenar por price de menor a mayor
-              if (a.price < b.price) {
-                return -1;
-              } else if (a.price > b.price) {
-                return 1;
-              } else {
-                return 0;
-              }
+              // Si los nombres son iguales, comparar por precio
+              return a.digipoints - b.digipoints;
             }
           });
 

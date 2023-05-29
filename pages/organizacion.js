@@ -32,9 +32,6 @@ const organizacion = () => {
     <>
       <ContainerContent pageTitle={t("menu.Participantes")}>
         <div className="m-6 flex flex-col gap-16">
-          <div className="flex flex-col gap-5">
-            <h1 className="font-bold text-3xl">{t("menu.Participantes")}</h1>
-          </div>
           {user.roleId !== 5 ? (
             <div className="grid grid-flow-col auto-cols-fr place-items-center text-center border-b cursor-pointer">
               <p

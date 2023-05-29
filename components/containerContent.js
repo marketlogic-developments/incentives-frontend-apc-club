@@ -8,11 +8,8 @@ const ContainerContent = ({ pageTitle, children }) => {
         <title>{pageTitle}</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      <main
-        className="relative flex justify-center"
-        style={{ marginTop: "5vh" }}
-      >
-        <div className="gap-10 flex flex-col h-full w-[90%]">{children}</div>
+      <main className="relative flex justify-center mt-6">
+        <div className="gap-10 flex flex-col h-full w-full">{children}</div>
       </main>
     </>
   );

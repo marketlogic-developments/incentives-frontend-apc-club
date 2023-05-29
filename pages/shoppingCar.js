@@ -158,7 +158,8 @@ const shoppingCar = () => {
 
       return Toast.fire({
         icon: "error",
-        title: "No tienes digipoints suficientes para hacer esta compra",
+        title:
+          "No cuentas con los DigiPoints suficientes para hacer esta redención",
       });
     }
   };
@@ -177,9 +178,6 @@ const shoppingCar = () => {
       </Modal>
       <ContainerContent pageTitle={"Carrito"}>
         <div className="m-6 flex flex-col gap-16">
-          <div className="flex flex-col gap-5">
-            <h1 className="font-bold text-3xl">{t("shoopingcar.carrito")}</h1>
-          </div>
           <div className="flex justify-between">
             <div className="flex flex-col gap-5 w-8/12">
               {myProducts.length > 0 ? (

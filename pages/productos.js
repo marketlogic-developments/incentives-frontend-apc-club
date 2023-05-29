@@ -167,9 +167,6 @@ const productos = () => {
     <>
       <ContainerContent pageTitle={"Productos Participantes"}>
         <div className="m-6 flex flex-col gap-16">
-          <div className="flex flex-col gap-5">
-            <h1 className="font-bold text-3xl">{t("menu.Productos")}</h1>
-          </div>
           <div className="w-full flex justify-center flex-col">
             <img
               src="/assets/productos/productos.webp"
