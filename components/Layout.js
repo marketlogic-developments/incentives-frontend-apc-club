@@ -29,6 +29,7 @@ import MenuAPC from "./Lay0ut/Menu";
 import Logo10 from "./Lay0ut/Logo10";
 import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
 import UserOptions from "./Lay0ut/UserOptions";
+import ContainerContent from "./containerContent";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -163,37 +164,37 @@ const Layout = ({ children }) => {
     }
   }, [location]);
 
-  // useEffect(() => {
-  //   let timeoutId;
+  useEffect(() => {
+    let timeoutId;
 
-  //   if (userRedux !== 0) {
-  //     const handleVisibilityChange = () => {
-  //       if (document.visibilityState === "hidden") {
-  //         timeoutId = setTimeout(function () {
-  //           logout();
-  //         }, 300000);
-  //       } else {
-  //         // Si el usuario vuelve antes de que se ejecute el setTimeout, cancelarlo
-  //         clearTimeout(timeoutId);
-  //       }
-  //     };
+    if (userRedux !== 0) {
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === "hidden") {
+          timeoutId = setTimeout(function () {
+            logout();
+          }, 300000);
+        } else {
+          // Si el usuario vuelve antes de que se ejecute el setTimeout, cancelarlo
+          clearTimeout(timeoutId);
+        }
+      };
 
-  //     document.addEventListener("visibilitychange", handleVisibilityChange);
+      document.addEventListener("visibilitychange", handleVisibilityChange);
 
-  //     return () => {
-  //       document.removeEventListener(
-  //         "visibilitychange",
-  //         handleVisibilityChange
-  //       );
+      return () => {
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange
+        );
 
-  //       clearTimeout(timeoutId);
-  //     };
-  //   }
+        clearTimeout(timeoutId);
+      };
+    }
 
-  //   if (location === "/") {
-  //     dispatch(loadingUser(true));
-  //   }
-  // }, [userRedux]);
+    if (location === "/") {
+      dispatch(loadingUser(true));
+    }
+  }, [userRedux]);
 
   const language = (rolNum) => {
     if (rolNum === 1) {
@@ -313,34 +314,35 @@ const Layout = ({ children }) => {
                 ),
                 text: t("digipoints.crearEquipos"),
               },
-              // {
-              //   page: "/digipoints/digipointdistribution",
-              //   icon: (
-              //     <svg
-              //       width="20"
-              //       height="20"
-              //       viewBox="0 0 20 20"
-              //       fill="none"
-              //       xmlns="http://www.w3.org/2000/svg"
-              //     >
-              //       <path
-              //         d="M10.147 10.2591L8.51502 6.01639C8.49053 5.95272 8.44732 5.89796 8.39108 5.85934C8.33485 5.82073 8.26823 5.80005 8.20002 5.80005C8.1318 5.80005 8.06518 5.82073 8.00895 5.85934C7.95272 5.89796 7.90951 5.95272 7.88502 6.01639L6.25301 10.2591C6.23606 10.3032 6.21005 10.3433 6.17665 10.3767C6.14325 10.4101 6.10322 10.4361 6.05914 10.453L1.81638 12.085C1.75271 12.1095 1.69795 12.1527 1.65933 12.209C1.62071 12.2652 1.60004 12.3318 1.60004 12.4C1.60004 12.4682 1.62071 12.5349 1.65933 12.5911C1.69795 12.6473 1.75271 12.6905 1.81638 12.715L6.05914 14.347C6.10322 14.364 6.14325 14.39 6.17665 14.4234C6.21005 14.4568 6.23606 14.4968 6.25301 14.5409L7.88502 18.7837C7.90951 18.8473 7.95272 18.9021 8.00895 18.9407C8.06518 18.9793 8.1318 19 8.20002 19C8.26823 19 8.33485 18.9793 8.39108 18.9407C8.44732 18.9021 8.49053 18.8473 8.51502 18.7837L10.147 14.5409C10.164 14.4968 10.19 14.4568 10.2234 14.4234C10.2568 14.39 10.2968 14.364 10.3409 14.347L14.5837 12.715C14.6473 12.6905 14.7021 12.6473 14.7407 12.5911C14.7793 12.5349 14.8 12.4682 14.8 12.4C14.8 12.3318 14.7793 12.2652 14.7407 12.209C14.7021 12.1527 14.6473 12.1095 14.5837 12.085L10.3409 10.453C10.2968 10.4361 10.2568 10.4101 10.2234 10.3767C10.19 10.3433 10.164 10.3032 10.147 10.2591ZM4.45001 2.95L3.70001 1L2.95 2.95L1 3.70001L2.95 4.45001L3.70001 6.40001L4.45001 4.45001L6.40001 3.70001L4.45001 2.95ZM16.4002 4.79988L15.4 2.2L14.3999 4.79988L11.8 5.80001L14.3999 6.80014L15.4 9.40002L16.4002 6.80014L19 5.80001L16.4002 4.79988Z"
-              //         stroke-width="1.03964"
-              //         stroke-linecap="round"
-              //         stroke-linejoin="round"
-              //       />
-              //       <path
-              //         d="M10.147 10.2591L8.51502 6.01639C8.49053 5.95272 8.44732 5.89796 8.39108 5.85934C8.33485 5.82073 8.26823 5.80005 8.20002 5.80005C8.1318 5.80005 8.06518 5.82073 8.00895 5.85934C7.95272 5.89796 7.90951 5.95272 7.88502 6.01639L6.25301 10.2591C6.23606 10.3032 6.21005 10.3433 6.17665 10.3767C6.14325 10.4101 6.10322 10.4361 6.05914 10.453L1.81638 12.085C1.75271 12.1095 1.69795 12.1527 1.65933 12.209C1.62071 12.2652 1.60004 12.3318 1.60004 12.4C1.60004 12.4682 1.62071 12.5349 1.65933 12.5911C1.69795 12.6473 1.75271 12.6905 1.81638 12.715L6.05914 14.347C6.10322 14.364 6.14325 14.39 6.17665 14.4234C6.21005 14.4568 6.23606 14.4968 6.25301 14.5409L7.88502 18.7837C7.90951 18.8473 7.95272 18.9021 8.00895 18.9407C8.06518 18.9793 8.1318 19 8.20002 19C8.26823 19 8.33485 18.9793 8.39108 18.9407C8.44732 18.9021 8.49053 18.8473 8.51502 18.7837L10.147 14.5409C10.164 14.4968 10.19 14.4568 10.2234 14.4234C10.2568 14.39 10.2968 14.364 10.3409 14.347L14.5837 12.715C14.6473 12.6905 14.7021 12.6473 14.7407 12.5911C14.7793 12.5349 14.8 12.4682 14.8 12.4C14.8 12.3318 14.7793 12.2652 14.7407 12.209C14.7021 12.1527 14.6473 12.1095 14.5837 12.085L10.3409 10.453C10.2968 10.4361 10.2568 10.4101 10.2234 10.3767C10.19 10.3433 10.164 10.3032 10.147 10.2591ZM4.45001 2.95L3.70001 1L2.95 2.95L1 3.70001L2.95 4.45001L3.70001 6.40001L4.45001 4.45001L6.40001 3.70001L4.45001 2.95ZM16.4002 4.79988L15.4 2.2L14.3999 4.79988L11.8 5.80001L14.3999 6.80014L15.4 9.40002L16.4002 6.80014L19 5.80001L16.4002 4.79988Z"
-              //         stroke="black"
-              //         stroke-opacity="0.2"
-              //         stroke-width="1.03964"
-              //         stroke-linecap="round"
-              //         stroke-linejoin="round"
-              //       />
-              //     </svg>
-              //   ),
-              //   text: t("digipoints.DDigipoints"),
-              // },
+
+              {
+                page: "/digipoints/digipointdistribution",
+                icon: (
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.147 10.2591L8.51502 6.01639C8.49053 5.95272 8.44732 5.89796 8.39108 5.85934C8.33485 5.82073 8.26823 5.80005 8.20002 5.80005C8.1318 5.80005 8.06518 5.82073 8.00895 5.85934C7.95272 5.89796 7.90951 5.95272 7.88502 6.01639L6.25301 10.2591C6.23606 10.3032 6.21005 10.3433 6.17665 10.3767C6.14325 10.4101 6.10322 10.4361 6.05914 10.453L1.81638 12.085C1.75271 12.1095 1.69795 12.1527 1.65933 12.209C1.62071 12.2652 1.60004 12.3318 1.60004 12.4C1.60004 12.4682 1.62071 12.5349 1.65933 12.5911C1.69795 12.6473 1.75271 12.6905 1.81638 12.715L6.05914 14.347C6.10322 14.364 6.14325 14.39 6.17665 14.4234C6.21005 14.4568 6.23606 14.4968 6.25301 14.5409L7.88502 18.7837C7.90951 18.8473 7.95272 18.9021 8.00895 18.9407C8.06518 18.9793 8.1318 19 8.20002 19C8.26823 19 8.33485 18.9793 8.39108 18.9407C8.44732 18.9021 8.49053 18.8473 8.51502 18.7837L10.147 14.5409C10.164 14.4968 10.19 14.4568 10.2234 14.4234C10.2568 14.39 10.2968 14.364 10.3409 14.347L14.5837 12.715C14.6473 12.6905 14.7021 12.6473 14.7407 12.5911C14.7793 12.5349 14.8 12.4682 14.8 12.4C14.8 12.3318 14.7793 12.2652 14.7407 12.209C14.7021 12.1527 14.6473 12.1095 14.5837 12.085L10.3409 10.453C10.2968 10.4361 10.2568 10.4101 10.2234 10.3767C10.19 10.3433 10.164 10.3032 10.147 10.2591ZM4.45001 2.95L3.70001 1L2.95 2.95L1 3.70001L2.95 4.45001L3.70001 6.40001L4.45001 4.45001L6.40001 3.70001L4.45001 2.95ZM16.4002 4.79988L15.4 2.2L14.3999 4.79988L11.8 5.80001L14.3999 6.80014L15.4 9.40002L16.4002 6.80014L19 5.80001L16.4002 4.79988Z"
+                      stroke-width="1.03964"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10.147 10.2591L8.51502 6.01639C8.49053 5.95272 8.44732 5.89796 8.39108 5.85934C8.33485 5.82073 8.26823 5.80005 8.20002 5.80005C8.1318 5.80005 8.06518 5.82073 8.00895 5.85934C7.95272 5.89796 7.90951 5.95272 7.88502 6.01639L6.25301 10.2591C6.23606 10.3032 6.21005 10.3433 6.17665 10.3767C6.14325 10.4101 6.10322 10.4361 6.05914 10.453L1.81638 12.085C1.75271 12.1095 1.69795 12.1527 1.65933 12.209C1.62071 12.2652 1.60004 12.3318 1.60004 12.4C1.60004 12.4682 1.62071 12.5349 1.65933 12.5911C1.69795 12.6473 1.75271 12.6905 1.81638 12.715L6.05914 14.347C6.10322 14.364 6.14325 14.39 6.17665 14.4234C6.21005 14.4568 6.23606 14.4968 6.25301 14.5409L7.88502 18.7837C7.90951 18.8473 7.95272 18.9021 8.00895 18.9407C8.06518 18.9793 8.1318 19 8.20002 19C8.26823 19 8.33485 18.9793 8.39108 18.9407C8.44732 18.9021 8.49053 18.8473 8.51502 18.7837L10.147 14.5409C10.164 14.4968 10.19 14.4568 10.2234 14.4234C10.2568 14.39 10.2968 14.364 10.3409 14.347L14.5837 12.715C14.6473 12.6905 14.7021 12.6473 14.7407 12.5911C14.7793 12.5349 14.8 12.4682 14.8 12.4C14.8 12.3318 14.7793 12.2652 14.7407 12.209C14.7021 12.1527 14.6473 12.1095 14.5837 12.085L10.3409 10.453C10.2968 10.4361 10.2568 10.4101 10.2234 10.3767C10.19 10.3433 10.164 10.3032 10.147 10.2591ZM4.45001 2.95L3.70001 1L2.95 2.95L1 3.70001L2.95 4.45001L3.70001 6.40001L4.45001 4.45001L6.40001 3.70001L4.45001 2.95ZM16.4002 4.79988L15.4 2.2L14.3999 4.79988L11.8 5.80001L14.3999 6.80014L15.4 9.40002L16.4002 6.80014L19 5.80001L16.4002 4.79988Z"
+                      stroke="black"
+                      stroke-opacity="0.2"
+                      stroke-width="1.03964"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                ),
+                text: t("menu.DDigipoints"),
+              },
             ]
           : undefined,
     },
@@ -849,58 +851,62 @@ const Layout = ({ children }) => {
       >
         {typeModal}
       </Modal>
-      <div className="containerGlobal">
-        <div className="globalContent bg-primary">
-          <div
-            className={`containerLayout`}
-            style={{
-              "--wmenu": collapse ? "5.56%" : "18.3%",
-              "--wminmenu": collapse ? "82px" : "256px",
-            }}
-          >
-            <div className="flex flex-col py-6 h-screen gap-6">
-              <div className="flex flex-col gap-6 px-6">
-                <div
-                  className="logoAdobe cursor-pointer"
-                  style={{
-                    "--wlogo": collapse ? "100%" : "35%",
-                  }}
-                  onClick={() => router.push("/dashboard")}
-                >
-                  <figure className="flex">
-                    <img
-                      src="/assets/dashboard/logoapc.webp"
-                      alt="apc_canales"
-                    ></img>
-                  </figure>
-                </div>
+      <ContainerContent pageTitle={textLocation()}>
+        <div className="containerGlobal">
+          <div className="globalContent bg-primary">
+            <div
+              className={`containerLayout`}
+              style={{
+                "--wmenu": collapse ? "5.56%" : "18.3%",
+                "--wminmenu": collapse ? "82px" : "256px",
+              }}
+            >
+              <div className="flex flex-col py-6 h-screen gap-6">
+                <div className="flex flex-col gap-6 px-6">
+                  <div
+                    className="logoAdobe cursor-pointer"
+                    style={{
+                      "--wlogo": collapse ? "100%" : "35%",
+                    }}
+                    onClick={() => router.push("/dashboard")}
+                  >
+                    <figure className="flex">
+                      <img
+                        src="/assets/dashboard/logoapc.webp"
+                        alt="apc_canales"
+                      ></img>
+                    </figure>
+                  </div>
 
-                {collapse ? (
-                  <DigiPointsCollapse />
-                ) : (
-                  <DigiPointsCard digipoints={digipoints} />
-                )}
-              </div>
-              <div className="flex flex-col gap-6 overflow-y-scroll scrollMenu w-full">
-                <div className="containerRedirections gap-2">{menu(1)}</div>
-                {userRedux.roleId !== 5 && (
-                  <>
-                    <hr className="mx-6" />
-                    <div className="containerRedirections gap-2">{menu(2)}</div>
-                  </>
-                )}
-              </div>
-              <div className="flex justify-center w-full mt-auto">
-                {collapse ? (
-                  <Logo10 />
-                ) : (
-                  <figure className="flex">
-                    <img
-                      src="/assets/dashboard/years.webp"
-                      alt="apc_canales"
-                    ></img>
-                  </figure>
-                )}
+                  {collapse ? (
+                    <DigiPointsCollapse />
+                  ) : (
+                    <DigiPointsCard digipoints={digipoints} />
+                  )}
+                </div>
+                <div className="flex flex-col gap-6 overflow-y-scroll scrollMenu w-full">
+                  <div className="containerRedirections gap-2">{menu(1)}</div>
+                  {userRedux.roleId !== 5 && (
+                    <>
+                      <hr className="mx-6" />
+                      <div className="containerRedirections gap-2">
+                        {menu(2)}
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div className="flex justify-center w-full mt-auto">
+                  {collapse ? (
+                    <Logo10 />
+                  ) : (
+                    <figure className="flex">
+                      <img
+                        src="/assets/dashboard/years.webp"
+                        alt="apc_canales"
+                      ></img>
+                    </figure>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -1006,47 +1012,72 @@ const Layout = ({ children }) => {
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path
-                          d="M18.2954 5.53271C15.8881 5.53271 13.5348 6.24658 11.5331 7.58405C9.53146 8.92151 7.97136 10.8225 7.0501 13.0466C6.12884 15.2707 5.8878 17.7181 6.35745 20.0792C6.8271 22.4403 7.98636 24.6091 9.68863 26.3114C11.3909 28.0137 13.5597 29.1729 15.9208 29.6426C18.2819 30.1122 20.7293 29.8712 22.9534 28.9499C25.1775 28.0287 27.0785 26.4686 28.416 24.4669C29.7535 22.4653 30.4673 20.112 30.4673 17.7046C30.4673 14.4764 29.1849 11.3804 26.9023 9.09777C24.6196 6.81511 21.5236 5.53271 18.2954 5.53271Z"
-                          stroke="black"
-                          stroke-width="2.21307"
-                          stroke-miterlimit="10"
-                        />
-                        <path
-                          d="M14.4226 13.99C14.4226 13.99 14.4807 12.7798 15.776 11.7375C16.5444 11.1186 17.4655 10.9395 18.2954 10.927C19.0513 10.9173 19.7263 11.0425 20.1302 11.2348C20.8218 11.564 22.1683 12.3676 22.1683 14.0765C22.1683 15.8746 20.9926 16.6914 19.653 17.5897C18.3134 18.4881 17.9497 19.4632 17.9497 20.4709"
-                          stroke="black"
-                          stroke-width="1.93643"
-                          stroke-miterlimit="10"
-                          stroke-linecap="round"
-                        />
-                        <path
-                          d="M17.8805 25.4503C18.6444 25.4503 19.2637 24.831 19.2637 24.0671C19.2637 23.3032 18.6444 22.684 17.8805 22.684C17.1166 22.684 16.4973 23.3032 16.4973 24.0671C16.4973 24.831 17.1166 25.4503 17.8805 25.4503Z"
-                          fill="black"
-                        />
-                      </svg>
-                    </div>
-                    <div className="userDrop relative">
-                      <div className="menumobile">
-                        <MobileMenu
-                          className="bannerMob"
-                          locations={locations}
-                        />
+                        <svg
+                          width="35"
+                          height="35"
+                          viewBox="0 0 30 30"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M10.0938 25.2301C10.6005 25.2301 11.0114 24.8193 11.0114 24.3125C11.0114 23.8057 10.6005 23.3949 10.0938 23.3949C9.58698 23.3949 9.17615 23.8057 9.17615 24.3125C9.17615 24.8193 9.58698 25.2301 10.0938 25.2301Z"
+                            stroke="black"
+                            stroke-width="1.83523"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M22.9403 25.2301C23.4471 25.2301 23.858 24.8193 23.858 24.3125C23.858 23.8057 23.4471 23.3949 22.9403 23.3949C22.4336 23.3949 22.0227 23.8057 22.0227 24.3125C22.0227 24.8193 22.4336 25.2301 22.9403 25.2301Z"
+                            stroke="black"
+                            stroke-width="1.83523"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M2.75284 5.0426H6.42329L9.17613 20.642H23.858"
+                            stroke="black"
+                            stroke-width="1.83523"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M9.17614 16.9716H23.4817C23.5878 16.9717 23.6907 16.9349 23.7728 16.8677C23.8549 16.8005 23.9111 16.7069 23.9319 16.6028L25.5836 8.34429C25.597 8.2777 25.5953 8.20897 25.5789 8.14308C25.5624 8.07719 25.5316 8.01578 25.4885 7.96327C25.4454 7.91076 25.3912 7.86847 25.3298 7.83945C25.2684 7.81042 25.2014 7.79539 25.1334 7.79544H7.34091"
+                            stroke="black"
+                            stroke-width="1.83523"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
                       </div>
                       <div
-                        className="flex items-center gap-3 bg-[#F5F5F5] rounded-full p-3 min-w-[217px] max-h-[55px] text-xs cursor-pointer"
-                        onClick={() => setMenuUser(!menuUser)}
+                        className="shoopingMarket cursor-pointer"
+                        onClick={() => {
+                          setModal(0);
+                          setOpened(true);
+                        }}
                       >
                         <div className="user p-2 bg-[#1473E6] rounded-full w-[35px] h-[35px]">
                           <p className="text-white text-center flex w-full h-full items-center justify-center">
                             {userRedux?.names[0]}
                           </p>
                         </div>
-                        <div className="username">
-                          <p className="lg:!text-sm xl:!text-base">
-                            {userRedux?.names}
-                          </p>
+                        <div
+                          className="flex items-center gap-3 bg-[#F5F5F5] rounded-full p-3 min-w-[217px] max-h-[55px] text-xs cursor-pointer"
+                          onClick={() => setMenuUser(!menuUser)}
+                        >
+                          <div className="user p-2 bg-[#1473E6] rounded-full">
+                            <p className="text-white">AD</p>
+                          </div>
+                          <div className="username">
+                            <p className="lg:!text-sm xl:!text-base">
+                              {userRedux?.names}
+                            </p>
+                          </div>
                         </div>
                       </div>
+                      {menuUser && (
+                        <UserOptions user={userRedux} logout={logout} />
+                      )}
                     </div>
                     {menuUser && (
                       <UserOptions user={userRedux} logout={logout} menuUser={menuUser} setMenuUser={setMenuUser} />
@@ -1054,11 +1085,11 @@ const Layout = ({ children }) => {
                   </div>
                 </div>
               </div>
+              {children}
             </div>
-            {children}
           </div>
         </div>
-      </div>
+      </ContainerContent>
     </>
   );
 };

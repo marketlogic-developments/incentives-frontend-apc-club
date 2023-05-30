@@ -145,7 +145,7 @@
     "NoFactura": "No. Factura",
     "digiEstimados": "DigiPoints estimados por Representante de ventas",
     "asignarRep": "Asignar Representante de Ventas",
-    "successFact": "Tu factura fue asignada de manera exitosa",
+    "successFact": "Asignación de DigiPoints realizada exitosamente.",
     "notiUser": "Debes elegir al menos un usuario para asignar esta factura",
     "deleteTeam": "Eliminar Equipo",
     "copyDeleteTeam": "Esta acción eliminará permanentemente tu equipo. ¿Está seguro de continuar?",
@@ -157,7 +157,10 @@
     "asignacionDigipoints": "¿A quién asignarás estos digipoints?",
     "sOpcionListadoUsuarios": "Selecciona una opción para visualizar el listado de usuarios.",
     "cAsignacion": "Confirmar asignación",
-    "dFactura": "Detalle de factura"
+    "dFactura": "Detalle de factura",
+    "errorNoTeam": "Tienes que elegir un equipo de ventas para asignar tu factura",
+    "selectTeam": "Selecciona al equipo de ventas al que vas asignar estos digipoints. Recuerda que solo puedes seleccionar a (1) un equipo de ventas.",
+    "selectUser": "Selecciona al representante de ventas al que vas asignar estos digipoints. Recuerda que solo puedes seleccionar a (1) un usuario."
   },
   "files": {},
   "participantes": {
@@ -221,7 +224,7 @@
     "aDigipoints": "Asignar digipoints",
     "asignado": "Asignado",
     "nomParticipantes": "NOMBRE DEL PARTICIPANTE",
-    "sillas": "No. de sillas",
+    "sillas": "Cantidad",
     "borrar": "Borrar",
     "unidadNegocio": "Unidad de negocio",
     "negocio": "Negocio",
