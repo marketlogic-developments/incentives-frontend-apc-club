@@ -524,41 +524,48 @@ const DigipointsDistribution = () => {
                 <div className="lds-dual-ring"></div>
               ) : (
                 <tbody>
-                  {dataToTable.map((obj, index) => (
-                    <tr
-                      className="bg-white border-b dark:border-gray-500"
-                      key={obj?.invoices_included}
-                    >
-                      <td className="py-4 px-6">{obj?.invoices_included}</td>
-                      <td className="py-4 px-6 min-w-[130px]">{obj?.date}</td>
-                      <td className="py-4 px-6">{obj?.client}</td>
-                      <td className="py-4 px-6">{obj?.marketSegment}</td>
-                      <td className="py-4 px-6">{obj?.digipoints}</td>
-                      <td className="py-4 px-6">
-                        {obj.status === false ? (
-                          <button
-                            className="btn btn-primary btn-xs"
-                            onClick={() => {
-                              setInvoiceData({ ...obj, index: index });
-                              setOpened(true);
-                            }}
-                          >
-                            {t("tabla.asignar")}
-                          </button>
-                        ) : (
-                          <button
-                            className="btn btn-secondary btn-xs"
-                            onClick={() => {
-                              console.log("");
-                              // return handleUnassign({ ...obj, index: index });
-                            }}
-                          >
-                            {t("tabla.asignado")}
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
+                  {dataToTable.map((obj, index) => {
+                    if (obj?.digipoints > 0) {
+                      return (
+                        <tr
+                          className="bg-white border-b dark:border-gray-500"
+                          key={obj?.invoices_included}
+                        >
+                          <td className="py-4 px-6">{obj?.invoices_included}</td>
+                          <td className="py-4 px-6 min-w-[130px]">{obj?.date}</td>
+                          <td className="py-4 px-6">{obj?.client}</td>
+                          <td className="py-4 px-6">{obj?.marketSegment}</td>
+                          <td className="py-4 px-6">{obj?.digipoints}</td>
+                          <td className="py-4 px-6">
+                            {obj.status === false ? (
+                              <button
+                                className="btn btn-primary btn-xs"
+                                onClick={() => {
+                                  setInvoiceData({ ...obj, index: index });
+                                  setOpened(true);
+                                }}
+                              >
+                                {t("tabla.asignar")}
+                              </button>
+                            ) : (
+                              <button
+                                className="btn btn-secondary btn-xs"
+                                onClick={() => {
+                                  console.log("");
+                                  // return handleUnassign({ ...obj, index: index });
+                                }}
+                              >
+                                {t("tabla.asignado")}
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    } else {
+                      return null; // If the condition is not met, you can choose to return null or exclude the row.
+                    }
+                  })}
+
                 </tbody>
               )}
             </table>
