@@ -11,21 +11,15 @@ import {
   setDigipoints,
 } from "../../store/reducers/users.reducer";
 import ModalDistribution from "./DpDistribution/ModalDistribution";
+import jsonexport from "jsonexport";
+import { saveAs } from "file-saver";
 
 const DigipointsDistribution = () => {
   const [opened, setOpened] = useState(false);
   const [t, i18n] = useTranslation("global");
   const iduser = useSelector((state) => state.user.user.id);
-  const teams = useSelector((state) => state.teams.teams);
-  const user = useSelector((state) => state.user.user);
-  const users = useSelector((state) => state.user.companyUsers);
-  const [salesOption, setSalesOption] = useState("salesRep");
   const [numModal, setNumModal] = useState(0);
-  const [teamInfo, setTeamInfo] = useState({});
-  const [searchByEmail, setSearchByEmail] = useState("");
-  const [listUsers, setListUsers] = useState(false);
-  const [hover, setHover] = useState(false);
-  const [dataModal, setDataModal] = useState([]);
+  const [searchByInvoice, setSearchByInvoice] = useState("");
   const [invoiceData, setInvoiceData] = useState({});
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
@@ -128,12 +122,6 @@ const DigipointsDistribution = () => {
     dispatch(getDigiPa(dataRedux));
     dispatch(getDigiPoints(token, iduser));
 
-    setSalesOption("salesRep");
-    setNumModal(0);
-    setOpened(false);
-    setDataModal([]);
-    setListUsers(false);
-    setHover(false);
     setOpened(false);
   };
 
@@ -189,99 +177,104 @@ const DigipointsDistribution = () => {
     });
   };
 
+  const dowloadInvoices = () => {
+    const data = dataToTable.map((item) => {
+      let { invoiceDetails, invoices_included, is_gold, status, ...info } =
+        item;
+      return info;
+    });
+
+    jsonexport(data, (error, csv) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "Channel_Invoices.csv");
+    });
+  };
+
+  console.log(dataToTable);
+
   return (
     <>
       <Modal
         opened={opened}
-        onClose={() => {
-          setSalesOption("salesRep");
-          setNumModal(0);
-          setOpened(false);
-          setDataModal([]);
-          setListUsers(false);
-          setHover(false);
-        }}
+        onClose={() => setOpened(false)}
         size={numModal === 0 ? "100%" : "100%"}
         centered
         className="modal100"
       >
         <ModalDistribution
-          dataToTable={dataToTable}
-          salesOption={salesOption}
           setOpened={setOpened}
-          setTeamInfo={setTeamInfo}
-          teams={teams}
-          loading={loading}
+          invoiceData={invoiceData}
+          handleSubmit={handleSubmit}
         />
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
-        <div className="w-full grid grid-cols-3 gap-1 mb-4">
-          <div className="relative">
-            <div className="absolute flex items-center ml-4 h-full">
-              <img src="/assets/Icons/search.png" alt="search" />
+        <div className="w-full flex gap-1 mb-4 justify-between">
+          <div className="w-2/3 flex">
+            <div className="relative w-full">
+              <div className="absolute flex items-center ml-4 h-full">
+                <img src="/assets/Icons/search.png" alt="search" />
+              </div>
+              <input
+                type="text"
+                placeholder="Buscar"
+                onChange={(e) => setSearchByInvoice(e.target.value)}
+                className="px-11 py-3 w-11/12 rounded-full bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+              />
             </div>
-            <input
-              type="text"
-              placeholder="Buscar"
-              className="px-11 py-3 w-11/12 rounded-full bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-            />
+            <div className="flex gap-5 w-full">
+              <select
+                name="date"
+                onChange={handleFilters}
+                className="px-4 py-3 w-40 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+                value={filtersTable.date}
+              >
+                <option value="">{t("tabla.ordenarPor")}</option>
+                <option value="upDown">{t("tabla.recienteA")}</option>
+                <option value="downUp">{t("tabla.antiguoR")}</option>
+              </select>
+              <select
+                name="marketSegment"
+                onChange={handleFilters}
+                value={filtersTable.marketSegment}
+                className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+              >
+                <option value="">Segmento de Mercado</option>
+                {uniqueData(data.map(({ marketSegment }) => marketSegment))}
+              </select>
+              <select
+                name="invoiceattributed"
+                onChange={handleFilters}
+                value={filtersTable.invoiceattributed}
+                className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+              >
+                <option value="">Estatus</option>
+                <option value="attributed">{t("tabla.asignar")}</option>
+                <option value="unassigned">{t("tabla.asignado")}</option>
+              </select>
+            </div>
           </div>
-          <div className="flex gap-5 w-full">
-            <select
-              name="date"
-              onChange={handleFilters}
-              className="px-4 py-3 w-40 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-              value={filtersTable.date}
+
+          <div className="w-1/6 justify-center flex">
+            <div
+              className="flex items-center h-full gap-1"
+              onClick={dowloadInvoices}
             >
-              <option value="">{t("tabla.ordenarPor")}</option>
-              <option value="upDown">{t("tabla.recienteA")}</option>
-              <option value="downUp">{t("tabla.antiguoR")}</option>
-            </select>
-            <select
-              name="marketSegment"
-              onChange={handleFilters}
-              value={filtersTable.marketSegment}
-              className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-            >
-              <option value="">Segmento de Mercado</option>
-              {uniqueData(data.map(({ marketSegment }) => marketSegment))}
-            </select>
-            <select
-              name="invoiceattributed"
-              onChange={handleFilters}
-              value={filtersTable.invoiceattributed}
-              className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-            >
-              <option value="">Estatus</option>
-              <option value="attributed">{t("tabla.asignar")}</option>
-              <option value="unassigned">{t("tabla.asignado")}</option>
-            </select>
-          </div>
-          <div className="relative justify-items-center grid grid-flow-col">
-            <div className="flex items-center ml-4 h-full gap-1">
               <img src="/assets/Icons/download.png" alt="search" />
               <p className="text-[#1473E6] font-semibold cursor-pointer textShadowHTW">
                 {t("digipoints.descargar")}
               </p>
             </div>
-            {/*<button className="btn btn-primary"
-                onClick={() =>
-                  setFiltersTable({
-                    date: "",
-                    marketSegment: "",
-                    invoiceattributed: "",
-                  })
-                }
-              >
-              Remover Filtros
-            </button>*/}
           </div>
         </div>
         <br></br>
-        <div className="container">
+        <div className="w-full">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left text-black-500">
-              <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5 table-radius-cstm">
+            <table className="w-full text-sm text-left text-black-500 tableJustify">
+              <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
                 <tr>
                   <th scope="col" className="py-3 px-6">
                     {t("tabla.nfactura")}
@@ -298,65 +291,81 @@ const DigipointsDistribution = () => {
                   <th scope="col" className="py-5 px-6">
                     Digipoints
                   </th>
-                  <th scope="col" className="py-5 px-6"></th>
+                  <th scope="col" className="py-5 px-6">
+                    {t("tabla.asignar")} a
+                  </th>
                 </tr>
               </thead>
               {loading ? (
                 <div className="lds-dual-ring"></div>
               ) : (
                 <tbody>
-                  {dataToTable.map((obj, index) => (
-                    <tr
-                      className="bg-white border-b dark:border-gray-500"
-                      key={obj?.invoices_included}
-                    >
-                      <td>hola</td>
-                      <td className="py-4 px-6">{obj?.invoices_included}</td>
-                      <td className="py-4 px-6 min-w-[130px]">{obj?.date}</td>
-                      <td className="py-4 px-6">{obj?.client}</td>
-                      <td className="py-4 px-6">{obj?.marketSegment}</td>
-                      <td className="py-4 px-6">{obj?.digipoints}</td>
-                      <td className="py-4 px-6">
-                        {obj.status === false ? (
-                          <div
-                            className="flex items-center ml-4 h-full gap-1"
-                            onClick={() => {
-                              setInvoiceData({ ...obj, index: index });
-                              setOpened(true);
-                            }}
-                          >
-                            <img
-                              src="/assets/Icons/add_circle.png"
-                              alt="search"
-                            />
-                            <p className="text-[#1473E6] font-semibold cursor-pointer textShadowHTW">
-                              {t("tabla.aDigipoints")}
-                            </p>
-                          </div>
-                        ) : (
-                          /*<button
-                              className="btn btn-primary btn-xs"
+                  {dataToTable
+                    .filter((item) => {
+                      if (searchByInvoice !== "") {
+                        return item.invoices_included.startsWith(
+                          searchByInvoice.toLocaleLowerCase()
+                        );
+                      }
+
+                      return item;
+                    })
+                    .map((obj, index) => (
+                      <tr
+                        className="bg-white border-b dark:border-gray-500"
+                        key={obj?.invoices_included}
+                      >
+                        <td className="py-4 px-6">{obj?.invoices_included}</td>
+                        <td className="py-4 px-6 min-w-[130px]">{obj?.date}</td>
+                        <td className="py-4 px-6">{obj?.client}</td>
+                        <td className="py-4 px-6">{obj?.marketSegment}</td>
+                        <td className="py-4 px-6">{obj?.digipoints}</td>
+                        <td className="py-4 px-6">
+                          {obj.status === false ? (
+                            <div
+                              className="flex items-center h-full gap-1"
                               onClick={() => {
                                 setInvoiceData({ ...obj, index: index });
                                 setOpened(true);
                               }}
                             >
-                              {t("tabla.asignar")}
-                            </button>
-                          */
-                          <button
-                            className="btn btn-secondary btn-xs"
-                            onClick={() => {
-                              console.log("");
-                              // return handleUnassign({ ...obj, index: index });
-                            }}
-                          >
-                            {t("tabla.asignado")}
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
+                              <img
+                                src="/assets/Icons/add_circle.png"
+                                alt="search"
+                              />
+                              <p className="text-[#1473E6] font-semibold cursor-pointer textShadowHTW">
+                                {t("tabla.aDigipoints")}
+                              </p>
+                            </div>
+                          ) : (
+                            <div
+                              className="flex items-center h-full gap-1"
+                              onClick={() => {
+                                console.log("");
+                                // return handleUnassign({ ...obj, index: index });
+                              }}
+                            >
+                              <svg
+                                width="17"
+                                height="17"
+                                viewBox="0 0 17 17"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M8.14478 1.5271C4.49596 1.5271 1.52734 4.49572 1.52734 8.14453C1.52734 11.7933 4.49596 14.762 8.14478 14.762C11.7936 14.762 14.7622 11.7933 14.7622 8.14453C14.7622 4.49572 11.7936 1.5271 8.14478 1.5271ZM11.5887 5.92674L7.31282 11.0171C7.26592 11.0729 7.20756 11.1181 7.14169 11.1494C7.07582 11.1808 7.00399 11.1976 6.93105 11.1987H6.92246C6.85111 11.1987 6.78057 11.1837 6.7154 11.1546C6.65023 11.1256 6.5919 11.0832 6.54418 11.0301L4.71166 8.99398C4.66513 8.94462 4.62892 8.88645 4.60518 8.8229C4.58144 8.75935 4.57065 8.69169 4.57343 8.62391C4.57621 8.55612 4.59252 8.48958 4.62139 8.42818C4.65025 8.36679 4.6911 8.31179 4.74153 8.26641C4.79196 8.22102 4.85095 8.18618 4.91504 8.16392C4.97912 8.14167 5.04701 8.13244 5.11471 8.1368C5.18241 8.14115 5.24856 8.159 5.30927 8.18928C5.36998 8.21957 5.42402 8.26168 5.46821 8.31315L6.9091 9.91406L10.8092 5.27199C10.8967 5.17085 11.0205 5.10819 11.1538 5.09757C11.2871 5.08695 11.4193 5.12921 11.5217 5.21523C11.6241 5.30124 11.6885 5.4241 11.701 5.55724C11.7136 5.69038 11.6732 5.82311 11.5887 5.92674Z"
+                                  fill="#009C3B"
+                                />
+                              </svg>
+
+                              <p className="text-[#009C3B] font-semibold textShadowHTW">
+                                {t("tabla.asignado")}
+                              </p>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               )}
             </table>

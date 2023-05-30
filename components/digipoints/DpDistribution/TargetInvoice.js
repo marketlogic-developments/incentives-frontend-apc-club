@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-const TargetInvoice = () => {
+const TargetInvoice = ({ invoiceData }) => {
   const [t, i18n] = useTranslation("global");
   return (
     <div className="border rounded-2xl h-fit flex flex-col w-2/3 justify-self-center p-6 gap-6 min-w-[72.6%]">
@@ -31,7 +31,7 @@ const TargetInvoice = () => {
           />
         </svg>
         <div className="flex flex-col justify-center gap-1">
-          <p className="!text-2xl font-bold">90</p>
+          <p className="!text-2xl font-bold">{invoiceData.digipoints}</p>
           <p className="!text-sm">DigiPoints</p>
         </div>
       </div>
@@ -53,7 +53,7 @@ const TargetInvoice = () => {
                 stroke-linejoin="round"
               />
             </svg>
-            <p className="!text-xs font-bold">No. de factura</p>
+            <p className="!text-xs font-bold">{t("tabla.nfactura")}</p>
           </div>
           <div className="flex gap-4">
             <svg
@@ -126,7 +126,7 @@ const TargetInvoice = () => {
                 </clipPath>
               </defs>
             </svg>
-            <p className="!text-xs font-bold">Fecha</p>
+            <p className="!text-xs font-bold">{t("tabla.fecha")}</p>
           </div>
           <div className="flex gap-4">
             <svg
@@ -178,14 +178,14 @@ const TargetInvoice = () => {
               </defs>
             </svg>
 
-            <p className="!text-xs font-bold">Cantidad de sillas</p>
+            <p className="!text-xs font-bold">{t("tabla.sillas")}</p>
           </div>
         </div>
         <div className="flex flex-col gap-3">
-          <p className="!text-xs">123456</p>
-          <p className="!text-xs">11/11/2011</p>
-          <p className="!text-xs">Universidad Santo Tomas</p>
-          <p className="!text-xs">200</p>
+          <p className="!text-xs">{invoiceData.salesOrder}</p>
+          <p className="!text-xs">{invoiceData.date}</p>
+          <p className="!text-xs">{invoiceData.client}</p>
+          <p className="!text-xs">{invoiceData.salesQuantity}</p>
         </div>
       </div>
     </div>
