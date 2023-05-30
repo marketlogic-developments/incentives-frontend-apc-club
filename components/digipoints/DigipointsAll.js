@@ -3,8 +3,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import PerUsers from "./DigiPointsDistributionModals/PerUsers";
-import PerTeams from "./DigiPointsDistributionModals/PerTeams";
 import { getDigipointsAll } from "../../store/reducers/sales.reducer";
 import Cookies from "js-cookie";
 import axios from "axios";
