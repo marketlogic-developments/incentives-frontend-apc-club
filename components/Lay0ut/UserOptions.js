@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-const UserOptions = ({ user, logout }) => {
+const UserOptions = ({ user, logout, menuUser, setMenuUser }) => {
   const route = useRouter();
 
   const sections = [
@@ -186,7 +186,11 @@ const UserOptions = ({ user, logout }) => {
           </div>
           <button
             className="btn !btn-outline btn-info w-3/4 min-h-[2.563rem] h-[2.563rem]"
-            onClick={() => route.push(`/user/${user.name}`)}
+            onClick={() => {
+              route.push(`/user/${user.name}`)
+              setMenuUser(!menuUser)
+            }
+            }
           >
             Ver perfil
           </button>
@@ -206,7 +210,7 @@ const UserOptions = ({ user, logout }) => {
           Cerrar Sesión
         </p>
       </div>
-    </div>
+    </div >
   );
 };
 

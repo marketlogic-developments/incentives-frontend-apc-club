@@ -24,6 +24,7 @@ import {
   AiOutlineCloseCircle,
 } from "react-icons/ai";
 import { changeLoadingData } from "../store/reducers/loading.reducer";
+import LoginTarget from "../components/login/LoginTarget";
 
 export default function Home() {
   const user = useSelector((state) => state.user);
@@ -512,152 +513,50 @@ export default function Home() {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      <main className="mainIndex bg-primary flex flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden h-screen 2xl:gap-16 xl:gap-1">
+      <main className="mainIndex bg-primary flex flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden h-screen">
         <Recovery opened={opened} setOpened={setOpened} t={t} />
         <Registro close={setRegister} register={register} />
         <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] max-sm:max-h-[150px] flex w-full justify-between mt-10">
           <figure className="ml-10 max-sm:m-auto">
             <img
               src="assets/login/adobe.webp"
-              className="max-w-[250px] max-sm:m-auto "
+              className="max-w-[250px] max-sm:m-auto lg:w-[60%] 2xl:w-[80%]"
               alt="Principal-Adobe-Logo"
             />
           </figure>
-          <figure>
-            <img
-              src="assets/login/pcc.webp"
-              className="max-w-[400px] max-sm:m-auto"
-              alt="10years-Logo"
-            />
-          </figure>
-        </div>
-        <div className="container flex flex-col justify-center items-center w-full max-w-full relative">
-          <div className="flex items-center max-sm:justify-start max-sm:flex-col justify-center w-full max-sm:w-full h-[90%] containerLogin">
-            <div className="w-fit h-full max-sm:h-auto max-sm:mb-5 flex justify-center items-center ">
-              <figure id="apcLogo">
-                <img
-                  src="/assets/login/apcLogo.webp"
-                  className="logoAPC w-5/6"
-                  alt="logoAPC"
-                />
-              </figure>
-            </div>
-
-            <div className="gap-5 flex flex-col containerCard">
-              <div
-                className="card w-[35rem] text-primary-content"
-                style={{ backgroundColor: "#e4ddd8" }}
-                id="cardLogin"
-              >
-                <div className="card-body items-center justify-between max-sm:justify-center flex px-20 max-sm:px-5 internalCard">
-                  <div className="w-full">
-                    <div className="flex justify-between max-sm:text-center max-sm:justify-center card-login">
-                      <h1
-                        className="card-title text-black font-bold max-sm:text-center py-5 w-full justify-center"
-                        style={{ color: "#00405d", fontSize: "2.00rem" }}
-                      >
-                        {t("login.Iniciar_Sesión")}
-                      </h1>
-                    </div>
-                  </div>
-                  <div className="w-full gap-5 flex flex-col">
-                    <form
-                      className="form-control w-full flex items-center gap-5"
-                      onSubmit={handleSubmit}
-                    >
-                      <div className="w-full">
-                        <label className="label flex flex-col w-full items-start">
-                          <input
-                            required
-                            type="email"
-                            placeholder={t("login.Email")}
-                            className="input w-full text-black"
-                            onChange={(e) => {
-                              setEmail(e.target.value);
-                            }}
-                          />
-                        </label>
-                        <label className="label flex flex-col w-full items-start relative">
-                          <input
-                            type={viewLogin}
-                            placeholder={t("login.Password")}
-                            className="input w-full text-black"
-                            required
-                            onChange={(e) => {
-                              setPassword(e.target.value);
-                            }}
-                          />
-                          <button
-                            type="button"
-                            onClick={() => {
-                              viewLogin === "password"
-                                ? setViewLogin("text")
-                                : setViewLogin("password");
-                            }}
-                            className="absolute inset-y-0 right-0 flex items-center px-4 py-2 text-gray-700 hover:text-gray-600 focus:outline-none"
-                          >
-                            {viewLogin === "text" ? (
-                              <AiOutlineEyeInvisible className="h-5 w-5 fill-[#000]" />
-                            ) : (
-                              <AiOutlineEye className="h-5 w-5 fill-[#000]" />
-                            )}
-                          </button>
-                        </label>
-                      </div>
-
-                      <button
-                        className="btn btn-secondary w-full lg:button-sm 2xl:input-md"
-                        type="submit"
-                      >
-                        {t("login.continuar")}
-                      </button>
-                    </form>
-                    <div className="flex flex-col items-center">
-                      <div className="flex items-center justify-between w-full">
-                        <p
-                          className="text-secondary text-center decoration-solid cursor-pointer"
-                          onClick={() => setOpen(true)}
-                        >
-                          {t("login.¿Has_olvidado_la_contraseña?")}
-                        </p>
-                      </div>
-                      <div className="border-separate border border-[#00405d] w-full mt-4 mb-4"></div>
-                      <div className="w-full flex flex-col justify-center items-center text-secondary">
-                        <p className="text-center">{t("login.registro")}</p>
-                        <p
-                          className="underline decoration-solid cursor-pointer font-bold"
-                          onClick={() => setRegister(true)}
-                        >
-                          {t("login.linkRegistro")}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                style={{ backgroundColor: "#e4ddd8" }}
-                className="w-full flex max-sm:items-center max-sm:text-center idioma-card rounded-xl p-3 justify-center"
-              >
-                <div className="flex items-center w-full justify-around">
-                  <p className="text-secondary">
-                    <strong>{t("login.language")}</strong>
-                  </p>
-                  <select
-                    className="select w-1/2 text-secondary lg:select-sm 2xl:select-md"
-                    onChange={(e) => {
-                      i18n.changeLanguage(e.target.value);
-                    }}
-                    value={i18n.resolvedLanguage}
-                  >
-                    <option value="es">Español</option>
-                    <option value="por">Português</option>
-                  </select>
-                </div>
-              </div>
-            </div>
+          <div className="flex gap-6 mr-6 items-center">
+            <figure>
+              <img
+                src="assets/login/pcc.webp"
+                className="max-w-[400px] max-sm:m-auto ml-auto lg:w-[60%] 2xl:w-[80%]"
+                alt="10years-Logo"
+              />
+            </figure>
+            <select
+              className="select w-1/3 text-secondary lg:select-sm 2xl:select-md !h-[90%]"
+              onChange={(e) => {
+                i18n.changeLanguage(e.target.value);
+              }}
+              value={i18n.resolvedLanguage}
+            >
+              <option value="es">Español</option>
+              <option value="por">Português</option>
+            </select>
           </div>
         </div>
+        <div className="container flex flex-col justify-center items-end w-full max-w-full relative my-auto h-3/4">
+          <LoginTarget
+            handleSubmit={handleSubmit}
+            viewLogin={viewLogin}
+            setViewLogin={setViewLogin}
+            setEmail={setEmail}
+            setPassword={setPassword}
+            setRegister={setRegister}
+          />
+        </div>
+        <figure className="absolute w-full z-[-1] opacity-25">
+          <img src="/assets/login/bbapc.webp" className="w-full h-full"></img>
+        </figure>
       </main>
     </>
   );

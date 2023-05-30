@@ -339,7 +339,7 @@ const dashboard = () => {
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
             <GraphSales />
-            {ranking.length !== 0 && <TableTopsRanking />}
+            <TableTopsRanking />
           </div>
         </div>
       </ContainerContent>

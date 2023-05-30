@@ -25,9 +25,6 @@ const howtowin = () => {
   return (
     <ContainerContent pageTitle={t("dashboard.htw")}>
       <div className="m-6 flex flex-col gap-6">
-        <div className="flex flex-col gap-5">
-          <h1 className="font-bold text-3xl">{t("dashboard.htw")}</h1>
-        </div>
         <div>
           <figure>
             <img

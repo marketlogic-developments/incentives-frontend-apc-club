@@ -1,16 +1,17 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
 const BarBySegment = ({ percentageCC, percentageDC, formatNumber }) => {
   const ranking = useSelector((state) => state.user.ranking);
+  const [t, i18n] = useTranslation("global");
+
   return (
     <div
-      className={`w-full max-sm:mx-auto flex flex-col gap-5 progressiveBar p-6 targetDashboard gap-6 ${
-        ranking.length === 0 && "col-span-2"
-      }`}
+      className={`w-full max-sm:mx-auto flex flex-col gap-5 progressiveBar p-6 targetDashboard gap-6`}
     >
       <div>
-        <h2 className="font-bold text-xl">Licencias</h2>
+        <h2 className="font-bold text-xl">{t("dashboard.licencias")}</h2>
         {/* <p></p> */}
       </div>
       <div className="flex flex-col gap-6 my-auto">

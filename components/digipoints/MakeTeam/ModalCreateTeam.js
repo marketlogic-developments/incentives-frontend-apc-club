@@ -179,11 +179,13 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
           }
         )
         .then(({ data }) => {
+          console.log(data);
           dispatch(
             teamsPush({
               ...data,
               total_users: data.PartnerAdminGroupD.length,
               name_group: data.nameGroup,
+              created_at: data.CreatedAt,
             })
           );
           Toast.fire({

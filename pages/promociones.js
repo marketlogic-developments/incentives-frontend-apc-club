@@ -182,9 +182,6 @@ const promociones = () => {
       ></Modal>
       <ContainerContent pageTitle={"DigiPoints por ventas"}>
         <div className="m-6 flex flex-col gap-16">
-          <div className="flex flex-col gap-5">
-            <h1 className="font-bold text-3xl">Promociones</h1>
-          </div>
           <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
             {!loading && (
               <div className="flex flex-col gap-5">

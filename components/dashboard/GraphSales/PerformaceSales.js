@@ -1,7 +1,9 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 const PerformaceSales = ({ CC, DC }) => {
   const data = [...CC, ...DC];
+  const [t, i18n] = useTranslation("global");
 
   function formatNumber(number) {
     const formattedNumber =
@@ -56,8 +58,6 @@ const PerformaceSales = ({ CC, DC }) => {
     return 0;
   }, [data]);
 
-  console.log(dataSalesByType.renewal);
-
   return (
     <div className="flex flex-col w-full p-4 gap-4 targetDashboard">
       <div className="flex justify-between">
@@ -66,26 +66,45 @@ const PerformaceSales = ({ CC, DC }) => {
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-2">
           <div className="flex w-full justify-between">
-            <p className="lg:!text-xs xl:!text-sm font-bold">Renewal</p>
+            <p className="lg:!text-xs xl:!text-sm font-bold">
+              {t("dashboard.renovaciones")}
+            </p>
             <p className="!text-sm">
               {formatNumber(Number(dataSalesByType.renewal))}/
               {formatNumber(Number(dataSalesByType.totalSales))}
             </p>
           </div>
           <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
-            <span className="bg-[#232B2F] w-1/2 h-full rounded-full" />
+            <span
+              className="bg-[#232B2F] h-full rounded-full"
+              style={{
+                width: `${
+                  (dataSalesByType.newBusiness * 100) /
+                  dataSalesByType.totalSales
+                }%`,
+              }}
+            />
           </div>
         </div>
         <div className="flex flex-col gap-2">
           <div className="flex w-full justify-between">
-            <p className="lg:!text-xs xl:!text-sm font-bold">New Business</p>
+            <p className="lg:!text-xs xl:!text-sm font-bold">
+              {t("dashboard.nbusiness")}
+            </p>
             <p className="!text-sm">
               {formatNumber(Number(dataSalesByType.newBusiness))}/
               {formatNumber(Number(dataSalesByType.totalSales))}
             </p>
           </div>
           <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
-            <span className="bg-[#21A5A2] w-1/2 h-full rounded-full" />
+            <span
+              className="bg-[#21A5A2] h-full rounded-full"
+              style={{
+                width: `${
+                  (dataSalesByType.renewal * 100) / dataSalesByType.totalSales
+                }%`,
+              }}
+            />
           </div>
         </div>
       </div>
@@ -101,7 +120,7 @@ const PerformaceSales = ({ CC, DC }) => {
           </div>
           <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
             <span
-              className="bg-[#1473E6] w-1/2 h-full rounded-full"
+              className="bg-[#1473E6] h-full rounded-full"
               style={{ width: `${dataSalesByType.withCC}%` }}
             />
           </div>

@@ -53,7 +53,8 @@
     "Premios": "Mis premios",
     "Carga_de_Ventas": "Carga de ventas",
     "salir": "Salir",
-    "catalogo": "Catálogo de premios"
+    "catalogo": "Catálogo de premios",
+    "vercatalogo": "Ver catálogo de premios"
   },
   "dashboard": {
     "Inicio": "Inicio",
@@ -74,11 +75,9 @@
     "redimir": "Redimir",
     "renovaciones": "Renovaciones",
     "nbusiness": "Nuevos negocios",
-    "vCC": "Ventas",
-    "vDC": "Ventas",
-    "mvCC": "Mis ventas",
-    "mvDC": "Mis ventas",
-    "dpObtenidos": "DigiPoints Obtenidos",
+    "ventasOrg": "Ventas de mi organización",
+    "misVentas": "Mis ventas",
+    "dpObtenidos": "DigiPoints acumulados",
     "contieneUL": "Una letra Mayúscula (A-Z)",
     "contieneLL": "Una letra minúscula (a-z)",
     "contieneN": "Un número (0-9)",
@@ -88,7 +87,12 @@
     "pdfDist": "assets/pdf/HTWDist.pdf",
     "pdfComp": "assets/pdf/HTW.pdf",
     "titleTickets": "¿Necesitas ayuda? ¡Contáctanos ahora!",
-    "descripcionTickets": "Completa nuestro formulario de solicitudes y recibe ayuda de nuestros expertos para resolver tus problemas en línea. ¡Déjanos ayudarte hoy!"
+    "descripcionTickets": "Completa nuestro formulario de solicitudes y recibe ayuda de nuestros expertos para resolver tus problemas en línea. ¡Déjanos ayudarte hoy!",
+    "licencias": "Licencias",
+    "Alcanzado": "Alcanzado",
+    "rankingsininfo": "Aún no hay información disponible",
+    "motivarankingsininfo": "Motiva a tus representantes de venta a obtener DigiPoints y redimir.",
+    "motivalargorankingsininfo": "¡Vende con pasión y lidera en el ranking!"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",

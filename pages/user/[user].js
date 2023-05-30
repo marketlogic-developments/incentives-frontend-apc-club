@@ -11,6 +11,10 @@ import {
 } from "../../store/reducers/users.reducer";
 import ModalPassword from "../../components/user/modalPassword";
 import Swal from "sweetalert2";
+import { DateInput } from '@mantine/dates';
+import { DatePicker } from '@mantine/dates';
+import dayjs from 'dayjs';
+
 
 const user = () => {
   const user = useSelector((state) => state.user.user);
@@ -49,6 +53,7 @@ const user = () => {
     imgProfile: "",
     birthDate: "",
     phone: "",
+    languageId: "",
   });
 
   useEffect(() => {
@@ -63,6 +68,7 @@ const user = () => {
       imgProfile: user?.profilePhotoPath,
       birthDate: user?.birthDate,
       phone: user?.phoneNumber,
+      languageId: user?.languageId,
     });
 
     const num = Object.values({
@@ -72,6 +78,7 @@ const user = () => {
       imgProfile: user.profilePhotoPath,
       birthDate: user.birthDate,
       phone: user.phoneNumber,
+      languageId: user.languageId,
     }).filter((e) => e !== "" && e !== null).length;
 
     setNInputs(parseInt((num * 100) / 5));
@@ -85,35 +92,56 @@ const user = () => {
       imgProfile: formData.imgProfile,
       birthDate: formData.birthDate,
       phone: formData.phone,
+      languageId: user.languageId,
     }).filter((e) => e !== "" && e !== null).length;
 
     setNInputs(parseInt((num * 100) / 5));
   };
 
   const handleChange = (e) => {
-    if (e.target.name === "roleId") {
-      return setFormData({
+    const { name, value } = e.target;
+
+    if (name === "languageId") {
+      const languageValue = value === "es" ? 2 : 1;
+      setFormData({
         ...formData,
-        [e.target.name]: Number(e.target.value),
+        [name]: languageValue,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
       });
     }
-
-    return setFormData({
+  };
+  const handleChangeDate = (value) => {
+    console.log(user)
+    setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      birthDate: value.toISOString(), // Asegúrate de convertir el valor en un formato válido para la API
     });
   };
+
+  function formatDate(date) {
+    return dayjs(date).format('DD/MM/YYYY');
+  }
+  function isValidDate(dateString) {
+    const date = new Date(dateString);
+    return date instanceof Date && !isNaN(date);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const jsonData = () => {
       return {
-        names: formData.name,
+        name: formData.name,
+        names: formData.names,
         lastName: formData.lastname,
         birthDate: formData.birthDate,
         phoneNumber: formData.phone,
         region: formData.region,
+        languageId: formData?.languageId,
       };
     };
 
@@ -126,6 +154,7 @@ const user = () => {
       })
       .then((res) => {
         dispatch(policyAndPassword(res.data));
+        setEditInfo(!editInfo);
 
         const Toast = Swal.mixin({
           toast: true,
@@ -146,6 +175,8 @@ const user = () => {
             content: 'sw2Custom',
           },
         });
+
+
       });
   };
 
@@ -619,7 +650,6 @@ const user = () => {
                               name="names"
                               value={formData.names}
                               onChange={handleChange}
-                              onBlur={handleChangeInputs}
                               required
                             />
                           ) : (
@@ -698,27 +728,47 @@ const user = () => {
                             </span>
                           </label>
                           {editInfo ? (
-                            <input
-                              type="text"
-                              placeholder="AAAA-MM-DD"
-                              className="input input-ghost w-full bg-[#F4F4F4]"
-                              value={formData.birthDate}
-                              onChange={handleChange}
+                            <DateInput
                               name="birthDate"
-                              required
+                              valueFormat="MM/DD/YYYY"
+                              onChange={handleChangeDate}
                               onBlur={handleChangeInputs}
+                              value={isValidDate(formData.birthDate) ? new Date(formData.birthDate) : ''}
+                              variant="datepickerInput"
+                              className="datepickerInput"
                             />
+
+                          ) : (
+                            formData.birthDate && (
+                              <span className="input input-ghost w-full flex items-center">{isValidDate(formData.birthDate) ? new Date(formData.birthDate).toLocaleDateString("en-US") : ''}</span>
+                            )
+                          )}
+                        </div>
+                        <div className="form-control w-full">
+                          <label className="label">
+                            <span className="label-text">
+                              Idioma
+                            </span>
+                          </label>
+                          {editInfo ? (
+                            <select
+                              className="select w-full bg-[#F4F4F4]"
+                              onChange={(e) => {
+                                handleChange(e);
+                                i18n.changeLanguage(e.target.value);
+                              }}
+                              value={i18n.resolvedLanguage}
+                              name="languageId"
+                            >
+                              <option value="es">Español</option>
+                              <option value="por">Português</option>
+                            </select>
+
                           ) : (
                             <span
-                              type="text"
-                              placeholder="AAAA-MM-DD"
-                              className="input input-ghost w-full flex items-center"
-                              value={formData.birthDate}
-                              onChange={handleChange}
-                              name="birthDate"
-                              required
-                              onBlur={handleChangeInputs}
-                            >{formData.birthDate}</span>
+                              className="input input-ghost w-full flex items-center">
+                              {formData.languageId === 1 ? "Portugués" : "Español"}
+                            </span>
                           )}
                         </div>
                       </div>
