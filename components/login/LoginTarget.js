@@ -17,50 +17,50 @@ const LoginTarget = ({
       className="card w-[35%] text-primary-content bg-white !rounded-lg mr-[10%]"
       id="cardLogin"
     >
-      <div className="flex flex-col items-center lg:gap-6 xl:gap-3 max-sm:justify-center flex px-10 lg:py-20 xl:py-12 max-sm:px-5 internalCard my-auto">
+      <div className="flex flex-col items-center lg:gap-2 2xl:gap-6 max-sm:justify-center flex px-10 lg:py-6 2xl:py-20 max-sm:px-5 internalCard my-auto">
         <div className="w-full">
-          <div className="flex flex-col lg:gap-6 xl:gap-3">
+          <div className="flex flex-col lg:gap-2 2xl:gap-6">
             <figure id="apcLogo">
               <img
                 src="/assets/login/apcLogo.webp"
-                className="logoAPC w-[31%]"
+                className="logoAPC xl:w-[31%] lg:w-[25%]"
                 alt="logoAPC"
               />
             </figure>
-            <h1 className="text-2xl text-black font-bold text-center w-full">
+            <h1 className="2xl:text-2xl lg:text-xl text-black font-bold text-center w-full">
               {t("login.Iniciar_Sesión")}
             </h1>
           </div>
         </div>
-        <div className="w-full gap-6 flex flex-col">
+        <div className="w-full 2xl:gap-6 lg:gap-2 flex flex-col">
           <form
-            className="form-control w-full flex items-center gap-6"
+            className="form-control w-full flex items-center lg:gap-3 2xl:gap-6"
             onSubmit={handleSubmit}
           >
-            <div className="w-full flex flex-col gap-6">
+            <div className="w-full flex flex-col lg:gap-3 xl:gap-6">
               <div>
-                <label className="label w-full items-start text-black font-bold !text-sm">
+                <label className="label w-full items-start text-black font-bold lg:!text-xs xl:!text-sm">
                   {t("login.Email")}
                 </label>
                 <input
                   required
                   type="email"
                   placeholder={"email@example.com"}
-                  className="input w-full text-black bg-[#F4F4F4] !text-sm"
+                  className="input lg:!input-xs xl:!input-sm w-full text-black bg-[#F4F4F4] lg:!text-xs xl:!text-sm"
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
                 />
               </div>
               <div>
-                <label className="label w-full items-start text-black font-bold !text-sm">
+                <label className="label w-full items-start text-black font-bold lg:!text-xs xl:!text-sm">
                   {t("login.Password")}
                 </label>
                 <div className="flex flex-col w-full items-start relative">
                   <input
                     type={viewLogin}
                     placeholder={"*******"}
-                    className="input w-full text-black bg-[#F4F4F4] !text-sm"
+                    className="input lg:!input-xs xl:!input-sm w-full text-black bg-[#F4F4F4] lg:!text-xs xl:!text-sm"
                     required
                     onChange={(e) => {
                       setPassword(e.target.value);
@@ -86,14 +86,14 @@ const LoginTarget = ({
             </div>
             <div>
               <p
-                className="text-info font-bold w-full text-center decoration-solid cursor-pointer !text-sm"
+                className="text-info font-bold w-full text-center decoration-solid cursor-pointer lg:!text-xs xl:!text-sm"
                 onClick={() => setOpen(true)}
               >
                 {t("login.¿Has_olvidado_la_contraseña?")}
               </p>
             </div>
             <button
-              className="btn btn-info w-full lg:button-sm 2xl:input-md !text-sm"
+              className="btn btn-info w-full lg:!button-xs xl:!input-md lg:!text-xs xl:!text-sm"
               type="submit"
             >
               {t("login.continuar")}
