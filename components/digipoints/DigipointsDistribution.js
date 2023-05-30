@@ -310,6 +310,7 @@ const DigipointsDistribution = () => {
 
                       return item;
                     })
+                    .filter((obj) => obj.digipoints > 0)
                     .map((obj, index) => (
                       <tr
                         className={
