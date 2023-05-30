@@ -10,9 +10,11 @@ import {
   getDigiPoints,
   setDigipoints,
 } from "../../store/reducers/users.reducer";
+
 import ModalDistribution from "./DpDistribution/ModalDistribution";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
+
 
 const DigipointsDistribution = () => {
   const [opened, setOpened] = useState(false);
@@ -33,9 +35,60 @@ const DigipointsDistribution = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    const compOrDist =
+      user.company === null
+        ? {
+            endpoint: "distri-all-users-by-id",
+            byId: user.distribuitorChannelId,
+          }
+        : { endpoint: "company-all-users-by-id", byId: user.companyId };
+
     setLoading(true);
     if (token && data.length === 0) {
       dispatch(getDigipointsPa(token, iduser));
+      axios
+        .get(
+          `${process.env.BACKURL}/reporters/all-users-by-groupname-where-id/${user.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          if (data.length !== 0) dispatch(getAllTeams(data));
+        });
+      axios
+        .get(
+          `${process.env.BACKURL}/reporters/all-users-by-groupname-where-id/${user.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          if (data.length !== 0) dispatch(getAllTeams(data));
+        });
+
+      axios
+        .get(
+          `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          dispatch(setCompanyUsers(data));
+        });
     }
 
     setLoading(false);
@@ -177,6 +230,7 @@ const DigipointsDistribution = () => {
     });
   };
 
+
   const dowloadInvoices = () => {
     const data = dataToTable.map((item) => {
       let { invoiceDetails, invoices_included, is_gold, status, ...info } =
@@ -279,16 +333,16 @@ const DigipointsDistribution = () => {
                   <th scope="col" className="py-3 px-6">
                     {t("tabla.nfactura")}
                   </th>
-                  <th scope="col" className="py-5 px-6">
+                  <th scope="col" className="py-3 px-6">
                     {t("tabla.fecha")}
                   </th>
-                  <th scope="col" className="py-5 px-6">
+                  <th scope="col" className="py-3 px-6">
                     Cliente
                   </th>
-                  <th scope="col" className="py-5 px-6">
+                  <th scope="col" className="py-3 px-6">
                     Segmento de mercado
                   </th>
-                  <th scope="col" className="py-5 px-6">
+                  <th scope="col" className="py-3 px-6">
                     Digipoints
                   </th>
                   <th scope="col" className="py-5 px-6">

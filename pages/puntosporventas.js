@@ -117,7 +117,13 @@ const puntosporventas = () => {
                 Disti Partner Rollup
               </th>
               <th scope="col" className="py-2 px-2">
+              Sold To Party
+              </th>
+              <th scope="col" className="py-2 px-2">
                 Reseller Partner Rollup
+              </th>
+              <th scope="col" className="py-2 px-2">
+                Reseller Partner Rollup ID
               </th>
 
               <th scope="col" className="py-2 px-2">
@@ -127,14 +133,15 @@ const puntosporventas = () => {
                 Business Type
               </th>
               <th scope="col" className="py-2 px-2">
-                SKU
+                Invoice
               </th>
               <th scope="col" className="py-2 px-2">
-                Quarter
+                SKU
               </th>
-              {/* <th scope="col" className="py-2 px-2">
+              
+             <th scope="col" className="py-2 px-2">
                 Total Sales US
-              </th> */}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -145,14 +152,16 @@ const puntosporventas = () => {
                   className="bg-white border-b dark:border-gray-500"
                 >
                   <td className="py-4 px-2">{data.disti_partner_rollup}</td>
+                  <td className="py-4 px-2">{data.sold_to_party}</td>
                   <td className="py-4 px-2">{data.reseller_partner_rollup}</td>
+                  <td className="py-4 px-2">{data.reseller_master_rollup_id}</td>
                   <td className="py-4 px-2">{data.business_unit}</td>
                   <td className="py-4 px-2">{data.business_type}</td>
+                  <td className="py-4 px-2">{data.sales_order}</td>
                   <td className="py-4 px-2">{data.materia_sku}</td>
-                  <td className="py-4 px-2">{data.quarter}</td>
-                  {/* <td className="py-4 px-2">
-                    ${parseFloat(data.total_sales_amount).toFixed(2)}
-                  </td> */}
+                  <td className="py-4 px-2">
+                    ${parseFloat(data.total_sales_us).toFixed(2)}
+                  </td>
                 </tr>
               ))}
           </tbody>
