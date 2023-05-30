@@ -520,7 +520,7 @@ export default function Home() {
           <figure className="ml-10 max-sm:m-auto">
             <img
               src="assets/login/adobe.webp"
-              className="max-w-[250px] max-sm:m-auto "
+              className="max-w-[250px] max-sm:m-auto lg:w-[60%] 2xl:w-[80%]"
               alt="Principal-Adobe-Logo"
             />
           </figure>
@@ -528,7 +528,7 @@ export default function Home() {
             <figure>
               <img
                 src="assets/login/pcc.webp"
-                className="max-w-[400px] max-sm:m-auto ml-auto"
+                className="max-w-[400px] max-sm:m-auto ml-auto lg:w-[60%] 2xl:w-[80%]"
                 alt="10years-Logo"
               />
             </figure>
