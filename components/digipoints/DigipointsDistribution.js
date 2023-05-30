@@ -312,7 +312,9 @@ const DigipointsDistribution = () => {
                     })
                     .map((obj, index) => (
                       <tr
-                        className="bg-white border-b dark:border-gray-500"
+                        className={
+                          index % 2 !== 0 ? "bg-[#F5F5F5]" : "bg-white"
+                        }
                         key={obj?.invoices_included}
                       >
                         <td className="py-4 px-6">{obj?.invoices_included}</td>

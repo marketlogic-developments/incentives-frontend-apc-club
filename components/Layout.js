@@ -29,7 +29,6 @@ import MenuAPC from "./Lay0ut/Menu";
 import Logo10 from "./Lay0ut/Logo10";
 import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
 import UserOptions from "./Lay0ut/UserOptions";
-import ContainerContent from "./containerContent";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -164,37 +163,37 @@ const Layout = ({ children }) => {
     }
   }, [location]);
 
-  useEffect(() => {
-    let timeoutId;
+  // useEffect(() => {
+  //   let timeoutId;
 
-    if (userRedux !== 0) {
-      const handleVisibilityChange = () => {
-        if (document.visibilityState === "hidden") {
-          timeoutId = setTimeout(function () {
-            logout();
-          }, 300000);
-        } else {
-          // Si el usuario vuelve antes de que se ejecute el setTimeout, cancelarlo
-          clearTimeout(timeoutId);
-        }
-      };
+  //   if (userRedux !== 0) {
+  //     const handleVisibilityChange = () => {
+  //       if (document.visibilityState === "hidden") {
+  //         timeoutId = setTimeout(function () {
+  //           logout();
+  //         }, 300000);
+  //       } else {
+  //         // Si el usuario vuelve antes de que se ejecute el setTimeout, cancelarlo
+  //         clearTimeout(timeoutId);
+  //       }
+  //     };
 
-      document.addEventListener("visibilitychange", handleVisibilityChange);
+  //     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-      return () => {
-        document.removeEventListener(
-          "visibilitychange",
-          handleVisibilityChange
-        );
+  //     return () => {
+  //       document.removeEventListener(
+  //         "visibilitychange",
+  //         handleVisibilityChange
+  //       );
 
-        clearTimeout(timeoutId);
-      };
-    }
+  //       clearTimeout(timeoutId);
+  //     };
+  //   }
 
-    if (location === "/") {
-      dispatch(loadingUser(true));
-    }
-  }, [userRedux]);
+  //   if (location === "/") {
+  //     dispatch(loadingUser(true));
+  //   }
+  // }, [userRedux]);
 
   const language = (rolNum) => {
     if (rolNum === 1) {
@@ -314,7 +313,6 @@ const Layout = ({ children }) => {
                 ),
                 text: t("digipoints.crearEquipos"),
               },
-
               {
                 page: "/digipoints/digipointdistribution",
                 icon: (
@@ -583,6 +581,29 @@ const Layout = ({ children }) => {
           text: t("menu.Premios"),
         },
         {
+          page: "/allredeem",
+          icon: (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+              width="30"
+              height="30"
+              viewBox="0 0 36 41"
+              stroke="#000000"
+            >
+              <image
+                id="Capa_31"
+                data-name="Capa 31"
+                width="36"
+                height="41"
+                xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAApCAYAAABdnotGAAAABHNCSVQICAgIfAhkiAAAAsdJREFUWEftmE9IF0EUx9uisg6BEaH9U0swAiVLTIJAOilBRUKRhBUdDD3UIUI7BmlQhzxU2EmLiAQhiw6dwjoFaQUVEkWWURZEGkIQ2c/PN2ZlWfQ3O7LdZuHD7s68ee+7b2fe/gnm/Yctk8ksxO0GWAF/YSQIgpEkoYIkRi42iCnH/h6sjo3rRNRxmy9nQQTMwWkJjBLgazQAfYWcP4VcOAvdkAdXQEJ3MuZhNlFOgghYg7ObsNw4vcu+gSDj9M3n+DFsh0baroWB6avmWELaaT+TiiCTmc84Www3oAK2wgOohUNwHXoIeiCWuUrOn8B5+lrTElSGoxdwFadNCFyg4LAPWqDZZG49/d9igro4Pwy76dP8mnVLfMsQoLnwBQahEseTtC3jeAjyTYQLtJ8OoxnRbZyrTRdTQf+fVATJCQFus9sPd+Aozsdoa+L4sglSTNs7Y1vKXvOoCl5BDX2fsolRX+IMmSDKSB9Um2ydY6+J/RZ+wBojQMu73vjXvGpGzIRNzD9BXGE/+4IkxsZGRW9VxF63QCtM/IZFMV8fHHwPS1CGAT/hvcNAma4D1Zs38MuMVQaLQNn47uhvJfZLQkF9pHSviwOuowt7rZxyxj7XWNr0uNDt66DtpKM/zcs9aQsqNJn2gnR7ZrplqWVolFSrtLtsWzBeG5tDoSDVmwEXZ9hugzzNIb2nqH7MdYtO6lDQXH19lCDVDy3Xi3AMSlkhL+MesVN9WRpp1yvFwVkydIt2VXDbpmr+CDqhRZV/ulIT8BKNJ6CIjmGbJ8sc6sbHkQQ+NmPzDKZXpRcUzRpZ9hnKOo18hvwqIwPx14+wUvs6ZHva+wz5DPmnffiV4l8//OsHGdAneaqFcQcOrb9NsNFHQR3sgtfmVujrRb/1euGU7WlP/ya4b3unTuAndZMZX/L192EjOP0zSkGa/r4Mhb8BpwAbxJ3LxUUDqAAAAABJRU5ErkJggg=="
+              />
+            </svg>
+          ),
+          iconactive: "",
+          text: "Redenciones",
+        },
+        {
           page: "/cargaventas",
           icon: (
             <svg
@@ -743,6 +764,7 @@ const Layout = ({ children }) => {
                 "/cargaventas",
                 "/herramientas",
                 "/reportes",
+                "/puntosporventas",
               ].includes(page);
             }
             if (userRedux.roleId === 3) {
@@ -851,62 +873,58 @@ const Layout = ({ children }) => {
       >
         {typeModal}
       </Modal>
-      <ContainerContent pageTitle={textLocation()}>
-        <div className="containerGlobal">
-          <div className="globalContent bg-primary">
-            <div
-              className={`containerLayout`}
-              style={{
-                "--wmenu": collapse ? "5.56%" : "18.3%",
-                "--wminmenu": collapse ? "82px" : "256px",
-              }}
-            >
-              <div className="flex flex-col py-6 h-screen gap-6">
-                <div className="flex flex-col gap-6 px-6">
-                  <div
-                    className="logoAdobe cursor-pointer"
-                    style={{
-                      "--wlogo": collapse ? "100%" : "35%",
-                    }}
-                    onClick={() => router.push("/dashboard")}
-                  >
-                    <figure className="flex">
-                      <img
-                        src="/assets/dashboard/logoapc.webp"
-                        alt="apc_canales"
-                      ></img>
-                    </figure>
-                  </div>
+      <div className="containerGlobal">
+        <div className="globalContent bg-primary">
+          <div
+            className={`containerLayout`}
+            style={{
+              "--wmenu": collapse ? "5.56%" : "18.3%",
+              "--wminmenu": collapse ? "82px" : "256px",
+            }}
+          >
+            <div className="flex flex-col py-6 h-screen gap-6">
+              <div className="flex flex-col gap-6 px-6">
+                <div
+                  className="logoAdobe cursor-pointer"
+                  style={{
+                    "--wlogo": collapse ? "100%" : "35%",
+                  }}
+                  onClick={() => router.push("/dashboard")}
+                >
+                  <figure className="flex">
+                    <img
+                      src="/assets/dashboard/logoapc.webp"
+                      alt="apc_canales"
+                    ></img>
+                  </figure>
+                </div>
 
-                  {collapse ? (
-                    <DigiPointsCollapse />
-                  ) : (
-                    <DigiPointsCard digipoints={digipoints} />
-                  )}
-                </div>
-                <div className="flex flex-col gap-6 overflow-y-scroll scrollMenu w-full">
-                  <div className="containerRedirections gap-2">{menu(1)}</div>
-                  {userRedux.roleId !== 5 && (
-                    <>
-                      <hr className="mx-6" />
-                      <div className="containerRedirections gap-2">
-                        {menu(2)}
-                      </div>
-                    </>
-                  )}
-                </div>
-                <div className="flex justify-center w-full mt-auto">
-                  {collapse ? (
-                    <Logo10 />
-                  ) : (
-                    <figure className="flex">
-                      <img
-                        src="/assets/dashboard/years.webp"
-                        alt="apc_canales"
-                      ></img>
-                    </figure>
-                  )}
-                </div>
+                {collapse ? (
+                  <DigiPointsCollapse />
+                ) : (
+                  <DigiPointsCard digipoints={digipoints} />
+                )}
+              </div>
+              <div className="flex flex-col gap-6 overflow-y-scroll scrollMenu w-full">
+                <div className="containerRedirections gap-2">{menu(1)}</div>
+                {userRedux.roleId !== 5 && (
+                  <>
+                    <hr className="mx-6" />
+                    <div className="containerRedirections gap-2">{menu(2)}</div>
+                  </>
+                )}
+              </div>
+              <div className="flex justify-center w-full mt-auto">
+                {collapse ? (
+                  <Logo10 />
+                ) : (
+                  <figure className="flex">
+                    <img
+                      src="/assets/dashboard/years.webp"
+                      alt="apc_canales"
+                    ></img>
+                  </figure>
+                )}
               </div>
             </div>
           </div>
@@ -1012,84 +1030,64 @@ const Layout = ({ children }) => {
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <svg
-                          width="35"
-                          height="35"
-                          viewBox="0 0 30 30"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M10.0938 25.2301C10.6005 25.2301 11.0114 24.8193 11.0114 24.3125C11.0114 23.8057 10.6005 23.3949 10.0938 23.3949C9.58698 23.3949 9.17615 23.8057 9.17615 24.3125C9.17615 24.8193 9.58698 25.2301 10.0938 25.2301Z"
-                            stroke="black"
-                            stroke-width="1.83523"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M22.9403 25.2301C23.4471 25.2301 23.858 24.8193 23.858 24.3125C23.858 23.8057 23.4471 23.3949 22.9403 23.3949C22.4336 23.3949 22.0227 23.8057 22.0227 24.3125C22.0227 24.8193 22.4336 25.2301 22.9403 25.2301Z"
-                            stroke="black"
-                            stroke-width="1.83523"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M2.75284 5.0426H6.42329L9.17613 20.642H23.858"
-                            stroke="black"
-                            stroke-width="1.83523"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M9.17614 16.9716H23.4817C23.5878 16.9717 23.6907 16.9349 23.7728 16.8677C23.8549 16.8005 23.9111 16.7069 23.9319 16.6028L25.5836 8.34429C25.597 8.2777 25.5953 8.20897 25.5789 8.14308C25.5624 8.07719 25.5316 8.01578 25.4885 7.96327C25.4454 7.91076 25.3912 7.86847 25.3298 7.83945C25.2684 7.81042 25.2014 7.79539 25.1334 7.79544H7.34091"
-                            stroke="black"
-                            stroke-width="1.83523"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
+                        <path
+                          d="M18.2954 5.53271C15.8881 5.53271 13.5348 6.24658 11.5331 7.58405C9.53146 8.92151 7.97136 10.8225 7.0501 13.0466C6.12884 15.2707 5.8878 17.7181 6.35745 20.0792C6.8271 22.4403 7.98636 24.6091 9.68863 26.3114C11.3909 28.0137 13.5597 29.1729 15.9208 29.6426C18.2819 30.1122 20.7293 29.8712 22.9534 28.9499C25.1775 28.0287 27.0785 26.4686 28.416 24.4669C29.7535 22.4653 30.4673 20.112 30.4673 17.7046C30.4673 14.4764 29.1849 11.3804 26.9023 9.09777C24.6196 6.81511 21.5236 5.53271 18.2954 5.53271Z"
+                          stroke="black"
+                          stroke-width="2.21307"
+                          stroke-miterlimit="10"
+                        />
+                        <path
+                          d="M14.4226 13.99C14.4226 13.99 14.4807 12.7798 15.776 11.7375C16.5444 11.1186 17.4655 10.9395 18.2954 10.927C19.0513 10.9173 19.7263 11.0425 20.1302 11.2348C20.8218 11.564 22.1683 12.3676 22.1683 14.0765C22.1683 15.8746 20.9926 16.6914 19.653 17.5897C18.3134 18.4881 17.9497 19.4632 17.9497 20.4709"
+                          stroke="black"
+                          stroke-width="1.93643"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M17.8805 25.4503C18.6444 25.4503 19.2637 24.831 19.2637 24.0671C19.2637 23.3032 18.6444 22.684 17.8805 22.684C17.1166 22.684 16.4973 23.3032 16.4973 24.0671C16.4973 24.831 17.1166 25.4503 17.8805 25.4503Z"
+                          fill="black"
+                        />
+                      </svg>
+                    </div>
+                    <div className="userDrop relative">
+                      <div className="menumobile">
+                        <MobileMenu
+                          className="bannerMob"
+                          locations={locations}
+                        />
                       </div>
                       <div
-                        className="shoopingMarket cursor-pointer"
-                        onClick={() => {
-                          setModal(0);
-                          setOpened(true);
-                        }}
+                        className="flex items-center gap-3 bg-[#F5F5F5] rounded-full p-3 min-w-[217px] max-h-[55px] text-xs cursor-pointer"
+                        onClick={() => setMenuUser(!menuUser)}
                       >
                         <div className="user p-2 bg-[#1473E6] rounded-full w-[35px] h-[35px]">
                           <p className="text-white text-center flex w-full h-full items-center justify-center">
                             {userRedux?.names[0]}
                           </p>
                         </div>
-                        <div
-                          className="flex items-center gap-3 bg-[#F5F5F5] rounded-full p-3 min-w-[217px] max-h-[55px] text-xs cursor-pointer"
-                          onClick={() => setMenuUser(!menuUser)}
-                        >
-                          <div className="user p-2 bg-[#1473E6] rounded-full">
-                            <p className="text-white">AD</p>
-                          </div>
-                          <div className="username">
-                            <p className="lg:!text-sm xl:!text-base">
-                              {userRedux?.names}
-                            </p>
-                          </div>
+                        <div className="username">
+                          <p className="lg:!text-sm xl:!text-base">
+                            {userRedux?.names}
+                          </p>
                         </div>
                       </div>
-                      {menuUser && (
-                        <UserOptions user={userRedux} logout={logout} />
-                      )}
                     </div>
                     {menuUser && (
-                      <UserOptions user={userRedux} logout={logout} menuUser={menuUser} setMenuUser={setMenuUser} />
+                      <UserOptions
+                        user={userRedux}
+                        logout={logout}
+                        menuUser={menuUser}
+                        setMenuUser={setMenuUser}
+                      />
                     )}
                   </div>
                 </div>
               </div>
-              {children}
             </div>
+            {children}
           </div>
         </div>
-      </ContainerContent>
+      </div>
     </>
   );
 };
