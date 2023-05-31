@@ -14,7 +14,8 @@ import Swal from "sweetalert2";
 import { DateInput } from '@mantine/dates';
 import { DatePicker } from '@mantine/dates';
 import dayjs from 'dayjs';
-
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 const user = () => {
   const user = useSelector((state) => state.user.user);
@@ -67,7 +68,7 @@ const user = () => {
       region: user?.region,
       imgProfile: user?.profilePhotoPath,
       birthDate: user?.birthDate,
-      phone: user?.phoneNumber,
+      phone: user?.phoneNumber.includes('+') ? user?.phoneNumber : '',
       languageId: user?.languageId,
     });
 
@@ -83,6 +84,7 @@ const user = () => {
 
     setNInputs(parseInt((num * 100) / 5));
   }, [user]);
+
 
   const handleChangeInputs = () => {
     const num = Object.values({
@@ -130,10 +132,13 @@ const user = () => {
     return date instanceof Date && !isNaN(date);
   }
 
+  const [phone, setPhone] = useState();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    formData.phone = phone !== '' ? phone : formData.phone;
     const jsonData = () => {
+      phone
       return {
         name: formData.name,
         names: formData.names,
@@ -698,16 +703,22 @@ const user = () => {
                             <span className="label-text">{t("user.cel")}</span>
                           </label>
                           {editInfo ? (
-                            <input
-                              type="text"
-                              placeholder={t("user.escriba")}
-                              className="input input-ghost w-full bg-[#F4F4F4]"
-                              value={formData.phone}
-                              onChange={handleChange}
-                              name="phone"
-                              required
-                              onBlur={handleChangeInputs}
-                            />
+                            <PhoneInput
+                            defaultCountry="co"
+                            value={formData.phone ? formData.phone : phone }
+                            onChange={(phone) => {setPhone(phone)}}
+                            inputClassName="!ml-1 !input !input-ghost !w-full !rounded-r-lg !bg-[#F4F4F4]"
+                            inputProps={{
+                              placeholder: t("user.escriba"),
+                              name: "phone",
+                              onBlur:handleChangeInputs
+                            }}
+                            countrySelectorStyleProps={{
+                              className: "!input !flex !items-center !rounded-l-lg !bg-[#F4F4F4]",
+                              buttonClassName: "!bg-[#F4F4F4] !border-none",
+                              buttonContentWrapperClassName:"!bg-trasparent",
+                            }}
+                          />
                           ) : (
                             <span
                               type="text"
