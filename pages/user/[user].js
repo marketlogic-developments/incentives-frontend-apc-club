@@ -385,7 +385,8 @@ const user = () => {
               </div>
             </div>
           </div>
-          {/* <form
+          {/* START */}
+          <form
             className="flex flex-col gap-5 items-center"
             onSubmit={handleSubmit}
           >
@@ -573,7 +574,8 @@ const user = () => {
               </div>
             </div>
             <button className="btn btn-primary w-2/4">{t("user.boton")}</button>
-          </form> */}
+          </form>
+          {/* END */}
         </div>
         <div className="flex flex-row">
           <div className="w-1/4 gap-5 flex p-5">

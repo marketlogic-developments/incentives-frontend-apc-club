@@ -1,9 +1,12 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React,{useState} from "react";
 
 const UserOptions = ({ user, logout, menuUser, setMenuUser }) => {
   const route = useRouter();
 
+  const [opened, setOpened] = useState(false);
+  const [nInputs, setNInputs] = useState(0);
+  console.log(user);
   const sections = [
     {
       svg: (
@@ -99,10 +102,24 @@ const UserOptions = ({ user, logout, menuUser, setMenuUser }) => {
     >
       <div className="w-full flex justify-center">
         <div className="w-3/4 justify-center flex flex-col items-center gap-3">
+          {/* START */}
           <div className="relative bg-[#1473E6] rounded-full w-[80px] h-[80px] flex items-center justify-center">
-            <p className="text-white absolute !text-base">
+            {
+              user.profilePhotoPath === null ||
+              user.profilePhotoPath === "" ||
+              user.profilePhotoPath === "noImage"
+              ? (
+                <p className="text-white absolute !text-base">
               {user.names.split("")[0]}
             </p>
+              ) : (
+                <img
+                  src={user.profilePhotoPath}
+                  className="w-full h-full rounded-full"
+                  alt="Avatar"
+                />
+              )
+            }
             <svg
               width="43"
               height="43"
@@ -178,6 +195,7 @@ const UserOptions = ({ user, logout, menuUser, setMenuUser }) => {
               </defs>
             </svg>
           </div>
+          {/* END */}
           <div className="text-center">
             <p className="lg:!text-sm xl:!text-base">
               {user.name} {user.lastName}
