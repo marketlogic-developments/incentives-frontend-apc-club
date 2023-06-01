@@ -17,7 +17,10 @@ import MobileMenu from "./MobileMenu";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { changeLoadingData } from "../store/reducers/loading.reducer";
-import { setInitialStateAwards } from "../store/reducers/awards.reducer";
+import {
+  setInitialStateAwards,
+  setMenuMarket,
+} from "../store/reducers/awards.reducer";
 import { setInitialStateCompany } from "../store/reducers/company.reducer";
 import { setInitialStateOrders } from "../store/reducers/orders.reducer";
 import { setInitialStateSales } from "../store/reducers/sales.reducer";
@@ -30,6 +33,7 @@ import Logo10 from "./Lay0ut/Logo10";
 import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
 import UserOptions from "./Lay0ut/UserOptions";
 import ContainerContent from "./containerContent";
+import MenuMarket from "./Lay0ut/MenuMarket";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -46,6 +50,7 @@ const Layout = ({ children }) => {
   const [opened, setOpened] = useState(false);
   const [collapse, setCollapse] = useState(false);
   const [menuUser, setMenuUser] = useState(false);
+  const menuMarket = useSelector((state) => state.awards.menuMarket);
 
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
@@ -932,7 +937,7 @@ const Layout = ({ children }) => {
                 </div>
               </div>
             </div>
-            <div className="pl-6 pt-6 sticky top-0 h-screen">
+            <div className="pl-6 pt-6 sticky top-0 h-screen ">
               <svg
                 width="23"
                 height="23"
@@ -959,136 +964,137 @@ const Layout = ({ children }) => {
                 />
               </svg>
             </div>
-            <div className="w-full pt-1 px-6">
-              <div className="containerNavbar">
-                <div className="navbar">
-                  <div>
-                    <p className="lg:!text-2xl xl:!text-3xl font-bold">
-                      {textLocation()}
-                    </p>
-                  </div>
-                  <div className="flex">
-                    <div className="notifications relative gap-6">
-                      <div>
-                        <p
-                          className="text-[#1473E6] font-semibold cursor-pointer textShadowHTW !text-sm"
-                          onClick={() => router.push("/howtowin")}
-                        >
-                          {t("dashboard.htw")}
-                        </p>
-                      </div>
-                      <div
-                        className="shoopingMarket cursor-pointer"
-                        onClick={() => {
-                          router.push("/shoppingCar");
-                        }}
-                      >
-                        <svg
-                          width="35"
-                          height="35"
-                          viewBox="0 0 30 30"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M10.0938 25.2301C10.6005 25.2301 11.0114 24.8193 11.0114 24.3125C11.0114 23.8057 10.6005 23.3949 10.0938 23.3949C9.58698 23.3949 9.17615 23.8057 9.17615 24.3125C9.17615 24.8193 9.58698 25.2301 10.0938 25.2301Z"
-                            stroke="black"
-                            stroke-width="1.83523"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M22.9403 25.2301C23.4471 25.2301 23.858 24.8193 23.858 24.3125C23.858 23.8057 23.4471 23.3949 22.9403 23.3949C22.4336 23.3949 22.0227 23.8057 22.0227 24.3125C22.0227 24.8193 22.4336 25.2301 22.9403 25.2301Z"
-                            stroke="black"
-                            stroke-width="1.83523"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M2.75284 5.0426H6.42329L9.17613 20.642H23.858"
-                            stroke="black"
-                            stroke-width="1.83523"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M9.17614 16.9716H23.4817C23.5878 16.9717 23.6907 16.9349 23.7728 16.8677C23.8549 16.8005 23.9111 16.7069 23.9319 16.6028L25.5836 8.34429C25.597 8.2777 25.5953 8.20897 25.5789 8.14308C25.5624 8.07719 25.5316 8.01578 25.4885 7.96327C25.4454 7.91076 25.3912 7.86847 25.3298 7.83945C25.2684 7.81042 25.2014 7.79539 25.1334 7.79544H7.34091"
-                            stroke="black"
-                            stroke-width="1.83523"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      <div
-                        className="shoopingMarket cursor-pointer"
-                        onClick={() => {
-                          setModal(0);
-                          setOpened(true);
-                        }}
-                      >
-                        <svg
-                          width="35"
-                          height="35"
-                          viewBox="0 0 36 36"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M18.2954 5.53271C15.8881 5.53271 13.5348 6.24658 11.5331 7.58405C9.53146 8.92151 7.97136 10.8225 7.0501 13.0466C6.12884 15.2707 5.8878 17.7181 6.35745 20.0792C6.8271 22.4403 7.98636 24.6091 9.68863 26.3114C11.3909 28.0137 13.5597 29.1729 15.9208 29.6426C18.2819 30.1122 20.7293 29.8712 22.9534 28.9499C25.1775 28.0287 27.0785 26.4686 28.416 24.4669C29.7535 22.4653 30.4673 20.112 30.4673 17.7046C30.4673 14.4764 29.1849 11.3804 26.9023 9.09777C24.6196 6.81511 21.5236 5.53271 18.2954 5.53271Z"
-                            stroke="black"
-                            stroke-width="2.21307"
-                            stroke-miterlimit="10"
-                          />
-                          <path
-                            d="M14.4226 13.99C14.4226 13.99 14.4807 12.7798 15.776 11.7375C16.5444 11.1186 17.4655 10.9395 18.2954 10.927C19.0513 10.9173 19.7263 11.0425 20.1302 11.2348C20.8218 11.564 22.1683 12.3676 22.1683 14.0765C22.1683 15.8746 20.9926 16.6914 19.653 17.5897C18.3134 18.4881 17.9497 19.4632 17.9497 20.4709"
-                            stroke="black"
-                            stroke-width="1.93643"
-                            stroke-miterlimit="10"
-                            stroke-linecap="round"
-                          />
-                          <path
-                            d="M17.8805 25.4503C18.6444 25.4503 19.2637 24.831 19.2637 24.0671C19.2637 23.3032 18.6444 22.684 17.8805 22.684C17.1166 22.684 16.4973 23.3032 16.4973 24.0671C16.4973 24.831 17.1166 25.4503 17.8805 25.4503Z"
-                            fill="black"
-                          />
-                        </svg>
-                      </div>
-                      <div className="userDrop relative">
-                        <div className="menumobile">
-                          <MobileMenu
-                            className="bannerMob"
-                            locations={locations}
-                          />
+            <div className="w-full relative">
+              <div className="w-full pt-1 px-6 z-0 relative">
+                <div className="containerNavbar">
+                  <div className="navbar">
+                    <div>
+                      <p className="lg:!text-2xl xl:!text-3xl font-bold">
+                        {textLocation()}
+                      </p>
+                    </div>
+                    <div className="flex">
+                      <div className="notifications relative gap-6">
+                        <div>
+                          <p
+                            className="text-[#1473E6] font-semibold cursor-pointer textShadowHTW !text-sm"
+                            onClick={() => router.push("/howtowin")}
+                          >
+                            {t("dashboard.htw")}
+                          </p>
                         </div>
                         <div
-                          className="flex items-center gap-3 bg-[#F5F5F5] rounded-full p-3 min-w-[217px] max-h-[55px] text-xs cursor-pointer"
-                          onClick={() => setMenuUser(!menuUser)}
+                          className="shoopingMarket cursor-pointer"
+                          onClick={() => dispatch(setMenuMarket(!menuMarket))}
                         >
-                          <div className="user p-2 bg-[#1473E6] rounded-full w-[35px] h-[35px]">
-                            <p className="text-white text-center flex w-full h-full items-center justify-center">
-                              {userRedux?.names[0]}
-                            </p>
+                          <svg
+                            width="35"
+                            height="35"
+                            viewBox="0 0 30 30"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M10.0938 25.2301C10.6005 25.2301 11.0114 24.8193 11.0114 24.3125C11.0114 23.8057 10.6005 23.3949 10.0938 23.3949C9.58698 23.3949 9.17615 23.8057 9.17615 24.3125C9.17615 24.8193 9.58698 25.2301 10.0938 25.2301Z"
+                              stroke="black"
+                              stroke-width="1.83523"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M22.9403 25.2301C23.4471 25.2301 23.858 24.8193 23.858 24.3125C23.858 23.8057 23.4471 23.3949 22.9403 23.3949C22.4336 23.3949 22.0227 23.8057 22.0227 24.3125C22.0227 24.8193 22.4336 25.2301 22.9403 25.2301Z"
+                              stroke="black"
+                              stroke-width="1.83523"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M2.75284 5.0426H6.42329L9.17613 20.642H23.858"
+                              stroke="black"
+                              stroke-width="1.83523"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M9.17614 16.9716H23.4817C23.5878 16.9717 23.6907 16.9349 23.7728 16.8677C23.8549 16.8005 23.9111 16.7069 23.9319 16.6028L25.5836 8.34429C25.597 8.2777 25.5953 8.20897 25.5789 8.14308C25.5624 8.07719 25.5316 8.01578 25.4885 7.96327C25.4454 7.91076 25.3912 7.86847 25.3298 7.83945C25.2684 7.81042 25.2014 7.79539 25.1334 7.79544H7.34091"
+                              stroke="black"
+                              stroke-width="1.83523"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        <div
+                          className="shoopingMarket cursor-pointer"
+                          onClick={() => {
+                            setModal(0);
+                            setOpened(true);
+                          }}
+                        >
+                          <svg
+                            width="35"
+                            height="35"
+                            viewBox="0 0 36 36"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M18.2954 5.53271C15.8881 5.53271 13.5348 6.24658 11.5331 7.58405C9.53146 8.92151 7.97136 10.8225 7.0501 13.0466C6.12884 15.2707 5.8878 17.7181 6.35745 20.0792C6.8271 22.4403 7.98636 24.6091 9.68863 26.3114C11.3909 28.0137 13.5597 29.1729 15.9208 29.6426C18.2819 30.1122 20.7293 29.8712 22.9534 28.9499C25.1775 28.0287 27.0785 26.4686 28.416 24.4669C29.7535 22.4653 30.4673 20.112 30.4673 17.7046C30.4673 14.4764 29.1849 11.3804 26.9023 9.09777C24.6196 6.81511 21.5236 5.53271 18.2954 5.53271Z"
+                              stroke="black"
+                              stroke-width="2.21307"
+                              stroke-miterlimit="10"
+                            />
+                            <path
+                              d="M14.4226 13.99C14.4226 13.99 14.4807 12.7798 15.776 11.7375C16.5444 11.1186 17.4655 10.9395 18.2954 10.927C19.0513 10.9173 19.7263 11.0425 20.1302 11.2348C20.8218 11.564 22.1683 12.3676 22.1683 14.0765C22.1683 15.8746 20.9926 16.6914 19.653 17.5897C18.3134 18.4881 17.9497 19.4632 17.9497 20.4709"
+                              stroke="black"
+                              stroke-width="1.93643"
+                              stroke-miterlimit="10"
+                              stroke-linecap="round"
+                            />
+                            <path
+                              d="M17.8805 25.4503C18.6444 25.4503 19.2637 24.831 19.2637 24.0671C19.2637 23.3032 18.6444 22.684 17.8805 22.684C17.1166 22.684 16.4973 23.3032 16.4973 24.0671C16.4973 24.831 17.1166 25.4503 17.8805 25.4503Z"
+                              fill="black"
+                            />
+                          </svg>
+                        </div>
+                        <div className="userDrop relative">
+                          <div className="menumobile">
+                            <MobileMenu
+                              className="bannerMob"
+                              locations={locations}
+                            />
                           </div>
-                          <div className="username">
-                            <p className="lg:!text-sm xl:!text-base">
-                              {userRedux?.names}
-                            </p>
+                          <div
+                            className="flex items-center gap-3 bg-[#F5F5F5] rounded-full p-3 min-w-[217px] max-h-[55px] text-xs cursor-pointer"
+                            onClick={() => setMenuUser(!menuUser)}
+                          >
+                            <div className="user p-2 bg-[#1473E6] rounded-full w-[35px] h-[35px]">
+                              <p className="text-white text-center flex w-full h-full items-center justify-center">
+                                {userRedux?.names[0]}
+                              </p>
+                            </div>
+                            <div className="username">
+                              <p className="lg:!text-sm xl:!text-base">
+                                {userRedux?.names}
+                              </p>
+                            </div>
                           </div>
                         </div>
+                        {menuUser && (
+                          <UserOptions
+                            user={userRedux}
+                            logout={logout}
+                            menuUser={menuUser}
+                            setMenuUser={setMenuUser}
+                          />
+                        )}
                       </div>
-                      {menuUser && (
-                        <UserOptions
-                          user={userRedux}
-                          logout={logout}
-                          menuUser={menuUser}
-                          setMenuUser={setMenuUser}
-                        />
-                      )}
                     </div>
                   </div>
                 </div>
+                {children}
               </div>
-              {children}
+              {menuMarket && <MenuMarket />}
             </div>
           </div>
         </div>

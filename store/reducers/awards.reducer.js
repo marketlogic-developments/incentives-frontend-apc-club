@@ -5,7 +5,7 @@ const initialState = {
   awards: [],
   shoopingCar: [],
   rules: [],
-  modalCard: false,
+  menuMarket: false,
 };
 
 export const awardsAction = createSlice({
@@ -30,8 +30,8 @@ export const awardsAction = createSlice({
     rulesPush: (state, action) => {
       state.rules = action.payload;
     },
-    modalCardState: (state, action) => {
-      state.modalCard = action.payload;
+    setMenuMarket: (state, action) => {
+      state.menuMarket = action.payload;
     },
 
     setInitialStateAwards: (state, action) => {
@@ -48,7 +48,7 @@ export const {
   rulesGetAll,
   rulesPush,
   setInitialStateAwards,
-  modalCardState,
+  setMenuMarket,
 } = awardsAction.actions;
 
 export default awardsAction.reducer;
