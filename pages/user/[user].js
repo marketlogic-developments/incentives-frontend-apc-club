@@ -359,7 +359,7 @@ const user = () => {
                     ? "/assets/Icons/user.webp"
                     : formData.imgProfile
                 }
-                className="imgPhotoperfil"
+                className="imgPhotoperfil bg-no-repeat bg-bottom"
               />
             </div>
             <div className="flex flex-col description gap-3 justify-center">
@@ -385,8 +385,7 @@ const user = () => {
               </div>
             </div>
           </div>
-          {/* START */}
-          <form
+          {/* <form
             className="flex flex-col gap-5 items-center"
             onSubmit={handleSubmit}
           >
@@ -574,8 +573,7 @@ const user = () => {
               </div>
             </div>
             <button className="btn btn-primary w-2/4">{t("user.boton")}</button>
-          </form>
-          {/* END */}
+          </form> */}
         </div>
         <div className="flex flex-row">
           <div className="w-1/4 gap-5 flex p-5">

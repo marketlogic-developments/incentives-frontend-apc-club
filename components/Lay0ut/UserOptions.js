@@ -1,12 +1,26 @@
 import { useRouter } from "next/router";
-import React,{useState} from "react";
+import { Modal } from "@mantine/core";
+import React, { useState, useMemo } from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  policyAndPassword,
+  userUpdate,
+} from "../../store/reducers/users.reducer";
+import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
-const UserOptions = ({ user, logout, menuUser, setMenuUser }) => {
+const UserOptions = ({ user, token, logout, menuUser, setMenuUser }) => {
   const route = useRouter();
 
   const [opened, setOpened] = useState(false);
+  const [modal, setModal] = useState(0);
   const [nInputs, setNInputs] = useState(0);
-  console.log(user);
+  const dispatch = useDispatch();
+  const [t, i18n] = useTranslation("global");
+  const [image, setImage] = useState({});
+  const [viewimage, setviewImage] = useState("");
+
   const sections = [
     {
       svg: (
@@ -92,35 +106,214 @@ const UserOptions = ({ user, logout, menuUser, setMenuUser }) => {
     },
   ];
 
-  return (
-    <div
-      className="w-full bg-[#FFFF] absolute top-[65px] right-0 p-4 max-w-[310px] flex flex-col gap-6 items-center mr-6"
-      style={{
-        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-        borderRadius: "10px",
-      }}
-    >
-      <div className="w-full flex justify-center">
-        <div className="w-3/4 justify-center flex flex-col items-center gap-3">
-          {/* START */}
-          <div className="relative bg-[#1473E6] rounded-full w-[80px] h-[80px] flex items-center justify-center">
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  const deleteProfileImage = () => {
+    return axios
+      .patch(
+        `${process.env.BACKURL}/users/${user.id}`,
+        {
+          profilePhotoPath: "noImage",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        dispatch(userUpdate({ profilePhotoPath: "noImage" }));
+        return Toast.fire({
+          icon: "success",
+          title: t("user.fotoDelete"),
+        });
+      });
+  };
+
+  const handleImgProfile = (e) => {
+    const reader = new FileReader();
+    const file = e.target.files[0];
+
+    reader.onload = (e) => {
+      const dataURL = e.target.result;
+      setviewImage({ path: dataURL });
+    };
+
+    reader.readAsDataURL(file);
+    setImage(file);
+  };
+
+  const handleSubmitImgProfile = (e) => {
+    e.preventDefault();
+
+    const form = new FormData();
+    form.append("file", image);
+    form.append("upload_preset", "ADOBEAPC");
+
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`,
+        form
+      )
+      .then((res) => {
+        axios
+          .patch(
+            `${process.env.BACKURL}/users/${user.id}`,
+            { profilePhotoPath: res.data.url },
             {
-              user.profilePhotoPath === null ||
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res2) => {
+            dispatch(userUpdate({ profilePhotoPath: res.data.url }));
+            return Toast.fire({
+              icon: "success",
+              title: t("user.fotoUpdate"),
+            });
+          });
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const typeModal = useMemo(() => {
+    if (modal === 0) {
+      return (
+        <div>
+          <p>¡Tus datos fueron actualizados!</p>
+        </div>
+      );
+    }
+    if (modal === 1) {
+      return (
+        <div className="flex flex-col w-full justify-center items-center gap-10">
+          <div className="w-1/5 relative">
+            <div className="relative sm:absolute bg-red-500 hover:bg-red-600 sm:w-8 sm:h-8 w-5 h-5 text-center rounded-full sm:-right-4 -right-8 sm:top-0 top-2">
+            <div
+              className="rounded-full w-auto h-auto flex justify-center text-center p-1 cursor-pointer"
+              onClick={deleteProfileImage}
+            >
+                <p className="text-white">X</p>
+            </div>
+            </div>
+            <figure className="imgPhoto w-full h-full rounded-full">
+              <img
+                src={
+                  viewimage === ""
+                    ? user.profilePhotoPath === null ||
+                      user.profilePhotoPath === "" ||
+                      user.profilePhotoPath === "noImage"
+                      ? "/assets/Icons/user.webp"
+                      : user.profilePhotoPath
+                    : viewimage.path
+                }
+                className="rounded-full w-40 h-40"
+              />
+            </figure>
+          </div>
+          <div className="max-w-xl">
+            <label className="flex flex-col justify-center w-full h-full transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+            <span className="font-medium text-gray-600 text-center">
+                  Arrastra tu foto aquí o selecciona una de tu equipo
+                </span>
+              <input type="file" name="file_upload"  class="file-input file-input-ghost w-auto h-auto" onChange={handleImgProfile}/>
+            </label>
+          </div>
+          <button className="btn bg-red-500 hover:bg-red-600" onClick={handleSubmitImgProfile}>
+            Subir mi nueva foto
+          </button>
+        </div>
+      );
+    }
+  }, [modal, opened, image, viewimage]);
+
+  return (
+    <>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,300,0,-25"
+        />
+      </head>
+      <Modal
+        opened={opened}
+        onClose={() => {
+          setviewImage("");
+          setOpened(false);
+        }}
+        centered
+        size={"50%"}
+      >
+        {typeModal}
+      </Modal>
+      <div
+        className="w-full bg-[#FFFF] absolute top-[65px] right-0 p-4 max-w-[310px] flex flex-col gap-6 items-center mr-6"
+        style={{
+          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+          borderRadius: "10px",
+        }}
+      >
+        <div className="w-full flex justify-center">
+          <div className="w-3/4 justify-center flex flex-col items-center gap-3">
+            {/* START */}
+            <div className="relative bg-[#1473E6] rounded-full w-[80px] h-[80px] flex items-center justify-center">
+              {user.profilePhotoPath === null ||
               user.profilePhotoPath === "" ||
-              user.profilePhotoPath === "noImage"
-              ? (
+              user.profilePhotoPath === "noImage" ? (
                 <p className="text-white absolute !text-base">
-              {user.names.split("")[0]}
-            </p>
+                  {user.names.split("")[0]}
+                </p>
               ) : (
                 <img
                   src={user.profilePhotoPath}
                   className="w-full h-full rounded-full"
                   alt="Avatar"
                 />
-              )
-            }
-            <svg
+              )}
+              <div class="relative h-full w-full">
+                {user.profilePhotoPath === null ||
+                user.profilePhotoPath === "" ||
+                user.profilePhotoPath === "noImage" ? (
+                  <div class="absolute h-full w-full left-14 -top-0 ">
+                    <label className="btn btn-circle btn-sm bg-gray-300	border-none hover:bg-gray-400 drop-shadow-lg text-black">
+                      <span
+                        class="material-symbols-outlined"
+                        onClick={() => {
+                          setModal(1);
+                          setOpened(true);
+                        }}
+                      >
+                        photo_camera
+                      </span>
+                    </label>
+                  </div>
+                ) : (
+                  <div class="absolute h-full w-full -left-5 -top-1 ">
+                    <label className="btn btn-circle btn-sm bg-gray-300	border-none hover:bg-gray-400 drop-shadow-lg text-black">
+                      <span
+                        class="material-symbols-outlined"
+                        onClick={deleteProfileImage}
+                      >
+                        close
+                      </span>
+                    </label>
+                  </div>
+                )}
+              </div>
+              {/* <svg
               width="43"
               height="43"
               viewBox="0 0 43 43"
@@ -193,28 +386,27 @@ const UserOptions = ({ user, logout, menuUser, setMenuUser }) => {
                   />
                 </clipPath>
               </defs>
-            </svg>
+            </svg> */}
+            </div>
+            {/* END */}
+            <div className="text-center">
+              <p className="lg:!text-sm xl:!text-base">
+                {user.name} {user.lastName}
+              </p>
+              <p className="xl:!text-xs">{user.email}</p>
+            </div>
+            <button
+              className="btn !btn-outline btn-info w-3/4 min-h-[2.563rem] h-[2.563rem]"
+              onClick={() => {
+                route.push(`/user/${user.name}`);
+                setMenuUser(!menuUser);
+              }}
+            >
+              Ver perfil
+            </button>
           </div>
-          {/* END */}
-          <div className="text-center">
-            <p className="lg:!text-sm xl:!text-base">
-              {user.name} {user.lastName}
-            </p>
-            <p className="xl:!text-xs">{user.email}</p>
-          </div>
-          <button
-            className="btn !btn-outline btn-info w-3/4 min-h-[2.563rem] h-[2.563rem]"
-            onClick={() => {
-              route.push(`/user/${user.name}`)
-              setMenuUser(!menuUser)
-            }
-            }
-          >
-            Ver perfil
-          </button>
         </div>
-      </div>
-      {/* <div className="flex justify-center flex-col items-center w-auto gap-1">
+        {/* <div className="flex justify-center flex-col items-center w-auto gap-1">
         {sections.map(({ svg, nombre }) => (
           <div className="flex items-center self-start text-left gap-3 p-2 hover:underline underline-offset-8 cursor-pointer hover:font-semibold">
             {svg}
@@ -222,13 +414,17 @@ const UserOptions = ({ user, logout, menuUser, setMenuUser }) => {
           </div>
         ))}
       </div> */}
-      <div className="w-[70%] flex flex-col items-center">
-        <hr className="w-full" />
-        <p className="!text-xs mt-6 font-bold cursor-pointer" onClick={logout}>
-          Cerrar Sesión
-        </p>
+        <div className="w-[70%] flex flex-col items-center">
+          <hr className="w-full" />
+          <p
+            className="!text-xs mt-6 font-bold cursor-pointer"
+            onClick={logout}
+          >
+            Cerrar Sesión
+          </p>
+        </div>
       </div>
-    </div >
+    </>
   );
 };
 
