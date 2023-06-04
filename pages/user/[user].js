@@ -350,7 +350,22 @@ const user = () => {
       <ContainerContent pageTitle={"Ajustes de perfil"}>
         <div className="flex flex-col">
           <div className="w-full gap-5 flex bg-white rounded-lg shadow-xl overflow-hidden ring-slate-900/5 p-5">
-            <div className="photo">
+            <div className="photo relative">
+            <div className="flex flex-row-reverse">
+              {
+                 formData.imgProfile === null ||
+                 formData.imgProfile === "" ||
+                 formData.imgProfile === "noImage" ? (
+                  ''
+                 ) : (
+                  <button className="btn btn-circle btn-sm !text-black bg-gray-300 border-none hover:bg-gray-400 z-50 absolute -top-4 -right-3"
+                  onClick={deleteProfileImage}
+                  >
+                    X
+                  </button>
+                 )
+              }
+              </div>
               <img
                 src={
                   formData.imgProfile === null ||
@@ -359,7 +374,7 @@ const user = () => {
                     ? "/assets/Icons/user.webp"
                     : formData.imgProfile
                 }
-                className="imgPhotoperfil bg-no-repeat bg-bottom"
+                className="imgPhotoperfil bg-no-repeat bg-bottom w-full h-full"
               />
             </div>
             <div className="flex flex-col description gap-3 justify-center">

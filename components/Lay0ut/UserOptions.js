@@ -199,17 +199,17 @@ const UserOptions = ({ user, token, logout, menuUser, setMenuUser }) => {
     }
     if (modal === 1) {
       return (
-        <div className="flex flex-col w-full justify-center items-center gap-10">
+        <div className="flex flex-col w-auto justify-center items-center gap-10">
           <div className="w-1/5 relative">
             <div className="relative sm:absolute bg-red-500 hover:bg-red-600 sm:w-8 sm:h-8 w-5 h-5 text-center rounded-full sm:-right-4 -right-8 sm:top-0 top-2">
-            <div
-              className="rounded-full w-auto h-auto flex justify-center text-center p-1 cursor-pointer"
-              onClick={deleteProfileImage}
-            >
+              <div
+                className="rounded-full w-auto h-auto flex justify-center text-center p-1 cursor-pointer"
+                onClick={deleteProfileImage}
+              >
                 <p className="text-white">X</p>
+              </div>
             </div>
-            </div>
-            <figure className="imgPhoto w-full h-full rounded-full">
+            <figure className="relative imgPhoto w-full h-full rounded-full">
               <img
                 src={
                   viewimage === ""
@@ -220,19 +220,31 @@ const UserOptions = ({ user, token, logout, menuUser, setMenuUser }) => {
                       : user.profilePhotoPath
                     : viewimage.path
                 }
-                className="rounded-full w-40 h-40"
+                className={
+                  viewimage.path
+                    ? "rounded-full sm:w-40 sm:h-40 w-20 h-20"
+                    : "rounded-full w-auto h-auto"
+                }
               />
             </figure>
           </div>
-          <div className="max-w-xl">
-            <label className="flex flex-col justify-center w-full h-full transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
-            <span className="font-medium text-gray-600 text-center">
-                  Arrastra tu foto aquí o selecciona una de tu equipo
-                </span>
-              <input type="file" name="file_upload"  class="file-input file-input-ghost w-auto h-auto" onChange={handleImgProfile}/>
+          <div className="relative">
+            <label className="flex flex-col justify-center transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+              <span className="font-medium text-gray-600 text-center">
+                Arrastra tu foto aquí o selecciona una de tu equipo
+              </span>
+              <input
+                type="file"
+                name="file_upload"
+                className="file-input file-input-ghost w-auto h-auto"
+                onChange={handleImgProfile}
+              />
             </label>
           </div>
-          <button className="btn bg-red-500 hover:bg-red-600" onClick={handleSubmitImgProfile}>
+          <button
+            className="btn bg-red-500 hover:bg-red-600"
+            onClick={handleSubmitImgProfile}
+          >
             Subir mi nueva foto
           </button>
         </div>
@@ -302,14 +314,20 @@ const UserOptions = ({ user, token, logout, menuUser, setMenuUser }) => {
                   </div>
                 ) : (
                   <div class="absolute h-full w-full -left-5 -top-1 ">
-                    <label className="btn btn-circle btn-sm bg-gray-300	border-none hover:bg-gray-400 drop-shadow-lg text-black">
+                    <button
+                      className="btn btn-circle btn-sm bg-gray-300	border-none hover:bg-gray-400 drop-shadow-lg !text-black"
+                      onClick={deleteProfileImage}
+                    >
+                      X
+                    </button>
+                    {/* <label className="btn btn-circle btn-sm bg-gray-300	border-none hover:bg-gray-400 drop-shadow-lg text-black">
                       <span
                         class="material-symbols-outlined"
                         onClick={deleteProfileImage}
                       >
                         close
                       </span>
-                    </label>
+                    </label> */}
                   </div>
                 )}
               </div>
