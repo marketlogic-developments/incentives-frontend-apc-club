@@ -252,3 +252,10 @@ figure {
 .gridMiniCards {
   grid-template-rows: 15px;
 }
+
+.digipointsExpensive {
+  animation: digipointsExpensive;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+}

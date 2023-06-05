@@ -15,8 +15,6 @@ const Target = ({ cardInfo }) => {
     return colorbg[cardInfo.price];
   };
 
-  console.log(cardInfo);
-
   return (
     <div
       className={`w-full rounded-lg px-4 pt-6 h-full`}

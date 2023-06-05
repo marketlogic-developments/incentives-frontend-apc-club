@@ -2,17 +2,51 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMenuMarket } from "../../store/reducers/awards.reducer";
 import CardMenuMarket from "./MenuMarket/CardMenuMarket";
+import { useMemo } from "react";
 
 const MenuMarket = () => {
   const dispatch = useDispatch();
-  const menuMarket = useSelector((state) => state.awards.menuMarket);
   const digipoints = useSelector((state) => state.user.digipoints);
+  const car = useSelector((state) => state.awards.shoopingCar);
 
-  //Delete this because its a awards test
-  const awards = useSelector((state) => state.awards.awards);
-  //
+  const digipointsTotal = useMemo(
+    () =>
+      car
+        .map((e) => Number(e.digipoints) * e.quantity)
+        .reduce((prev, current) => prev + current, 0),
+    [car]
+  );
 
-  console.log(menuMarket);
+  const myDigipoints = useMemo(
+    () =>
+      typeof digipoints?.assigned_points !== "undefined" &&
+      typeof digipoints?.cart_points !== "undefined"
+        ? digipoints?.assigned_points - digipoints?.cart_points
+        : typeof digipoints?.assigned_points !== "undefined"
+        ? digipoints?.assigned_points
+        : 0,
+    [digipoints]
+  );
+
+  const handleOrder = () => {
+    axios
+      .post(
+        `${process.env.BACKURL}/order-carts`,
+        {
+          employeeId: user.id,
+          productsObject: car,
+          digipointSubstract: digipointsTotal,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {})
+      .catch((e) => console.log(e));
+  };
 
   return (
     <div className="w-[31.7%] bg-[#ffff] border right-0 h-screen fixed top-0 p-6 flex flex-col gap-6">
@@ -60,10 +94,10 @@ const MenuMarket = () => {
         </div>
       </div>
       <div className="flex flex-col gap-6">
-        <p className="2xl:!text-base font-bold">2 Gift Cards</p>
+        <p className="2xl:!text-base font-bold">{car.length} Gift Cards</p>
         <div className="flex flex-col gap-6">
-          {awards.slice(0, 3).map((item) => (
-            <CardMenuMarket cardData={item} />
+          {car.map((item, index) => (
+            <CardMenuMarket cardData={item} index={index} />
           ))}
         </div>
       </div>
@@ -92,25 +126,34 @@ const MenuMarket = () => {
               />
             </svg>
             <div className="flex flex-col h-full justify-between">
-              <p className="font-bold 2xl:!text-xl">
-                {typeof digipoints?.assigned_points !== "undefined" &&
-                typeof digipoints?.cart_points !== "undefined"
-                  ? digipoints?.assigned_points - digipoints?.cart_points
-                  : typeof digipoints?.assigned_points !== "undefined"
-                  ? digipoints?.assigned_points
-                  : 0}
-              </p>
+              <p className="font-bold 2xl:!text-xl">{myDigipoints}</p>
               <p className="!text-xs">Tu saldo DigiPoints</p>
             </div>
           </div>
           <div className="flex flex-col h-full justify-between">
-            <p className="font-bold 2xl:!text-xl text-end">0</p>
+            <p
+              className={`font-bold 2xl:!text-xl text-end ${
+                digipointsTotal > myDigipoints && "digipointsExpensive"
+              }`}
+            >
+              {digipointsTotal}
+            </p>
             <p className="!text-xs">Total DigiPoints</p>
           </div>
         </div>
-
+        {digipointsTotal > myDigipoints && (
+          <p className="text-primary !text-xs">
+            No tienes los DigiPoints suficientes para redimir la cantidad de
+            gift cards agregadas.
+          </p>
+        )}
         <div>
-          <button className="btn btn-primary w-full">Redimir</button>
+          <button
+            className="btn btn-primary w-full"
+            disabled={digipointsTotal > myDigipoints ? true : false}
+          >
+            Redimir
+          </button>
         </div>
       </div>
     </div>

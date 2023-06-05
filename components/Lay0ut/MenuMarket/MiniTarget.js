@@ -15,8 +15,6 @@ const MiniTarget = ({ cardInfo }) => {
     return colorbg[cardInfo.price];
   };
 
-  console.log(cardInfo);
-
   return (
     <div
       className={`w-[102.52px] h-[59px] rounded-lg p-2`}

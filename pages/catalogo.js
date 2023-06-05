@@ -41,51 +41,6 @@ const catalogo = () => {
     }
   }, [token]);
 
-  const handleShoppingCard = () => {
-    if (Cookies.get("shoppCar") !== undefined) {
-      const cookiesProducts = JSON.parse(Cookies.get("shoppCar"));
-
-      let prevProducts = [...cookiesProducts];
-      let thisAwards = [...globalAwards];
-
-      const cookiesFilter = globalAwards.map((data) => {
-        const newData = prevProducts.find(({ id }) => id === data.id);
-
-        if (newData !== undefined) {
-          const indexData = prevProducts.findIndex(({ id }) => id === data.id);
-
-          return {
-            ...newData,
-            quantity: newData.quantity + data.quantity,
-            index: indexData,
-          };
-        }
-
-        return { ...data, index: null };
-      });
-
-      for (let item of cookiesFilter) {
-        if (item.index !== null) {
-          prevProducts[item.index] = item;
-          thisAwards = thisAwards.filter(({ id }) => id !== item.id);
-        }
-      }
-
-      Cookies.set(
-        "shoppCar",
-        JSON.stringify([...prevProducts, ...thisAwards]),
-        { expires: 365 }
-      );
-      dispatch(productsPush([...prevProducts, ...thisAwards]));
-    } else {
-      Cookies.set("shoppCar", JSON.stringify(globalAwards), { expires: 365 });
-      dispatch(productsPush([...car, ...globalAwards]));
-    }
-
-    awardsDelete();
-    route.push("/shoppingCar");
-  };
-
   const [t, i18n] = useTranslation("global");
 
   useEffect(() => {
@@ -235,7 +190,6 @@ const catalogo = () => {
                     info={info}
                     setAwards={setGlobalAwards}
                     awards={globalAwards}
-                    handleAdd={handleShoppingCard}
                   />
                 ))}
               </div>

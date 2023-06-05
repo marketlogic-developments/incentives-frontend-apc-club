@@ -19,9 +19,6 @@ export const awardsAction = createSlice({
       state.awards = [];
     },
     productsPush: (state, action) => {
-      state.shoopingCar = [...state.shoopingCar, ...action.payload];
-    },
-    shoopingCarPush: (state, action) => {
       state.shoopingCar = action.payload;
     },
     rulesGetAll: (state, action) => {

@@ -1,6 +1,50 @@
+import { useState } from "react";
 import MiniTarget from "./MiniTarget";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { productsPush } from "../../../store/reducers/awards.reducer";
 
-const CardMenuMarket = ({ cardData }) => {
+const CardMenuMarket = ({ cardData, index }) => {
+  const [counter, setCounter] = useState(0);
+  const car = useSelector((state) => state.awards.shoopingCar);
+  const dispatch = useDispatch();
+
+  useEffect(() => setCounter(cardData.quantity), [cardData]);
+
+  console.log(car);
+
+  const buttonsFunctionAdd = () => {
+    setCounter(counter + 1);
+
+    const copyCar = [...car];
+
+    copyCar[index] = { ...cardData, quantity: counter + 1 };
+
+    dispatch(productsPush(copyCar));
+  };
+  const buttonsFunctionMinus = () => {
+    const copyCar = [...car];
+
+    if (counter !== 0) {
+      setCounter(counter - 1);
+
+      if (counter - 1 === 0) {
+        return deleteItem();
+      }
+
+      copyCar[index] = { ...cardData, quantity: counter - 1 };
+      dispatch(productsPush(copyCar));
+    }
+
+    console.log(copyCar);
+  };
+
+  const deleteItem = () => {
+    const newCar = car.filter((item) => cardData.id !== item.id);
+
+    return dispatch(productsPush(newCar));
+  };
+
   return (
     <div className="flex justify-between">
       <div className="flex gap-2">
@@ -35,7 +79,7 @@ const CardMenuMarket = ({ cardData }) => {
 
       <div className="flex items-center w-1/3 justify-around">
         <div className="grid grid-cols-3 w-1/2 place-items-center">
-          <button>
+          <button onClick={buttonsFunctionAdd}>
             <svg
               width="21"
               height="21"
@@ -58,8 +102,8 @@ const CardMenuMarket = ({ cardData }) => {
               />
             </svg>
           </button>
-          <p className="xl:!text-sm text-primary">1</p>
-          <button>
+          <p className="xl:!text-sm text-primary">{counter}</p>
+          <button onClick={buttonsFunctionMinus}>
             <svg
               width="21"
               height="21"
@@ -83,7 +127,10 @@ const CardMenuMarket = ({ cardData }) => {
             </svg>
           </button>
         </div>
-        <div className="w-1/2 flex justify-center items-center">
+        <div
+          className="w-1/2 flex justify-center items-center cursor-pointer"
+          onClick={deleteItem}
+        >
           <svg
             width="22"
             height="21"
