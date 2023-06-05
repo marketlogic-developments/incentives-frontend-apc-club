@@ -1,12 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setMenuMarket } from "../../store/reducers/awards.reducer";
+import {
+  productsPush,
+  setMenuMarket,
+} from "../../store/reducers/awards.reducer";
 import CardMenuMarket from "./MenuMarket/CardMenuMarket";
 import { useMemo } from "react";
+import { setDigipoints } from "../../store/reducers/users.reducer";
+import axios from "axios";
+import { ordersPush } from "../../store/reducers/orders.reducer";
 
 const MenuMarket = () => {
   const dispatch = useDispatch();
   const digipoints = useSelector((state) => state.user.digipoints);
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
   const car = useSelector((state) => state.awards.shoopingCar);
 
   const digipointsTotal = useMemo(
@@ -44,7 +52,18 @@ const MenuMarket = () => {
           },
         }
       )
-      .then(() => {})
+      .then((res) => {
+        dispatch(productsPush([]));
+        dispatch(ordersPush(res.data));
+        dispatch(
+          setDigipoints({
+            ...digipoints,
+            cart_points:
+              Number(digipoints.cart_points) + Number(digipointsTotal),
+          })
+        );
+        debugger;
+      })
       .catch((e) => console.log(e));
   };
 
@@ -151,6 +170,7 @@ const MenuMarket = () => {
           <button
             className="btn btn-primary w-full"
             disabled={digipointsTotal > myDigipoints ? true : false}
+            onClick={handleOrder}
           >
             Redimir
           </button>
