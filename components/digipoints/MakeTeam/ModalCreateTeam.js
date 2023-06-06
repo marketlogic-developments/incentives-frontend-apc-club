@@ -329,13 +329,15 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
             </div>
           )}
 
-          {percentage !== 100 && (
-            <div>
-              <p className="!text-xs text-primary">
-                {t("digipoints.percentage")}
-              </p>
-            </div>
-          )}
+          {percentage !== 100 &&
+            modifiedValues.length !== 0 &&
+            !openParticipants.component && (
+              <div>
+                <p className="!text-xs text-primary">
+                  {t("digipoints.percentage")}
+                </p>
+              </div>
+            )}
 
           <div className="relative justify-items-center grid grid-flow-col mt-8">
             <button
