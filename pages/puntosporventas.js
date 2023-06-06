@@ -137,7 +137,6 @@ const puntosporventas = () => {
                   DigiPoints
                 </th>
               )}
-
               <th scope="col" className="py-2 px-2">
                 Total Sales US
               </th>
@@ -161,7 +160,6 @@ const puntosporventas = () => {
                       {data.max_digipoints_allocate}
                     </td>
                   )}
-
                   <td className="py-4 px-2">
                     ${parseFloat(data.total_sales_amount).toFixed(2)}
                   </td>
