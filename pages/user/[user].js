@@ -16,32 +16,18 @@ import { DatePicker } from '@mantine/dates';
 import dayjs from 'dayjs';
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import UserPhoto from "../../components/user/UserPhoto";
+
 
 const user = () => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
-  const userAll = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
   const [nInputs, setNInputs] = useState(0);
-  const [modal, setModal] = useState(0);
-  const [image, setImage] = useState({});
-  const [viewimage, setviewImage] = useState("");
   const [t, i18n] = useTranslation("global");
   const [menu, setMenu] = useState(false);
   const [editInfo, setEditInfo] = useState(false);
-
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
 
   const [formData, setFormData] = useState({
     name: "",
@@ -117,7 +103,7 @@ const user = () => {
     }
   };
   const handleChangeDate = (value) => {
-    console.log(user)
+    console.log(user);
     setFormData({
       ...formData,
       birthDate: value.toISOString(), // Asegúrate de convertir el valor en un formato válido para la API
@@ -125,7 +111,7 @@ const user = () => {
   };
 
   function formatDate(date) {
-    return dayjs(date).format('DD/MM/YYYY');
+    return dayjs(date).format("DD/MM/YYYY");
   }
   function isValidDate(dateString) {
     const date = new Date(dateString);
@@ -177,214 +163,46 @@ const user = () => {
           icon: "success",
           title: "Datos actualizados",
           customClass: {
-            content: 'sw2Custom',
+            content: "sw2Custom",
           },
-        });
-
-
-      });
-  };
-
-  const handleImgProfile = (e) => {
-    const reader = new FileReader();
-    const file = e.target.files[0];
-
-    reader.onload = (e) => {
-      const dataURL = e.target.result;
-      setviewImage({ path: dataURL });
-    };
-
-    reader.readAsDataURL(file);
-    setImage(file);
-  };
-
-  const handleSubmitImgProfile = (e) => {
-    e.preventDefault();
-
-    const form = new FormData();
-    form.append("file", image);
-    form.append("upload_preset", "ADOBEAPC");
-
-    axios
-      .post(
-        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`,
-        form
-      )
-      .then((res) => {
-        axios
-          .patch(
-            `${process.env.BACKURL}/users/${user.id}`,
-            { profilePhotoPath: res.data.url },
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then((res2) => {
-            dispatch(userUpdate({ profilePhotoPath: res.data.url }));
-            setFormData({
-              ...formData,
-              imgProfile: res.data.url,
-            });
-            return Toast.fire({
-              icon: "success",
-              title: t("user.fotoUpdate"),
-            });
-          });
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const deleteProfileImage = () => {
-    return axios
-      .patch(
-        `${process.env.BACKURL}/users/${user.id}`,
-        {
-          profilePhotoPath: "noImage",
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then(() => {
-        dispatch(userUpdate({ profilePhotoPath: "noImage" }));
-        setFormData({
-          ...formData,
-          imgProfile: "noImage",
-        });
-        return Toast.fire({
-          icon: "success",
-          title: t("user.fotoDelete"),
         });
       });
   };
-
-  const typeModal = useMemo(() => {
-    if (modal === 0) {
-      return (
-        <div>
-          <p>¡Tus datos fueron actualizados!</p>
-        </div>
-      );
-    }
-    if (modal === 1) {
-      return (
-        <div className="flex flex-col w-full justify-center items-center gap-10">
-          <div className="w-1/5 relative">
-            <div
-              className="absolute rounded-full bg-primary w-[24px] h-[24px] flex justify-center right-0 cursor-pointer"
-              onClick={deleteProfileImage}
-            >
-              <div data-tip="Borrar foto de perfil" className="tooltip">
-                <p className="text-white">X</p>
-              </div>
-            </div>
-            <figure className="imgPhoto border-red-600 border-2 rounded-full">
-              <img
-                src={
-                  viewimage === ""
-                    ? formData.imgProfile === null ||
-                      formData.imgProfile === "" ||
-                      formData.imgProfile === "noImage"
-                      ? "/assets/Icons/user.webp"
-                      : formData.imgProfile
-                    : viewimage.path
-                }
-              />
-            </figure>
-          </div>
-          <div className="max-w-xl">
-            <label className="flex flex-col justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
-              <span className="flex flex-col jusitfy-center items-center space-x-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 text-gray-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                  />
-                </svg>
-                <span className="font-medium text-gray-600 text-center">
-                  Arrastra tu foto aquí o selecciona una de tu equipo
-                </span>
-              </span>
-              <input
-                type="file"
-                name="file_upload"
-                className="hidden"
-                onChange={handleImgProfile}
-              />
-            </label>
-          </div>
-          <button className="btn btn-primary" onClick={handleSubmitImgProfile}>
-            Subir mi nueva foto
-          </button>
-        </div>
-      );
-    }
-
-    if (modal === 2) {
-      return <ModalPassword setOpened={setOpened} />;
-    }
-  }, [modal, opened, image, viewimage, formData]);
 
   return (
     <>
-      <Modal
-        opened={opened}
-        onClose={() => {
-          setviewImage("");
-          setOpened(false);
-        }}
-        centered
-        size={"50%"}
-      >
-        {typeModal}
-      </Modal>
       <ContainerContent pageTitle={"Ajustes de perfil"}>
         <div className="flex flex-col">
           <div className="w-full gap-5 flex bg-white rounded-lg shadow-xl overflow-hidden ring-slate-900/5 p-5">
-            <div className="photo">
-              <img
-                src={
-                  formData.imgProfile === null ||
-                    formData.imgProfile === "" ||
-                    formData.imgProfile === "noImage"
-                    ? "/assets/Icons/user.webp"
-                    : formData.imgProfile
-                }
-                className="imgPhotoperfil"
-              />
-            </div>
+            <UserPhoto formData={formData} />
             <div className="flex flex-col description gap-3 justify-center">
-              <h1 className="font-bold text-3xl">{formData.names} {formData.lastname}</h1>
-              <h2 className="font-bold">{formData.role === 1
-                ? "Administrador"
-                : formData.role === 2
+              <h1 className="font-bold text-3xl">
+                {formData.names} {formData.lastname}
+              </h1>
+              <h2 className="font-bold">
+                {formData.role === 1
+                  ? "Administrador"
+                  : formData.role === 2
                   ? "Partner Principal"
                   : formData.role === 3
-                    ? "Partner Admin"
-                    : formData.role === 5
-                      ? "Sales Rep"
-                      : ""}</h2>
+                  ? "Partner Admin"
+                  : formData.role === 5
+                  ? "Sales Rep"
+                  : ""}
+              </h2>
               <div className="flex flex-row gap-x-4">
                 <div className="flex flex-row gap-x-1">
-                  <img className="icons-user" src="/assets/perfil/earth-outline.png"></img>
+                  <img
+                    className="icons-user"
+                    src="/assets/perfil/earth-outline.png"
+                  ></img>
                   <p>{formData.region}</p>
                 </div>
                 <div className="flex flex-row gap-x-1">
-                  <img className="icons-user" src="/assets/perfil/mail-outline.png"></img>
+                  <img
+                    className="icons-user"
+                    src="/assets/perfil/mail-outline.png"
+                  ></img>
                   <p>{formData.email}</p>
                 </div>
               </div>
@@ -589,9 +407,21 @@ const user = () => {
                   setMenu(false);
                 }}
               >
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9.10196 1.68745C4.98938 1.6319 1.63196 4.98932 1.68751 9.1019C1.74235 13.0461 4.95388 16.2576 8.89806 16.3124C13.0113 16.3687 16.3681 13.0113 16.3118 8.8987C16.2577 4.95381 13.0461 1.74229 9.10196 1.68745ZM13.5464 13.1923C13.5324 13.2075 13.5152 13.2194 13.4961 13.2271C13.477 13.2349 13.4564 13.2384 13.4358 13.2373C13.4152 13.2362 13.3951 13.2306 13.3769 13.2209C13.3587 13.2112 13.3429 13.1976 13.3306 13.1811C13.0161 12.7697 12.631 12.4174 12.1932 12.1408C11.2982 11.5664 10.164 11.2499 9.00001 11.2499C7.83598 11.2499 6.70184 11.5664 5.80677 12.1408C5.36903 12.4173 4.98393 12.7694 4.66946 13.1807C4.65711 13.1972 4.64127 13.2108 4.62307 13.2206C4.60488 13.2303 4.58477 13.2359 4.56417 13.2369C4.54357 13.238 4.52299 13.2345 4.50388 13.2268C4.48477 13.219 4.46761 13.2071 4.4536 13.192C3.422 12.0784 2.83764 10.6232 2.81251 9.10542C2.7552 5.68436 5.56243 2.82088 8.98489 2.81245C12.4074 2.80401 15.1875 5.58311 15.1875 8.99995C15.1887 10.5543 14.6025 12.0518 13.5464 13.1923Z" fill="black" />
-                  <path d="M9 5.0625C8.30672 5.0625 7.67988 5.3223 7.23445 5.79445C6.78902 6.2666 6.56649 6.91945 6.61676 7.62012C6.71871 9 7.78781 10.125 9 10.125C10.2122 10.125 11.2792 9 11.3832 7.62047C11.4353 6.92648 11.2145 6.27961 10.7617 5.79867C10.3145 5.32406 9.68871 5.0625 9 5.0625Z" fill="black" />
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.10196 1.68745C4.98938 1.6319 1.63196 4.98932 1.68751 9.1019C1.74235 13.0461 4.95388 16.2576 8.89806 16.3124C13.0113 16.3687 16.3681 13.0113 16.3118 8.8987C16.2577 4.95381 13.0461 1.74229 9.10196 1.68745ZM13.5464 13.1923C13.5324 13.2075 13.5152 13.2194 13.4961 13.2271C13.477 13.2349 13.4564 13.2384 13.4358 13.2373C13.4152 13.2362 13.3951 13.2306 13.3769 13.2209C13.3587 13.2112 13.3429 13.1976 13.3306 13.1811C13.0161 12.7697 12.631 12.4174 12.1932 12.1408C11.2982 11.5664 10.164 11.2499 9.00001 11.2499C7.83598 11.2499 6.70184 11.5664 5.80677 12.1408C5.36903 12.4173 4.98393 12.7694 4.66946 13.1807C4.65711 13.1972 4.64127 13.2108 4.62307 13.2206C4.60488 13.2303 4.58477 13.2359 4.56417 13.2369C4.54357 13.238 4.52299 13.2345 4.50388 13.2268C4.48477 13.219 4.46761 13.2071 4.4536 13.192C3.422 12.0784 2.83764 10.6232 2.81251 9.10542C2.7552 5.68436 5.56243 2.82088 8.98489 2.81245C12.4074 2.80401 15.1875 5.58311 15.1875 8.99995C15.1887 10.5543 14.6025 12.0518 13.5464 13.1923Z"
+                    fill="black"
+                  />
+                  <path
+                    d="M9 5.0625C8.30672 5.0625 7.67988 5.3223 7.23445 5.79445C6.78902 6.2666 6.56649 6.91945 6.61676 7.62012C6.71871 9 7.78781 10.125 9 10.125C10.2122 10.125 11.2792 9 11.3832 7.62047C11.4353 6.92648 11.2145 6.27961 10.7617 5.79867C10.3145 5.32406 9.68871 5.0625 9 5.0625Z"
+                    fill="black"
+                  />
                 </svg>
                 <p className="whitespace-nowrap">Información personal</p>
               </div>
@@ -601,14 +431,35 @@ const user = () => {
                   setMenu(true);
                 }}
               >
-                <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="16"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <g clip-path="url(#clip0_121_2261)">
-                    <path d="M10.5 7.14771V4.17896C10.5 3.51591 10.2366 2.88003 9.76777 2.41119C9.29893 1.94235 8.66304 1.67896 8 1.67896C7.33696 1.67896 6.70107 1.94235 6.23223 2.41119C5.76339 2.88003 5.5 3.51591 5.5 4.17896V7.14771" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M11.5 7.14771H4.5C3.67157 7.14771 3 7.81928 3 8.64771V14.1477C3 14.9761 3.67157 15.6477 4.5 15.6477H11.5C12.3284 15.6477 13 14.9761 13 14.1477V8.64771C13 7.81928 12.3284 7.14771 11.5 7.14771Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                      d="M10.5 7.14771V4.17896C10.5 3.51591 10.2366 2.88003 9.76777 2.41119C9.29893 1.94235 8.66304 1.67896 8 1.67896C7.33696 1.67896 6.70107 1.94235 6.23223 2.41119C5.76339 2.88003 5.5 3.51591 5.5 4.17896V7.14771"
+                      stroke="black"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M11.5 7.14771H4.5C3.67157 7.14771 3 7.81928 3 8.64771V14.1477C3 14.9761 3.67157 15.6477 4.5 15.6477H11.5C12.3284 15.6477 13 14.9761 13 14.1477V8.64771C13 7.81928 12.3284 7.14771 11.5 7.14771Z"
+                      stroke="black"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </g>
                   <defs>
                     <clipPath id="clip0_121_2261">
-                      <rect width="16" height="16" fill="white" transform="translate(0 0.647705)" />
+                      <rect
+                        width="16"
+                        height="16"
+                        fill="white"
+                        transform="translate(0 0.647705)"
+                      />
                     </clipPath>
                   </defs>
                 </svg>
@@ -627,9 +478,24 @@ const user = () => {
                       setEditInfo(!editInfo);
                     }}
                   >
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15 8.75V15.9375C15 16.1427 14.9596 16.3459 14.8811 16.5354C14.8025 16.725 14.6874 16.8973 14.5424 17.0424C14.3973 17.1874 14.225 17.3025 14.0354 17.3811C13.8459 17.4596 13.6427 17.5 13.4375 17.5H4.0625C3.6481 17.5 3.25067 17.3354 2.95765 17.0424C2.66462 16.7493 2.5 16.3519 2.5 15.9375V6.5625C2.5 6.1481 2.66462 5.75067 2.95765 5.45765C3.25067 5.16462 3.6481 5 4.0625 5H10.6047" stroke="#1473E6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M17.9665 2.08009C17.9094 2.01737 17.8402 1.96688 17.763 1.93166C17.6859 1.89644 17.6024 1.87723 17.5176 1.87518C17.4328 1.87314 17.3485 1.8883 17.2698 1.91976C17.191 1.95122 17.1195 1.99832 17.0594 2.05821L16.5762 2.53907C16.5177 2.59767 16.4848 2.67713 16.4848 2.75997C16.4848 2.84282 16.5177 2.92227 16.5762 2.98087L17.0192 3.42306C17.0482 3.45223 17.0827 3.47538 17.1207 3.49118C17.1588 3.50697 17.1995 3.5151 17.2407 3.5151C17.2818 3.5151 17.3226 3.50697 17.3606 3.49118C17.3986 3.47538 17.4331 3.45223 17.4622 3.42306L17.9333 2.95431C18.1715 2.71642 18.1938 2.32892 17.9665 2.08009ZM15.5993 3.51564L8.5477 10.5547C8.50495 10.5973 8.47387 10.6501 8.45747 10.7082L8.1313 11.6797C8.12348 11.7061 8.12293 11.734 8.1297 11.7607C8.13646 11.7873 8.15029 11.8117 8.16973 11.8311C8.18918 11.8505 8.2135 11.8644 8.24015 11.8711C8.2668 11.8779 8.29478 11.8774 8.32114 11.8695L9.29184 11.5434C9.34991 11.527 9.40278 11.4959 9.44536 11.4531L16.4844 4.40079C16.5495 4.33497 16.5861 4.24612 16.5861 4.15353C16.5861 4.06094 16.5495 3.97208 16.4844 3.90626L16.0958 3.51564C16.0298 3.44992 15.9406 3.41302 15.8475 3.41302C15.7544 3.41302 15.6652 3.44992 15.5993 3.51564Z" fill="#1473E6" />
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M15 8.75V15.9375C15 16.1427 14.9596 16.3459 14.8811 16.5354C14.8025 16.725 14.6874 16.8973 14.5424 17.0424C14.3973 17.1874 14.225 17.3025 14.0354 17.3811C13.8459 17.4596 13.6427 17.5 13.4375 17.5H4.0625C3.6481 17.5 3.25067 17.3354 2.95765 17.0424C2.66462 16.7493 2.5 16.3519 2.5 15.9375V6.5625C2.5 6.1481 2.66462 5.75067 2.95765 5.45765C3.25067 5.16462 3.6481 5 4.0625 5H10.6047"
+                        stroke="#1473E6"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M17.9665 2.08009C17.9094 2.01737 17.8402 1.96688 17.763 1.93166C17.6859 1.89644 17.6024 1.87723 17.5176 1.87518C17.4328 1.87314 17.3485 1.8883 17.2698 1.91976C17.191 1.95122 17.1195 1.99832 17.0594 2.05821L16.5762 2.53907C16.5177 2.59767 16.4848 2.67713 16.4848 2.75997C16.4848 2.84282 16.5177 2.92227 16.5762 2.98087L17.0192 3.42306C17.0482 3.45223 17.0827 3.47538 17.1207 3.49118C17.1588 3.50697 17.1995 3.5151 17.2407 3.5151C17.2818 3.5151 17.3226 3.50697 17.3606 3.49118C17.3986 3.47538 17.4331 3.45223 17.4622 3.42306L17.9333 2.95431C18.1715 2.71642 18.1938 2.32892 17.9665 2.08009ZM15.5993 3.51564L8.5477 10.5547C8.50495 10.5973 8.47387 10.6501 8.45747 10.7082L8.1313 11.6797C8.12348 11.7061 8.12293 11.734 8.1297 11.7607C8.13646 11.7873 8.15029 11.8117 8.16973 11.8311C8.18918 11.8505 8.2135 11.8644 8.24015 11.8711C8.2668 11.8779 8.29478 11.8774 8.32114 11.8695L9.29184 11.5434C9.34991 11.527 9.40278 11.4959 9.44536 11.4531L16.4844 4.40079C16.5495 4.33497 16.5861 4.24612 16.5861 4.15353C16.5861 4.06094 16.5495 3.97208 16.4844 3.90626L16.0958 3.51564C16.0298 3.44992 15.9406 3.41302 15.8475 3.41302C15.7544 3.41302 15.6652 3.44992 15.5993 3.51564Z"
+                        fill="#1473E6"
+                      />
                     </svg>
                     Editar
                   </div>
@@ -645,7 +511,9 @@ const user = () => {
                       <div className="w-full h-fit">
                         <div className="form-control w-full">
                           <label className="label">
-                            <span className="label-text">{t("user.nombre")}</span>
+                            <span className="label-text">
+                              {t("user.nombre")}
+                            </span>
                           </label>
                           {editInfo ? (
                             <input
@@ -667,12 +535,16 @@ const user = () => {
                               onChange={handleChange}
                               onBlur={handleChangeInputs}
                               required
-                            >{formData.names}</span>
+                            >
+                              {formData.names}
+                            </span>
                           )}
                         </div>
                         <div className="form-control w-full">
                           <label className="label">
-                            <span className="label-text">{t("user.apellido")}</span>
+                            <span className="label-text">
+                              {t("user.apellido")}
+                            </span>
                           </label>
                           {editInfo ? (
                             <input
@@ -695,7 +567,9 @@ const user = () => {
                               onChange={handleChange}
                               required
                               onBlur={handleChangeInputs}
-                            >{formData.lastname}</span>
+                            >
+                              {formData.lastname}
+                            </span>
                           )}
                         </div>
                         <div className="form-control w-full">
@@ -729,7 +603,9 @@ const user = () => {
                               name="phone"
                               required
                               onBlur={handleChangeInputs}
-                            >{formData.phone}</span>
+                            >
+                              {formData.phone}
+                            </span>
                           )}
                         </div>
                         <div className="form-control w-full">
@@ -744,22 +620,29 @@ const user = () => {
                               valueFormat="MM/DD/YYYY"
                               onChange={handleChangeDate}
                               onBlur={handleChangeInputs}
-                              value={isValidDate(formData.birthDate) ? new Date(formData.birthDate) : ''}
+                              value={
+                                isValidDate(formData.birthDate)
+                                  ? new Date(formData.birthDate)
+                                  : ""
+                              }
                               variant="datepickerInput"
                               className="datepickerInput"
                             />
-
                           ) : (
                             formData.birthDate && (
-                              <span className="input input-ghost w-full flex items-center">{isValidDate(formData.birthDate) ? new Date(formData.birthDate).toLocaleDateString("en-US") : ''}</span>
+                              <span className="input input-ghost w-full flex items-center">
+                                {isValidDate(formData.birthDate)
+                                  ? new Date(
+                                      formData.birthDate
+                                    ).toLocaleDateString("en-US")
+                                  : ""}
+                              </span>
                             )
                           )}
                         </div>
                         <div className="form-control w-full">
                           <label className="label">
-                            <span className="label-text">
-                              Idioma
-                            </span>
+                            <span className="label-text">Idioma</span>
                           </label>
                           {editInfo ? (
                             <select
@@ -774,11 +657,11 @@ const user = () => {
                               <option value="es">Español</option>
                               <option value="por">Português</option>
                             </select>
-
                           ) : (
-                            <span
-                              className="input input-ghost w-full flex items-center">
-                              {formData.languageId === 1 ? "Portugués" : "Español"}
+                            <span className="input input-ghost w-full flex items-center">
+                              {formData.languageId === 1
+                                ? "Portugués"
+                                : "Español"}
                             </span>
                           )}
                         </div>
@@ -793,8 +676,12 @@ const user = () => {
                           e.preventDefault();
                           setEditInfo(!editInfo);
                         }}
-                      >Cancelar</button>
-                      <button className="btn btn-info hover:bg-black w-1/4">Guardar cambios</button>
+                      >
+                        Cancelar
+                      </button>
+                      <button className="btn btn-info hover:bg-black w-1/4">
+                        Guardar cambios
+                      </button>
                     </div>
                   )}
                 </form>
@@ -813,8 +700,8 @@ const user = () => {
               </div>
             </div>
           )}
-        </div >
-      </ContainerContent >
+        </div>
+      </ContainerContent>
     </>
   );
 };
