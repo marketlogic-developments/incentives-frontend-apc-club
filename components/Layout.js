@@ -1069,10 +1069,20 @@ const Layout = ({ children }) => {
                             className="flex items-center gap-3 bg-[#F5F5F5] rounded-full p-3 min-w-[217px] max-h-[55px] text-xs cursor-pointer"
                             onClick={() => setMenuUser(!menuUser)}
                           >
-                            <div className="user p-2 bg-[#1473E6] rounded-full w-[35px] h-[35px]">
-                              <p className="text-white text-center flex w-full h-full items-center justify-center">
-                                {userRedux?.names[0]}
-                              </p>
+                            <div className="bg-[#1473E6] rounded-full w-[35px] h-[35px]">
+                              {userRedux.profilePhotoPath === null ||
+                              userRedux.profilePhotoPath === "" ||
+                              userRedux.profilePhotoPath === "noImage" ? (
+                                <p className="text-white text-center flex w-full h-full items-center justify-center">
+                                  {userRedux?.names[0]}
+                                </p>
+                              ) : (
+                                <img
+                                  src={userRedux.profilePhotoPath}
+                                  className="w-full h-full rounded-full"
+                                  alt="Avatar"
+                                />
+                              )}
                             </div>
                             <div className="username">
                               <p className="lg:!text-sm xl:!text-base">
@@ -1087,6 +1097,7 @@ const Layout = ({ children }) => {
                             logout={logout}
                             menuUser={menuUser}
                             setMenuUser={setMenuUser}
+                            token={token}
                           />
                         )}
                       </div>
