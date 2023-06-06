@@ -132,9 +132,12 @@ const puntosporventas = () => {
               <th scope="col" className="py-2 px-2">
                 Quarter
               </th>
-              <th scope="col" className="py-2 px-2">
-                DigiPoints
-              </th>
+              {user.roleId === 1 && (
+                <th scope="col" className="py-2 px-2">
+                  DigiPoints
+                </th>
+              )}
+
               {/* <th scope="col" className="py-2 px-2">
                 Total Sales US
               </th> */}
@@ -153,7 +156,12 @@ const puntosporventas = () => {
                   <td className="py-4 px-2">{data.business_type}</td>
                   <td className="py-4 px-2">{data.materia_sku}</td>
                   <td className="py-4 px-2">{data.quarter}</td>
-                  <td className="py-4 px-2">{data.max_digipoints_allocate}</td>
+                  {user.roleId === 1 && (
+                    <td className="py-4 px-2">
+                      {data.max_digipoints_allocate}
+                    </td>
+                  )}
+
                   {/* <td className="py-4 px-2">
                     ${parseFloat(data.total_sales_amount).toFixed(2)}
                   </td> */}
