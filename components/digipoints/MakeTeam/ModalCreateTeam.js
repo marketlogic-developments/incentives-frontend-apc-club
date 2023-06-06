@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { changeLoadingData } from "../../../store/reducers/loading.reducer";
 import { teamsPush, teamsUpdate } from "../../../store/reducers/teams.reducer";
+import { useMemo } from "react";
 
 const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
   const [t, i18n] = useTranslation("global");
@@ -94,18 +95,6 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
 
   function handleSaveChanges(event) {
     event.preventDefault();
-
-    // calculatePercentage function defines if the result of the sum of the inputs is equal to 100
-    const calculatePercentage = modifiedValues
-      .map(({ percentage }) => percentage)
-      .reduce((prev, counter) => prev + counter);
-
-    if (calculatePercentage > 100 || calculatePercentage < 100) {
-      return Toast.fire({
-        icon: "error",
-        title: t("modalEquipos.suma"),
-      });
-    }
 
     //Function updates the teams if the team has an id
 
@@ -203,6 +192,14 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
         .finally(() => dispatch(changeLoadingData(false)));
     }
   }
+
+  const percentage = useMemo(() => {
+    return modifiedValues
+      .map(({ percentage }) => percentage)
+      .reduce((prev, counter) => prev + counter, 0);
+  }, [modifiedValues]);
+
+  console.log(percentage);
 
   return (
     <div>
@@ -332,6 +329,14 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
             </div>
           )}
 
+          {percentage !== 100 && (
+            <div>
+              <p className="!text-xs text-primary">
+                {t("digipoints.percentage")}
+              </p>
+            </div>
+          )}
+
           <div className="relative justify-items-center grid grid-flow-col mt-8">
             <button
               type="cancel"
@@ -342,7 +347,11 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
             >
               {t("modalEquipos.cancelar")}
             </button>
-            <button type="submit" className="btn btn-info w-48">
+            <button
+              type="submit"
+              className="btn btn-info w-48"
+              disabled={percentage === 100 ? false : true}
+            >
               {t("modalEquipos.gEquipo")}
             </button>
           </div>

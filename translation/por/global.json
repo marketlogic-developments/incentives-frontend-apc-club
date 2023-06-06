@@ -55,7 +55,10 @@
     "Adobe Market": "Adobe Market",
     "salir": "Sair",
     "catalogo": "Catálogo de prêmios",
-    "vercatalogo": "Ver catálogo de prêmios"
+    "vercatalogo": "Ver catálogo de prêmios",
+    "admin": "Administração",
+    "redenciones": "Resgates",
+    "reglas": "Regras"
   },
   "dashboard": {
     "Estado_de_la_Meta": "Status da Meta",
@@ -163,6 +166,7 @@
     "dFactura": "Detalhes da fatura",
     "errorNoTeam": "Você precisa escolher uma equipe de vendas para atribuir sua fatura",
     "selectTeam": "Selecione a equipe de vendas para a qual você deseja atribuir esses digipoints. Lembre-se de que você só pode selecionar (1) uma equipe de vendas.",
+    "percentage": "A soma total das porcentagens de participação de todos os participantes deve ser 100.",
     "selectUser": "Selecione o representante de vendas para o qual você deseja atribuir esses digipoints. Lembre-se de que você só pode selecionar (1) um usuário."
   },
 
@@ -244,7 +248,8 @@
     "cambioRolSolicitud": "Mudança de função",
     "cambioEmailSolicitud": "Mudança de e-mail",
     "otroSolicitud": "Outro",
-    "elegirSol": "Escolha o seu tipo de solicitação."
+    "elegirSol": "Escolha o seu tipo de solicitação.",
+    "limpiar": "Limpar filtro"
   },
   "shoopingcar": {
     "carrito": "Carrinho de compras",

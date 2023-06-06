@@ -54,7 +54,10 @@
     "Carga_de_Ventas": "Carga de ventas",
     "salir": "Salir",
     "catalogo": "Catálogo de premios",
-    "vercatalogo": "Ver catálogo de premios"
+    "vercatalogo": "Ver catálogo de premios",
+    "admin": "Administración",
+    "redenciones": "Redenciones",
+    "reglas": "Reglas"
   },
   "dashboard": {
     "Inicio": "Inicio",
@@ -160,7 +163,8 @@
     "dFactura": "Detalle de factura",
     "errorNoTeam": "Tienes que elegir un equipo de ventas para asignar tu factura",
     "selectTeam": "Selecciona al equipo de ventas al que vas asignar estos digipoints. Recuerda que solo puedes seleccionar a (1) un equipo de ventas.",
-    "selectUser": "Selecciona al representante de ventas al que vas asignar estos digipoints. Recuerda que solo puedes seleccionar a (1) un usuario."
+    "selectUser": "Selecciona al representante de ventas al que vas asignar estos digipoints. Recuerda que solo puedes seleccionar a (1) un usuario.",
+    "percentage": "La suma total de porcentaje de participación entre todos los participantes debe ser 100."
   },
   "files": {},
   "participantes": {
@@ -240,7 +244,8 @@
     "cambioRolSolicitud": "Cambio de rol",
     "cambioEmailSolicitud": "Cambio de correo",
     "otroSolicitud": "Otro",
-    "elegirSol": "Elige tu tipo de solicitud"
+    "elegirSol": "Elige tu tipo de solicitud",
+    "limpiar": "Limpiar filtro"
   },
   "shoopingcar": {
     "carrito": "Carrito",
