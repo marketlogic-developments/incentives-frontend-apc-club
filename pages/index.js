@@ -532,19 +532,9 @@ export default function Home() {
                 alt="10years-Logo"
               />
             </figure>
-            <select
-              className="select w-1/3 text-secondary lg:select-sm 2xl:select-md !h-[90%]"
-              onChange={(e) => {
-                i18n.changeLanguage(e.target.value);
-              }}
-              value={i18n.resolvedLanguage}
-            >
-              <option value="es">Español</option>
-              <option value="por">Português</option>
-            </select>
           </div>
         </div>
-        <div className="container flex flex-col justify-center items-end w-full max-w-full relative my-auto h-3/4">
+        <div className="container flex flex-col justify-center items-center w-full max-w-full relative my-auto h-3/4">
           <LoginTarget
             handleSubmit={handleSubmit}
             viewLogin={viewLogin}

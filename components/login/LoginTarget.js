@@ -14,7 +14,7 @@ const LoginTarget = ({
 
   return (
     <div
-      className="card w-[35%] text-primary-content bg-white !rounded-lg mr-[10%]"
+      className="card w-[35%] text-primary-content bg-white !rounded-lg"
       id="cardLogin"
     >
       <div className="flex flex-col items-center lg:gap-2 2xl:gap-6 max-sm:justify-center flex px-10 lg:py-6 2xl:py-12 max-sm:px-5 internalCard my-auto">
@@ -110,6 +110,18 @@ const LoginTarget = ({
               </p>
             </div>
           </div>
+        </div>
+        <div className="flex w-full justify-center">
+          <select
+            className="select !select-xs select-bordered w-2/3 text-secondary"
+            onChange={(e) => {
+              i18n.changeLanguage(e.target.value);
+            }}
+            value={i18n.resolvedLanguage}
+          >
+            <option value="es">Español</option>
+            <option value="por">Português</option>
+          </select>
         </div>
       </div>
     </div>
