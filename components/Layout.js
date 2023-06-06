@@ -557,7 +557,7 @@ const Layout = ({ children }) => {
         </svg>
       ),
       iconactive: "",
-      text: "Administración",
+      text: t("menu.admin"),
       subsections: [
         {
           page: "/premios",
@@ -603,7 +603,7 @@ const Layout = ({ children }) => {
             </svg>
           ),
           iconactive: "",
-          text: "Redenciones",
+          text: t("menu.redenciones"),
         },
         {
           page: "/cargaventas",
@@ -672,7 +672,7 @@ const Layout = ({ children }) => {
             </svg>
           ),
           iconactive: "",
-          text: "Reglas",
+          text: t("menu.reglas"),
         },
         {
           page: "/customercare",
@@ -1070,8 +1070,8 @@ const Layout = ({ children }) => {
                             userRedux.profilePhotoPath === "" ||
                             userRedux.profilePhotoPath === "noImage" ? (
                               <p className="text-white text-center flex w-full h-full items-center justify-center">
-                              {userRedux?.names[0]}
-                            </p>
+                                {userRedux?.names[0]}
+                              </p>
                             ) : (
                               <img
                                 src={userRedux.profilePhotoPath}

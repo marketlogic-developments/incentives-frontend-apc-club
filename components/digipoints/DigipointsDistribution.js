@@ -13,6 +13,7 @@ import {
 import ModalDistribution from "./DpDistribution/ModalDistribution";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const DigipointsDistribution = () => {
   const [opened, setOpened] = useState(false);
@@ -213,23 +214,24 @@ const DigipointsDistribution = () => {
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
         <div className="w-full flex gap-1 mb-4 justify-between">
-          <div className="w-2/3 flex">
-            <div className="relative w-full">
-              <div className="absolute flex items-center ml-4 h-full">
-                <img src="/assets/Icons/search.png" alt="search" />
-              </div>
+          <div className="lg:w-full xl:w-2/3 flex gap-3 items-center">
+            <div className="relative flex w-full">
               <input
-                type="text"
+                className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
                 placeholder="Buscar"
+                type="text"
+                value={searchByInvoice}
                 onChange={(e) => setSearchByInvoice(e.target.value)}
-                className="px-11 py-3 w-11/12 rounded-full bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
               />
+              <div className="absolute h-full items-center flex ml-2">
+                <AiOutlineSearch color="#eb1000" />
+              </div>
             </div>
             <div className="flex gap-5 w-full">
               <select
                 name="date"
                 onChange={handleFilters}
-                className="px-4 py-3 w-40 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+                className="select lg:select-xs xl:select-sm lg:!text-xs 2xl:!text-sm bg-gray-100"
                 value={filtersTable.date}
               >
                 <option value="">{t("tabla.ordenarPor")}</option>
@@ -240,7 +242,7 @@ const DigipointsDistribution = () => {
                 name="marketSegment"
                 onChange={handleFilters}
                 value={filtersTable.marketSegment}
-                className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+                className="select lg:select-xs xl:select-sm lg:!text-xs 2xl:!text-sm bg-gray-100"
               >
                 <option value="">Segmento de Mercado</option>
                 {uniqueData(data.map(({ marketSegment }) => marketSegment))}
@@ -249,7 +251,7 @@ const DigipointsDistribution = () => {
                 name="invoiceattributed"
                 onChange={handleFilters}
                 value={filtersTable.invoiceattributed}
-                className="px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+                className="select lg:select-xs xl:select-sm lg:!text-xs 2xl:!text-sm bg-gray-100"
               >
                 <option value="">Estatus</option>
                 <option value="attributed">{t("tabla.asignar")}</option>
