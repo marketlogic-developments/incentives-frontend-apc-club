@@ -138,27 +138,12 @@ const puntosporventas = () => {
               <th scope="col" className="py-2 px-2">
                 SKU
               </th>
-              
-             <th scope="col" className="py-2 px-2">
-                Total Sales US
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentItems &&
-              currentItems.map((data, index) => (
-                <tr
-                  key={index}
-                  className="bg-white border-b dark:border-gray-500"
-                >
-                  <td className="py-4 px-2">{data.disti_partner_rollup}</td>
-                  <td className="py-4 px-2">{data.sold_to_party}</td>
-                  <td className="py-4 px-2">{data.reseller_partner_rollup}</td>
-                  <td className="py-4 px-2">{data.reseller_master_rollup_id}</td>
-                  <td className="py-4 px-2">{data.business_unit}</td>
-                  <td className="py-4 px-2">{data.business_type}</td>
-                  <td className="py-4 px-2">{data.sales_order}</td>
-                  <td className="py-4 px-2">{data.materia_sku}</td>
+
+              {user.roleId === 1 && (
+                <th scope="col" className="py-2 px-2">
+                  DigiPoints
+                </th>
+              )}
                   <td className="py-4 px-2">
                     ${parseFloat(data.total_sales_us).toFixed(2)}
                   </td>
@@ -204,6 +189,7 @@ const puntosporventas = () => {
     });
   };
 
+  console.log(data);
   return (
     <ContainerContent pageTitle={"DigiPoints por ventas"}>
       <div className="m-6 flex flex-col gap-16">
