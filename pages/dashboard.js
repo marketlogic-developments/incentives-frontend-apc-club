@@ -47,18 +47,18 @@ const dashboard = () => {
 
     //Delete This When All Users have accepted TC
 
-    if (user.companyId) {
-      user.company.country === "Colombia" &&
-        user.cpf.split(" ")[1] !== "colTC" &&
-        user.roleId !== 1 &&
-        setOpened2(true);
-    }
-    if (user.distributionChannelId) {
-      user.distributionChannel.country === "Colombia" &&
-        user.roleId !== 1 &&
-        user.cpf.split(" ")[1] !== "colTC" &&
-        setOpened2(true);
-    }
+    // if (user.companyId) {
+    //   user.company.country === "Colombia" &&
+    //     user.cpf.split(" ")[1] !== "colTC" &&
+    //     user.roleId !== 1 &&
+    //     setOpened2(true);
+    // }
+    // if (user.distributionChannelId) {
+    //   user.distributionChannel.country === "Colombia" &&
+    //     user.roleId !== 1 &&
+    //     user.cpf.split(" ")[1] !== "colTC" &&
+    //     setOpened2(true);
+    // }
   };
 
   const handleSubmit = (data) => {
