@@ -408,7 +408,22 @@ export const getGoalsByChannel = (token, data) => async (dispatch) => {
 export const getGoalsByDistri = (token, data) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/salesallbydistri/${data}`, {
+      .get(`${process.env.BACKURL}/reporters/goalsbydistrisegment/${data}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getGoals(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const getAllGoals = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/goalsbysegment`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

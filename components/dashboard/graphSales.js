@@ -9,6 +9,7 @@ import {
   getSalesByTypeAll,
   getGoalsByDistri,
   getGoalsByChannel,
+  getAllGoals,
 } from "../../store/reducers/sales.reducer";
 import TargetSales from "./GraphSales/TargetSales";
 import PerformaceSales from "./GraphSales/PerformaceSales";
@@ -29,6 +30,7 @@ const GraphSales = () => {
     if (token && sales.length === 0) {
       if (user.roleId === 1) {
         dispatch(getSalesByTypeAll(token));
+        dispatch(getAllGoals(token));
       } else if (user.company === null) {
         dispatch(getGoalsByDistri(token, user.distributionChannel.soldToParty));
         dispatch(
