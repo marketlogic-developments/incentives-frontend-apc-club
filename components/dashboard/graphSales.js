@@ -7,6 +7,9 @@ import {
   getSalesByTypeComp,
   getSalesByTypeDist,
   getSalesByTypeAll,
+  getGoalsByDistri,
+  getGoalsByChannel,
+  getAllGoals,
 } from "../../store/reducers/sales.reducer";
 import TargetSales from "./GraphSales/TargetSales";
 import PerformaceSales from "./GraphSales/PerformaceSales";
@@ -15,6 +18,7 @@ const GraphSales = () => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const sales = useSelector((state) => state.sales.salesbType);
+  const goals = useSelector((state) => state.sales.goals);
   const dispatch = useDispatch();
   const [content, setContent] = useState(0);
   const [CC, setCC] = useState([]);
@@ -26,11 +30,14 @@ const GraphSales = () => {
     if (token && sales.length === 0) {
       if (user.roleId === 1) {
         dispatch(getSalesByTypeAll(token));
+        dispatch(getAllGoals(token));
       } else if (user.company === null) {
+        dispatch(getGoalsByDistri(token, user.distributionChannel.soldToParty));
         dispatch(
           getSalesByTypeDist(token, user.distributionChannel.soldToParty)
         );
       } else {
+        dispatch(getGoalsByChannel(token, user.company.resellerMasterId));
         dispatch(getSalesByTypeComp(token, user.company.resellerMasterId));
       }
     }
@@ -55,9 +62,19 @@ const GraphSales = () => {
         </h2>
       </div>
       <div className="grid grid-cols-3 gap-6">
-        <TargetSales data={CC} />
-        <TargetSales data={DC} />
-        <PerformaceSales CC={CC} DC={DC} />
+        <TargetSales
+          data={CC}
+          goal={goals.filter(
+            ({ business_unit }) => business_unit === "Creative Cloud"
+          )}
+        />
+        <TargetSales
+          data={DC}
+          goal={goals.filter(
+            ({ business_unit }) => business_unit === "Document Cloud"
+          )}
+        />
+        <PerformaceSales CC={CC} DC={DC} goals={goals} />
       </div>
     </div>
   );

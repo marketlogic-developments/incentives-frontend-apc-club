@@ -1,8 +1,12 @@
 import { useTranslation } from "react-i18next";
 import PieChart from "./PieChart";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
-const TargetSales = ({ data }) => {
+const TargetSales = ({ data, goal }) => {
   const [t, i18n] = useTranslation("global");
+
+  console.log(goal);
 
   function formatNumber(number) {
     const formattedNumber =
@@ -27,8 +31,8 @@ const TargetSales = ({ data }) => {
         .reduce((currently, preValue) => currently + preValue, 0) *
         100) /
       Math.round(
-        data
-          .map(({ total_sales_amount }) => Number(total_sales_amount))
+        goal
+          .map(({ meta }) => Number(meta))
           .reduce((currently, preValue) => currently + preValue, 0)
       ),
     newBusiness: data
@@ -42,8 +46,8 @@ const TargetSales = ({ data }) => {
         .reduce((currently, preValue) => currently + preValue, 0) *
         100) /
       Math.round(
-        data
-          .map(({ total_sales_amount }) => Number(total_sales_amount))
+        goal
+          .map(({ meta }) => Number(meta))
           .reduce((currently, preValue) => currently + preValue, 0)
       ),
   };
@@ -55,10 +59,11 @@ const TargetSales = ({ data }) => {
           {data[0]?.business_unit}
         </h3>
         <p className="xl:!text-2xl lg:!text-xl font-semibold">
+          $
           {formatNumber(
             Math.round(
-              data
-                .map(({ total_sales_amount }) => Number(total_sales_amount))
+              goal
+                .map(({ meta }) => Number(meta))
                 .reduce((currently, preValue) => currently + preValue, 0)
             )
           )}

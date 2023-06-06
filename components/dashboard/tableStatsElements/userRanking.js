@@ -1,7 +1,6 @@
 import React from "react";
 
 const UserRanking = ({ data, index }) => {
-  console.log(data);
   return (
     <div
       className={`flex justify-between items-center  ${
