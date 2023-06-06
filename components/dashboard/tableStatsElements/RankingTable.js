@@ -33,30 +33,45 @@ const RankingTable = () => {
   ];
 
   useEffect(() => {
-    const compOrDist =
-      user.company === null
-        ? {
-            endpoint: "digipoints-redeem-status-all-distri",
-            byId: user.distribuitorChannelId,
-          }
-        : {
-            endpoint: "digipoints-redeem-status-all-compa",
-            byId: user.companyId,
-          };
-
-    if (token) {
+    if (user.roleId === 1) {
       axios
-        .get(
-          `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then(({ data }) => dispatch(setRanking(data)));
+        .get(`${process.env.BACKURL}/reporters/ranking-global`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(({ data }) => {
+          console.log(data);
+          dispatch(setRanking(data));
+        });
+    } else {
+      const compOrDist =
+        user.company === null
+          ? {
+              endpoint: "digipoints-redeem-status-all-distri",
+              byId: user.distribuitorChannelId,
+            }
+          : {
+              endpoint: "digipoints-redeem-status-all-compa",
+              byId: user.companyId,
+            };
+
+      if (token) {
+        axios
+          .get(
+            `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then(({ data }) => dispatch(setRanking(data)));
+      }
     }
   }, [token]);
 

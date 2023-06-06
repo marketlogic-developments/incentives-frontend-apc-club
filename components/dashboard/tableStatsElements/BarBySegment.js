@@ -62,7 +62,7 @@ const BarBySegment = ({ percentageCC, percentageDC, formatNumber }) => {
                         : "text-[#009C3B]"
                     } font-bold`}
                   >
-                    {formatNumber(data.sales)}
+                    ${formatNumber(data.sales)}
                   </p>
                 </p>
               ))}
@@ -118,7 +118,7 @@ const BarBySegment = ({ percentageCC, percentageDC, formatNumber }) => {
                         : "text-[#FFCE2E]"
                     } font-bold`}
                   >
-                    {formatNumber(data.sales)}
+                    ${formatNumber(data.sales)}
                   </p>
                 </p>
               ))}

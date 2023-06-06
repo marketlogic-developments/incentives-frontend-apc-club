@@ -38,6 +38,7 @@ import MenuMarket from "./Lay0ut/MenuMarket";
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
   const userRedux = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
   const loading = useSelector((state) => state.user.loading);
   const loadingData = useSelector((state) => state.loadingData.loadingData);
   const dispatch = useDispatch();
