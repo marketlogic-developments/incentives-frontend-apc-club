@@ -562,7 +562,7 @@ const Layout = ({ children }) => {
         </svg>
       ),
       iconactive: "",
-      text: "Administración",
+      text: t("menu.admin"),
       subsections: [
         {
           page: "/premios",
@@ -608,7 +608,7 @@ const Layout = ({ children }) => {
             </svg>
           ),
           iconactive: "",
-          text: "Redenciones",
+          text: t("menu.redenciones"),
         },
         {
           page: "/cargaventas",
@@ -677,7 +677,7 @@ const Layout = ({ children }) => {
             </svg>
           ),
           iconactive: "",
-          text: "Reglas",
+          text: t("menu.reglas"),
         },
         {
           page: "/customercare",
