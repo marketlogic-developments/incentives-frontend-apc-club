@@ -11,6 +11,9 @@ import axios from "axios";
 import { ordersPush } from "../../store/reducers/orders.reducer";
 import { Modal } from "@mantine/core";
 import ModalTY from "./MenuMarket/ModalTY";
+import { useRouter } from "next/router";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 const MenuMarket = () => {
   const dispatch = useDispatch();
@@ -18,7 +21,9 @@ const MenuMarket = () => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const car = useSelector((state) => state.awards.shoopingCar);
-  const [opened, setOpened] = useState(true);
+  const [opened, setOpened] = useState(false);
+  const router = useRouter();
+  const componenteRef = useRef(null);
 
   const digipointsTotal = useMemo(
     () =>
@@ -65,10 +70,29 @@ const MenuMarket = () => {
               Number(digipoints.cart_points) + Number(digipointsTotal),
           })
         );
-        debugger;
+
+        setOpened(true);
       })
       .catch((e) => console.log(e));
   };
+
+  useEffect(() => {
+    const handleClickFuera = (event) => {
+      if (
+        componenteRef.current &&
+        !componenteRef.current.contains(event.target)
+      ) {
+        // El clic se hizo fuera del componente
+        dispatch(setMenuMarket(false));
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickFuera);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickFuera);
+    };
+  }, []);
 
   return (
     <>
@@ -76,12 +100,19 @@ const MenuMarket = () => {
         size={"35%"}
         centered
         opened={opened}
-        onClose={() => setOpened(false)}
+        onClose={() => {
+          router.push("/estadoProducto");
+          dispatch(setMenuMarket(false));
+          setOpened(false);
+        }}
         withCloseButton={false}
       >
-        <ModalTY />
+        <ModalTY setOpened={setOpened} />
       </Modal>
-      <div className="w-[31.7%] bg-[#ffff] border right-0 h-screen fixed top-0 p-6 flex flex-col gap-6">
+      <div
+        className="w-[31.7%] bg-[#ffff] border right-0 h-screen fixed top-0 p-6 flex flex-col gap-6"
+        ref={componenteRef}
+      >
         <div className="flex justify-between items-center">
           <div className="flex gap-5 items-center">
             <svg
@@ -182,7 +213,11 @@ const MenuMarket = () => {
           <div>
             <button
               className="btn btn-primary w-full"
-              disabled={digipointsTotal > myDigipoints ? true : false}
+              disabled={
+                digipointsTotal > myDigipoints || car.length === 0
+                  ? true
+                  : false
+              }
               onClick={handleOrder}
             >
               Redimir

@@ -1,6 +1,12 @@
+import { useRouter } from "next/router";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { setMenuMarket } from "../../../store/reducers/awards.reducer";
 
-const ModalTY = () => {
+const ModalTY = ({ setOpened }) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   return (
     <div className="flex flex-col p-6 gap-6 justify-center">
       <div className="w-full justify-center flex">
@@ -198,7 +204,14 @@ const ModalTY = () => {
         </p>
       </div>
       <div className="w-full flex justify-center">
-        <button className="btn btn-info w-1/2">
+        <button
+          className="btn btn-info w-1/2"
+          onClick={() => {
+            router.push("/estadoProducto");
+            dispatch(setMenuMarket(false));
+            setOpened(false);
+          }}
+        >
           Ver estados de mis premios
         </button>
       </div>
