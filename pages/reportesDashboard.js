@@ -24,7 +24,7 @@ const reportesDashboard = () => {
         <input
           type="text"
           placeholder="Buscar"
-          class="input input-bordered pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
+          class="input bg-base-200 border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
         />
       </div>
       <div className="grid sm:grid-cols-3 lg:grid-cols-4 grid-rows-1 gap-5">
