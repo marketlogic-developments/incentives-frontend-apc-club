@@ -1,0 +1,9 @@
+export { default as RocketIcon } from "./Reportes/Rocket";
+export { default as DigitalPoints } from "./Reportes/DigitalPoints";
+export { default as UserPerformance } from "./Reportes/UserPerformance";
+export { default as IncentivePoints } from "./Reportes/IncentivePoints";
+export { default as Request } from "./Reportes/Request";
+export { default as RegistrationPerformance } from "./Reportes/RegistrationPerformance";
+export { default as TermsConditions } from "./Reportes/TermsConditions";
+export { default as CustomIcon } from "./Reportes/CustomIcon";
+export { default as SearchIcon } from "./Reportes/Search";

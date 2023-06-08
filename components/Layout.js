@@ -406,6 +406,27 @@ const Layout = ({ children }) => {
       text: t("menu.Productos"),
     },
     {
+      page: "/reportesDashboard",
+      icon: (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12.375 1.6875H5.625C5.17745 1.6875 4.74822 1.86529 4.43176 2.18176C4.11529 2.49822 3.9375 2.92745 3.9375 3.375V16.3125L9 11.8125L14.0625 16.3125V3.375C14.0625 2.92745 13.8847 2.49822 13.5682 2.18176C13.2518 1.86529 12.8226 1.6875 12.375 1.6875Z"
+            stroke-width="1.125"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      ),
+      iconactive: "",
+      text: "Reportes (en desarrollo)",
+    },
+    {
       page: "/reportes",
       icon: (
         <svg
@@ -772,6 +793,7 @@ const Layout = ({ children }) => {
                 "/herramientas",
                 "/reportes",
                 "/puntosporventas",
+                "/reportesDashboard",
               ].includes(page);
             }
             if (userRedux.roleId === 3) {
