@@ -424,7 +424,7 @@ const Layout = ({ children }) => {
         </svg>
       ),
       iconactive: "",
-      text: "Reportes (en desarrollo)",
+      text: "Reportes",
     },
     {
       page: "/reportes",
