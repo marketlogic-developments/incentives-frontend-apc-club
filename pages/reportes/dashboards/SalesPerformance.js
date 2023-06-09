@@ -93,13 +93,13 @@ const SalesPerformance = () => {
         <CardChart title={t("Reportes.digiponits")}></CardChart>
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1">
-        <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
+        <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
           <div className="font-bold flex items-center">
             <h2 className="lg:text-lg sm:text-xl">
               {t("organizacion.organizaciones")}
             </h2>
           </div>
-          <div className="grid sm:w-[55%]">
+          <div className="grid col-span-2 sm:w-[55%]">
             <DropDownReport icon={<ArrowDown />} title={t("Reportes.periodo")}>
               <li>
                 <a>Período 1</a>
@@ -115,15 +115,19 @@ const SalesPerformance = () => {
             <BtnWithImage
               text={t("Reportes.descargar")}
               icon={<CloudDownload />}
-              styles={"bg-white !text-blue-500 hover:bg-white border-none"}
+              styles={
+                "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+              }
             />
           </div>
           <InputReporte
             image={<SearchIcon />}
-            placeHolder={"Buscar"}
+            placeHolder={t('Reportes.buscar')}
+            stylesContainer={"mt-2"}
             stylesInput={
               "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
             }
+            stylesImage={"pb-0"}
           />
         </div>
       </div>
