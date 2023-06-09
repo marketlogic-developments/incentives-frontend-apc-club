@@ -1,12 +1,19 @@
 import React from "react";
-import { ArrowDown, RocketIcon } from "../../../components/icons";
+import {
+  ArrowDown,
+  CloudDownload,
+  RocketIcon,
+  SearchIcon,
+} from "../../../components/icons";
 import { useTranslation } from "react-i18next";
 import {
   BarChar,
   BtnFilter,
+  BtnWithImage,
   CardChart,
   CardReportes,
   DropDownReport,
+  InputReporte,
   TitleWithIcon,
 } from "../../../components";
 
@@ -86,7 +93,7 @@ const SalesPerformance = () => {
         <CardChart title={t("Reportes.digiponits")}></CardChart>
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1">
-        <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-start justify-center mt-3">
+        <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
           <div className="font-bold flex items-center">
             <h2 className="lg:text-lg sm:text-xl">
               {t("organizacion.organizaciones")}
@@ -103,9 +110,21 @@ const SalesPerformance = () => {
             </DropDownReport>
           </div>
         </div>
-        <div className="grid grid-cols-2 justify-items-end">
-          <div>Descarga</div>
-          <div>Bucador</div>
+        <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
+          <div className="grid sm:w-[55%]">
+            <BtnWithImage
+              text={t("Reportes.descargar")}
+              icon={<CloudDownload />}
+              styles={"bg-white !text-blue-500 hover:bg-white border-none"}
+            />
+          </div>
+          <InputReporte
+            image={<SearchIcon />}
+            placeHolder={"Buscar"}
+            stylesInput={
+              "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
+            }
+          />
         </div>
       </div>
       <div className="grid grid-rows-1 justify-items-center">
