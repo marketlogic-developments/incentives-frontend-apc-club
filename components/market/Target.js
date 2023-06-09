@@ -23,8 +23,12 @@ const Target = ({ cardInfo }) => {
       <div>
         <div className="flex justify-between">
           <div className="text-white flex flex-col gap-3">
-            <p className="2xl:!text-7xl font-bold">${cardInfo.price}</p>
-            <p className="2xl:!text-xl font-light px-1">Gift Card</p>
+            <p className="2xl:!text-7xl lg:!text-5xl xl:!text-6xl font-bold">
+              ${cardInfo.price}
+            </p>
+            <p className="2xl:!text-xl xl:!text-lg lg:!text-base font-light px-1">
+              Gift Card
+            </p>
           </div>
           <figure className="flex items-center">
             <img
