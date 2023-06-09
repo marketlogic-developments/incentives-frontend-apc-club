@@ -406,7 +406,7 @@ const Layout = ({ children }) => {
       text: t("menu.Productos"),
     },
     {
-      page: "/reportesDashboard",
+      page: "/reportes/dashboards/SalesPerformance",
       icon: (
         <svg
           width="18"
@@ -783,6 +783,7 @@ const Layout = ({ children }) => {
               // "/promociones",
               "/howtowin",
               "/productos",
+              "/reportes/dashboards/SalesPerformance",
             ].includes(page);
           }
           if (n === 2) {

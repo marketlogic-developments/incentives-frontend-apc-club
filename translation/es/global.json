@@ -119,7 +119,8 @@
   "organizacion": {
     "redenciones": "Redenciones",
     "info": "Información",
-    "organizacion": "Organización"
+    "organizacion": "Organización",
+    "organizaciones": "Organizaciones"
   },
   "cargaventas": {
     "cargar": "Cargar puntos",
@@ -357,6 +358,9 @@
     "digiPoints_redemption_request": "DigiPoints redemption request",
     "custom_care": "Custom care",
     "registration_performance": "Registration performance",
-    "follow_up": "Follow up"
+    "follow_up": "Follow up",
+    "usuarios": "Usuarios",
+    "tipos_usuarios": "Tipos de usuario",
+    "anios": "Años"
   }
 }
