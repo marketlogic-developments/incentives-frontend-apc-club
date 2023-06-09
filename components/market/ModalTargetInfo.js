@@ -10,8 +10,6 @@ const ModalTargetInfo = ({ info, addItem, setCounter, setOpened }) => {
   const arrayDescription = description.split("|");
   const [t, i18n] = useTranslation("global");
 
-  console.log(arrayDescription);
-
   const handleAdd = () => {
     addItem();
     setCounter(0);
