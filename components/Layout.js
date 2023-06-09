@@ -755,6 +755,10 @@ const Layout = ({ children }) => {
       return locations
         .filter(({ page }) => {
           if (n === 1) {
+            if (userRedux.roleId === 2) {
+              return ["/dashboard"].includes(page);
+            }
+
             return [
               "/dashboard",
               "/digipoints/mydigipoints",
@@ -774,6 +778,7 @@ const Layout = ({ children }) => {
                 "/puntosporventas",
               ].includes(page);
             }
+
             if (userRedux.roleId === 3) {
               return ["/organizacion", "/puntosporventas"].includes(page);
             }
