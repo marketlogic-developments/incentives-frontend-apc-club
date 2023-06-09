@@ -1,7 +1,14 @@
 import React from "react";
 import { ArrowDown, RocketIcon } from "../../../components/icons";
 import { useTranslation } from "react-i18next";
-import { BtnFilter, DropDownReport, TitleWithIcon } from "../../../components";
+import {
+  BarChar,
+  BtnFilter,
+  CardChart,
+  CardReportes,
+  DropDownReport,
+  TitleWithIcon,
+} from "../../../components";
 
 const SalesPerformance = () => {
   const [t, i18n] = useTranslation("global");
@@ -64,20 +71,37 @@ const SalesPerformance = () => {
               <a>Año 2</a>
             </li>
           </DropDownReport>
-          <BtnFilter text={t('Reportes.filtrar')} styles="bg-white !text-blue-500 hover:bg-white border-blue-500 hover:border-blue-600"/>
-          <div className="">
-            7
-          </div>
+          <BtnFilter
+            text={t("Reportes.filtrar")}
+            styles="bg-white !text-blue-500 hover:bg-white border-blue-500 hover:border-blue-600"
+          />
+          <BtnFilter
+            text={t("Reportes.limpiar_filtros")}
+            styles="bg-white !text-gray-400 hover:bg-white border-none hover:border-none m-1"
+          />
         </div>
       </div>
-      <div className="grid grid-cols-2">
-        <div>Card 1</div>
-        <div>Card 2</div>
+      <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
+        <CardChart title={t("Reportes.metas_vs_cumplimiento")}></CardChart>
+        <CardChart title={t("Reportes.digiponits")}></CardChart>
       </div>
-      <div className="grid grid-rows-1">
-        <div className="grid grid-cols-2 justify-items-start">
-          <div>Organización</div>
-          <div>Option List</div>
+      <div className="grid sm:grid-cols-2 grid-rows-1">
+        <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-start justify-center mt-3">
+          <div className="font-bold flex items-center">
+            <h2 className="lg:text-lg sm:text-xl">
+              {t("organizacion.organizaciones")}
+            </h2>
+          </div>
+          <div className="grid sm:w-[55%]">
+            <DropDownReport icon={<ArrowDown />} title={t("Reportes.periodo")}>
+              <li>
+                <a>Período 1</a>
+              </li>
+              <li>
+                <a>Período 2</a>
+              </li>
+            </DropDownReport>
+          </div>
         </div>
         <div className="grid grid-cols-2 justify-items-end">
           <div>Descarga</div>

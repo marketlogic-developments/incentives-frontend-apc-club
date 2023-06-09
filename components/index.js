@@ -3,4 +3,6 @@ export { default as InputReporte } from "./cardReportes/InputReporte";
 export { default as TitleWithIcon } from "./cardReportes/TitleWithIcon";
 export { default as DropDownReport } from "./cardReportes/DropDownReport";
 export { default as BtnFilter } from "./cardReportes/BtnFilter";
+export { default as CardChart } from "./cardReportes/CardChart";
+export { default as BarChar } from "./cardReportes/BarChar";
 

@@ -8,3 +8,4 @@ export { default as TermsConditions } from "./Reportes/TermsConditions";
 export { default as CustomIcon } from "./Reportes/CustomIcon";
 export { default as SearchIcon } from "./Reportes/Search";
 export { default as ArrowDown } from "./Reportes/ArrowDown";
+export { default as CloudDownload } from "./Reportes/CloudDownload";

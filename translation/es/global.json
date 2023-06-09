@@ -362,6 +362,10 @@
     "usuarios": "Usuarios",
     "tipos_usuarios": "Tipos de usuario",
     "anios": "Años",
-    "filtrar": "Filtrar"
+    "filtrar": "Filtrar",
+    "limpiar_filtros": "Limpiar Filtros",
+    "metas_vs_cumplimiento": "Metas vrs. cumplimiento",
+    "digiponits": "DigiPoints",
+    "periodo": "Período"
   }
 }
