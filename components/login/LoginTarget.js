@@ -9,6 +9,7 @@ const LoginTarget = ({
   setEmail,
   setPassword,
   setRegister,
+  setOpen,
 }) => {
   const [t, i18n] = useTranslation("global");
 

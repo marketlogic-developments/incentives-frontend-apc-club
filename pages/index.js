@@ -542,6 +542,7 @@ export default function Home() {
             setEmail={setEmail}
             setPassword={setPassword}
             setRegister={setRegister}
+            setOpen={setOpen}
           />
         </div>
         <figure className="absolute w-full z-[-1] opacity-25">
