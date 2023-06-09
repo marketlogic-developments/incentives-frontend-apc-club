@@ -14,6 +14,7 @@ import ModalTY from "./MenuMarket/ModalTY";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const MenuMarket = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const MenuMarket = () => {
   const [opened, setOpened] = useState(false);
   const router = useRouter();
   const componenteRef = useRef(null);
+  const [t, i18n] = useTranslation("global");
 
   const digipointsTotal = useMemo(
     () =>
@@ -110,7 +112,7 @@ const MenuMarket = () => {
         <ModalTY setOpened={setOpened} />
       </Modal>
       <div
-        className="w-[31.7%] bg-[#ffff] border right-0 h-screen fixed top-0 p-6 flex flex-col gap-6"
+        className="w-[31.7%] bg-[#ffff] border right-0 h-screen fixed top-0 p-6 flex flex-col gap-6 z-[2]"
         ref={componenteRef}
       >
         <div className="flex justify-between items-center">
@@ -136,7 +138,7 @@ const MenuMarket = () => {
                 fill="#EB1000"
               />
             </svg>
-            <p className="xl:!text-xl font-bold">Mi Carrito</p>
+            <p className="xl:!text-xl font-bold">{t("adobeMarket.micar")}</p>
           </div>
           <div
             className="cursor-pointer"
@@ -190,7 +192,7 @@ const MenuMarket = () => {
               </svg>
               <div className="flex flex-col h-full justify-between">
                 <p className="font-bold 2xl:!text-xl">{myDigipoints}</p>
-                <p className="!text-xs">Tu saldo DigiPoints</p>
+                <p className="!text-xs">{t("adobeMarket.tuSaldo")}</p>
               </div>
             </div>
             <div className="flex flex-col h-full justify-between">
@@ -205,10 +207,7 @@ const MenuMarket = () => {
             </div>
           </div>
           {digipointsTotal > myDigipoints && (
-            <p className="text-primary !text-xs">
-              No tienes los DigiPoints suficientes para redimir la cantidad de
-              gift cards agregadas.
-            </p>
+            <p className="text-primary !text-xs">{t("adobeMarket.noDP")}</p>
           )}
           <div>
             <button
@@ -220,7 +219,7 @@ const MenuMarket = () => {
               }
               onClick={handleOrder}
             >
-              Redimir
+              {t("dashboard.redimir")}
             </button>
           </div>
         </div>

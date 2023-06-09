@@ -163,7 +163,7 @@ const CardMarket = ({ info, awards }) => {
                   className="btn btn-sm btn-info w-full !btn-outline"
                   onClick={() => setOpened(true)}
                 >
-                  Añadir al carrito
+                  {t("adobeMarket.carrito")}
                 </button>
               </div>
             </div>

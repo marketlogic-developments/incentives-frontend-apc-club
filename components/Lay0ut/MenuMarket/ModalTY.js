@@ -2,10 +2,12 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { setMenuMarket } from "../../../store/reducers/awards.reducer";
+import { useTranslation } from "react-i18next";
 
 const ModalTY = ({ setOpened }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [t, i18n] = useTranslation("global");
 
   return (
     <div className="flex flex-col p-6 gap-6 justify-center">
@@ -194,13 +196,12 @@ const ModalTY = ({ setOpened }) => {
       </div>
       <div className="w-full">
         <p className="!text-2xl font-bold text-center">
-          ¡Felicidades por los premios obtenidos con tus DigiPoints!
+          {t("adobeMarket.felicitaciones")}
         </p>
       </div>
       <div className="w-full">
         <p className="!text-xs text-center">
-          Tus gift cards han sido procesadas exitosamente. Recuerda que puedes
-          ver el estado de tus premios cuando estos hayan sido aprobados.
+          {t("adobeMarket.descFelicitaciones")}
         </p>
       </div>
       <div className="w-full flex justify-center">
