@@ -83,11 +83,19 @@ const TableUsersOrganization = () => {
 
   const actionsUsers = (action, id, index) => {
     if (action === 1) {
-      axios
-        .patch(`${process.env.BACKURL}/users/${id}`, {
+      axios.patch(
+        `${process.env.BACKURL}/users/${id}`,
+        {
           operationStatusId: 5,
-        })
-        .then(() => {});
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     }
 
     if (action === 2) {
