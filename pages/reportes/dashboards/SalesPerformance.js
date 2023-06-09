@@ -1,7 +1,7 @@
 import React from "react";
 import { ArrowDown, RocketIcon } from "../../../components/icons";
 import { useTranslation } from "react-i18next";
-import { DropDownReport, TitleWithIcon } from "../../../components";
+import { BtnFilter, DropDownReport, TitleWithIcon } from "../../../components";
 
 const SalesPerformance = () => {
   const [t, i18n] = useTranslation("global");
@@ -14,7 +14,7 @@ const SalesPerformance = () => {
         />
       </div>
       <div className="grid grid-row-1 mt-8">
-        <div className="grid sm:grid-cols-3 lg:grid-cols-9 grid-rows-1 items-center justify-items-center">
+        <div className="grid sm:grid-cols-3 lg:grid-cols-7 grid-rows-1 items-center justify-items-center">
           <DropDownReport
             icon={<ArrowDown />}
             title={t("organizacion.organizacion")}
@@ -64,8 +64,10 @@ const SalesPerformance = () => {
               <a>Año 2</a>
             </li>
           </DropDownReport>
-          <div className="col-span-2">6</div>
-          <div className="col-span-2">7</div>
+          <BtnFilter text={t('Reportes.filtrar')} styles="bg-white !text-blue-500 hover:bg-white border-blue-500 hover:border-blue-600"/>
+          <div className="">
+            7
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-2">
