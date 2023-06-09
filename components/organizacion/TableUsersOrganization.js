@@ -11,6 +11,7 @@ import ReactPaginate from "react-paginate";
 import { useMemo } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { userActions } from "../../store/reducers/users.reducer";
+import Swal from "sweetalert2";
 
 const TableUsersOrganization = () => {
   const [t, i18n] = useTranslation("global");
@@ -25,6 +26,17 @@ const TableUsersOrganization = () => {
     user.company === null
       ? user.distribuitorChannel.country
       : user.company.country;
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   //Llama a un endpoint diferente si el usuario que hace el get pertenece a un distribuidor o a un canal
 
@@ -77,28 +89,57 @@ const TableUsersOrganization = () => {
   };
 
   //Permite borrar o desactivar el usuario dependiendo la prop que se le pase
-  // Las dos props (action) son números 1 para desactivar, 2 para borrar
+  // Las dos props (action) son números 1 para desactivar, 2 activar, 3 para borrar
   // Id para hacer la petición según el id del usuario que se seleccione e index para que
   //al momento de hacer la solicitud cambiar el status de "activo" por "desactivado"
 
   const actionsUsers = (action, id, index) => {
     if (action === 1) {
-      axios.patch(
-        `${process.env.BACKURL}/users/${id}`,
-        {
-          operationStatusId: 5,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
+      axios
+        .patch(
+          `${process.env.BACKURL}/users/${id}`,
+          {
+            operationStatusId: 5,
           },
-        }
-      );
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(() => {
+          return Toast.fire({
+            icon: "success",
+            title: "El usuario ha sido desactivado",
+          });
+        });
+    }
+    if (action === 2) {
+      axios
+        .patch(
+          `${process.env.BACKURL}/users/${id}`,
+          {
+            operationStatusId: 4,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(() => {
+          return Toast.fire({
+            icon: "success",
+            title: "El usuario ha sido activado",
+          });
+        });
     }
 
-    if (action === 2) {
+    if (action === 3) {
       console.log("a");
     }
   };
@@ -128,17 +169,16 @@ const TableUsersOrganization = () => {
           <table className="w-full text-sm text-left text-black-500 table-fixed tableJustify">
             <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
               <th scope="col" className="py-5 px-6">
-                Nombre
+                {t("tabla.nombre")}
               </th>
               <th scope="col" className="py-5 px-6">
-                Region
+                {t("tabla.nombre")}
               </th>
               {company?.country && (
                 <th scope="col" className="py-5 px-6">
                   País
                 </th>
               )}
-
               <th scope="col" className="py-5 px-6">
                 Email
               </th>

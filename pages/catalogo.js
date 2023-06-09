@@ -104,7 +104,7 @@ const catalogo = () => {
             {t("dashboard.Hola")}, {user.name}
           </h2>
           <p className="lg:!text-sm xl:!text-base 2xl:!text-lg">
-            ¡Gana y redime tus DigiPoints por maravillosos premios!
+            {t("adobeMarket.gana")}
           </p>
         </div>
         <div className="w-1/4 flex items-end">
@@ -131,7 +131,7 @@ const catalogo = () => {
             className="select lg:select-sm 2xl:select-md bg-[#F4F4F4] !text-xs"
             onChange={(e) => setFilter(e.target.value)}
           >
-            <option value="">Filtrar por proveedor</option>
+            <option value="">{t("adobeMarket.filtrarPro")}</option>
             {filtersArrayComponent().map((i) => {
               return <option value={i}>{i}</option>;
             })}
