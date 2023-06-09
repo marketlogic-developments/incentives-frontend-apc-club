@@ -6,3 +6,4 @@ export { default as BtnFilter } from "./cardReportes/BtnFilter";
 export { default as CardChart } from "./cardReportes/CardChart";
 export { default as BarChar } from "./cardReportes/BarChar";
 export { default as BtnWithImage } from "./cardReportes/BtnWithImage";
+export { default as TableSalePerformance } from "./cardReportes/TableSalePerformance";

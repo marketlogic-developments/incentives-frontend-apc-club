@@ -14,6 +14,7 @@ import {
   CardReportes,
   DropDownReport,
   InputReporte,
+  TableSalePerformance,
   TitleWithIcon,
 } from "../../../components";
 
@@ -99,7 +100,7 @@ const SalesPerformance = () => {
               {t("organizacion.organizaciones")}
             </h2>
           </div>
-          <div className="grid col-span-2 sm:w-[55%]">
+          <div className="grid col-span-2 sm:w-[55%] w-[60%]">
             <DropDownReport icon={<ArrowDown />} title={t("Reportes.periodo")}>
               <li>
                 <a>Período 1</a>
@@ -122,7 +123,7 @@ const SalesPerformance = () => {
           </div>
           <InputReporte
             image={<SearchIcon />}
-            placeHolder={t('Reportes.buscar')}
+            placeHolder={t("Reportes.buscar")}
             stylesContainer={"mt-2"}
             stylesInput={
               "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
@@ -132,7 +133,25 @@ const SalesPerformance = () => {
         </div>
       </div>
       <div className="grid grid-rows-1 justify-items-center">
-        <div>Table</div>
+        <TableSalePerformance
+          containerStyles={"mt-5 rounded-tl-lg rounded-tr-lg"}
+          tableStyles={"table-zebra !text-sm"}
+          thStyles={"sticky text-white"}
+          checkboxStyles={"checkbox-sm mt-1 border-white bg-base-200"}
+          cols={[
+            "Compañía",
+            "Región",
+            "País",
+            "Membership ID",
+            "Tipo",
+            "Nivel",
+            "Status",
+            "Registrado",
+            "CC Renewal (USD)",
+            "CC New business (USD)",
+            "DC Renewal (USD)",
+          ]}
+        ></TableSalePerformance>
       </div>
     </div>
   );
