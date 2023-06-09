@@ -80,7 +80,7 @@ const CardMarket = ({ info, awards }) => {
           <div className="flex flex-col p-6 mt-[-5px] bg-white">
             <div className="flex flex-col gap-3">
               <div className="flex justify-between">
-                <div>
+                <div className="flex flex-col gap-3">
                   <p className="2xl:!text-lg font-bold">
                     {info.name.split(" ")[0]} Gift Card
                   </p>
@@ -100,7 +100,7 @@ const CardMarket = ({ info, awards }) => {
                         stroke-linejoin="round"
                       />
                     </svg>
-                    <p className="font-thin !text-sm">
+                    <p className="font-thin xl:!text-sm lg:!text-xs">
                       {info.digipoints} DigiPoints
                     </p>
                   </div>
@@ -163,7 +163,7 @@ const CardMarket = ({ info, awards }) => {
                   className="btn btn-sm btn-info w-full !btn-outline"
                   onClick={() => setOpened(true)}
                 >
-                  Añadir al carrito
+                  {t("adobeMarket.carrito")}
                 </button>
               </div>
             </div>
