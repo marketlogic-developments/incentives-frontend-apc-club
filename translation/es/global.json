@@ -347,5 +347,16 @@
   "releases": {
     "vip": "¿Por qué utilizar VIP Marketplace?",
     "htw": "Cónoce como ganar"
+  },
+  "Reportes" : {
+    "reportes": "Reportes",
+    "sales_performance": "Sales performance",
+    "digiPoints_performance": "DigiPoints performance",
+    "user_performance": "User performance",
+    "incentive_points_allocation": "Incentive points allocation",
+    "digiPoints_redemption_request": "DigiPoints redemption request",
+    "custom_care": "Custom care",
+    "registration_performance": "Registration performance",
+    "follow_up": "Follow up"
   }
 }
