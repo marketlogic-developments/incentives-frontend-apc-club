@@ -368,6 +368,17 @@
     "digiponits": "DigiPoints",
     "periodo": "Período",
     "descargar": "Descargar",
-    "buscar": "Buscar"
+    "buscar": "Buscar",
+    "compania": "Compañía",
+    "region": "Región",
+    "pais": "País",
+    "membership_Id": "Membership ID",
+    "tipo": "Tipo",
+    "nivel": "Nivel",
+    "status": "Status",
+    "registrado": "Registrado",
+    "cc_Renewal": "CC Renewal (USD)",
+    "cc_New_business": "CC New business (USD)",
+    "dc_Renewal": "DC Renewal (USD)"
   }
 }

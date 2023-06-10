@@ -7,7 +7,7 @@ const TableSalePerformance = ({
   labelCbStyles = "",
   checkboxStyles = "",
   cols = [],
-  children
+  children,
 }) => {
   return (
     <div className={`w-full overflow-y-auto ${containerStyles}`}>
@@ -25,7 +25,7 @@ const TableSalePerformance = ({
             {cols.length !== 0 && cols.map((col) => <th>{col}</th>)}
           </tr>
         </thead>
-        {children}
+        <tbody>{children}</tbody>
       </table>
     </div>
   );

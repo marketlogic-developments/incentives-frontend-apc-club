@@ -20,6 +20,34 @@ import {
 } from "../../../components";
 
 const SalesPerformance = () => {
+  const example = [
+    {
+      compania: "Adobe",
+      region: "-",
+      pais: "Colombia",
+      membership_Id: "Adobe",
+      tipo: "ML0001",
+      nivel: "Gold certified",
+      status: "Inactivo",
+      registrado: "Sí",
+      cc_renewal: "0",
+      cc_new_business: "396,942",
+      dc_renewal: "0",
+    },
+    {
+      compania: "Adobe",
+      region: "-",
+      pais: "Guatemala",
+      membership_Id: "Adobe",
+      tipo: "ML0001",
+      nivel: "Gold certified",
+      status: "Activo",
+      registrado: "Sí",
+      cc_renewal: "0",
+      cc_new_business: "396,942",
+      dc_renewal: "0",
+    },
+  ];
   const [t, i18n] = useTranslation("global");
   return (
     <div className="mt-8">
@@ -140,50 +168,38 @@ const SalesPerformance = () => {
           thStyles={"sticky text-white"}
           checkboxStyles={"checkbox-sm mt-1 border-white bg-base-200"}
           cols={[
-            "Compañía",
-            "Región",
-            "País",
-            "Membership ID",
-            "Tipo",
-            "Nivel",
-            "Status",
-            "Registrado",
-            "CC Renewal (USD)",
-            "CC New business (USD)",
-            "DC Renewal (USD)",
+            t("Reportes.compania"),
+            t("Reportes.region"),
+            t("Reportes.pasis"),
+            t("Reportes.membership_Id"),
+            t("Reportes.tipo"),
+            t("Reportes.nivel"),
+            t("Reportes.status"),
+            t("Reportes.registrado"),
+            t("Reportes.cc_Renewal"),
+            t("Reportes.cc_New_business"),
+            t("Reportes.dc_Renewal"),
           ]}
         >
-          <tbody>
-            <tr>
-              <th>
-                <label>
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-sm mt-1 border-white bg-base-200"
-                  />
-                </label>
-              </th>
-              <td>
-                <div className="flex justify-center">Adobe</div>
-              </td>
-              <td>
-                <div className="flex justify-center">-</div>
-              </td>
-              <th>
-                <div className="flex justify-center">Colombia</div>
-              </th>
-              <th>
-                <div className="flex justify-center">Adobe</div>
-              </th>
-              <th>
-                <div className="flex justify-center">ML0001</div>
-              </th>
-              <th>
-                <div className="flex justify-center">Gold certified</div>
-              </th>
-              <th>
-                <div className="flex justify-center">
-                  {"activo" === "inactivo" ? (
+          {example.length !== 0 &&
+            example.map((data, index) => (
+              <tr>
+                <th>
+                  <label className="items-center">
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-sm mt-1 border-white bg-base-200"
+                    />
+                  </label>
+                </th>
+                <td className="items-center">{data.compania}</td>
+                <td className="items-center">{data.region}</td>
+                <td className="items-center">{data.pais}</td>
+                <td className="items-center">{data.membership_Id}</td>
+                <td className="items-center">{data.tipo}</td>
+                <td className="items-center">{data.nivel}</td>
+                <td className="items-center">
+                  {data.status === "Inactivo" ? (
                     <div class="badge bg-red-200 text-red-600 text-sm">
                       Inactivo
                     </div>
@@ -192,85 +208,22 @@ const SalesPerformance = () => {
                       Activo
                     </div>
                   )}
-                </div>
-              </th>
-              <th>
-                <div className="flex justify-center">Sí</div>
-              </th>
-              <th>
-                <div className="flex justify-center">0</div>
-              </th>
-              <th>
-                <div className="flex justify-center">396,942</div>
-              </th>
-              <th>
-                <div className="grid grid-cols-2">
-                  <div className="grid justify-items-end">0</div>
-                  <div className="grid justify-items-end mr-3">
-                    <VeticalPoints />
-                  </div>
-                </div>
-              </th>
-            </tr>
-            <tr>
-              <th>
-                <label>
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-sm mt-1 border-white bg-base-200"
-                  />
-                </label>
-              </th>
-              <td>
-                <div className="flex justify-center">Adobe</div>
-              </td>
-              <td>
-                <div className="flex justify-center">-</div>
-              </td>
-              <th>
-                <div className="flex justify-center">Colombia</div>
-              </th>
-              <th>
-                <div className="flex justify-center">Adobe</div>
-              </th>
-              <th>
-                <div className="flex justify-center">ML0001</div>
-              </th>
-              <th>
-                <div className="flex justify-center">Gold certified</div>
-              </th>
-              <th>
-                <div className="flex justify-center">
-                  {"inactivo" === "inactivo" ? (
-                    <div class="badge bg-red-200 text-red-600 text-sm">
-                      Inactivo
+                </td>
+                <td className="items-center">{data.registrado}</td>
+                <td className="items-center">{data.cc_renewal}</td>
+                <td className="items-center">{data.cc_new_business}</td>
+                <td className="items-center">
+                  <div className="grid grid-cols-2">
+                    <div className="grid justify-items-end">
+                      {data.dc_renewal}
                     </div>
-                  ) : (
-                    <div class="badge bg-green-200 text-green-600 text-sm border-green-300">
-                      Activo
+                    <div className="grid justify-items-end mr-3 cursor-pointer">
+                      <VeticalPoints />
                     </div>
-                  )}
-                </div>
-              </th>
-              <th>
-                <div className="flex justify-center">Sí</div>
-              </th>
-              <th>
-                <div className="flex justify-center">0</div>
-              </th>
-              <th>
-                <div className="flex justify-center">396,942</div>
-              </th>
-              <th>
-                <div className="grid grid-cols-2">
-                  <div className="grid justify-items-end">0</div>
-                  <div className="grid justify-items-end mr-3">
-                    <VeticalPoints />
                   </div>
-                </div>
-              </th>
-            </tr>
-          </tbody>
+                </td>
+              </tr>
+            ))}
         </TableSalePerformance>
       </div>
     </div>
