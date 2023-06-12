@@ -4,6 +4,8 @@ import ReactEcharts from "echarts-for-react";
 const BarChar = ({
   title = "",
   subtext = "",
+  colorBarOne = "",
+  colorBarTwo = "",
   xValues = [],
   dataOne = [],
   dataTwo = [],
@@ -44,13 +46,13 @@ const BarChar = ({
     ],
     series: [
       {
-        color: "black",
+        color: colorBarOne,
         name: dataLeyend[0],
         type: "bar",
         data: dataOne,
       },
       {
-        color: "#2799F6",
+        color: colorBarTwo,
         name: dataLeyend[1],
         type: "bar",
         data: dataTwo,

@@ -382,6 +382,7 @@
     "dc_Renewal": "DC Renewal (USD)",
     "ventas_mensuales": "Ventas mensuales",
     "ingresos_esperados": "Ingresos esperados",
-    "ingreso_actual": "Ingreso actual"
+    "ingreso_actual": "Ingreso actual",
+    "dp_cargados_mensualmente": "DigiPoints cargados mensualmente"
   }
 }

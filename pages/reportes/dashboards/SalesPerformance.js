@@ -14,6 +14,7 @@ import {
   CardChart,
   DropDownReport,
   InputReporte,
+  LineChart,
   TableSalePerformance,
   TitleWithIcon,
 } from "../../../components";
@@ -53,7 +54,7 @@ const SalesPerformance = () => {
   const dataTwo = [
     2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,
   ];
-  const xValues = [
+  const xValuesBar = [
     "Ene",
     "Feb",
     "Mar",
@@ -67,6 +68,24 @@ const SalesPerformance = () => {
     "Nov",
     "Dic",
   ];
+  const data = [
+    2.3, 6.0, 18.8, 48.7, 182.2, 175.6, 70.7, 28.7, 26.4, 9.0, 5.9, 2.6,
+  ];
+  const xValuesLine = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+
   const [t, i18n] = useTranslation("global");
   return (
     <div className="mt-8">
@@ -141,13 +160,25 @@ const SalesPerformance = () => {
         <CardChart title={t("Reportes.metas_vs_cumplimiento")} paragraph="">
           <BarChar
             title={t("Reportes.ventas_mensuales")}
-            dataLeyend={[t("Reportes.ingresos_esperados"), t("Reportes.ingreso_actual")]}
+            colorBarOne={"black"}
+            colorBarTwo={"#2799F6"}
+            dataLeyend={[
+              t("Reportes.ingresos_esperados"),
+              t("Reportes.ingreso_actual"),
+            ]}
             dataOne={dataOne}
             dataTwo={dataTwo}
-            xValues={xValues}
+            xValues={xValuesBar}
           />
         </CardChart>
-        <CardChart title={t("Reportes.digiponits")}></CardChart>
+        <CardChart title={t("Reportes.digiponits")}>
+          <LineChart
+            title={t("Reportes.dp_cargados_mensualmente")}
+            color={"red"}
+            xValues={xValuesLine}
+            data={data}
+          />
+        </CardChart>
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1">
         <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
