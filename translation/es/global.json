@@ -379,6 +379,9 @@
     "registrado": "Registrado",
     "cc_Renewal": "CC Renewal (USD)",
     "cc_New_business": "CC New business (USD)",
-    "dc_Renewal": "DC Renewal (USD)"
+    "dc_Renewal": "DC Renewal (USD)",
+    "ventas_mensuales": "Ventas mensuales",
+    "ingresos_esperados": "Ingresos esperados",
+    "ingreso_actual": "Ingreso actual"
   }
 }

@@ -12,7 +12,6 @@ import {
   BtnFilter,
   BtnWithImage,
   CardChart,
-  CardReportes,
   DropDownReport,
   InputReporte,
   TableSalePerformance,
@@ -47,6 +46,26 @@ const SalesPerformance = () => {
       cc_new_business: "396,942",
       dc_renewal: "0",
     },
+  ];
+  const dataOne = [
+    2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3,
+  ];
+  const dataTwo = [
+    2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,
+  ];
+  const xValues = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
   ];
   const [t, i18n] = useTranslation("global");
   return (
@@ -119,7 +138,15 @@ const SalesPerformance = () => {
         </div>
       </div>
       <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
-        <CardChart title={t("Reportes.metas_vs_cumplimiento")}></CardChart>
+        <CardChart title={t("Reportes.metas_vs_cumplimiento")} paragraph="">
+          <BarChar
+            title={t("Reportes.ventas_mensuales")}
+            dataLeyend={[t("Reportes.ingresos_esperados"), t("Reportes.ingreso_actual")]}
+            dataOne={dataOne}
+            dataTwo={dataTwo}
+            xValues={xValues}
+          />
+        </CardChart>
         <CardChart title={t("Reportes.digiponits")}></CardChart>
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1">

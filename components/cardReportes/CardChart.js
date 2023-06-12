@@ -1,11 +1,18 @@
 import React from "react";
 
-const CardChart = ({ title = "Title", paragraph = "", children }) => {
+const CardChart = ({ title = "", paragraph = "", children }) => {
   return (
-    <div class="card w-full bg-base-100 shadow-md">
-      <div class="card-body">
-        <h1>{title}</h1>
-      <div className="flex justify-center mb-5">{children}</div>
+    <div className="card w-full bg-base-100 shadow-md">
+      <div className="card-body font-bold">
+        <div>
+          <p className="font-medium">{paragraph}</p>
+        </div>
+        <div className="flex justify-center mb-5">
+         <div className="w-full">
+         <h1>{title}</h1>
+          {children}
+         </div>
+        </div>
       </div>
     </div>
   );

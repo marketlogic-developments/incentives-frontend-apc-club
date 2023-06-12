@@ -1,40 +1,66 @@
 import React from "react";
-import Chart from "chart.js/auto";
-import { Bar } from "react-chartjs-2";
+import ReactEcharts from "echarts-for-react";
 
-import { getRelativePosition } from "chart.js/helpers";
+const BarChar = ({
+  title = "",
+  subtext = "",
+  xValues = [],
+  dataOne = [],
+  dataTwo = [],
+  dataLeyend = [],
+}) => {
+  const option = {
+    title: {
+      textStyle: {
+        fontSize: "",
+        color: "black",
+      },
+      text: title,
+      subtext: subtext,
+    },
+    tooltip: {
+      trigger: "axis",
+    },
+    legend: {
+      data: dataLeyend,
+      icon: "circle",
+      orient: "horizontal",
+      right: "10",
+      top: "15",
+    },
 
-const BarChar = () => {
-    const state = {
-        labels: ['January', 'February', 'March',
-                 'April', 'May'],
-        datasets: [
-          {
-            label: 'Rainfall',
-            backgroundColor: 'rgba(75,192,192,1)',
-            borderColor: 'rgba(0,0,0,1)',
-            borderWidth: 2,
-            data: [65, 59, 80, 81, 56]
-          }
-        ]
-      }
+    calculable: true,
+    xAxis: [
+      {
+        type: "category",
+        // prettier-ignore
+        data: xValues,
+      },
+    ],
+    yAxis: [
+      {
+        type: "value",
+      },
+    ],
+    series: [
+      {
+        color: "black",
+        name: dataLeyend[0],
+        type: "bar",
+        data: dataOne,
+      },
+      {
+        color: "#2799F6",
+        name: dataLeyend[1],
+        type: "bar",
+        data: dataTwo,
+      },
+    ],
+  };
 
   return (
     <div className="w-full">
-      <Bar
-          data={state}
-          options={{
-            title:{
-              display:true,
-              text:'Average Rainfall per month',
-              fontSize:20
-            },
-            legend:{
-              display:true,
-              position:'right'
-            }
-          }}
-        />
+      <ReactEcharts option={option} />
     </div>
   );
 };
