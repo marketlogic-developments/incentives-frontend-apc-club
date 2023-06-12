@@ -275,7 +275,12 @@ const SalesPerformance = () => {
                     <div className="grid justify-items-end">
                       {data.dc_renewal}
                     </div>
-                    <div className="grid justify-items-end mr-3 cursor-pointer">
+                    <div
+                      className="grid justify-items-end mr-3 cursor-pointer"
+                      onClick={() => {
+                        console.log("Opciones");
+                      }}
+                    >
                       <VeticalPoints />
                     </div>
                   </div>
