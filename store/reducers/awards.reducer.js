@@ -87,17 +87,26 @@ export const getDataAwards = (token, user) => async (dispatch) => {
               if (user.company.country === "Colombia") {
                 return e.description === "COLOMBIA";
               }
+              if (user.company.country === "Chile") {
+                return e.description !== "BRASIL";
+              }
             }
 
             if (user.distributionChannelId !== null) {
               if (user.distributionChannel.country === "Colombia") {
                 return e.description === "COLOMBIA";
               }
+              if (user.distributionChannel.country === "Chile") {
+                return (
+                  e.description !== "BRASIL" && e.description !== "COLOMBIA"
+                );
+              }
             }
 
             if (user.countryId === "Chile") {
               return e.description !== "BRASIL";
             }
+
             if (user.region === "BRAZIL" || user.region === "Brazil") {
               return e.description === "BRASIL";
             }
