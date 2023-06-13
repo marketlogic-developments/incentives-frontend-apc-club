@@ -191,13 +191,15 @@ const MenuMarket = () => {
                 />
               </svg>
               <div className="flex flex-col h-full justify-between">
-                <p className="font-bold 2xl:!text-xl">{myDigipoints}</p>
+                <p className="font-bold lg:!text-sm 2xl:!text-xl">
+                  {myDigipoints}
+                </p>
                 <p className="!text-xs">{t("adobeMarket.tuSaldo")}</p>
               </div>
             </div>
             <div className="flex flex-col h-full justify-between">
               <p
-                className={`font-bold 2xl:!text-xl text-end ${
+                className={`font-bold lg:!text-sm 2xl:!text-xl text-end ${
                   digipointsTotal > myDigipoints && "digipointsExpensive"
                 }`}
               >

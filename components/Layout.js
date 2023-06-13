@@ -913,7 +913,7 @@ const Layout = ({ children }) => {
                   </div>
 
                   {collapse ? (
-                    <DigiPointsCollapse />
+                    <DigiPointsCollapse digipoints={digipoints} />
                   ) : (
                     <DigiPointsCard digipoints={digipoints} />
                   )}
