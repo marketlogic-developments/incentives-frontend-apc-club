@@ -406,7 +406,7 @@ const Layout = ({ children }) => {
       text: t("menu.Productos"),
     },
     {
-      page: "/reportes/dashboards/SalesPerformance",
+      page: "/reportesDashboard",
       icon: (
         <svg
           width="18"
@@ -783,7 +783,7 @@ const Layout = ({ children }) => {
               // "/promociones",
               "/howtowin",
               "/productos",
-              "/reportes/dashboards/SalesPerformance",
+              "/reportesDashboard",
             ].includes(page);
           }
           if (n === 2) {
@@ -794,7 +794,6 @@ const Layout = ({ children }) => {
                 "/herramientas",
                 "/reportes",
                 "/puntosporventas",
-                "/reportesDashboard",
               ].includes(page);
             }
             if (userRedux.roleId === 3) {
@@ -848,6 +847,10 @@ const Layout = ({ children }) => {
 
         if (location === "/howtowin") {
           return t("dashboard.htw");
+        }
+
+        if (location === "/reportes/dashboards/SalesPerformance") {
+          return t("Reportes.reportes");
         }
 
         if (location.includes("releases")) {

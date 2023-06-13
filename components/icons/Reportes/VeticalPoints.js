@@ -3,8 +3,8 @@ import React from "react";
 const VeticalPoints = ({ width = 5, height = 17 }) => {
   return (
     <svg
-      width="5"
-      height="17"
+      width={width}
+      height={height}
       viewBox="0 0 5 17"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

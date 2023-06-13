@@ -1,11 +1,16 @@
 import React from "react";
 
-const Card = ({styles = '', titleCard = 'Title',children}) => {
+const Card = ({
+  styles = "",
+  titleCard = "Title",
+  children,
+  onClick = () => {},
+}) => {
   return (
     <div className={`card shadow-md cursor-pointer ${styles}`}>
-      <div class="card-body">
+      <div className="card-body" onClick={onClick}>
         {children}
-        <h2 class="card-title text-sm lg:text-lg ">{titleCard}</h2>
+        <h2 className="card-title text-sm lg:text-lg ">{titleCard}</h2>
       </div>
     </div>
   );

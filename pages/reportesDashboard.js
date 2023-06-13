@@ -11,9 +11,11 @@ import {
   TermsConditions,
   UserPerformance,
 } from "../components/icons";
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 
 const reportesDashboard = () => {
+  const router = useRouter();
   const [t, i18n] = useTranslation("global");
   return (
     <div className="mt-8">
@@ -29,6 +31,9 @@ const reportesDashboard = () => {
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.sales_performance")}
+          onClick={() => {
+            router.push("/reportes/dashboards/SalesPerformance");
+          }}
         >
           <RocketIcon width={70} height={70} />
         </CardReportes>

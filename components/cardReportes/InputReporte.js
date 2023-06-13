@@ -10,7 +10,7 @@ const InputReporte = ({ image = <Component />, placeHolder = "...", stylesContai
       <input
         type="text"
         placeholder={placeHolder}
-        class={`input h-8 bg-base-200 ${stylesInput}`}
+        className={`input h-8 bg-base-200 ${stylesInput}`}
       />
     </div>
   );
