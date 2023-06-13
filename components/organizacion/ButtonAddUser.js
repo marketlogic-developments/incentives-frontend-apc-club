@@ -2,6 +2,7 @@ import { Modal } from "@mantine/core";
 import React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import Swal from "sweetalert2";
 
 const ButtonAddUser = () => {
   const [opened, setOpened] = useState(false);
