@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import DigiPointsCard from "./DigiPointsCard";
 
-const DigiPointsCollapse = () => {
+const DigiPointsCollapse = ({ digipoints }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -40,7 +40,7 @@ const DigiPointsCollapse = () => {
       </div>
       {open && (
         <div className="absolute left-[100px]">
-          <DigiPointsCard />
+          <DigiPointsCard digipoints={digipoints} />
         </div>
       )}
     </div>

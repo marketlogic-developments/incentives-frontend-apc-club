@@ -101,8 +101,8 @@ const estadoProducto = () => {
                         <tr
                           className="bg-white border-b dark:border-gray-500 hover:bg-accent cursor-pointer"
                           onClick={() => {
-                            setModalData(data);
-                            setOpened(true);
+                            // setModalData(data);
+                            // setOpened(true);
                           }}
                         >
                           <th

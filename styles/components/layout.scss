@@ -647,7 +647,6 @@
       fill: transparent;
       stroke-width: 1;
     }
-    
   }
 
   svg {
@@ -656,5 +655,17 @@
     min-width: 18px;
     width: var(--wicons);
     height: 100%;
+  }
+}
+
+.whatsappButton {
+  transition: all;
+  transition-duration: 0.5s;
+  border-color: #25d366;
+  &:hover {
+    background-color: #25d366;
+    .iconWhatsApp {
+      stroke: #fff;
+    }
   }
 }
