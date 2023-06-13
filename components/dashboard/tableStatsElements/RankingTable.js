@@ -51,7 +51,7 @@ const RankingTable = () => {
         user.company === null
           ? {
               endpoint: "digipoints-redeem-status-all-distri",
-              byId: user.distribuitorChannelId,
+              byId: user.distributionChannelId,
             }
           : {
               endpoint: "digipoints-redeem-status-all-compa",

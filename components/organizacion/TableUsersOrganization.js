@@ -24,7 +24,7 @@ const TableUsersOrganization = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const company =
     user.company === null
-      ? user.distribuitorChannel.country
+      ? user.distributionChannel.country
       : user.company.country;
   const Toast = Swal.mixin({
     toast: true,
@@ -46,7 +46,7 @@ const TableUsersOrganization = () => {
         user.company === null
           ? {
               endpoint: "distri-all-users-by-id",
-              byId: user.distribuitorChannelId,
+              byId: user.distributionChannelId,
             }
           : { endpoint: "company-all-users-by-id", byId: user.companyId };
 
