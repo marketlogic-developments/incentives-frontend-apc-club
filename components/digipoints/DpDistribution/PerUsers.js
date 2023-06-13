@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { setCompanyUsers } from "../../../store/reducers/users.reducer";
 import axios from "axios";
+import { Triangle } from "react-loader-spinner";
 
 const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
   const [searchByEmail, setSearchByEmail] = useState("");
@@ -25,6 +26,7 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const compOrDist =
@@ -52,6 +54,8 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
   }, [token]);
 
   const handleAssign = () => {
+    setLoading(true);
+
     if (!thisUser.id) {
       return Toast.fire({
         icon: "error",
@@ -95,7 +99,8 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
           icon: "error",
           title: "An error has occurred",
         });
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -185,8 +190,24 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
         >
           {t("modalEquipos.cancelar")}
         </button>
-        <button className="btn btn-info w-48" onClick={handleAssign}>
-          {t("digipoints.cAsignacion")}
+        <button
+          className="btn btn-info w-48"
+          onClick={handleAssign}
+          disabled={loading}
+        >
+          {loading ? (
+            <Triangle
+              height="30"
+              width="30"
+              color="#ffff"
+              ariaLabel="triangle-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          ) : (
+            t("digipoints.cAsignacion")
+          )}
         </button>
       </div>
     </>

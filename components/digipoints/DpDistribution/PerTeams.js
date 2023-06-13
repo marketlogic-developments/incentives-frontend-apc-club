@@ -5,6 +5,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTeams } from "../../../store/reducers/teams.reducer";
 import Swal from "sweetalert2";
+import { Triangle } from "react-loader-spinner";
 
 const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
   const token = useSelector((state) => state.user.token);
@@ -25,6 +26,7 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     axios
@@ -165,7 +167,7 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
           </div>
         </div>
       </div>
-      <div className="relative w-full flex justify-center justify-around mt-auto">
+      <div className="relative w-full flex justify-center justify-around mt-auto mb-6">
         <button
           type="cancel"
           className="btn btn-cancel w-48"
@@ -175,8 +177,24 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
         >
           {t("modalEquipos.cancelar")}
         </button>
-        <button className="btn btn-info w-48" onClick={handleAssign}>
-          {t("digipoints.cAsignacion")}
+        <button
+          className="btn btn-info w-48"
+          onClick={handleAssign}
+          disabled={loading}
+        >
+          {loading ? (
+            <Triangle
+              height="30"
+              width="30"
+              color="#ffff"
+              ariaLabel="triangle-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          ) : (
+            t("digipoints.cAsignacion")
+          )}
         </button>
       </div>
     </>

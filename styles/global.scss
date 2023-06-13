@@ -380,8 +380,8 @@
 .mantine-UnstyledButton-root {
   color: #000 !important;
 }
-.datepickerInput{
-  input{
+.datepickerInput {
+  input {
     @apply input input-ghost w-full bg-[#F4F4F4];
   }
 }
@@ -412,4 +412,8 @@
 
 .radio:checked {
   box-shadow: 0 0 0 0.3px hsl(var(--b1)) inset, 0 0 0 2px hsl(var(--b1)) inset;
+}
+
+.btn[disabled] {
+  background-color: #c1c1c1;
 }
