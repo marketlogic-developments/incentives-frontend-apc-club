@@ -257,13 +257,13 @@ const SalesPerformance = () => {
                 <td className="items-center">{data.tipo}</td>
                 <td className="items-center">{data.nivel}</td>
                 <td className="items-center">
-                  {data.status === "Inactivo" ? (
+                  {data.status === t("Reportes.inactivo") ? (
                     <div class="badge bg-red-200 text-red-600 text-sm">
-                      Inactivo
+                      {t("Reportes.inactivo")}
                     </div>
                   ) : (
                     <div class="badge bg-green-200 text-green-600 text-sm border-green-300">
-                      Activo
+                      {t("Reportes.activo")}
                     </div>
                   )}
                 </td>

@@ -383,6 +383,8 @@
     "ventas_mensuales": "Ventas mensuales",
     "ingresos_esperados": "Ingresos esperados",
     "ingreso_actual": "Ingreso actual",
-    "dp_cargados_mensualmente": "DigiPoints cargados mensualmente"
+    "dp_cargados_mensualmente": "DigiPoints cargados mensualmente",
+    "inactivo": "Inactivo",
+    "activo": "Activo"
   }
 }
