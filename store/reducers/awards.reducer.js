@@ -89,9 +89,7 @@ export const getDataAwards = (token, user) => async (dispatch) => {
                 e.description === "COLOMBIA";
               }
               if (user.company.country === "Chile") {
-                return (
-                  e.description !== "BRASIL" && e.description !== "COLOMBIA"
-                );
+                return e.name.split(" ")[0] === "Cencosud";
               }
             }
 
@@ -101,9 +99,7 @@ export const getDataAwards = (token, user) => async (dispatch) => {
                 e.description === "COLOMBIA";
               }
               if (user.distributionChannel.country === "Chile") {
-                return (
-                  e.description !== "BRASIL" && e.description !== "COLOMBIA"
-                );
+                return e.name.split(" ")[0] === "Cencosud";
               }
             }
 
