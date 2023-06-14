@@ -67,8 +67,6 @@ const TableUsersOrganization = () => {
     }
   }, [token]);
 
-  console.log(participantes);
-
   //Paginación donde currentItems son los elementos que pasan por página
   //PageCount es la página actual donde se está visualizando la info
   //handlePageClick es la acción de cambio de página donde cambia el número de la página
@@ -150,7 +148,7 @@ const TableUsersOrganization = () => {
         <div>
           <p className="font-bold !text-xl">Usuarios</p>
         </div>
-        <div className="flex gap-6">
+        <div className="flex gap-6 w-2/4">
           <div className="relative flex w-full">
             <input
               className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full bg-[]"

@@ -125,11 +125,32 @@ const ButtonAddUser = () => {
                 Agrega personas y crea un equipo de trabajo.
               </p>
             </div>
-            <div></div>
+            <div>
+              <div className="flex gap-6">
+                <div className="flex flex-col">
+                  <label className="label">
+                    <span className="label-text">Nombre</span>
+                  </label>
+                  <input className="input input-bordered" type="text" />
+                </div>
+                <div className="flex flex-col">
+                  <label className="label">
+                    <span className="label-text">Apellido</span>
+                  </label>
+                  <input className="input input-bordered" type="text" />
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <label className="label">
+                  <span className="label-text">Correo</span>
+                </label>
+                <input className="input input-bordered" type="email" />
+              </div>
+            </div>
           </div>
         </div>
       </Modal>
-      <button className="btn btn-primary" onClick={() => setOpened(true)}>
+      <button className="btn btn-primary w-1/2" onClick={() => setOpened(true)}>
         Agregar Usuario
       </button>
     </>
