@@ -105,21 +105,6 @@ const organizacion = () => {
     },
   ];
 
-  const section = useMemo(() => {
-    if (oneSection === 0) {
-      return <Participantes />;
-    }
-    if (oneSection === 1) {
-      return <Puntos />;
-    }
-    if (oneSection === 2) {
-      return <Redenciones />;
-    }
-    if (oneSection === 3) {
-      return <Información />;
-    }
-  }, [oneSection]);
-
   return (
     <>
       <ContainerContent pageTitle={t("menu.Participantes")} style>

@@ -19,7 +19,7 @@ const TableUsersOrganization = () => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const itemsPerPage = 7;
-  const [searchByEmail, setSearchByEmail] = useState();
+  const [search, setSearch] = useState("");
   const [participantes, setParticipantes] = useState([]);
   const [itemOffset, setItemOffset] = useState(0);
   const company =
@@ -154,6 +154,7 @@ const TableUsersOrganization = () => {
               className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full bg-[]"
               placeholder="Buscar"
               type="text"
+              onChange={(e) => setSearch(e.target.value)}
             />
             <div className="absolute h-full items-center flex ml-2">
               <AiOutlineSearch color="#eb1000" />
@@ -188,6 +189,12 @@ const TableUsersOrganization = () => {
             <tbody>
               {[...currentItems]
                 .filter((item) => {
+                  if (search !== "") {
+                    return item.name
+                      .toLocaleLowerCase()
+                      .startsWith(search.toLocaleLowerCase());
+                  }
+
                   return item;
                 })
                 .map((item, index) => (
