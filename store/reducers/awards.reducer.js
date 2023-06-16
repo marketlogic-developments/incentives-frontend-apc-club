@@ -91,15 +91,14 @@ export const getDataAwards = (token, user) => async (dispatch) => {
             }
 
             if (countryCompany === "Colombia") {
-              return;
-              // e.description === "COLOMBIA";
+              return e.name.split(" ")[0] === "Nothing";
             }
             if (countryCompany === "Chile") {
               return e.name.split(" ")[0] === "Cencosud";
             }
 
             if (countryCompany === "Paraguay") {
-              return;
+              return e.name.split(" ")[0] === "Nothing";
             }
 
             if (user.region === "BRAZIL" || user.region === "Brazil") {
