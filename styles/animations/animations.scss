@@ -113,3 +113,15 @@
     width: 0;
   }
 }
+
+@keyframes digipointsExpensive {
+  0% {
+    color: #eb1000;
+  }
+  50% {
+    color: black;
+  }
+  100% {
+    color: #eb1000;
+  }
+}

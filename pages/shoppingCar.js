@@ -31,6 +31,8 @@ const shoppingCar = () => {
     if (Cookies.get("shoppCar") !== undefined) {
       const productsToCookies = JSON.parse(Cookies.get("shoppCar"));
 
+      console.log(productsToCookies);
+
       setMyProducts(productsToCookies);
       dispatch(productsPush(productsToCookies));
     }
