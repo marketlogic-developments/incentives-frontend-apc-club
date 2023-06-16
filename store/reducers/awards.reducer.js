@@ -5,7 +5,7 @@ const initialState = {
   awards: [],
   shoopingCar: [],
   rules: [],
-  modalCard: false,
+  menuMarket: false,
 };
 
 export const awardsAction = createSlice({
@@ -19,9 +19,6 @@ export const awardsAction = createSlice({
       state.awards = [];
     },
     productsPush: (state, action) => {
-      state.shoopingCar = [...state.shoopingCar, ...action.payload];
-    },
-    shoopingCarPush: (state, action) => {
       state.shoopingCar = action.payload;
     },
     rulesGetAll: (state, action) => {
@@ -30,8 +27,8 @@ export const awardsAction = createSlice({
     rulesPush: (state, action) => {
       state.rules = action.payload;
     },
-    modalCardState: (state, action) => {
-      state.modalCard = action.payload;
+    setMenuMarket: (state, action) => {
+      state.menuMarket = action.payload;
     },
 
     setInitialStateAwards: (state, action) => {
@@ -48,7 +45,7 @@ export const {
   rulesGetAll,
   rulesPush,
   setInitialStateAwards,
-  modalCardState,
+  setMenuMarket,
 } = awardsAction.actions;
 
 export default awardsAction.reducer;
@@ -82,25 +79,29 @@ export const getDataAwards = (token, user) => async (dispatch) => {
       .then((res) => {
         let obj = res.data
           .filter((e) => {
+            console.log(user);
+
+            const countryCompany =
+              user.companyId !== null
+                ? user.company.country
+                : user.distributionChannel.country;
+
             if (user.roleId === 1) {
               return e;
             }
 
-            if (user.companyId !== null) {
-              if (user.company.country === "Colombia") {
-                return e.description === "COLOMBIA";
-              }
+            if (countryCompany === "Colombia") {
+              return;
+              e.description === "COLOMBIA";
+            }
+            if (countryCompany === "Chile") {
+              return e.name.split(" ")[0] === "Cencosud";
             }
 
-            if (user.distributionChannelId !== null) {
-              if (user.distributionChannel.country === "Colombia") {
-                return e.description === "COLOMBIA";
-              }
+            if (countryCompany === "Paraguay") {
+              return;
             }
 
-            if (user.countryId === "Chile") {
-              return e.description !== "BRASIL";
-            }
             if (user.region === "BRAZIL" || user.region === "Brazil") {
               return e.description === "BRASIL";
             }
