@@ -171,7 +171,7 @@ const TableUsersOrganization = () => {
                 {t("tabla.nombre")}
               </th>
               <th scope="col" className="py-5 px-6">
-                {t("tabla.nombre")}
+                {t("tabla.region")}
               </th>
               {company?.country && (
                 <th scope="col" className="py-5 px-6">
@@ -182,7 +182,7 @@ const TableUsersOrganization = () => {
                 Email
               </th>
               <th scope="col" className="py-5 !pl-10">
-                Cargo
+                Rol
               </th>
               <th scope="col" className="py-5 px-6"></th>
             </thead>
