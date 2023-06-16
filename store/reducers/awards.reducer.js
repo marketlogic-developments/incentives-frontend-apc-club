@@ -92,7 +92,7 @@ export const getDataAwards = (token, user) => async (dispatch) => {
 
             if (countryCompany === "Colombia") {
               return;
-              e.description === "COLOMBIA";
+              // e.description === "COLOMBIA";
             }
             if (countryCompany === "Chile") {
               return e.name.split(" ")[0] === "Cencosud";
