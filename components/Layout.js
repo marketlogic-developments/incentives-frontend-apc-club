@@ -34,6 +34,8 @@ import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
 import UserOptions from "./Lay0ut/UserOptions";
 import ContainerContent from "./containerContent";
 import MenuMarket from "./Lay0ut/MenuMarket";
+import ModalCustomerCare from "./costumerCare/modal/ModalCustomerCare";
+import { CloseCircle } from "./icons";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -48,10 +50,15 @@ const Layout = ({ children }) => {
   const sections = ["/", "/terminosycondiciones", "/registro"];
   const [t, i18n] = useTranslation("global");
   const [modal, setModal] = useState(0);
+  const [modalCustomer, setModalCustomer] = useState(false);
   const [opened, setOpened] = useState(false);
   const [collapse, setCollapse] = useState(false);
   const [menuUser, setMenuUser] = useState(false);
   const menuMarket = useSelector((state) => state.awards.menuMarket);
+
+  const modalCustomerCare = () => {
+    setModalCustomer(!modalCustomer);
+  };
 
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
@@ -746,7 +753,8 @@ const Layout = ({ children }) => {
 
   const typeModal = useMemo(() => {
     if (modal === 0) {
-      return <ModalFormCustomer />;
+      /* return <ModalFormCustomer />; */
+      return <ModalCustomerCare />;
     }
   }, [modal, opened]);
 
@@ -880,8 +888,12 @@ const Layout = ({ children }) => {
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        size={"80%"}
+        /* size={"80%"} */
         centered
+        closeButtonProps={{
+          size: "auto",
+          children: <CloseCircle />,
+        }}
       >
         {typeModal}
       </Modal>
