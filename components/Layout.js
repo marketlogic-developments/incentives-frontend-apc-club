@@ -34,6 +34,7 @@ import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
 import UserOptions from "./Lay0ut/UserOptions";
 import ContainerContent from "./containerContent";
 import MenuMarket from "./Lay0ut/MenuMarket";
+import { HeadSetOuline } from "./icons";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -713,6 +714,12 @@ const Layout = ({ children }) => {
           text: "Customer Care",
         },
       ],
+    },
+    {
+      page: "/organizacion",
+      icon: ( <HeadSetOuline height={18} width={18} /> ),
+      iconactive: "",
+      text: t("menu.Participantes"),
     },
   ];
 

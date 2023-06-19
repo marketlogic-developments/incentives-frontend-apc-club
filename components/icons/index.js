@@ -1,1 +1,1 @@
-export { default as CustomIcon } from "./Reportes/CustomIcon";
+export { default as HeadSetOuline } from "./menu/HeadSetOuline";
