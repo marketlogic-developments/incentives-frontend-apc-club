@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowDown } from "../../icons";
+import { ArrowDown, CustomIcon } from "../../icons";
 import { SelectInput } from "../../inputs";
 import { Select } from "@mantine/core";
 
@@ -8,15 +8,29 @@ const ModalCustomerCare = () => {
   const [t, i18n] = useTranslation("global");
   return (
     <div className="grid grid-rows-9">
-      <div className="flex justify-center">HeadSetOutline</div>
-      <div className="flex justify-center">Como podemos ayudar</div>
-      <div className="flex justify-center">Texto</div>
-      <div className="">
-        <div className="flex justify-start">Asunto</div>
-        <SelectInput />
+      <div className="flex justify-center pb-2">
+        <CustomIcon />
+        {/* Colocar junto con la x o por lo menos lo mas cerca posible */}
       </div>
-      <div>
-        <div className="flex justify-start">Asociado</div>
+      <div className="flex justify-center font-bold text-xl pb-3">
+        ¿Cómo podemos ayudar?
+      </div>
+      <div className="text-center text-sm">
+          Si tienes alguna solicitud o sugerencia compártela con nosotros,
+          nuestros expertos se pondrán en contacto contigo lo más pronto posible
+          o escríbenos a
+        <p className="font-bold">info@adobepcclub.com</p>
+      </div>
+      <div className="mt-2">
+        <div className="flex justify-start font-bold pb-2 text-sm">
+          Asunto <p className="text-red-600">*</p>
+        </div>
+        <SelectInput placeholder={"Nombre completo"}/>
+      </div>
+      <div className="mt-2">
+        <div className="flex justify-start font-bold pb-2 text-sm">
+          Asociado
+        </div>
         <SelectInput />
       </div>
       <div>
