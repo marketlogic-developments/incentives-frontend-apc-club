@@ -19,7 +19,7 @@ const TableUsersOrganization = () => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const itemsPerPage = 7;
-  const [searchByEmail, setSearchByEmail] = useState();
+  const [search, setSearch] = useState("");
   const [participantes, setParticipantes] = useState([]);
   const [itemOffset, setItemOffset] = useState(0);
   const company =
@@ -67,8 +67,6 @@ const TableUsersOrganization = () => {
     }
   }, [token]);
 
-  console.log(participantes);
-
   //Paginación donde currentItems son los elementos que pasan por página
   //PageCount es la página actual donde se está visualizando la info
   //handlePageClick es la acción de cambio de página donde cambia el número de la página
@@ -113,6 +111,8 @@ const TableUsersOrganization = () => {
           return Toast.fire({
             icon: "success",
             title: "El usuario ha sido desactivado",
+            background: "#000000",
+            color: "#fff",
           });
         });
     }
@@ -135,6 +135,8 @@ const TableUsersOrganization = () => {
           return Toast.fire({
             icon: "success",
             title: "El usuario ha sido activado",
+            background: "#000000",
+            color: "#fff",
           });
         });
     }
@@ -150,12 +152,13 @@ const TableUsersOrganization = () => {
         <div>
           <p className="font-bold !text-xl">Usuarios</p>
         </div>
-        <div className="flex gap-6">
+        <div className="flex gap-6 w-2/4">
           <div className="relative flex w-full">
             <input
               className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full bg-[]"
               placeholder="Buscar"
               type="text"
+              onChange={(e) => setSearch(e.target.value)}
             />
             <div className="absolute h-full items-center flex ml-2">
               <AiOutlineSearch color="#eb1000" />
@@ -172,7 +175,7 @@ const TableUsersOrganization = () => {
                 {t("tabla.nombre")}
               </th>
               <th scope="col" className="py-5 px-6">
-                {t("tabla.nombre")}
+                {t("tabla.region")}
               </th>
               {company?.country && (
                 <th scope="col" className="py-5 px-6">
@@ -183,13 +186,19 @@ const TableUsersOrganization = () => {
                 Email
               </th>
               <th scope="col" className="py-5 !pl-10">
-                Cargo
+                Rol
               </th>
               <th scope="col" className="py-5 px-6"></th>
             </thead>
             <tbody>
               {[...currentItems]
                 .filter((item) => {
+                  if (search !== "") {
+                    return item.name
+                      .toLocaleLowerCase()
+                      .startsWith(search.toLocaleLowerCase());
+                  }
+
                   return item;
                 })
                 .map((item, index) => (

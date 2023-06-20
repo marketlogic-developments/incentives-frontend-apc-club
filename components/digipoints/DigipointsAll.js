@@ -113,6 +113,8 @@ const DigipointsAll = () => {
         Toast.fire({
           icon: "error",
           title: "Este participante ya está dentro de la lista",
+          background: "#000000",
+          color: "#fff",
         }),
         setSearchByEmail(""),
         setListUsers(false)
@@ -356,7 +358,7 @@ const DigipointsAll = () => {
                 Digipoints
               </th>
               <th scope="col" className="py-3 px-6">
-              Total Sales US
+                Total Sales US
               </th>
               <th scope="col" className="py-3 px-6">
                 Estado

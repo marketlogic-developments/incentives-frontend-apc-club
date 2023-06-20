@@ -115,12 +115,16 @@ const MakeTeam = () => {
             return Toast.fire({
               icon: "success",
               title: t("digipoints.teamDeleteNoti"),
+              background: "#000000",
+              color: "#fff",
             });
           })
           .catch(() => {
             Toast.fire({
               icon: "error",
               title: t("digipoints.errorNotiTeams"),
+              background: "#000000",
+              color: "#fff",
             });
           });
       }

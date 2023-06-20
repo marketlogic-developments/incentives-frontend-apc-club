@@ -9,6 +9,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import * as XLSX from "xlsx";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
+import InfoBannerPP from "../components/productosParticipantes/InfoBannerPP";
 
 const productos = () => {
   const dispatch = useDispatch();
@@ -164,161 +165,78 @@ const productos = () => {
   }, [searchSku, selectDate]);
 
   return (
-    <>
-      <ContainerContent pageTitle={"Productos Participantes"}>
-        <div className="m-6 flex flex-col gap-16">
-          <div className="w-full flex justify-center flex-col">
-            <img
-              src="/assets/productos/productos.webp"
-              className="bannersImg"
-            />
-          </div>
-          <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
-            <div className="grid grid-cols-3 gap-3">
-              <select
-                className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm col-span-2"
+    <ContainerContent pageTitle={"Productos Participantes"}>
+      <div className="m-6 flex flex-col gap-16">
+        <div className="w-full flex justify-center flex-col">
+          {/* <InfoBannerPP /> */}
+          <img src="/assets/productos/productos.webp" className="bannersImg" />
+        </div>
+        <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
+          <div className="grid grid-cols-3 gap-3">
+            <select
+              className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm col-span-2"
+              onChange={(e) => {
+                if (e.target.value === "") {
+                  setData(products);
+                }
+
+                return setSelectDate(e.target.value);
+              }}
+            >
+              <option value="">{t("tabla.ordenarFecha")}</option>
+              <option value="upDown">{t("tabla.recienteA")}</option>
+              <option value="downUp">{t("tabla.antiguoR")}</option>
+            </select>
+            <button
+              className="btn btn-primary w-max justify-self-end"
+              onClick={() => importFile(data)}
+            >
+              Exportar
+            </button>
+            <div className="flex justify-between col-span-3">
+              <input
+                type="text"
                 onChange={(e) => {
                   if (e.target.value === "") {
                     setData(products);
                   }
 
-                  return setSelectDate(e.target.value);
+                  return setSearchSku(e.target.value);
                 }}
-              >
-                <option value="">{t("tabla.ordenarFecha")}</option>
-                <option value="upDown">{t("tabla.recienteA")}</option>
-                <option value="downUp">{t("tabla.antiguoR")}</option>
-              </select>
-              <button
-                className="btn btn-primary w-max justify-self-end"
-                onClick={() => importFile(data)}
-              >
-                Exportar
-              </button>
-              <div className="flex justify-between col-span-3">
-                <input
-                  type="text"
-                  onChange={(e) => {
-                    if (e.target.value === "") {
-                      setData(products);
-                    }
-
-                    return setSearchSku(e.target.value);
-                  }}
-                  placeholder={t("tabla.buscarSku")}
-                  className="px-8 py-3 w-10/12 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                />
-              </div>
-            </div>
-
-            {loading && <div className="lds-dual-ring"></div>}
-            {!loading && <Table currentItems={currentItems} />}
-            {!loading && (
-              <ReactPaginate
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={handlePageClick}
-                containerClassName={"pagination"}
-                subContainerClassName={"pages pagination"}
-                nextClassName={"item next "}
-                previousClassName={"item previous"}
-                activeClassName={"item active "}
-                breakClassName={"item break-me "}
-                breakLabel={"..."}
-                disabledClassName={"disabled-page"}
-                pageClassName={"item pagination-page "}
-                nextLabel={
-                  <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
-                }
-                previousLabel={
-                  <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
-                }
+                placeholder={t("tabla.buscarSku")}
+                className="px-8 py-3 w-10/12 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
               />
-            )}
-          </div>
-        </div>
-      </ContainerContent>
-      {/* <input type="checkbox" id="my-modal-3" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box relative w-11/12 max-w-5xl flex flex-col items-center">
-          <label
-            htmlFor="my-modal-3"
-            className="btn btn-sm btn-circle absolute right-2 top-2  bg-red-500 hover:bg-red-700"
-          >
-            ✕
-          </label>
-          <h3 className="text-lg font-bold text-red-500">
-            Agregar Participante
-          </h3>
-          <p className="py-4">
-            Indica la información de la cuenta , personal y de compañía del
-            participante.
-          </p>
-          <div className="w-full flex flex-col items-center">
-            <h3 className="text-lg font-bold text-red-500">
-              Información de la Cuenta
-            </h3>
-            <div className="form-control w-9/12">
-              <label className="label">
-                <span className="label-text">Tipo de producto</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-              />
-              <label className="label">
-                <span className="label-text">Sku</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-              />
-              <label className="label">
-                <span className="label-text">Grupo de ventas</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-              />
-              <label className="label">
-                <span className="label-text">Tipo de usuario</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-              />
-              <label className="label">
-                <span className="label-text">Periodo</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Type here"
-                className="input input-bordered w-full"
-              />
-              <div className="w-full flex justify-center gap-5 py-8">
-                <label
-                  htmlFor="my-modal-3"
-                  className="btn bg-base-100 hover:bg-base-200 text-red-500 font-bold py-2 px-4 rounded-full w-5/12"
-                >
-                  Cancelar
-                </label>
-                <label
-                  htmlFor="my-modal-3"
-                  className="btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-5/12"
-                >
-                  Guardar
-                </label>
-              </div>
             </div>
           </div>
+
+          {loading && <div className="lds-dual-ring"></div>}
+          {!loading && <Table currentItems={currentItems} />}
+          {!loading && (
+            <ReactPaginate
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              nextClassName={"item next "}
+              previousClassName={"item previous"}
+              activeClassName={"item active "}
+              breakClassName={"item break-me "}
+              breakLabel={"..."}
+              disabledClassName={"disabled-page"}
+              pageClassName={"item pagination-page "}
+              nextLabel={
+                <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
+              }
+              previousLabel={
+                <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
+              }
+            />
+          )}
         </div>
-      </div> */}
-    </>
+      </div>
+    </ContainerContent>
   );
 };
 
