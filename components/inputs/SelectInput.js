@@ -4,13 +4,13 @@ import { ArrowDown } from "../icons";
 
 /**
  * Complemento para mostrar los iconos dentro de los campos label
- * @param {*} param0 
- * @returns 
+ * @param {*} param0
+ * @returns
  */
 const SelectItem = ({ image, label, description, ...others }) => (
   <div {...others}>
     <Group noWrap>
-      {image}
+      {image ? image : ''}
       <div>
         <Text size="sm">{label}</Text>
       </div>
@@ -35,6 +35,12 @@ const SelectInput = ({
     { value: "svelte", label: "Svelte" },
     { value: "vue", label: "Vue" },
   ],
+  bgColorDataSelected = "#FFEEED",
+  colorDataSelected = "#EB1000",
+  borderRadiusDataSelected = "30px",
+  bgColorDataHover = "#FFEEED",
+  colorDataHover = "#EB1000",
+  borderRadiusDataHover = "30px",
 }) => {
   return (
     <Select
@@ -58,17 +64,17 @@ const SelectInput = ({
           // applies styles to selected item
           "&[data-selected]": {
             "&, &:hover": {
-              backgroundColor: "#FFEEED",
-              color: "#EB1000",
-              borderRadius: "30px",
+              backgroundColor: bgColorDataSelected,
+              color: colorDataSelected,
+              borderRadius: borderRadiusDataSelected,
             },
           },
 
           // applies styles to hovered item (with mouse or keyboard)
           "&[data-hovered]": {
-            backgroundColor: "#FFEEED",
-            color: "#EB1000",
-            borderRadius: "30px",
+            backgroundColor: bgColorDataHover,
+            color: colorDataHover,
+            borderRadius: borderRadiusDataHover,
           },
         },
       })}

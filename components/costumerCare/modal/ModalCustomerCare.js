@@ -92,7 +92,9 @@ const ModalCustomerCare = () => {
         Acepto ser contactado por WhatsApp o vía telefónica
       </div>
       <div className="flex justify-center">
-        <button className="btn btn-md min-h-full bg-blue-600 hover:bg-blue-500 border-none min-w-[390px]">Enviar solicitud</button>
+        <button className="btn btn-md min-h-full bg-blue-600 hover:bg-blue-500 border-none min-w-[290px]">
+          Enviar solicitud
+        </button>
       </div>
     </div>
   );
