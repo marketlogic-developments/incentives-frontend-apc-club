@@ -12,7 +12,7 @@ const TableTopsRanking = () => {
         <h2 className="text-xl font-bold">Top usuarios</h2>
       </div>
       <div className="w-full max-h-[300px] overflow-y-auto">
-        <table className="w-full table-fixed tableJustify !text-sm">
+        <table className="w-full table-fixed tableJustify !text-sm overflow-hidden rounded-md">
           <thead className="bg-[#000000] sticky top-0">
             <tr className="text-white font-[700]">
               <th className="py-3">Top</th>
