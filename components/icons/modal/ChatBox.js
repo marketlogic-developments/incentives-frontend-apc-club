@@ -1,6 +1,6 @@
 import React from "react";
 
-const ChatBox = ({ width = 9, height = 9 }) => {
+const ChatBox = ({ width = 18, height = 18 }) => {
   return (
     <svg
       width={width}

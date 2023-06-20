@@ -1,15 +1,22 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowDown, CustomIcon, Question } from "../../icons";
+import {
+  AlertCircule,
+  ArrowDown,
+  BrushOutline,
+  ChatBox,
+  CustomIcon,
+  Question,
+} from "../../icons";
 import { SelectInput } from "../../inputs";
 
 const ModalCustomerCare = () => {
   const [t, i18n] = useTranslation("global");
   const dataSelectOne = [
     { image: <Question />, value: "question", label: "Inquietud o pregunta" },
-    { image: "", value: "report", label: "Reporte de error" },
-    { image: "", value: "sug", label: "Sugerencia" },
-    { image: "", value: "other", label: "Otros" },
+    { image: <AlertCircule />, value: "report", label: "Reporte de error" },
+    { image: <ChatBox />, value: "sug", label: "Sugerencia" },
+    { image: <BrushOutline />, value: "other", label: "Otros" },
   ];
   return (
     <div className="grid grid-rows-9 mr-8 ml-8 mb-8">
@@ -31,7 +38,11 @@ const ModalCustomerCare = () => {
         <div className="flex justify-start font-bold pb-2 text-sm">
           Asunto <p className="text-red-600">*</p>
         </div>
-        <SelectInput placeholder={"Nombre completo"} data={dataSelectOne} />
+        <SelectInput
+          placeholder={"Nombre completo"}
+          data={dataSelectOne}
+          icon={<ArrowDown />}
+        />
       </div>
       <div className="mt-2">
         <div className="flex justify-start font-bold pb-2 text-sm">

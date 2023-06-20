@@ -1,14 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import { Select, Group, Text } from "@mantine/core";
 import { ArrowDown } from "../icons";
 
 /**
- * Este componente es generado con la libreria de Mantine, si se desea hacer mas modificaciones al mismo
- * se recomienda ver la documentación de la misma https://mantine.dev/
- * @param {*} param0
- * @returns
+ * Complemento para mostrar los iconos dentro de los campos label
+ * @param {*} param0 
+ * @returns 
  */
-
 const SelectItem = ({ image, label, description, ...others }) => (
   <div {...others}>
     <Group noWrap>
@@ -20,6 +18,12 @@ const SelectItem = ({ image, label, description, ...others }) => (
   </div>
 );
 
+/**
+ * Este componente es generado con la libreria de Mantine, si se desea hacer mas modificaciones al mismo
+ * se recomienda ver la documentación de la misma https://mantine.dev/
+ * @param {*} param0
+ * @returns
+ */
 const SelectInput = ({
   styles = "",
   icon = <ArrowDown />,

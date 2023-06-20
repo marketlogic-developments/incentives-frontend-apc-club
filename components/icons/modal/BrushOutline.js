@@ -1,6 +1,6 @@
 import React from "react";
 
-const BrushOutline = ({ width = 10, height = 11 }) => {
+const BrushOutline = ({ width = 15, height = 17 }) => {
   return (
     <svg
       width={width}
