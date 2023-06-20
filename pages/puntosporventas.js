@@ -110,8 +110,8 @@ const puntosporventas = () => {
   function Table({ currentItems }) {
     return (
       <>
-        <table className="w-full text-sm text-left text-black-500">
-          <thead className="text-xs text-black-500 uppercase">
+        <table className="w-full text-sm text-left text-black-500 tableJustify">
+          <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
             <tr>
               <th scope="col" className="py-2 px-2">
                 Disti Partner Rollup
@@ -146,8 +146,10 @@ const puntosporventas = () => {
             {currentItems &&
               currentItems.map((data, index) => (
                 <tr
+                  className={`${
+                    (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
+                  } w-full`}
                   key={index}
-                  className="bg-white border-b dark:border-gray-500"
                 >
                   <td className="py-4 px-2">{data.disti_partner_rollup}</td>
                   <td className="py-4 px-2">{data.reseller_partner_rollup}</td>
@@ -208,107 +210,97 @@ const puntosporventas = () => {
   console.log(data);
   return (
     <ContainerContent pageTitle={"DigiPoints por ventas"}>
-      <div className="m-6 flex flex-col gap-16">
-        <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
-          {!loading && (
-            <div className="w-full grid grid-cols-3 gap-4 mb-4">
-              <div className="relative">
-                <select
-                  value={emailFilter}
-                  onChange={handleEmailFilterChange}
-                  className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                >
-                  <option value="">{t("organizacion.organizacion")}</option>
-                  {uniqueEmails.map((email) => (
-                    <option key={email} value={email}>
-                      {email}
-                    </option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg
-                    className="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 13.707a1 1 0 001.414 0l4-4a1 1 0 00-1.414-1.414L11 11.586V3a1 1 0 10-2 0v8.586l-2.293-2.293a1 1 0 00-1.414 1.414l4 4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
+      <div className="mt-6 flex flex-col gap-10">
+        <div className="w-full grid grid-cols-2 gap-4 ">
+          <div className="flex gap-6">
+            <select
+              value={emailFilter}
+              onChange={handleEmailFilterChange}
+              className="select select-bordered w-1/3 bg-[#F4F4F4]"
+            >
+              <option value="">{t("organizacion.organizacion")}</option>
+              {uniqueEmails.map((email) => (
+                <option key={email} value={email}>
+                  {email}
+                </option>
+              ))}
+            </select>
+            <select
+              value={reasonAssignFilter}
+              onChange={handleReasonAssignFilterChange}
+              className="select select-bordered w-1/3 bg-[#F4F4F4]"
+            >
+              <option value="">{t("tabla.unidadNegocio")}</option>
+              {uniqueReasonAssign.map((reason) => (
+                <option key={reason} value={reason}>
+                  {reason}
+                </option>
+              ))}
+            </select>
+          </div>
 
-              <div className="relative">
-                <select
-                  value={reasonAssignFilter}
-                  onChange={handleReasonAssignFilterChange}
-                  className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                >
-                  <option value="">{t("tabla.unidadNegocio")}</option>
-                  {uniqueReasonAssign.map((reason) => (
-                    <option key={reason} value={reason}>
-                      {reason}
-                    </option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg
-                    className="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 13.707a1 1 0 001.414 0l4-4a1 1 0 00-1.414-1.414L11 11.586V3a1 1 0 10-2 0v8.586l-2.293-2.293a1 1 0 00-1.414 1.414l4 4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div className="relative justify-items-center grid grid-flow-col">
-                <button
-                  className="btn bg-red-500 hover:bg-red-700 text-white font-bold text-[12px] h-1 min-h-full rounded-full"
-                  onClick={handleResetFilters}
-                >
-                  Remover filtros
-                </button>
-                <button
-                  className="btn bg-red-500 hover:bg-red-700 text-white font-bold text-[12px] h-1 min-h-full rounded-full"
-                  onClick={() => importFile(filteredUsers)}
-                >
-                  Exportar
-                </button>
-              </div>
+          <div className="flex justify-end items-center gap-12 mr-6">
+            <p
+              className="text-info font-bold 2xl:!text-sm cursor-pointer"
+              onClick={handleResetFilters}
+            >
+              Remover filtros
+            </p>
+            <div className="flex gap-3 items-center">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 10.5H12.375C14.0938 10.5 15.5 9.83716 15.5 8.13747C15.5 6.43778 13.8438 5.84153 12.5 5.77497C12.2222 3.11684 10.2813 1.49997 8.00003 1.49997C5.84378 1.49997 4.45503 2.93091 4.00003 4.34997C2.12503 4.52809 0.500031 5.47122 0.500031 7.42497C0.500031 9.37872 2.18753 10.5 4.25003 10.5H6.00003M6.00003 12.5031L8.00003 14.5L10 12.5031M8.00003 6.99997V14.0009"
+                  stroke="#1473E6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <p
+                className="text-info font-bold 2xl:!text-sm cursor-pointer"
+                onClick={() => importFile(filteredUsers)}
+              >
+                Descargar
+              </p>
             </div>
-          )}
-
-          {loading && <div className="lds-dual-ring"></div>}
-          {!loading && <Table currentItems={currentItems} />}
-          {!loading && (
-            <ReactPaginate
-              pageCount={pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageClick}
-              containerClassName={"pagination"}
-              subContainerClassName={"pages pagination"}
-              nextClassName={"item next "}
-              previousClassName={"item previous"}
-              activeClassName={"item active "}
-              breakClassName={"item break-me "}
-              breakLabel={"..."}
-              disabledClassName={"disabled-page"}
-              pageClassName={"item pagination-page "}
-              nextLabel={
-                <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
-              }
-              previousLabel={
-                <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
-              }
-            />
-          )}
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="overflow-x-auto rounded-lg">
+            {loading ? (
+              <div className="lds-dual-ring"></div>
+            ) : (
+              <>
+                <Table currentItems={currentItems} />
+                <ReactPaginate
+                  pageCount={pageCount}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={handlePageClick}
+                  containerClassName={"pagination"}
+                  subContainerClassName={"pages pagination"}
+                  nextClassName={"item next "}
+                  previousClassName={"item previous"}
+                  activeClassName={"item active "}
+                  breakClassName={"item break-me "}
+                  breakLabel={"..."}
+                  disabledClassName={"disabled-page"}
+                  pageClassName={"item pagination-page "}
+                  nextLabel={
+                    <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
+                  }
+                  previousLabel={
+                    <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
+                  }
+                />
+              </>
+            )}
+          </div>
         </div>
       </div>
     </ContainerContent>
