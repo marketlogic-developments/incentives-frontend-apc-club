@@ -1,5 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { ArrowDown } from "../../icons";
+import { SelectInput } from "../../inputs";
+import { Select } from "@mantine/core";
 
 const ModalCustomerCare = () => {
   const [t, i18n] = useTranslation("global");
@@ -10,15 +13,11 @@ const ModalCustomerCare = () => {
       <div className="flex justify-center">Texto</div>
       <div className="">
         <div className="flex justify-start">Asunto</div>
-        <div>
-          <select>hola</select>
-        </div>
+        <SelectInput />
       </div>
       <div>
         <div className="flex justify-start">Asociado</div>
-        <div>
-          <select>hola</select>
-        </div>
+        <SelectInput />
       </div>
       <div>
         <div className="flex justify-start">Descripcion</div>
@@ -31,10 +30,10 @@ const ModalCustomerCare = () => {
         </div>
       </div>
       <div>
-        <input type="checkbox" checked="checked" className="checkbox" />
+        {/* <input type="checkbox" checked="checked" className="checkbox" /> */}
       </div>
       <div>
-        <input type="checkbox" checked="checked" className="checkbox" />
+        {/* <input type="checkbox" checked="checked" className="checkbox" /> */}
       </div>
       <div className="flex justify-center">
         <button className="btn">Enviar solicitud</button>
