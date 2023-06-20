@@ -1,0 +1,58 @@
+@mixin dots($count) {
+  $text-shadow: ();
+  @for $i from 0 through $count {
+    $text-shadow: $text-shadow,
+      (-0.5+ (random()) * 3) +
+        em
+        (-0.5+ (random()) * 3) +
+        em
+        7px
+        hsla(random() * 360, 100%, 50%, 0.9);
+  }
+  text-shadow: $text-shadow;
+}
+
+.bgCointainerHTW {
+  font: 1vmin/1.3 Serif;
+  overflow: hidden;
+  background: #123;
+}
+
+.bgCointainerHTW {
+  display: block;
+  font-size: 50px;
+  color: transparent;
+}
+
+.bgCointainerHTW::before,
+.bgCointainerHTW::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3em;
+  height: 3em;
+  content: ".";
+  mix-blend-mode: screen;
+  animation: 44s -27s move infinite ease-in-out alternate;
+}
+
+.bgCointainerHTW::before {
+  @include dots(50);
+  animation-duration: 10s;
+  animation-delay: -5s;
+}
+
+.bgCointainerHTW::after {
+  @include dots(50);
+  animation-duration: 9s;
+  animation-delay: -6s;
+}
+
+@keyframes move {
+  from {
+    transform: rotate(0deg) scale(12) translateX(-20px);
+  }
+  to {
+    transform: rotate(360deg) scale(18) translateX(20px);
+  }
+}
