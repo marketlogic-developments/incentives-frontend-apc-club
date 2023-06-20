@@ -15,6 +15,7 @@ import {
   SparklesOutline,
 } from "../../icons";
 import { SelectInput } from "../../inputs";
+import { alert } from "../../components/alert/Alert";
 
 const ModalCustomerCare = () => {
   const [t, i18n] = useTranslation("global");
