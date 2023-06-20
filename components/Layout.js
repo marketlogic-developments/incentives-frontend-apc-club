@@ -888,13 +888,17 @@ const Layout = ({ children }) => {
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        /* size={"40%"} */
+        size={"40%"}
         centered
         transitionProps={{ transition: 'rotate-left' }}
         closeButtonProps={{
+          variant:"none",
           size: "auto",
+          top:36,
+          right:44,
           children: <CloseCircle />,
         }}
+        padding={0}
       >
         {typeModal}
       </Modal>
