@@ -9,4 +9,5 @@ export { default as GiftOutline } from "./modal/GiftOutline";
 export { default as SparklesOutline } from "./modal/SparklesOutline";
 export { default as ArrowRedo } from "./modal/ArrowRedo";
 export { default as Pricetag } from "./modal/Pricetag";
+export { default as Laptop } from "./modal/Laptop";
 export { default as ArrowDown } from "./Reportes/ArrowDown";
