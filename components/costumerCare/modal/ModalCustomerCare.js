@@ -1,4 +1,5 @@
 import React from "react";
+import { Checkbox } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import {
   AlertCircule,
@@ -70,24 +71,28 @@ const ModalCustomerCare = () => {
           icon={<ArrowDown />}
         />
       </div>
-      <div>
-        <div className="flex justify-start">Descripcion</div>
+      <div className="mt-2">
+        <div className="flex justify-start font-bold pb-2 text-sm">
+          Descripcion<p className="text-red-600">*</p>
+        </div>
         <div className="w-full">
           <textarea
-            className="w-full textarea textarea-lg textarea-bordered min-h-[180px]"
+            className="w-full textarea bg-gray-100 textarea-lg textarea-bordered min-h-[180px]"
             type="text"
             placeholder={t("user.escriba")}
           />
         </div>
       </div>
-      <div>
-        {/* <input type="checkbox" checked="checked" className="checkbox" /> */}
+      <div className="flex justify-start items-center text-sm mb-3">
+        <Checkbox className="mr-4" />
+        Acepto ser contactado por correo <p className="text-red-600">*</p>
       </div>
-      <div>
-        {/* <input type="checkbox" checked="checked" className="checkbox" /> */}
+      <div className="flex justify-start items-center text-sm mb-3">
+        <Checkbox className="mr-4" />
+        Acepto ser contactado por WhatsApp o vía telefónica
       </div>
       <div className="flex justify-center">
-        <button className="btn">Enviar solicitud</button>
+        <button className="btn btn-md min-h-full bg-blue-600 hover:bg-blue-500 border-none min-w-[390px]">Enviar solicitud</button>
       </div>
     </div>
   );
