@@ -50,7 +50,7 @@ const howtowin = () => {
       ),
     },
     {
-      text: "Renovaciones",
+      text: t("htw.renovaciones"),
       svg: (
         <svg
           width="19"
@@ -85,7 +85,7 @@ const howtowin = () => {
       ),
     },
     {
-      text: "Nuevos negocios",
+      text: t("htw.nuevosn"),
       svg: (
         <svg
           width="19"
@@ -133,6 +133,7 @@ const howtowin = () => {
     },
   ];
   const quantity = [42, 24, 12];
+  const nums = [5, 25000, 10, 50];
 
   useEffect(() => {
     if (user.companyId === null) {
@@ -154,21 +155,21 @@ const howtowin = () => {
         <div className="bg-[#01505b] w-full h-[35vh] relative overflow-hidden flex">
           <div className="bgCointainerHTW"></div>
           <div className="w-full h-full flex justify-center items-center">
-            <h2 className="2xl:!text-4xl font-bold text-white text-center">
-              ¿Cómo ganar con el <br /> Adobe Partner Connection Club?
-            </h2>
+            <h2
+              className="2xl:!text-4xl font-bold text-white text-center"
+              dangerouslySetInnerHTML={{ __html: t("htw.title") }}
+            ></h2>
           </div>
         </div>
         <div className="flex flex-col w-full justify-center items-center gap-10">
-          <h3 className="2xl:!text-3xl font-bold xl:!text-2xl lg:!text-xl text-center">
-            Acumula más DigiPoints migrando, <br /> renovando y vendiendo a
-            través de Marketplace
-          </h3>
-          <p className="!text-xs text-center">
-            Ahora todas las ventas de Creative Cloud y Document Cloud, tanto en
-            renovaciones como nuevos negocios, <br /> ganan por igual en
-            Marketplace.
-          </p>
+          <h3
+            className="2xl:!text-3xl font-bold xl:!text-2xl lg:!text-xl text-center"
+            dangerouslySetInnerHTML={{ __html: t("htw.secondTitle") }}
+          ></h3>
+          <p
+            className="!text-xs text-center"
+            dangerouslySetInnerHTML={{ __html: t("htw.phraseSecondTitle") }}
+          ></p>
         </div>
         <div className="w-full grid grid-cols-3">
           <div className="flex gap-2">
@@ -205,10 +206,10 @@ const howtowin = () => {
             </div>
             <div className="flex flex-col justify-end gap-3">
               <hr />
-              <p className="!text-sm">
-                <strong>DigiPoints por cada USD 1,000 FCB</strong>
+              <p className="lg:!text-[10px] xl:!text-sm">
+                <strong>{t("htw.digipoints1000-1")}</strong>
                 <br />
-                en ventas en productos participantes
+                {t("htw.digipoints1000-2")}
               </p>
             </div>
           </div>
@@ -256,7 +257,7 @@ const howtowin = () => {
                 <figure className="w-[40px]">
                   <img src="/assets/dashboard/DC.webp"></img>
                 </figure>
-                <p className="font-bold !text-base text-center">
+                <p className="font-bold xl:!text-base lg:!text-xs text-center">
                   Document <br /> Cloud
                 </p>
               </div>
@@ -264,7 +265,7 @@ const howtowin = () => {
                 <figure className="w-[40px]">
                   <img src="/assets/dashboard/cc.webp"></img>
                 </figure>
-                <p className="font-bold !text-base text-center">
+                <p className="font-bold xl:!text-base lg:!text-xs text-center">
                   Creative <br /> Cloud
                 </p>
               </div>
@@ -272,11 +273,11 @@ const howtowin = () => {
             <div className="w-2/3 flex flex-col bg-[#F5F5F5] rounded-lg shadow-2xl h-full">
               <div className="flex flex-col h-1/2 justify-between items-center px-6 pt-6">
                 <div className="flex w-full items-center">
-                  <p>Licencias Acrobat Pro</p>
+                  <p>{t("htw.l1")}</p>
                 </div>
                 <hr className="w-full" />
                 <div className="flex w-full items-center">
-                  <p>Transacciones de Acrobat Sign</p>
+                  <p>{t("htw.l2")}</p>
                 </div>
                 <hr className="w-full" />
                 <div className="flex w-full items-center">
@@ -285,20 +286,31 @@ const howtowin = () => {
               </div>
               <div className="flex flex-col h-1/2 justify-between items-center px-6 pb-3">
                 <div className="flex w-full items-center">
-                  <p>Licencias de Teams</p>
+                  <p>{t("htw.l3")}</p>
                 </div>
                 <hr className="w-full" />
                 <div className="flex w-full items-center">
-                  <p>Licencias SDL/Named</p>
+                  <p>{t("htw.l4")}</p>
                 </div>
                 <hr className="w-full" />
                 <div className="flex w-full items-center">
-                  <p>Licencias SLP</p>
+                  <p>{t("htw.l5")}</p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-span-2"></div>
+          <div className="col-span-2 grid grid-cols-3 place-items-center [&>*]:border-y-2 [&>*]:w-full [&>*]:h-full [&>*]:flex [&>*]:justify-center [&>*]:items-center [&>*]:lg:!text-xs [&>*]:xl:!text-sm px-2">
+            {nums.map((num) => (
+              <>
+                <p>{num}</p>
+                <p>{num}</p>
+                <p>{num}</p>
+              </>
+            ))}
+            <p>{100}</p>
+            <p>{100}</p>
+            <p>{25}</p>
+          </div>
         </div>
       </div>
     </ContainerContent>

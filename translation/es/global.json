@@ -351,7 +351,19 @@
     "pathTableCanal": "assets/htw/tablaHTW.webp",
     "pathTableDist": "assets/htw/tablaHTWDist.webp",
     "pathBanner": "assets/htw/bannerHTWsection.webp",
-    "copyTextFooter": "¡Vende, Gana y Redime!"
+    "copyTextFooter": "¡Vende, Gana y Redime!",
+    "title": "¿Cómo ganar con el <br /> Adobe Partner Connection Club?",
+    "secondTitle": "Acumula más DigiPoints migrando, <br /> renovando y vendiendo a través de Marketplace",
+    "phraseSecondTitle": "Ahora todas las ventas de Creative Cloud y Document Cloud, tanto en renovaciones como nuevos negocios, <br /> ganan por igual en Marketplace.",
+    "digipoints1000-1": "DigiPoints por cada USD 1,000 FCB",
+    "digipoints1000-2": "en ventas en productos participantes",
+    "renovaciones": "Renovaciones",
+    "nuevosn": "Nuevos negocios",
+    "l1": "Licencias Acrobat Pro",
+    "l2": "Transacciones de Acrobat Sign",
+    "l3": "Licencias de Teams",
+    "l4": "Licencias SDL/Named",
+    "l5": "Licencias SLP"
   },
   "releases": {
     "vip": "¿Por qué utilizar VIP Marketplace?",

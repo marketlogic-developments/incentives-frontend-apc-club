@@ -259,7 +259,6 @@ const ButtonAddUser = () => {
                   <option disabled selected>
                     Selecciona el rol
                   </option>
-                  <option value="2">Partner Principal</option>
                   <option value="5">Sales Rep</option>
                 </select>
               </div>
