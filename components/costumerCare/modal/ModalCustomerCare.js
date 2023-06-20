@@ -15,7 +15,7 @@ import {
   SparklesOutline,
 } from "../../icons";
 import { SelectInput } from "../../inputs";
-import { alert } from "../../components/alert/Alert";
+import { alert } from "../../alert/Alert";
 
 const ModalCustomerCare = () => {
   const [t, i18n] = useTranslation("global");
@@ -36,6 +36,17 @@ const ModalCustomerCare = () => {
     { image: <Pricetag />, value: "sales", label: "Ventas" },
     { image: <Laptop />, value: "platform", label: "Plataforma web" },
   ];
+
+  const handleSubmit = () => {
+    alert({
+      position: "top-end",
+      icon: "success",
+      title:
+        "Hemos recibido tu solicitud exitosamente, nos pondremos en contacto contigo lo más pronto posible.",
+      width: "30%",
+    });
+  };
+
   return (
     <div className="grid grid-rows-9 mr-8 ml-8 mb-8">
       <div className="flex justify-center pb-2">
@@ -93,7 +104,10 @@ const ModalCustomerCare = () => {
         Acepto ser contactado por WhatsApp o vía telefónica
       </div>
       <div className="flex justify-center">
-        <button className="btn btn-md min-h-full bg-blue-600 hover:bg-blue-500 border-none min-w-[290px]">
+        <button
+          className="btn btn-md min-h-full bg-blue-600 hover:bg-blue-500 border-none min-w-[290px]"
+          onClick={handleSubmit}
+        >
           Enviar solicitud
         </button>
       </div>
