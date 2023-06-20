@@ -1,6 +1,6 @@
 import React from "react";
 
-const GiftOutline = ({ width = 12, height = 13 }) => {
+const GiftOutline = ({ width = 18, height = 19 }) => {
   return (
     <svg
       width={width}

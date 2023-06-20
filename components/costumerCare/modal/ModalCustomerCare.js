@@ -3,10 +3,15 @@ import { useTranslation } from "react-i18next";
 import {
   AlertCircule,
   ArrowDown,
+  ArrowRedo,
   BrushOutline,
   ChatBox,
   CustomIcon,
+  GiftOutline,
+  Laptop,
+  Pricetag,
   Question,
+  SparklesOutline,
 } from "../../icons";
 import { SelectInput } from "../../inputs";
 
@@ -17,6 +22,17 @@ const ModalCustomerCare = () => {
     { image: <AlertCircule />, value: "report", label: "Reporte de error" },
     { image: <ChatBox />, value: "sug", label: "Sugerencia" },
     { image: <BrushOutline />, value: "other", label: "Otros" },
+  ];
+  const dataSelectTwo = [
+    { image: <GiftOutline />, value: "redention", label: "Redenciones" },
+    { image: <SparklesOutline />, value: "digipoints", label: "DigiPoints" },
+    {
+      image: <ArrowRedo />,
+      value: "distri",
+      label: "Distribución de DigiPointsSugerencia",
+    },
+    { image: <Pricetag />, value: "sales", label: "Ventas" },
+    { image: <Laptop />, value: "platform", label: "Plataforma web" },
   ];
   return (
     <div className="grid grid-rows-9 mr-8 ml-8 mb-8">
@@ -48,7 +64,11 @@ const ModalCustomerCare = () => {
         <div className="flex justify-start font-bold pb-2 text-sm">
           Asociado
         </div>
-        <SelectInput />
+        <SelectInput
+          placeholder={"Selecciona con qué está relacionado el asunto"}
+          data={dataSelectTwo}
+          icon={<ArrowDown />}
+        />
       </div>
       <div>
         <div className="flex justify-start">Descripcion</div>

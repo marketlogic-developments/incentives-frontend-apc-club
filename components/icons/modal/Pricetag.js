@@ -1,6 +1,6 @@
 import React from "react";
 
-const Pricetag = ({ width = 12, height = 13 }) => {
+const Pricetag = ({ width = 20, height = 20 }) => {
   return (
     <svg
       width={width}

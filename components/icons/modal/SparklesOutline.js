@@ -1,6 +1,6 @@
 import React from "react";
 
-const SparklesOutline = ({ width = 13, height = 13 }) => {
+const SparklesOutline = ({ width = 20, height = 20 }) => {
   return (
     <svg
       width={width}
