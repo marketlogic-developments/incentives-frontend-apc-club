@@ -189,6 +189,8 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
           Toast.fire({
             icon: "error",
             title: e,
+            background: "#000000",
+            color: "#fff",
           })
         )
         .finally(() => dispatch(changeLoadingData(false)));
