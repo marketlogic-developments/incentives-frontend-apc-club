@@ -1,11 +1,16 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowDown, CustomIcon } from "../../icons";
+import { ArrowDown, CustomIcon, Question } from "../../icons";
 import { SelectInput } from "../../inputs";
-import { Select } from "@mantine/core";
 
 const ModalCustomerCare = () => {
   const [t, i18n] = useTranslation("global");
+  const dataSelectOne = [
+    { image: <Question />, value: "question", label: "Inquietud o pregunta" },
+    { image: "", value: "report", label: "Reporte de error" },
+    { image: "", value: "sug", label: "Sugerencia" },
+    { image: "", value: "other", label: "Otros" },
+  ];
   return (
     <div className="grid grid-rows-9 mr-8 ml-8 mb-8">
       <div className="flex justify-center pb-2">
@@ -26,7 +31,7 @@ const ModalCustomerCare = () => {
         <div className="flex justify-start font-bold pb-2 text-sm">
           Asunto <p className="text-red-600">*</p>
         </div>
-        <SelectInput placeholder={"Nombre completo"} />
+        <SelectInput placeholder={"Nombre completo"} data={dataSelectOne} />
       </div>
       <div className="mt-2">
         <div className="flex justify-start font-bold pb-2 text-sm">

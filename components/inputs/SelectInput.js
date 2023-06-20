@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Select } from "@mantine/core";
+import { Select, Group, Text } from "@mantine/core";
 import { ArrowDown } from "../icons";
 
 /**
@@ -8,6 +8,18 @@ import { ArrowDown } from "../icons";
  * @param {*} param0
  * @returns
  */
+
+const SelectItem = ({ image, label, description, ...others }) => (
+  <div {...others}>
+    <Group noWrap>
+      {image}
+      <div>
+        <Text size="sm">{label}</Text>
+      </div>
+    </Group>
+  </div>
+);
+
 const SelectInput = ({
   styles = "",
   icon = <ArrowDown />,
@@ -25,6 +37,7 @@ const SelectInput = ({
       className={`${styles}`}
       label={label}
       placeholder={placeholder}
+      itemComponent={SelectItem}
       rightSection={icon}
       data={data}
       radius="md"
@@ -36,6 +49,25 @@ const SelectInput = ({
       }}
       variant="filled"
       withinPortal
+      styles={() => ({
+        item: {
+          // applies styles to selected item
+          "&[data-selected]": {
+            "&, &:hover": {
+              backgroundColor: "#FFEEED",
+              color: "#EB1000",
+              borderRadius: "30px",
+            },
+          },
+
+          // applies styles to hovered item (with mouse or keyboard)
+          "&[data-hovered]": {
+            backgroundColor: "#FFEEED",
+            color: "#EB1000",
+            borderRadius: "30px",
+          },
+        },
+      })}
     />
   );
 };
