@@ -77,6 +77,8 @@ const ButtonAddUser = () => {
       return Toast.fire({
         icon: "error",
         title: "Faltan elementos por completar",
+        background: "#000000",
+        color: "#fff",
       });
     }
 
@@ -136,6 +138,8 @@ const ButtonAddUser = () => {
         return Toast.fire({
           icon: "error",
           title: t("tabla.notiError"),
+          background: "#000000",
+          color: "#fff",
         });
       });
 

@@ -111,6 +111,8 @@ const TableUsersOrganization = () => {
           return Toast.fire({
             icon: "success",
             title: "El usuario ha sido desactivado",
+            background: "#000000",
+            color: "#fff",
           });
         });
     }
@@ -133,6 +135,8 @@ const TableUsersOrganization = () => {
           return Toast.fire({
             icon: "success",
             title: "El usuario ha sido activado",
+            background: "#000000",
+            color: "#fff",
           });
         });
     }

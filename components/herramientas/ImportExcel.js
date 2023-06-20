@@ -50,6 +50,8 @@ const ImportExcel = ({ type }) => {
           return Toast.fire({
             icon: "success",
             title: "Archivo cargado de forma exitosa",
+            background: "#000000",
+            color: "#fff",
           });
         })
         .catch((error) => {
@@ -57,6 +59,8 @@ const ImportExcel = ({ type }) => {
           return Toast.fire({
             icon: "error",
             title: "El archivo no pudo ser cargado",
+            background: "#000000",
+            color: "#fff",
           });
         });
     }

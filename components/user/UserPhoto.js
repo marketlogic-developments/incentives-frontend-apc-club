@@ -49,6 +49,8 @@ const UserPhoto = ({ formData }) => {
         return Toast.fire({
           icon: "success",
           title: t("user.fotoDelete"),
+          background: "#000000",
+          color: "#fff",
         });
       });
   };
@@ -83,6 +85,8 @@ const UserPhoto = ({ formData }) => {
             return Toast.fire({
               icon: "success",
               title: t("user.fotoUpdate"),
+              background: "#000000",
+              color: "#fff",
             });
           })
           .catch((error) => console.log(error));

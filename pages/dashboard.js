@@ -93,6 +93,8 @@ const dashboard = () => {
         return Toast.fire({
           icon: "success",
           title: t("login.donechangepass"),
+          background: "#000000",
+          color: "#fff",
         });
       });
   };
@@ -159,6 +161,8 @@ const dashboard = () => {
     return Toast.fire({
       icon: "error",
       title: t("login.errorchangepass"),
+      background: "#000000",
+      color: "#fff",
     });
   };
 

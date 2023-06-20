@@ -142,6 +142,8 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
         return Toast.fire({
           icon: "error",
           title: t("tabla.notiError"),
+          background: "#000000",
+          color: "#fff",
         });
       });
 
