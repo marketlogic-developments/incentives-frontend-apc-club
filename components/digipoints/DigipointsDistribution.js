@@ -275,7 +275,7 @@ const DigipointsDistribution = () => {
         <br></br>
         <div className="w-full">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left text-black-500 tableJustify">
+            <table className="w-full text-sm text-left text-black-500 tableJustify overflow-hidden rounded-md">
               <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
                 <tr>
                   <th scope="col" className="py-3 px-6">

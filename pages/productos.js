@@ -10,6 +10,7 @@ import * as XLSX from "xlsx";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import InfoBannerPP from "../components/productosParticipantes/InfoBannerPP";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const productos = () => {
   const dispatch = useDispatch();
@@ -63,8 +64,8 @@ const productos = () => {
   function Table({ currentItems }) {
     return (
       <>
-        <table className="w-full text-sm text-left text-black-500">
-          <thead className="text-xs text-black-500 uppercase">
+        <table className="w-full text-sm text-left text-black-500 table-fixed tableJustify overflow-hidden rounded-md">
+          <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
             <tr>
               <th scope="col" className="py-3 px-6">
                 {t("tabla.unidadNegocio")}
@@ -87,8 +88,10 @@ const productos = () => {
             {currentItems &&
               currentItems.map((product, index) => (
                 <tr
+                  className={`${
+                    (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
+                  } w-full`}
                   key={index}
-                  className="bg-white border-b dark:border-gray-500"
                 >
                   <td className="py-4 px-6">{product.businessUnit}</td>
                   <td className="py-4 px-6">{product.subBu}</td>
@@ -168,33 +171,13 @@ const productos = () => {
     <ContainerContent pageTitle={"Productos Participantes"}>
       <div className="m-6 flex flex-col gap-16">
         <div className="w-full flex justify-center flex-col">
-          {/* <InfoBannerPP /> */}
-          <img src="/assets/productos/productos.webp" className="bannersImg" />
+          <InfoBannerPP />
         </div>
-        <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
-          <div className="grid grid-cols-3 gap-3">
-            <select
-              className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm col-span-2"
-              onChange={(e) => {
-                if (e.target.value === "") {
-                  setData(products);
-                }
-
-                return setSelectDate(e.target.value);
-              }}
-            >
-              <option value="">{t("tabla.ordenarFecha")}</option>
-              <option value="upDown">{t("tabla.recienteA")}</option>
-              <option value="downUp">{t("tabla.antiguoR")}</option>
-            </select>
-            <button
-              className="btn btn-primary w-max justify-self-end"
-              onClick={() => importFile(data)}
-            >
-              Exportar
-            </button>
-            <div className="flex justify-between col-span-3">
+        <div className="grid grid-cols-2">
+          <div className="flex gap-6">
+            <div className="relative flex w-1/2">
               <input
+                className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
                 type="text"
                 onChange={(e) => {
                   if (e.target.value === "") {
@@ -204,35 +187,78 @@ const productos = () => {
                   return setSearchSku(e.target.value);
                 }}
                 placeholder={t("tabla.buscarSku")}
-                className="px-8 py-3 w-10/12 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
               />
+              <div className="absolute h-full items-center flex ml-2">
+                <AiOutlineSearch color="#eb1000" />
+              </div>
             </div>
+            <select
+              value={selectDate}
+              onChange={(e) => setSelectDate(e.target.value)}
+              className="select select-bordered w-auto bg-[#F4F4F4]"
+            >
+              <option value="">{t("tabla.ordenarFecha")}</option>
+              <option value="upDown">{t("tabla.recienteA")}</option>
+              <option value="downUp">{t("tabla.antiguoR")}</option>
+            </select>
           </div>
+          <div
+            className="flex gap-3 items-center cursor-pointer justify-self-end"
+            onClick={() => importFile(data)}
+          >
+            <svg
+              width="13"
+              height="17"
+              viewBox="0 0 13 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.25 5.72827H10.625C10.9897 5.72827 11.3394 5.87858 11.5973 6.14612C11.8551 6.41367 12 6.77654 12 7.1549L12 14.5734C12 14.9517 11.8551 15.3146 11.5973 15.5822C11.3394 15.8497 10.9897 16 10.625 16H2.375C2.01033 16 1.66059 15.8497 1.40273 15.5822C1.14487 15.3146 1 14.9517 1 14.5734L1 7.1549C1 6.77654 1.14487 6.41367 1.40273 6.14612C1.66059 5.87858 2.01033 5.72827 2.375 5.72827H3.75"
+                stroke="#1473E6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M9.25 3.85328L6.5 1.00002L3.75 3.85328M6.5 11.8424L6.5 1.57067"
+                stroke="#1473E6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <p className="font-bold text-info xl:!text-base lg:!text-sm ">
+              Exportar
+            </p>
+          </div>
+        </div>
 
+        <div className="w-full">
           {loading && <div className="lds-dual-ring"></div>}
-          {!loading && <Table currentItems={currentItems} />}
           {!loading && (
-            <ReactPaginate
-              pageCount={pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageClick}
-              containerClassName={"pagination"}
-              subContainerClassName={"pages pagination"}
-              nextClassName={"item next "}
-              previousClassName={"item previous"}
-              activeClassName={"item active "}
-              breakClassName={"item break-me "}
-              breakLabel={"..."}
-              disabledClassName={"disabled-page"}
-              pageClassName={"item pagination-page "}
-              nextLabel={
-                <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
-              }
-              previousLabel={
-                <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
-              }
-            />
+            <>
+              <Table currentItems={currentItems} />
+              <ReactPaginate
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                nextClassName={"item next "}
+                previousClassName={"item previous"}
+                activeClassName={"item active "}
+                breakClassName={"item break-me "}
+                breakLabel={"..."}
+                disabledClassName={"disabled-page"}
+                pageClassName={"item pagination-page "}
+                nextLabel={
+                  <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
+                }
+                previousLabel={
+                  <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
+                }
+              />
+            </>
           )}
         </div>
       </div>

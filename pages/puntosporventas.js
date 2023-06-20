@@ -110,7 +110,7 @@ const puntosporventas = () => {
   function Table({ currentItems }) {
     return (
       <>
-        <table className="w-full text-sm text-left text-black-500 tableJustify">
+        <table className="w-full text-sm text-left text-black-500 tableJustify overflow-hidden rounded-md">
           <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
             <tr>
               <th scope="col" className="py-2 px-2">
@@ -271,7 +271,7 @@ const puntosporventas = () => {
           </div>
         </div>
         <div className="w-full">
-          <div className="overflow-x-auto rounded-lg">
+          <div className="overflow-x-auto">
             {loading ? (
               <div className="lds-dual-ring"></div>
             ) : (
