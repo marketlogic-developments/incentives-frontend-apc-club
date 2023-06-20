@@ -180,6 +180,8 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
           Toast.fire({
             icon: "success",
             title: t("modalEquipos.teamCre"),
+            background: "#000000",
+            color: "#fff",
           });
           return setOpened(false);
         })

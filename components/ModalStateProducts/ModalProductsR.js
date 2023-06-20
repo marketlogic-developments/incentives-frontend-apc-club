@@ -85,12 +85,16 @@ const ModalProductsR = ({ data }) => {
               ? "En proceso de pago"
               : "Enviada"
           }`,
+          background: "#000000",
+          color: "#fff",
         });
       })
       .catch(() => {
         Toast.fire({
           icon: "error",
           title: "Hubo un error al hacer la solicitud",
+          background: "#000000",
+          color: "#fff",
         });
       });
   };

@@ -93,6 +93,8 @@ const reportTyC = () => {
 
       return Toast.fire({
         icon: "error",
+        background: "#000000",
+        color: "#fff",
         title:
           "No se encontraron coincidencias, esto puede ser porque el usuario no está en la base de datos o ya aceptó los T&C",
       });

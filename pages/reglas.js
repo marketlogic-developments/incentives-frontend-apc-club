@@ -89,6 +89,8 @@ const premios = () => {
         return Toast.fire({
           icon: "error",
           title: "Faltan campos por llenar",
+          background: "#000000",
+          color: "#fff",
         });
       });
   };

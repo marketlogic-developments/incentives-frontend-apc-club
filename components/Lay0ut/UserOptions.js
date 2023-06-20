@@ -144,6 +144,8 @@ const UserOptions = ({ user, token, logout, menuUser, setMenuUser }) => {
         return Toast.fire({
           icon: "success",
           title: t("user.fotoDelete"),
+          background: "#000000",
+          color: "#fff",
         });
       });
   };
@@ -186,6 +188,8 @@ const UserOptions = ({ user, token, logout, menuUser, setMenuUser }) => {
             return Toast.fire({
               icon: "success",
               title: t("user.fotoUpdate"),
+              background: "#000000",
+              color: "#fff",
             });
           });
       })

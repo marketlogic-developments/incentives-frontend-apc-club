@@ -135,6 +135,8 @@ export default function Home() {
         Toast.fire({
           icon: "error",
           title: t("login.errorLogin"),
+          background: "#000000",
+          color: "#fff",
         });
 
         return dispatch(changeLoadingData(false));
@@ -251,6 +253,8 @@ export default function Home() {
         return Toast.fire({
           icon: "success",
           title: t("login.donechangepass"),
+          background: "#000000",
+          color: "#fff",
         });
       })
       .catch(() => {
@@ -269,6 +273,8 @@ export default function Home() {
         return Toast.fire({
           icon: "error",
           title: t("login.errorchangepass"),
+          background: "#000000",
+          color: "#fff",
         });
       });
   };
@@ -298,6 +304,8 @@ export default function Home() {
         return Toast.fire({
           icon: "success",
           title: t("login.correoenviado"),
+          background: "#000000",
+          color: "#fff",
         });
       })
       .catch(() => {
@@ -316,6 +324,8 @@ export default function Home() {
         return Toast.fire({
           icon: "error",
           title: t("login.correonotfound"),
+          background: "#000000",
+          color: "#fff",
         });
       });
   };
@@ -371,6 +381,8 @@ export default function Home() {
     return Toast.fire({
       icon: "error",
       title: t("login.errorchangepass"),
+      background: "#000000",
+      color: "#fff",
     });
   };
 

@@ -94,6 +94,8 @@ const shoppingCar = () => {
 
       return Toast.fire({
         icon: "error",
+        background: "#000000",
+        color: "#fff",
         title:
           "No cuentas con los DigiPoints suficientes para hacer esta redención",
       });
@@ -160,6 +162,8 @@ const shoppingCar = () => {
 
       return Toast.fire({
         icon: "error",
+        background: "#000000",
+        color: "#fff",
         title:
           "No cuentas con los DigiPoints suficientes para hacer esta redención",
       });
