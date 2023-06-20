@@ -91,10 +91,7 @@ export const getDataAwards = (token, user) => async (dispatch) => {
             }
 
             if (countryCompany === "Colombia") {
-              return (
-                e.name.split(" ")[0] === "Rappi" ||
-                e.name.split(" ")[0] === "Falabella"
-              );
+              return e.name.split(" ")[0] === "Falabella";
             }
             if (countryCompany === "Chile") {
               return e.name.split(" ")[0] === "Cencosud";
