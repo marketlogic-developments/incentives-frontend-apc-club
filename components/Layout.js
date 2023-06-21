@@ -893,6 +893,7 @@ const Layout = ({ children }) => {
         opened={opened}
         onClose={closeModal}
         centered
+        size={"auto"}
         transitionProps={{ transition: "rotate-left" }}
         closeButtonProps={{
           variant: "none",
