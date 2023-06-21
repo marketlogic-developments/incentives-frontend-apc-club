@@ -31,7 +31,7 @@ const layout = () => {
         BIENVENIDO A NUESTRO BOARD DE COMUNICADOS
       </div>
       <div className="grid grid-rows-2 justify-items-center">
-        <div className="font-bold text-4xl">Entérate de las noticias y beneficios más </div>
+      <div className="font-bold text-4xl">Entérate de las noticias y beneficios más </div>
         <div className="flex justify-start gap-3">
           <p className="font-bold text-4xl">recientes que te brinda el </p>
           <p className="font-bold text-4xl text-red-600"> APC Club</p>
