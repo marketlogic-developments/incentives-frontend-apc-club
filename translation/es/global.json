@@ -318,8 +318,8 @@
     "asociado": "Asociado",
     "relacionAsunto": "Selecciona con qué está relacionado el asunto",
     "descripcion": "Descripción",
-    "aceptoCorreo": "Acepto ser contactado por correo",
-    "aceptoMovil": "Acepto ser contactado por WhatsApp o vía telefónica",
+    "aceptoCorreo": "Acepto ser contactado por correo.",
+    "aceptoMovil": "Acepto ser contactado por WhatsApp o vía telefónica.",
     "enviar": "Enviar solicitud"
 
   },

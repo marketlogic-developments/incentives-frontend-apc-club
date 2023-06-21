@@ -311,6 +311,21 @@
     "sParticipantesGrupo": "Selecione seus participantes para este grupo",
     "sParticipantesGrupo2": "participantes selecionados"
   },
+  "modalCustomerCare": {
+    "ayuda": "Como podemos ajudar?",
+    "infoUno": "Se você tiver algum pedido ou sugestão, compartilhe conosco,",
+    "infoDos": "nossos especialistas entrarão em contato com você o mais rápido possível ou escreva para nós em",
+    "infoTres": "info@adobepcclub.com",
+    "asunto": "Assunto",
+    "nombre": "Nome completo",
+    "asociado": "Associado",
+    "relacionAsunto": "Selecione com o que o problema está relacionado",
+    "descripcion": "Descrição",
+    "aceptoCorreo": "Aceito ser contactado por correio.",
+    "aceptoMovil": "Aceito ser contactado por WhatsApp ou por telefone.",
+    "enviar": "Enviar solicitação"
+
+  },
   "user": {
     "ajustesdeperfil": "Ajustes do perfil",
     "informaciongeneral": "Informações Gerais",
