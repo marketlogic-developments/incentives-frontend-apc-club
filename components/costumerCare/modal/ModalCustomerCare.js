@@ -54,39 +54,38 @@ const ModalCustomerCare = ({ closeModal }) => {
         <CustomIcon />
       </div>
       <div className="flex justify-center font-bold text-xl pb-3">
-        ¿Cómo podemos ayudar?
+        {t("modalCustomerCare.ayuda")}
       </div>
       <div className="text-center text-sm">
-        <p>Si tienes alguna solicitud o sugerencia compártela con nosotros,</p>
+        <p>{t("modalCustomerCare.infoUno")}</p>
         <p>
-          nuestros expertos se pondrán en contacto contigo lo más pronto posible
-          o escríbenos a
+          {t("modalCustomerCare.infoDos")}
         </p>
-        <p className="font-bold">info@adobepcclub.com</p>
+        <p className="font-bold">{t("modalCustomerCare.infoTres")}</p>
       </div>
       <div className="mt-2">
         <div className="flex justify-start font-bold pb-2 text-sm">
-          Asunto <p className="text-red-600">*</p>
+          {t("modalCustomerCare.asunto")} <p className="text-red-600">*</p>
         </div>
         <SelectInput
-          placeholder={"Nombre completo"}
+          placeholder={t("modalCustomerCare.nombre")}
           data={dataSelectOne}
           icon={<ArrowDown />}
         />
       </div>
       <div className="mt-2">
         <div className="flex justify-start font-bold pb-2 text-sm">
-          Asociado
+          {t("modalCustomerCare.asociado")}
         </div>
         <SelectInput
-          placeholder={"Selecciona con qué está relacionado el asunto"}
+          placeholder={t("modalCustomerCare.relacionAsunto")}
           data={dataSelectTwo}
           icon={<ArrowDown />}
         />
       </div>
       <div className="mt-2">
         <div className="flex justify-start font-bold pb-2 text-sm">
-          Descripcion<p className="text-red-600">*</p>
+          {t("modalCustomerCare.descripcion")}<p className="text-red-600">*</p>
         </div>
         <div className="w-full">
           <textarea
@@ -98,18 +97,18 @@ const ModalCustomerCare = ({ closeModal }) => {
       </div>
       <div className="flex justify-start items-center text-sm mb-3">
         <Checkbox className="mr-4" />
-        Acepto ser contactado por correo <p className="text-red-600">*</p>
+        {t("modalCustomerCare.aceptoCorreo")}<p className="text-red-600">*</p>
       </div>
       <div className="flex justify-start items-center text-sm mb-3">
         <Checkbox className="mr-4" />
-        Acepto ser contactado por WhatsApp o vía telefónica
+        {t("modalCustomerCare.aceptoMovil")}
       </div>
       <div className="flex justify-center">
         <button
           className="btn btn-md min-h-full bg-blue-600 hover:bg-blue-500 border-none min-w-[290px]"
           onClick={handleSubmit}
         >
-          Enviar solicitud
+          {t("modalCustomerCare.enviar")}
         </button>
       </div>
     </div>
