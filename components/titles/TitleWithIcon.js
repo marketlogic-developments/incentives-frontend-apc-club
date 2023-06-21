@@ -1,12 +1,12 @@
 import React from "react";
-import { Component } from "react";
+import { ArrowDown } from "../icons";
 
-const TitleWithIcon = ({icon = <Component />, title = 'Title'}) => {
+const TitleWithIcon = ({icon = <ArrowDown />, title = 'Title'}) => {
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 items-center">
       {icon}
       <div className="flex items-center">
-        <h1 className=" font-bold">{title}</h1>
+        <p className="font-bold text-3xl">{title}</p>
       </div>
     </div>
   );
