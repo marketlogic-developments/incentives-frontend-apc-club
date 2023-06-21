@@ -209,6 +209,10 @@ const Layout = ({ children }) => {
   //   }
   // }, [userRedux]);
 
+  const closeModal = () => {
+    setOpened(!opened);
+  };
+
   const language = (rolNum) => {
     if (rolNum === 1) {
       return i18n.changeLanguage("por");
@@ -754,7 +758,7 @@ const Layout = ({ children }) => {
   const typeModal = useMemo(() => {
     if (modal === 0) {
       /* return <ModalFormCustomer />; */
-      return <ModalCustomerCare />;
+      return <ModalCustomerCare closeModal={closeModal} />;
     }
   }, [modal, opened]);
 
@@ -887,14 +891,12 @@ const Layout = ({ children }) => {
       )}
       <Modal
         opened={opened}
-        onClose={() => setOpened(false)}
+        onClose={closeModal}
         centered
-        transitionProps={{ transition: 'rotate-left' }}
+        transitionProps={{ transition: "rotate-left" }}
         closeButtonProps={{
-          variant:"none",
+          variant: "none",
           size: "auto",
-          top:36,
-          right:44,
           children: <CloseCircle />,
         }}
         padding={0}

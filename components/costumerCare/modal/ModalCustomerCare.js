@@ -17,7 +17,7 @@ import {
 import { SelectInput } from "../../inputs";
 import { alert } from "../../alert/Alert";
 
-const ModalCustomerCare = () => {
+const ModalCustomerCare = ({ closeModal }) => {
   const [t, i18n] = useTranslation("global");
   const dataSelectOne = [
     { image: <Question />, value: "question", label: "Inquietud o pregunta" },
@@ -38,6 +38,7 @@ const ModalCustomerCare = () => {
   ];
 
   const handleSubmit = () => {
+    closeModal();
     alert({
       position: "top-end",
       icon: "success",
