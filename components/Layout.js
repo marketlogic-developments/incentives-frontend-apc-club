@@ -234,6 +234,11 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
+      page: "/comunicados/layout",
+      iconactive: "",
+      text: "Comunicados",
+    },
+    {
       page:
         userRedux.roleId === 1 ? "/digipointsall" : "/digipoints/mydigipoints",
       icon: (
@@ -761,6 +766,7 @@ const Layout = ({ children }) => {
 
             return [
               "/dashboard",
+              "/comunicados/layout",
               "/digipoints/mydigipoints",
               "/digipointsall",
               // "/promociones",
