@@ -8,6 +8,13 @@ const layout = () => {
   const fun = () => {
     console.log("Click dede layout");
   };
+
+  const dataSelectOne = [
+    { image: "", value: "promo1", label: "Promoción 1" },
+    { image: "", value: "promo2", label: "Promoción 2" },
+    { image: "", value: "promo3", label: "Promoción 3" },
+  ];
+
   return (
     <div className="grid w-full">
       <div className="flex gap-2 my-3">
@@ -49,7 +56,10 @@ const layout = () => {
             title={"Promociones"}
           />
           <div className="grid justify-items-end">
-            <SelectInput />
+          <SelectInput
+          placeholder={"Mostrar todas"}
+          data={dataSelectOne}
+        />
           </div>
         </div>
         <div>buscador</div>
