@@ -18,7 +18,7 @@ const layout = () => {
 
   return (
     <div className="grid w-full">
-      <div className="flex gap-2 my-3">
+      <div className="gap-2 my-3 sm:flex sm:justify-start grid justify-items-center">
         <ButtonBgOut
           title={"Promociones"}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
@@ -41,35 +41,37 @@ const layout = () => {
         {" "}
         BIENVENIDO A NUESTRO BOARD DE COMUNICADOS
       </div>
-      <div className="grid grid-rows-2 justify-items-center">
-        <div className="font-bold text-4xl">
+      <div className="grid justify-items-center">
+        <div className="font-bold sm:text-4xl text-xl text-center">
           Entérate de las noticias y beneficios más{" "}
         </div>
-        <div className="flex justify-start gap-3">
-          <p className="font-bold text-4xl">recientes que te brinda el </p>
-          <p className="font-bold text-4xl text-red-600"> APC Club</p>
+        <div className="font-bold sm:text-4xl text-xl text-center">
+          recientes que te brinda el
+        </div>
+        <div className="font-bold sm:text-4xl text-xl text-center text-red-600">
+          APC Club
         </div>
       </div>
-      <div className="grid grid-cols-2 justify-items-center pt-8">
+      <div className="grid sm:grid-cols-2 grid-rows-1 justify-items-center pt-8">
         <div className="grid grid-cols-2 gap-3">
           <TitleWithIcon
             icon={<Star width={40} height={40} />}
             title={"Promociones"}
           />
           <div className="grid justify-items-end items-center">
-            <SelectInput placeholder={"Mostrar todas"} data={dataSelectOne} />
+            <SelectInput placeholder={"Mostrar todas"} size={"sm"} data={dataSelectOne} />
           </div>
         </div>
-
+        <div className="grid items-center justify-items-center w-full">
           <SearchInput
             image={<SearchIcon />}
             placeHolder={"Buscar"}
-            stylesContainer={"mb-8"}
+            stylesContainer={""}
             stylesInput={
-              "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
+              "border-none pl-8 placeholder:text-sm rounded-full !w-full"
             }
           />
-
+        </div>
       </div>
       <div>5</div>
     </div>

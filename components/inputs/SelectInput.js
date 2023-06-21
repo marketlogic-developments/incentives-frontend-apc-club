@@ -29,6 +29,7 @@ const SelectInput = ({
   icon = <ArrowDown />,
   placeholder = "Pick one",
   label = "",
+  size="md",
   data = [
     { value: "react", label: "React" },
     { value: "ng", label: "Angular" },
@@ -51,7 +52,7 @@ const SelectInput = ({
       rightSection={icon}
       data={data}
       radius="md"
-      size="md"
+      size={size}
       transitionProps={{
         transition: "pop-top-left",
         duration: 80,
