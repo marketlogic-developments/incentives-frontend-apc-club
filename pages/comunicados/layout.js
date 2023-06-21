@@ -1,8 +1,9 @@
 import React from "react";
 import ButtonBgOut from "../../components/buttons/ButtonBgOut";
 import TitleWithIcon from "../../components/titles/TitleWithIcon";
-import { Star } from "../../components/icons";
+import { SearchIcon, Star } from "../../components/icons";
 import SelectInput from "../../components/inputs/SelectInput";
+import { SearchInput } from "../../components/inputs";
 
 const layout = () => {
   const fun = () => {
@@ -55,14 +56,20 @@ const layout = () => {
             icon={<Star width={40} height={40} />}
             title={"Promociones"}
           />
-          <div className="grid justify-items-end">
-          <SelectInput
-          placeholder={"Mostrar todas"}
-          data={dataSelectOne}
-        />
+          <div className="grid justify-items-end items-center">
+            <SelectInput placeholder={"Mostrar todas"} data={dataSelectOne} />
           </div>
         </div>
-        <div>buscador</div>
+
+          <SearchInput
+            image={<SearchIcon />}
+            placeHolder={"Buscar"}
+            stylesContainer={"mb-8"}
+            stylesInput={
+              "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
+            }
+          />
+
       </div>
       <div>5</div>
     </div>
