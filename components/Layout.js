@@ -416,27 +416,6 @@ const Layout = ({ children }) => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M12.375 1.6875H5.625C5.17745 1.6875 4.74822 1.86529 4.43176 2.18176C4.11529 2.49822 3.9375 2.92745 3.9375 3.375V16.3125L9 11.8125L14.0625 16.3125V3.375C14.0625 2.92745 13.8847 2.49822 13.5682 2.18176C13.2518 1.86529 12.8226 1.6875 12.375 1.6875Z"
-            stroke-width="1.125"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      ),
-      iconactive: "",
-      text: t("Reportes.reportes"),
-    },
-    {
-      page: "/reportes",
-      icon: (
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
             d="M2.25002 6.75V4.21875C2.25002 3.84579 2.39817 3.4881 2.6619 3.22438C2.92562 2.96066 3.28331 2.8125 3.65627 2.8125H6.32428C6.60194 2.81251 6.87339 2.89471 7.1044 3.04875L8.08315 3.70125C8.31417 3.85529 8.58561 3.93749 8.86327 3.9375H14.3438C14.7168 3.9375 15.0744 4.08566 15.3382 4.34938C15.6019 4.6131 15.75 4.97079 15.75 5.34375V6.75"
             stroke-width="1.0625"
             stroke-linecap="round"
@@ -783,7 +762,6 @@ const Layout = ({ children }) => {
               // "/promociones",
               "/howtowin",
               "/productos",
-              "/reportesDashboard",
             ].includes(page);
           }
           if (n === 2) {
@@ -792,7 +770,7 @@ const Layout = ({ children }) => {
                 "/organizacion",
                 "/cargaventas",
                 "/herramientas",
-                "/reportes",
+                "/reportesDashboard",
                 "/puntosporventas",
               ].includes(page);
             }
