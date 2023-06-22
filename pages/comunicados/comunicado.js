@@ -44,7 +44,7 @@ const comunicado = () => {
 
   return (
     <div className="grid w-full">
-      <div className="gap-2 my-3 sm:flex sm:justify-start grid justify-items-center">
+      <div className="gap-2 my-3 flex justify-start">
         <ButtonBgOut
           title={"Promociones"}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}

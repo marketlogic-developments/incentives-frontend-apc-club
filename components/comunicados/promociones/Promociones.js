@@ -57,6 +57,7 @@ const Promociones = ({ selectData = [], datas = [] }) => {
                   src={data.image}
                   width={320}
                   height={228}
+                  priority
                   className="object-contain rounded-md"
                 />
               </div>
