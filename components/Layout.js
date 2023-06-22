@@ -406,7 +406,7 @@ const Layout = ({ children }) => {
       text: t("menu.Productos"),
     },
     {
-      page: "/reportes",
+      page: "/reportesDashboard",
       icon: (
         <svg
           width="18"
@@ -774,7 +774,7 @@ const Layout = ({ children }) => {
                 "/organizacion",
                 "/cargaventas",
                 "/herramientas",
-                "/reportes",
+                "/reportesDashboard",
                 "/puntosporventas",
               ].includes(page);
             }
@@ -830,6 +830,10 @@ const Layout = ({ children }) => {
 
         if (location === "/howtowin") {
           return t("dashboard.htw");
+        }
+
+        if (location === "/reportes/dashboards/SalesPerformance") {
+          return t("Reportes.reportes");
         }
 
         if (location.includes("releases")) {
