@@ -4,10 +4,11 @@ import TitleWithIcon from "../../titles/TitleWithIcon";
 import { SearchIcon, Star } from "../../icons";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Promociones = ({ selectData = [], datas = [] }) => {
   const [t, i18n] = useTranslation("global");
+  const router = useRouter();
   return (
     <div>
       <div className="grid justify-items-center items-center pt-8 pb-8">
@@ -56,6 +57,7 @@ const Promociones = ({ selectData = [], datas = [] }) => {
               <div className="sm:ml-14 col-span-1 object-contain flex justify-center items-center">
                 <Image
                   src={data.image}
+                  key={index}
                   width={320}
                   height={228}
                   priority
@@ -66,20 +68,19 @@ const Promociones = ({ selectData = [], datas = [] }) => {
                 <p className="sm:text-sm text-xs">{data.publishedDate}</p>
                 <p className="font-bold sm:text-2xl text-sm">{data.title}</p>
                 <p>{data.summary}</p>
-                <Link
-                  href={{
-                    pathname: "/comunicados/Contenido",
-                    query: {
-                      data: JSON.stringify(data),
-                    },
+                <a
+                  className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs"
+                  onClick={() => {
+                    router.push({
+                        pathname: "/comunicados/Contenido",
+                        query: {
+                            data:JSON.stringify(data)
+                        }
+                    });;
                   }}
-                  as={`/comunicados/Contenido`}
-                  key={index}
                 >
-                  <a className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs">
-                    {t("comunicado.leer")}
-                  </a>
-                </Link>
+                  {t("comunicado.leer")}
+                </a>
               </div>
             </>
           ))}
