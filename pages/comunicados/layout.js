@@ -59,7 +59,11 @@ const layout = () => {
             title={"Promociones"}
           />
           <div className="grid justify-items-end items-center">
-            <SelectInput placeholder={"Mostrar todas"} size={"sm"} data={dataSelectOne} />
+            <SelectInput
+              placeholder={"Mostrar todas"}
+              size={"sm"}
+              data={dataSelectOne}
+            />
           </div>
         </div>
         <div className="grid items-center justify-items-center w-full">
@@ -73,7 +77,12 @@ const layout = () => {
           />
         </div>
       </div>
-      <div>5</div>
+      <div className="flex justify-center items-center">
+        <div className="grid grid-cols-2 gap-3">
+          <div>image</div>
+          <div>Text</div>
+        </div>
+      </div>
     </div>
   );
 };
