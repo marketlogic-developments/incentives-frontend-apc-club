@@ -3,20 +3,18 @@ import SvgPP from "./SvgPP";
 const InfoBannerPP = () => {
   const segments = [
     {
-      url: "/assets/dashboard/DC.webp",
-      text: "Document Cloud",
-      subtext: "Complete Versión  |  All Renewals",
-    },
-    {
       url: "/assets/dashboard/cc.webp",
       text: "Creative Cloud",
       subtext: "All Renewals  |  Acrobat Pro  |  Acrobat Sign",
     },
+    {
+      url: "/assets/dashboard/DC.webp",
+      text: "Document Cloud",
+      subtext: "Complete Versión  |  All Renewals",
+    },
   ];
 
   const secuency = [0, 1, 1, 0, 1, 1, 1, 1];
-
-  console.log(secuency);
 
   return (
     <div className="flex flex-col gap-3">
