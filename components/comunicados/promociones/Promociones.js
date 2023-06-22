@@ -2,34 +2,35 @@ import React from "react";
 import { SearchInput, SelectInput } from "../../inputs";
 import TitleWithIcon from "../../titles/TitleWithIcon";
 import { SearchIcon, Star } from "../../icons";
+import { useTranslation } from "react-i18next";
 
 const Promociones = ({selectData = []}) => {
+    const [t, i18n] = useTranslation("global");
   return (
     <div>
       <div className="grid justify-items-center items-center pt-8 pb-8">
-        {" "}
-        BIENVENIDO A NUESTRO BOARD DE COMUNICADOS
+        {t("comunicado.bienvenida")}
       </div>
       <div className="grid justify-items-center">
         <div className="font-bold sm:text-4xl text-xl text-center">
-          Entérate de las noticias y beneficios más{" "}
+            {t("comunicado.tituloPartUno")}
         </div>
         <div className="font-bold sm:text-4xl text-xl text-center">
-          recientes que te brinda el
+          {t("comunicado.tituloPartDos")}
         </div>
         <div className="font-bold sm:text-4xl text-xl text-center text-red-600">
-          APC Club
+          {t("comunicado.tituloPartTres")}
         </div>
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 justify-items-center pt-8">
         <div className="grid grid-cols-2 gap-3">
           <TitleWithIcon
             icon={<Star width={40} height={40} />}
-            title={"Promociones"}
+            title={t("comunicado.promocion")}
           />
           <div className="grid justify-items-end items-center">
             <SelectInput
-              placeholder={"Mostrar todas"}
+              placeholder={t("comunicado.mostrar")}
               size={"sm"}
               data={selectData}
             />
@@ -38,7 +39,7 @@ const Promociones = ({selectData = []}) => {
         <div className="grid items-center justify-items-center w-full">
           <SearchInput
             image={<SearchIcon />}
-            placeHolder={"Buscar"}
+            placeHolder={t("comunicado.buscar")}
             stylesContainer={""}
             stylesInput={
               "border-none pl-8 placeholder:text-sm rounded-full !w-full"
@@ -68,7 +69,7 @@ const Promociones = ({selectData = []}) => {
               puedas redimir tus premios en los establecimientos afiliados.
             </p>
             <a className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs">
-              Leer más
+              {t("comunicado.leer")}
             </a>
           </div>
         </div>
