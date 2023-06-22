@@ -9,6 +9,25 @@ const comunicado = () => {
     console.log("Click dede layout");
   };
 
+  const exampleDataPromociones = [
+    {
+      image:"/assets/dashboard/banners/prom.webp",
+      publishedDate: "Publicado el 24 de mayo 2023 a las 14:00 horas.",
+      title: "¿Sabes cómo llegan los DigiPoints a tu cuenta?",
+      summary:
+        "Obtener y redimir tus DigiPoints es muy fácil. Te mostramos cómoes el proceso y la forma en la que llegan a tu cuenta para que puedas redimir tus premios en los establecimientos afiliados.",
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ",
+    },
+    {
+      image:"/assets/dashboard/banners/prom.webp",
+      publishedDate: "Publicado el 24 de mayo 2023 a las 14:00 horas.",
+      title: "¡Tus DigiPoints valen doble en Junio 2023!",
+      summary:
+        "Obtener y redimir tus DigiPoints es muy fácil. Te mostramos cómo es el proceso y la forma en la que llegan a tu cuenta para que puedas redimir tus premios en los establecimientos afiliados.",
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ",
+    },
+  ];
+
   const dataSelectOne = [
     { image: "", value: "promo1", label: "Promoción 1" },
     { image: "", value: "promo2", label: "Promoción 2" },
@@ -42,7 +61,12 @@ const comunicado = () => {
       {(() => {
         switch (content) {
           case "Promociones":
-            return <Promociones />;
+            return (
+              <Promociones
+                selectData={dataSelectOne}
+                datas={exampleDataPromociones}
+              />
+            );
           case "Market place":
             return <Star />;
           case "Novedades":

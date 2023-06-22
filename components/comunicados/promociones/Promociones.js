@@ -4,8 +4,8 @@ import TitleWithIcon from "../../titles/TitleWithIcon";
 import { SearchIcon, Star } from "../../icons";
 import { useTranslation } from "react-i18next";
 
-const Promociones = ({selectData = []}) => {
-    const [t, i18n] = useTranslation("global");
+const Promociones = ({ selectData = [], datas = [] }) => {
+  const [t, i18n] = useTranslation("global");
   return (
     <div>
       <div className="grid justify-items-center items-center pt-8 pb-8">
@@ -13,7 +13,7 @@ const Promociones = ({selectData = []}) => {
       </div>
       <div className="grid justify-items-center">
         <div className="font-bold sm:text-4xl text-xl text-center">
-            {t("comunicado.tituloPartUno")}
+          {t("comunicado.tituloPartUno")}
         </div>
         <div className="font-bold sm:text-4xl text-xl text-center">
           {t("comunicado.tituloPartDos")}
@@ -49,29 +49,25 @@ const Promociones = ({selectData = []}) => {
       </div>
       <div className="flex justify-center items-center pt-10">
         <div className="grid grid-cols-3 gap-3 gap-y-6">
-          <div className="sm:ml-14 col-span-1 object-contain flex justify-center items-center">
-            <img
-              src="/assets/dashboard/banners/prom.webp"
-              className="object-contain rounded-md"
-              alt=""
-            />
-          </div>
-          <div className="grid col-span-2 justify-items-start sm:pr-56 md:pr-3 pr-3">
-            <p className="sm:text-sm text-xs">
-              Publicado el 24 de mayo 2023 a las 14:00 horas.
-            </p>
-            <p className="font-bold sm:text-2xl text-sm">
-              ¿Sabes cómo llegan los DigiPoints a tu cuenta?
-            </p>
-            <p>
-              Obtener y redimir tus DigiPoints es muy fácil. Te mostramos cómo
-              es el proceso y la forma en la que llegan a tu cuenta para que
-              puedas redimir tus premios en los establecimientos afiliados.
-            </p>
-            <a className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs">
-              {t("comunicado.leer")}
-            </a>
-          </div>
+          {datas.map((data) => (
+            <>
+              <div className="sm:ml-14 col-span-1 object-contain flex justify-center items-center">
+                <img
+                  src={data.image}
+                  className="object-contain rounded-md"
+                  alt=""
+                />
+              </div>
+              <div className="grid col-span-2 justify-items-start sm:pr-56 md:pr-3 pr-3">
+                <p className="sm:text-sm text-xs">{data.publishedDate}</p>
+                <p className="font-bold sm:text-2xl text-sm">{data.title}</p>
+                <p>{data.summary}</p>
+                <a className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs">
+                  {t("comunicado.leer")}
+                </a>
+              </div>
+            </>
+          ))}
         </div>
       </div>
     </div>
