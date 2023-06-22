@@ -4,6 +4,7 @@ import TitleWithIcon from "../../titles/TitleWithIcon";
 import { SearchIcon, Star } from "../../icons";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
+import Link from "next/link";
 
 const Promociones = ({ selectData = [], datas = [] }) => {
   const [t, i18n] = useTranslation("global");
@@ -65,14 +66,20 @@ const Promociones = ({ selectData = [], datas = [] }) => {
                 <p className="sm:text-sm text-xs">{data.publishedDate}</p>
                 <p className="font-bold sm:text-2xl text-sm">{data.title}</p>
                 <p>{data.summary}</p>
-                <a
-                  className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs"
-                  onClick={() => {
-                    console.log(index);
+                <Link
+                  href={{
+                    pathname: "/comunicados/Contenido",
+                    query: {
+                      data: JSON.stringify(data),
+                    },
                   }}
+                  as={`/comunicados/Contenido`}
+                  key={index}
                 >
-                  {t("comunicado.leer")}
-                </a>
+                  <a className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs">
+                    {t("comunicado.leer")}
+                  </a>
+                </Link>
               </div>
             </>
           ))}
