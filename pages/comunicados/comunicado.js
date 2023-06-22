@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import ButtonBgOut from "../../components/buttons/ButtonBgOut";
-import TitleWithIcon from "../../components/titles/TitleWithIcon";
+import { Promociones } from "../../components/comunicados";
 import { SearchIcon, Star } from "../../components/icons";
-import SelectInput from "../../components/inputs/SelectInput";
-import { SearchInput } from "../../components/inputs";
 
 const comunicado = () => {
+  const [content, setContent] = useState("Promociones");
   const fun = () => {
     console.log("Click dede layout");
   };
@@ -22,66 +21,38 @@ const comunicado = () => {
         <ButtonBgOut
           title={"Promociones"}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          onClick={fun}
+          onClick={() => setContent("Promociones")}
         />
         <ButtonBgOut
           title={"Market place"}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
+          onClick={() => setContent("Market place")}
         />
         <ButtonBgOut
           title={"Novedades"}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
+          onClick={() => setContent("Novedades")}
         />
         <ButtonBgOut
           title={"Eventos"}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
+          onClick={() => setContent("Eventos")}
         />
       </div>
-      <div className="grid justify-items-center items-center pt-8 pb-8">
-        {" "}
-        BIENVENIDO A NUESTRO BOARD DE COMUNICADOS
-      </div>
-      <div className="grid justify-items-center">
-        <div className="font-bold sm:text-4xl text-xl text-center">
-          Entérate de las noticias y beneficios más{" "}
-        </div>
-        <div className="font-bold sm:text-4xl text-xl text-center">
-          recientes que te brinda el
-        </div>
-        <div className="font-bold sm:text-4xl text-xl text-center text-red-600">
-          APC Club
-        </div>
-      </div>
-      <div className="grid sm:grid-cols-2 grid-rows-1 justify-items-center pt-8">
-        <div className="grid grid-cols-2 gap-3">
-          <TitleWithIcon
-            icon={<Star width={40} height={40} />}
-            title={"Promociones"}
-          />
-          <div className="grid justify-items-end items-center">
-            <SelectInput
-              placeholder={"Mostrar todas"}
-              size={"sm"}
-              data={dataSelectOne}
-            />
-          </div>
-        </div>
-        <div className="grid items-center justify-items-center w-full">
-          <SearchInput
-            image={<SearchIcon />}
-            placeHolder={"Buscar"}
-            stylesContainer={""}
-            stylesInput={
-              "border-none pl-8 placeholder:text-sm rounded-full !w-full"
-            }
-          />
-        </div>
-      </div>
-      <div className="flex justify-center items-center pt-10">
-        <div className="grid grid-cols-3 gap-3 gap-y-6">
-          
-        </div>
-      </div>
+      {(() => {
+        switch (content) {
+          case "Promociones":
+            return <Promociones />;
+          case "Market place":
+            return <Star />;
+          case "Novedades":
+            return <SearchIcon />;
+          case "Eventos":
+            return <Star />;
+          default:
+            return <Promociones />;
+        }
+      })()}
     </div>
   );
 };
