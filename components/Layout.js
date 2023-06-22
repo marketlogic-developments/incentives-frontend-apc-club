@@ -234,7 +234,7 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/comunicados/layout",
+      page: "/comunicados/comunicado",
       iconactive: "",
       text: "Comunicados",
     },
@@ -766,7 +766,7 @@ const Layout = ({ children }) => {
 
             return [
               "/dashboard",
-              "/comunicados/layout",
+              "/comunicados/comunicado",
               "/digipoints/mydigipoints",
               "/digipointsall",
               // "/promociones",
