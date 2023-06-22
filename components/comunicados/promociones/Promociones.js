@@ -3,6 +3,7 @@ import { SearchInput, SelectInput } from "../../inputs";
 import TitleWithIcon from "../../titles/TitleWithIcon";
 import { SearchIcon, Star } from "../../icons";
 import { useTranslation } from "react-i18next";
+import Image from "next/image";
 
 const Promociones = ({ selectData = [], datas = [] }) => {
   const [t, i18n] = useTranslation("global");
@@ -47,22 +48,28 @@ const Promociones = ({ selectData = [], datas = [] }) => {
           />
         </div>
       </div>
-      <div className="flex justify-center items-center pt-10">
+      <div className="flex justify-center items-center pt-10 pb-10">
         <div className="grid grid-cols-3 gap-3 gap-y-6">
-          {datas.map((data) => (
+          {datas.map((data, index) => (
             <>
               <div className="sm:ml-14 col-span-1 object-contain flex justify-center items-center">
-                <img
+                <Image
                   src={data.image}
+                  width={320}
+                  height={228}
                   className="object-contain rounded-md"
-                  alt=""
                 />
               </div>
               <div className="grid col-span-2 justify-items-start sm:pr-56 md:pr-3 pr-3">
                 <p className="sm:text-sm text-xs">{data.publishedDate}</p>
                 <p className="font-bold sm:text-2xl text-sm">{data.title}</p>
                 <p>{data.summary}</p>
-                <a className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs">
+                <a
+                  className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs"
+                  onClick={() => {
+                    console.log(index);
+                  }}
+                >
                   {t("comunicado.leer")}
                 </a>
               </div>
