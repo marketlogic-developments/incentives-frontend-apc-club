@@ -29,13 +29,15 @@ const Contenido = () => {
         </div>
         <div className="grid grid-cols-5 gap-10">
           <div className="grid col-span-1 !items-center !justify-items-center">
-            <Image
-              src={dataContent.leftImage}
-              width={229}
-              height={247}
-              priority
-              className="rounded-md"
-            />
+            {dataContent.leftImage !== "" && (
+              <Image
+                src={dataContent.leftImage}
+                width={248}
+                height={256}
+                priority
+                className="rounded-md"
+              />
+            )}
           </div>
           {example.map((item, index) => (
             <div className="col-span-3" key={index}>
@@ -59,18 +61,22 @@ const Contenido = () => {
                 </div>
               ))}
               <div className="grid justify-items-center py-10">
-                <h3 className="font-bold text-center">{dataContent.articleEnd}</h3>
+                <h3 className="font-bold text-center">
+                  {dataContent.articleEnd}
+                </h3>
               </div>
             </div>
           ))}
           <div className="grid col-span-1 !items-center !justify-items-center ">
-            <Image
-              src={dataContent.rightImage}
-              width={229}
-              height={247}
-              priority
-              className="rounded-md"
-            />
+            {dataContent.rigthImage !== "" && (
+              <Image
+                src={dataContent.rightImage}
+                width={229}
+                height={247}
+                priority
+                className="rounded-md"
+              />
+            )}
           </div>
         </div>
       </div>
