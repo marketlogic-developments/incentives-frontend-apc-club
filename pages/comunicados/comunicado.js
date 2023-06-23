@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ButtonBgOut from "../../components/buttons/ButtonBgOut";
-import { MarkertPlace, Promociones } from "../../components/comunicados";
-import { SearchIcon, Star } from "../../components/icons";
+import { MarkertPlace, Novedad, Promociones } from "../../components/comunicados";
+import { Star } from "../../components/icons";
 import { exampleDataPromociones as data } from "../../components/example/dataComunicado";
 
 const comunicado = () => {
@@ -51,7 +51,7 @@ const comunicado = () => {
           case "Market place":
             return <MarkertPlace />;
           case "Novedades":
-            return <SearchIcon />;
+            return <Novedad />;
           case "Eventos":
             return <Star />;
           default:
