@@ -82,6 +82,8 @@ const ImportacionPremios = () => {
         return Toast.fire({
           icon: "success",
           title: `Se han creado ${values.length} Premios`,
+          background: "#000000",
+          color: "#fff",
         });
       })
       .catch((error) => {
@@ -89,6 +91,8 @@ const ImportacionPremios = () => {
         return Toast.fire({
           icon: "error",
           title: "No se pudieron subir los premios",
+          background: "#000000",
+          color: "#fff",
         });
       })
       .finally(() => {

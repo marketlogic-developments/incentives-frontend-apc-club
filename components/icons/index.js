@@ -1,3 +1,4 @@
+
 export { default as HeadSetOuline } from "./menu/HeadSetOuline";
 export { default as CustomIcon } from "./Reportes/CustomIcon";
 export { default as CloseCircle } from "./modal/CloseCircle";
@@ -11,3 +12,4 @@ export { default as ArrowRedo } from "./modal/ArrowRedo";
 export { default as Pricetag } from "./modal/Pricetag";
 export { default as Laptop } from "./modal/Laptop";
 export { default as ArrowDown } from "./Reportes/ArrowDown";
+

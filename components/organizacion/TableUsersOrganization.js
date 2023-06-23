@@ -111,6 +111,8 @@ const TableUsersOrganization = () => {
           return Toast.fire({
             icon: "success",
             title: "El usuario ha sido desactivado",
+            background: "#000000",
+            color: "#fff",
           });
         });
     }
@@ -133,6 +135,8 @@ const TableUsersOrganization = () => {
           return Toast.fire({
             icon: "success",
             title: "El usuario ha sido activado",
+            background: "#000000",
+            color: "#fff",
           });
         });
     }
@@ -165,13 +169,13 @@ const TableUsersOrganization = () => {
       </div>
       <div className="w-full">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left text-black-500 table-fixed tableJustify">
+          <table className="w-full text-sm text-left text-black-500 tableJustify overflow-hidden rounded-md">
             <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
               <th scope="col" className="py-5 px-6">
                 {t("tabla.nombre")}
               </th>
               <th scope="col" className="py-5 px-6">
-                {t("tabla.nombre")}
+                {t("tabla.region")}
               </th>
               {company?.country && (
                 <th scope="col" className="py-5 px-6">
@@ -182,7 +186,10 @@ const TableUsersOrganization = () => {
                 Email
               </th>
               <th scope="col" className="py-5 !pl-10">
-                Cargo
+                Rol
+              </th>
+              <th scope="col" className="py-5 px-6">
+                Estado
               </th>
               <th scope="col" className="py-5 px-6"></th>
             </thead>
@@ -218,6 +225,9 @@ const TableUsersOrganization = () => {
                         : item.role_id === 3
                         ? "Partner Admin"
                         : item.role_id === 5 && "Sales Rep"}
+                    </td>
+                    <td className="py-3 px-6">
+                      {item.status_id === 4 ? "Activo" : "Inactivo"}
                     </td>
                     <td>
                       <Menu position="bottom-end">

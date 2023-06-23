@@ -129,7 +129,8 @@
   "organizacion": {
     "redenciones": "Redenciones",
     "info": "Información",
-    "organizacion": "Organización"
+    "organizacion": "Organización",
+    "organizaciones": "Organizaciones"
   },
   "cargaventas": {
     "cargar": "Cargar puntos",
@@ -367,10 +368,60 @@
     "pathTableCanal": "assets/htw/tablaHTW.webp",
     "pathTableDist": "assets/htw/tablaHTWDist.webp",
     "pathBanner": "assets/htw/bannerHTWsection.webp",
-    "copyTextFooter": "¡Vende, Gana y Redime!"
+    "copyTextFooter": "¡Vende, Gana y Redime!",
+    "title": "¿Cómo ganar con el <br /> Adobe Partner Connection Club?",
+    "secondTitle": "Acumula más DigiPoints migrando, <br /> renovando y vendiendo a través de Marketplace",
+    "phraseSecondTitle": "Ahora todas las ventas de Creative Cloud y Document Cloud, tanto en renovaciones como nuevos negocios, <br /> ganan por igual en Marketplace.",
+    "digipoints1000-1": "DigiPoints por cada USD 1,000 FCB",
+    "digipoints1000-2": "en ventas en productos participantes",
+    "renovaciones": "Renovaciones",
+    "nuevosn": "Nuevos negocios",
+    "l1": "Licencias Acrobat Pro",
+    "l2": "Transacciones de Acrobat Sign",
+    "l3": "Licencias de Teams",
+    "l4": "Licencias SDL/Named",
+    "l5": "Licencias SLP"
   },
   "releases": {
     "vip": "¿Por qué utilizar VIP Marketplace?",
     "htw": "Cónoce como ganar"
+  },
+  "Reportes" : {
+    "reportes": "Reportes",
+    "sales_performance": "Sales performance",
+    "digiPoints_performance": "DigiPoints performance",
+    "user_performance": "User performance",
+    "incentive_points_allocation": "Incentive points allocation",
+    "digiPoints_redemption_request": "DigiPoints redemption request",
+    "custom_care": "Custom care",
+    "registration_performance": "Registration performance",
+    "follow_up": "Follow up",
+    "usuarios": "Usuarios",
+    "tipos_usuarios": "Tipos de usuario",
+    "anios": "Años",
+    "filtrar": "Filtrar",
+    "limpiar_filtros": "Limpiar Filtros",
+    "metas_vs_cumplimiento": "Metas vrs. cumplimiento",
+    "digiponits": "DigiPoints",
+    "periodo": "Período",
+    "descargar": "Descargar",
+    "buscar": "Buscar",
+    "compania": "Compañía",
+    "region": "Región",
+    "pais": "País",
+    "membership_Id": "Membership ID",
+    "tipo": "Tipo",
+    "nivel": "Nivel",
+    "status": "Status",
+    "registrado": "Registrado",
+    "cc_Renewal": "CC Renewal (USD)",
+    "cc_New_business": "CC New business (USD)",
+    "dc_Renewal": "DC Renewal (USD)",
+    "ventas_mensuales": "Ventas mensuales",
+    "ingresos_esperados": "Ingresos esperados",
+    "ingreso_actual": "Ingreso actual",
+    "dp_cargados_mensualmente": "DigiPoints cargados mensualmente",
+    "inactivo": "Inactivo",
+    "activo": "Activo"
   }
 }

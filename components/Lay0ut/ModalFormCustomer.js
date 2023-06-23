@@ -60,6 +60,8 @@ const ModalFormCustomer = () => {
         return Toast.fire({
           icon: "success",
           title: t("notifications.ticketZoho"),
+          background: "#000000",
+          color: "#fff",
         });
       });
   };

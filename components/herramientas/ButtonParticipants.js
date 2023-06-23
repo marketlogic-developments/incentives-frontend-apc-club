@@ -119,6 +119,8 @@ const ButtonParticipants = () => {
     return Toast.fire({
       icon: "success",
       title: "Usuario agregado con éxito",
+      background: "#000000",
+      color: "#fff",
     });
   };
 

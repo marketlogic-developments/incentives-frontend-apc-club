@@ -173,12 +173,16 @@ const ModalUsers = ({ userDataToModal, token }) => {
         return Toast.fire({
           icon: "success",
           title: "Usuario actualizado",
+          background: "#000000",
+          color: "#fff",
         });
       })
       .catch(() => {
         return Toast.fire({
           icon: "error",
           title: "El usuario no pudo ser actualizado",
+          background: "#000000",
+          color: "#fff",
         });
       });
   };
@@ -203,12 +207,16 @@ const ModalUsers = ({ userDataToModal, token }) => {
         return Toast.fire({
           icon: "success",
           title: "Contraseña de usuario actualizado",
+          background: "#000000",
+          color: "#fff",
         });
       })
       .catch(() => {
         return Toast.fire({
           icon: "error",
           title: "El usuario no pudo ser actualizado",
+          background: "#000000",
+          color: "#fff",
         });
       });
   };

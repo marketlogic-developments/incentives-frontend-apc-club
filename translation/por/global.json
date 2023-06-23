@@ -129,7 +129,8 @@
   "organizacion": {
     "redenciones": "Resgates",
     "info": "Informações",
-    "organizacion": "Organização"
+    "organizacion": "Organização",
+    "organizaciones": "Organizações"
   },
   "cargaventas": {
     "asignar": "Atribuir pontos",
@@ -370,10 +371,60 @@
     "pathTableCanal": "assets/htw/tablaHTWCanalesPor.webp",
     "pathTableDist": "assets/htw/tablaHTWDistPor.webp",
     "pathBanner": "/assets/htw/bannerHTWsectionPor.webp",
-    "copyTextFooter": "Venda, Ganhe e Resgate!"
+    "copyTextFooter": "Venda, Ganhe e Resgate!",
+    "title": "Como ganhar com o <br /> Adobe Partner Connection Club?",
+    "secondTitle": "Acumule mais DigiPoints migrando, <br /> renovando e vendendo através do Marketplace",
+    "phraseSecondTitle": "Agora todas as vendas do Creative Cloud e Document Cloud, tanto em renovações quanto em novos negócios, <br /> ganham igualmente no Marketplace.",
+    "digipoints1000-1": "DigiPoints a cada USD 1,000 FCB",
+    "digipoints1000-2": "em vendas de produtos participantes",
+    "renovaciones": "Renovações",
+    "nuevosn": "Novos negócios",
+    "l1": "Licenças do Acrobat Pro",
+    "l2": "Transações do Acrobat Sign",
+    "l3": "Licenças do Teams",
+    "l4": "Licenças SDL/Named",
+    "l5": "Licenças SLP"
   },
   "releases": {
     "vip": "Por que usar o VIP Marketplace?",
     "htw": "Saiba como ganhar"
+  },
+  "Reportes" : {
+    "reportes": "Relatórios",
+    "sales_performance": "Sales performance",
+    "digiPoints_performance": "DigiPoints performance",
+    "user_performance": "User performance",
+    "incentive_points_allocation": "Incentive points allocation",
+    "digiPoints_redemption_request": "DigiPoints redemption request",
+    "custom_care": "Custom care",
+    "registration_performance": "Registration performance",
+    "follow_up": "Follow up",
+    "usuarios": "Usuários",
+    "tipos_usuarios": "Tipos de usuário",
+    "anios": "preguntar",
+    "filtrar": "Filtro",
+    "limpiar_filtros": "Limpar Filtros",
+    "metas_vs_cumplimiento": "metas vrs. conformidade",
+    "digiponits": "DigiPoints",
+    "periodo": "Período",
+    "descargar": "Baixar",
+    "buscar": "Busca",
+    "compania": "Empresa",
+    "region": "Região",
+    "pais": "País",
+    "membership_Id": "Membership ID",
+    "tipo": "Tipo",
+    "nivel": "Nível",
+    "status": "Status",
+    "registrado": "Registrado",
+    "cc_Renewal": "CC Renewal (USD)",
+    "cc_New_business": "CC New business (USD)",
+    "dc_Renewal": "DC Renewal (USD)",
+    "ventas_mensuales": "Vendas mensais",
+    "ingresos_esperados": "Renda esperada",
+    "ingreso_actual": "Renda atual",
+    "dp_cargados_mensualmente": "DigiPoints cobrados mensalmente",
+    "inactivo": "parado",
+    "activo": "Ativo"
   }
 }

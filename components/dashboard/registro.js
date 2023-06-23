@@ -56,6 +56,8 @@ const Registro = ({ close, register }) => {
         return Toast.fire({
           icon: "success",
           title: t("login.doneregister"),
+          background: "#000000",
+          color: "#fff",
         });
       })
       .catch((error) => {
@@ -74,6 +76,8 @@ const Registro = ({ close, register }) => {
         return Toast.fire({
           icon: "error",
           title: t("login.notregister"),
+          background: "#000000",
+          color: "#fff",
         });
       });
   };
