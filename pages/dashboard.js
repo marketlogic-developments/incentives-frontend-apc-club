@@ -22,6 +22,8 @@ import TableStats from "../components/dashboard/TableStats";
 import BannerColombia from "../components/dashboard/BannerColombia";
 import CarouselBanners from "../components/dashboard/carouselBanners";
 import TableTopsRanking from "../components/dashboard/TableTopsRanking";
+import LicenseChart from "../components/dashboard/LicenseChart";
+import { CardChart } from "../components";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
@@ -343,6 +345,9 @@ const dashboard = () => {
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
             <GraphSales />
+            <CardChart title={"Licencias"} paragraph="">
+              <LicenseChart />
+            </CardChart>
             <TableTopsRanking />
           </div>
         </div>
