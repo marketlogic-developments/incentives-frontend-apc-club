@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ButtonBgOut from "../../components/buttons/ButtonBgOut";
-import { Promociones } from "../../components/comunicados";
+import { MarkertPlace, Promociones } from "../../components/comunicados";
 import { SearchIcon, Star } from "../../components/icons";
 import { exampleDataPromociones as data } from "../../components/example/dataComunicado";
 
@@ -49,7 +49,7 @@ const comunicado = () => {
               />
             );
           case "Market place":
-            return <Star />;
+            return <MarkertPlace />;
           case "Novedades":
             return <SearchIcon />;
           case "Eventos":
