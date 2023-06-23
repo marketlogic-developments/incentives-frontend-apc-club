@@ -11,19 +11,31 @@ const comunicado = () => {
 
   const exampleDataPromociones = [
     {
-      example: [
+      paragraph: [
         {
-          id: "5",
-          name: "frank",
-          description: "example",
+          paragraph: "Aquí te contamos todo lo que deberías saber:",
+          isBold: true,
+          isList: true,
+          paragraphList: [
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ",
+            "Lorem sum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ",
+            "Lorem ipsum lor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ",
+          ],
         },
         {
-          id: "1",
-          name: "seas",
-          description: "example",
+          paragraph: "Otro ejemplo de párrafo:",
+          isBold: false,
+          isList: false,
+          paragraphList: [
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ",
+            "Lore ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ",
+            "Lorem psum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ",
+          ],
         },
       ],
       image: "/assets/dashboard/banners/laptop.jpg",
+      rightImage: "/assets/dashboard/banners/trofi.jpg",
+      leftImage: "/assets/dashboard/banners/laptop.jpg",
       publishedDate: "Publicado el 24 de mayo 2023 a las 14:00 horas.",
       title: "¿Sabes cómo llegan los DigiPoints a tu cuenta?",
       subtitle:
@@ -31,6 +43,8 @@ const comunicado = () => {
       summary:
         "Obtener y redimir tus DigiPoints es muy fácil. Te mostramos cómo es el proceso y la forma en la que llegan a tu cuenta para que puedas redimir tus premios en los establecimientos afiliados.",
       body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ",
+      articleEnd:
+        "Ahora que lo sabes, sigue mejorando tus ventas, acumula más DigiPoints y cámbialos por grandiosos beneficios.",
     },
     {
       image: "/assets/dashboard/logoapc.webp",
