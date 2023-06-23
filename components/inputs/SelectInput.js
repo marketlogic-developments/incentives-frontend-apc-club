@@ -10,7 +10,7 @@ import { ArrowDown } from "../icons";
 const SelectItem = ({ image, label, description, ...others }) => (
   <div {...others}>
     <Group noWrap>
-      {image ? image : ''}
+      {image ? image : ""}
       <div>
         <Text size="sm">{label}</Text>
       </div>
@@ -41,6 +41,8 @@ const SelectInput = ({
   bgColorDataHover = "#FFEEED",
   colorDataHover = "#EB1000",
   borderRadiusDataHover = "30px",
+  onChange,
+  name,
 }) => {
   return (
     <Select
@@ -78,6 +80,7 @@ const SelectInput = ({
           },
         },
       })}
+      onChange={(info) => onChange(name, info)}
     />
   );
 };
