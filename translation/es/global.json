@@ -57,7 +57,8 @@
     "vercatalogo": "Ver catálogo de premios",
     "admin": "Administración",
     "redenciones": "Redenciones",
-    "reglas": "Reglas"
+    "reglas": "Reglas",
+    "customer_care": "Customer Care"
   },
   "dashboard": {
     "Inicio": "Inicio",
@@ -307,6 +308,21 @@
     "cancelar": "Cancelar",
     "sParticipantesGrupo": "Selecciona tus participantes para este grupo",
     "sParticipantesGrupo2": "participantes seleccionados"
+  },
+  "modalCustomerCare": {
+    "ayuda": "¿Cómo podemos ayudar?",
+    "infoUno": "Si tienes alguna solicitud o sugerencia compártela con nosotros,",
+    "infoDos": "nuestros expertos se pondrán en contacto contigo lo más pronto posible o escríbenos a",
+    "infoTres": "info@adobepcclub.com",
+    "asunto": "Asunto",
+    "nombre": "Nombre completo",
+    "asociado": "Asociado",
+    "relacionAsunto": "Selecciona con qué está relacionado el asunto",
+    "descripcion": "Descripción",
+    "aceptoCorreo": "Acepto ser contactado por correo.",
+    "aceptoMovil": "Acepto ser contactado por WhatsApp o vía telefónica.",
+    "enviar": "Enviar solicitud"
+
   },
   "user": {
     "ajustesdeperfil": "Ajustes de perfil",
