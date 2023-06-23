@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import ButtonBgOut from "../../components/buttons/ButtonBgOut";
-import { Evento, MarkertPlace, Novedad, Promociones } from "../../components/comunicados";
-import { Star } from "../../components/icons";
+import {
+  Evento,
+  MarkertPlace,
+  Novedad,
+  Promociones,
+} from "../../components/comunicados";
 import { exampleDataPromociones as data } from "../../components/example/dataComunicado";
+import { useTranslation } from "react-i18next";
 
 const comunicado = () => {
   const [content, setContent] = useState("Promociones");
@@ -14,45 +19,45 @@ const comunicado = () => {
     { image: "", value: "promo2", label: "Promoción 2" },
     { image: "", value: "promo3", label: "Promoción 3" },
   ];
-
+  const [t, i18n] = useTranslation("global");
   return (
     <div className="grid w-full">
       <div className="gap-2 my-3 flex justify-start">
         <ButtonBgOut
-          title={"Promociones"}
+          title={t("comunicado.promocion")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          onClick={() => setContent("Promociones")}
+          onClick={() => setContent(t("comunicado.promocion"))}
         />
         <ButtonBgOut
-          title={"Market place"}
+          title={t("comunicado.marketPlace")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          onClick={() => setContent("Market place")}
+          onClick={() => setContent(t("comunicado.marketPlace"))}
         />
         <ButtonBgOut
-          title={"Novedades"}
+          title={t("comunicado.novedad")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          onClick={() => setContent("Novedades")}
+          onClick={() => setContent(t("comunicado.novedad"))}
         />
         <ButtonBgOut
-          title={"Eventos"}
+          title={t("comunicado.evento")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          onClick={() => setContent("Eventos")}
+          onClick={() => setContent(t("comunicado.evento"))}
         />
       </div>
       {(() => {
         switch (content) {
-          case "Promociones":
+          case t("comunicado.promocion"):
             return (
               <Promociones
                 selectData={dataSelectOne}
                 datas={exampleDataPromociones}
               />
             );
-          case "Market place":
+          case t("comunicado.marketPlace"):
             return <MarkertPlace />;
-          case "Novedades":
+          case t("comunicado.novedad"):
             return <Novedad />;
-          case "Eventos":
+          case t("comunicado.evento"):
             return <Evento />;
           default:
             return <Promociones />;
