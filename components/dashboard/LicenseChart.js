@@ -1,7 +1,17 @@
 import React from "react";
 import ReactEcharts from "echarts-for-react";
 
-const LicenseChart = () => {
+const LicenseChart = ({
+  dataLeyend = [],
+  dataX = [],
+  dataOne = [],
+  dataTwo = [],
+  dataThree = [],
+  dataFour = [],
+  dataFive = [],
+  dataSix = [],
+  colorsLine = []
+}) => {
   const option = {
     title: {
       text: "",
@@ -10,14 +20,7 @@ const LicenseChart = () => {
       trigger: "axis",
     },
     legend: {
-      data: [
-        "Teams",
-        "Enterprise",
-        "Education",
-        "Acrobat Pro",
-        "DC Enterprise",
-        "DC Education",
-      ],
+      data: dataLeyend,
       icon: "circle",
       orient: "horizontal",
       right: "10",
@@ -33,53 +36,53 @@ const LicenseChart = () => {
     xAxis: {
       type: "category",
       boundaryGap: false,
-      data: [0, 1, 2, 3, 4, 5],
+      data: dataX,
     },
     yAxis: {
       type: "value",
     },
     series: [
       {
-        color: "black",
-        name: "Teams",
+        color: colorsLine[0],
+        name: dataLeyend[0],
         type: "line",
         stack: "Total",
-        data: [120, 132, 101, 134, 90, 230, 210],
+        data: dataOne,
       },
       {
-        color: "blue",
-        name: "Enterprise",
+        color: colorsLine[1],
+        name: dataLeyend[1],
         type: "line",
         stack: "Total",
-        data: [220, 182, 191, 234, 290, 330, 310],
+        data: dataTwo,
       },
       {
-        color: "green",
-        name: "Education",
+        color: colorsLine[2],
+        name: dataLeyend[2],
         type: "line",
         stack: "Total",
-        data: [150, 232, 201, 154, 190, 330, 410],
+        data: dataThree,
       },
       {
-        color: "red",
-        name: "Acrobat Pro",
+        color: colorsLine[3],
+        name: dataLeyend[3],
         type: "line",
         stack: "Total",
-        data: [320, 332, 301, 334, 390, 330, 320],
+        data: dataFour,
       },
       {
-        color: "orange",
-        name: "DC Enterprise",
+        color: colorsLine[4],
+        name: dataLeyend[4],
         type: "line",
         stack: "Total",
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        data: dataFive,
       },
       {
-        color: "pink",
-        name: "DC Education",
+        color: colorsLine[5],
+        name: dataLeyend[5],
         type: "line",
         stack: "Total",
-        data: [830, 832, 101, 234, 1190, 1230, 1340],
+        data: dataSix,
       },
     ],
   };
