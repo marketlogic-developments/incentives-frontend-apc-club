@@ -34,6 +34,7 @@ import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
 import UserOptions from "./Lay0ut/UserOptions";
 import ContainerContent from "./containerContent";
 import MenuMarket from "./Lay0ut/MenuMarket";
+import { Bell } from "./icons";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -1130,7 +1131,9 @@ const Layout = ({ children }) => {
                     </div>
                   )}
                   {screen < 639 && (
-                    <div className="sm:invisible visible">Campana</div>
+                    <div className="sm:invisible visible cursor-pointer">
+                      <Bell />
+                    </div>
                   )}
                 </div>
               </div>
