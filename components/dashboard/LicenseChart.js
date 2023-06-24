@@ -10,12 +10,18 @@ const LicenseChart = () => {
       trigger: "axis",
     },
     legend: {
-      data: ["Email", "Union Ads", "Video Ads", "Direct", "Search Engine"],
+      data: [
+        "Teams",
+        "Enterprise",
+        "Education",
+        "Acrobat Pro",
+        "DC Enterprise",
+        "DC Education",
+      ],
       icon: "circle",
       orient: "horizontal",
       right: "10",
-      bottom: "-1%"
-      
+      bottom: "-1%",
     },
     grid: {
       left: "3%",
@@ -27,41 +33,53 @@ const LicenseChart = () => {
     xAxis: {
       type: "category",
       boundaryGap: false,
-      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      data: [0, 1, 2, 3, 4, 5],
     },
     yAxis: {
       type: "value",
     },
     series: [
       {
-        name: "Email",
+        color: "black",
+        name: "Teams",
         type: "line",
         stack: "Total",
         data: [120, 132, 101, 134, 90, 230, 210],
       },
       {
-        name: "Union Ads",
+        color: "blue",
+        name: "Enterprise",
         type: "line",
         stack: "Total",
         data: [220, 182, 191, 234, 290, 330, 310],
       },
       {
-        name: "Video Ads",
+        color: "green",
+        name: "Education",
         type: "line",
         stack: "Total",
         data: [150, 232, 201, 154, 190, 330, 410],
       },
       {
-        name: "Direct",
+        color: "red",
+        name: "Acrobat Pro",
         type: "line",
         stack: "Total",
         data: [320, 332, 301, 334, 390, 330, 320],
       },
       {
-        name: "Search Engine",
+        color: "orange",
+        name: "DC Enterprise",
         type: "line",
         stack: "Total",
         data: [820, 932, 901, 934, 1290, 1330, 1320],
+      },
+      {
+        color: "pink",
+        name: "DC Education",
+        type: "line",
+        stack: "Total",
+        data: [830, 832, 101, 234, 1190, 1230, 1340],
       },
     ],
   };
