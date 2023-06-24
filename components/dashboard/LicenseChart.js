@@ -29,8 +29,8 @@ const LicenseChart = ({
     grid: {
       left: "3%",
       right: "4%",
-      bottom: "20%",
-      top: "3%",
+      bottom: "25%",
+      top: "2%",
       containLabel: true,
     },
     xAxis: {
