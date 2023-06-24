@@ -345,9 +345,11 @@ const dashboard = () => {
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
             <GraphSales />
+            <div className="sm:w-full w-[355px]">
             <CardChart title={"Licencias"} paragraph="">
               <LicenseChart />
             </CardChart>
+            </div>
             <TableTopsRanking />
           </div>
         </div>
