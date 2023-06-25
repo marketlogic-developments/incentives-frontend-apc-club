@@ -23,3 +23,4 @@ export { default as CloudDownload } from "./Reportes/CloudDownload";
 export { default as VeticalPoints } from "./Reportes/VeticalPoints";
 export { default as Bell } from "./navbar/Bell";
 export { default as Whatsapp } from "./footer/Whatsapp";
+export { default as Menu } from "./navbar/Menu";

@@ -35,7 +35,7 @@ import UserOptions from "./Lay0ut/UserOptions";
 import ContainerContent from "./containerContent";
 import MenuMarket from "./Lay0ut/MenuMarket";
 import ModalCustomerCare from "./costumerCare/modal/ModalCustomerCare";
-import { CloseCircle, Bell, Whatsapp } from "./icons";
+import { CloseCircle, Bell, Whatsapp, Menu as MenuLines } from "./icons";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -980,37 +980,13 @@ const Layout = ({ children }) => {
                 </div>
               </div>
             </div>
-            <div className="pl-6 pt-6 sticky top-0 h-screen ">
-              <svg
-                width="23"
-                height="23"
-                viewBox="0 0 23 23"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                onClick={() => setCollapse(!collapse)}
-                className="cursor-pointer"
-              >
-                <path
-                  d="M3.95312 6.82812H19.0469M3.95312 11.5H19.0469M3.95312 16.1719H19.0469"
-                  stroke="#232B2F"
-                  stroke-width="2.15625"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M3.95312 6.82812H19.0469M3.95312 11.5H19.0469M3.95312 16.1719H19.0469"
-                  stroke="black"
-                  stroke-opacity="0.2"
-                  stroke-width="2.15625"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </div>
             <div className="w-full relative">
               <div className="w-full pt-1 px-6">
                 <div className="containerNavbar">
-                  <div className="navbar grid grid-cols-2">
+                  <div className="sticky grid justify-items-center items-center">
+                    <MenuLines />
+                  </div>
+                  <div className="navbar grid grid-cols-3">
                     <div className="w-auto">
                       <p className="sm:!text-3xl md:!text-3xl !text-sm font-bold">
                         {textLocation()}
@@ -1164,32 +1140,36 @@ const Layout = ({ children }) => {
                   </div>
                 </div>
                 {children}
-                <div className="containerNavbar">
-                  <div className="navbar grid grid-cols-2">Footer</div>
-                </div>
+                {screen < 639 && (
+                  <div className="sticky bottom-0 w-full">
+                    <div className="navbar grid">Footer</div>
+                  </div>
+                )}
               </div>
               {menuMarket && <MenuMarket />}
-              <a
-                href="https://api.whatsapp.com/send?phone=5715800310&text=Hola,%20Necesito%20informacion%20sobre"
-                target="_blank"
-                className="rounded-full flex w-fit right-0 bottom-0 fixed p-3 mr-6 mb-6 bg-white whatsappButton z-[1]"
-              >
-                <svg
-                  width={40}
-                  height={40}
-                  fill="none"
-                  stroke="#25D366"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="iconWhatsApp"
+              {screen > 639 && (
+                <a
+                  href="https://api.whatsapp.com/send?phone=5715800310&text=Hola,%20Necesito%20informacion%20sobre"
+                  target="_blank"
+                  className="rounded-full flex w-fit right-0 bottom-0 fixed p-3 mr-6 mb-6 bg-white whatsappButton z-[1]"
                 >
-                  <path d="M4.256 16.594a8.99 8.99 0 1 1 3.15 3.15v0l-3.112.882a.74.74 0 0 1-.919-.92l.881-3.112Z" />
-                  <path d="M7.5 9.703A2.24 2.24 0 0 1 9.75 7.5h.328a.74.74 0 0 1 .638.366l.694 1.153a.73.73 0 0 1 .028.722l-.44.9a3.375 3.375 0 0 0 2.362 2.362l.9-.44a.732.732 0 0 1 .722.028l1.153.693a.74.74 0 0 1 .365.638v.328a2.24 2.24 0 0 1-2.203 2.25A6.74 6.74 0 0 1 7.5 9.703v0Z" />
-                </svg>
-              </a>
+                  <svg
+                    width={40}
+                    height={40}
+                    fill="none"
+                    stroke="#25D366"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="iconWhatsApp"
+                  >
+                    <path d="M4.256 16.594a8.99 8.99 0 1 1 3.15 3.15v0l-3.112.882a.74.74 0 0 1-.919-.92l.881-3.112Z" />
+                    <path d="M7.5 9.703A2.24 2.24 0 0 1 9.75 7.5h.328a.74.74 0 0 1 .638.366l.694 1.153a.73.73 0 0 1 .028.722l-.44.9a3.375 3.375 0 0 0 2.362 2.362l.9-.44a.732.732 0 0 1 .722.028l1.153.693a.74.74 0 0 1 .365.638v.328a2.24 2.24 0 0 1-2.203 2.25A6.74 6.74 0 0 1 7.5 9.703v0Z" />
+                  </svg>
+                </a>
+              )}
             </div>
           </div>
         </div>
