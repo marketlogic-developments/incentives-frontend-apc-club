@@ -1,6 +1,6 @@
 import React from "react";
 
-const Menu = ({ width = 23, height = 23 }) => {
+const Menu = ({ width = 23, height = 23, onClick = () => {} }) => {
   return (
     <svg
       width={width}
@@ -8,7 +8,7 @@ const Menu = ({ width = 23, height = 23 }) => {
       viewBox="0 0 23 23"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      onClick={() => setCollapse(!collapse)}
+      onClick={onClick}
       className="cursor-pointer"
     >
       <path

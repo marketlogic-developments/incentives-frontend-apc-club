@@ -41,6 +41,7 @@ import {
   Whatsapp,
   Menu as MenuLines,
   ShoppingCard,
+  Megaphone,
 } from "./icons";
 
 const Layout = ({ children }) => {
@@ -196,6 +197,24 @@ const Layout = ({ children }) => {
       dispatch(changeLoadingData(false));
     }
   }, [location]);
+
+  const profileImage = (
+    <div className="bg-[#1473E6] rounded-full btn btn-circle btn-sm border-none hover:bg-[#1473E6]">
+      {userRedux.profilePhotoPath === null ||
+      userRedux.profilePhotoPath === "" ||
+      userRedux.profilePhotoPath === "noImage" ? (
+        <p className="text-white text-center flex w-full h-full items-center justify-center">
+          {userRedux?.names[0]}
+        </p>
+      ) : (
+        <img
+          src={userRedux.profilePhotoPath}
+          className="w-full h-full rounded-full"
+          alt="Avatar"
+        />
+      )}
+    </div>
+  );
 
   // useEffect(() => {
   //   let timeoutId;
@@ -990,7 +1009,7 @@ const Layout = ({ children }) => {
               <div className="w-full pt-1 px-6">
                 <div className="containerNavbar">
                   <div className="sticky grid justify-items-center items-center">
-                    <MenuLines />
+                    <MenuLines onClick={() => setCollapse(!collapse)} />
                   </div>
                   <div className="navbar grid grid-cols-3">
                     <div className="w-auto">
@@ -1069,21 +1088,7 @@ const Layout = ({ children }) => {
                               className="flex items-center gap-1 bg-[#F5F5F5] rounded-full  sm:w-[217px] md:w-[217px] p-3 text-xs cursor-pointer"
                               onClick={() => setMenuUser(!menuUser)}
                             >
-                              <div className="bg-[#1473E6] rounded-full btn btn-circle btn-sm border-none hover:bg-[#1473E6]">
-                                {userRedux.profilePhotoPath === null ||
-                                userRedux.profilePhotoPath === "" ||
-                                userRedux.profilePhotoPath === "noImage" ? (
-                                  <p className="text-white text-center flex w-full h-full items-center justify-center">
-                                    {userRedux?.names[0]}
-                                  </p>
-                                ) : (
-                                  <img
-                                    src={userRedux.profilePhotoPath}
-                                    className="w-full h-full rounded-full"
-                                    alt="Avatar"
-                                  />
-                                )}
-                              </div>
+                              {profileImage}
                               <div className="username">
                                 <p className="lg:!text-sm xl:!text-base">
                                   {userRedux?.names}
@@ -1112,13 +1117,22 @@ const Layout = ({ children }) => {
                 </div>
                 {children}
                 {screen < 639 && (
-                  <div className="sticky bottom-0 w-full">
+                  <div className="sticky bottom-0 w-full border-t-2">
                     <div className="navbar grid grid-cols-3 justify-items-center bg-white">
-                      <div>
+                      <div
+                        className="shoopingMarket cursor-pointer"
+                        onClick={() => {
+                          router.push("/shoppingCar");
+                        }}
+                      >
                         <ShoppingCard />
                       </div>
-                      <div>2</div>
-                      <div>3</div>
+                      <div>
+                        <Megaphone />
+                      </div>
+                      <div className="" onClick={() => setMenuUser(!menuUser)}>
+                        {profileImage}
+                      </div>
                     </div>
                   </div>
                 )}
