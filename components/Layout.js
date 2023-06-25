@@ -35,7 +35,13 @@ import UserOptions from "./Lay0ut/UserOptions";
 import ContainerContent from "./containerContent";
 import MenuMarket from "./Lay0ut/MenuMarket";
 import ModalCustomerCare from "./costumerCare/modal/ModalCustomerCare";
-import { CloseCircle, Bell, Whatsapp, Menu as MenuLines } from "./icons";
+import {
+  CloseCircle,
+  Bell,
+  Whatsapp,
+  Menu as MenuLines,
+  ShoppingCard,
+} from "./icons";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -1011,42 +1017,7 @@ const Layout = ({ children }) => {
                               router.push("/shoppingCar");
                             }}
                           >
-                            <svg
-                              width="35"
-                              height="35"
-                              viewBox="0 0 30 30"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M10.0938 25.2301C10.6005 25.2301 11.0114 24.8193 11.0114 24.3125C11.0114 23.8057 10.6005 23.3949 10.0938 23.3949C9.58698 23.3949 9.17615 23.8057 9.17615 24.3125C9.17615 24.8193 9.58698 25.2301 10.0938 25.2301Z"
-                                stroke="black"
-                                stroke-width="1.83523"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M22.9403 25.2301C23.4471 25.2301 23.858 24.8193 23.858 24.3125C23.858 23.8057 23.4471 23.3949 22.9403 23.3949C22.4336 23.3949 22.0227 23.8057 22.0227 24.3125C22.0227 24.8193 22.4336 25.2301 22.9403 25.2301Z"
-                                stroke="black"
-                                stroke-width="1.83523"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M2.75284 5.0426H6.42329L9.17613 20.642H23.858"
-                                stroke="black"
-                                stroke-width="1.83523"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M9.17614 16.9716H23.4817C23.5878 16.9717 23.6907 16.9349 23.7728 16.8677C23.8549 16.8005 23.9111 16.7069 23.9319 16.6028L25.5836 8.34429C25.597 8.2777 25.5953 8.20897 25.5789 8.14308C25.5624 8.07719 25.5316 8.01578 25.4885 7.96327C25.4454 7.91076 25.3912 7.86847 25.3298 7.83945C25.2684 7.81042 25.2014 7.79539 25.1334 7.79544H7.34091"
-                                stroke="black"
-                                stroke-width="1.83523"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
+                            <ShoppingCard />
                           </div>
                         </div>
                         {/* 3 */}
@@ -1142,7 +1113,13 @@ const Layout = ({ children }) => {
                 {children}
                 {screen < 639 && (
                   <div className="sticky bottom-0 w-full">
-                    <div className="navbar grid">Footer</div>
+                    <div className="navbar grid grid-cols-3 justify-items-center bg-white">
+                      <div>
+                        <ShoppingCard />
+                      </div>
+                      <div>2</div>
+                      <div>3</div>
+                    </div>
                   </div>
                 )}
               </div>
