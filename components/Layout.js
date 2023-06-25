@@ -1172,7 +1172,7 @@ const Layout = ({ children }) => {
               <a
                 href="https://api.whatsapp.com/send?phone=5715800310&text=Hola,%20Necesito%20informacion%20sobre"
                 target="_blank"
-                className="rounded-full border-green-300 border flex w-fit right-0 bottom-0 fixed p-3 mr-6 mb-6 bg-white whatsappButton z-[1]"
+                className="rounded-full border-green-300 border hover:bg-green-100 flex w-fit right-0 bottom-0 fixed p-3 mr-6 mb-6 bg-white whatsappButton z-[1]"
               >
                 <Whatsapp />
               </a>
