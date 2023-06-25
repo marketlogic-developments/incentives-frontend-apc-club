@@ -35,7 +35,7 @@ import UserOptions from "./Lay0ut/UserOptions";
 import ContainerContent from "./containerContent";
 import MenuMarket from "./Lay0ut/MenuMarket";
 import ModalCustomerCare from "./costumerCare/modal/ModalCustomerCare";
-import { CloseCircle, Bell } from "./icons";
+import { CloseCircle, Bell, Whatsapp } from "./icons";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -1168,6 +1168,14 @@ const Layout = ({ children }) => {
                   <div className="navbar grid grid-cols-2">Footer</div>
                 </div>
               </div>
+              {menuMarket && <MenuMarket />}
+              <a
+                href="https://api.whatsapp.com/send?phone=5715800310&text=Hola,%20Necesito%20informacion%20sobre"
+                target="_blank"
+                className="rounded-full border-green-300 border flex w-fit right-0 bottom-0 fixed p-3 mr-6 mb-6 bg-white whatsappButton z-[1]"
+              >
+                <Whatsapp />
+              </a>
             </div>
           </div>
         </div>
