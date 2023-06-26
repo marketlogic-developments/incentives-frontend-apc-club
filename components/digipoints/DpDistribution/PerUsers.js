@@ -74,7 +74,6 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
             {
               invoiceId: invoiceData.invoices_included.toString(),
               vendorId: thisUser.id,
-              digiPoints: Number(invoiceData.digipoints),
             },
           ],
         },
