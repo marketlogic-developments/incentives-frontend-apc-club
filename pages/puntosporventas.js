@@ -39,7 +39,7 @@ const puntosporventas = () => {
   }, []);
 
   useEffect(() => {
-    if (token && data.length === 0) {
+    if (token && isLoaded && data.length === 0) {
       setLoading(true);
       if (user.roleId === 1) {
         dispatch(getSalesAll(token)).then((response) => {
@@ -163,7 +163,7 @@ const puntosporventas = () => {
                     </td>
                   )}
                   <td className="py-4 px-2">
-                    ${parseFloat(data.total_sales_amount).toFixed(2)}
+                    ${parseFloat(data.total_sales_us).toFixed(2)}
                   </td>
                 </tr>
               ))}
