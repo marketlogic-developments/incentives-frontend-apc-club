@@ -6,6 +6,10 @@ module.exports = {
     prependData: `@import "./styles/Base/_variables.scss";`,
   },
 
+  images: {
+    domains: ["images.ctfassets.net"],
+  },
+
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.html$/,

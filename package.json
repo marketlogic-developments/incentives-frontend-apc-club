@@ -19,6 +19,8 @@
     "axios": "^1.2.2",
     "chart.js": "^4.3.0",
     "cloudinary-react": "^1.8.1",
+    "contentful": "^10.3.0",
+    "contentful-management": "^10.38.2",
     "daisyui": "2.41.0",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",

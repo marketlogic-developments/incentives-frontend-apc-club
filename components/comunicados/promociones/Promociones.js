@@ -5,10 +5,11 @@ import { SearchIcon, Star } from "../../icons";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import TargetPromociones from "./TargetPromociones";
 
-const Promociones = ({ selectData = [], datas = [] }) => {
+const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
   const [t, i18n] = useTranslation("global");
-  const router = useRouter();
+
   return (
     <div>
       <div className="grid justify-items-center items-center pt-8 pb-8">
@@ -52,37 +53,8 @@ const Promociones = ({ selectData = [], datas = [] }) => {
       </div>
       <div className="flex justify-center items-center pt-10 pb-10">
         <div className="grid grid-cols-3 gap-3 gap-y-6">
-          {datas.map((data, index) => (
-            <>
-              <div className="sm:ml-14 col-span-1 object-contain flex justify-center items-center">
-                <Image
-                  src={data.image}
-                  key={index}
-                  width={320}
-                  height={228}
-                  priority
-                  className="object-contain rounded-md"
-                />
-              </div>
-              <div className="grid col-span-2 justify-items-start sm:pr-56 md:pr-3 pr-3">
-                <p className="sm:text-sm text-xs">{data.publishedDate}</p>
-                <p className="font-bold sm:text-2xl text-sm">{data.title}</p>
-                <p>{data.summary}</p>
-                <a
-                  className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs"
-                  onClick={() => {
-                    router.push({
-                        pathname: "/comunicados/Contenido",
-                        query: {
-                            data:JSON.stringify(data)
-                        }
-                    });;
-                  }}
-                >
-                  {t("comunicado.leer")}
-                </a>
-              </div>
-            </>
+          {dataContentful.map((data, index) => (
+            <TargetPromociones data={data} key={index} />
           ))}
         </div>
       </div>
