@@ -23,7 +23,8 @@ import BannerColombia from "../components/dashboard/BannerColombia";
 import CarouselBanners from "../components/dashboard/carouselBanners";
 import TableTopsRanking from "../components/dashboard/TableTopsRanking";
 import LicenseChart from "../components/dashboard/LicenseChart";
-import { CardChart } from "../components";
+import { CardChart, InputReporte } from "../components";
+import { SearchIcon } from "../components/icons";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
@@ -374,10 +375,19 @@ const dashboard = () => {
                 />
               </CardChart>
             </div>
-            <div className="grid">
+            <div className="grid w-full">
               <div>
-                
+                <h1 className="font-bold">Top 10 usuarios</h1>
               </div>
+              <InputReporte
+                image={<SearchIcon />}
+                placeHolder={t("Reportes.buscar")}
+                stylesContainer={"mt-2"}
+                stylesInput={
+                  "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
+                }
+                stylesImage={"pb-0"}
+              />
               <TableTopsRanking
                 containerStyles={
                   "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-[300px]"
