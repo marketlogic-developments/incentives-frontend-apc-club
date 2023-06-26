@@ -377,7 +377,7 @@ const dashboard = () => {
             </div>
             <div className="grid w-full">
               <div>
-                <h1 className="font-bold">Top 10 usuarios</h1>
+                <h1 className="font-bold">{t("dashboard.topUsuarios")}</h1>
               </div>
               <InputReporte
                 image={<SearchIcon />}
