@@ -374,7 +374,24 @@ const dashboard = () => {
                 />
               </CardChart>
             </div>
-            <TableTopsRanking />
+            <div className="grid">
+              <div>
+                
+              </div>
+              <TableTopsRanking
+                containerStyles={
+                  "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-[300px]"
+                }
+                tableStyles={"table-zebra !text-sm"}
+                thStyles={"sticky text-white"}
+                cols={[
+                  t("Top"),
+                  t("tabla.nombre"),
+                  t("Email"),
+                  t("tabla.region"),
+                ]}
+              />
+            </div>
           </div>
         </div>
       </ContainerContent>
