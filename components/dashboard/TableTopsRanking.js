@@ -17,17 +17,17 @@ const TableTopsRanking = ({
       <table className={`w-full table-auto ${tableStyles}`}>
         <thead className={`bg-black ${thStyles}`}>
           <tr>
-            {cols.length !== 0 && cols.map((col) => <th className="p-4">{col}</th>)}
+            {cols.length !== 0 && cols.map((col) => <th className="text-left p-4">{col}</th>)}
           </tr>
         </thead>
         <tbody>
           {ranking.length !== 0 &&
             ranking.map((data, index) => (
               <tr>
-                <td className="p-2 text-2xl font-bold">#{data.ranking}</td>
-                <td className="">{data.names}</td>
-                <td className="">{data.email}</td>
-                <td className="">{data.region}</td>
+                <td className="p-2 text-2xl font-bold text-left">#{data.ranking}</td>
+                <td className="text-left">{data.names}</td>
+                <td className="text-left">{data.email}</td>
+                <td className="text-left">{data.region}</td>
               </tr>
             ))}
         </tbody>
