@@ -21,3 +21,4 @@ export { default as TermsConditions } from "./Reportes/TermsConditions";
 export { default as SearchIcon } from "./Reportes/Search";
 export { default as CloudDownload } from "./Reportes/CloudDownload";
 export { default as VeticalPoints } from "./Reportes/VeticalPoints";
+export { default as Thunderbolt } from "./Reportes/Thunderbolt";

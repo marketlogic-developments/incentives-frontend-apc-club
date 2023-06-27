@@ -9,6 +9,7 @@ import {
   RocketIcon,
   SearchIcon,
   TermsConditions,
+  Thunderbolt,
   UserPerformance,
 } from "../components/icons";
 import { useRouter } from "next/router";
@@ -39,19 +40,13 @@ const reportesDashboard = () => {
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
-          titleCard={t("Reportes.digiPoints_performance")}
-        >
-          <DigitalPoints />
-        </CardReportes>
-        <CardReportes
-          styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.user_performance")}
         >
           <UserPerformance />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
-          titleCard={t("Reportes.incentive_points_allocation")}
+          titleCard={t("Reportes.invoice_report")}
         >
           <IncentivePoints />
         </CardReportes>
@@ -63,15 +58,27 @@ const reportesDashboard = () => {
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
+          titleCard={t("Reportes.google_analytic")}
+        >
+          <IncentivePoints />
+        </CardReportes>
+        <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.custom_care")}
         >
           <CustomIcon />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
-          titleCard={t("Reportes.registration_performance")}
+          titleCard={t("Reportes.so_import")}
         >
           <RegistrationPerformance />
+        </CardReportes>
+        <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
+          titleCard={t("Reportes.registration_performance")}
+        >
+          <Thunderbolt />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
