@@ -62,9 +62,8 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
           isGold: user.companyId === null ? true : false,
           assignValues: [
             {
-              groupId: thisTeam.id,
               invoiceId: invoiceData.invoices_included.toString(),
-              digiPoints: Number(invoiceData.digipoints),
+              groupId: thisTeam.id,
             },
           ],
         },

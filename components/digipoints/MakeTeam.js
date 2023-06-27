@@ -244,9 +244,9 @@ const MakeTeam = () => {
         <br></br>
         <div className="w-full">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left text-black-500">
+            <table className="w-full text-sm text-left text-black-500 overflow-hidden rounded-md">
               {/* <thead className="text-xs text-black-500 uppercase"> */}
-              <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5 table-fixed tableJustify">
+              <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5 table-fixed tableJustify ">
                 <th scope="col" className="py-5 px-6">
                   {t("tabla.nEquipo")}
                 </th>
