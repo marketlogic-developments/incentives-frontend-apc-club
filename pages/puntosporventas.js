@@ -34,7 +34,7 @@ const puntosporventas = () => {
   }, []);
 
   useEffect(() => {
-    if (token && data.length === 0) {
+    if (token && isLoaded && data.length === 0) {
       setLoading(true);
       if (user.roleId === 1) {
         dispatch(getSalesAll(token)).then((response) => {
