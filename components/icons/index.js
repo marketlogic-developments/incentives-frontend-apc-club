@@ -1,3 +1,8 @@
+
+export { default as Star } from "./comunicaciones/Star";
+export { default as LaptopToDo } from "./maintenance/LaptopToDo";
+export { default as CodeRocket } from "./maintenance/CodeRocket";
+export { default as PageFix } from "./maintenance/PageFix";
 export { default as HeadSetOuline } from "./menu/HeadSetOuline";
 export { default as CustomIcon } from "./Reportes/CustomIcon";
 export { default as CloseCircle } from "./modal/CloseCircle";

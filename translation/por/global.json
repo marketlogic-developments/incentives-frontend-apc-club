@@ -389,6 +389,18 @@
     "vip": "Por que usar o VIP Marketplace?",
     "htw": "Saiba como ganhar"
   },
+  "comunicado":{
+    "bienvenida":"BEM-VINDO AO NOSSO QUADRO DE COMUNICAÇÕES",
+    "tituloPartUno": "Saiba mais sobre as novidades e vantagens",
+    "tituloPartDos": "recente que lhe dá o",
+    "tituloPartTres": "APC Club",
+    "promocion": "Promoções",
+    "mostrar": "Mostre tudo",
+    "buscar": "Procurar",
+    "leer": "Ler mais",
+    "marketPlace": "Market place",
+    "novedad": "Novidades",
+    "evento": "Eventos"
   "Reportes" : {
     "reportes": "Relatórios",
     "sales_performance": "Sales performance",
