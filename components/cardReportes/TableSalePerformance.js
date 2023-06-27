@@ -18,11 +18,11 @@ const TableSalePerformance = ({
               <label className={labelCbStyles}>
                 <input
                   type="checkbox"
-                  className={`checkbox ${checkboxStyles}`}
+                  className={`${checkboxStyles}`}
                 />
               </label>
             </th>
-            {cols.length !== 0 && cols.map((col) => <th>{col}</th>)}
+            {cols.length !== 0 && cols.map((col) => <th className="text-left py-3">{col}</th>)}
           </tr>
         </thead>
         <tbody>{children}</tbody>

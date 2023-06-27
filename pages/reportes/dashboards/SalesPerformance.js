@@ -224,11 +224,11 @@ const SalesPerformance = () => {
           containerStyles={"mt-5 rounded-tl-lg rounded-tr-lg"}
           tableStyles={"table-zebra !text-sm"}
           thStyles={"sticky text-white"}
-          checkboxStyles={"checkbox-sm mt-1 border-white bg-base-200"}
+          checkboxStyles={"!checkbox-xs mt-1 border-white bg-base-200"}
           cols={[
             t("Reportes.compania"),
             t("Reportes.region"),
-            t("Reportes.pasis"),
+            t("Reportes.pais"),
             t("Reportes.membership_Id"),
             t("Reportes.tipo"),
             t("Reportes.nivel"),
@@ -243,36 +243,36 @@ const SalesPerformance = () => {
             example.map((data, index) => (
               <tr>
                 <th>
-                  <label className="items-center">
+                  <label className="text-left">
                     <input
                       type="checkbox"
-                      className="checkbox checkbox-sm mt-1 border-white bg-base-200"
+                      className="!checkbox-xs mt-1 border-white bg-base-200"
                     />
                   </label>
                 </th>
-                <td className="items-center">{data.compania}</td>
-                <td className="items-center">{data.region}</td>
-                <td className="items-center">{data.pais}</td>
-                <td className="items-center">{data.membership_Id}</td>
-                <td className="items-center">{data.tipo}</td>
-                <td className="items-center">{data.nivel}</td>
-                <td className="items-center">
+                <td className="text-left">{data.compania}</td>
+                <td className="text-left">{data.region}</td>
+                <td className="text-left">{data.pais}</td>
+                <td className="text-left">{data.membership_Id}</td>
+                <td className="text-left">{data.tipo}</td>
+                <td className="text-left">{data.nivel}</td>
+                <td className="text-left">
                   {data.status === t("Reportes.inactivo") ? (
-                    <div class="badge bg-red-200 text-red-600 text-sm">
+                    <div class="badge bg-red-200 text-red-600 text-sm text-left">
                       {t("Reportes.inactivo")}
                     </div>
                   ) : (
-                    <div class="badge bg-green-200 text-green-600 text-sm border-green-300">
+                    <div class="badge bg-green-200 text-green-600 text-sm border-green-300 text-left">
                       {t("Reportes.activo")}
                     </div>
                   )}
                 </td>
-                <td className="items-center">{data.registrado}</td>
-                <td className="items-center">{data.cc_renewal}</td>
-                <td className="items-center">{data.cc_new_business}</td>
-                <td className="items-center">
+                <td className="text-left">{data.registrado}</td>
+                <td className="text-left">{data.cc_renewal}</td>
+                <td className="text-left">{data.cc_new_business}</td>
+                <td className="text-left">
                   <div className="grid grid-cols-2">
-                    <div className="grid justify-items-end">
+                    <div className="grid text-left">
                       {data.dc_renewal}
                     </div>
                     <div
