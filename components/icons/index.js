@@ -1,3 +1,8 @@
+
+export { default as Star } from "./comunicaciones/Star";
+export { default as LaptopToDo } from "./maintenance/LaptopToDo";
+export { default as CodeRocket } from "./maintenance/CodeRocket";
+export { default as PageFix } from "./maintenance/PageFix";
 export { default as HeadSetOuline } from "./menu/HeadSetOuline";
 export { default as CustomIcon } from "./Reportes/CustomIcon";
 export { default as CloseCircle } from "./modal/CloseCircle";
@@ -22,3 +27,8 @@ export { default as SearchIcon } from "./Reportes/Search";
 export { default as CloudDownload } from "./Reportes/CloudDownload";
 export { default as VeticalPoints } from "./Reportes/VeticalPoints";
 export { default as Thunderbolt } from "./Reportes/Thunderbolt";
+export { default as Bell } from "./navbar/Bell";
+export { default as Whatsapp } from "./footer/Whatsapp";
+export { default as Menu } from "./navbar/Menu";
+export { default as ShoppingCard } from "./navbar/ShoppingCard";
+export { default as Megaphone } from "./navbar/Megaphone";

@@ -305,11 +305,11 @@
       .notifications {
         display: flex;
         width: fit-content;
-        padding: 0px 1rem;
+        /* padding: 0px 1rem; */
         place-items: center;
         align-items: center;
         z-index: 5;
-        @media (max-width: 767px) {
+        @media (max-width: 374px) {
           display: none;
         }
 
@@ -370,7 +370,7 @@
         }
 
         .username {
-          @media (max-width: 767px) {
+          @media (max-width: 374px) {
             display: none;
           }
         }
@@ -647,6 +647,7 @@
       fill: transparent;
       stroke-width: 1;
     }
+    
   }
 
   svg {
@@ -656,16 +657,16 @@
     width: var(--wicons);
     height: 100%;
   }
-}
 
-.whatsappButton {
-  transition: all;
-  transition-duration: 0.5s;
-  border-color: #25d366;
-  &:hover {
-    background-color: #25d366;
-    .iconWhatsApp {
-      stroke: #fff;
+  .whatsappButton {
+    transition: all;
+    transition-duration: 0.5s;
+    border-color: #25d366;
+    &:hover {
+      background-color: #25d366;
+      .iconWhatsApp {
+        stroke: #fff;
+      }
     }
   }
 }

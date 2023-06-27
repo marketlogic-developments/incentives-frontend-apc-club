@@ -96,7 +96,8 @@
     "Alcanzado": "Alcançado",
     "rankingsininfo": "Ainda não há informações disponíveis",
     "motivarankingsininfo": "Motive seus representantes de vendas a obterem DigiPoints e resgatá-los.",
-    "motivalargorankingsininfo": "Venda com paixão e lidere no ranking!"
+    "motivalargorankingsininfo": "Venda com paixão e lidere no ranking!",
+    "topUsuarios": "10 principais usuários"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",
@@ -388,6 +389,19 @@
   "releases": {
     "vip": "Por que usar o VIP Marketplace?",
     "htw": "Saiba como ganhar"
+  },
+  "comunicado":{
+    "bienvenida":"BEM-VINDO AO NOSSO QUADRO DE COMUNICAÇÕES",
+    "tituloPartUno": "Saiba mais sobre as novidades e vantagens",
+    "tituloPartDos": "recente que lhe dá o",
+    "tituloPartTres": "APC Club",
+    "promocion": "Promoções",
+    "mostrar": "Mostre tudo",
+    "buscar": "Procurar",
+    "leer": "Ler mais",
+    "marketPlace": "Market place",
+    "novedad": "Novidades",
+    "evento": "Eventos"
   },
   "Reportes" : {
     "reportes": "Relatórios",

@@ -10,7 +10,7 @@ import { ArrowDown } from "../icons";
 const SelectItem = ({ image, label, description, ...others }) => (
   <div {...others}>
     <Group noWrap>
-      {image ? image : ""}
+      {image ? image : ''}
       <div>
         <Text size="sm">{label}</Text>
       </div>
@@ -86,3 +86,4 @@ const SelectInput = ({
 };
 
 export default SelectInput;
+
