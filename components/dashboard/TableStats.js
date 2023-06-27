@@ -178,7 +178,7 @@ const TableStats = () => {
   }
 
   return (
-    <div className="w-full h-full bg-base-100 grid grid-cols-3 sm:flex-row justify-between max-sm:justify-center gap-6">
+    <div className="w-full h-full bg-base-100 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
       <BarBySegment
         percentageCC={percentageCC}
         percentageDC={percentageDC}

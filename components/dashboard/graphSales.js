@@ -61,7 +61,7 @@ const GraphSales = () => {
             : t("dashboard.ventasOrg")}
         </h2>
       </div>
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
         <TargetSales
           data={CC}
           goal={goals.filter(
