@@ -17,7 +17,6 @@ import {
   LineChart,
   TableSalePerformance,
   TitleWithIcon,
-  TableMenu,
 } from "../../../components";
 import { Menu, Button } from "@mantine/core";
 
