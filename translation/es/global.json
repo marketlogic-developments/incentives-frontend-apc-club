@@ -57,7 +57,8 @@
     "vercatalogo": "Ver catálogo de premios",
     "admin": "Administración",
     "redenciones": "Redenciones",
-    "reglas": "Reglas"
+    "reglas": "Reglas",
+    "customer_care": "Customer Care"
   },
   "dashboard": {
     "Inicio": "Inicio",
@@ -128,7 +129,8 @@
   "organizacion": {
     "redenciones": "Redenciones",
     "info": "Información",
-    "organizacion": "Organización"
+    "organizacion": "Organización",
+    "organizaciones": "Organizaciones"
   },
   "cargaventas": {
     "cargar": "Cargar puntos",
@@ -307,6 +309,21 @@
     "sParticipantesGrupo": "Selecciona tus participantes para este grupo",
     "sParticipantesGrupo2": "participantes seleccionados"
   },
+  "modalCustomerCare": {
+    "ayuda": "¿Cómo podemos ayudar?",
+    "infoUno": "Si tienes alguna solicitud o sugerencia compártela con nosotros,",
+    "infoDos": "nuestros expertos se pondrán en contacto contigo lo más pronto posible o escríbenos a",
+    "infoTres": "info@adobepcclub.com",
+    "asunto": "Asunto",
+    "nombre": "Nombre completo",
+    "asociado": "Asociado",
+    "relacionAsunto": "Selecciona con qué está relacionado el asunto",
+    "descripcion": "Descripción",
+    "aceptoCorreo": "Acepto ser contactado por correo.",
+    "aceptoMovil": "Acepto ser contactado por WhatsApp o vía telefónica.",
+    "enviar": "Enviar solicitud"
+
+  },
   "user": {
     "ajustesdeperfil": "Ajustes de perfil",
     "informaciongeneral": "Información General",
@@ -369,6 +386,7 @@
     "vip": "¿Por qué utilizar VIP Marketplace?",
     "htw": "Cónoce como ganar"
   },
+
   "comunicado":{
     "bienvenida":"BIENVENIDO A NUESTRO BOARD DE COMUNICADOS",
     "tituloPartUno": "Entérate de las noticias y beneficios más",
@@ -381,5 +399,42 @@
     "marketPlace": "Market place",
     "novedad": "Novedades",
     "evento": "Eventos"
+  "Reportes" : {
+    "reportes": "Reportes",
+    "sales_performance": "Sales performance",
+    "digiPoints_performance": "DigiPoints performance",
+    "user_performance": "User performance",
+    "incentive_points_allocation": "Incentive points allocation",
+    "digiPoints_redemption_request": "DigiPoints redemption request",
+    "custom_care": "Custom care",
+    "registration_performance": "Registration performance",
+    "follow_up": "Follow up",
+    "usuarios": "Usuarios",
+    "tipos_usuarios": "Tipos de usuario",
+    "anios": "Años",
+    "filtrar": "Filtrar",
+    "limpiar_filtros": "Limpiar Filtros",
+    "metas_vs_cumplimiento": "Metas vrs. cumplimiento",
+    "digiponits": "DigiPoints",
+    "periodo": "Período",
+    "descargar": "Descargar",
+    "buscar": "Buscar",
+    "compania": "Compañía",
+    "region": "Región",
+    "pais": "País",
+    "membership_Id": "Membership ID",
+    "tipo": "Tipo",
+    "nivel": "Nivel",
+    "status": "Status",
+    "registrado": "Registrado",
+    "cc_Renewal": "CC Renewal (USD)",
+    "cc_New_business": "CC New business (USD)",
+    "dc_Renewal": "DC Renewal (USD)",
+    "ventas_mensuales": "Ventas mensuales",
+    "ingresos_esperados": "Ingresos esperados",
+    "ingreso_actual": "Ingreso actual",
+    "dp_cargados_mensualmente": "DigiPoints cargados mensualmente",
+    "inactivo": "Inactivo",
+    "activo": "Activo"
   }
 }

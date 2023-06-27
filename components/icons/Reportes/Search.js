@@ -37,4 +37,6 @@ const Search = ({width = 17, height = 17}) => {
   );
 };
 
+
 export default Search;
+

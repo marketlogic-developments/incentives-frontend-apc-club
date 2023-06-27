@@ -29,7 +29,6 @@ const SelectInput = ({
   icon = <ArrowDown />,
   placeholder = "Pick one",
   label = "",
-  size="md",
   data = [
     { value: "react", label: "React" },
     { value: "ng", label: "Angular" },
@@ -42,6 +41,8 @@ const SelectInput = ({
   bgColorDataHover = "#FFEEED",
   colorDataHover = "#EB1000",
   borderRadiusDataHover = "30px",
+  onChange,
+  name,
 }) => {
   return (
     <Select
@@ -52,7 +53,7 @@ const SelectInput = ({
       rightSection={icon}
       data={data}
       radius="md"
-      size={size}
+      size="md"
       transitionProps={{
         transition: "pop-top-left",
         duration: 80,
@@ -79,8 +80,10 @@ const SelectInput = ({
           },
         },
       })}
+      onChange={(info) => onChange(name, info)}
     />
   );
 };
 
 export default SelectInput;
+
