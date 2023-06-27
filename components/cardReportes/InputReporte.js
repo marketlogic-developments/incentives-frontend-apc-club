@@ -1,7 +1,8 @@
 import React from "react";
 import { Component } from "react";
+import { ArrowDown } from "../icons";
 
-const InputReporte = ({ image = <Component />, placeHolder = "...", stylesContainer = '', stylesInput = '', stylesImage = ''}) => {
+const InputReporte = ({ image = <ArrowDown />, placeHolder = "...", stylesContainer = '', stylesInput = '', stylesImage = ''}) => {
   return (
     <div className={`relative ${stylesContainer}`}>
       <div className="absolute inset-y-0 left-3">
