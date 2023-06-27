@@ -41,6 +41,9 @@ const reportesDashboard = () => {
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.user_performance")}
+          onClick={() => {
+            router.push("/reportes/dashboards/UserPerformance");
+          }}
         >
           <UserPerformance />
         </CardReportes>
