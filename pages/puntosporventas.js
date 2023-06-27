@@ -13,24 +13,19 @@ import {
 } from "../store/reducers/sales.reducer";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const puntosporventas = () => {
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
-  const currentPage = useSelector((state) => state.currentPage || 1);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [postsPerPage, setPostsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
-  const [searchEmail, setSearchEmail] = useState("");
-  const [searchInvoice, setSearchInvoice] = useState("");
-  const [selectSale, setSelectSale] = useState("");
-  const [selectDate, setSelectDate] = useState("");
   const data = useSelector((state) => state.sales.salesall);
   const company = useSelector((state) => state.user.company);
   const distribuitor = useSelector((state) => state.user.distribuitor);
+  const [searchByInvoice, setSearchByInvoice] = useState("");
 
   const itemsPerPage = 10;
 
@@ -101,7 +96,7 @@ const puntosporventas = () => {
   const uniqueEmails = [
     ...new Set(data.map((user) => user.reseller_partner_rollup)),
   ];
-  uniqueEmails.sort((a, b) => a.localeCompare(b));
+  uniqueEmails.sort((a, b) => a?.localeCompare(b));
 
   const uniqueReasonAssign = [
     ...new Set(data.map((user) => user.business_unit)),
@@ -110,9 +105,12 @@ const puntosporventas = () => {
   function Table({ currentItems }) {
     return (
       <>
-        <table className="w-full text-sm text-left text-black-500 tableJustify">
+        <table className="w-full text-sm text-left text-black-500 tableJustify overflow-hidden rounded-md">
           <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
             <tr>
+              <th scope="col" className="py-2 px-2">
+                Invoice
+              </th>
               <th scope="col" className="py-2 px-2">
                 Disti Partner Rollup
               </th>
@@ -144,29 +142,40 @@ const puntosporventas = () => {
           </thead>
           <tbody>
             {currentItems &&
-              currentItems.map((data, index) => (
-                <tr
-                  className={`${
-                    (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
-                  } w-full`}
-                  key={index}
-                >
-                  <td className="py-4 px-2">{data.disti_partner_rollup}</td>
-                  <td className="py-4 px-2">{data.reseller_partner_rollup}</td>
-                  <td className="py-4 px-2">{data.business_unit}</td>
-                  <td className="py-4 px-2">{data.business_type}</td>
-                  <td className="py-4 px-2">{data.materia_sku}</td>
-                  <td className="py-4 px-2">{data.quarter}</td>
-                  {user.roleId === 1 && (
+              [...currentItems]
+                .filter((item) => {
+                  if (searchByInvoice !== "") {
+                    return item.sales_order.startsWith(searchByInvoice);
+                  }
+
+                  return item;
+                })
+                .map((data, index) => (
+                  <tr
+                    className={`${
+                      (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
+                    } w-full`}
+                    key={index}
+                  >
+                    <td className="py-4 px-2">{data.sales_order}</td>
+                    <td className="py-4 px-2">{data.disti_partner_rollup}</td>
                     <td className="py-4 px-2">
-                      {data.max_digipoints_allocate}
+                      {data.reseller_partner_rollup}
                     </td>
-                  )}
-                  <td className="py-4 px-2">
-                    ${parseFloat(data.total_sales_us).toFixed(2)}
-                  </td>
-                </tr>
-              ))}
+                    <td className="py-4 px-2">{data.business_unit}</td>
+                    <td className="py-4 px-2">{data.business_type}</td>
+                    <td className="py-4 px-2">{data.materia_sku}</td>
+                    <td className="py-4 px-2">{data.quarter}</td>
+                    {user.roleId === 1 && (
+                      <td className="py-4 px-2">
+                        {data.max_digipoints_allocate}
+                      </td>
+                    )}
+                    <td className="py-4 px-2">
+                      ${parseFloat(data.total_sales_amount).toFixed(2)}
+                    </td>
+                  </tr>
+                ))}
           </tbody>
         </table>
       </>
@@ -207,12 +216,23 @@ const puntosporventas = () => {
     });
   };
 
-  console.log(data);
   return (
     <ContainerContent pageTitle={"DigiPoints por ventas"}>
       <div className="mt-6 flex flex-col gap-10">
         <div className="w-full grid grid-cols-2 gap-4 ">
           <div className="flex gap-6">
+            <div className="relative flex w-1/2">
+              <input
+                className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
+                type="text"
+                placeholder="Buscar"
+                value={searchByInvoice}
+                onChange={(e) => setSearchByInvoice(e.target.value)}
+              />
+              <div className="absolute h-full items-center flex ml-2">
+                <AiOutlineSearch color="#eb1000" />
+              </div>
+            </div>
             <select
               value={emailFilter}
               onChange={handleEmailFilterChange}
@@ -228,7 +248,7 @@ const puntosporventas = () => {
             <select
               value={reasonAssignFilter}
               onChange={handleReasonAssignFilterChange}
-              className="select select-bordered w-1/3 bg-[#F4F4F4]"
+              className="select select-bordered bg-[#F4F4F4] w-auto"
             >
               <option value="">{t("tabla.unidadNegocio")}</option>
               {uniqueReasonAssign.map((reason) => (
@@ -271,7 +291,7 @@ const puntosporventas = () => {
           </div>
         </div>
         <div className="w-full">
-          <div className="overflow-x-auto rounded-lg">
+          <div className="overflow-x-auto">
             {loading ? (
               <div className="lds-dual-ring"></div>
             ) : (
