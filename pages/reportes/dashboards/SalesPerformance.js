@@ -23,6 +23,7 @@ import { Menu, Button } from "@mantine/core";
 const SalesPerformance = () => {
   const example = [
     {
+      id: 1,
       compania: "Adobe",
       region: "-",
       pais: "Colombia",
@@ -36,6 +37,7 @@ const SalesPerformance = () => {
       dc_renewal: "0",
     },
     {
+      id: 2,
       compania: "Adobe",
       region: "-",
       pais: "Guatemala",
@@ -89,28 +91,26 @@ const SalesPerformance = () => {
 
   const [t, i18n] = useTranslation("global");
 
-  const tableMenu = (
-    <Menu shadow="md" width={200}>
-      <Menu.Target>
-        <Button color="gray.0">
-          <VeticalPoints />
-        </Button>
-      </Menu.Target>
+  const tableMenu = (id) => {
+    return (
+      <Menu shadow="md" width={200}>
+        <Menu.Target>
+          <Button color="gray.0">
+            <VeticalPoints />
+          </Button>
+        </Menu.Target>
 
-      <Menu.Dropdown>
-        <Menu.Item>
-          <a onClick={() => console.log("Opcion 1")} className="text-black">
-            Opcion 1
-          </a>
-        </Menu.Item>
-        <Menu.Item>
-          <a onClick={() => console.log("Opcion 2")} className="text-black">
-            Opcion 2
-          </a>
-        </Menu.Item>
-      </Menu.Dropdown>
-    </Menu>
-  );
+        <Menu.Dropdown>
+          <Menu.Item onClick={() => console.log("id:" + id)}>
+            <a className="text-black">Opcion 1</a>
+          </Menu.Item>
+          <Menu.Item onClick={() => console.log("Opcion 2")}>
+            <a className="text-black">Opcion 2</a>
+          </Menu.Item>
+        </Menu.Dropdown>
+      </Menu>
+    );
+  };
 
   return (
     <div className="mt-8">
@@ -300,7 +300,7 @@ const SalesPerformance = () => {
                   <div className="grid grid-cols-2 items-center py-2">
                     <div className="grid text-left">{data.dc_renewal}</div>
                     <div className="grid justify-items-end mr-3 cursor-pointer">
-                      {tableMenu}
+                      {tableMenu(data.id)}
                     </div>
                   </div>
                 </td>
