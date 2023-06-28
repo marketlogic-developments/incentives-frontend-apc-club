@@ -20,6 +20,8 @@ import {
 } from "../../../components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
+import jsonexport from "jsonexport";
+import { saveAs } from "file-saver";
 
 const InvoiceReport = () => {
   const itemsPerPage = 10;
@@ -114,6 +116,20 @@ const InvoiceReport = () => {
   };
 
   /* Download */
+  const importFile = (data) => {
+    // const workbook = XLSX.utils.book_new();
+    // const sheet = XLSX.utils.json_to_sheet(data);
+    // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
+    // XLSX.writeFile(workbook, "Puntos_Por_Ventas.xlsx");
+    jsonexport(data, (error, csv) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "InvoiceReport.csv");
+    });
+  };
 
   /* Table */
   const currentItems = useMemo(() => {
@@ -174,6 +190,7 @@ const InvoiceReport = () => {
           styles={
             "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
           }
+          onClick={() => importFile(filteredUsers)}
         />
       </div>
       <div className="grid overflow-x-auto w-full">
