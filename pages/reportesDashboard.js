@@ -95,6 +95,9 @@ const reportesDashboard = () => {
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.registration_performance")}
+          onClick={() => {
+            router.push("/reportes/dashboards/RegistrationPerformance");
+          }}
         >
           <Thunderbolt />
         </CardReportes>
