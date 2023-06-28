@@ -330,7 +330,7 @@ const DigipointsAll = () => {
   const uniqueEmails = [
     ...new Set(data.map((user) => user.company_or_channel_name)),
   ];
-  uniqueEmails.sort((a, b) => a.localeCompare(b));
+  uniqueEmails.sort((a, b) => a?.localeCompare(b));
 
   const uniqueReasonAssign = [
     ...new Set(data.map((user) => user.invoices_included)),

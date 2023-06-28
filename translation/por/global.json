@@ -326,7 +326,6 @@
     "aceptoCorreo": "Aceito ser contactado por correio.",
     "aceptoMovil": "Aceito ser contactado por WhatsApp ou por telefone.",
     "enviar": "Enviar solicitação"
-
   },
   "user": {
     "ajustesdeperfil": "Ajustes do perfil",
@@ -390,8 +389,8 @@
     "vip": "Por que usar o VIP Marketplace?",
     "htw": "Saiba como ganhar"
   },
-  "comunicado":{
-    "bienvenida":"BEM-VINDO AO NOSSO QUADRO DE COMUNICAÇÕES",
+  "comunicado": {
+    "bienvenida": "BEM-VINDO AO NOSSO QUADRO DE COMUNICAÇÕES",
     "tituloPartUno": "Saiba mais sobre as novidades e vantagens",
     "tituloPartDos": "recente que lhe dá o",
     "tituloPartTres": "APC Club",
@@ -402,7 +401,8 @@
     "marketPlace": "Market place",
     "novedad": "Novidades",
     "evento": "Eventos"
-  "Reportes" : {
+  },
+  "Reportes": {
     "reportes": "Relatórios",
     "sales_performance": "Sales performance",
     "digiPoints_performance": "DigiPoints performance",
