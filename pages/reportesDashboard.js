@@ -104,6 +104,9 @@ const reportesDashboard = () => {
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.follow_up")}
+          onClick={() => {
+            router.push("/reportes/dashboards/FollowUp");
+          }}
         >
           <TermsConditions />
         </CardReportes>

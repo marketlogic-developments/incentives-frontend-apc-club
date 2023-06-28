@@ -908,7 +908,8 @@ const Layout = ({ children }) => {
           location === "/reportes/dashboards/GoogleAnalytic" ||
           location === "/reportes/dashboards/CustomCare" || 
           location === "/reportes/dashboards/SoImportReport" || 
-          location === "/reportes/dashboards/RegistrationPerformance"  
+          location === "/reportes/dashboards/RegistrationPerformance" ||
+          location === "/reportes/dashboards/FollowUp"
         ) {
           return t("Reportes.reportes");
         }
