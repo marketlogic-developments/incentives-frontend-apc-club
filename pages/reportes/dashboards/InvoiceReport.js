@@ -37,10 +37,12 @@ const InvoiceReport = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const [searchByInvoice, setSearchByInvoice] = useState("");
 
+  /* Loader setter */
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
+  /* Querys */
   useEffect(() => {
     if (token && data.length === 0) {
       setLoading(true);
@@ -117,10 +119,6 @@ const InvoiceReport = () => {
 
   /* Download */
   const importFile = (data) => {
-    // const workbook = XLSX.utils.book_new();
-    // const sheet = XLSX.utils.json_to_sheet(data);
-    // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
-    // XLSX.writeFile(workbook, "Puntos_Por_Ventas.xlsx");
     jsonexport(data, (error, csv) => {
       if (error) {
         console.error(error);
