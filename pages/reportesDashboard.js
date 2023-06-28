@@ -86,6 +86,9 @@ const reportesDashboard = () => {
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.so_import")}
+          onClick={() => {
+            router.push("/reportes/dashboards/SoImportReport");
+          }}
         >
           <RegistrationPerformance />
         </CardReportes>
