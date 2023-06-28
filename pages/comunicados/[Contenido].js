@@ -7,8 +7,15 @@ const Contenido = () => {
   const dataContent = JSON.parse(query.data);
   const example = [dataContent];
 
+  const html = dataContent.html.content[0].content[0].value;
+
+  console.log(html);
+
   return (
-    <p>{dataContent.title}</p>
+    <div
+      className="htmlContentComunications w-full flex justify-center"
+      dangerouslySetInnerHTML={{ __html: html }}
+    ></div>
     // <div className="grid">
     //   <div className="object-contain flex justify-center items-center relative">
     //     <Image
