@@ -10,7 +10,7 @@ import { ArrowDown } from "../icons";
 const SelectItem = ({ image, label, description, ...others }) => (
   <div {...others}>
     <Group noWrap>
-      {image ? image : ''}
+      {image ? image : ""}
       <div>
         <Text size="sm">{label}</Text>
       </div>
@@ -29,12 +29,7 @@ const SelectInput = ({
   icon = <ArrowDown />,
   placeholder = "Pick one",
   label = "",
-  data = [
-    { value: "react", label: "React" },
-    { value: "ng", label: "Angular" },
-    { value: "svelte", label: "Svelte" },
-    { value: "vue", label: "Vue" },
-  ],
+  data = [],
   bgColorDataSelected = "#FFEEED",
   colorDataSelected = "#EB1000",
   borderRadiusDataSelected = "30px",
@@ -43,16 +38,20 @@ const SelectInput = ({
   borderRadiusDataHover = "30px",
   onChange,
   name,
+  value = "",
+  disabled = false,
 }) => {
   return (
     <Select
       className={`${styles}`}
       label={label}
+      value={value}
       placeholder={placeholder}
       itemComponent={SelectItem}
       rightSection={icon}
       data={data}
       radius="md"
+      disabled={disabled}
       size="md"
       transitionProps={{
         transition: "pop-top-left",
@@ -86,4 +85,3 @@ const SelectInput = ({
 };
 
 export default SelectInput;
-
