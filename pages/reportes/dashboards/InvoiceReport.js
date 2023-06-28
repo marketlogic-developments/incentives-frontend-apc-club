@@ -3,6 +3,7 @@ import {
   ArrowDown,
   CloudDownload,
   SearchIcon,
+  UserPerformance,
 } from "../../../components/icons";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +18,7 @@ import {
   Table,
   SelectInputValue,
   SearchInput,
+  TitleWithIcon,
 } from "../../../components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
@@ -150,6 +152,12 @@ const InvoiceReport = () => {
 
   return (
     <div className="grid mt-8">
+      <div className="grid">
+        <TitleWithIcon
+          icon={<UserPerformance />}
+          title={t("Reportes.user_performance")}
+        />
+      </div>
       <div className="grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}

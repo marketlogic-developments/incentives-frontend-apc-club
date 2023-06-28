@@ -1,8 +1,11 @@
 import React from 'react'
+import { Maintenance } from '../../../components'
 
 const GoogleAnalytic = () => {
   return (
-    <div>Google Analytic goes here!</div>
+    <div>
+      <Maintenance title='Google Analytics' text='Google Analytic goes here!'/>
+    </div>
   )
 }
 
