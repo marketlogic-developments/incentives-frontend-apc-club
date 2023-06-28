@@ -138,7 +138,7 @@
     justify-content: center;
     position: sticky;
     top: 0px;
-    z-index: 99;
+    z-index: 1;
     background-color: #fff;
 
     .navbar {
@@ -647,7 +647,6 @@
       fill: transparent;
       stroke-width: 1;
     }
-    
   }
 
   svg {
@@ -657,16 +656,16 @@
     width: var(--wicons);
     height: 100%;
   }
+}
 
-  .whatsappButton {
-    transition: all;
-    transition-duration: 0.5s;
-    border-color: #25d366;
-    &:hover {
-      background-color: #25d366;
-      .iconWhatsApp {
-        stroke: #fff;
-      }
+.whatsappButton {
+  transition: all;
+  transition-duration: 0.5s;
+  border-color: #25d366;
+  &:hover {
+    background-color: #25d366;
+    .iconWhatsApp {
+      stroke: #fff;
     }
   }
 }
