@@ -5,6 +5,7 @@ import {
   Table,
   SelectInputValue,
   SearchInput,
+  TitleWithIcon,
 } from "../../../components";
 import { saveAs } from "file-saver";
 import jsonexport from "jsonexport";
@@ -12,6 +13,7 @@ import {
   ArrowDown,
   CloudDownload,
   SearchIcon,
+  Thunderbolt,
 } from "../../../components/icons";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
@@ -149,7 +151,13 @@ const RegistrationPerformance = () => {
   };
 
   return (
-    <div className="grid mt-8">
+    <div className="mt-8">
+      <div className="grid grid-rows-1">
+        <TitleWithIcon
+          icon={<Thunderbolt />}
+          title={t("Reportes.registration_performance")}
+        />
+      </div>
       <div className="grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
