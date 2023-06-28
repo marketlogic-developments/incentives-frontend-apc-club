@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { Maintenance, TitleWithIcon } from '../../../components';
-import { CodeRocket, CustomIcon } from '../../../components/icons';
+import { Maintenance, TitleWithIcon } from "../../../components";
+import { CodeRocket, CustomIcon } from "../../../components/icons";
 
 const CustomCare = () => {
   const [t, i18n] = useTranslation("global");
@@ -13,9 +13,13 @@ const CustomCare = () => {
           title={t("Reportes.custom_care")}
         />
       </div>
-      <Maintenance icon={<CodeRocket />} title="Custom Care" text="Custom Care goes here!" />
+      <Maintenance
+        icon={<CodeRocket />}
+        title="Custom Care"
+        text="Custom Care goes here!"
+      />
     </div>
-  )
-}
+  );
+};
 
-export default CustomCare
+export default CustomCare;
