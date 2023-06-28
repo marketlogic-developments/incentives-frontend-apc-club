@@ -900,12 +900,15 @@ const Layout = ({ children }) => {
           return t("dashboard.htw");
         }
 
-        if (location === "/reportes/dashboards/SalesPerformance" || location === "/reportes/dashboards/UserPerformance") {
+        if (
+          location === "/reportes/dashboards/SalesPerformance" ||
+          location === "/reportes/dashboards/UserPerformance" ||
+          location === "/reportes/dashboards/InvoiceReport"
+        ) {
           return t("Reportes.reportes");
         }
 
         if (location.includes("comunicado")) {
-
           return "Comunicados";
         }
       }

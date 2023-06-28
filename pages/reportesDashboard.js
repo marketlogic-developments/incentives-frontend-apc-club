@@ -50,6 +50,9 @@ const reportesDashboard = () => {
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.invoice_report")}
+          onClick={() => {
+            router.push("/reportes/dashboards/InvoiceReport");
+          }}
         >
           <IncentivePoints />
         </CardReportes>
