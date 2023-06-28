@@ -1,7 +1,6 @@
 import React from "react";
-import { InputReporte } from "../../../components";
 import { ArrowDown, SearchIcon } from "../../../components/icons";
-import { SelectInput } from "../../../components/inputs";
+import { SearchInput, SelectInput } from "../../../components/inputs";
 import { useTranslation } from "react-i18next";
 
 const InvoiceReport = () => {
@@ -21,7 +20,7 @@ const InvoiceReport = () => {
   return (
     <div className="mt-8">
      <div className="flex justify-start items-center gap-3">
-     <InputReporte
+     <SearchInput
             image={<SearchIcon />}
             placeHolder={"Buscar"}
             stylesContainer={""}
