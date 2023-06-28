@@ -8,3 +8,7 @@ export { default as BarChar } from "./cardReportes/BarChar";
 export { default as BtnWithImage } from "./cardReportes/BtnWithImage";
 export { default as TableSalePerformance } from "./cardReportes/TableSalePerformance";
 export { default as LineChart } from "./cardReportes/LineChart";
+export { default as Table } from "./table/Table";
+export { default as SearchInput } from "./inputs/SearchInput";
+export { default as SelectInput } from "./inputs/SelectInput";
+export { default as SelectInputValue } from "./inputs/SelectInputValue";

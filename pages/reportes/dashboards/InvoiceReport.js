@@ -4,7 +4,6 @@ import {
   CloudDownload,
   SearchIcon,
 } from "../../../components/icons";
-import { SearchInput } from "../../../components/inputs";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,8 +11,13 @@ import {
   getSalesAllByChannel,
   getSalesAllByDist,
 } from "../../../store/reducers/sales.reducer";
-import { BtnFilter, BtnWithImage } from "../../../components";
-import SelectInputValue from "../../../components/inputs/SelectInputValue";
+import {
+  BtnFilter,
+  BtnWithImage,
+  Table,
+  SelectInputValue,
+  SearchInput,
+} from "../../../components";
 
 const InvoiceReport = () => {
   const dispatch = useDispatch();
@@ -53,7 +57,6 @@ const InvoiceReport = () => {
     }
   }, [isLoaded, token]);
 
-
   /* Selects */
   const handleSelectOneChange = (name, value) => {
     setSelectOne(value);
@@ -78,10 +81,10 @@ const InvoiceReport = () => {
   }));
 
   /* Filter */
-  const clearSelects = () =>{
-    setSelectOne('');
-    setSelectTwo('');
-  }
+  const clearSelects = () => {
+    setSelectOne("");
+    setSelectTwo("");
+  };
 
   return (
     <div className="mt-8">
@@ -122,6 +125,70 @@ const InvoiceReport = () => {
             "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
           }
         />
+      </div>
+      <div className="grid grid-rows-1 justify-items-center">
+        <Table
+          containerStyles={
+            "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-[300px]"
+          }
+          tableStyles={"table-zebra !text-sm"}
+          thStyles={"sticky text-white"}
+          cols={[
+            t("Reportes.compania"),
+            t("Reportes.region"),
+            t("Reportes.pais"),
+            t("Reportes.membership_Id"),
+            t("Reportes.tipo"),
+            t("Reportes.nivel"),
+            t("Reportes.status"),
+            t("Reportes.registrado"),
+            t("Reportes.cc_Renewal"),
+            t("Reportes.cc_New_business"),
+            t("Reportes.dc_Renewal"),
+          ]}
+        >
+          {/* {example.length !== 0 &&
+            example.map((data, index) => (
+              <tr>
+                <th>
+                  <label className="text-left px-2">
+                    <input
+                      type="checkbox"
+                      className="!checkbox-xs mt-1 border-white bg-base-200"
+                    />
+                  </label>
+                </th>
+                <td className="text-left py-2">{data.compania}</td>
+                <td className="text-left py-2">{data.region}</td>
+                <td className="text-left py-2">{data.pais}</td>
+                <td className="text-left py-2">{data.membership_Id}</td>
+                <td className="text-left py-2">{data.tipo}</td>
+                <td className="text-left py-2">{data.nivel}</td>
+                <td className="text-left py-2">
+                  {data.status === t("Reportes.inactivo") ? (
+                    <div class="badge bg-red-200 text-red-600 text-sm text-left py-2">
+                      {t("Reportes.inactivo")}
+                    </div>
+                  ) : (
+                    <div class="badge bg-green-200 text-green-600 text-sm border-green-300 text-left py-2">
+                      {t("Reportes.activo")}
+                    </div>
+                  )}
+                </td>
+                <td className="text-left py-2">{data.registrado}</td>
+                <td className="text-left py-2">{data.cc_renewal}</td>
+                <td className="text-left py-2">{data.cc_new_business}</td>
+                <td className="text-left py-2">
+                  <div className="grid grid-cols-2 items-center py-2">
+                    <div className="grid text-left">{data.dc_renewal}</div>
+                    <div className="grid justify-items-end mr-3 cursor-pointer">
+                      {tableMenu(data.id)}
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            ))} */}
+        </Table>
       </div>
     </div>
   );
