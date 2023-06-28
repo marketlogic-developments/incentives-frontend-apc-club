@@ -1,48 +1,105 @@
-import React from "react";
-import { ArrowDown, SearchIcon } from "../../../components/icons";
+import React, { useEffect, useState } from "react";
+import {
+  ArrowDown,
+  CloudDownload,
+  SearchIcon,
+} from "../../../components/icons";
 import { SearchInput, SelectInput } from "../../../components/inputs";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getSalesAll,
+  getSalesAllByChannel,
+  getSalesAllByDist,
+} from "../../../store/reducers/sales.reducer";
+import { BtnFilter, BtnWithImage } from "../../../components";
 
 const InvoiceReport = () => {
+  const [selector, setSelector] = useState("");
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user.user);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const data = useSelector((state) => state.sales.salesall);
   const [t, i18n] = useTranslation("global");
-  const dataSelectOne = [
-    {
-      value: "Inquietud o pregunta",
-      label: "Inquietud o pregunta",
-    },
-    {
-      value: "Reporte de error",
-      label: "Reporte de error",
-    },
-    { value: "Sugerencia", label: "Sugerencia" },
-    { value: "Otros", label: "Otros" },
-  ];
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (token && data.length === 0) {
+      setLoading(true);
+      if (user.roleId === 1) {
+        dispatch(getSalesAll(token)).then((response) => {
+          setLoading(false);
+        });
+      } else if (user.companyId === null) {
+        dispatch(getSalesAllByDist(token, distribuitor.soldToParty)).then(
+          (response) => {
+            setLoading(false);
+          }
+        );
+      } else {
+        dispatch(getSalesAllByChannel(token, company.resellerMasterId)).then(
+          (response) => {
+            setLoading(false);
+          }
+        );
+      }
+    }
+  }, [isLoaded, token]);
+
+  const handleSelectChange = (name, value) => {
+    /* setSelector(e.target.value); */
+    console.log(name + ": " + value);
+  };
+
+  const dataOne = [...new Set(data.map((user) => user.business_unit))];
+
+  const dataSelectOne = dataOne.map((business) => ({
+    value: business,
+    label: business,
+  }));
+
   return (
     <div className="mt-8">
-     <div className="flex justify-start items-center gap-3">
-     <SearchInput
-            image={<SearchIcon />}
-            placeHolder={"Buscar"}
-            stylesContainer={""}
-            stylesInput={
-              "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
+      <div className="grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
+        <SearchInput
+          image={<SearchIcon />}
+          placeHolder={"Buscar"}
+          stylesContainer={""}
+          stylesInput={
+            "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
+          }
+        />
+        <SelectInput
+          placeholder={t("tabla.unidadNegocio")}
+          data={dataSelectOne}
+          icon={<ArrowDown />}
+          onChange={handleSelectChange}
+          name={"business"}
+        />
+        <SelectInput
+          placeholder="Asunto"
+          data={dataSelectOne}
+          icon={<ArrowDown />}
+          /* onChange={handleChange} */
+          name={"subject"}
+        />
+        <BtnFilter
+          text={t("Reportes.limpiar_filtros")}
+          styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
+        /> 
+          <BtnWithImage
+            text={t("Reportes.descargar")}
+            icon={<CloudDownload />}
+            styles={
+              "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
             }
           />
-          <SelectInput
-            placeholder={t("tabla.unidadNegocio")}
-            data={dataSelectOne}
-            icon={<ArrowDown />}
-            /* onChange={handleChange} */
-            name={"subject"}
-          />
-          <SelectInput
-            placeholder="Asunto"
-            data={dataSelectOne}
-            icon={<ArrowDown />}
-            /* onChange={handleChange} */
-            name={"subject"}
-          />
-     </div>
+      </div>
     </div>
   );
 };
