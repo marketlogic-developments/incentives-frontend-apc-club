@@ -151,11 +151,11 @@ const InvoiceReport = () => {
   };
 
   return (
-    <div className="grid mt-8">
-      <div className="grid">
+    <div className="mt-8">
+      <div className="grid grid-rows-1">
         <TitleWithIcon
           icon={<UserPerformance />}
-          title={t("Reportes.user_performance")}
+          title={t("Reportes.invoice_report")}
         />
       </div>
       <div className="grid items-center sm:grid-cols-5 grid-rows-1 gap-3">

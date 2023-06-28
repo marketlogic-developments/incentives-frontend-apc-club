@@ -5,12 +5,14 @@ import {
   Table,
   SelectInputValue,
   SearchInput,
+  TitleWithIcon,
 } from "../../../components";
 import { saveAs } from "file-saver";
 import jsonexport from "jsonexport";
 import {
   ArrowDown,
   CloudDownload,
+  Request,
   SearchIcon,
 } from "../../../components/icons";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -148,7 +150,13 @@ const DigiPointsRedemption = () => {
     setItemOffset(newOffset);
   };
   return (
-    <div className="grid mt-8">
+    <div className="mt-8">
+      <div className="grid grid-rows-1">
+        <TitleWithIcon
+          icon={<Request />}
+          title={t("Reportes.digiPoints_redemption_request")}
+        />
+      </div>
       <div className="grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
