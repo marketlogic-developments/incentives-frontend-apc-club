@@ -141,6 +141,8 @@ const InvoiceReport = () => {
           image={<SearchIcon />}
           placeHolder={"Buscar"}
           stylesContainer={""}
+          value={searchByInvoice}
+          onChange={(e) => setSearchByInvoice(e.target.value)}
           stylesInput={
             "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
           }
