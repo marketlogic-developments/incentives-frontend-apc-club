@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import {
   ArrowDown,
   CloudDownload,
@@ -18,8 +18,11 @@ import {
   SelectInputValue,
   SearchInput,
 } from "../../../components";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import ReactPaginate from "react-paginate";
 
 const InvoiceReport = () => {
+  const itemsPerPage = 10;
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
@@ -29,6 +32,8 @@ const InvoiceReport = () => {
   const [t, i18n] = useTranslation("global");
   const [selectOne, setSelectOne] = useState("");
   const [selectTwo, setSelectTwo] = useState("");
+  const [itemOffset, setItemOffset] = useState(0);
+  const [searchByInvoice, setSearchByInvoice] = useState("");
 
   useEffect(() => {
     setIsLoaded(true);
@@ -81,13 +86,56 @@ const InvoiceReport = () => {
   }));
 
   /* Filter */
+  const filteredUsers = data.filter((user) => {
+    if (
+      selectTwo &&
+      !user.reseller_partner_rollup
+        .toLowerCase()
+        .includes(selectTwo.toLowerCase())
+    ) {
+      return false;
+    }
+    if (
+      selectOne &&
+      !user.business_unit
+        .toString()
+        .toLowerCase()
+        .includes(selectOne.toLowerCase())
+    ) {
+      return false;
+    }
+    return true;
+  });
+
+  /* Clear Filter */
   const clearSelects = () => {
     setSelectOne("");
     setSelectTwo("");
   };
 
+  /* Download */
+
+  /* Table */
+  const currentItems = useMemo(() => {
+    const endOffset = itemOffset + itemsPerPage;
+
+    return filteredUsers.slice(itemOffset, endOffset);
+  }, [itemOffset, data, filteredUsers]);
+
+  /* Paginate */
+  const pageCount = useMemo(
+    () => Math.ceil(filteredUsers.length / itemsPerPage),
+    [filteredUsers, itemsPerPage]
+  );
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % filteredUsers.length;
+
+    setItemOffset(newOffset);
+  };
+
   return (
-    <div className="mt-8">
+    <div className="grid mt-8">
       <div className="grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
@@ -126,69 +174,101 @@ const InvoiceReport = () => {
           }
         />
       </div>
-      <div className="grid grid-rows-1 justify-items-center">
-        <Table
-          containerStyles={
-            "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-[300px]"
-          }
-          tableStyles={"table-zebra !text-sm"}
-          thStyles={"sticky text-white"}
-          cols={[
-            t("Reportes.compania"),
-            t("Reportes.region"),
-            t("Reportes.pais"),
-            t("Reportes.membership_Id"),
-            t("Reportes.tipo"),
-            t("Reportes.nivel"),
-            t("Reportes.status"),
-            t("Reportes.registrado"),
-            t("Reportes.cc_Renewal"),
-            t("Reportes.cc_New_business"),
-            t("Reportes.dc_Renewal"),
-          ]}
-        >
-          {/* {example.length !== 0 &&
-            example.map((data, index) => (
-              <tr>
-                <th>
-                  <label className="text-left px-2">
-                    <input
-                      type="checkbox"
-                      className="!checkbox-xs mt-1 border-white bg-base-200"
-                    />
-                  </label>
-                </th>
-                <td className="text-left py-2">{data.compania}</td>
-                <td className="text-left py-2">{data.region}</td>
-                <td className="text-left py-2">{data.pais}</td>
-                <td className="text-left py-2">{data.membership_Id}</td>
-                <td className="text-left py-2">{data.tipo}</td>
-                <td className="text-left py-2">{data.nivel}</td>
-                <td className="text-left py-2">
-                  {data.status === t("Reportes.inactivo") ? (
-                    <div class="badge bg-red-200 text-red-600 text-sm text-left py-2">
-                      {t("Reportes.inactivo")}
-                    </div>
-                  ) : (
-                    <div class="badge bg-green-200 text-green-600 text-sm border-green-300 text-left py-2">
-                      {t("Reportes.activo")}
-                    </div>
-                  )}
-                </td>
-                <td className="text-left py-2">{data.registrado}</td>
-                <td className="text-left py-2">{data.cc_renewal}</td>
-                <td className="text-left py-2">{data.cc_new_business}</td>
-                <td className="text-left py-2">
-                  <div className="grid grid-cols-2 items-center py-2">
-                    <div className="grid text-left">{data.dc_renewal}</div>
-                    <div className="grid justify-items-end mr-3 cursor-pointer">
-                      {tableMenu(data.id)}
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ))} */}
-        </Table>
+      <div className="grid overflow-x-auto w-full">
+        {loading ? (
+          <div className="lds-dual-ring"></div>
+        ) : (
+          <>
+            <div>
+              <Table
+                containerStyles={
+                  "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-max"
+                }
+                tableStyles={"table-zebra !text-sm"}
+                colStyles={"p-2"}
+                thStyles={"sticky text-white"}
+                cols={
+                  user.roleId === 1
+                    ? [
+                        "Invoice",
+                        "Disti Partner Rollup",
+                        "Reseller Partner Rollup",
+                        "Business Unit",
+                        "Business Type",
+                        "SKU",
+                        "Quarter",
+                        "DigiPoints",
+                        "Total Sales US",
+                      ]
+                    : [
+                        "Invoice",
+                        "Disti Partner Rollup",
+                        "Reseller Partner Rollup",
+                        "Business Unit",
+                        "Business Type",
+                        "SKU",
+                        "Quarter",
+                        "Total Sales US",
+                      ]
+                }
+              >
+                {currentItems &&
+                  [...currentItems]
+                    .filter((item) => {
+                      if (searchByInvoice !== "") {
+                        return item.sales_order.startsWith(searchByInvoice);
+                      }
+
+                      return item;
+                    })
+                    .map((data, index) => (
+                      <tr key={index}>
+                        <td className="text-start p-4">{data.sales_order}</td>
+                        <td className="text-start p-4">
+                          {data.disti_partner_rollup}
+                        </td>
+                        <td className="text-start p-4">
+                          {data.reseller_partner_rollup}
+                        </td>
+                        <td className="text-start p-4">{data.business_unit}</td>
+                        <td className="text-start p-4">{data.business_type}</td>
+                        <td className="text-start p-4">{data.materia_sku}</td>
+                        <td className="text-start p-4">{data.quarter}</td>
+                        {user.roleId === 1 && (
+                          <td className="text-start p-4">
+                            {data.max_digipoints_allocate}
+                          </td>
+                        )}
+                        <td className="text-start p-4">
+                          ${parseFloat(data.total_sales_amount).toFixed(2)}
+                        </td>
+                      </tr>
+                    ))}
+              </Table>
+              <ReactPaginate
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                nextClassName={"item next "}
+                previousClassName={"item previous"}
+                activeClassName={"item active "}
+                breakClassName={"item break-me "}
+                breakLabel={"..."}
+                disabledClassName={"disabled-page"}
+                pageClassName={"item pagination-page "}
+                nextLabel={
+                  <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
+                }
+                previousLabel={
+                  <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
+                }
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
