@@ -27,6 +27,7 @@ const SelectItem = ({ image, label, description, ...others }) => (
 const SelectInput = ({
   styles = "",
   icon = <ArrowDown />,
+  value = '',
   placeholder = "Pick one",
   label = "",
   data = [
@@ -51,6 +52,7 @@ const SelectInput = ({
       placeholder={placeholder}
       itemComponent={SelectItem}
       rightSection={icon}
+      value={value}
       data={data}
       radius="md"
       size="md"
@@ -61,6 +63,7 @@ const SelectInput = ({
       }}
       variant="filled"
       withinPortal
+      clearable
       styles={() => ({
         item: {
           // applies styles to selected item

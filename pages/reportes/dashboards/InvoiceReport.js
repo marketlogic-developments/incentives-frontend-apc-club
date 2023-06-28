@@ -15,7 +15,6 @@ import {
 import { BtnFilter, BtnWithImage } from "../../../components";
 
 const InvoiceReport = () => {
-  const [selector, setSelector] = useState("");
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
@@ -23,6 +22,8 @@ const InvoiceReport = () => {
   const [loading, setLoading] = useState(false);
   const data = useSelector((state) => state.sales.salesall);
   const [t, i18n] = useTranslation("global");
+  const [selectOne, setSelectOne] = useState("");
+  const [selectTwo, setSelectTwo] = useState("");
 
   useEffect(() => {
     setIsLoaded(true);
@@ -51,9 +52,14 @@ const InvoiceReport = () => {
     }
   }, [isLoaded, token]);
 
-  const handleSelectChange = (name, value) => {
-    /* setSelector(e.target.value); */
-    console.log(name + ": " + value);
+
+  /* Selects */
+  const handleSelectOneChange = (name, value) => {
+    setSelectOne(value);
+  };
+
+  const handleSelectTwoChange = (name, value) => {
+    setSelectTwo(value);
   };
 
   const dataOne = [...new Set(data.map((user) => user.business_unit))];
@@ -62,6 +68,19 @@ const InvoiceReport = () => {
     value: business,
     label: business,
   }));
+
+  const dataTwo = [...new Set(data.map((user) => user.business_unit))];
+
+  const dataSelectTwo = dataTwo.map((business) => ({
+    value: business,
+    label: business,
+  }));
+
+  /* Filter */
+  const clearSelects = () =>{
+    setSelectOne('');
+    setSelectTwo('');
+  }
 
   return (
     <div className="mt-8">
@@ -76,29 +95,32 @@ const InvoiceReport = () => {
         />
         <SelectInput
           placeholder={t("tabla.unidadNegocio")}
+          value={selectOne}
           data={dataSelectOne}
           icon={<ArrowDown />}
-          onChange={handleSelectChange}
+          onChange={handleSelectOneChange}
           name={"business"}
         />
         <SelectInput
-          placeholder="Asunto"
-          data={dataSelectOne}
+          placeholder={t("organizacion.organizacion")}
+          value={selectTwo}
+          data={dataSelectTwo}
           icon={<ArrowDown />}
-          /* onChange={handleChange} */
-          name={"subject"}
+          onChange={handleSelectTwoChange}
+          name={"email"}
         />
         <BtnFilter
           text={t("Reportes.limpiar_filtros")}
           styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
-        /> 
-          <BtnWithImage
-            text={t("Reportes.descargar")}
-            icon={<CloudDownload />}
-            styles={
-              "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
-            }
-          />
+          onClick={clearSelects}
+        />
+        <BtnWithImage
+          text={t("Reportes.descargar")}
+          icon={<CloudDownload />}
+          styles={
+            "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+          }
+        />
       </div>
     </div>
   );
