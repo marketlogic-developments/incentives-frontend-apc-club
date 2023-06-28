@@ -905,7 +905,8 @@ const Layout = ({ children }) => {
           location === "/reportes/dashboards/UserPerformance" ||
           location === "/reportes/dashboards/InvoiceReport" ||
           location === "/reportes/dashboards/DigiPointsRedemption" ||
-          location === "/reportes/dashboards/GoogleAnalytic"
+          location === "/reportes/dashboards/GoogleAnalytic" ||
+          location === "/reportes/dashboards/CustomCare" 
         ) {
           return t("Reportes.reportes");
         }
