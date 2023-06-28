@@ -77,6 +77,9 @@ const reportesDashboard = () => {
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.custom_care")}
+          onClick={() => {
+            router.push("/reportes/dashboards/CustomCare");
+          }}
         >
           <CustomIcon />
         </CardReportes>
