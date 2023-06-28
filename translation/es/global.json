@@ -323,7 +323,6 @@
     "aceptoCorreo": "Acepto ser contactado por correo.",
     "aceptoMovil": "Acepto ser contactado por WhatsApp o vía telefónica.",
     "enviar": "Enviar solicitud"
-
   },
   "user": {
     "ajustesdeperfil": "Ajustes de perfil",
@@ -388,8 +387,8 @@
     "htw": "Cónoce como ganar"
   },
 
-  "comunicado":{
-    "bienvenida":"BIENVENIDO A NUESTRO BOARD DE COMUNICADOS",
+  "comunicado": {
+    "bienvenida": "BIENVENIDO A NUESTRO BOARD DE COMUNICADOS",
     "tituloPartUno": "Entérate de las noticias y beneficios más",
     "tituloPartDos": "recientes que te brinda el",
     "tituloPartTres": "APC Club",
@@ -400,7 +399,8 @@
     "marketPlace": "Market place",
     "novedad": "Novedades",
     "evento": "Eventos"
-  "Reportes" : {
+  },
+  "Reportes": {
     "reportes": "Reportes",
     "sales_performance": "Sales performance",
     "digiPoints_performance": "DigiPoints performance",

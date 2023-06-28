@@ -96,7 +96,7 @@ const puntosporventas = () => {
   const uniqueEmails = [
     ...new Set(data.map((user) => user.reseller_partner_rollup)),
   ];
-  uniqueEmails.sort((a, b) => a.localeCompare(b));
+  uniqueEmails.sort((a, b) => a?.localeCompare(b));
 
   const uniqueReasonAssign = [
     ...new Set(data.map((user) => user.business_unit)),
