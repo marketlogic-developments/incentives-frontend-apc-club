@@ -59,12 +59,18 @@ const reportesDashboard = () => {
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.digiPoints_redemption_request")}
+          onClick={() => {
+            router.push("/reportes/dashboards/DigiPointsRedemption");
+          }}
         >
           <Request />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.google_analytic")}
+          onClick={() => {
+            router.push("/reportes/dashboards/GoogleAnalytic");
+          }}
         >
           <IncentivePoints />
         </CardReportes>
