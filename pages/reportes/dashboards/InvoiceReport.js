@@ -4,7 +4,7 @@ import {
   CloudDownload,
   SearchIcon,
 } from "../../../components/icons";
-import { SearchInput, SelectInput } from "../../../components/inputs";
+import { SearchInput } from "../../../components/inputs";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,6 +13,7 @@ import {
   getSalesAllByDist,
 } from "../../../store/reducers/sales.reducer";
 import { BtnFilter, BtnWithImage } from "../../../components";
+import SelectInputValue from "../../../components/inputs/SelectInputValue";
 
 const InvoiceReport = () => {
   const dispatch = useDispatch();
@@ -93,7 +94,7 @@ const InvoiceReport = () => {
             "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
           }
         />
-        <SelectInput
+        <SelectInputValue
           placeholder={t("tabla.unidadNegocio")}
           value={selectOne}
           data={dataSelectOne}
@@ -101,7 +102,7 @@ const InvoiceReport = () => {
           onChange={handleSelectOneChange}
           name={"business"}
         />
-        <SelectInput
+        <SelectInputValue
           placeholder={t("organizacion.organizacion")}
           value={selectTwo}
           data={dataSelectTwo}

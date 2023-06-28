@@ -10,7 +10,7 @@ import { ArrowDown } from "../icons";
 const SelectItem = ({ image, label, description, ...others }) => (
   <div {...others}>
     <Group noWrap>
-      {image ? image : ''}
+      {image ? image : ""}
       <div>
         <Text size="sm">{label}</Text>
       </div>
@@ -24,9 +24,10 @@ const SelectItem = ({ image, label, description, ...others }) => (
  * @param {*} param0
  * @returns
  */
-const SelectInput = ({
+const SelectInputValue = ({
   styles = "",
   icon = <ArrowDown />,
+  value = "",
   placeholder = "Pick one",
   label = "",
   data = [
@@ -51,6 +52,7 @@ const SelectInput = ({
       placeholder={placeholder}
       itemComponent={SelectItem}
       rightSection={icon}
+      value={value}
       data={data}
       radius="md"
       size="md"
@@ -86,5 +88,4 @@ const SelectInput = ({
   );
 };
 
-export default SelectInput;
-
+export default SelectInputValue;
