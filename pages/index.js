@@ -135,8 +135,6 @@ export default function Home() {
         Toast.fire({
           icon: "error",
           title: t("login.errorLogin"),
-          background: "#000000",
-          color: "#fff",
         });
 
         return dispatch(changeLoadingData(false));
@@ -253,8 +251,6 @@ export default function Home() {
         return Toast.fire({
           icon: "success",
           title: t("login.donechangepass"),
-          background: "#000000",
-          color: "#fff",
         });
       })
       .catch(() => {
@@ -273,8 +269,6 @@ export default function Home() {
         return Toast.fire({
           icon: "error",
           title: t("login.errorchangepass"),
-          background: "#000000",
-          color: "#fff",
         });
       });
   };
@@ -304,8 +298,6 @@ export default function Home() {
         return Toast.fire({
           icon: "success",
           title: t("login.correoenviado"),
-          background: "#000000",
-          color: "#fff",
         });
       })
       .catch(() => {
@@ -324,8 +316,6 @@ export default function Home() {
         return Toast.fire({
           icon: "error",
           title: t("login.correonotfound"),
-          background: "#000000",
-          color: "#fff",
         });
       });
   };
@@ -381,8 +371,6 @@ export default function Home() {
     return Toast.fire({
       icon: "error",
       title: t("login.errorchangepass"),
-      background: "#000000",
-      color: "#fff",
     });
   };
 
@@ -525,7 +513,7 @@ export default function Home() {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      <main className="mainIndex bg-primary flex flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden h-screen">
+      <main className="mainIndex bg-primary flex flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden min-h-screen">
         <Recovery opened={opened} setOpened={setOpened} t={t} />
         <Registro close={setRegister} register={register} />
         <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] max-sm:max-h-[150px] flex w-full justify-between mt-10">
@@ -558,7 +546,7 @@ export default function Home() {
           />
         </div>
         <figure className="absolute w-full z-[-1] opacity-25">
-          <img src="/assets/login/bbapc.webp" className="w-full h-full"></img>
+          <img src="/assets/login/bbapc.webp" className="min-w-full min-h-screen"></img>
         </figure>
       </main>
     </>
