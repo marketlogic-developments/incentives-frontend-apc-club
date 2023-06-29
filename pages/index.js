@@ -546,7 +546,7 @@ export default function Home() {
             </figure>
           </div>
         </div>
-        <div className="container flex flex-col justify-center items-center w-full max-w-full relative my-auto h-3/4">
+        <div className="container flex flex-row justify-center max-w-full max-h-full sm:mt-1">
           <LoginTarget
             handleSubmit={handleSubmit}
             viewLogin={viewLogin}
