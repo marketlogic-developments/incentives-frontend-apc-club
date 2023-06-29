@@ -93,10 +93,10 @@ const puntosporventas = () => {
     setReasonAssignFilter("");
   };
 
-  /* const uniqueEmails = [
+  const uniqueEmails = [
     ...new Set(data.map((user) => user.reseller_partner_rollup)),
   ];
-  uniqueEmails.sort((a, b) => a.localeCompare(b)); */
+  uniqueEmails.sort((a, b) => a?.localeCompare(b));
 
   const uniqueReasonAssign = [
     ...new Set(data.map((user) => user.business_unit)),
@@ -233,7 +233,7 @@ const puntosporventas = () => {
                 <AiOutlineSearch color="#eb1000" />
               </div>
             </div>
-            {/* <select
+            <select
               value={emailFilter}
               onChange={handleEmailFilterChange}
               className="select select-bordered w-1/3 bg-[#F4F4F4]"
@@ -244,7 +244,7 @@ const puntosporventas = () => {
                   {email}
                 </option>
               ))}
-            </select> */}
+            </select>
             <select
               value={reasonAssignFilter}
               onChange={handleReasonAssignFilterChange}
