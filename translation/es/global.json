@@ -60,6 +60,12 @@
     "reglas": "Reglas",
     "customer_care": "Customer Care"
   },
+
+  "perfil":{
+    "verPerfil": "Ver perfil",
+    "cerrarSesion": "Cerrar Sesión"
+  },
+
   "dashboard": {
     "Inicio": "Inicio",
     "Hola": "Hola",

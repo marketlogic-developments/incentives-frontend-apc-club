@@ -60,6 +60,12 @@
     "redenciones": "Resgates",
     "reglas": "Regras"
   },
+
+  "perfil":{
+    "verPerfil": "Ver perfil",
+    "cerrarSesion": "Cerrar Sesión"
+  },
+
   "dashboard": {
     "Estado_de_la_Meta": "Status da Meta",
     "Inicio": "Home",

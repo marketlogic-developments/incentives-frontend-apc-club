@@ -14,3 +14,6 @@ export { default as SelectInput } from "./inputs/SelectInput";
 export { default as SelectInputValue } from "./inputs/SelectInputValue";
 export { default as Maintenance } from "./maintenance/Maintenance";
 export { default as TableUserPerformance } from "./table/TableUserPerformance";
+export { default as ModalUserProfile } from "./user/ModalUserProfile";
+export { default as NoImageProfile } from "./user/perfil/NoImageProfile";
+export { default as ImageProfile } from "./user/perfil/ImageProfile";

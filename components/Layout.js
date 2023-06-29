@@ -43,6 +43,7 @@ import {
   ShoppingCard,
   Megaphone,
 } from "./icons";
+import ModalUserProfile from "./user/ModalUserProfile";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -815,6 +816,9 @@ const Layout = ({ children }) => {
       /* return <ModalFormCustomer />; */
       return <ModalCustomerCare closeModal={closeModal} />;
     }
+    if (modal === 1) {
+      return <ModalUserProfile closeModal={closeModal} user={userRedux} token={token} />;
+    }
   }, [modal, opened]);
 
   const menu = (n) => {
@@ -906,8 +910,8 @@ const Layout = ({ children }) => {
           location === "/reportes/dashboards/InvoiceReport" ||
           location === "/reportes/dashboards/DigiPointsRedemption" ||
           location === "/reportes/dashboards/GoogleAnalytic" ||
-          location === "/reportes/dashboards/CustomCare" || 
-          location === "/reportes/dashboards/SoImportReport" || 
+          location === "/reportes/dashboards/CustomCare" ||
+          location === "/reportes/dashboards/SoImportReport" ||
           location === "/reportes/dashboards/RegistrationPerformance" ||
           location === "/reportes/dashboards/FollowUp"
         ) {
@@ -961,6 +965,7 @@ const Layout = ({ children }) => {
       )}
       <Modal
         opened={opened}
+        withCloseButton={modal == 0 ? true : false}
         onClose={closeModal}
         centered
         size={"auto"}
@@ -1157,7 +1162,13 @@ const Layout = ({ children }) => {
                       <div>
                         <Megaphone />
                       </div>
-                      <div className="" onClick={() => setMenuUser(!menuUser)}>
+                      <div
+                        className=""
+                        onClick={() => {
+                          setModal(1);
+                          setOpened(true);
+                        }}
+                      >
                         {profileImage}
                       </div>
                     </div>
