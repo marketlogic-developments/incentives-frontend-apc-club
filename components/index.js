@@ -13,3 +13,4 @@ export { default as SearchInput } from "./inputs/SearchInput";
 export { default as SelectInput } from "./inputs/SelectInput";
 export { default as SelectInputValue } from "./inputs/SelectInputValue";
 export { default as Maintenance } from "./maintenance/Maintenance";
+export { default as TableUserPerformance } from "./table/TableUserPerformance";

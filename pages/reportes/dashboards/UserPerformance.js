@@ -16,6 +16,7 @@ import {
     InputReporte,
     LineChart,
     TableSalePerformance,
+    TableUserPerformance,
     TitleWithIcon,
   } from "../../../components";
   import { Menu, Button } from "@mantine/core";
@@ -245,7 +246,7 @@ const UserPerformance = () => {
         </div>
       </div>
       <div className="grid grid-rows-1 justify-items-center">
-        <TableSalePerformance
+        <TableUserPerformance
           containerStyles={"mt-5 rounded-tl-lg rounded-tr-lg"}
           tableStyles={"table-zebra !text-sm"}
           thStyles={"sticky text-white"}
@@ -264,49 +265,9 @@ const UserPerformance = () => {
             t("Reportes.cc_New_business"),
             t("Reportes.dc_Renewal"),
           ]}
+          datas={example}
         >
-          {example.length !== 0 &&
-            example.map((data, index) => (
-              <tr>
-                <th>
-                  <label className="text-left px-2">
-                    <input
-                      type="checkbox"
-                      className="!checkbox-xs mt-1 border-white bg-base-200"
-                    />
-                  </label>
-                </th>
-                <td className="text-left py-2">{data.compania}</td>
-                <td className="text-left py-2">{data.region}</td>
-                <td className="text-left py-2">{data.pais}</td>
-                <td className="text-left py-2">{data.membership_Id}</td>
-                <td className="text-left py-2">{data.tipo}</td>
-                <td className="text-left py-2">{data.nivel}</td>
-                <td className="text-left py-2">
-                  {data.status === t("Reportes.inactivo") ? (
-                    <div class="badge bg-red-200 text-red-600 text-sm text-left py-2">
-                      {t("Reportes.inactivo")}
-                    </div>
-                  ) : (
-                    <div class="badge bg-green-200 text-green-600 text-sm border-green-300 text-left py-2">
-                      {t("Reportes.activo")}
-                    </div>
-                  )}
-                </td>
-                <td className="text-left py-2">{data.registrado}</td>
-                <td className="text-left py-2">{data.cc_renewal}</td>
-                <td className="text-left py-2">{data.cc_new_business}</td>
-                <td className="text-left py-2">
-                  <div className="grid grid-cols-2 items-center py-2">
-                    <div className="grid text-left">{data.dc_renewal}</div>
-                    <div className="grid justify-items-end mr-3 cursor-pointer">
-                      {tableMenu(data.id)}
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
-        </TableSalePerformance>
+        </TableUserPerformance>
       </div>
     </div>
   )
