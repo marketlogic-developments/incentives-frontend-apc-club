@@ -817,7 +817,13 @@ const Layout = ({ children }) => {
       return <ModalCustomerCare closeModal={closeModal} />;
     }
     if (modal === 1) {
-      return <ModalUserProfile closeModal={closeModal} user={userRedux} token={token} />;
+      return (
+        <ModalUserProfile
+          closeModal={closeModal}
+          user={userRedux}
+          token={token}
+        />
+      );
     }
   }, [modal, opened]);
 
