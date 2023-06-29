@@ -1033,7 +1033,7 @@ const Layout = ({ children }) => {
               </div>
             </div>
             <div className="w-full relative">
-              <div className="w-full pt-1 px-6">
+              <div className="w-full h-screen pt-1 px-6">
                 <div className="containerNavbar">
                   <div className="sticky grid justify-items-center items-center">
                     <MenuLines onClick={() => setCollapse(!collapse)} />
@@ -1144,7 +1144,7 @@ const Layout = ({ children }) => {
                 </div>
                 {children}
                 {screen < 639 && (
-                  <div className="sticky bottom-0 w-full border-t-2">
+                  <div className="sticky bottom-0 w-full border-t-2 object-bottom">
                     <div className="navbar grid grid-cols-3 justify-items-center bg-white">
                       <div
                         className="shoopingMarket cursor-pointer"
