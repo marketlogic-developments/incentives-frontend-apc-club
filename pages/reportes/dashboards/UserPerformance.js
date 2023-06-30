@@ -4,24 +4,18 @@ import { getUserSalePerformance } from "../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
-  RocketIcon,
   SearchIcon,
   UserPerformance as User,
 } from "../../../components/icons";
 import { useTranslation } from "react-i18next";
 import {
-  BarChar,
   BtnFilter,
   BtnWithImage,
-  CardChart,
-  DropDownReport,
-  InputReporte,
-  LineChart,
+  SearchInput,
+  SelectInputValue,
   Table,
-  TableSalePerformance,
   TitleWithIcon,
 } from "../../../components";
-import { Menu, Button } from "@mantine/core";
 import * as XLSX from "xlsx";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
@@ -31,6 +25,8 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 const SalesPerformance = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
+  const [selectOne, setSelectOne] = useState("");
+  const [searchByInvoice, setSearchByInvoice] = useState("");
   const products = useSelector((state) => state.sales.products);
   const [data, setData] = useState([]);
 
@@ -41,11 +37,6 @@ const SalesPerformance = () => {
   const [loading, setLoading] = useState(false);
 
   const importFile = (data) => {
-    // const workbook = XLSX.utils.book_new();
-    // const sheet = XLSX.utils.json_to_sheet(data);
-    // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
-    // XLSX.writeFile(workbook, "Productos_Participantes.xlsx");
-
     jsonexport(data, (error, csv) => {
       if (error) {
         console.error(error);
@@ -56,43 +47,37 @@ const SalesPerformance = () => {
     });
   };
 
-  const dataOne = [
-    2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3,
-  ];
-  const dataTwo = [
-    2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,
-  ];
-  const xValuesBar = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
-  const datas = [
-    2.3, 6.0, 18.8, 48.7, 182.2, 175.6, 70.7, 28.7, 26.4, 9.0, 5.9, 2.6,
-  ];
-  const xValuesLine = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
+  /* Selects */
+
+  const handleSelectOneChange = (name, value) => {
+    setSelectOne(value);
+  };
+
+  const dataOne = [...new Set(data.map((user) => user.reseller_or_dist_name))];
+
+  const dataSelectOne = dataOne.map((companyName) => ({
+    value: companyName,
+    label: companyName,
+  }));
+
+  /* Filter */
+  const filteredUsers = data.filter((user) => {
+    if (
+      selectOne &&
+      !user.reseller_or_dist_name
+        .toString()
+        .toLowerCase()
+        .includes(selectOne.toLowerCase())
+    ) {
+      return false;
+    }
+    return true;
+  });
+
+  /* Clear Filter */
+  const clearSelects = () => {
+    setSelectOne("");
+  };
 
   useEffect(() => {
     setIsLoaded(true);
@@ -116,85 +101,57 @@ const SalesPerformance = () => {
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
-    return data.slice(itemOffset, endOffset);
-  }, [itemOffset, data]);
+    return filteredUsers.slice(itemOffset, endOffset);
+  }, [itemOffset, filteredUsers]);
 
   const pageCount = useMemo(
-    () => Math.ceil(data.length / itemsPerPage),
-    [data, itemsPerPage]
+    () => Math.ceil(filteredUsers.length / itemsPerPage),
+    [filteredUsers, itemsPerPage]
   );
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % data.length;
+    const newOffset = (event.selected * itemsPerPage) % filteredUsers.length;
 
     setItemOffset(newOffset);
   };
   return (
-    <div className="mt-8 w-full">
+    <div className="mt-8">
       <div className="grid grid-rows-1">
         <TitleWithIcon icon={<User />} title={t("Reportes.user_performance")} />
       </div>
-      {/* <div className="grid grid-row-1 mt-8">
-        <div className="grid sm:grid-cols-3 lg:grid-cols-7 grid-rows-1 items-center justify-items-center">
-          <DropDownReport
-            icon={<ArrowDown />}
-            title={t("organizacion.organizacion")}
-          >
-            <li>
-              <a>Organización 1</a>
-            </li>
-            <li>
-              <a>Organización 2</a>
-            </li>
-          </DropDownReport>
-          <DropDownReport
-            icon={<ArrowDown />}
-            title={t("organizacion.organizaciones")}
-          >
-            <li>
-              <a>Organizacion 1</a>
-            </li>
-            <li>
-              <a>Organización 2</a>
-            </li>
-          </DropDownReport>
-          <DropDownReport icon={<ArrowDown />} title={t("Reportes.usuarios")}>
-            <li>
-              <a>Usuario 1</a>
-            </li>
-            <li>
-              <a>Usuario 2</a>
-            </li>
-          </DropDownReport>
-          <DropDownReport
-            icon={<ArrowDown />}
-            title={t("Reportes.tipos_usuarios")}
-          >
-            <li>
-              <a>Tipo 1</a>
-            </li>
-            <li>
-              <a>Tipo 2</a>
-            </li>
-          </DropDownReport>
-          <DropDownReport icon={<ArrowDown />} title={t("Reportes.anios")}>
-            <li>
-              <a>Año 1</a>
-            </li>
-            <li>
-              <a>Año 2</a>
-            </li>
-          </DropDownReport>
-          <BtnFilter
-            text={t("Reportes.filtrar")}
-            styles="bg-white !text-blue-500 hover:bg-white border-blue-500 hover:border-blue-600"
-          />
-          <BtnFilter
-            text={t("Reportes.limpiar_filtros")}
-            styles="bg-white !text-gray-400 hover:bg-white border-none hover:border-none m-1"
-          />
-        </div>
-      </div> */}
+      <div className="pt-2 grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
+        <SearchInput
+          image={<SearchIcon />}
+          placeHolder={"Buscar"}
+          stylesContainer={""}
+          value={searchByInvoice}
+          onChange={(e) => setSearchByInvoice(e.target.value)}
+          stylesInput={
+            "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
+          }
+        />
+        <SelectInputValue
+          placeholder={t("tabla.unidadNegocio")}
+          value={selectOne}
+          data={dataSelectOne}
+          icon={<ArrowDown />}
+          onChange={handleSelectOneChange}
+          name={"business"}
+        />
+        <BtnFilter
+          text={t("Reportes.limpiar_filtros")}
+          styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
+          onClick={clearSelects}
+        />
+        <BtnWithImage
+          text={t("Reportes.descargar")}
+          icon={<CloudDownload />}
+          styles={
+            "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+          }
+          onClick={() => importFile(data)}
+        />
+      </div>
       {/* <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
         <CardChart title={t("Reportes.metas_vs_cumplimiento")} paragraph="">
           <BarChar
@@ -236,15 +193,6 @@ const SalesPerformance = () => {
           </div> */}
         </div>
         <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
-          <div className="grid sm:w-[55%]">
-            <BtnWithImage
-              text={t("Reportes.descargar")}
-              icon={<CloudDownload />}
-              styles={
-                "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
-              }
-            />
-          </div>
           {/* <InputReporte
             image={<SearchIcon />}
             placeHolder={t("Reportes.buscar")}
@@ -300,103 +248,91 @@ const SalesPerformance = () => {
               ]}
             >
               {currentItems &&
-                currentItems.map((data, index) => (
-                  <tr key={index}>
-                    <th className="text-left py-3 px-6">
-                      {data.email}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.name}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.country_id}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.region}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.reseller_or_dist_id}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.reseller_or_dist_name}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.dcname}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.rtype}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_cc_renewal}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_cc_newbusiness}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_dc_renewal}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_dc_newbusiness}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_cc_renewal}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_cc_newbusiness}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_dc_renewal}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_dc_newbusiness}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_revenue_q1}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_revenue_q2}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_revenue_q3}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_revenue_q4}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_revenue_q1}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_revenue_q2}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_revenue_q3}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_revenue_q4}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.revenue_q1}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.revenue_q2}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.revenue_q3}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.revenue_q4}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.revenue_actual}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.sales_points}
-                    </th>
-                    <th className="text-left py-3 px-6">
-                      {data.redenciones}
-                    </th>
-                  </tr>
-                ))}
+                [...currentItems]
+                  .filter((item) => {
+                    if (searchByInvoice !== "") {
+                      return item.name.startsWith(searchByInvoice);
+                    }
+
+                    return item;
+                  })
+                  .map((data, index) => (
+                    <tr key={index}>
+                      <th className="text-left py-3 px-6">{data.email}</th>
+                      <th className="text-left py-3 px-6">{data.name}</th>
+                      <th className="text-left py-3 px-6">{data.country_id}</th>
+                      <th className="text-left py-3 px-6">{data.region}</th>
+                      <th className="text-left py-3 px-6">
+                        {data.reseller_or_dist_id}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.reseller_or_dist_name}
+                      </th>
+                      <th className="text-left py-3 px-6">{data.dcname}</th>
+                      <th className="text-left py-3 px-6">{data.rtype}</th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_cc_renewal}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_cc_newbusiness}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_dc_renewal}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_dc_newbusiness}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_cc_renewal}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_cc_newbusiness}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_dc_renewal}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_dc_newbusiness}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_revenue_q1}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_revenue_q2}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_revenue_q3}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_revenue_q4}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_revenue_q1}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_revenue_q2}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_revenue_q3}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_revenue_q4}
+                      </th>
+                      <th className="text-left py-3 px-6">{data.revenue_q1}</th>
+                      <th className="text-left py-3 px-6">{data.revenue_q2}</th>
+                      <th className="text-left py-3 px-6">{data.revenue_q3}</th>
+                      <th className="text-left py-3 px-6">{data.revenue_q4}</th>
+                      <th className="text-left py-3 px-6">
+                        {data.revenue_actual}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.sales_points}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.redenciones}
+                      </th>
+                    </tr>
+                  ))}
             </Table>
           </>
         )}
