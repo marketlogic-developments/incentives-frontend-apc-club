@@ -56,7 +56,6 @@ const InvoiceReport = () => {
         });
     }
   }, [isLoaded, token]);
-console.log(data);
 
   /* Selects */
   const handleSelectOneChange = (name, value) => {
@@ -69,23 +68,23 @@ console.log(data);
 
   const dataOne = [...new Set(data.map((user) => user.business_unit))];
 
-  const dataSelectOne = dataOne.map((business) => ({
-    value: business,
-    label: business,
+  const dataSelectOne = dataOne.map((business_unit) => ({
+    value: business_unit,
+    label: business_unit,
   }));
 
-  const dataTwo = [...new Set(data.map((user) => user.business_unit))];
+  const dataTwo = [...new Set(data.map((user) => user.business_type))];
 
-  const dataSelectTwo = dataTwo.map((business) => ({
-    value: business,
-    label: business,
+  const dataSelectTwo = dataTwo.map((business_type) => ({
+    value: business_type,
+    label: business_type,
   }));
 
   /* Filter */
   const filteredUsers = data.filter((user) => {
     if (
       selectTwo &&
-      !user.reseller_partner_rollup
+      !user.business_type
         .toLowerCase()
         .includes(selectTwo.toLowerCase())
     ) {
@@ -160,7 +159,7 @@ console.log(data);
           }
         />
         <SelectInputValue
-          placeholder={t("tabla.unidadNegocio")}
+          placeholder={"Business Unit"}
           value={selectOne}
           data={dataSelectOne}
           icon={<ArrowDown />}
@@ -168,7 +167,7 @@ console.log(data);
           name={"business"}
         />
         <SelectInputValue
-          placeholder={t("organizacion.organizacion")}
+          placeholder={"Business Type"}
           value={selectTwo}
           data={dataSelectTwo}
           icon={<ArrowDown />}
@@ -204,8 +203,6 @@ console.log(data);
                 thStyles={"sticky text-white"}
                 cols={
                   [
-                    "Region",
-                    "Country",
                     "Membership ID",
                     "Company Name",
                     "Company Type",
@@ -236,15 +233,13 @@ console.log(data);
                   [...currentItems]
                     .filter((item) => {
                       if (searchByInvoice !== "") {
-                        return item.sales_order.startsWith(searchByInvoice);
+                        return item.company_name.startsWith(searchByInvoice);
                       }
 
                       return item;
                     })
                     .map((data, index) => (
                       <tr key={index}>
-                        <td className="text-start p-4">{data.company_name}</td>
-                        <td className="text-start p-4">{data.company_name}</td>
                         <td className="text-start p-4">{data.company_id}</td>
                         <td className="text-start p-4">{data.company_name}</td>
                         <td className="text-start p-4">{data.partner_type}</td>
