@@ -143,9 +143,9 @@ const SalesPerformance = () => {
 
   function Table({ currentItems }) {
     return (
-      <>
-        <table className="w-full tableJustify text-sm text-left text-black-500 rounded-md">
-          <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] w-full">
+      <div className="w-full overflow-y-auto mt-5 rounded-tl-lg rounded-tr-lg">
+        <table className="table-zebra !text-sm w-full table-auto">
+          <thead className="bg-black sticky text-white">
             <tr className="w-full">
               <th scope="col" className="py-3 px-6">Email</th>
               <th scope="col" className="py-3 px-6">Name</th>
@@ -224,7 +224,7 @@ const SalesPerformance = () => {
               ))}
           </tbody>
         </table>
-      </>
+      </div>
     );
   }
 
@@ -377,11 +377,11 @@ const SalesPerformance = () => {
           /> */}
         </div>
       </div>
-      <div className="w-full pt-5 overflow-x-auto">
+      <div className="grid grid-rows-1 justify-items-center pt-5">
           {loading && <div className="lds-dual-ring"></div>}
           {!loading && (
             <>
-              <Table className='w-full' currentItems={currentItems} />
+              <Table currentItems={currentItems} />
             </>
           )}
         </div>
