@@ -120,7 +120,7 @@ const SalesPerformance = () => {
       <div className="pt-2 grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
-          placeHolder={"Buscar"}
+          placeHolder={"Email"}
           stylesContainer={""}
           value={searchByInvoice}
           onChange={(e) => setSearchByInvoice(e.target.value)}
@@ -249,7 +249,7 @@ const SalesPerformance = () => {
                 [...currentItems]
                   .filter((item) => {
                     if (searchByInvoice !== "") {
-                      return item.name.startsWith(searchByInvoice);
+                      return item.email.startsWith(searchByInvoice);
                     }
 
                     return item;

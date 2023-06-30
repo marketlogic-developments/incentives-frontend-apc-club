@@ -2,8 +2,12 @@ import React from "react";
 import { Maintenance, TitleWithIcon } from "../../../components";
 import { IncentivePoints } from "../../../components/icons";
 import { useTranslation } from "react-i18next";
+import dynamic from "next/dynamic";
 
 const GoogleAnalytic = () => {
+  const GA4 = dynamic(() =>
+    import("../../../components/embedreports/ga4").then((powerBi) => powerBi.default)
+  );
   const [t, i18n] = useTranslation("global");
   return (
     <div className="mt-8">
@@ -13,7 +17,9 @@ const GoogleAnalytic = () => {
           title={t("Reportes.google_analytic")}
         />
       </div>
-      <Maintenance title="Google Analytics" text="Google Analytic goes here!" />
+      <div className="m-6 flex flex-col gap-16">
+        <GA4 />
+      </div>
     </div>
   );
 };

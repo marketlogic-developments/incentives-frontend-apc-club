@@ -4,7 +4,7 @@ import ContainerContent from "../components/containerContent";
 
 const reportes = () => {
   const PowerBiReport = dynamic(() =>
-    import("../components/PowerBiReport").then((powerBi) => powerBi.default)
+    import("../components/embedreports/PowerBiReport").then((powerBi) => powerBi.default)
   );
 
   return (

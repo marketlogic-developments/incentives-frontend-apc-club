@@ -20,14 +20,12 @@ import ReactPaginate from "react-paginate";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getSalesAll,
-  getSalesAllByChannel,
-  getSalesAllByDist,
-} from "../../../store/reducers/sales.reducer";
+  getOrdersAll
+} from "../../../store/reducers/orders.reducer";
 
 const DigiPointsRedemption = () => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.sales.salesall);
+  const [data, setData] = useState([]);
   const itemsPerPage = 10;
   const [isLoaded, setIsLoaded] = useState(false);
   const [itemOffset, setItemOffset] = useState(0);
@@ -38,6 +36,7 @@ const DigiPointsRedemption = () => {
   const [searchByInvoice, setSearchByInvoice] = useState("");
   const [t, i18n] = useTranslation("global");
   const token = useSelector((state) => state.user.token);
+  
 
   /* Loader setter */
   useEffect(() => {
@@ -46,27 +45,18 @@ const DigiPointsRedemption = () => {
 
   /* Querys */
   useEffect(() => {
-    if (token && data.length === 0) {
+    if (isLoaded && token) {
       setLoading(true);
-      if (user.roleId === 1) {
-        dispatch(getSalesAll(token)).then((response) => {
+      dispatch(getOrdersAll(token))
+        .then((response) => {
           setLoading(false);
+          setData(response.payload);
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      } else if (user.companyId === null) {
-        dispatch(getSalesAllByDist(token, distribuitor.soldToParty)).then(
-          (response) => {
-            setLoading(false);
-          }
-        );
-      } else {
-        dispatch(getSalesAllByChannel(token, company.resellerMasterId)).then(
-          (response) => {
-            setLoading(false);
-          }
-        );
-      }
     }
-  }, [isLoaded, token]);
+  }, [isLoaded]);
 
   /* Selects */
   const handleSelectOneChange = (name, value) => {
@@ -77,11 +67,11 @@ const DigiPointsRedemption = () => {
     setSelectTwo(value);
   };
 
-  const dataOne = [...new Set(data.map((user) => user.business_unit))];
+  const dataOne = [...new Set(data.map((user) => user.email))];
 
-  const dataSelectOne = dataOne.map((business) => ({
-    value: business,
-    label: business,
+  const dataSelectOne = dataOne.map((email) => ({
+    value: email,
+    label: email,
   }));
 
   const dataTwo = [...new Set(data.map((user) => user.business_unit))];
@@ -103,7 +93,7 @@ const DigiPointsRedemption = () => {
     }
     if (
       selectOne &&
-      !user.business_unit
+      !user.email
         .toString()
         .toLowerCase()
         .includes(selectOne.toLowerCase())
@@ -127,7 +117,7 @@ const DigiPointsRedemption = () => {
         return;
       }
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-      saveAs(blob, "InvoiceReport.csv");
+      saveAs(blob, "Redemption.csv");
     });
   };
 
@@ -149,6 +139,19 @@ const DigiPointsRedemption = () => {
 
     setItemOffset(newOffset);
   };
+
+  const formatDate = (dateString) => {
+    const options = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const date = new Date(dateString);
+    return date.toLocaleString("es-GT", options);
+  };
   return (
     <div className="mt-8">
       <div className="grid grid-rows-1">
@@ -160,7 +163,7 @@ const DigiPointsRedemption = () => {
       <div className="grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
-          placeHolder={"Buscar"}
+          placeHolder={"User Name"}
           stylesContainer={""}
           value={searchByInvoice}
           onChange={(e) => setSearchByInvoice(e.target.value)}
@@ -169,20 +172,12 @@ const DigiPointsRedemption = () => {
           }
         />
         <SelectInputValue
-          placeholder={t("tabla.unidadNegocio")}
+          placeholder={"Email"}
           value={selectOne}
           data={dataSelectOne}
           icon={<ArrowDown />}
           onChange={handleSelectOneChange}
           name={"business"}
-        />
-        <SelectInputValue
-          placeholder={t("organizacion.organizacion")}
-          value={selectTwo}
-          data={dataSelectTwo}
-          icon={<ArrowDown />}
-          onChange={handleSelectTwoChange}
-          name={"email"}
         />
         <BtnFilter
           text={t("Reportes.limpiar_filtros")}
@@ -212,60 +207,35 @@ const DigiPointsRedemption = () => {
                 colStyles={"p-2"}
                 thStyles={"sticky text-white"}
                 cols={
-                  user.roleId === 1
-                    ? [
-                        "Invoice",
-                        "Disti Partner Rollup",
-                        "Reseller Partner Rollup",
-                        "Business Unit",
-                        "Business Type",
-                        "SKU",
-                        "Quarter",
-                        "DigiPoints",
-                        "Total Sales US",
-                      ]
-                    : [
-                        "Invoice",
-                        "Disti Partner Rollup",
-                        "Reseller Partner Rollup",
-                        "Business Unit",
-                        "Business Type",
-                        "SKU",
-                        "Quarter",
-                        "Total Sales US",
-                      ]
+                    [
+                      "User Name",
+                      "First Name",
+                      "Status",
+                      "DigiPoints",
+                      // "Quantity",
+                      // "Amount",
+                      "Request ID",
+                      "Redeemed On",
+                    ]
                 }
               >
                 {currentItems &&
                   [...currentItems]
                     .filter((item) => {
                       if (searchByInvoice !== "") {
-                        return item.sales_order.startsWith(searchByInvoice);
+                        return item.name.startsWith(searchByInvoice);
                       }
 
                       return item;
                     })
                     .map((data, index) => (
                       <tr key={index}>
-                        <td className="text-start p-4">{data.sales_order}</td>
-                        <td className="text-start p-4">
-                          {data.disti_partner_rollup}
-                        </td>
-                        <td className="text-start p-4">
-                          {data.reseller_partner_rollup}
-                        </td>
-                        <td className="text-start p-4">{data.business_unit}</td>
-                        <td className="text-start p-4">{data.business_type}</td>
-                        <td className="text-start p-4">{data.materia_sku}</td>
-                        <td className="text-start p-4">{data.quarter}</td>
-                        {user.roleId === 1 && (
-                          <td className="text-start p-4">
-                            {data.max_digipoints_allocate}
-                          </td>
-                        )}
-                        <td className="text-start p-4">
-                          ${parseFloat(data.total_sales_amount).toFixed(2)}
-                        </td>
+                        <td className="text-start p-4">{data.name}</td>
+                        <td className="text-start p-4">{data.email}</td>
+                        <td className="text-start p-4">{data.status_name}</td>
+                        <td className="text-start p-4">{data.digipoint_substract}</td>
+                        <td className="text-start p-4">{data.ordernumber}</td>
+                        <td className="text-start p-4">{formatDate(data.created_at)}</td>
                       </tr>
                     ))}
               </Table>

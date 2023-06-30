@@ -17,6 +17,7 @@ import {
   InputReporte,
   LineChart,
   TableSalePerformance,
+  Table,
   TitleWithIcon,
 } from "../../../components";
 import { Menu, Button } from "@mantine/core";
@@ -30,30 +31,34 @@ const SalesPerformance = () => {
 
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
+  const [selectOne, setSelectOne] = useState("");
+  const [searchByInvoice, setSearchByInvoice] = useState("");
+  const [itemOffset, setItemOffset] = useState(0);
   const products = useSelector((state) => state.sales.products);
   const [data, setData] = useState([]);
-
   const [isLoaded, setIsLoaded] = useState(false);
-
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
 
-  const importFile = (data) => {
-    // const workbook = XLSX.utils.book_new();
-    // const sheet = XLSX.utils.json_to_sheet(data);
-    // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
-    // XLSX.writeFile(workbook, "Productos_Participantes.xlsx");
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
-    jsonexport(data, (error, csv) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-      saveAs(blob, "Productos Participantes.csv");
-    });
-  };
+  useEffect(() => {
+    if (isLoaded && token) {
+      setLoading(true);
+      dispatch(getSalesPerformance(token))
+        .then((response) => {
+          setLoading(false);
+          setData(response.payload);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [isLoaded]);
+
   const example = [
     {
       id: 1,
@@ -84,7 +89,7 @@ const SalesPerformance = () => {
       dc_renewal: "0",
     },
   ];
-  const dataOne = [
+  const dataOnew = [
     2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3,
   ];
   const dataTwo = [
@@ -122,127 +127,63 @@ const SalesPerformance = () => {
     "Dic",
   ];
 
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+  
+  /* Download */
+  const importFile = (data) => {
+    jsonexport(data, (error, csv) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "User Performance.csv");
+    });
+  };
 
-  useEffect(() => {
-    if (isLoaded && token) {
-      setLoading(true);
-      dispatch(getSalesPerformance(token))
-        .then((response) => {
-          setLoading(false);
-          setData(response.payload);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+  /* Selects */
+  const handleSelectOneChange = (name, value) => {
+    setSelectOne(value);
+  };
+
+  const dataOne = [...new Set(data.map((user) => user.reseller_or_dist_name))];
+
+  const dataSelectOne = dataOne.map((companyName) => ({
+    value: companyName,
+    label: companyName,
+  }));
+
+  /* Filter */
+  const filteredUsers = data.filter((user) => {
+    if (
+      selectOne &&
+      !user.reseller_or_dist_name
+        .toString()
+        .toLowerCase()
+        .includes(selectOne.toLowerCase())
+    ) {
+      return false;
     }
-  }, [isLoaded]);
+    return true;
+  });
 
-  function Table({ currentItems }) {
-    return (
-      <>
-        <table className="w-full text-sm text-left text-black-500 table-fixed tableJustify overflow-x-auto rounded-md">
-          <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
-            <tr>
-              <th scope="col" className="py-3 px-6">Email</th>
-              <th scope="col" className="py-3 px-6">Name</th>
-              <th scope="col" className="py-3 px-6">Country</th>
-              <th scope="col" className="py-3 px-6">Region</th>
-              <th scope="col" className="py-3 px-6">Company ID</th>
-              <th scope="col" className="py-3 px-6">Company Name</th>
-              <th scope="col" className="py-3 px-6">Company Level</th>
-              <th scope="col" className="py-3 px-6">Company Type</th>
-              <th scope="col" className="py-3 px-6">VIP CC Renewal</th>
-              <th scope="col" className="py-3 px-6">VIP CC New business</th>
-              <th scope="col" className="py-3 px-6">VIP DC Renewal</th>
-              <th scope="col" className="py-3 px-6">VIP DC New Business</th>
-              <th scope="col" className="py-3 px-6">VMP CC Renewal</th>
-              <th scope="col" className="py-3 px-6">VMP CC New business</th>
-              <th scope="col" className="py-3 px-6">VMP DC Renewal</th>
-              <th scope="col" className="py-3 px-6">VMP DC New Business</th>
-              <th scope="col" className="py-3 px-6">VIP Revenue Q1</th>
-              <th scope="col" className="py-3 px-6">VIP Revenue Q2</th>
-              <th scope="col" className="py-3 px-6">VIP Revenue Q3</th>
-              <th scope="col" className="py-3 px-6">VIP Revenue Q4</th>
-              <th scope="col" className="py-3 px-6">VMP Revenue Q1</th>
-              <th scope="col" className="py-3 px-6">VMP Revenue Q2</th>
-              <th scope="col" className="py-3 px-6">VMP Revenue Q3</th>
-              <th scope="col" className="py-3 px-6">VMP Revenue Q4</th>
-              <th scope="col" className="py-3 px-6">Revenue Q1</th>
-              <th scope="col" className="py-3 px-6">Revenue Q2</th>
-              <th scope="col" className="py-3 px-6">Revenue Q3</th>
-              <th scope="col" className="py-3 px-6">Revenue Q4</th>
-              <th scope="col" className="py-3 px-6">Actual Revenue</th>
-              <th scope="col" className="py-3 px-6">Sales DigiPoints</th>
-              <th scope="col" className="py-3 px-6">Company</th>
-              <th scope="col" className="py-3 px-6">Company</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentItems &&
-              currentItems.map((product, index) => (
-                <tr
-                  className={`${
-                    (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
-                  } w-full`}
-                  key={index}
-                >
-                  <th scope="col" className="py-3 px-6">Email</th>
-                  <th scope="col" className="py-3 px-6">Name</th>
-                  <th scope="col" className="py-3 px-6">Country</th>
-                  <th scope="col" className="py-3 px-6">Region</th>
-                  <th scope="col" className="py-3 px-6">Company ID</th>
-                  <th scope="col" className="py-3 px-6">Company Name</th>
-                  <th scope="col" className="py-3 px-6">Company Level</th>
-                  <th scope="col" className="py-3 px-6">Company Type</th>
-                  <th scope="col" className="py-3 px-6">VIP CC Renewal</th>
-                  <th scope="col" className="py-3 px-6">VIP CC New business</th>
-                  <th scope="col" className="py-3 px-6">VIP DC Renewal</th>
-                  <th scope="col" className="py-3 px-6">VIP DC New Business</th>
-                  <th scope="col" className="py-3 px-6">VMP CC Renewal</th>
-                  <th scope="col" className="py-3 px-6">VMP CC New business</th>
-                  <th scope="col" className="py-3 px-6">VMP DC Renewal</th>
-                  <th scope="col" className="py-3 px-6">VMP DC New Business</th>
-                  <th scope="col" className="py-3 px-6">VIP Revenue Q1</th>
-                  <th scope="col" className="py-3 px-6">VIP Revenue Q2</th>
-                  <th scope="col" className="py-3 px-6">VIP Revenue Q3</th>
-                  <th scope="col" className="py-3 px-6">VIP Revenue Q4</th>
-                  <th scope="col" className="py-3 px-6">VMP Revenue Q1</th>
-                  <th scope="col" className="py-3 px-6">VMP Revenue Q2</th>
-                  <th scope="col" className="py-3 px-6">VMP Revenue Q3</th>
-                  <th scope="col" className="py-3 px-6">VMP Revenue Q4</th>
-                  <th scope="col" className="py-3 px-6">Revenue Q1</th>
-                  <th scope="col" className="py-3 px-6">Revenue Q2</th>
-                  <th scope="col" className="py-3 px-6">Revenue Q3</th>
-                  <th scope="col" className="py-3 px-6">Revenue Q4</th>
-                  <th scope="col" className="py-3 px-6">Actual Revenue</th>
-                  <th scope="col" className="py-3 px-6">Sales DigiPoints</th>
-                  <th scope="col" className="py-3 px-6">Company</th>
-                  <th scope="col" className="py-3 px-6">Company</th>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </>
-    );
-  }
-
-  const [itemOffset, setItemOffset] = useState(0);
+  /* Clear Filter */
+  const clearSelects = () => {
+    setSelectOne("");
+  };
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
-    return data.slice(itemOffset, endOffset);
-  }, [itemOffset, data]);
+    return filteredUsers.slice(itemOffset, endOffset);
+  }, [itemOffset, filteredUsers]);
 
+  /* Paginate */
   const pageCount = useMemo(
-    () => Math.ceil(data.length / itemsPerPage),
-    [data, itemsPerPage]
+    () => Math.ceil(filteredUsers.length / itemsPerPage),
+    [filteredUsers, itemsPerPage]
   );
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % data.length;
+    const newOffset = (event.selected * itemsPerPage) % filteredUsers.length;
 
     setItemOffset(newOffset);
   };
@@ -254,7 +195,7 @@ const SalesPerformance = () => {
           title={t("Reportes.sales_performance")}
         />
       </div>
-      <div className="grid grid-row-1 mt-8">
+      {/* <div className="grid grid-row-1 mt-8">
         <div className="grid sm:grid-cols-3 lg:grid-cols-7 grid-rows-1 items-center justify-items-center">
           <DropDownReport
             icon={<ArrowDown />}
@@ -314,7 +255,7 @@ const SalesPerformance = () => {
             styles="bg-white !text-gray-400 hover:bg-white border-none hover:border-none m-1"
           />
         </div>
-      </div>
+      </div> */}
       <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
         <CardChart title={t("Reportes.metas_vs_cumplimiento")} paragraph="">
           <BarChar
@@ -346,7 +287,7 @@ const SalesPerformance = () => {
               {t("organizacion.organizaciones")}
             </h2>
           </div>
-          <div className="grid col-span-2 sm:w-[55%] w-[60%]">
+          {/* <div className="grid col-span-2 sm:w-[55%] w-[60%]">
             <DropDownReport icon={<ArrowDown />} title={t("Reportes.periodo")}>
               <li>
                 <a>Período 1</a>
@@ -355,9 +296,9 @@ const SalesPerformance = () => {
                 <a>Período 2</a>
               </li>
             </DropDownReport>
-          </div>
+          </div> */}
         </div>
-        <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
+        {/* <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
           <div className="grid sm:w-[55%]">
             <BtnWithImage
               text={t("Reportes.descargar")}
@@ -376,38 +317,158 @@ const SalesPerformance = () => {
             }
             stylesImage={"pb-0"}
           />
-        </div>
+        </div> */}
       </div>
-      <div className="grid grid-rows-1 justify-items-center">
+      <div className="grid grid-rows-1 justify-items-center pt-5">
+        {loading && <div className="lds-dual-ring"></div>}
+        {!loading && (
+          <>
+            <Table
+              containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
+              tableStyles={"table-zebra !text-sm"}
+              colStyles={"p-2"}
+              thStyles={"sticky text-white"}
+              cols={[
+                "Membership ID",
+                "Company Name",
+                "Region",
+                // "Country",
+                // "Company Type",
+                "Company Level",
+                "Company Status",
+                "Company Active Users",
+                "VIP CC Renewal",
+                "VIP CC New business",
+                "VIP DC Renewal",
+                "VIP DC New Business",
+                "VMP CC Renewal",
+                "VMP CC New business",
+                "VMP DC Renewal",
+                "VMP DC New Business",
+                "VIP Revenue Q1",
+                "VIP Revenue Q2",
+                "VIP Revenue Q3",
+                "VIP Revenue Q4",
+                "VMP Revenue Q1",
+                "VMP Revenue Q2",
+                "VMP Revenue Q3",
+                "VMP Revenue Q4",
+                "Revenue Q1",
+                "Revenue Q2",
+                "Revenue Q3",
+                "Revenue Q4",
+                "Actual Revenue",
+                "Sales DigiPoints",
+              ]}
+            >
+              {currentItems &&
+                [...currentItems]
+                  .filter((item) => {
+                    if (searchByInvoice !== "") {
+                      return item.name.startsWith(searchByInvoice);
+                    }
+
+                    return item;
+                  })
+                  .map((data, index) => (
+                    <tr key={index}>
+                      <th className="text-left py-3 px-6">{data.company_id}</th>
+                      <th className="text-left py-3 px-6">{data.company_name}</th>
+                      <th className="text-left py-3 px-6">{data.region}</th>
+                      {/* <th className="text-left py-3 px-6">{data.country_id}</th> */}
+                      <th className="text-left py-3 px-6">{data.level}</th>
+                      <th className="text-left py-3 px-6">{data.active}</th>
+                      <th className="text-left py-3 px-6">{data.usuarios}</th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_cc_renewal}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_cc_newbusiness}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_dc_renewal}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_dc_newbusiness}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_cc_renewal}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_cc_newbusiness}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_dc_renewal}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_dc_newbusiness}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_revenue_q1}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_revenue_q2}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_revenue_q3}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vip_revenue_q4}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_revenue_q1}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_revenue_q2}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_revenue_q3}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.vmp_revenue_q4}
+                      </th>
+                      <th className="text-left py-3 px-6">{data.revenue_q1}</th>
+                      <th className="text-left py-3 px-6">{data.revenue_q2}</th>
+                      <th className="text-left py-3 px-6">{data.revenue_q3}</th>
+                      <th className="text-left py-3 px-6">{data.revenue_q4}</th>
+                      <th className="text-left py-3 px-6">
+                        {data.actual_revenue}
+                      </th>
+                      <th className="text-left py-3 px-6">
+                        {data.puntos}
+                      </th>
+                    </tr>
+                  ))}
+            </Table>
+          </>
+        )}
+      </div>
       <div className="w-full pt-5">
-          {loading && <div className="lds-dual-ring"></div>}
-          {!loading && (
-            <>
-              <Table currentItems={currentItems} />
-              <ReactPaginate
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={handlePageClick}
-                containerClassName={"pagination"}
-                subContainerClassName={"pages pagination"}
-                nextClassName={"item next "}
-                previousClassName={"item previous"}
-                activeClassName={"item active "}
-                breakClassName={"item break-me "}
-                breakLabel={"..."}
-                disabledClassName={"disabled-page"}
-                pageClassName={"item pagination-page "}
-                nextLabel={
-                  <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
-                }
-                previousLabel={
-                  <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
-                }
-              />
-            </>
-          )}
-        </div>
+        {!loading && (
+          <>
+            <ReactPaginate
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              nextClassName={"item next "}
+              previousClassName={"item previous"}
+              activeClassName={"item active "}
+              breakClassName={"item break-me "}
+              breakLabel={"..."}
+              disabledClassName={"disabled-page"}
+              pageClassName={"item pagination-page "}
+              nextLabel={
+                <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
+              }
+              previousLabel={
+                <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
+              }
+            />
+          </>
+        )}
       </div>
     </div>
   );

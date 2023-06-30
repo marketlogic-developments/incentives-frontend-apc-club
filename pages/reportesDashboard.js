@@ -83,7 +83,7 @@ const reportesDashboard = () => {
         >
           <CustomIcon />
         </CardReportes>
-        <CardReportes
+        {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.so_import")}
           onClick={() => {
@@ -91,8 +91,8 @@ const reportesDashboard = () => {
           }}
         >
           <RegistrationPerformance />
-        </CardReportes>
-        <CardReportes
+        </CardReportes> */}
+        {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.registration_performance")}
           onClick={() => {
@@ -100,7 +100,7 @@ const reportesDashboard = () => {
           }}
         >
           <Thunderbolt />
-        </CardReportes>
+        </CardReportes> */}
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.follow_up")}
