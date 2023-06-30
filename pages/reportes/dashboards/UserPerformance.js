@@ -183,12 +183,7 @@ const SalesPerformance = () => {
           <tbody className="w-full">
             {currentItems &&
               currentItems.map((data, index) => (
-                <tr
-                  className={`${
-                    (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
-                  } w-full`}
-                  key={index}
-                >
+                <tr key={index}>
                   <th scope="col" className="py-3 px-6">{data.email}</th>
                   <th scope="col" className="py-3 px-6">{data.name}</th>
                   <th scope="col" className="py-3 px-6">{data.country_id}</th>
