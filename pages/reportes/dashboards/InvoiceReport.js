@@ -199,15 +199,15 @@ const InvoiceReport = () => {
           onClick={() => importFile(filteredUsers)}
         />
       </div>
-      <div className="grid overflow-x-auto w-full">
+      <div className="grid overflow-x-hidden w-full">
         {loading ? (
           <div className="lds-dual-ring"></div>
         ) : (
           <>
-            <div>
+            <div className="grid grid-rows-1 justify-items-center pt-5">
               <Table
                 containerStyles={
-                  "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-max"
+                  "mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"
                 }
                 tableStyles={"table-zebra !text-sm"}
                 colStyles={"p-2"}

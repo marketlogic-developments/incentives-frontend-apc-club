@@ -17,6 +17,7 @@ import {
   DropDownReport,
   InputReporte,
   LineChart,
+  Table,
   TableSalePerformance,
   TitleWithIcon,
 } from "../../../components";
@@ -28,7 +29,6 @@ import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const SalesPerformance = () => {
-
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const products = useSelector((state) => state.sales.products);
@@ -55,36 +55,7 @@ const SalesPerformance = () => {
       saveAs(blob, "Productos Participantes.csv");
     });
   };
-  const example = [
-    {
-      id: 1,
-      compania: "Adobe",
-      region: "-",
-      pais: "Colombia",
-      membership_Id: "Adobe",
-      tipo: "ML0001",
-      nivel: "Gold certified",
-      status: "Inactivo",
-      registrado: "Sí",
-      cc_renewal: "0",
-      cc_new_business: "396,942",
-      dc_renewal: "0",
-    },
-    {
-      id: 2,
-      compania: "Adobe",
-      region: "-",
-      pais: "Guatemala",
-      membership_Id: "Adobe",
-      tipo: "ML0001",
-      nivel: "Gold certified",
-      status: "Activo",
-      registrado: "Sí",
-      cc_renewal: "0",
-      cc_new_business: "396,942",
-      dc_renewal: "0",
-    },
-  ];
+
   const dataOne = [
     2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3,
   ];
@@ -141,88 +112,6 @@ const SalesPerformance = () => {
     }
   }, [isLoaded]);
 
-  function Table({ currentItems }) {
-    return (
-      <div className="w-full overflow-y-auto mt-5 rounded-tl-lg rounded-tr-lg">
-        <table className="table-zebra !text-sm w-full table-auto">
-          <thead className="bg-black sticky text-white">
-            <tr className="w-full">
-              <th scope="col" className="py-3 px-6">Email</th>
-              <th scope="col" className="py-3 px-6">Name</th>
-              <th scope="col" className="py-3 px-6">Country</th>
-              <th scope="col" className="py-3 px-6">Region</th>
-              <th scope="col" className="py-3 px-6">Company ID</th>
-              <th scope="col" className="py-3 px-6">Company Name</th>
-              <th scope="col" className="py-3 px-6">Company Level</th>
-              <th scope="col" className="py-3 px-6">Company Type</th>
-              <th scope="col" className="py-3 px-6">VIP CC Renewal</th>
-              <th scope="col" className="py-3 px-6">VIP CC New business</th>
-              <th scope="col" className="py-3 px-6">VIP DC Renewal</th>
-              <th scope="col" className="py-3 px-6">VIP DC New Business</th>
-              <th scope="col" className="py-3 px-6">VMP CC Renewal</th>
-              <th scope="col" className="py-3 px-6">VMP CC New business</th>
-              <th scope="col" className="py-3 px-6">VMP DC Renewal</th>
-              <th scope="col" className="py-3 px-6">VMP DC New Business</th>
-              <th scope="col" className="py-3 px-6">VIP Revenue Q1</th>
-              <th scope="col" className="py-3 px-6">VIP Revenue Q2</th>
-              <th scope="col" className="py-3 px-6">VIP Revenue Q3</th>
-              <th scope="col" className="py-3 px-6">VIP Revenue Q4</th>
-              <th scope="col" className="py-3 px-6">VMP Revenue Q1</th>
-              <th scope="col" className="py-3 px-6">VMP Revenue Q2</th>
-              <th scope="col" className="py-3 px-6">VMP Revenue Q3</th>
-              <th scope="col" className="py-3 px-6">VMP Revenue Q4</th>
-              <th scope="col" className="py-3 px-6">Revenue Q1</th>
-              <th scope="col" className="py-3 px-6">Revenue Q2</th>
-              <th scope="col" className="py-3 px-6">Revenue Q3</th>
-              <th scope="col" className="py-3 px-6">Revenue Q4</th>
-              <th scope="col" className="py-3 px-6">Actual Revenue</th>
-              <th scope="col" className="py-3 px-6">Sales DigiPoints</th>
-              <th scope="col" className="py-3 px-6">Redemptions</th>
-            </tr>
-          </thead>
-          <tbody className="w-full">
-            {currentItems &&
-              currentItems.map((data, index) => (
-                <tr key={index}>
-                  <th scope="col" className="py-3 px-6">{data.email}</th>
-                  <th scope="col" className="py-3 px-6">{data.name}</th>
-                  <th scope="col" className="py-3 px-6">{data.country_id}</th>
-                  <th scope="col" className="py-3 px-6">{data.region}</th>
-                  <th scope="col" className="py-3 px-6">{data.reseller_or_dist_id}</th>
-                  <th scope="col" className="py-3 px-6">{data.reseller_or_dist_name}</th>
-                  <th scope="col" className="py-3 px-6">{data.dcname}</th>
-                  <th scope="col" className="py-3 px-6">{data.rtype}</th>
-                  <th scope="col" className="py-3 px-6">{data.vip_cc_renewal}</th>
-                  <th scope="col" className="py-3 px-6">{data.vip_cc_newbusiness}</th>
-                  <th scope="col" className="py-3 px-6">{data.vip_dc_renewal}</th>
-                  <th scope="col" className="py-3 px-6">{data.vip_dc_newbusiness}</th>
-                  <th scope="col" className="py-3 px-6">{data.vmp_cc_renewal}</th>
-                  <th scope="col" className="py-3 px-6">{data.vmp_cc_newbusiness}</th>
-                  <th scope="col" className="py-3 px-6">{data.vmp_dc_renewal}</th>
-                  <th scope="col" className="py-3 px-6">{data.vmp_dc_newbusiness}</th>
-                  <th scope="col" className="py-3 px-6">{data.vip_revenue_q1}</th>
-                  <th scope="col" className="py-3 px-6">{data.vip_revenue_q2}</th>
-                  <th scope="col" className="py-3 px-6">{data.vip_revenue_q3}</th>
-                  <th scope="col" className="py-3 px-6">{data.vip_revenue_q4}</th>
-                  <th scope="col" className="py-3 px-6">{data.vmp_revenue_q1}</th>
-                  <th scope="col" className="py-3 px-6">{data.vmp_revenue_q2}</th>
-                  <th scope="col" className="py-3 px-6">{data.vmp_revenue_q3}</th>
-                  <th scope="col" className="py-3 px-6">{data.vmp_revenue_q4}</th>
-                  <th scope="col" className="py-3 px-6">{data.revenue_q1}</th>
-                  <th scope="col" className="py-3 px-6">{data.revenue_q2}</th>
-                  <th scope="col" className="py-3 px-6">{data.revenue_q3}</th>
-                  <th scope="col" className="py-3 px-6">{data.revenue_q4}</th>
-                  <th scope="col" className="py-3 px-6">{data.revenue_actual}</th>
-                  <th scope="col" className="py-3 px-6">{data.sales_points}</th>
-                  <th scope="col" className="py-3 px-6">{data.redenciones}</th>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-
   const [itemOffset, setItemOffset] = useState(0);
 
   const currentItems = useMemo(() => {
@@ -243,10 +132,7 @@ const SalesPerformance = () => {
   return (
     <div className="mt-8 w-full">
       <div className="grid grid-rows-1">
-        <TitleWithIcon
-          icon={<User />}
-          title={t("Reportes.user_performance")}
-        />
+        <TitleWithIcon icon={<User />} title={t("Reportes.user_performance")} />
       </div>
       {/* <div className="grid grid-row-1 mt-8">
         <div className="grid sm:grid-cols-3 lg:grid-cols-7 grid-rows-1 items-center justify-items-center">
@@ -336,9 +222,7 @@ const SalesPerformance = () => {
       <div className="grid sm:grid-cols-2 grid-rows-1">
         <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
           <div className="font-bold flex items-center">
-            <h2 className="lg:text-lg sm:text-xl">
-              Users
-            </h2>
+            <h2 className="lg:text-lg sm:text-xl">Users</h2>
           </div>
           {/* <div className="grid col-span-2 sm:w-[55%] w-[60%]">
             <DropDownReport icon={<ArrowDown />} title={t("Reportes.periodo")}>
@@ -373,40 +257,177 @@ const SalesPerformance = () => {
         </div>
       </div>
       <div className="grid grid-rows-1 justify-items-center pt-5">
-          {loading && <div className="lds-dual-ring"></div>}
-          {!loading && (
-            <>
-              <Table currentItems={currentItems} />
-            </>
-          )}
-        </div>
-        <div className="w-full pt-5">
-          {!loading && (
-            <>
-              <ReactPaginate
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={handlePageClick}
-                containerClassName={"pagination"}
-                subContainerClassName={"pages pagination"}
-                nextClassName={"item next "}
-                previousClassName={"item previous"}
-                activeClassName={"item active "}
-                breakClassName={"item break-me "}
-                breakLabel={"..."}
-                disabledClassName={"disabled-page"}
-                pageClassName={"item pagination-page "}
-                nextLabel={
-                  <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
-                }
-                previousLabel={
-                  <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
-                }
-              />
-            </>
-          )}
-        </div>
+        {loading && <div className="lds-dual-ring"></div>}
+        {!loading && (
+          <>
+            <Table
+              containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
+              tableStyles={"table-zebra !text-sm"}
+              colStyles={"p-2"}
+              thStyles={"sticky text-white"}
+              cols={[
+                "Email",
+                "Name",
+                "Country",
+                "Region",
+                "Company ID",
+                "Company Name",
+                "Company Level",
+                "Company Type",
+                "VIP CC Renewal",
+                "VIP CC New business",
+                "VIP DC Renewal",
+                "VIP DC New Business",
+                "VMP CC Renewal",
+                "VMP CC New business",
+                "VMP DC Renewal",
+                "VMP DC New Business",
+                "VIP Revenue Q1",
+                "VIP Revenue Q2",
+                "VIP Revenue Q3",
+                "VIP Revenue Q4",
+                "VMP Revenue Q1",
+                "VMP Revenue Q2",
+                "VMP Revenue Q3",
+                "VMP Revenue Q4",
+                "Revenue Q1",
+                "Revenue Q2",
+                "Revenue Q3",
+                "Revenue Q4",
+                "Actual Revenue",
+                "Sales DigiPoints",
+                "Redemptions",
+              ]}
+            >
+              {currentItems &&
+                currentItems.map((data, index) => (
+                  <tr key={index}>
+                    <th className="text-left py-3 px-6">
+                      {data.email}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.name}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.country_id}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.region}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.reseller_or_dist_id}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.reseller_or_dist_name}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.dcname}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.rtype}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_cc_renewal}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_cc_newbusiness}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_dc_renewal}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_dc_newbusiness}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_cc_renewal}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_cc_newbusiness}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_dc_renewal}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_dc_newbusiness}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_revenue_q1}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_revenue_q2}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_revenue_q3}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_revenue_q4}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_revenue_q1}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_revenue_q2}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_revenue_q3}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_revenue_q4}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.revenue_q1}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.revenue_q2}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.revenue_q3}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.revenue_q4}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.revenue_actual}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.sales_points}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.redenciones}
+                    </th>
+                  </tr>
+                ))}
+            </Table>
+          </>
+        )}
+      </div>
+      <div className="w-full pt-5">
+        {!loading && (
+          <>
+            <ReactPaginate
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              nextClassName={"item next "}
+              previousClassName={"item previous"}
+              activeClassName={"item active "}
+              breakClassName={"item break-me "}
+              breakLabel={"..."}
+              disabledClassName={"disabled-page"}
+              pageClassName={"item pagination-page "}
+              nextLabel={
+                <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
+              }
+              previousLabel={
+                <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
+              }
+            />
+          </>
+        )}
+      </div>
     </div>
   );
 };
