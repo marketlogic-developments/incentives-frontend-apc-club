@@ -30,7 +30,7 @@ const InvoiceReport = () => {
   const user = useSelector((state) => state.user.user);
   const [isLoaded, setIsLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
-  const data = useSelector((state) => state.sales.salesall);
+  const [data, setData] = useState([]);
   const [t, i18n] = useTranslation("global");
   const [selectOne, setSelectOne] = useState("");
   const [selectTwo, setSelectTwo] = useState("");
@@ -49,7 +49,7 @@ const InvoiceReport = () => {
       dispatch(getInvoiceReport(token))
         .then((response) => {
           setLoading(false);
-          setData(response);
+          setData(response.payload);
         })
         .catch((error) => {
           console.log(error);
@@ -57,6 +57,7 @@ const InvoiceReport = () => {
     }
   }, [isLoaded, token]);
 console.log(data);
+
   /* Selects */
   const handleSelectOneChange = (name, value) => {
     setSelectOne(value);
@@ -194,7 +195,7 @@ console.log(data);
         ) : (
           <>
             <div className="grid grid-rows-1 justify-items-center pt-5">
-              {/* <Table
+              <Table
                 containerStyles={
                   "mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"
                 }
@@ -242,28 +243,34 @@ console.log(data);
                     })
                     .map((data, index) => (
                       <tr key={index}>
-                        <td className="text-start p-4">{data.sales_order}</td>
-                        <td className="text-start p-4">
-                          {data.disti_partner_rollup}
-                        </td>
-                        <td className="text-start p-4">
-                          {data.reseller_partner_rollup}
-                        </td>
+                        <td className="text-start p-4">{data.company_name}</td>
+                        <td className="text-start p-4">{data.company_name}</td>
+                        <td className="text-start p-4">{data.company_id}</td>
+                        <td className="text-start p-4">{data.company_name}</td>
+                        <td className="text-start p-4">{data.partner_type}</td>
+                        <td className="text-start p-4">{data.business_unit}</td>
+                        <td className="text-start p-4">{data.user}</td>
+                        <td className="text-start p-4">{data.user_rol}</td>
+                        <td className="text-start p-4">{data.invoice}</td>
+                        <td className="text-start p-4">{data.material_sku}</td>
+                        <td className="text-start p-4">{data.licensing_contract}</td>
+                        <td className="text-start p-4">{data.major_licensing_program_id}</td>
                         <td className="text-start p-4">{data.business_unit}</td>
                         <td className="text-start p-4">{data.business_type}</td>
-                        <td className="text-start p-4">{data.materia_sku}</td>
-                        <td className="text-start p-4">{data.quarter}</td>
-                        {user.roleId === 1 && (
-                          <td className="text-start p-4">
-                            {data.max_digipoints_allocate}
-                          </td>
-                        )}
-                        <td className="text-start p-4">
-                          ${parseFloat(data.total_sales_amount).toFixed(2)}
-                        </td>
+                        <td className="text-start p-4">{data.month}</td>
+                        <td className="text-start p-4">{data.date}</td>
+                        <td className="text-start p-4">{data.client}</td>
+                        <td className="text-start p-4">{data.product}</td>
+                        <td className="text-start p-4">{data.total_sales_amount}</td>
+                        <td className="text-start p-4">{data.amount_by_user}</td>
+                        <td className="text-start p-4">{data.total_sales_us}</td>
+                        <td className="text-start p-4">{data.total_sales_us}</td>
+                        <td className="text-start p-4">{data.digipoints_by_user}</td>
+                        <td className="text-start p-4">{data.puntosxpromo}</td>
+                        <td className="text-start p-4">{data.promoname}</td>
                       </tr>
                     ))}
-              </Table> */}
+              </Table>
               <ReactPaginate
                 pageCount={pageCount}
                 marginPagesDisplayed={2}
