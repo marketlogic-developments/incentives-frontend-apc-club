@@ -213,28 +213,33 @@ const InvoiceReport = () => {
                 colStyles={"p-2"}
                 thStyles={"sticky text-white"}
                 cols={
-                  user.roleId === 1
-                    ? [
-                        "Invoice",
-                        "Disti Partner Rollup",
-                        "Reseller Partner Rollup",
-                        "Business Unit",
-                        "Business Type",
-                        "SKU",
-                        "Quarter",
-                        "DigiPoints",
-                        "Total Sales US",
-                      ]
-                    : [
-                        "Invoice",
-                        "Disti Partner Rollup",
-                        "Reseller Partner Rollup",
-                        "Business Unit",
-                        "Business Type",
-                        "SKU",
-                        "Quarter",
-                        "Total Sales US",
-                      ]
+                  [
+                    "Region",
+                    "Country",
+                    "Membership ID",
+                    "Company Name",
+                    "Company Type",
+                    "Company Level",
+                    "User Name",
+                    "User Role",
+                    "Invoice",
+                    "Materual Sku",
+                    "Licensing Contract",
+                    "Majorlicensing Programid",
+                    "Business Unit",
+                    "Business Type",
+                    "Month",
+                    "Date",
+                    "Client",
+                    "Product Name",
+                    "Quantity",
+                    "Total Sales Revenue (USD)",
+                    "Revenue by User (USD)",
+                    "Total Sales DigiPoints",
+                    "Sales DigiPoints by User",
+                    "Promotions DigiPoints",
+                    "Promotions Name"
+                  ]
                 }
               >
                 {currentItems &&
