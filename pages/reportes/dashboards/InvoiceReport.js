@@ -8,9 +8,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getSalesAll,
-  getSalesAllByChannel,
-  getSalesAllByDist,
+  getInvoiceReport,
 } from "../../../store/reducers/sales.reducer";
 import {
   BtnFilter,
@@ -46,28 +44,19 @@ const InvoiceReport = () => {
 
   /* Querys */
   useEffect(() => {
-    if (token && data.length === 0) {
+    if (isLoaded && token) {
       setLoading(true);
-      if (user.roleId === 1) {
-        dispatch(getSalesAll(token)).then((response) => {
+      dispatch(getInvoiceReport(token))
+        .then((response) => {
           setLoading(false);
+          setData(response);
+        })
+        .catch((error) => {
+          console.log(error);
         });
-      } else if (user.companyId === null) {
-        dispatch(getSalesAllByDist(token, distribuitor.soldToParty)).then(
-          (response) => {
-            setLoading(false);
-          }
-        );
-      } else {
-        dispatch(getSalesAllByChannel(token, company.resellerMasterId)).then(
-          (response) => {
-            setLoading(false);
-          }
-        );
-      }
     }
   }, [isLoaded, token]);
-
+console.log(data);
   /* Selects */
   const handleSelectOneChange = (name, value) => {
     setSelectOne(value);
@@ -205,7 +194,7 @@ const InvoiceReport = () => {
         ) : (
           <>
             <div className="grid grid-rows-1 justify-items-center pt-5">
-              <Table
+              {/* <Table
                 containerStyles={
                   "mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"
                 }
@@ -274,7 +263,7 @@ const InvoiceReport = () => {
                         </td>
                       </tr>
                     ))}
-              </Table>
+              </Table> */}
               <ReactPaginate
                 pageCount={pageCount}
                 marginPagesDisplayed={2}
