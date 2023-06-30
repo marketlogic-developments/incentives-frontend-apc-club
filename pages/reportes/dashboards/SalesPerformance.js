@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserSalePerformance } from "../../../store/reducers/sales.reducer";
+import { getSalesPerformance } from "../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
@@ -129,7 +129,7 @@ const SalesPerformance = () => {
   useEffect(() => {
     if (isLoaded && token) {
       setLoading(true);
-      dispatch(getUserSalePerformance(token))
+      dispatch(getSalesPerformance(token))
         .then((response) => {
           setLoading(false);
           setData(response.payload);
