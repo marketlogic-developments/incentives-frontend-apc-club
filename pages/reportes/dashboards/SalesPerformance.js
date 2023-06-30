@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserSalePerformance } from "../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
@@ -18,8 +20,40 @@ import {
   TitleWithIcon,
 } from "../../../components";
 import { Menu, Button } from "@mantine/core";
+import * as XLSX from "xlsx";
+import jsonexport from "jsonexport";
+import { saveAs } from "file-saver";
+import ReactPaginate from "react-paginate";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const SalesPerformance = () => {
+
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
+  const products = useSelector((state) => state.sales.products);
+  const [data, setData] = useState([]);
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const [t, i18n] = useTranslation("global");
+  const itemsPerPage = 10;
+  const [loading, setLoading] = useState(false);
+
+  const importFile = (data) => {
+    // const workbook = XLSX.utils.book_new();
+    // const sheet = XLSX.utils.json_to_sheet(data);
+    // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
+    // XLSX.writeFile(workbook, "Productos_Participantes.xlsx");
+
+    jsonexport(data, (error, csv) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, "Productos Participantes.csv");
+    });
+  };
   const example = [
     {
       id: 1,
@@ -70,7 +104,7 @@ const SalesPerformance = () => {
     "Nov",
     "Dic",
   ];
-  const data = [
+  const datas = [
     2.3, 6.0, 18.8, 48.7, 182.2, 175.6, 70.7, 28.7, 26.4, 9.0, 5.9, 2.6,
   ];
   const xValuesLine = [
@@ -88,8 +122,130 @@ const SalesPerformance = () => {
     "Dic",
   ];
 
-  const [t, i18n] = useTranslation("global");
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
+  useEffect(() => {
+    if (isLoaded && token) {
+      setLoading(true);
+      dispatch(getUserSalePerformance(token))
+        .then((response) => {
+          setLoading(false);
+          setData(response.payload);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [isLoaded]);
+
+  function Table({ currentItems }) {
+    return (
+      <>
+        <table className="w-full text-sm text-left text-black-500 table-fixed tableJustify overflow-x-auto rounded-md">
+          <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
+            <tr>
+              <th scope="col" className="py-3 px-6">Email</th>
+              <th scope="col" className="py-3 px-6">Name</th>
+              <th scope="col" className="py-3 px-6">Country</th>
+              <th scope="col" className="py-3 px-6">Region</th>
+              <th scope="col" className="py-3 px-6">Company ID</th>
+              <th scope="col" className="py-3 px-6">Company Name</th>
+              <th scope="col" className="py-3 px-6">Company Level</th>
+              <th scope="col" className="py-3 px-6">Company Type</th>
+              <th scope="col" className="py-3 px-6">VIP CC Renewal</th>
+              <th scope="col" className="py-3 px-6">VIP CC New business</th>
+              <th scope="col" className="py-3 px-6">VIP DC Renewal</th>
+              <th scope="col" className="py-3 px-6">VIP DC New Business</th>
+              <th scope="col" className="py-3 px-6">VMP CC Renewal</th>
+              <th scope="col" className="py-3 px-6">VMP CC New business</th>
+              <th scope="col" className="py-3 px-6">VMP DC Renewal</th>
+              <th scope="col" className="py-3 px-6">VMP DC New Business</th>
+              <th scope="col" className="py-3 px-6">VIP Revenue Q1</th>
+              <th scope="col" className="py-3 px-6">VIP Revenue Q2</th>
+              <th scope="col" className="py-3 px-6">VIP Revenue Q3</th>
+              <th scope="col" className="py-3 px-6">VIP Revenue Q4</th>
+              <th scope="col" className="py-3 px-6">VMP Revenue Q1</th>
+              <th scope="col" className="py-3 px-6">VMP Revenue Q2</th>
+              <th scope="col" className="py-3 px-6">VMP Revenue Q3</th>
+              <th scope="col" className="py-3 px-6">VMP Revenue Q4</th>
+              <th scope="col" className="py-3 px-6">Revenue Q1</th>
+              <th scope="col" className="py-3 px-6">Revenue Q2</th>
+              <th scope="col" className="py-3 px-6">Revenue Q3</th>
+              <th scope="col" className="py-3 px-6">Revenue Q4</th>
+              <th scope="col" className="py-3 px-6">Actual Revenue</th>
+              <th scope="col" className="py-3 px-6">Sales DigiPoints</th>
+              <th scope="col" className="py-3 px-6">Company</th>
+              <th scope="col" className="py-3 px-6">Company</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentItems &&
+              currentItems.map((product, index) => (
+                <tr
+                  className={`${
+                    (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
+                  } w-full`}
+                  key={index}
+                >
+                  <th scope="col" className="py-3 px-6">Email</th>
+                  <th scope="col" className="py-3 px-6">Name</th>
+                  <th scope="col" className="py-3 px-6">Country</th>
+                  <th scope="col" className="py-3 px-6">Region</th>
+                  <th scope="col" className="py-3 px-6">Company ID</th>
+                  <th scope="col" className="py-3 px-6">Company Name</th>
+                  <th scope="col" className="py-3 px-6">Company Level</th>
+                  <th scope="col" className="py-3 px-6">Company Type</th>
+                  <th scope="col" className="py-3 px-6">VIP CC Renewal</th>
+                  <th scope="col" className="py-3 px-6">VIP CC New business</th>
+                  <th scope="col" className="py-3 px-6">VIP DC Renewal</th>
+                  <th scope="col" className="py-3 px-6">VIP DC New Business</th>
+                  <th scope="col" className="py-3 px-6">VMP CC Renewal</th>
+                  <th scope="col" className="py-3 px-6">VMP CC New business</th>
+                  <th scope="col" className="py-3 px-6">VMP DC Renewal</th>
+                  <th scope="col" className="py-3 px-6">VMP DC New Business</th>
+                  <th scope="col" className="py-3 px-6">VIP Revenue Q1</th>
+                  <th scope="col" className="py-3 px-6">VIP Revenue Q2</th>
+                  <th scope="col" className="py-3 px-6">VIP Revenue Q3</th>
+                  <th scope="col" className="py-3 px-6">VIP Revenue Q4</th>
+                  <th scope="col" className="py-3 px-6">VMP Revenue Q1</th>
+                  <th scope="col" className="py-3 px-6">VMP Revenue Q2</th>
+                  <th scope="col" className="py-3 px-6">VMP Revenue Q3</th>
+                  <th scope="col" className="py-3 px-6">VMP Revenue Q4</th>
+                  <th scope="col" className="py-3 px-6">Revenue Q1</th>
+                  <th scope="col" className="py-3 px-6">Revenue Q2</th>
+                  <th scope="col" className="py-3 px-6">Revenue Q3</th>
+                  <th scope="col" className="py-3 px-6">Revenue Q4</th>
+                  <th scope="col" className="py-3 px-6">Actual Revenue</th>
+                  <th scope="col" className="py-3 px-6">Sales DigiPoints</th>
+                  <th scope="col" className="py-3 px-6">Company</th>
+                  <th scope="col" className="py-3 px-6">Company</th>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </>
+    );
+  }
+
+  const [itemOffset, setItemOffset] = useState(0);
+
+  const currentItems = useMemo(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    return data.slice(itemOffset, endOffset);
+  }, [itemOffset, data]);
+
+  const pageCount = useMemo(
+    () => Math.ceil(data.length / itemsPerPage),
+    [data, itemsPerPage]
+  );
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % data.length;
+
+    setItemOffset(newOffset);
+  };
   return (
     <div className="mt-8">
       <div className="grid grid-rows-1">
@@ -179,7 +335,7 @@ const SalesPerformance = () => {
             title={t("Reportes.dp_cargados_mensualmente")}
             color={"red"}
             xValues={xValuesLine}
-            data={data}
+            data={datas}
           />
         </CardChart>
       </div>
@@ -223,27 +379,35 @@ const SalesPerformance = () => {
         </div>
       </div>
       <div className="grid grid-rows-1 justify-items-center">
-        <TableSalePerformance
-          containerStyles={"mt-5 rounded-tl-lg rounded-tr-lg"}
-          tableStyles={"table-zebra !text-sm"}
-          thStyles={"sticky text-white"}
-          labelCbStyles={"px-2"}
-          checkboxStyles={"!checkbox-xs mt-1 border-white bg-base-200"}
-          cols={[
-            t("Reportes.compania"),
-            t("Reportes.region"),
-            t("Reportes.pais"),
-            t("Reportes.membership_Id"),
-            t("Reportes.tipo"),
-            t("Reportes.nivel"),
-            t("Reportes.status"),
-            t("Reportes.registrado"),
-            t("Reportes.cc_Renewal"),
-            t("Reportes.cc_New_business"),
-            t("Reportes.dc_Renewal"),
-          ]}
-          datas={example}
-        />
+      <div className="w-full pt-5">
+          {loading && <div className="lds-dual-ring"></div>}
+          {!loading && (
+            <>
+              <Table currentItems={currentItems} />
+              <ReactPaginate
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages pagination"}
+                nextClassName={"item next "}
+                previousClassName={"item previous"}
+                activeClassName={"item active "}
+                breakClassName={"item break-me "}
+                breakLabel={"..."}
+                disabledClassName={"disabled-page"}
+                pageClassName={"item pagination-page "}
+                nextLabel={
+                  <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
+                }
+                previousLabel={
+                  <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
+                }
+              />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1044,7 +1044,7 @@ const Layout = ({ children }) => {
               </div>
             </div>
             <div className="w-full relative">
-              <div className="w-full h-screen pt-1 px-6">
+              <div className="w-full pt-1 px-6">
                 <div className="containerNavbar">
                   <div className="sticky grid justify-items-center items-center">
                     <MenuLines onClick={() => setCollapse(!collapse)} />
