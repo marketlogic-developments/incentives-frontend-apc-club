@@ -484,7 +484,7 @@ export const getSalesPerformance = (token) => async (dispatch) => {
 export const getInvoiceReport = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/invoicereport`, {
+      .get(`${process.env.BACKURL}/reporters/invoiceperformance`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
