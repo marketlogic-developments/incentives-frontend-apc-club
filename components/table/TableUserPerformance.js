@@ -3,16 +3,16 @@ import { Menu, Button } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { VeticalPoints } from "../icons";
 
-const TableSalePerformance = ({
-  containerStyles = "",
-  tableStyles = "",
-  thStyles = "",
-  labelCbStyles = "",
-  checkboxStyles = "",
-  cols = [],
-  datas,
-}) => {
-  const [t, i18n] = useTranslation("global");
+const TableUserPerformance = ({
+    containerStyles = "",
+    tableStyles = "",
+    thStyles = "",
+    labelCbStyles = "",
+    checkboxStyles = "",
+    cols = [],
+    datas,
+  }) => {
+    const [t, i18n] = useTranslation("global");
   const tableMenu = (id) => {
     return (
       <Menu shadow="md" width={200}>
@@ -92,7 +92,7 @@ const TableSalePerformance = ({
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default TableSalePerformance;
+export default TableUserPerformance

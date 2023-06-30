@@ -1,101 +1,124 @@
-import React from "react";
+import React from 'react';
 import {
-  ArrowDown,
-  CloudDownload,
-  RocketIcon,
-  SearchIcon,
-} from "../../../components/icons";
-import { useTranslation } from "react-i18next";
-import {
-  BarChar,
-  BtnFilter,
-  BtnWithImage,
-  CardChart,
-  DropDownReport,
-  InputReporte,
-  LineChart,
-  TableSalePerformance,
-  TitleWithIcon,
-} from "../../../components";
-import { Menu, Button } from "@mantine/core";
+    ArrowDown,
+    CloudDownload,
+    UserPerformance as User,
+    SearchIcon,
+    VeticalPoints,
+  } from "../../../components/icons";
+  import { useTranslation } from "react-i18next";
+  import {
+    BarChar,
+    BtnFilter,
+    BtnWithImage,
+    CardChart,
+    DropDownReport,
+    InputReporte,
+    LineChart,
+    TableSalePerformance,
+    TableUserPerformance,
+    TitleWithIcon,
+  } from "../../../components";
+  import { Menu, Button } from "@mantine/core";
 
-const SalesPerformance = () => {
-  const example = [
-    {
-      id: 1,
-      compania: "Adobe",
-      region: "-",
-      pais: "Colombia",
-      membership_Id: "Adobe",
-      tipo: "ML0001",
-      nivel: "Gold certified",
-      status: "Inactivo",
-      registrado: "Sí",
-      cc_renewal: "0",
-      cc_new_business: "396,942",
-      dc_renewal: "0",
-    },
-    {
-      id: 2,
-      compania: "Adobe",
-      region: "-",
-      pais: "Guatemala",
-      membership_Id: "Adobe",
-      tipo: "ML0001",
-      nivel: "Gold certified",
-      status: "Activo",
-      registrado: "Sí",
-      cc_renewal: "0",
-      cc_new_business: "396,942",
-      dc_renewal: "0",
-    },
-  ];
-  const dataOne = [
-    2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3,
-  ];
-  const dataTwo = [
-    2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,
-  ];
-  const xValuesBar = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
-  const data = [
-    2.3, 6.0, 18.8, 48.7, 182.2, 175.6, 70.7, 28.7, 26.4, 9.0, 5.9, 2.6,
-  ];
-  const xValuesLine = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
-
-  const [t, i18n] = useTranslation("global");
+const UserPerformance = () => {
+    const example = [
+        {
+          id: 1,
+          compania: "Adobe",
+          region: "-",
+          pais: "Colombia",
+          membership_Id: "Adobe",
+          tipo: "ML0001",
+          nivel: "Gold certified",
+          status: "Inactivo",
+          registrado: "Sí",
+          cc_renewal: "0",
+          cc_new_business: "396,942",
+          dc_renewal: "0",
+        },
+        {
+          id: 2,
+          compania: "Adobe",
+          region: "-",
+          pais: "Guatemala",
+          membership_Id: "Adobe",
+          tipo: "ML0001",
+          nivel: "Gold certified",
+          status: "Activo",
+          registrado: "Sí",
+          cc_renewal: "0",
+          cc_new_business: "396,942",
+          dc_renewal: "0",
+        },
+      ];
+      const dataOne = [
+        2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3,
+      ];
+      const dataTwo = [
+        2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,
+      ];
+      const xValuesBar = [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic",
+      ];
+      const data = [
+        2.3, 6.0, 18.8, 48.7, 182.2, 175.6, 70.7, 28.7, 26.4, 9.0, 5.9, 2.6,
+      ];
+      const xValuesLine = [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic",
+      ];
+    
+      const [t, i18n] = useTranslation("global");
+    
+      const tableMenu = (id) => {
+        return (
+          <Menu shadow="md" width={200}>
+            <Menu.Target>
+              <Button color="gray.0">
+                <VeticalPoints />
+              </Button>
+            </Menu.Target>
+    
+            <Menu.Dropdown>
+              <Menu.Item onClick={() => console.log("id:" + id)}>
+                <a className="text-black">Opcion 1</a>
+              </Menu.Item>
+              <Menu.Item onClick={() => console.log("Opcion 2")}>
+                <a className="text-black">Opcion 2</a>
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+        );
+      };
 
   return (
     <div className="mt-8">
       <div className="grid grid-rows-1">
         <TitleWithIcon
-          icon={<RocketIcon />}
-          title={t("Reportes.sales_performance")}
+          icon={<User />}
+          title={t("Reportes.user_performance")}
         />
       </div>
       <div className="grid grid-row-1 mt-8">
@@ -223,7 +246,7 @@ const SalesPerformance = () => {
         </div>
       </div>
       <div className="grid grid-rows-1 justify-items-center">
-        <TableSalePerformance
+        <TableUserPerformance
           containerStyles={"mt-5 rounded-tl-lg rounded-tr-lg"}
           tableStyles={"table-zebra !text-sm"}
           thStyles={"sticky text-white"}
@@ -243,10 +266,11 @@ const SalesPerformance = () => {
             t("Reportes.dc_Renewal"),
           ]}
           datas={example}
-        />
+        >
+        </TableUserPerformance>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SalesPerformance;
+export default UserPerformance

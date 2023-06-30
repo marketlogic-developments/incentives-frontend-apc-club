@@ -24,12 +24,18 @@ const SelectItem = ({ image, label, description, ...others }) => (
  * @param {*} param0
  * @returns
  */
-const SelectInput = ({
+const SelectInputValue = ({
   styles = "",
   icon = <ArrowDown />,
+  value = "",
   placeholder = "Pick one",
   label = "",
-  data = [],
+  data = [
+    { value: "react", label: "React" },
+    { value: "ng", label: "Angular" },
+    { value: "svelte", label: "Svelte" },
+    { value: "vue", label: "Vue" },
+  ],
   bgColorDataSelected = "#FFEEED",
   colorDataSelected = "#EB1000",
   borderRadiusDataSelected = "30px",
@@ -38,20 +44,17 @@ const SelectInput = ({
   borderRadiusDataHover = "30px",
   onChange,
   name,
-  value = "",
-  disabled = false,
 }) => {
   return (
     <Select
       className={`${styles}`}
       label={label}
-      value={value}
       placeholder={placeholder}
       itemComponent={SelectItem}
       rightSection={icon}
+      value={value}
       data={data}
       radius="md"
-      disabled={disabled}
       size="md"
       transitionProps={{
         transition: "pop-top-left",
@@ -85,4 +88,4 @@ const SelectInput = ({
   );
 };
 
-export default SelectInput;
+export default SelectInputValue;

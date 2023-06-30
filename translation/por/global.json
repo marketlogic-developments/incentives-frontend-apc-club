@@ -60,6 +60,12 @@
     "redenciones": "Resgates",
     "reglas": "Regras"
   },
+
+  "perfil":{
+    "verPerfil": "Ver perfil",
+    "cerrarSesion": "Cerrar Sesión"
+  },
+
   "dashboard": {
     "Estado_de_la_Meta": "Status da Meta",
     "Inicio": "Home",
@@ -402,12 +408,14 @@
     "novedad": "Novidades",
     "evento": "Eventos"
   },
-  "Reportes": {
+  "Reportes" : {
     "reportes": "Relatórios",
     "sales_performance": "Sales performance",
     "digiPoints_performance": "DigiPoints performance",
+    "google_analytic": "Google analytics data",
+    "so_import": "SO import report",
     "user_performance": "User performance",
-    "incentive_points_allocation": "Incentive points allocation",
+    "invoice_report": "Invoice report",
     "digiPoints_redemption_request": "DigiPoints redemption request",
     "custom_care": "Custom care",
     "registration_performance": "Registration performance",

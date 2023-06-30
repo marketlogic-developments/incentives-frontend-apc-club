@@ -183,7 +183,7 @@ const shoppingCar = () => {
         {testModal()}
       </Modal>
       <ContainerContent pageTitle={"Carrito"}>
-        <div className="m-6 flex flex-col gap-16">
+        <div className="m-3 flex flex-col h-full gap-16">
           <div className="flex justify-between">
             <div className="flex flex-col gap-5 w-8/12">
               {myProducts.length > 0 ? (

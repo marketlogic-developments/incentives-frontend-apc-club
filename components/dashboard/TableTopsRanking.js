@@ -38,26 +38,3 @@ const TableTopsRanking = ({
 };
 
 export default TableTopsRanking;
-{
-  /* <table className="w-full table-fixed tableJustify !text-sm overflow-hidden rounded-md">
-          <thead className="bg-[#000000] sticky top-0">
-            <tr className="text-white font-[700]">
-              <th className="py-3">Top</th>
-              <th className="py-3">{t("tabla.nombre")}</th>
-              <th className="py-3">Email</th>
-              <th className="py-3">{t("tabla.region")}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ranking.length !== 0 &&
-              ranking.map((data, index) => (
-                <tr className={`${(index + 1) % 2 === 0 && "bg-[#F5F5F5]"}`}>
-                  <td className="py-3">{data.ranking}</td>
-                  <td className="py-3">{data.names}</td>
-                  <td className="py-3">{data.email}</td>
-                  <td className="py-3">{data.region}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table> */
-}

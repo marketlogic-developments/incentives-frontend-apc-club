@@ -7,6 +7,8 @@ const SearchInput = ({
   stylesContainer = "",
   stylesInput = "",
   stylesImage = "",
+  value = "",
+  onChange = () => {},
 }) => {
   return (
     <div className={`relative ${stylesContainer}`}>
@@ -16,7 +18,9 @@ const SearchInput = ({
       <input
         type="text"
         placeholder={placeHolder}
-        className={`input h-8 bg-base-200 ${stylesInput}`}
+        className={`input h-8 bg-base-200/50 ${stylesInput}`}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );
