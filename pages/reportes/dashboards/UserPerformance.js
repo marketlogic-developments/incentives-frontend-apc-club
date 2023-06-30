@@ -27,15 +27,33 @@ const SalesPerformance = () => {
   const token = useSelector((state) => state.user.token);
   const [selectOne, setSelectOne] = useState("");
   const [searchByInvoice, setSearchByInvoice] = useState("");
+  const [itemOffset, setItemOffset] = useState(0);
   const products = useSelector((state) => state.sales.products);
   const [data, setData] = useState([]);
-
   const [isLoaded, setIsLoaded] = useState(false);
-
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (isLoaded && token) {
+      setLoading(true);
+      dispatch(getUserSalePerformance(token))
+        .then((response) => {
+          setLoading(false);
+          setData(response.payload);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [isLoaded]);
+
+  /* Download */
   const importFile = (data) => {
     jsonexport(data, (error, csv) => {
       if (error) {
@@ -43,12 +61,11 @@ const SalesPerformance = () => {
         return;
       }
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-      saveAs(blob, "Productos Participantes.csv");
+      saveAs(blob, "User Performance.csv");
     });
   };
 
   /* Selects */
-
   const handleSelectOneChange = (name, value) => {
     setSelectOne(value);
   };
@@ -79,31 +96,12 @@ const SalesPerformance = () => {
     setSelectOne("");
   };
 
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (isLoaded && token) {
-      setLoading(true);
-      dispatch(getUserSalePerformance(token))
-        .then((response) => {
-          setLoading(false);
-          setData(response.payload);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [isLoaded]);
-
-  const [itemOffset, setItemOffset] = useState(0);
-
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
     return filteredUsers.slice(itemOffset, endOffset);
   }, [itemOffset, filteredUsers]);
 
+  /* Paginate */
   const pageCount = useMemo(
     () => Math.ceil(filteredUsers.length / itemsPerPage),
     [filteredUsers, itemsPerPage]
@@ -131,7 +129,7 @@ const SalesPerformance = () => {
           }
         />
         <SelectInputValue
-          placeholder={t("tabla.unidadNegocio")}
+          placeholder={t("Nombre de la compañia")}
           value={selectOne}
           data={dataSelectOne}
           icon={<ArrowDown />}
@@ -147,7 +145,7 @@ const SalesPerformance = () => {
           text={t("Reportes.descargar")}
           icon={<CloudDownload />}
           styles={
-            "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+            "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none"
           }
           onClick={() => importFile(data)}
         />
