@@ -256,7 +256,7 @@ const SalesPerformance = () => {
           />
         </div>
       </div> */}
-      <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
+      {/* <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
         <CardChart title={t("Reportes.metas_vs_cumplimiento")} paragraph="">
           <BarChar
             title={t("Reportes.ventas_mensuales")}
@@ -279,7 +279,7 @@ const SalesPerformance = () => {
             data={datas}
           />
         </CardChart>
-      </div>
+      </div> */}
       <div className="grid sm:grid-cols-2 grid-rows-1">
         <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
           <div className="font-bold flex items-center">
