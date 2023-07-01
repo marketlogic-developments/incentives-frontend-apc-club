@@ -473,7 +473,7 @@ const Layout = ({ children }) => {
       text: t("menu.Productos"),
     },
     {
-      page: "/reportes",
+      page: "/reportesDashboard",
       icon: (
         <svg
           width="18"
@@ -852,7 +852,7 @@ const Layout = ({ children }) => {
                 "/organizacion",
                 "/cargaventas",
                 "/herramientas",
-                "/reportes",
+                "/reportesDashboard",
                 "/puntosporventas",
               ].includes(page);
             }
