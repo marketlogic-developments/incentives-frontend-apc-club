@@ -26,6 +26,8 @@ import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 
 const SalesPerformance = () => {
 
@@ -40,6 +42,7 @@ const SalesPerformance = () => {
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -195,6 +198,25 @@ const SalesPerformance = () => {
           title={t("Reportes.sales_performance")}
         />
       </div>
+      <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
+        <AiOutlineHome className="cursor-pointer"
+          onClick={() => {
+          router.push("/dashboard");
+          }}/>
+        <span><AiOutlineRight /></span>
+        <span className="cursor-pointer"
+          onClick={() => {
+          router.push("/reportesDashboard");
+          }}
+        >
+        Reportes
+        </span>
+        <span><AiOutlineRight /></span>
+        <span className="font-bold text-[#1473E6]"
+        >
+        {t("Reportes.sales_performance")}
+        </span>
+      </div>
       {/* <div className="grid grid-row-1 mt-8">
         <div className="grid sm:grid-cols-3 lg:grid-cols-7 grid-rows-1 items-center justify-items-center">
           <DropDownReport
@@ -282,11 +304,11 @@ const SalesPerformance = () => {
       </div> */}
       <div className="grid sm:grid-cols-2 grid-rows-1">
         <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
-          <div className="font-bold flex items-center">
+          {/* <div className="font-bold flex items-center">
             <h2 className="lg:text-lg sm:text-xl">
               {t("organizacion.organizaciones")}
             </h2>
-          </div>
+          </div> */}
           {/* <div className="grid col-span-2 sm:w-[55%] w-[60%]">
             <DropDownReport icon={<ArrowDown />} title={t("Reportes.periodo")}>
               <li>

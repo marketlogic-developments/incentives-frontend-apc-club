@@ -20,14 +20,14 @@ const reportesDashboard = () => {
   const [t, i18n] = useTranslation("global");
   return (
     <div className="mt-8">
-      <InputReporte
+      {/* <InputReporte
         image={<SearchIcon />}
         placeHolder={"Buscar"}
         stylesContainer={"mb-8"}
         stylesInput={
           "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
         }
-      />
+      /> */}
       <div className="grid sm:grid-cols-3 lg:grid-cols-4 grid-rows-1 gap-5">
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"

@@ -22,6 +22,9 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
+import { useRouter } from "next/router";
+import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
+
 
 const InvoiceReport = () => {
   const itemsPerPage = 10;
@@ -36,6 +39,8 @@ const InvoiceReport = () => {
   const [selectTwo, setSelectTwo] = useState("");
   const [itemOffset, setItemOffset] = useState(0);
   const [searchByInvoice, setSearchByInvoice] = useState("");
+  const router = useRouter();
+  
 
   /* Loader setter */
   useEffect(() => {
@@ -147,10 +152,29 @@ const InvoiceReport = () => {
           title={t("Reportes.invoice_report")}
         />
       </div>
+      <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
+        <AiOutlineHome className="cursor-pointer"
+          onClick={() => {
+          router.push("/dashboard");
+          }}/>
+        <span><AiOutlineRight /></span>
+        <span className="cursor-pointer"
+          onClick={() => {
+          router.push("/reportesDashboard");
+          }}
+        >
+        Reportes
+        </span>
+        <span><AiOutlineRight /></span>
+        <span className="font-bold text-[#1473E6]"
+        >
+        {t("Reportes.invoice_report")}
+        </span>
+      </div>
       <div className="grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
-          placeHolder={"Buscar"}
+          placeHolder={"Invoice"}
           stylesContainer={""}
           value={searchByInvoice}
           onChange={(e) => setSearchByInvoice(e.target.value)}
