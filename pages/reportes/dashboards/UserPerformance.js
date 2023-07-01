@@ -21,6 +21,8 @@ import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 
 const SalesPerformance = () => {
   const dispatch = useDispatch();
@@ -34,6 +36,7 @@ const SalesPerformance = () => {
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -114,8 +117,27 @@ const SalesPerformance = () => {
   };
   return (
     <div className="mt-8">
-      <div className="grid grid-rows-1">
+      <div className="pt-2 grid items-center grid-rows-1 gap-3">
         <TitleWithIcon icon={<User />} title={t("Reportes.user_performance")} />
+      </div>
+      <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
+        <AiOutlineHome className="cursor-pointer"
+          onClick={() => {
+          router.push("/dashboard");
+          }}/>
+        <span><AiOutlineRight /></span>
+        <span className="cursor-pointer"
+          onClick={() => {
+          router.push("/reportesDashboard");
+          }}
+        >
+        Reportes
+        </span>
+        <span><AiOutlineRight /></span>
+        <span className="font-bold text-[#1473E6]"
+        >
+        {t("Reportes.user_performance")}
+        </span>
       </div>
       <div className="pt-2 grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
@@ -129,7 +151,7 @@ const SalesPerformance = () => {
           }
         />
         <SelectInputValue
-          placeholder={t("Nombre de la compañia")}
+          placeholder={"Company Name"}
           value={selectOne}
           data={dataSelectOne}
           icon={<ArrowDown />}
