@@ -7,7 +7,7 @@ const Card = ({
   onClick = () => {},
 }) => {
   return (
-    <div className={`card shadow-md cursor-pointer ${styles}`}>
+    <div className={`card targetDashboard cursor-pointer ${styles}`}>
       <div className="card-body" onClick={onClick}>
         {children}
         <h2 className="card-title text-sm lg:text-lg ">{titleCard}</h2>

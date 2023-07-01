@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Checkbox } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import {
@@ -21,32 +21,6 @@ import axios from "axios";
 
 const ModalCustomerCare = ({ closeModal }) => {
   const [t, i18n] = useTranslation("global");
-  const user = useSelector((state) => state.user.user);
-  const dataSelectOne = [
-    {
-      image: <Question />,
-      value: "Inquietud o pregunta",
-      label: "Inquietud o pregunta",
-    },
-    {
-      image: <AlertCircule />,
-      value: "Reporte de error",
-      label: "Reporte de error",
-    },
-    { image: <ChatBox />, value: "Sugerencia", label: "Sugerencia" },
-    { image: <BrushOutline />, value: "Otros", label: "Otros" },
-  ];
-  const dataSelectTwo = [
-    { image: <GiftOutline />, value: "Redenciones", label: "Redenciones" },
-    { image: <SparklesOutline />, value: "DigiPoints", label: "DigiPoints" },
-    {
-      image: <ArrowRedo />,
-      value: "Distribución de DigiPointsSugerencia",
-      label: "Distribución de DigiPointsSugerencia",
-    },
-    { image: <Pricetag />, value: "Ventas", label: "Ventas" },
-    { image: <Laptop />, value: "Plataforma web", label: "Plataforma web" },
-  ];
   const [form, setForm] = useState({
     type: "",
     subject: "",
@@ -54,8 +28,119 @@ const ModalCustomerCare = ({ closeModal }) => {
     contactEmail: false,
     contactWhatsApp: false,
   });
+  const user = useSelector((state) => state.user.user);
+  const dataSelectOne = [
+    t("formCustomerCare.option1"),
+    t("formCustomerCare.option2"),
+    t("formCustomerCare.option3"),
+    t("formCustomerCare.option4"),
+    t("formCustomerCare.option5"),
+    t("formCustomerCare.option6"),
+    t("formCustomerCare.option7"),
+    t("formCustomerCare.option8"),
+    t("formCustomerCare.option9"),
+  ];
+
+  console.log(form);
+
+  const dataSelectTwo = useMemo(() => {
+    if (form.subject === t("formCustomerCare.option1")) {
+      return [
+        t("formCustomerCare.option11"),
+        t("formCustomerCare.option12"),
+        t("formCustomerCare.option13"),
+        t("formCustomerCare.option14"),
+        t("formCustomerCare.option15"),
+        t("formCustomerCare.option16"),
+        t("formCustomerCare.option17"),
+      ];
+    }
+    if (form.subject === t("formCustomerCare.option2")) {
+      return [
+        t("formCustomerCare.option21"),
+        t("formCustomerCare.option22"),
+        t("formCustomerCare.option23"),
+        t("formCustomerCare.option24"),
+        t("formCustomerCare.option25"),
+      ];
+    }
+    if (form.subject === t("formCustomerCare.option3")) {
+      return [
+        t("formCustomerCare.option31"),
+        t("formCustomerCare.option32"),
+        t("formCustomerCare.option33"),
+        t("formCustomerCare.option34"),
+        t("formCustomerCare.option35"),
+        t("formCustomerCare.option36"),
+        t("formCustomerCare.option37"),
+        t("formCustomerCare.option38"),
+        t("formCustomerCare.option39"),
+      ];
+    }
+    if (form.subject === t("formCustomerCare.option4")) {
+      return [
+        t("formCustomerCare.option41"),
+        t("formCustomerCare.option42"),
+        t("formCustomerCare.option43"),
+        t("formCustomerCare.option44"),
+        t("formCustomerCare.option45"),
+        t("formCustomerCare.option46"),
+        t("formCustomerCare.option47"),
+        t("formCustomerCare.option48"),
+        t("formCustomerCare.option49"),
+        t("formCustomerCare.option410"),
+      ];
+    }
+    if (form.subject === t("formCustomerCare.option5")) {
+      return [
+        t("formCustomerCare.option51"),
+        t("formCustomerCare.option52"),
+        t("formCustomerCare.option53"),
+        t("formCustomerCare.option54"),
+        t("formCustomerCare.option55"),
+        t("formCustomerCare.option56"),
+      ];
+    }
+    if (form.subject === t("formCustomerCare.option6")) {
+      return [
+        t("formCustomerCare.option61"),
+        t("formCustomerCare.option62"),
+        t("formCustomerCare.option63"),
+        t("formCustomerCare.option64"),
+        t("formCustomerCare.option65"),
+        t("formCustomerCare.option66"),
+        t("formCustomerCare.option67"),
+        t("formCustomerCare.option68"),
+        t("formCustomerCare.option69"),
+        t("formCustomerCare.option610"),
+      ];
+    }
+    if (form.subject === t("formCustomerCare.option7")) {
+      return [
+        t("formCustomerCare.option71"),
+        t("formCustomerCare.option72"),
+        t("formCustomerCare.option73"),
+        t("formCustomerCare.option74"),
+      ];
+    }
+    if (form.subject === t("formCustomerCare.option8")) {
+      return [
+        t("formCustomerCare.option81"),
+        t("formCustomerCare.option82"),
+        t("formCustomerCare.option83"),
+      ];
+    }
+    if (form.subject === t("formCustomerCare.option9")) {
+      return [t("formCustomerCare.option1")];
+    }
+  }, [form]);
 
   const handleChange = (type, info) => {
+    console.log(type);
+    if (type === "subject") {
+      return setForm({ ...form, type: "", [type]: info });
+    }
+
     setForm({ ...form, [type]: info });
   };
 
@@ -131,6 +216,7 @@ const ModalCustomerCare = ({ closeModal }) => {
           {t("modalCustomerCare.asunto")} <p className="text-red-600">*</p>
         </div>
         <SelectInput
+          value={form.subject}
           placeholder="Asunto"
           data={dataSelectOne}
           icon={<ArrowDown />}
@@ -147,7 +233,9 @@ const ModalCustomerCare = ({ closeModal }) => {
           data={dataSelectTwo}
           icon={<ArrowDown />}
           onChange={handleChange}
+          value={form.type}
           name={"type"}
+          disabled={form.subject === "" ? true : false}
         />
       </div>
       <div className="mt-2">
@@ -162,6 +250,7 @@ const ModalCustomerCare = ({ closeModal }) => {
             placeholder={t("user.escriba")}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
             name="description"
+            disabled={form.subject === "" || form.type === "" ? true : false}
           />
         </div>
       </div>

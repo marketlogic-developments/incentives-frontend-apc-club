@@ -1,7 +1,8 @@
 import React from "react";
 import { Component } from "react";
+import { ArrowDown } from "../icons";
 
-const TitleWithIcon = ({icon = <Component />, title = 'Title'}) => {
+const TitleWithIcon = ({icon = <ArrowDown />, title = 'Title'}) => {
   return (
     <div className="flex gap-3">
       {icon}

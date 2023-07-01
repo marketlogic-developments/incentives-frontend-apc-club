@@ -60,6 +60,12 @@
     "reglas": "Reglas",
     "customer_care": "Customer Care"
   },
+
+  "perfil":{
+    "verPerfil": "Ver perfil",
+    "cerrarSesion": "Cerrar Sesión"
+  },
+
   "dashboard": {
     "Inicio": "Inicio",
     "Hola": "Hola",
@@ -96,7 +102,8 @@
     "Alcanzado": "Alcanzado",
     "rankingsininfo": "Aún no hay información disponible",
     "motivarankingsininfo": "Motiva a tus representantes de venta a obtener DigiPoints y redimir.",
-    "motivalargorankingsininfo": "¡Vende con pasión y lidera en el ranking!"
+    "motivalargorankingsininfo": "¡Vende con pasión y lidera en el ranking!",
+    "topUsuarios": "Top 10 usuarios"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
@@ -322,7 +329,6 @@
     "aceptoCorreo": "Acepto ser contactado por correo.",
     "aceptoMovil": "Acepto ser contactado por WhatsApp o vía telefónica.",
     "enviar": "Enviar solicitud"
-
   },
   "user": {
     "ajustesdeperfil": "Ajustes de perfil",
@@ -386,12 +392,29 @@
     "vip": "¿Por qué utilizar VIP Marketplace?",
     "htw": "Cónoce como ganar"
   },
+
+  "comunicado": {
+    "bienvenida": "BIENVENIDO A NUESTRO BOARD DE COMUNICADOS",
+    "tituloPartUno": "Entérate de las noticias y beneficios más",
+    "tituloPartDos": "recientes que te brinda el",
+    "tituloPartTres": "APC Club",
+    "promocion": "Promociones",
+    "mostrar": "Mostrar todas",
+    "buscar": "Buscar",
+    "leer": "Leer más",
+    "marketPlace": "Market place",
+    "novedad": "Novedades",
+    "evento": "Eventos"
+  },
+  
   "Reportes" : {
     "reportes": "Reportes",
     "sales_performance": "Sales performance",
     "digiPoints_performance": "DigiPoints performance",
+    "google_analytic": "Google analytics data",
+    "so_import": "SO import report",
     "user_performance": "User performance",
-    "incentive_points_allocation": "Incentive points allocation",
+    "invoice_report": "Invoice report",
     "digiPoints_redemption_request": "DigiPoints redemption request",
     "custom_care": "Custom care",
     "registration_performance": "Registration performance",
@@ -401,7 +424,7 @@
     "anios": "Años",
     "filtrar": "Filtrar",
     "limpiar_filtros": "Limpiar Filtros",
-    "metas_vs_cumplimiento": "Metas vrs. cumplimiento",
+    "metas_vs_cumplimiento": "Metas vs. cumplimiento",
     "digiponits": "DigiPoints",
     "periodo": "Período",
     "descargar": "Descargar",
@@ -423,5 +446,71 @@
     "dp_cargados_mensualmente": "DigiPoints cargados mensualmente",
     "inactivo": "Inactivo",
     "activo": "Activo"
+  },
+  "formCustomerCare": {
+    "option1": "Inconvenientes con Tarjeta",
+    "option2": "Solicitudes de Usuarios",
+    "option3": "DigiPoints",
+    "option4": "Tarjetas de premios",
+    "option5": "Facturas",
+    "option6": "Plataforma",
+    "option7": "Promociones",
+    "option8": "Términos y Condiciones",
+    "option9": "Otras consultas",
+    "option11": "Estado de premio",
+    "option12": "Activación tarjeta",
+    "option13": "Código de activación",
+    "option14": "Tarjeta con error",
+    "option15": "Información general",
+    "option16": "Tarjeta extraviada",
+    "option17": "Error al momento del pago con la tarjeta",
+    "option21": "Usuario nuevo",
+    "option22": "Bloqueo o desactivación de usuario",
+    "option23": "Cambio de rol",
+    "option24": "Cambio de correo",
+    "option25": "Información general",
+    "option31": "Asignación de DigiPoints",
+    "option32": "DigiPoints requeridos para premios",
+    "option33": "Error de DigiPoints por promociones",
+    "option34": "Error de DigiPoints por ventas",
+    "option35": "Error de DigiPoints por behavior",
+    "option36": "Información general",
+    "option37": "Carga de DigiPoints por promociones",
+    "option38": "Reporte - Balance de DigiPoints",
+    "option39": "Carga de DigiPoints por ventas",
+    "option41": "Tarjeta aprobada",
+    "option42": "Estado de premio",
+    "option43": "Usuario bloqueado - quiero redimir",
+    "option44": "Activación tarjeta",
+    "option45": "Código de activación",
+    "option46": "Información general",
+    "option47": "Otras consultas",
+    "option48": "Consultas contraseña",
+    "option49": "Envío de tarjeta pendiente",
+    "option410": "Consultas sobre uso de tarjeta",
+    "option51": "Asignación de facturas",
+    "option52": "Error en valor de factura",
+    "option53": "Validar factura",
+    "option54": "Reporte de facturas",
+    "option55": "Carga de ventas",
+    "option56": "Facturas pendientes por cargar",
+    "option61": "Error al asignar",
+    "option62": "Error en catálogo de premios",
+    "option63": "Usuario bloqueado",
+    "option64": "No se procesa la solicitud de tarjeta",
+    "option65": "Información general",
+    "option66": "Solicitudes contraseña",
+    "option67": "Reportar una incidencia",
+    "option68": "Settings",
+    "option69": "Inconvenientes aceptación de Términos y Condiciones",
+    "option610": "Soporte técnico",
+    "option71": "Consulta promociones aplicadas",
+    "option72": "Información general",
+    "option73": "Validar factura",
+    "option74": "Promoción no se ve reflejada",
+    "option81": "No me permite aprobar",
+    "option82": "Usuario bloqueado",
+    "option83": "Información general",
+    "option91": "Otras consultas"
   }
 }

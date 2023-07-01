@@ -1,8 +1,8 @@
 import React from "react";
-import { Component } from "react";
+import { ArrowDown } from "../icons";
 
 const DropDownReport = ({
-  icon = <Component />,
+  icon = <ArrowDown />,
   title = "title",
   children,
 }) => {

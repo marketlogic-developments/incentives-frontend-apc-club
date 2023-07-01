@@ -40,13 +40,17 @@ export const getOrders = (token, id) => async (dispatch) => {
 };
 
 export const getOrdersAll = (token) => async (dispatch) => {
-  axios
-    .get(`${process.env.BACKURL}/reporters/redeem`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((res) => {
-      dispatch(getAllOrders(res.data));
-    });
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/redeem`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getAllOrders(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
 };

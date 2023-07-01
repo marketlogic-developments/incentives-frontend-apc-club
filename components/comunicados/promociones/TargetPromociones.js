@@ -1,0 +1,70 @@
+import Image from "next/image";
+import { useRouter } from "next/router";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
+const TargetPromociones = ({ data }) => {
+  const router = useRouter();
+  const [t, i18n] = useTranslation("global");
+
+  const date = {
+    dd: data.thisDate.split("T")[0].split("-")[2],
+    mm: data.thisDate.split("T")[0].split("-")[1],
+    aa: data.thisDate.split("T")[0].split("-")[0],
+  };
+
+  const hour = data.thisDate.split("T")[1].split("-")[0];
+
+  const months = {
+    "01": "Enero",
+    "02": "Febrero",
+    "03": "Marzo",
+    "04": "Abril",
+    "05": "Mayo",
+    "06": "Junio",
+    "07": "Julio",
+    "08": "Agosto",
+    "09": "Septiembre",
+    10: "Octubre",
+    11: "Noviembre",
+    12: "Diciembre",
+  };
+
+  console.log(data);
+
+  return (
+    <>
+      <div className="sm:ml-14 col-span-1 object-contain flex justify-center items-center">
+        <Image
+          src={`https:${data.imageComunicate.fields.file.url}`}
+          width={320}
+          height={228}
+          priority
+          className="object-contain rounded-md"
+        />
+      </div>
+      <div className="grid col-span-2 justify-items-start sm:pr-56 md:pr-3 pr-3">
+        <p className="sm:text-sm text-xs">{`Publicado el ${date.dd} de ${
+          months[date.mm]
+        } del ${date.aa} a las ${hour}`}</p>
+        <p className="font-bold sm:text-2xl text-sm">{data.title}</p>
+        <p>{data.description.content[0].content[0].value}</p>
+        <a
+          className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs"
+          onClick={() => {
+            router.push({
+              pathname: `/comunicados${data.dynamicDirection}`,
+              query: {
+                data: JSON.stringify(data),
+              },
+            });
+          }}
+        >
+          {t("comunicado.leer")}
+        </a>
+      </div>
+    </>
+  );
+};
+
+export default TargetPromociones;
