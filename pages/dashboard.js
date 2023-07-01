@@ -22,6 +22,9 @@ import TableStats from "../components/dashboard/TableStats";
 import BannerColombia from "../components/dashboard/BannerColombia";
 import CarouselBanners from "../components/dashboard/carouselBanners";
 import TableTopsRanking from "../components/dashboard/TableTopsRanking";
+import LicenseChart from "../components/dashboard/LicenseChart";
+import { CardChart, InputReporte } from "../components";
+import { SearchIcon } from "../components/icons";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
@@ -343,7 +346,62 @@ const dashboard = () => {
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
             <GraphSales />
-            <TableTopsRanking />
+            <div className="sm:w-full w-[355px]">
+              <CardChart title={"Licencias"} paragraph="">
+                <LicenseChart
+                  dataLeyend={[
+                    "Teams",
+                    "Enterprise",
+                    "Education",
+                    "Acrobat Pro",
+                    "DC Enterprise",
+                    "DC Education",
+                  ]}
+                  dataX={[0, 1, 2, 3, 4, 5]}
+                  dataOne={[120, 132, 101, 134, 90, 230, 210]}
+                  dataTwo={[220, 182, 191, 234, 290, 330, 310]}
+                  dataThree={[150, 232, 201, 154, 190, 330, 410]}
+                  dataFour={[320, 332, 301, 334, 390, 330, 320]}
+                  dataFive={[820, 932, 901, 934, 1290, 1330, 1320]}
+                  dataSix={[830, 832, 101, 234, 1190, 1230, 1340]}
+                  colorsLine={[
+                    "black",
+                    "blue",
+                    "green",
+                    "red",
+                    "orange",
+                    "pink",
+                  ]}
+                />
+              </CardChart>
+            </div>
+            <div className="grid w-full">
+              <div>
+                <h1 className="font-bold">{t("dashboard.topUsuarios")}</h1>
+              </div>
+              <InputReporte
+                image={<SearchIcon />}
+                placeHolder={t("Reportes.buscar")}
+                stylesContainer={"mt-2"}
+                stylesInput={
+                  "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
+                }
+                stylesImage={"pb-0"}
+              />
+              <TableTopsRanking
+                containerStyles={
+                  "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-[300px]"
+                }
+                tableStyles={"table-zebra !text-sm"}
+                thStyles={"sticky text-white"}
+                cols={[
+                  t("Top"),
+                  t("tabla.nombre"),
+                  t("Email"),
+                  t("tabla.region"),
+                ]}
+              />
+            </div>
           </div>
         </div>
       </ContainerContent>

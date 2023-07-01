@@ -9,7 +9,7 @@ const alert = ({
   icon = "question",
   title = "Title",
   customClass = {},
-  width = "30%"
+  width = "30%",
 }) => {
   const Toast = Swal.mixin({
     toast: true,
@@ -26,7 +26,7 @@ const alert = ({
   return Toast.fire({
     icon: icon,
     title: "<p style='color:white'>" + title + "</p>",
-    width:width,
+    width: width,
     customClass: customClass,
   });
 };

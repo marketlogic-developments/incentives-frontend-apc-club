@@ -12,6 +12,9 @@ const initialState = {
   salesbType: [],
   salesall: [],
   goals: [],
+  userperformance: [],
+  salesperformance: [],
+  invoiceperformance: [],
 };
 
 export const saleActions = createSlice({
@@ -51,6 +54,15 @@ export const saleActions = createSlice({
     getGoals: (state, action) => {
       state.goals = action.payload;
     },
+    getUserSale: (state, action) => {
+      state.userperformance = action.payload;
+    },
+    getSalePer: (state, action) => {
+      state.salesperformance = action.payload;
+    },
+    getInvoicePer: (state, action) => {
+      state.invoiceperformance = action.payload;
+    },
 
     setInitialStateSales: (state, action) => {
       return initialState;
@@ -71,6 +83,9 @@ export const {
   getallSales,
   setInitialStateSales,
   getGoals,
+  getUserSale,
+  getSalePer,
+  getInvoicePer,
 } = saleActions.actions;
 
 export default saleActions.reducer;
@@ -431,6 +446,52 @@ export const getAllGoals = (token) => async (dispatch) => {
         },
       })
       .then((res) => dispatch(getGoals(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const getUserSalePerformance = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/userperformance`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getUserSale(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const getSalesPerformance = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/salesperformance`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getSalePer(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getInvoiceReport = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/invoiceperformance`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getInvoicePer(res.data)));
   } catch (err) {
     console.log(err);
   }

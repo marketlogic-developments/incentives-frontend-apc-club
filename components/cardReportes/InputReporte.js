@@ -1,7 +1,7 @@
 import React from "react";
-import { Component } from "react";
+import { ArrowDown } from "../icons";
 
-const InputReporte = ({ image = <Component />, placeHolder = "...", stylesContainer = '', stylesInput = '', stylesImage = ''}) => {
+const InputReporte = ({ image = <ArrowDown />, placeHolder = "...", stylesContainer = '', stylesInput = '', stylesImage = ''}) => {
   return (
     <div className={`relative ${stylesContainer}`}>
       <div className="absolute inset-y-0 left-3">
@@ -10,7 +10,7 @@ const InputReporte = ({ image = <Component />, placeHolder = "...", stylesContai
       <input
         type="text"
         placeholder={placeHolder}
-        className={`input h-8 bg-base-200 ${stylesInput}`}
+        className={`input h-8 bg-base-200/50 ${stylesInput}`}
       />
     </div>
   );
