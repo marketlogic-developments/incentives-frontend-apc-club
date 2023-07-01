@@ -426,3 +426,31 @@
     justify-content: center;
   }
 }
+
+.uk {
+  flex-shrink: 0;
+}
+.rw {
+  width: 1.25rem;
+}
+.nu {
+  height: 1.25rem;
+}
+.ls {
+  display: flex;
+}
+.t {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.axk {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
+}
