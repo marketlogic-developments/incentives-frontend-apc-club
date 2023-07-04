@@ -44,6 +44,7 @@ const SelectInputValue = ({
   borderRadiusDataHover = "30px",
   onChange,
   name,
+  disabled = false,
 }) => {
   return (
     <Select
@@ -64,6 +65,7 @@ const SelectInputValue = ({
       variant="filled"
       withinPortal
       clearable
+      disabled={disabled}
       styles={() => ({
         item: {
           // applies styles to selected item

@@ -19,6 +19,7 @@ import {
   TableSalePerformance,
   Table,
   TitleWithIcon,
+  SelectInputValue,
 } from "../../../components";
 import { Menu, Button } from "@mantine/core";
 import * as XLSX from "xlsx";
@@ -30,9 +31,13 @@ import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 
 const SalesPerformance = () => {
-
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
+  const [filters, setFilters] = useState({
+    company: "",
+    level: "",
+    region: "",
+  });
   const [selectOne, setSelectOne] = useState("");
   const [searchByInvoice, setSearchByInvoice] = useState("");
   const [itemOffset, setItemOffset] = useState(0);
@@ -130,7 +135,6 @@ const SalesPerformance = () => {
     "Dic",
   ];
 
-  
   /* Download */
   const importFile = (data) => {
     jsonexport(data, (error, csv) => {
@@ -139,21 +143,22 @@ const SalesPerformance = () => {
         return;
       }
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-      saveAs(blob, "User Performance.csv");
+      saveAs(blob, "Sales Performance.csv");
     });
   };
 
   /* Selects */
-  const handleSelectOneChange = (name, value) => {
-    setSelectOne(value);
+  const handleFilters = (name, value) => {
+    if (name === "company") {
+      return setFilters({ level: "", region: "", company: value });
+    }
+
+    return setFilters({ ...filters, [name]: value });
   };
 
-  const dataOne = [...new Set(data.map((user) => user.reseller_or_dist_name))];
+  const setRegion = [...new Set(data.map(({ region }) => region))];
 
-  const dataSelectOne = dataOne.map((companyName) => ({
-    value: companyName,
-    label: companyName,
-  }));
+  const setLevel = [...new Set(data.map(({ level }) => level))];
 
   /* Filter */
   const filteredUsers = data.filter((user) => {
@@ -169,20 +174,53 @@ const SalesPerformance = () => {
     return true;
   });
 
+  const dataTable = useMemo(() => {
+    return filteredUsers.filter((item) => {
+      if (filters.company !== "") {
+        return item.company_name === filters.company;
+      }
+
+      if (filters.level !== "" && filters.region !== "") {
+        return item.level === filters.level && item.region === filters.region;
+      }
+
+      if (filters.level !== "") {
+        return item.level === filters.level;
+      }
+      if (filters.region !== "") {
+        return item.region === filters.region;
+      }
+
+      return item;
+    });
+  }, [filters, filteredUsers]);
+
+  console.log(dataTable);
+
   /* Clear Filter */
   const clearSelects = () => {
-    setSelectOne("");
+    setFilters({
+      company: "",
+      level: "",
+      region: "",
+    });
   };
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
-    return filteredUsers.slice(itemOffset, endOffset);
-  }, [itemOffset, filteredUsers]);
+    console.log(itemOffset, endOffset);
+
+    if (dataTable.length === 1) {
+      return dataTable;
+    }
+
+    return dataTable.slice(itemOffset, endOffset);
+  }, [itemOffset, dataTable]);
 
   /* Paginate */
   const pageCount = useMemo(
-    () => Math.ceil(filteredUsers.length / itemsPerPage),
-    [filteredUsers, itemsPerPage]
+    () => Math.ceil(dataTable.length / itemsPerPage),
+    [dataTable, itemsPerPage]
   );
 
   const handlePageClick = (event) => {
@@ -190,6 +228,7 @@ const SalesPerformance = () => {
 
     setItemOffset(newOffset);
   };
+
   return (
     <div className="mt-8">
       <div className="grid grid-rows-1">
@@ -199,22 +238,28 @@ const SalesPerformance = () => {
         />
       </div>
       <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
-        <AiOutlineHome className="cursor-pointer"
+        <AiOutlineHome
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/dashboard");
-          }}/>
-        <span><AiOutlineRight /></span>
-        <span className="cursor-pointer"
+            router.push("/dashboard");
+          }}
+        />
+        <span>
+          <AiOutlineRight />
+        </span>
+        <span
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/reportesDashboard");
+            router.push("/reportesDashboard");
           }}
         >
-        My Reports
+          My Reports
         </span>
-        <span><AiOutlineRight /></span>
-        <span className="font-bold text-[#1473E6]"
-        >
-        {t("Reportes.sales_performance")}
+        <span>
+          <AiOutlineRight />
+        </span>
+        <span className="font-bold text-[#1473E6]">
+          {t("Reportes.sales_performance")}
         </span>
       </div>
       {/* <div className="grid grid-row-1 mt-8">
@@ -303,25 +348,45 @@ const SalesPerformance = () => {
         </CardChart>
       </div> */}
       <div className="grid sm:grid-cols-2 grid-rows-1">
-        <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
-          {/* <div className="font-bold flex items-center">
-            <h2 className="lg:text-lg sm:text-xl">
-              {t("organizacion.organizaciones")}
-            </h2>
-          </div> */}
-          {/* <div className="grid col-span-2 sm:w-[55%] w-[60%]">
-            <DropDownReport icon={<ArrowDown />} title={t("Reportes.periodo")}>
-              <li>
-                <a>Período 1</a>
-              </li>
-              <li>
-                <a>Período 2</a>
-              </li>
-            </DropDownReport>
-          </div> */}
+        <div className="grid sm:grid-cols-3 sm:justify-items-start justify-items-center mt-3">
+          <div className="sm:w-[90%] w-[60%]">
+            <SelectInputValue
+              placeholder={"Company Name"}
+              value={filters.company}
+              data={filteredUsers.map(({ company_name }) => company_name)}
+              icon={<ArrowDown />}
+              onChange={handleFilters}
+              name={"company"}
+            />
+          </div>
+          <div className="sm:w-[90%] w-[60%]">
+            <SelectInputValue
+              placeholder={"Level"}
+              value={filters.level}
+              data={setLevel.map((item) => item)}
+              icon={<ArrowDown />}
+              onChange={handleFilters}
+              name={"level"}
+              disabled={filters.company !== "" ? true : false}
+            />
+          </div>
+          <div className="sm:w-[90%] w-[60%]">
+            <SelectInputValue
+              placeholder={"Region"}
+              value={filters.region}
+              data={setRegion.map((item) => item)}
+              icon={<ArrowDown />}
+              onChange={handleFilters}
+              name={"region"}
+              disabled={filters.company !== "" ? true : false}
+            />
+          </div>
         </div>
-        {/* <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
-          <div className="grid sm:w-[55%]">
+        <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
+          <div
+            className="grid sm:w-[45%]"
+            onClick={() => importFile(dataTable)}
+          >
             <BtnWithImage
               text={t("Reportes.descargar")}
               icon={<CloudDownload />}
@@ -330,16 +395,12 @@ const SalesPerformance = () => {
               }
             />
           </div>
-          <InputReporte
-            image={<SearchIcon />}
-            placeHolder={t("Reportes.buscar")}
-            stylesContainer={"mt-2"}
-            stylesInput={
-              "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
-            }
-            stylesImage={"pb-0"}
-          />
-        </div> */}
+          <div className="grid sm:w-[45%]" onClick={clearSelects}>
+            <p className="bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2 cursor-pointer font-bold">
+              Reset Filters
+            </p>
+          </div>
+        </div>
       </div>
       <div className="grid grid-rows-1 justify-items-center pt-5">
         {loading && <div className="lds-dual-ring"></div>}
@@ -384,83 +445,73 @@ const SalesPerformance = () => {
               ]}
             >
               {currentItems &&
-                [...currentItems]
-                  .filter((item) => {
-                    if (searchByInvoice !== "") {
-                      return item.name.startsWith(searchByInvoice);
-                    }
-
-                    return item;
-                  })
-                  .map((data, index) => (
-                    <tr key={index}>
-                      <th className="text-left py-3 px-6">{data.company_id}</th>
-                      <th className="text-left py-3 px-6">{data.company_name}</th>
-                      <th className="text-left py-3 px-6">{data.region}</th>
-                      {/* <th className="text-left py-3 px-6">{data.country_id}</th> */}
-                      <th className="text-left py-3 px-6">{data.level}</th>
-                      <th className="text-left py-3 px-6">{data.active}</th>
-                      <th className="text-left py-3 px-6">{data.usuarios}</th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_cc_renewal}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_cc_newbusiness}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_dc_renewal}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_dc_newbusiness}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_cc_renewal}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_cc_newbusiness}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_dc_renewal}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_dc_newbusiness}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_revenue_q1}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_revenue_q2}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_revenue_q3}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_revenue_q4}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_revenue_q1}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_revenue_q2}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_revenue_q3}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_revenue_q4}
-                      </th>
-                      <th className="text-left py-3 px-6">{data.revenue_q1}</th>
-                      <th className="text-left py-3 px-6">{data.revenue_q2}</th>
-                      <th className="text-left py-3 px-6">{data.revenue_q3}</th>
-                      <th className="text-left py-3 px-6">{data.revenue_q4}</th>
-                      <th className="text-left py-3 px-6">
-                        {data.actual_revenue}
-                      </th>
-                      <th className="text-left py-3 px-6">
-                        {data.puntos}
-                      </th>
-                    </tr>
-                  ))}
+                [...currentItems].map((data, index) => (
+                  <tr key={index}>
+                    <th className="text-left py-3 px-6">{data.company_id}</th>
+                    <th className="text-left py-3 px-6">{data.company_name}</th>
+                    <th className="text-left py-3 px-6">{data.region}</th>
+                    {/* <th className="text-left py-3 px-6">{data.country_id}</th> */}
+                    <th className="text-left py-3 px-6">{data.level}</th>
+                    <th className="text-left py-3 px-6">{data.active}</th>
+                    <th className="text-left py-3 px-6">{data.usuarios}</th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_cc_renewal}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_cc_newbusiness}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_dc_renewal}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_dc_newbusiness}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_cc_renewal}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_cc_newbusiness}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_dc_renewal}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_dc_newbusiness}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_revenue_q1}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_revenue_q2}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_revenue_q3}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vip_revenue_q4}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_revenue_q1}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_revenue_q2}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_revenue_q3}
+                    </th>
+                    <th className="text-left py-3 px-6">
+                      {data.vmp_revenue_q4}
+                    </th>
+                    <th className="text-left py-3 px-6">{data.revenue_q1}</th>
+                    <th className="text-left py-3 px-6">{data.revenue_q2}</th>
+                    <th className="text-left py-3 px-6">{data.revenue_q3}</th>
+                    <th className="text-left py-3 px-6">{data.revenue_q4}</th>
+                    <th className="text-left py-3 px-6">
+                      {data.actual_revenue}
+                    </th>
+                    <th className="text-left py-3 px-6">{data.puntos}</th>
+                  </tr>
+                ))}
             </Table>
           </>
         )}
