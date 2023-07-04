@@ -28,7 +28,6 @@ const MenuMarket = () => {
   const [loading, setLoading] = useState(false);
   const componenteRef = useRef(null);
   const [t, i18n] = useTranslation("global");
-  const [loading, setLoading] = useState(false);
 
   const digipointsTotal = useMemo(
     () =>
