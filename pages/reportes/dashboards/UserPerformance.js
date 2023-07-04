@@ -11,6 +11,8 @@ import { useTranslation } from "react-i18next";
 import {
   BtnFilter,
   BtnWithImage,
+  CardChart,
+  MultiLineChart,
   SearchInput,
   SelectInputValue,
   Table,
@@ -121,23 +123,36 @@ const SalesPerformance = () => {
         <TitleWithIcon icon={<User />} title={t("Reportes.user_performance")} />
       </div>
       <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
-        <AiOutlineHome className="cursor-pointer"
+        <AiOutlineHome
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/dashboard");
-          }}/>
-        <span><AiOutlineRight /></span>
-        <span className="cursor-pointer"
+            router.push("/dashboard");
+          }}
+        />
+        <span>
+          <AiOutlineRight />
+        </span>
+        <span
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/reportesDashboard");
+            router.push("/reportesDashboard");
           }}
         >
-        My Reports
+          My Reports
         </span>
-        <span><AiOutlineRight /></span>
-        <span className="font-bold text-[#1473E6]"
-        >
-        {t("Reportes.user_performance")}
+        <span>
+          <AiOutlineRight />
         </span>
+        <span className="font-bold text-[#1473E6]">
+          {t("Reportes.user_performance")}
+        </span>
+      </div>
+      <div className="grid w-auto gap-2">
+        <div className="pr-4">
+          <CardChart title={t("Reportes.digiponits")} paragraph="">
+            
+          </CardChart>
+        </div>
       </div>
       <div className="pt-2 grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
@@ -172,30 +187,6 @@ const SalesPerformance = () => {
           onClick={() => importFile(data)}
         />
       </div>
-      {/* <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
-        <CardChart title={t("Reportes.metas_vs_cumplimiento")} paragraph="">
-          <BarChar
-            title={t("Reportes.ventas_mensuales")}
-            colorBarOne={"black"}
-            colorBarTwo={"#2799F6"}
-            dataLeyend={[
-              t("Reportes.ingresos_esperados"),
-              t("Reportes.ingreso_actual"),
-            ]}
-            dataOne={dataOne}
-            dataTwo={dataTwo}
-            xValues={xValuesBar}
-          />
-        </CardChart>
-        <CardChart title={t("Reportes.digiponits")}>
-          <LineChart
-            title={t("Reportes.dp_cargados_mensualmente")}
-            color={"red"}
-            xValues={xValuesLine}
-            data={datas}
-          />
-        </CardChart>
-      </div> */}
       <div className="grid sm:grid-cols-2 grid-rows-1">
         <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
           <div className="font-bold flex items-center">
