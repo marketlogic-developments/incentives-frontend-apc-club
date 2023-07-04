@@ -8,6 +8,7 @@ import CardProduct from "./CardProduct";
 const ModalProductsR = ({ data }) => {
   const [statusId, setStatusId] = useState(data.operationstatusid);
   const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
   const [t, i18n] = useTranslation("global");
   const [state1, setState1] = useState(false);
   const [state2, setState2] = useState(false);
@@ -68,7 +69,7 @@ const ModalProductsR = ({ data }) => {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
