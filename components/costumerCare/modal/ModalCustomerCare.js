@@ -41,8 +41,6 @@ const ModalCustomerCare = ({ closeModal }) => {
     t("formCustomerCare.option9"),
   ];
 
-  console.log(form);
-
   const dataSelectTwo = useMemo(() => {
     if (form.subject === t("formCustomerCare.option1")) {
       return [
@@ -136,7 +134,6 @@ const ModalCustomerCare = ({ closeModal }) => {
   }, [form]);
 
   const handleChange = (type, info) => {
-    console.log(type);
     if (type === "subject") {
       return setForm({ ...form, type: "", [type]: info });
     }

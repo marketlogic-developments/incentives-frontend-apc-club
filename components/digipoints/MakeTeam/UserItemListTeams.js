@@ -21,13 +21,11 @@ const UserItemListTeams = ({
       if (
         prevModifiedValues.map(({ memberId }) => memberId).includes(data.id)
       ) {
-        console.log(data.id);
         // Si el checkbox ya estaba seleccionado, se remueve del estado
         return prevModifiedValues.filter(
           ({ memberId }) => memberId !== data.id
         );
       } else {
-        console.log("b");
         // Si el checkbox no estaba seleccionado, se agrega al estado
         return [...prevModifiedValues, { memberId: data.id, percentage: 0 }];
       }

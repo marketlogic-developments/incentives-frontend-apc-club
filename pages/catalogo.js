@@ -59,7 +59,7 @@ const catalogo = () => {
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
-    console.log(filter);
+
     return arrayAwards
       .filter((i) => {
         if (filter !== "") {
