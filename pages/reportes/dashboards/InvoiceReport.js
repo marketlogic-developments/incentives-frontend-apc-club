@@ -163,7 +163,7 @@ const InvoiceReport = () => {
           router.push("/reportesDashboard");
           }}
         >
-        Reportes
+        My Reports
         </span>
         <span><AiOutlineRight /></span>
         <span className="font-bold text-[#1473E6]"

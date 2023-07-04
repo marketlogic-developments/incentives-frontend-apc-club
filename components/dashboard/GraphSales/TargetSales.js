@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 const TargetSales = ({ data, goal }) => {
   const [t, i18n] = useTranslation("global");
 
-  console.log(goal);
-
   function formatNumber(number) {
     const formattedNumber =
       number >= 1000000
