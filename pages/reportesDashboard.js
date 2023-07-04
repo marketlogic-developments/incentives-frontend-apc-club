@@ -14,10 +14,17 @@ import {
 } from "../components/icons";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import dynamic from "next/dynamic";
 
 const reportesDashboard = () => {
   const router = useRouter();
   const [t, i18n] = useTranslation("global");
+
+  const SharePoint = dynamic(() =>
+    import("../components/embedreports/sharePoint").then(
+      (powerBi) => powerBi.default
+    )
+  );
   return (
     <div className="mt-8">
       {/* <InputReporte
@@ -111,6 +118,7 @@ const reportesDashboard = () => {
           <TermsConditions />
         </CardReportes>
       </div>
+      {/* <SharePoint /> */}
     </div>
   );
 };
