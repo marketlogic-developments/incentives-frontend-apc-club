@@ -31,26 +31,28 @@ const TableStats = () => {
 
     const obj =
       user.companyId === null
-        ? `/reporters/goalsbydistri/${user.distributionChannel.soldToParty}`
-        : `/reporters/goalsbycompanies/${user.company.resellerMasterId}`;
+        ? `/reporters/goalsbydistri/${user?.distributionChannel?.soldToParty}`
+        : `/reporters/goalsbycompanies/${user?.company?.resellerMasterId}`;
 
-    axios
-      .get(`${process.env.BACKURL}${obj}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (user.roleId === 1) {
-          setGoal(golprogram);
-        } else {
-          if (res.data.length !== 0) {
-            setGoal(res.data[0].meta);
+    if (user) {
+      axios
+        .get(`${process.env.BACKURL}${obj}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (user.roleId === 1) {
+            setGoal(golprogram);
+          } else {
+            if (res.data.length !== 0) {
+              setGoal(res.data[0].meta);
+            }
           }
-        }
-      });
+        });
+    }
 
     if (token && dataFromAxios.length === 0) {
       if (user.roleId === 1) {
@@ -73,7 +75,7 @@ const TableStats = () => {
       setLoading(true);
 
       setTotalSales(dataFromAxios);
-      console.log(dataFromAxios);
+
       const totalSalesReduce = Math.round(
         dataFromAxios.reduce(
           (acc, { total_sales_amount }) => acc + Number(total_sales_amount),
@@ -82,7 +84,7 @@ const TableStats = () => {
       );
 
       setSales(totalSalesReduce);
-      console.log(goal);
+
       const percentageTotal = Math.round(
         (totalSalesReduce * 100) / Number(goal)
       );

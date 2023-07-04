@@ -11,8 +11,6 @@ const CardMenuMarket = ({ cardData, index }) => {
 
   useEffect(() => setCounter(cardData.quantity), [cardData]);
 
-  console.log(car);
-
   const buttonsFunctionAdd = () => {
     setCounter(counter + 1);
 
@@ -35,8 +33,6 @@ const CardMenuMarket = ({ cardData, index }) => {
       copyCar[index] = { ...cardData, quantity: counter - 1 };
       dispatch(productsPush(copyCar));
     }
-
-    console.log(copyCar);
   };
 
   const deleteItem = () => {

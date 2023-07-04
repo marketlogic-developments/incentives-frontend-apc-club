@@ -21,7 +21,6 @@ const BannerColombia = ({ user, token }) => {
         }
       )
       .then(({ data }) => {
-        console.log(data);
         dispatch(userUpdate({ policy: false }));
         route.push("/terminosycondiciones");
       })

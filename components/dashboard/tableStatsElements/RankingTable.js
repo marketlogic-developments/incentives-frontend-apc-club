@@ -43,7 +43,6 @@ const RankingTable = () => {
           },
         })
         .then(({ data }) => {
-          console.log(data);
           dispatch(setRanking(data));
         });
     } else {

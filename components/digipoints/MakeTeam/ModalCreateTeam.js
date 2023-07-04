@@ -168,7 +168,6 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
           }
         )
         .then(({ data }) => {
-          console.log(data);
           dispatch(
             teamsPush({
               ...data,
@@ -202,8 +201,6 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
       .map(({ percentage }) => percentage)
       .reduce((prev, counter) => prev + counter, 0);
   }, [modifiedValues]);
-
-  console.log(percentage);
 
   return (
     <div>

@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { Triangle } from "react-loader-spinner";
 
 const MenuMarket = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const MenuMarket = () => {
   const car = useSelector((state) => state.awards.shoopingCar);
   const [opened, setOpened] = useState(false);
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const componenteRef = useRef(null);
   const [t, i18n] = useTranslation("global");
 
@@ -47,6 +49,8 @@ const MenuMarket = () => {
   );
 
   const handleOrder = () => {
+    setLoading(true);
+
     axios
       .post(
         `${process.env.BACKURL}/order-carts`,
@@ -72,7 +76,7 @@ const MenuMarket = () => {
               Number(digipoints.cart_points) + Number(digipointsTotal),
           })
         );
-
+        setLoading(false);
         setOpened(true);
       })
       .catch((e) => console.log(e));
@@ -215,13 +219,25 @@ const MenuMarket = () => {
             <button
               className="btn btn-primary w-full"
               disabled={
-                digipointsTotal > myDigipoints || car.length === 0
+                digipointsTotal > myDigipoints || car.length === 0 || loading
                   ? true
                   : false
               }
               onClick={handleOrder}
             >
-              {t("dashboard.redimir")}
+              {loading ? (
+                <Triangle
+                  height="30"
+                  width="30"
+                  color="#ffff"
+                  ariaLabel="triangle-loading"
+                  wrapperStyle={{}}
+                  wrapperClassName=""
+                  visible={true}
+                />
+              ) : (
+                t("dashboard.redimir")
+              )}
             </button>
           </div>
         </div>

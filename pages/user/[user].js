@@ -101,7 +101,6 @@ const user = () => {
     }
   };
   const handleChangeDate = (value) => {
-    console.log(user);
     setFormData({
       ...formData,
       birthDate: value.toISOString(), // Asegúrate de convertir el valor en un formato válido para la API

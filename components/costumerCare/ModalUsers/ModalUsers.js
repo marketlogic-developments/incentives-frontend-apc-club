@@ -93,7 +93,6 @@ const ModalUsers = ({ userDataToModal, token }) => {
           },
         })
         .then((res) => {
-          console.log("Dist");
           return setDistribuitorData(res.data);
         });
     } else {
@@ -106,7 +105,6 @@ const ModalUsers = ({ userDataToModal, token }) => {
           },
         })
         .then((res) => {
-          console.log("Comp");
           return setCompanyData(res.data);
         });
     }
@@ -168,7 +166,6 @@ const ModalUsers = ({ userDataToModal, token }) => {
         }
       )
       .then(() => {
-        console.log([obj, ...users]);
         dispatch(getUsers([obj, ...users]));
         return Toast.fire({
           icon: "success",
