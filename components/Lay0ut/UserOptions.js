@@ -196,8 +196,6 @@ const UserOptions = ({ user, token, logout, menuUser, setMenuUser }) => {
       .catch((error) => console.log(error));
   };
 
-  console.log(user.profilePhotoPath);
-
   return (
     <>
       <div

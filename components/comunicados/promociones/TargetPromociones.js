@@ -30,8 +30,6 @@ const TargetPromociones = ({ data }) => {
     12: "Diciembre",
   };
 
-  console.log(data);
-
   return (
     <>
       <div className="sm:ml-14 col-span-1 object-contain flex justify-center items-center">

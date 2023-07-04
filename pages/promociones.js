@@ -116,7 +116,6 @@ const promociones = () => {
           <tbody>
             {currentItems &&
               currentItems.map((data, index) => {
-                console.log(data);
                 return (
                   <tr
                     key={index}

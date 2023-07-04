@@ -25,6 +25,7 @@ const MenuMarket = () => {
   const car = useSelector((state) => state.awards.shoopingCar);
   const [opened, setOpened] = useState(false);
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const componenteRef = useRef(null);
   const [t, i18n] = useTranslation("global");
   const [loading, setLoading] = useState(false);
@@ -76,7 +77,7 @@ const MenuMarket = () => {
               Number(digipoints.cart_points) + Number(digipointsTotal),
           })
         );
-
+        setLoading(false);
         setOpened(true);
       })
       .catch((e) => console.log(e))

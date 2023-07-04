@@ -9,8 +9,6 @@ const CarouselBanners = () => {
   const route = useRouter();
   const [counter, setCounter] = useState(0);
 
-  console.log(counter);
-
   return (
     <Carousel
       mx="auto"

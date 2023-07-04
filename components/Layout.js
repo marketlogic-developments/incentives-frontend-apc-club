@@ -217,37 +217,37 @@ const Layout = ({ children }) => {
     </div>
   );
 
-  // useEffect(() => {
-  //   let timeoutId;
+  useEffect(() => {
+    let timeoutId;
 
-  //   if (userRedux !== 0) {
-  //     const handleVisibilityChange = () => {
-  //       if (document.visibilityState === "hidden") {
-  //         timeoutId = setTimeout(function () {
-  //           logout();
-  //         }, 300000);
-  //       } else {
-  //         // Si el usuario vuelve antes de que se ejecute el setTimeout, cancelarlo
-  //         clearTimeout(timeoutId);
-  //       }
-  //     };
+    if (userRedux !== 0) {
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === "hidden") {
+          timeoutId = setTimeout(function () {
+            logout();
+          }, 300000);
+        } else {
+          // Si el usuario vuelve antes de que se ejecute el setTimeout, cancelarlo
+          clearTimeout(timeoutId);
+        }
+      };
 
-  //     document.addEventListener("visibilitychange", handleVisibilityChange);
+      document.addEventListener("visibilitychange", handleVisibilityChange);
 
-  //     return () => {
-  //       document.removeEventListener(
-  //         "visibilitychange",
-  //         handleVisibilityChange
-  //       );
+      return () => {
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange
+        );
 
-  //       clearTimeout(timeoutId);
-  //     };
-  //   }
+        clearTimeout(timeoutId);
+      };
+    }
 
-  //   if (location === "/") {
-  //     dispatch(loadingUser(true));
-  //   }
-  // }, [userRedux]);
+    if (location === "/") {
+      dispatch(loadingUser(true));
+    }
+  }, [userRedux]);
 
   const closeModal = () => {
     setOpened(!opened);
@@ -804,10 +804,9 @@ const Layout = ({ children }) => {
     dispatch(setInitialStateTeams());
     dispatch(setInitialStateSales());
     dispatch(setInitialStateUser());
-
-    dispatch(changeLoadingData(true));
     window.sessionStorage.removeItem("infoDt");
     Cookies.remove("dp");
+    dispatch(loadingUser(true));
     router.push("/");
   };
 
@@ -1156,7 +1155,7 @@ const Layout = ({ children }) => {
                               />
                             </div>
                             <div
-                              className="flex items-center gap-1 bg-[#F5F5F5] rounded-full  sm:w-[217px] md:w-[217px] p-3 text-xs cursor-pointer"
+                              className="flex items-center gap-3 bg-[#F5F5F5] rounded-full  sm:w-[217px] md:w-[217px] p-3 text-xs cursor-pointer"
                               onClick={() => setMenuUser(!menuUser)}
                             >
                               {profileImage}
