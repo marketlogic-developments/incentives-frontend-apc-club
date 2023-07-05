@@ -90,7 +90,8 @@ const ModalProductsR = ({ data }) => {
           color: "#fff",
         });
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         Toast.fire({
           icon: "error",
           title: "Hubo un error al hacer la solicitud",
