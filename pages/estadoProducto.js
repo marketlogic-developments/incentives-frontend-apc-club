@@ -6,7 +6,7 @@ import ContainerContent from "../components/containerContent";
 import TrackingProduct from "../components/market/TrackingProduct";
 import ModalProducts from "../components/ModalStateProducts/ModalProducts";
 import { getOrders, ordersPush } from "../store/reducers/orders.reducer";
-import Gift from "../components/market/iconsEstadoProductos/gift";
+import Gift from "../components/market/iconsEstadoProductos/Gift";
 
 const estadoProducto = () => {
   const [opened, setOpened] = useState(false);
@@ -59,7 +59,8 @@ const estadoProducto = () => {
         opened={opened}
         onClose={() => setOpened(false)}
         size={"70%"}
-        title={`ID de la orden: #${modalData.orderNumber}`}
+        title={t("estadoProducto.detalleOrden")}
+        className="modalStatusProducts"
       >
         <ModalProducts data={modalData} />
       </Modal>

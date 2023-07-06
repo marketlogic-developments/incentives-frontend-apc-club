@@ -104,7 +104,9 @@ const ModalProductsR = ({ data }) => {
   return (
     <div className="flex flex-col gap-5">
       <div>
-        <p className="font-bold text-2xl py-5">{t("redenciones.rastrear")}</p>
+        <p className="font-bold !text-base py-5">
+          {t("estadoProducto.seguimiento")}
+        </p>
         <div className="w-full flex h-full">
           <div className="row w-full">
             <div className="col-12 col-md-10 pt45 pb20 h-full flex">
