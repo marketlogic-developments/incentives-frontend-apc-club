@@ -215,8 +215,66 @@ const estadoProducto = () => {
                     </clipPath>
                   </defs>
                 </svg>
-
                 <p className="!text-xs">{t("estadoProducto.imprimir")}</p>
+            </div>
+            <br></br>
+            <div className="container">
+              <div className="overflow-x-auto relative">
+                <table className="w-full text-sm text-left text-black-500">
+                  <thead className="text-xs text-black-500 uppercase">
+                    <tr>
+                      <th scope="col" className="py-3 px-6">
+                        {t("tabla.idsol")}
+                      </th>
+                      <th scope="col" className="py-3 px-6">
+                        {t("tabla.nproductos")}
+                      </th>
+                      <th scope="col" className="py-3 px-6">
+                        {t("tabla.valordigipoints")}
+                      </th>
+                      <th scope="col" className="py-3 px-6">
+                        {t("tabla.fechasol")}
+                      </th>
+                      <th scope="col" className="py-3 px-6">
+                        {t("tabla.estado")}
+                      </th>
+                    </tr>
+                  </thead>
+                  {orders.length > 0 &&
+                    orders.map((data) => (
+                      <tbody>
+                        <tr
+                          className="bg-white border-b dark:border-gray-500 hover:bg-accent cursor-pointer"
+                          onClick={() => {
+                            // setModalData(data);
+                            // setOpened(true);
+                          }}
+                        >
+                          <th
+                            scope="row"
+                            className="py-4 px-6 font-medium text-black"
+                          >
+                            #{data.orderNumber}
+                          </th>
+                          <td className="py-4 px-6">
+                            {data.productsObject
+                              .map((e) => Number(e.quantity))
+                              .reduce(
+                                (initialValue, current) =>
+                                  initialValue + current
+                              )}
+                          </td>
+                          <td className="py-4 px-6">
+                            {data.digipointSubstract}
+                          </td>
+                          <td className="py-4 px-6">{data.CreatedAt}</td>
+                          <td className="py-4 px-6">
+                            {orderStatusNumber(data.operationStatusId)}
+                          </td>
+                        </tr>
+                      </tbody>
+                    ))}
+                </table>
               </div>
             </div>
           </div>

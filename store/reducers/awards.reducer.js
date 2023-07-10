@@ -79,29 +79,29 @@ export const getDataAwards = (token, user) => async (dispatch) => {
       .then((res) => {
         let obj = res.data
           .filter((e) => {
+            console.log(user);
+
+            const countryCompany =
+              user.companyId !== null
+                ? user.company.country
+                : user.distributionChannel.country;
+
             if (user.roleId === 1) {
               return e;
             }
 
-            if (user.companyId !== null) {
-              if (user.company.country === "Colombia") {
-                return e.description === "COLOMBIA";
-              }
-              if (user.company.country === "Chile") {
-                return e.description !== "BRASIL";
-              }
+            if (countryCompany === "Colombia") {
+              return (
+                // e.name.split(" ")[0] === "Rappi" ||
+                e.name.split(" ")[0] === "Falabella"
+              );
+            }
+            if (countryCompany === "Chile") {
+              return e.name.split(" ")[0] === "Cencosud";
             }
 
-            if (user.distributionChannelId !== null) {
-              if (user.distributionChannel.country === "Colombia") {
-                return e.description === "COLOMBIA";
-              }
-
-              if (user.distributionChannel.country === "Chile") {
-                return (
-                  e.description !== "BRASIL" && e.description !== "COLOMBIA"
-                );
-              }
+            if (countryCompany === "Paraguay") {
+              return e.name.split(" ")[0] === "Nothing";
             }
 
             if (user.region === "BRAZIL" || user.region === "Brazil") {

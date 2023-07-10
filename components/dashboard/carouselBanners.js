@@ -37,7 +37,7 @@ const CarouselBanners = () => {
         },
       }}
     >
-      <Carousel.Slide>
+      {/* <Carousel.Slide>
         <a
           className="w-full flex justify-center cursor-pointer p-[1px]"
           href={
@@ -58,7 +58,7 @@ const CarouselBanners = () => {
             />
           </figure>
         </a>
-      </Carousel.Slide>
+      </Carousel.Slide> */}
       <Carousel.Slide>
         <div
           className="w-full flex justify-center cursor-pointer p-[1px]"
