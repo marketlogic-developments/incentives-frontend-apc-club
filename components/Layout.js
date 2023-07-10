@@ -284,7 +284,7 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: t("menu.Dashboard"),
     },
-    /* {
+    {
       page: "/comunicado",
       iconactive: "",
       icon: (
@@ -299,7 +299,7 @@ const Layout = ({ children }) => {
         </svg>
       ),
       text: "Comunicados",
-    }, */
+    },
     {
       page:
         userRedux.roleId === 1 ? "/digipointsall" : "/digipoints/mydigipoints",
@@ -812,7 +812,6 @@ const Layout = ({ children }) => {
 
   const typeModal = useMemo(() => {
     if (modal === 0) {
-      /* return <ModalFormCustomer />; */
       return <ModalCustomerCare closeModal={closeModal} />;
     }
     if (modal === 1) {

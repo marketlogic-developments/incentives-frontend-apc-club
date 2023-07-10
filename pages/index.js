@@ -534,7 +534,7 @@ export default function Home() {
             </figure>
           </div>
         </div>
-        <div className="container flex flex-row justify-center max-w-full max-h-full sm:mt-1">
+        <div className="container flex flex-row justify-center max-w-full max-h-full sm:my-auto">
           <LoginTarget
             handleSubmit={handleSubmit}
             viewLogin={viewLogin}
@@ -546,7 +546,10 @@ export default function Home() {
           />
         </div>
         <figure className="absolute w-full z-[-1] opacity-25">
-          <img src="/assets/login/bbapc.webp" className="min-w-full min-h-screen"></img>
+          <img
+            src="/assets/login/bbapc.webp"
+            className="min-w-full min-h-screen"
+          ></img>
         </figure>
       </main>
     </>

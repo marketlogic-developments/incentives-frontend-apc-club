@@ -61,7 +61,7 @@
     "reglas": "Regras"
   },
 
-  "perfil":{
+  "perfil": {
     "verPerfil": "Ver perfil",
     "cerrarSesion": "Cerrar Sesión"
   },
@@ -225,10 +225,10 @@
     "sillas": "Quantidade",
     "precio": "Preço",
     "imagen": "Cartão",
-    "idsol": "ID DA APLICAÇÃO",
+    "idsol": "Id da Aplição",
     "nproductos": "No. de produtos",
-    "valordigipoints": "valor em digipoints",
-    "fechasol": "DATA DE APLICAÇÃO",
+    "valordigipoints": "Valor em digipoints",
+    "fechasol": "Data de Aplição",
     "estado": "ESTATUS",
     "agregarP": "Adicionar participante",
     "ordenarFecha": "Ordenar por data",
@@ -281,7 +281,20 @@
     "bannerTarg": "GUIA DE USO DE CARTÕES"
   },
   "estadoProducto": {
-    "estado": "Status de seus produtos"
+    "estado": "Status de seus produtos",
+    "titleEstadoPremios": "Como você recebe <br/> seus prêmios?",
+    "recibir": "Recebemos sua solicitação de prêmios.",
+    "aprobar": "Aprovamos e auditamos.",
+    "recibirCorreo": "Você recebe um e-mail.",
+    "imprimir": "Imprima ou mostre pelo seu celular ao fazer sua compra.",
+    "detalleOrden": "Detalhes do seu pedido",
+    "seguimiento": "Acompanhamento do pedido",
+    "oRecibida": "Pedido recebido",
+    "oAprovada": "Aprovado",
+    "oProceso": "Em processo de pagamento",
+    "oenviada": "Enviado",
+    "premiosSol": "Prêmios solicitados",
+    "condiciones": "Condições importantes"
   },
   "redenciones": {
     "idOrden": "ID do pedido",
@@ -408,7 +421,7 @@
     "novedad": "Novidades",
     "evento": "Eventos"
   },
-  "Reportes" : {
+  "Reportes": {
     "reportes": "Relatórios",
     "sales_performance": "Sales performance",
     "digiPoints_performance": "DigiPoints performance",
