@@ -61,7 +61,7 @@
     "customer_care": "Customer Care"
   },
 
-  "perfil":{
+  "perfil": {
     "verPerfil": "Ver perfil",
     "cerrarSesion": "Cerrar Sesión"
   },
@@ -223,9 +223,9 @@
     "imagen": "Tarjeta",
     "idsol": "ID de solicitud",
     "nproductos": "No. de productos",
-    "valordigipoints": "valor en DigiPoints",
-    "fechasol": "FECHA DE SOLICITUD",
-    "estado": "estado",
+    "valordigipoints": "Valor en DigiPoints",
+    "fechasol": "Fecha de Solicitud",
+    "estado": "Estado",
     "agregarP": "Agregar participante",
     "ordenarFecha": "Ordenar por fecha",
     "ordenarPor": "Ordenar por",
@@ -278,7 +278,20 @@
     "bannerTarg": "Guía de uso de tarjetas"
   },
   "estadoProducto": {
-    "estado": "Estado de tus premios"
+    "estado": "Estado de mis premios",
+    "titleEstadoPremios": "¿Cómo obtienes <br/> tus premios?",
+    "recibir": "Recibimos tu solicitud de premios.",
+    "aprobar": "La aprobamos y auditamos.",
+    "recibirCorreo": "Recibes un correo electrónico.",
+    "imprimir": "Imprímelo o muéstralo desde tu cel cuando hagas tu compra.",
+    "detalleOrden": "Detalle de tu orden",
+    "seguimiento": "Seguimiento de orden",
+    "oRecibida": "Orden recibida",
+    "oAprovada": "Aprobada",
+    "oProceso": "En proceso de pago",
+    "oenviada": "Enviada",
+    "premiosSol": "Premios solicitados",
+    "condiciones": "Condiciones importantes"
   },
   "redenciones": {
     "idOrden": "ID de la orden",
@@ -406,8 +419,8 @@
     "novedad": "Novedades",
     "evento": "Eventos"
   },
-  
-  "Reportes" : {
+
+  "Reportes": {
     "reportes": "Reportes",
     "sales_performance": "Sales Performance",
     "digiPoints_performance": "DigiPoints Performance",
