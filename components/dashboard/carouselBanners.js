@@ -1,13 +1,22 @@
 import { Carousel } from "@mantine/carousel";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useMemo } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const CarouselBanners = () => {
   const [t, i18n] = useTranslation("global");
   const route = useRouter();
+  const user = useSelector((state) => state.user.user);
   const [counter, setCounter] = useState(0);
+  const typePdf = useMemo(() => {
+    return user.companyId !== null
+      ? ["Promox2.pdf", "Promox2Port.pdf"]
+      : ["Promox2Dist.pdf", "Promox2DistPort.pdf"];
+  }, [i18n]);
+
+  console.log(typePdf);
 
   return (
     <Carousel
@@ -33,8 +42,8 @@ const CarouselBanners = () => {
           className="w-full flex justify-center cursor-pointer p-[1px]"
           href={
             i18n.resolvedLanguage === "por"
-              ? "assets/pdf/pdfPromo1Por.pdf"
-              : "assets/pdf/pdfPromo1Esp.pdf"
+              ? `assets/pdf/${typePdf[1]}`
+              : `assets/pdf/${typePdf[0]}`
           }
           target="_blank"
         >
@@ -53,7 +62,7 @@ const CarouselBanners = () => {
       <Carousel.Slide>
         <div
           className="w-full flex justify-center cursor-pointer p-[1px]"
-          onClick={() => route.push("/releases/marketplace")}
+          onClick={() => route.push("/howtowin")}
         >
           <figure className="w-full">
             <img
@@ -64,27 +73,6 @@ const CarouselBanners = () => {
               }
               className="bannersImg"
             />
-          </figure>
-        </div>
-      </Carousel.Slide>
-      <Carousel.Slide>
-        <div
-          className="w-full flex justify-center cursor-pointer p-[1px]"
-          onClick={() => route.push("/howtowin")}
-        >
-          <figure className="w-full">
-            {i18n.resolvedLanguage === "por" ? (
-              <img
-                src="assets/dashboard/banners/htwPor.webp"
-                className="bannersImg"
-                style={{ width: "auto" }}
-              />
-            ) : (
-              <img
-                src="assets/dashboard/banners/htw.webp"
-                className="bannersImg"
-              />
-            )}
           </figure>
         </div>
       </Carousel.Slide>
