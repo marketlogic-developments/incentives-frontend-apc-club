@@ -291,7 +291,11 @@
     "oProceso": "En proceso de pago",
     "oenviada": "Enviada",
     "premiosSol": "Premios solicitados",
-    "condiciones": "Condiciones importantes"
+    "condiciones": "Condiciones importantes",
+    "status1": "Recibida",
+    "status2": "Aprobada",
+    "status3": "Proceso de pago",
+    "status4": "Enviada"
   },
   "redenciones": {
     "idOrden": "ID de la orden",

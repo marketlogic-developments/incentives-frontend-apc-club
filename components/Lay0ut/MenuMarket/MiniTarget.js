@@ -12,7 +12,7 @@ const MiniTarget = ({ cardInfo }) => {
       500: "#6349E0",
     };
 
-    return colorbg[cardInfo.price];
+    return colorbg[cardInfo?.price];
   };
 
   return (
@@ -23,7 +23,7 @@ const MiniTarget = ({ cardInfo }) => {
       <div>
         <div className="flex justify-between">
           <div className="text-white flex flex-col">
-            <p className="!text-base font-bold">${cardInfo.price}</p>
+            <p className="!text-base font-bold">${cardInfo?.price}</p>
             <p
               className="!text-[5px] font-light px-1"
               style={{ whiteSpace: "nowrap" }}
@@ -33,7 +33,7 @@ const MiniTarget = ({ cardInfo }) => {
           </div>
           <figure className="flex items-center">
             <img
-              src={cardInfo.imagePath}
+              src={cardInfo?.imagePath}
               alt="apc_canales"
               className="w-[60%] ml-auto"
             />
