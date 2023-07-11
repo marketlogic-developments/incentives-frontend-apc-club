@@ -162,6 +162,7 @@ const SalesPerformance = () => {
           value={selectOne}
           data={dataSelectOne}
           icon={<ArrowDown />}
+          searchable={true}
           onChange={handleSelectOneChange}
           name={"business"}
         />
