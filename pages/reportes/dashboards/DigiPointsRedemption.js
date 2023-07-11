@@ -230,10 +230,11 @@ const DigiPointsRedemption = () => {
                 thStyles={"sticky text-white"}
                 cols={
                     [
-                      "User Name",
                       "First Name",
-                      "Status",
-                      "DigiPoints",
+                      "Last Name",
+                      "User Email",
+                      "Reward Status",
+                      "Redeemed DigiPoints",
                       // "Quantity",
                       // "Amount",
                       "Request ID",
@@ -252,7 +253,8 @@ const DigiPointsRedemption = () => {
                     })
                     .map((data, index) => (
                       <tr key={index}>
-                        <td className="text-start p-4">{data.name}</td>
+                        <td className="text-start p-4">{(data.name).split(' ').slice(0, -1).join(" ")}</td>
+                        <td className="text-start p-4">{(data.name).split(' ').slice(-1)[0]}</td>
                         <td className="text-start p-4">{data.email}</td>
                         <td className="text-start p-4">{data.status_name}</td>
                         <td className="text-start p-4">{data.digipoint_substract}</td>
