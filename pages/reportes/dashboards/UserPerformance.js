@@ -251,7 +251,7 @@ const SalesPerformance = () => {
                 "Company Level",
                 "Company Type",
                 "VIP CC Renewal",
-                "VIP CC New business",
+                /* "VIP CC New business",
                 "VIP DC Renewal",
                 "VIP DC New Business",
                 "VMP CC Renewal",
@@ -265,7 +265,7 @@ const SalesPerformance = () => {
                 "VMP Revenue Q1",
                 "VMP Revenue Q2",
                 "VMP Revenue Q3",
-                "VMP Revenue Q4",
+                "VMP Revenue Q4", */
                 "Revenue Q1",
                 "Revenue Q2",
                 "Revenue Q3",
@@ -301,7 +301,7 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">
                         {numberToMoney(data.vip_cc_renewal)}
                       </th>
-                      <th className="text-left py-3 px-2 mx-4">
+                      {/* <th className="text-left py-3 px-2 mx-4">
                         {numberToMoney(data.vip_cc_newbusiness)}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
@@ -345,7 +345,7 @@ const SalesPerformance = () => {
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {numberToMoney(data.vmp_revenue_q4)}
-                      </th>
+                      </th> */}
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q1)}</th>
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q2)}</th>
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q3)}</th>
