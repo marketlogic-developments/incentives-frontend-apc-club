@@ -67,6 +67,13 @@ const SalesPerformance = () => {
     }
   }, [isLoaded]);
 
+  const numberToMoney = (quantity = 0) => {
+    return `$ ${Number(quantity)
+      .toFixed(0)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  };
+
   const example = [
     {
       id: 1,
@@ -420,26 +427,26 @@ const SalesPerformance = () => {
                 "Company Level",
                 "Company Status",
                 "Company Active Users",
-                "VIP CC Renewal",
-                "VIP CC New business",
-                "VIP DC Renewal",
-                "VIP DC New Business",
-                "VMP CC Renewal",
-                "VMP CC New business",
-                "VMP DC Renewal",
+                "VIP CC Renewal (USD)",
+                "VIP CC New Business (USD)",
+                "VIP DC Renewal (USD)",
+                "VIP DC New Business (USD)",
+                "VMP CC Renewal (USD)",
+                "VMP CC New Business (USD)",
+                "VMP DC Renewal (USD)",
                 "VMP DC New Business",
-                "VIP Revenue Q1",
-                "VIP Revenue Q2",
-                "VIP Revenue Q3",
-                "VIP Revenue Q4",
-                "VMP Revenue Q1",
-                "VMP Revenue Q2",
-                "VMP Revenue Q3",
-                "VMP Revenue Q4",
-                "Revenue Q1",
-                "Revenue Q2",
-                "Revenue Q3",
-                "Revenue Q4",
+                "VIP Revenue Q1 (USD)",
+                "VIP Revenue Q2 (USD)",
+                "VIP Revenue Q3 (USD)",
+                "VIP Revenue Q4 (USD)",
+                "VMP Revenue Q1 (USD)",
+                "VMP Revenue Q2 (USD)",
+                "VMP Revenue Q3 (USD)",
+                "VMP Revenue Q4 (USD)",
+                "Revenue Q1 (USD)",
+                "Revenue Q2 (USD)",
+                "Revenue Q3 (USD)",
+                "Revenue Q4 (USD)",
                 "Actual Revenue",
                 "Sales DigiPoints",
               ]}
@@ -447,69 +454,77 @@ const SalesPerformance = () => {
               {currentItems &&
                 [...currentItems].map((data, index) => (
                   <tr key={index}>
-                    <th className="text-left py-3 px-6">{data.company_id}</th>
-                    <th className="text-left py-3 px-6">{data.company_name}</th>
-                    <th className="text-left py-3 px-6">{data.region}</th>
-                    {/* <th className="text-left py-3 px-6">{data.country_id}</th> */}
-                    <th className="text-left py-3 px-6">{data.level}</th>
-                    <th className="text-left py-3 px-6">{data.active}</th>
-                    <th className="text-left py-3 px-6">{data.usuarios}</th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_cc_renewal}
+                    <th className="text-left py-3 mx-7">{data.company_id}</th>
+                    <th className="text-left py-3 mx-7">{data.company_name}</th>
+                    <th className="text-left py-3 mx-7">{data.region}</th>
+                    {/* <th className="text-left py-3 mx-7">{data.country_id}</th> */}
+                    <th className="text-left py-3 mx-7">{data.level}</th>
+                    <th className="text-left py-3 mx-7">{data.active}</th>
+                    <th className="text-left py-3 mx-7">{data.usuarios}</th>
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vip_cc_renewal)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_cc_newbusiness}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vip_cc_newbusiness)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_dc_renewal}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vip_dc_renewal)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_dc_newbusiness}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vip_dc_newbusiness)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_cc_renewal}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vmp_cc_renewal)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_cc_newbusiness}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vmp_cc_newbusiness)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_dc_renewal}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vmp_dc_renewal)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_dc_newbusiness}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vmp_dc_newbusiness)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_revenue_q1}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vip_revenue_q1)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_revenue_q2}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vip_revenue_q2)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_revenue_q3}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vip_revenue_q3)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vip_revenue_q4}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vip_revenue_q4)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_revenue_q1}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vmp_revenue_q1)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_revenue_q2}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vmp_revenue_q2)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_revenue_q3}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vmp_revenue_q3)}
                     </th>
-                    <th className="text-left py-3 px-6">
-                      {data.vmp_revenue_q4}
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.vmp_revenue_q4)}
                     </th>
-                    <th className="text-left py-3 px-6">{data.revenue_q1}</th>
-                    <th className="text-left py-3 px-6">{data.revenue_q2}</th>
-                    <th className="text-left py-3 px-6">{data.revenue_q3}</th>
-                    <th className="text-left py-3 px-6">{data.revenue_q4}</th>
-                    <th className="text-left py-3 px-6">
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.revenue_q1)}
+                    </th>
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.revenue_q2)}
+                    </th>
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.revenue_q3)}
+                    </th>
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.revenue_q4)}
+                    </th>
+                    <th className="text-left py-3 mx-7">
                       {data.actual_revenue}
                     </th>
-                    <th className="text-left py-3 px-6">{data.puntos}</th>
+                    <th className="text-left py-3 mx-7">{data.puntos}</th>
                   </tr>
                 ))}
             </Table>
