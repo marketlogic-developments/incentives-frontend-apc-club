@@ -25,16 +25,16 @@ const estadoProducto = () => {
 
   const orderStatusNumber = (num) => {
     if (num === 13) {
-      return num === 13 && "Recibida";
+      return num === 13 && t("estadoProducto.status1");
     }
     if (num === 14) {
-      return num === 14 && "Aprobada";
+      return num === 14 && t("estadoProducto.status2");
     }
     if (num === 15) {
-      return num === 15 && "Proceso de pago";
+      return num === 15 && t("estadoProducto.status3");
     }
     if (num === 16) {
-      return num === 16 && "Enviada";
+      return num === 16 && t("estadoProducto.status4");
     }
   };
 

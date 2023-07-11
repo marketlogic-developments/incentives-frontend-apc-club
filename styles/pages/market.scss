@@ -131,6 +131,40 @@
   }
 }
 
+.containerBgCardsStatus {
+  .bgFalabella {
+    background: #fff;
+    border: 1px solid #c2c2c2;
+  }
+
+  .bgRappi {
+    background: rgb(246, 85, 63);
+    background: linear-gradient(
+      21deg,
+      rgba(246, 85, 63, 1) 43%,
+      rgba(250, 61, 34, 1) 57%
+    );
+  }
+
+  .bgMaster {
+    background: rgb(235, 16, 0);
+    background: linear-gradient(
+      9deg,
+      rgba(235, 16, 0, 1) 43%,
+      rgba(239, 162, 32, 1) 52%
+    );
+  }
+
+  .bgVisa {
+    background: rgb(247, 182, 0);
+    background: linear-gradient(
+      189deg,
+      rgba(247, 182, 0, 1) 43%,
+      rgba(44, 60, 191, 1) 57%
+    );
+  }
+}
+
 .svgInfoCard {
   svg {
     min-width: 20px;
