@@ -81,8 +81,8 @@ const SalesPerformance = () => {
   };
 
   const dataOne = [...new Set(data.map((user) => user.reseller_or_dist_name))];
-
-  const dataSelectOne = dataOne.map((companyName) => ({
+  
+  const dataSelectOne = dataOne.sort().map((companyName) => ({
     value: companyName,
     label: companyName,
   }));
