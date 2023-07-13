@@ -43,7 +43,7 @@ const DigipointsDistribution = () => {
   }, [token]);
 
   const filters = useMemo(() => {
-    setDataToTable([...data].filter(() => {}));
+    setDataToTable([...data].filter(() => { }));
     setDataToTable(
       [...data]
         .sort((prev, curr) => {
@@ -65,8 +65,8 @@ const DigipointsDistribution = () => {
               filtersTable.invoiceattributed === "unassigned"
                 ? invoice.status === true
                 : filtersTable.invoiceattributed === "attributed"
-                ? invoice.status === false
-                : invoice.status === true || invoice.status === false;
+                  ? invoice.status === false
+                  : invoice.status === true || invoice.status === false;
 
             return (
               invoice.marketSegment === filtersTable.marketSegment && assigned
@@ -81,8 +81,8 @@ const DigipointsDistribution = () => {
             return filtersTable.invoiceattributed === "unassigned"
               ? invoice.status === true
               : filtersTable.invoiceattributed === "attributed"
-              ? invoice.status === false
-              : invoice.status === true || invoice.status === false;
+                ? invoice.status === false
+                : invoice.status === true || invoice.status === false;
           }
 
           return invoice;
@@ -180,17 +180,21 @@ const DigipointsDistribution = () => {
   };
 
   const dowloadInvoices = () => {
-    const data = dataToTable.map((item) => {
-      let { invoiceDetails, invoices_included, is_gold, status, ...info } =
-        item;
+    const filteredData = dataToTable.filter((item) => {
+      return item.digipoints > 0;
+    });
+  
+    const data = filteredData.map((item) => {
+      const { invoiceDetails, invoices_included, is_gold, status, ...info } = item;
       return info;
     });
-
+  
     jsonexport(data, (error, csv) => {
       if (error) {
         console.error(error);
         return;
       }
+  
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
       saveAs(blob, "Channel_Invoices.csv");
     });
@@ -304,21 +308,22 @@ const DigipointsDistribution = () => {
                   {dataToTable
                     .filter((item) => {
                       if (searchByInvoice !== "") {
-                        return item.invoices_included.startsWith(
-                          searchByInvoice.toLocaleLowerCase()
+                        return (
+                          item.invoices_included.startsWith(searchByInvoice.toLowerCase()) &&
+                          item.digipoints > 0
                         );
                       }
 
-                      return item;
+                      return item.digipoints > 0;
                     })
                     .map((obj, i) => {
                       const index =
                         searchByInvoice !== ""
                           ? dataToTable.findIndex(({ invoices_included }) => {
-                              return (
-                                obj.invoices_included === invoices_included
-                              );
-                            })
+                            return (
+                              obj.invoices_included === invoices_included
+                            );
+                          })
                           : i;
 
                       return (
