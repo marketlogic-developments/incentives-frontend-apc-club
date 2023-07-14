@@ -54,7 +54,7 @@ const ModalTyCProccess = ({ opened, setModal }) => {
           </div>
         </div>
       </div>
-      <div className="h-full w-2/3 p-6">{typeContent}</div>
+      <div className="h-full w-2/3 p-6 overflow-scroll">{typeContent}</div>
     </div>
   );
 };

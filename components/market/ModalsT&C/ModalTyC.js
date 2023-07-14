@@ -8,8 +8,8 @@ const ModalTyC = ({ setModal }) => {
         <PersonModalTyC />
       </div>
       <div className="text-center">
-        <p className="font-bold text-xl">Términos y Condiciones</p>
-        <p className="text-[#828282]">Actualización el dd/mm/yy</p>
+        <p className="font-bold !text-xl">Términos y Condiciones</p>
+        <p className="text-[#828282] !text-base">Actualización el dd/mm/yy</p>
       </div>
       <div>
         <p className="text-center !text-xs">
