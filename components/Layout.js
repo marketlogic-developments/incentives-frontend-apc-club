@@ -43,7 +43,6 @@ import {
   ShoppingCard,
   Megaphone,
 } from "./icons";
-import ModalUserProfile from "./user/ModalUserProfile";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -813,15 +812,6 @@ const Layout = ({ children }) => {
   const typeModal = useMemo(() => {
     if (modal === 0) {
       return <ModalCustomerCare closeModal={closeModal} />;
-    }
-    if (modal === 1) {
-      return (
-        <ModalUserProfile
-          closeModal={closeModal}
-          user={userRedux}
-          token={token}
-        />
-      );
     }
   }, [modal, opened]);
 
