@@ -93,7 +93,7 @@ const CardMarket = ({ info }) => {
         size={modal === 1 ? "auto" : "50%"}
         centered
         opened={opened}
-        onClose={() => setOpened(false)}
+        onClose={() => modal !== 1 && setOpened(false)}
         withCloseButton={modal == 1 ? false : true}
         padding={modal === 1 && 0}
       >
