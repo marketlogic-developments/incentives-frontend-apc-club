@@ -2,13 +2,35 @@ import React, { useState } from "react";
 import TYC from "../../../public/mkt/TCCol.html";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { Triangle } from "react-loader-spinner";
 
 const NewTyC = ({ setContent }) => {
   const [check, setCheck] = useState(false);
+  const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
 
   const handleAccepted = () => {
-    setContent(1);
+    setLoading(true);
+
+    axios
+      .patch(
+        `${process.env.BACKURL}/users/${user.id}`,
+        {
+          policy_awards: true,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((e) => {
+        setContent(1);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -37,7 +59,19 @@ const NewTyC = ({ setContent }) => {
           className="btn btn-info btn-sm w-fit justify-self-end"
           onClick={handleAccepted}
         >
-          Acepto los nuevos términos
+          {loading ? (
+            <Triangle
+              height="30"
+              width="30"
+              color="#ffff"
+              ariaLabel="triangle-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          ) : (
+            "Acepto los nuevos términos"
+          )}
         </button>
       </div>
     </div>

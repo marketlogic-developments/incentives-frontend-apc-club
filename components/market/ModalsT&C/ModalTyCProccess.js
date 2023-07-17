@@ -2,10 +2,14 @@ import React, { useMemo, useState } from "react";
 import NewTyC from "./NewT&C";
 import FormTC from "./FormTC";
 
-const ModalTyCProccess = ({ opened, setModal }) => {
+const ModalTyCProccess = ({ opened, setModal, user }) => {
   const [content, setContent] = useState(0);
 
   const typeContent = useMemo(() => {
+    if (user.policy_awards && user.cedula === null) {
+      setContent(1);
+    }
+
     if (content === 0) {
       return <NewTyC setContent={setContent} />;
     }

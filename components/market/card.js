@@ -76,15 +76,20 @@ const CardMarket = ({ info }) => {
 
   //Delete This After T&C has been accepted
   const modalTyC = useMemo(() => {
+    if (user.policy_awards && user.cedula === null) {
+      setModal(1);
+    }
+
     if (modal === 0) {
       return <ModalTyC setModal={setModal} />;
     }
     if (modal === 1) {
-      return <ModalTyCProccess opened={setOpened} setModal={setModal} />;
+      return (
+        <ModalTyCProccess opened={setOpened} setModal={setModal} user={user} />
+      );
     }
   }, [modal]);
 
-  console.log(info);
   // -----------------
 
   return (
@@ -97,7 +102,8 @@ const CardMarket = ({ info }) => {
         withCloseButton={modal == 1 ? false : true}
         padding={modal === 1 && 0}
       >
-        {info.description === "COLOMBIA" /*&& user.tycaccepted*/ ? (
+        {(info.description === "COLOMBIA" && user.policy_awards !== true) ||
+        (info.description === "COLOMBIA" && user.cedula === null) ? (
           modalTyC
         ) : (
           <ModalTargetInfo
