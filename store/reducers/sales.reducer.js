@@ -496,3 +496,19 @@ export const getInvoiceReport = (token) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const getSalesvGoals = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/getsalesvsgoals`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getSalesvGoals(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
