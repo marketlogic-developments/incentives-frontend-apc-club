@@ -81,7 +81,7 @@ const SalesPerformance = () => {
   };
 
   const dataOne = [...new Set(data.map((user) => user.reseller_or_dist_name))];
-  
+
   const dataSelectOne = dataOne.sort().map((companyName) => ({
     value: companyName,
     label: companyName,
@@ -128,22 +128,28 @@ const SalesPerformance = () => {
         <TitleWithIcon icon={<User />} title={t("Reportes.user_performance")} />
       </div>
       <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
-        <AiOutlineHome className="cursor-pointer"
+        <AiOutlineHome
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/dashboard");
-          }}/>
-        <span><AiOutlineRight /></span>
-        <span className="cursor-pointer"
+            router.push("/dashboard");
+          }}
+        />
+        <span>
+          <AiOutlineRight />
+        </span>
+        <span
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/reportesDashboard");
+            router.push("/reportesDashboard");
           }}
         >
-        My Reports
+          My Reports
         </span>
-        <span><AiOutlineRight /></span>
-        <span className="font-bold text-[#1473E6]"
-        >
-        {t("Reportes.user_performance")}
+        <span>
+          <AiOutlineRight />
+        </span>
+        <span className="font-bold text-[#1473E6]">
+          {t("Reportes.user_performance")}
         </span>
       </div>
       <div className="pt-2 grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
@@ -244,13 +250,13 @@ const SalesPerformance = () => {
               cols={[
                 "User Name",
                 "Name",
-                "Country",
+                // "Country",
                 "Region",
-                "Company ID",
+                // "Company ID",
                 "Company Name",
                 "Company Level",
-                "Company Type",
-                "VIP CC Renewal",
+                // "Company Type",
+                // "VIP CC Renewal",
                 /* "VIP CC New business",
                 "VIP DC Renewal",
                 "VIP DC New Business",
@@ -266,10 +272,10 @@ const SalesPerformance = () => {
                 "VMP Revenue Q2",
                 "VMP Revenue Q3",
                 "VMP Revenue Q4", */
-                "Revenue Q1",
-                "Revenue Q2",
-                "Revenue Q3",
-                "Revenue Q4",
+                // "Revenue Q1",
+                // "Revenue Q2",
+                // "Revenue Q3",
+                // "Revenue Q4",
                 "Actual Revenue",
                 "Sales DigiPoints",
                 "Redemptions",
@@ -287,20 +293,26 @@ const SalesPerformance = () => {
                   .map((data, index) => (
                     <tr key={index}>
                       <th className="text-left py-3 px-2 mx-4">{data.email}</th>
-                      <th className="text-left py-3 px-2 mx-4">{(data.name).split(' ').slice(0, -1).join(' ')}</th>
-                      <th className="text-left py-3 px-2 mx-4">{data.country_id}</th>
-                      <th className="text-left py-3 px-2 mx-4">{data.region}</th>
                       <th className="text-left py-3 px-2 mx-4">
-                        {data.reseller_or_dist_id}
+                        {data.name.split(" ").slice(0, -1).join(" ")}
                       </th>
+                      {/* <th className="text-left py-3 px-2 mx-4">{data.country_id}</th> */}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.region}
+                      </th>
+                      {/* <th className="text-left py-3 px-2 mx-4">
+                        {data.reseller_or_dist_id}
+                      </th> */}
                       <th className="text-left py-3 px-2 mx-4">
                         {data.reseller_or_dist_name}
                       </th>
-                      <th className="text-left py-3 px-2 mx-4">{data.dcname}</th>
-                      <th className="text-left py-3 px-2 mx-4">{data.rtype}</th>
                       <th className="text-left py-3 px-2 mx-4">
-                        {numberToMoney(data.vip_cc_renewal)}
+                        {data.dcname}
                       </th>
+                      {/* <th className="text-left py-3 px-2 mx-4">{data.rtype}</th> */}
+                      {/* <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vip_cc_renewal)}
+                      </th> */}
                       {/* <th className="text-left py-3 px-2 mx-4">
                         {numberToMoney(data.vip_cc_newbusiness)}
                       </th>
@@ -346,10 +358,10 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">
                         {numberToMoney(data.vmp_revenue_q4)}
                       </th> */}
-                      <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q1)}</th>
+                      {/* <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q1)}</th>
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q2)}</th>
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q3)}</th>
-                      <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q4)}</th>
+                      <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q4)}</th> */}
                       <th className="text-left py-3 px-2 mx-4">
                         {data.revenue_actual}
                       </th>

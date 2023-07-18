@@ -419,34 +419,34 @@ const SalesPerformance = () => {
               colStyles={"p-2"}
               thStyles={"sticky text-white"}
               cols={[
-                "Membership ID",
+                // "Membership ID",
                 "Company Name",
                 "Region",
                 // "Country",
                 // "Company Type",
                 "Company Level",
-                "Company Status",
+                // "Company Status",
                 "Company Active Users",
-                "VIP CC Renewal (USD)",
-                "VIP CC New Business (USD)",
-                "VIP DC Renewal (USD)",
-                "VIP DC New Business (USD)",
-                "VMP CC Renewal (USD)",
-                "VMP CC New Business (USD)",
-                "VMP DC Renewal (USD)",
-                "VMP DC New Business",
-                "VIP Revenue Q1 (USD)",
-                "VIP Revenue Q2 (USD)",
-                "VIP Revenue Q3 (USD)",
-                "VIP Revenue Q4 (USD)",
-                "VMP Revenue Q1 (USD)",
-                "VMP Revenue Q2 (USD)",
-                "VMP Revenue Q3 (USD)",
-                "VMP Revenue Q4 (USD)",
-                "Revenue Q1 (USD)",
-                "Revenue Q2 (USD)",
-                "Revenue Q3 (USD)",
-                "Revenue Q4 (USD)",
+                // "VIP CC Renewal (USD)",
+                // "VIP CC New Business (USD)",
+                // "VIP DC Renewal (USD)",
+                // "VIP DC New Business (USD)",
+                // "VMP CC Renewal (USD)",
+                // "VMP CC New Business (USD)",
+                // "VMP DC Renewal (USD)",
+                // "VMP DC New Business",
+                // "VIP Revenue Q1 (USD)",
+                // "VIP Revenue Q2 (USD)",
+                // "VIP Revenue Q3 (USD)",
+                // "VIP Revenue Q4 (USD)",
+                // "VMP Revenue Q1 (USD)",
+                // "VMP Revenue Q2 (USD)",
+                // "VMP Revenue Q3 (USD)",
+                // "VMP Revenue Q4 (USD)",
+                // "Revenue Q1 (USD)",
+                // "Revenue Q2 (USD)",
+                // "Revenue Q3 (USD)",
+                // "Revenue Q4 (USD)",
                 "Actual Revenue",
                 "Sales DigiPoints",
               ]}
@@ -454,14 +454,14 @@ const SalesPerformance = () => {
               {currentItems &&
                 [...currentItems].map((data, index) => (
                   <tr key={index}>
-                    <th className="text-left py-3 mx-7">{data.company_id}</th>
+                    {/* <th className="text-left py-3 mx-7">{data.company_id}</th> */}
                     <th className="text-left py-3 mx-7">{data.company_name}</th>
                     <th className="text-left py-3 mx-7">{data.region}</th>
                     {/* <th className="text-left py-3 mx-7">{data.country_id}</th> */}
                     <th className="text-left py-3 mx-7">{data.level}</th>
-                    <th className="text-left py-3 mx-7">{data.active}</th>
+                    {/* <th className="text-left py-3 mx-7">{data.active}</th> */}
                     <th className="text-left py-3 mx-7">{data.usuarios}</th>
-                    <th className="text-left py-3 mx-7">
+                    {/* <th className="text-left py-3 mx-7">
                       {numberToMoney(data.vip_cc_renewal)}
                     </th>
                     <th className="text-left py-3 mx-7">
@@ -520,7 +520,7 @@ const SalesPerformance = () => {
                     </th>
                     <th className="text-left py-3 mx-7">
                       {numberToMoney(data.revenue_q4)}
-                    </th>
+                    </th> */}
                     <th className="text-left py-3 mx-7">
                       {data.actual_revenue}
                     </th>
