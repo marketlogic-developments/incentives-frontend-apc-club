@@ -343,14 +343,14 @@ const SalesPerformance = () => {
             xValues={xValuesLine}
           />
         </CardChart>
-        {/* <CardChart title={t("Reportes.digiponits")}>
+        <CardChart title={t("Reportes.digiponits")}>
           <LineChart
             title={t("Reportes.dp_cargados_mensualmente")}
             color={"red"}
             xValues={xValuesLine}
             data={datas}
           />
-        </CardChart> */}
+        </CardChart>
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1">
         <div className="grid sm:grid-cols-3 sm:justify-items-start justify-items-center mt-3">
