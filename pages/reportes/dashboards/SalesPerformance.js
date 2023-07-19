@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSalesPerformance } from "../../../store/reducers/sales.reducer";
+import {
+  getSalesPerformance,
+  getSalesvGoals,
+} from "../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
@@ -43,6 +46,7 @@ const SalesPerformance = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const products = useSelector((state) => state.sales.products);
   const [data, setData] = useState([]);
+  const [dataBarChar, setDataBarChar] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
@@ -64,8 +68,20 @@ const SalesPerformance = () => {
         .catch((error) => {
           console.log(error);
         });
+
+      setLoading(true);
+      dispatch(getSalesvGoals(token))
+        .then((response) => {
+          setLoading(false)
+          setDataBarChar(response.payload);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [isLoaded]);
+
+  console.log('BarChar Data:', dataBarChar);
 
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
@@ -201,8 +217,6 @@ const SalesPerformance = () => {
       return item;
     });
   }, [filters, filteredUsers]);
-
-  console.log(dataTable);
 
   /* Clear Filter */
   const clearSelects = () => {

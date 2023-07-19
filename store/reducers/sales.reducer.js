@@ -15,6 +15,7 @@ const initialState = {
   userperformance: [],
   salesperformance: [],
   invoiceperformance: [],
+  getsalesvsgoals: [],
 };
 
 export const saleActions = createSlice({
@@ -63,6 +64,9 @@ export const saleActions = createSlice({
     getInvoicePer: (state, action) => {
       state.invoiceperformance = action.payload;
     },
+    getSalesVSGoals: (state, action) => {
+      state.getsalesvsgoals = action.payload;
+    },
 
     setInitialStateSales: (state, action) => {
       return initialState;
@@ -86,6 +90,7 @@ export const {
   getUserSale,
   getSalePer,
   getInvoicePer,
+  getSalesVSGoals,
 } = saleActions.actions;
 
 export default saleActions.reducer;
@@ -507,7 +512,7 @@ export const getSalesvGoals = (token) => async (dispatch) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => dispatch(getSalesvGoals(res.data)));
+      .then((res) => dispatch(getSalesVSGoals(res.data)));
   } catch (err) {
     console.log(err);
   }
