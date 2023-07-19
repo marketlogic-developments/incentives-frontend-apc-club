@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getDigipointsPermonth,
   getSalesPerformance,
   getSalesvGoals,
 } from "../../../store/reducers/sales.reducer";
@@ -47,6 +48,7 @@ const SalesPerformance = () => {
   const products = useSelector((state) => state.sales.products);
   const [data, setData] = useState([]);
   const [dataBarChar, setDataBarChar] = useState([]);
+  const [dataLineChar, setDataLineChar] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
@@ -72,6 +74,7 @@ const SalesPerformance = () => {
   ];
   const goalAmountArray = [];
   const totalSalesArray = [];
+  const totalPointsAssigned = [];
 
   useEffect(() => {
     setIsLoaded(true);
@@ -98,9 +101,18 @@ const SalesPerformance = () => {
         .catch((error) => {
           console.log(error);
         });
+
+      setLoading(true);
+      dispatch(getDigipointsPermonth(token))
+        .then((response) => {
+          setLoading(false);
+          setDataLineChar(response.payload);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [isLoaded]);
-
   useEffect(() => {
     if (dataBarChar) {
       setLoadingBarChart(true);
@@ -118,8 +130,11 @@ const SalesPerformance = () => {
       setTotalSales(totalSalesArray);
       setLoadingBarChart(false);
     }
+    
   }, [dataBarChar]);
 
+  totalPointsAssigned = dataLineChar.map(({ total_points_assigned }) => total_points_assigned);
+  
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
       .toFixed(0)
@@ -348,7 +363,7 @@ const SalesPerformance = () => {
             title={t("Reportes.dp_cargados_mensualmente")}
             color={"red"}
             xValues={xValuesLine}
-            data={datas}
+            data={totalPointsAssigned}
           />
         </CardChart>
       </div>
