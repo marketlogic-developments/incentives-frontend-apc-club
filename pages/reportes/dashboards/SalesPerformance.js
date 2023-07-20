@@ -113,6 +113,7 @@ const SalesPerformance = () => {
         });
     }
   }, [isLoaded]);
+  
   useEffect(() => {
     if (dataBarChar) {
       setLoadingBarChart(true);
@@ -141,10 +142,7 @@ const SalesPerformance = () => {
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
   };
-
-  const datas = [
-    2.3, 6.0, 18.8, 48.7, 182.2, 175.6, 70.7, 28.7, 26.4, 9.0, 5.9, 2.6,
-  ];
+  
   const xValuesLine = [
     "Ene",
     "Feb",

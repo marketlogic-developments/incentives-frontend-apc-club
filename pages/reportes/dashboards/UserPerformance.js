@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserSalePerformance } from "../../../store/reducers/sales.reducer";
+import {
+  getSalesvsGoalsUsePerformance,
+  getUserSalePerformance,
+} from "../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
@@ -9,8 +12,10 @@ import {
 } from "../../../components/icons";
 import { useTranslation } from "react-i18next";
 import {
+  BarChar,
   BtnFilter,
   BtnWithImage,
+  CardChart,
   SearchInput,
   SelectInputValue,
   Table,
@@ -36,7 +41,42 @@ const SalesPerformance = () => {
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
+  const [loadingBarChart, setLoadingBarChart] = useState(true);
   const router = useRouter();
+  const [dataBarChar, setDataBarChar] = useState([]);
+  const xValues = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+  const months = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+  const sortedData = {};
+  const [goalAmount, setGoalAmount] = useState([]);
+  const [totalSales, setTotalSales] = useState([]);
+  const goalAmountArray = [];
+  const totalSalesArray = [];
 
   useEffect(() => {
     setIsLoaded(true);
@@ -53,8 +93,37 @@ const SalesPerformance = () => {
         .catch((error) => {
           console.log(error);
         });
+
+      setLoading(true);
+      dispatch(getSalesvsGoalsUsePerformance(token))
+        .then((response) => {
+          setLoading(false);
+          setDataBarChar(response.payload[0].json_agg);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [isLoaded]);
+
+  useEffect(() => {
+    if (dataBarChar) {
+      setLoadingBarChart(true);
+      dataBarChar.forEach((item) => {
+        const { mes_transformado, sum_goal_amount, sum_total_sales_us } = item;
+        const monthName = months[mes_transformado - 1];
+
+        if (!sortedData[monthName]) {
+          sortedData[monthName] = true;
+          goalAmountArray.push(Number(sum_goal_amount).toFixed(2));
+          totalSalesArray.push(Number(sum_total_sales_us).toFixed(2));
+        }
+      });
+      setGoalAmount(goalAmountArray);
+      setTotalSales(totalSalesArray);
+      setLoadingBarChart(false);
+    }
+  }, [dataBarChar]);
 
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
@@ -81,7 +150,7 @@ const SalesPerformance = () => {
   };
 
   const dataOne = [...new Set(data.map((user) => user.reseller_or_dist_name))];
-  
+
   const dataSelectOne = dataOne.sort().map((companyName) => ({
     value: companyName,
     label: companyName,
@@ -128,22 +197,28 @@ const SalesPerformance = () => {
         <TitleWithIcon icon={<User />} title={t("Reportes.user_performance")} />
       </div>
       <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
-        <AiOutlineHome className="cursor-pointer"
+        <AiOutlineHome
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/dashboard");
-          }}/>
-        <span><AiOutlineRight /></span>
-        <span className="cursor-pointer"
+            router.push("/dashboard");
+          }}
+        />
+        <span>
+          <AiOutlineRight />
+        </span>
+        <span
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/reportesDashboard");
+            router.push("/reportesDashboard");
           }}
         >
-        My Reports
+          My Reports
         </span>
-        <span><AiOutlineRight /></span>
-        <span className="font-bold text-[#1473E6]"
-        >
-        {t("Reportes.user_performance")}
+        <span>
+          <AiOutlineRight />
+        </span>
+        <span className="font-bold text-[#1473E6]">
+          {t("Reportes.user_performance")}
         </span>
       </div>
       <div className="pt-2 grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
@@ -180,30 +255,27 @@ const SalesPerformance = () => {
           onClick={() => importFile(data)}
         />
       </div>
-      {/* <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
-        <CardChart title={t("Reportes.metas_vs_cumplimiento")} paragraph="">
+      <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
+        <CardChart title={"Goals vs. Sales"} paragraph="">
           <BarChar
-            title={t("Reportes.ventas_mensuales")}
+            title={"Monthly sales"}
             colorBarOne={"black"}
             colorBarTwo={"#2799F6"}
-            dataLeyend={[
-              t("Reportes.ingresos_esperados"),
-              t("Reportes.ingreso_actual"),
-            ]}
-            dataOne={dataOne}
-            dataTwo={dataTwo}
-            xValues={xValuesBar}
+            dataLeyend={["Goals", "Current sales"]}
+            dataOne={goalAmount}
+            dataTwo={totalSales}
+            xValues={xValues}
           />
         </CardChart>
-        <CardChart title={t("Reportes.digiponits")}>
+        {/* <CardChart title={t("Reportes.digiponits")}>
           <LineChart
             title={t("Reportes.dp_cargados_mensualmente")}
             color={"red"}
             xValues={xValuesLine}
             data={datas}
           />
-        </CardChart>
-      </div> */}
+        </CardChart> */}
+      </div>
       <div className="grid sm:grid-cols-2 grid-rows-1">
         <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
           <div className="font-bold flex items-center">
@@ -287,16 +359,24 @@ const SalesPerformance = () => {
                   .map((data, index) => (
                     <tr key={index}>
                       <th className="text-left py-3 px-2 mx-4">{data.email}</th>
-                      <th className="text-left py-3 px-2 mx-4">{(data.name).split(' ').slice(0, -1).join(' ')}</th>
-                      <th className="text-left py-3 px-2 mx-4">{data.country_id}</th>
-                      <th className="text-left py-3 px-2 mx-4">{data.region}</th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.name.split(" ").slice(0, -1).join(" ")}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.country_id}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.region}
+                      </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.reseller_or_dist_id}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.reseller_or_dist_name}
                       </th>
-                      <th className="text-left py-3 px-2 mx-4">{data.dcname}</th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.dcname}
+                      </th>
                       <th className="text-left py-3 px-2 mx-4">{data.rtype}</th>
                       <th className="text-left py-3 px-2 mx-4">
                         {numberToMoney(data.vip_cc_renewal)}
@@ -346,10 +426,18 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">
                         {numberToMoney(data.vmp_revenue_q4)}
                       </th> */}
-                      <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q1)}</th>
-                      <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q2)}</th>
-                      <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q3)}</th>
-                      <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q4)}</th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.revenue_q1)}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.revenue_q2)}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.revenue_q3)}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.revenue_q4)}
+                      </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.revenue_actual}
                       </th>
