@@ -222,28 +222,18 @@ const SalesPerformance = () => {
           {t("Reportes.user_performance")}
         </span>
       </div>
-      <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
-        <CardChart title={"Goals vs. Sales"} paragraph="">
-          <MultiLineChart
-            dataLeyend={["Goals", "Current sales"]}
-            dataX={xValues}
-            dataOne={goalAmount}
-            dataTwo={totalSales}
-            colorsLine={["red", "green", "blue"]}
-          />
-        </CardChart>
-        {/* <CardChart title={t("Reportes.digiponits")}>
-          <LineChart
-            title={t("Reportes.dp_cargados_mensualmente")}
-            color={"red"}
-            xValues={xValuesLine}
-            data={datas}
-            
-            dataOne={}
-            dataTwo={}
-            xValues={}
-          />
-        </CardChart> */}
+      <div className="grid w-auto gap-2">
+        <div className="pr-4">
+          <CardChart title={"Goals vs. Sales"} paragraph="">
+            <MultiLineChart
+              dataLeyend={["Goals", "Current sales"]}
+              dataX={xValues}
+              dataOne={goalAmount}
+              dataTwo={totalSales}
+              colorsLine={["red", "green", "blue"]}
+            />
+          </CardChart>
+        </div>
       </div>
       <div className="pt-2 grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
