@@ -108,20 +108,22 @@ const SalesPerformance = () => {
   }, [isLoaded]);
 
   useEffect(() => {
-    for (let i = 1; i <= 12; i++) {
-      const monthData = dataBarChar.find((item) => item.month_redeem === i);
-
-      if (monthData) {
-        redeemPointsArray.push(monthData.redeem_points);
-        salesPointsArray.push(monthData.sales_points);
-      } else {
-        redeemPointsArray.push(0);
-        salesPointsArray.push(0);
+    if(dataBarChar){
+      for (let i = 1; i <= 12; i++) {
+        const monthData = dataBarChar.find((item) => item.month_redeem === i);
+  
+        if (monthData) {
+          redeemPointsArray.push(monthData.redeem_points);
+          salesPointsArray.push(monthData.sales_points);
+        } else {
+          redeemPointsArray.push(0);
+          salesPointsArray.push(0);
+        }
       }
+      setRedeemPoints(redeemPointsArray);
+      setSalesPoints(salesPointsArray);
+      setLoadingBarChart(false);
     }
-    setRedeemPoints(redeemPointsArray);
-    setSalesPoints(salesPointsArray);
-    setLoadingBarChart(false);
   }, [dataBarChar]);
 
   const numberToMoney = (quantity = 0) => {
