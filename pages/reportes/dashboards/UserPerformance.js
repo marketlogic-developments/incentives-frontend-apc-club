@@ -222,9 +222,9 @@ const SalesPerformance = () => {
       </div>
       <div className="grid w-auto gap-2">
         <div className="pr-4">
-          <CardChart title={"Current sales vs. Redeemption"} paragraph="">
+          <CardChart title={"DigiPoints"} paragraph="">
             <MultiLineChart
-              dataLeyend={["Sales", "Redeemption"]}
+              dataLeyend={["Sale DigiPoints", "DigiPoints Redeemed"]}
               dataX={months}
               dataOne={redeemPoints}
               dataTwo={salesPoints}
