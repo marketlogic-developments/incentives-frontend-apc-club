@@ -15,6 +15,8 @@ const initialState = {
   userperformance: [],
   salesperformance: [],
   invoiceperformance: [],
+  getsalesvsgoals: [],
+  getdigipointspermonth: [],
 };
 
 export const saleActions = createSlice({
@@ -63,6 +65,12 @@ export const saleActions = createSlice({
     getInvoicePer: (state, action) => {
       state.invoiceperformance = action.payload;
     },
+    getSalesVSGoals: (state, action) => {
+      state.getsalesvsgoals = action.payload;
+    },
+    getDigipointsPer: (state, action) => {
+      state.getdigipointspermonth = action.payload;
+    },
 
     setInitialStateSales: (state, action) => {
       return initialState;
@@ -86,6 +94,8 @@ export const {
   getUserSale,
   getSalePer,
   getInvoicePer,
+  getSalesVSGoals,
+  getDigipointsPer,
 } = saleActions.actions;
 
 export default saleActions.reducer;
@@ -492,6 +502,38 @@ export const getInvoiceReport = (token) => async (dispatch) => {
         },
       })
       .then((res) => dispatch(getInvoicePer(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getSalesvGoals = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/getsalesvsgoals`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getSalesVSGoals(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getDigipointsPermonth = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/getdigipointspermonth`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getDigipointsPer(res.data)));
   } catch (err) {
     console.log(err);
   }
