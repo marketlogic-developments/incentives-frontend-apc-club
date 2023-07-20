@@ -347,9 +347,9 @@ const SalesPerformance = () => {
         </div>
       </div> */}
       <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
-        <CardChart title={t("Reportes.metas_vs_cumplimiento")} paragraph="">
+        <CardChart title={"Goals vs. Sales"} paragraph="">
           <BarChar
-            title={t("Reportes.ventas_mensuales")}
+            title={"Monthly sales"}
             colorBarOne={"black"}
             colorBarTwo={"#2799F6"}
             dataLeyend={["Goals", "Current sales"]}
@@ -360,14 +360,14 @@ const SalesPerformance = () => {
         </CardChart>
         <CardChart title={t("Reportes.digiponits")}>
           <LineChart
-            title={t("Reportes.dp_cargados_mensualmente")}
+            title={"Monthly loaded DigiPoints"}
             color={"red"}
             xValues={xValuesLine}
             data={totalPointsAssigned}
           />
         </CardChart>
       </div>
-      <div className="grid sm:grid-cols-2 grid-rows-1">
+      <div className="grid sm:grid-cols-2 grid-rows-1 mt-5">
         <div className="grid sm:grid-cols-3 sm:justify-items-start justify-items-center mt-3">
           <div className="sm:w-[90%] w-[60%]">
             <SelectInputValue
