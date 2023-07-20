@@ -221,6 +221,27 @@ const SalesPerformance = () => {
           {t("Reportes.user_performance")}
         </span>
       </div>
+      <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
+        <CardChart title={"Goals vs. Sales"} paragraph="">
+          <BarChar
+            title={"Monthly sales"}
+            colorBarOne={"black"}
+            colorBarTwo={"#2799F6"}
+            dataLeyend={["Goals", "Current sales"]}
+            dataOne={goalAmount}
+            dataTwo={totalSales}
+            xValues={xValues}
+          />
+        </CardChart>
+        {/* <CardChart title={t("Reportes.digiponits")}>
+          <LineChart
+            title={t("Reportes.dp_cargados_mensualmente")}
+            color={"red"}
+            xValues={xValuesLine}
+            data={datas}
+          />
+        </CardChart> */}
+      </div>
       <div className="pt-2 grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
@@ -254,27 +275,6 @@ const SalesPerformance = () => {
           }
           onClick={() => importFile(data)}
         />
-      </div>
-      <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
-        <CardChart title={"Goals vs. Sales"} paragraph="">
-          <BarChar
-            title={"Monthly sales"}
-            colorBarOne={"black"}
-            colorBarTwo={"#2799F6"}
-            dataLeyend={["Goals", "Current sales"]}
-            dataOne={goalAmount}
-            dataTwo={totalSales}
-            xValues={xValues}
-          />
-        </CardChart>
-        {/* <CardChart title={t("Reportes.digiponits")}>
-          <LineChart
-            title={t("Reportes.dp_cargados_mensualmente")}
-            color={"red"}
-            xValues={xValuesLine}
-            data={datas}
-          />
-        </CardChart> */}
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1">
         <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
