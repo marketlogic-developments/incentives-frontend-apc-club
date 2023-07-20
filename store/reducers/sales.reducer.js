@@ -549,7 +549,7 @@ export const getDigipointsPermonth = (token) => async (dispatch) => {
 export const getSalesvsGoalsUsePerformance = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/getsalesvsgoals`, {
+      .get(`${process.env.BACKURL}/reporters/getsalesvsredeem`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

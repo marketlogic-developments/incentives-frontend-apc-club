@@ -74,10 +74,10 @@ const SalesPerformance = () => {
     "Dic",
   ];
   const sortedData = {};
-  const [goalAmount, setGoalAmount] = useState([]);
-  const [totalSales, setTotalSales] = useState([]);
-  const goalAmountArray = [];
-  const totalSalesArray = [];
+  const [redeemPoints, setRedeemPoints] = useState([]);
+  const [salesPoints, setSalesPoints] = useState([]);
+  const redeemPointsArray = [];
+  const salesPointsArray = [];
 
   useEffect(() => {
     setIsLoaded(true);
@@ -108,22 +108,20 @@ const SalesPerformance = () => {
   }, [isLoaded]);
 
   useEffect(() => {
-    if (dataBarChar) {
-      setLoadingBarChart(true);
-      dataBarChar.forEach((item) => {
-        const { mes_transformado, sum_goal_amount, sum_total_sales_us } = item;
-        const monthName = months[mes_transformado - 1];
+    for (let i = 1; i <= 12; i++) {
+      const monthData = dataBarChar.find((item) => item.month_redeem === i);
 
-        if (!sortedData[monthName]) {
-          sortedData[monthName] = true;
-          goalAmountArray.push(Number(sum_goal_amount).toFixed(2));
-          totalSalesArray.push(Number(sum_total_sales_us).toFixed(2));
-        }
-      });
-      setGoalAmount(goalAmountArray);
-      setTotalSales(totalSalesArray);
-      setLoadingBarChart(false);
+      if (monthData) {
+        redeemPointsArray.push(monthData.redeem_points);
+        salesPointsArray.push(monthData.sales_points);
+      } else {
+        redeemPointsArray.push(0);
+        salesPointsArray.push(0);
+      }
     }
+    setRedeemPoints(redeemPointsArray);
+    setSalesPoints(salesPointsArray);
+    setLoadingBarChart(false);
   }, [dataBarChar]);
 
   const numberToMoney = (quantity = 0) => {
@@ -224,12 +222,12 @@ const SalesPerformance = () => {
       </div>
       <div className="grid w-auto gap-2">
         <div className="pr-4">
-          <CardChart title={"Goals vs. Sales"} paragraph="">
+          <CardChart title={"Current sales vs. Redeemption"} paragraph="">
             <MultiLineChart
-              dataLeyend={["Goals", "Current sales"]}
-              dataX={xValues}
-              dataOne={goalAmount}
-              dataTwo={totalSales}
+              dataLeyend={["Sales", "Redeemption"]}
+              dataX={months}
+              dataOne={redeemPoints}
+              dataTwo={salesPoints}
               colorsLine={["red", "green", "blue"]}
             />
           </CardChart>
