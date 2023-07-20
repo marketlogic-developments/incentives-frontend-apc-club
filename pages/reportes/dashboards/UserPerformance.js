@@ -16,6 +16,7 @@ import {
   BtnFilter,
   BtnWithImage,
   CardChart,
+  MultiLineChart,
   SearchInput,
   SelectInputValue,
   Table,
@@ -223,14 +224,12 @@ const SalesPerformance = () => {
       </div>
       <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
         <CardChart title={"Goals vs. Sales"} paragraph="">
-          <BarChar
-            title={"Monthly sales"}
-            colorBarOne={"black"}
-            colorBarTwo={"#2799F6"}
+          <MultiLineChart
             dataLeyend={["Goals", "Current sales"]}
+            dataX={xValues}
             dataOne={goalAmount}
             dataTwo={totalSales}
-            xValues={xValues}
+            colorsLine={["red", "green", "blue"]}
           />
         </CardChart>
         {/* <CardChart title={t("Reportes.digiponits")}>
@@ -239,6 +238,10 @@ const SalesPerformance = () => {
             color={"red"}
             xValues={xValuesLine}
             data={datas}
+            
+            dataOne={}
+            dataTwo={}
+            xValues={}
           />
         </CardChart> */}
       </div>
