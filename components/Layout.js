@@ -963,7 +963,8 @@ const Layout = ({ children }) => {
       <Modal
         opened={opened}
         withCloseButton={modal == 0 ? true : false}
-        onClose={closeModal}
+        onClose={modal !== 1 && closeModal}
+        fullScreen={modal === 1}
         centered
         size={"auto"}
         transitionProps={{ transition: "rotate-left" }}
