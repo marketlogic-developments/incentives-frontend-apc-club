@@ -43,6 +43,7 @@ import {
   ShoppingCard,
   Megaphone,
 } from "./icons";
+import ModalPersonalize from "./Lay0ut/ModalPersonalize";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
