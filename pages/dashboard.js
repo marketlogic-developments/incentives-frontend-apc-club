@@ -42,6 +42,7 @@ const dashboard = ({ entries }) => {
   console.log(entries);
 
   useEffect(() => {
+    dispatch(getVideos(entries));
     redirection();
   }, [user]);
 
