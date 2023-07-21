@@ -409,9 +409,14 @@ const dashboard = () => {
   );
 };
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
+  const entries = await client.getEntries({
+    content_type: "videosApc",
+  });
+
   return {
     props: {
+      entries: entries.items.map(({ fields }) => fields),
       protected: true,
       userTypes: [1, 2, 3, 4, 5],
     },
