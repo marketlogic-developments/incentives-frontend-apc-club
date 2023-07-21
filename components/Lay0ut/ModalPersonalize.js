@@ -35,7 +35,7 @@ const ModalPersonalize = ({ onClose }) => {
 
   return (
     <div className="w-screen h-screen animationVideo">
-      {/* <ReactPlayer
+      <ReactPlayer
         url={video.linkUrl}
         controls
         playing={true}
@@ -43,7 +43,7 @@ const ModalPersonalize = ({ onClose }) => {
         height={"100%"}
         muted
         onEnded={handleVideo}
-      /> */}
+      />
     </div>
   );
 };
