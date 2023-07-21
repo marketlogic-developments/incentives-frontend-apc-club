@@ -25,8 +25,9 @@ import TableTopsRanking from "../components/dashboard/TableTopsRanking";
 import LicenseChart from "../components/dashboard/LicenseChart";
 import { CardChart, InputReporte } from "../components";
 import { SearchIcon } from "../components/icons";
+import client from "../contentful";
 
-const dashboard = () => {
+const dashboard = ({ entries }) => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const ranking = useSelector((state) => state.user.ranking);
@@ -37,6 +38,8 @@ const dashboard = () => {
   const route = useRouter();
   const [t, i18n] = useTranslation("global");
   const [modalType, setModalType] = useState([]);
+
+  console.log(entries);
 
   useEffect(() => {
     redirection();
