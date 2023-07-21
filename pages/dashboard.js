@@ -25,6 +25,7 @@ import TableTopsRanking from "../components/dashboard/TableTopsRanking";
 import LicenseChart from "../components/dashboard/LicenseChart";
 import { CardChart, InputReporte } from "../components";
 import { SearchIcon } from "../components/icons";
+import { getLicenciesByMonth } from "../store/reducers/sales.reducer";
 
 const dashboard = () => {
   const token = useSelector((state) => state.user.token);
@@ -37,10 +38,40 @@ const dashboard = () => {
   const route = useRouter();
   const [t, i18n] = useTranslation("global");
   const [modalType, setModalType] = useState([]);
+  const [data, setData] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   useEffect(() => {
     redirection();
   }, [user]);
+
+  useEffect(() => {
+    if (isLoaded && token) {
+      setLoading(true);
+      dispatch(getLicenciesByMonth(token))
+        .then((response) => {
+          setLoading(false);
+          setData(response.payload[0].monthly_sales_data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [isLoaded]);
+
+  useEffect(() => {
+    if(data){
+      Object.values(data || []).map((value) => value.map((total) => console.log(total)))
+      /* data.map((value, index)=>{
+        console.log(value);
+      }) */
+    }
+  },[data]);
 
   const redirection = () => {
     if (!user?.passwordReset) {
