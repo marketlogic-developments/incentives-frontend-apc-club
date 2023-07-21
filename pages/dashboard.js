@@ -26,6 +26,7 @@ import LicenseChart from "../components/dashboard/LicenseChart";
 import { CardChart, InputReporte } from "../components";
 import { SearchIcon } from "../components/icons";
 import client from "../contentful";
+import { getVideos } from "../store/reducers/contentful.reducer";
 
 const dashboard = ({ entries }) => {
   const token = useSelector((state) => state.user.token);
