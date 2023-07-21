@@ -43,6 +43,7 @@ import {
   ShoppingCard,
   Megaphone,
 } from "./icons";
+import ModalPersonalize from "./Lay0ut/ModalPersonalize";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -76,6 +77,15 @@ const Layout = ({ children }) => {
       window.removeEventListener("resize", handleWindowResize);
     };
   });
+
+  useEffect(() => {
+    if (userRedux.cpf !== "viewVideo" && userRedux !== 0) {
+      setModal(1);
+      setTimeout(() => {
+        setOpened(true);
+      }, 2000);
+    }
+  }, [userRedux]);
 
   const modalCustomerCare = () => {
     setModalCustomer(!modalCustomer);
