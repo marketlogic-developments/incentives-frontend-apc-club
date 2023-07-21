@@ -43,7 +43,6 @@ import {
   ShoppingCard,
   Megaphone,
 } from "./icons";
-import ModalPersonalize from "./Lay0ut/ModalPersonalize";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -813,9 +812,6 @@ const Layout = ({ children }) => {
   const typeModal = useMemo(() => {
     if (modal === 0) {
       return <ModalCustomerCare closeModal={closeModal} />;
-    }
-    if (modal === 1) {
-      return <ModalPersonalize onClose={setOpened} />;
     }
   }, [modal, opened]);
 
