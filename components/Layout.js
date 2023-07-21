@@ -823,9 +823,6 @@ const Layout = ({ children }) => {
     if (modal === 0) {
       return <ModalCustomerCare closeModal={closeModal} />;
     }
-    if (modal === 1) {
-      return <ModalPersonalize onClose={setOpened} />;
-    }
   }, [modal, opened]);
 
   const menu = (n) => {
