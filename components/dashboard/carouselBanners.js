@@ -16,8 +16,6 @@ const CarouselBanners = () => {
       : ["Promox2Dist.pdf", "Promox2DistPort.pdf"];
   }, [i18n]);
 
-  console.log(typePdf);
-
   return (
     <Carousel
       mx="auto"
