@@ -346,7 +346,7 @@ const dashboard = () => {
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
             <GraphSales />
-            {/* <div className="sm:w-full w-[355px]">
+            <div className="sm:w-full w-[355px]">
               <CardChart title={"Licencias"} paragraph="">
                 <LicenseChart
                   dataLeyend={[
@@ -374,7 +374,7 @@ const dashboard = () => {
                   ]}
                 />
               </CardChart>
-            </div> */}
+            </div>
             <div className="grid w-full">
               <div>
                 <h1 className="font-bold">{t("dashboard.topUsuarios")}</h1>
