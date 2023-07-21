@@ -2,7 +2,6 @@ import React from "react";
 import client from "../../contentful";
 import { useState } from "react";
 import { useEffect } from "react";
-import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideos } from "../../store/reducers/contentful.reducer";
 import { userUpdate } from "../../store/reducers/users.reducer";
@@ -41,7 +40,7 @@ const ModalPersonalize = ({ onClose }) => {
 
   return (
     <div className="w-screen h-screen animationVideo">
-      <ReactPlayer
+      {/* <ReactPlayer
         url={video.linkUrl}
         controls
         playing={true}
@@ -49,7 +48,7 @@ const ModalPersonalize = ({ onClose }) => {
         height={"100%"}
         muted
         onEnded={handleVideo}
-      />
+      /> */}
     </div>
   );
 };
