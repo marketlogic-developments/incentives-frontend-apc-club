@@ -78,6 +78,15 @@ const Layout = ({ children }) => {
     };
   });
 
+  useEffect(() => {
+    if (userRedux.cpf !== "viewVideo" && userRedux !== 0) {
+      setModal(1);
+      setTimeout(() => {
+        setOpened(true);
+      }, 2000);
+    }
+  }, [userRedux]);
+
   const modalCustomerCare = () => {
     setModalCustomer(!modalCustomer);
   };
@@ -813,6 +822,9 @@ const Layout = ({ children }) => {
   const typeModal = useMemo(() => {
     if (modal === 0) {
       return <ModalCustomerCare closeModal={closeModal} />;
+    }
+    if (modal === 1) {
+      return <ModalPersonalize onClose={setOpened} />;
     }
   }, [modal, opened]);
 
