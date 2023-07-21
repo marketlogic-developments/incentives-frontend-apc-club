@@ -1,10 +1,4 @@
-import React from "react";
-import client from "../../contentful";
-import { useState } from "react";
-import { useEffect } from "react";
-import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
-import { getVideos } from "../../store/reducers/contentful.reducer";
 import { userUpdate } from "../../store/reducers/users.reducer";
 import axios from "axios";
 
