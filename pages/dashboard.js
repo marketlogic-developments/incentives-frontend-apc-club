@@ -41,6 +41,11 @@ const dashboard = () => {
   const [data, setData] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [salesData, setSalesData] = useState({
+    documentCloud: { teams: [], enterprise: [], education: [] },
+    creativeCloud: { teams: [], enterprise: [], education: [] },
+    numberData: [],
+  });
 
   useEffect(() => {
     setIsLoaded(true);
@@ -63,12 +68,6 @@ const dashboard = () => {
         });
     }
   }, [isLoaded]);
-
-  const [salesData, setSalesData] = useState({
-    documentCloud: { teams: [], enterprise: [], education: [] },
-    creativeCloud: { teams: [], enterprise: [], education: [] },
-    numberData: [],
-  });
 
   useEffect(() => {
     if (data) {
