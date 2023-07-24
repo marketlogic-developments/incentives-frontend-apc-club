@@ -40,8 +40,6 @@ const dashboard = ({ entries, banners }) => {
   const [t, i18n] = useTranslation("global");
   const [modalType, setModalType] = useState([]);
 
-  console.log(entries);
-
   useEffect(() => {
     dispatch(getVideos(entries));
     redirection();

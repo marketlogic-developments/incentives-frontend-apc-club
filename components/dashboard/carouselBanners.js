@@ -45,8 +45,6 @@ const CarouselBanners = ({ banners }) => {
     return pdf.file.url;
   };
 
-  console.log(banners);
-
   return (
     <Carousel
       mx="auto"
@@ -109,28 +107,6 @@ const CarouselBanners = ({ banners }) => {
             </Carousel.Slide>
           );
         })}
-      {/* <Carousel.Slide>
-        <a
-          className="w-full flex justify-center cursor-pointer p-[1px]"
-          href={
-            i18n.resolvedLanguage === "por"
-              ? `assets/pdf/${typePdf[1]}`
-              : `assets/pdf/${typePdf[0]}`
-          }
-          target="_blank"
-        >
-          <figure className="w-full">
-            <img
-              src={
-                i18n.resolvedLanguage === "por"
-                  ? "assets/dashboard/banners/bannerPromo1Por.webp"
-                  : "assets/dashboard/banners/bannerPromo1.webp"
-              }
-              className="bannersImg"
-            />
-          </figure>
-        </a>
-      </Carousel.Slide> */}
     </Carousel>
   );
 };
