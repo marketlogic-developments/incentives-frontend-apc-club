@@ -28,7 +28,7 @@ import { SearchIcon } from "../components/icons";
 import client from "../contentful";
 import { getVideos } from "../store/reducers/contentful.reducer";
 
-const dashboard = ({ entries }) => {
+const dashboard = ({ entries, banners }) => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const ranking = useSelector((state) => state.user.ranking);
@@ -39,8 +39,6 @@ const dashboard = ({ entries }) => {
   const route = useRouter();
   const [t, i18n] = useTranslation("global");
   const [modalType, setModalType] = useState([]);
-
-  console.log(entries);
 
   useEffect(() => {
     dispatch(getVideos(entries));
@@ -346,7 +344,7 @@ const dashboard = ({ entries }) => {
       </Modal>
       <ContainerContent pageTitle={"Dashboard"}>
         <div className="m-6 flex flex-col gap-10 ">
-          <CarouselBanners />
+          <CarouselBanners banners={banners} />
           <hr color="red" />
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
@@ -419,9 +417,14 @@ export async function getStaticProps() {
     content_type: "videosApc",
   });
 
+  const banners = await client.getEntries({
+    content_type: "banners",
+  });
+
   return {
     props: {
       entries: entries.items.map(({ fields }) => fields),
+      banners: banners.items.map(({ fields }) => fields),
       protected: true,
       userTypes: [1, 2, 3, 4, 5],
     },
