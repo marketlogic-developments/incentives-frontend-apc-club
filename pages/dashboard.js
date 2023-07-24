@@ -427,7 +427,7 @@ export async function getStaticProps() {
       banners: banners.items.map(({ fields }) => fields),
       protected: true,
       userTypes: [1, 2, 3, 4, 5],
-      revalidate: 1,
+      revalidate: 60,
     },
   };
 }
