@@ -458,8 +458,11 @@ const SalesPerformance = () => {
                 // "Revenue Q2 (USD)",
                 // "Revenue Q3 (USD)",
                 // "Revenue Q4 (USD)",
-                "Actual Revenue",
-                "Sales DigiPoints",
+                "Total VIP Revenue (USD)",
+                "Total VMP Revenue (USD)",
+                "Actual Revenue (USD)",
+                "RMA (USD)",
+                "Total Revenue (USD)",
               ]}
             >
               {currentItems &&
@@ -533,9 +536,20 @@ const SalesPerformance = () => {
                       {numberToMoney(data.revenue_q4)}
                     </th> */}
                     <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.total_vip)}
+                    </th>
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.total_vmp)}
+                    </th>
+                    <th className="text-left py-3 mx-7">
                       {data.actual_revenue}
                     </th>
-                    <th className="text-left py-3 mx-7">{data.puntos}</th>
+                    <th className="text-left py-3 mx-7">
+                      {data.rma}
+                    </th>
+                    <th className="text-left py-3 mx-7">
+                      {data.total_revenue}
+                    </th>
                   </tr>
                 ))}
             </Table>
