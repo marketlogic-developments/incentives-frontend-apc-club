@@ -39,13 +39,17 @@ export default companyAction.reducer;
 export const importCompany = (token, data) => async (dispatch) => {
   try {
     axios
-      .post(`${process.env.BACKURL}/process/file-catalog`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/process/file-catalog`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         return res.data;
       });
@@ -56,7 +60,7 @@ export const importCompany = (token, data) => async (dispatch) => {
 export const getCompanyAll = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/companies`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/companies`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -73,7 +77,7 @@ export const getCompanyAll = (token) => async (dispatch) => {
 export const getDistriAll = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/distribution-channel`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/distribution-channel`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

@@ -36,7 +36,7 @@ const TableStats = () => {
 
     if (user) {
       axios
-        .get(`${process.env.BACKURL}${obj}`, {
+        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`, {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",

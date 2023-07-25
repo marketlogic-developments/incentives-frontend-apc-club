@@ -29,6 +29,7 @@ import LoginTarget from "../components/login/LoginTarget";
 export default function Home() {
   const user = useSelector((state) => state.user);
   const dataFromAxios = useSelector((state) => state.sales);
+  console.log(process.env.NEXT_PUBLIC_BACKEND_URL);
 
   const [t, i18n] = useTranslation("global");
 
@@ -84,7 +85,7 @@ export default function Home() {
     }
 
     axios
-      .post(`${process.env.BACKURL}/auth/login`, {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -154,13 +155,16 @@ export default function Home() {
           };
 
     axios
-      .get(`${process.env.BACKURL}/${compOrDist.endpoint}/${compOrDist.byId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${userData.token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/${compOrDist.endpoint}/${compOrDist.byId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${userData.token}`,
+          },
+        }
+      )
       .then(({ data }) => {
         if (compOrDist.endpoint === "distribution-channel") {
           dispatch(setDistribuitor(data));
@@ -202,7 +206,7 @@ export default function Home() {
 
     axios
       .get(
-        `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/${userData.user.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/2/${userData.user.id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -230,7 +234,7 @@ export default function Home() {
     data.preventDefault();
 
     axios
-      .post(`${process.env.BACKURL}/auth/change-password`, {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/change-password`, {
         token: tokeNewPass,
         newPassword: data.target[0].value,
       })
@@ -277,7 +281,7 @@ export default function Home() {
     data.preventDefault();
 
     axios
-      .post(`${process.env.BACKURL}/auth/recovery`, {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/recovery`, {
         email: data.target[0].value,
         lang: i18n.language,
       })

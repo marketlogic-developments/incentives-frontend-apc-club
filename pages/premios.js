@@ -60,7 +60,7 @@ const premios = () => {
     data.preventDefault();
 
     axios
-      .post(`${process.env.BACKURL}/awards`, formData, {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/awards`, formData, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

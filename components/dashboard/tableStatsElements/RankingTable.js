@@ -35,13 +35,16 @@ const RankingTable = () => {
   useEffect(() => {
     if (user.roleId === 1) {
       axios
-        .get(`${process.env.BACKURL}/reporters/ranking-global`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/ranking-global`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then(({ data }) => {
           dispatch(setRanking(data));
         });
@@ -60,7 +63,7 @@ const RankingTable = () => {
       if (token) {
         axios
           .get(
-            `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
             {
               headers: {
                 "Content-Type": "application/json",

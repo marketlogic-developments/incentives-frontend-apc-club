@@ -110,7 +110,7 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
 
       axios
         .patch(
-          `${process.env.BACKURL}/partner-admin-group-headers/${infoModal.id}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/partner-admin-group-headers/${infoModal.id}`,
           teamUpdate,
           {
             headers: {
@@ -150,7 +150,7 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
 
       axios
         .post(
-          `${process.env.BACKURL}/partner-admin-group-headers`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/partner-admin-group-headers`,
           {
             nameGroup: event.target[0].value,
             description: event.target[1].value,

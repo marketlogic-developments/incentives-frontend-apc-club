@@ -33,7 +33,7 @@ const UserPhoto = ({ formData }) => {
   const deleteProfileImage = () => {
     axios
       .patch(
-        `${process.env.BACKURL}/users/${user.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
         {
           profilePhotoPath: "noImage",
         },
@@ -70,7 +70,7 @@ const UserPhoto = ({ formData }) => {
       .then((res) => {
         axios
           .patch(
-            `${process.env.BACKURL}/users/${user.id}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
             { profilePhotoPath: res.data.url },
             {
               headers: {

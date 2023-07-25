@@ -37,7 +37,7 @@ const terminosycondiciones = () => {
       if (result.isConfirmed) {
         axios
           .patch(
-            `${process.env.BACKURL}/users/${user?.id}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user?.id}`,
             {
               cpf: "active colTC",
             },

@@ -245,7 +245,7 @@ const DigipointsAll = () => {
       if (result.isConfirmed) {
         axios
           .post(
-            `${process.env.BACKURL}/employee-poits-collects/unassign-invoice`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/employee-poits-collects/unassign-invoice`,
             {
               isGold: false,
               invoiceReference: obj.salesOrder,

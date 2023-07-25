@@ -61,7 +61,7 @@ const ModalProductsR = ({ data }) => {
 
     axios
       .patch(
-        `${process.env.BACKURL}/order-carts/${data.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/order-carts/${data.id}`,
         {
           operationStatusId: Number(num),
         },

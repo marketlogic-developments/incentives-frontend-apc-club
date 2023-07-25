@@ -128,7 +128,7 @@ const UserOptions = ({ user, token, logout, menuUser, setMenuUser }) => {
   const deleteProfileImage = () => {
     return axios
       .patch(
-        `${process.env.BACKURL}/users/${user.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
         {
           profilePhotoPath: "noImage",
         },
@@ -174,7 +174,7 @@ const UserOptions = ({ user, token, logout, menuUser, setMenuUser }) => {
       .then((res) => {
         axios
           .patch(
-            `${process.env.BACKURL}/users/${user.id}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
             { profilePhotoPath: res.data.url },
             {
               headers: {

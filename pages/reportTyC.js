@@ -32,7 +32,7 @@ const reportTyC = () => {
   useEffect(() => {
     if (token) {
       axios
-        .get(`${process.env.BACKURL}/users`, {
+        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users`, {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
             Authorization: `Bearer ${token}`,
@@ -102,7 +102,7 @@ const reportTyC = () => {
 
     const usersProcessed = usersMatch.map(async ({ id }) =>
       axios.patch(
-        `${process.env.BACKURL}/users/${id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${id}`,
         {
           policy: true,
         },

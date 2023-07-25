@@ -134,12 +134,16 @@ const user = () => {
     };
 
     axios
-      .patch(`${process.env.BACKURL}/users/${user.id}`, jsonData(), {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .patch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
+        jsonData(),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         dispatch(policyAndPassword(res.data));
         setEditInfo(!editInfo);

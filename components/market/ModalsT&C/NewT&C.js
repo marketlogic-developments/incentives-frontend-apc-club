@@ -15,7 +15,7 @@ const NewTyC = ({ setContent }) => {
 
     axios
       .patch(
-        `${process.env.BACKURL}/users/${user.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
         {
           policy_awards: true,
         },

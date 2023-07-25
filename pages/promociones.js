@@ -30,7 +30,7 @@ const promociones = () => {
     if (token && dataPromos.length === 0) {
       setLoading(true);
       axios
-        .get(`${process.env.BACKURL}/promos`, {
+        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/promos`, {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",

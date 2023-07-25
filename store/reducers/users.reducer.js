@@ -88,7 +88,7 @@ export default userActions.reducer;
 export const getUsersData = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/users/`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -106,7 +106,7 @@ export const getUsersData = (token) => async (dispatch) => {
 export const getRolesData = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/roles/`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/roles/`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -124,7 +124,7 @@ export const getRolesData = (token) => async (dispatch) => {
 export const createUserData = (token, data) => async (dispatch) => {
   try {
     axios
-      .post(`${process.env.BACKURL}/users/`, data, {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/`, data, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -141,13 +141,16 @@ export const createUserData = (token, data) => async (dispatch) => {
 
 export const getDigiPoints = (token, id) => async (dispatch) => {
   return axios
-    .get(`${process.env.BACKURL}/reporters/digipoints-redeem-status/2/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    .get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/2/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
     .then((dpInfo) => {
       const [digipoints] = dpInfo.data;
 

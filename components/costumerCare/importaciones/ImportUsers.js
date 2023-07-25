@@ -55,7 +55,7 @@ const ImportUsers = () => {
 
     // const promises = validationUsers.map(async (data) =>
     //   axios.post(
-    //     `${process.env.BACKURL}/users`,
+    //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/users`,
     //     {
     //       name: `${data.firstName} ${data.lastName}`,
     //       email: `${data.email}`,

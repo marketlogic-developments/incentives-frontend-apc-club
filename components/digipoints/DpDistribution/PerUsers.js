@@ -39,7 +39,7 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
 
     axios
       .get(
-        `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
 
     axios
       .post(
-        `${process.env.BACKURL}/employee-poits-collects/assign-points/`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/employee-poits-collects/assign-points/`,
         {
           partnerAdminId: user.id,
           assignType: "amount",
