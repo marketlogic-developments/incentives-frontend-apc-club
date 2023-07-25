@@ -44,6 +44,7 @@ const ModalPersonalize = ({ onClose }) => {
         height={"100%"}
         muted
         onEnded={handleVideo}
+        loop={false}
       />
     </div>
   );
