@@ -17,6 +17,7 @@ const initialState = {
   invoiceperformance: [],
   getsalesvsgoals: [],
   getdigipointspermonth: [],
+  getsalesvsgoalsuseper: [],
 };
 
 export const saleActions = createSlice({
@@ -72,6 +73,10 @@ export const saleActions = createSlice({
       state.getdigipointspermonth = action.payload;
     },
 
+    getSalesvsGoalsUsePer: (state, action) => {
+      state.getsalesvsgoalsuseper = action.payload;
+    },
+
     setInitialStateSales: (state, action) => {
       return initialState;
     },
@@ -96,6 +101,7 @@ export const {
   getInvoicePer,
   getSalesVSGoals,
   getDigipointsPer,
+  getSalesvsGoalsUsePer,
 } = saleActions.actions;
 
 export default saleActions.reducer;
@@ -475,6 +481,7 @@ export const getUserSalePerformance = (token) => async (dispatch) => {
     console.log(err);
   }
 };
+
 export const getSalesPerformance = (token) => async (dispatch) => {
   try {
     return axios
@@ -534,6 +541,22 @@ export const getDigipointsPermonth = (token) => async (dispatch) => {
         },
       })
       .then((res) => dispatch(getDigipointsPer(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getSalesvsGoalsUsePerformance = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/getsalesvsredeem`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getSalesvsGoalsUsePer(res.data)));
   } catch (err) {
     console.log(err);
   }

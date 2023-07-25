@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserSalePerformance } from "../../../store/reducers/sales.reducer";
+import {
+  getSalesvsGoalsUsePerformance,
+  getUserSalePerformance,
+} from "../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
@@ -9,8 +12,11 @@ import {
 } from "../../../components/icons";
 import { useTranslation } from "react-i18next";
 import {
+  BarChar,
   BtnFilter,
   BtnWithImage,
+  CardChart,
+  MultiLineChart,
   SearchInput,
   SelectInputValue,
   Table,
@@ -36,7 +42,42 @@ const SalesPerformance = () => {
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
+  const [loadingBarChart, setLoadingBarChart] = useState(true);
   const router = useRouter();
+  const [dataBarChar, setDataBarChar] = useState([]);
+  const xValues = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+  const months = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+  const sortedData = {};
+  const [redeemPoints, setRedeemPoints] = useState([]);
+  const [salesPoints, setSalesPoints] = useState([]);
+  const redeemPointsArray = [];
+  const salesPointsArray = [];
 
   useEffect(() => {
     setIsLoaded(true);
@@ -53,8 +94,37 @@ const SalesPerformance = () => {
         .catch((error) => {
           console.log(error);
         });
+
+      setLoading(true);
+      dispatch(getSalesvsGoalsUsePerformance(token))
+        .then((response) => {
+          setLoading(false);
+          setDataBarChar(response.payload[0].json_agg);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [isLoaded]);
+
+  useEffect(() => {
+    if(dataBarChar){
+      for (let i = 1; i <= 12; i++) {
+        const monthData = dataBarChar.find((item) => item.month_redeem === i);
+  
+        if (monthData) {
+          redeemPointsArray.push(monthData.redeem_points);
+          salesPointsArray.push(monthData.sales_points);
+        } else {
+          redeemPointsArray.push(0);
+          salesPointsArray.push(0);
+        }
+      }
+      setRedeemPoints(redeemPointsArray);
+      setSalesPoints(salesPointsArray);
+      setLoadingBarChart(false);
+    }
+  }, [dataBarChar]);
 
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
@@ -152,6 +222,19 @@ const SalesPerformance = () => {
           {t("Reportes.user_performance")}
         </span>
       </div>
+      <div className="grid w-auto gap-2">
+        <div className="pr-4">
+          <CardChart title={"DigiPoints"} paragraph="">
+            <MultiLineChart
+              dataLeyend={["Sale DigiPoints", "DigiPoints Redeemed"]}
+              dataX={months}
+              dataOne={redeemPoints}
+              dataTwo={salesPoints}
+              colorsLine={["red", "green", "blue"]}
+            />
+          </CardChart>
+        </div>
+      </div>
       <div className="pt-2 grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
@@ -186,30 +269,6 @@ const SalesPerformance = () => {
           onClick={() => importFile(data)}
         />
       </div>
-      {/* <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
-        <CardChart title={t("Reportes.metas_vs_cumplimiento")} paragraph="">
-          <BarChar
-            title={t("Reportes.ventas_mensuales")}
-            colorBarOne={"black"}
-            colorBarTwo={"#2799F6"}
-            dataLeyend={[
-              t("Reportes.ingresos_esperados"),
-              t("Reportes.ingreso_actual"),
-            ]}
-            dataOne={dataOne}
-            dataTwo={dataTwo}
-            xValues={xValuesBar}
-          />
-        </CardChart>
-        <CardChart title={t("Reportes.digiponits")}>
-          <LineChart
-            title={t("Reportes.dp_cargados_mensualmente")}
-            color={"red"}
-            xValues={xValuesLine}
-            data={datas}
-          />
-        </CardChart>
-      </div> */}
       <div className="grid sm:grid-cols-2 grid-rows-1">
         <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
           <div className="font-bold flex items-center">
