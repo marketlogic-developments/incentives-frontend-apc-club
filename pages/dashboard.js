@@ -25,8 +25,10 @@ import TableTopsRanking from "../components/dashboard/TableTopsRanking";
 import LicenseChart from "../components/dashboard/LicenseChart";
 import { CardChart, InputReporte } from "../components";
 import { SearchIcon } from "../components/icons";
+import client from "../contentful";
+import { getVideos } from "../store/reducers/contentful.reducer";
 
-const dashboard = () => {
+const dashboard = ({ entries, banners }) => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const ranking = useSelector((state) => state.user.ranking);
@@ -39,6 +41,7 @@ const dashboard = () => {
   const [modalType, setModalType] = useState([]);
 
   useEffect(() => {
+    dispatch(getVideos(entries));
     redirection();
   }, [user]);
 
@@ -341,7 +344,7 @@ const dashboard = () => {
       </Modal>
       <ContainerContent pageTitle={"Dashboard"}>
         <div className="m-6 flex flex-col gap-10 ">
-          <CarouselBanners />
+          <CarouselBanners banners={banners} />
           <hr color="red" />
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
@@ -409,11 +412,22 @@ const dashboard = () => {
   );
 };
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
+  const entries = await client.getEntries({
+    content_type: "videosApc",
+  });
+
+  const banners = await client.getEntries({
+    content_type: "banners",
+  });
+
   return {
     props: {
+      entries: entries.items.map(({ fields }) => fields),
+      banners: banners.items.map(({ fields }) => fields),
       protected: true,
       userTypes: [1, 2, 3, 4, 5],
+      revalidate: 10,
     },
   };
 }

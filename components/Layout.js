@@ -43,7 +43,7 @@ import {
   ShoppingCard,
   Megaphone,
 } from "./icons";
-import ModalUserProfile from "./user/ModalUserProfile";
+import ModalPersonalize from "./Lay0ut/ModalPersonalize";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -77,6 +77,15 @@ const Layout = ({ children }) => {
       window.removeEventListener("resize", handleWindowResize);
     };
   });
+
+  useEffect(() => {
+    if (userRedux.cpf !== "viewVideo" && userRedux !== 0) {
+      setModal(1);
+      setTimeout(() => {
+        setOpened(true);
+      }, 2000);
+    }
+  }, [userRedux]);
 
   const modalCustomerCare = () => {
     setModalCustomer(!modalCustomer);
@@ -815,13 +824,7 @@ const Layout = ({ children }) => {
       return <ModalCustomerCare closeModal={closeModal} />;
     }
     if (modal === 1) {
-      return (
-        <ModalUserProfile
-          closeModal={closeModal}
-          user={userRedux}
-          token={token}
-        />
-      );
+      return <ModalPersonalize onClose={setOpened} />;
     }
   }, [modal, opened]);
 
@@ -970,7 +973,8 @@ const Layout = ({ children }) => {
       <Modal
         opened={opened}
         withCloseButton={modal == 0 ? true : false}
-        onClose={closeModal}
+        onClose={modal !== 1 && closeModal}
+        fullScreen={modal === 1}
         centered
         size={"auto"}
         transitionProps={{ transition: "rotate-left" }}
