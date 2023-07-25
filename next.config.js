@@ -23,8 +23,4 @@ module.exports = {
   },
   swcMinify: true,
   reactStrictMode: false,
-  env: {
-    BACKURL: "https://apcdev.mymarketlogic.net/api/v1",
-    CLOUDINARY_CLOUD_NAME: "dechrcyu3",
-  },
 };
