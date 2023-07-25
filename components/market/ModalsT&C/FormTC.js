@@ -144,18 +144,16 @@ const FormTC = ({ opened, setContent, setModal }) => {
               onChange={(e) => setCC(e.target.value)}
             ></input>
           </div>
-          {user.roleId !== 5 && (
-            <div className="mx-auto flex flex-col gap-3 w-[80%]">
-              <legend className="!text-sm">Dirección Empresarial</legend>
-              <input
-                className="input bg-[#F4F4F4] w-full"
-                placeholder="Indica dirección de empresa"
-                value={direction}
-                onChange={(e) => setDirection(e.target.value)}
-                required
-              ></input>
-            </div>
-          )}
+          <div className="mx-auto flex flex-col gap-3 w-[80%]">
+            <legend className="!text-sm">Dirección Empresarial</legend>
+            <input
+              className="input bg-[#F4F4F4] w-full"
+              placeholder="Indica dirección de empresa"
+              value={direction}
+              onChange={(e) => setDirection(e.target.value)}
+              required
+            ></input>
+          </div>
         </div>
       </div>
       <div className="mt-auto flex justify-end w-full">
