@@ -235,27 +235,31 @@ const InvoiceReport = () => {
                   [
                     "Membership ID",
                     "Company Name",
-                    "Company Type",
+                    /* "Company Type", */
                     "Company Level",
                     "User Name",
                     "User Role",
                     "Invoice",
-                    "Material Sku",
-                    "Licensing Contract",
-                    "Major Licensing Programid",
+                    /* "Material Sku", */
+                    /* "Licensing Contract", */
+                    /* "Major Licensing Programid",
                     "Business Unit",
                     "Business Type",
-                    "Month",
+                    "Month", */
                     "Date",
                     "Client",
-                    "Product Name",
-                    "Quantity",
-                    "Total Sales Revenue (USD)",
+                    /* "Product Name", */
+                    /* "Quantity", */
+                    /* "Total Sales Revenue (USD)",
                     "Revenue by User (USD)",
                     "Total Sales DigiPoints",
                     "Sales DigiPoints by User",
                     "Promotions DigiPoints",
-                    "Promotions Name"
+                    "Promotions Name", */
+                    "Revenue by user (USD)",
+                    "Sales DigiPoints by user",
+                    "Promotions DigiPoints",
+                    "Promotions Name",
                   ]
                 }
               >
@@ -272,24 +276,22 @@ const InvoiceReport = () => {
                       <tr key={index}>
                         <td className="text-start mx-2 py-4 px-2">{data.company_id}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.company_name}</td>
+                        {/* <td className="text-start mx-2 py-4 px-2">{data.partner_type}</td> */}
                         <td className="text-start mx-2 py-4 px-2">{data.partner_type}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.business_unit}</td>
+                        {/* <td className="text-start mx-2 py-4 px-2">{data.business_unit}</td> */}
                         <td className="text-start mx-2 py-4 px-2">{data.user}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.user_rol}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.invoice}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.material_sku}</td>
+                        {/* <td className="text-start mx-2 py-4 px-2">{data.material_sku}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.licensing_contract}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.major_licensing_program_id}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.business_unit}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.business_type}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.month}</td>
+                        <td className="text-start mx-2 py-4 px-2">{data.month}</td> */}
                         <td className="text-start mx-2 py-4 px-2">{data.date}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.client}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.product}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.total_sales_amount}</td>
+                        {/* <td className="text-start mx-2 py-4 px-2">{data.product}</td> */}
                         <td className="text-start mx-2 py-4 px-2">{numberToMoney(data.amount_by_user)}</td>
-                        <td className="text-start mx-2 py-4 px-2">{numberToMoney(data.total_sales_us)}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.total_sales_us}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.digipoints_by_user}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.puntosxpromo}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.promoname}</td>
