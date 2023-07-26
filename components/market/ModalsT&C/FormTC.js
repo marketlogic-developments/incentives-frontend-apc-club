@@ -43,7 +43,7 @@ const FormTC = ({ opened, setContent, setModal }) => {
 
     axios
       .patch(
-        `${process.env.BACKURL}/users/${user.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
         { cedula: cc },
         {
           headers: {
@@ -65,7 +65,7 @@ const FormTC = ({ opened, setContent, setModal }) => {
 
           axios
             .patch(
-              `${process.env.BACKURL}/${company.endpoint}/${company.data.id}`,
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/${company.endpoint}/${company.data.id}`,
               {
                 address: direction,
               },

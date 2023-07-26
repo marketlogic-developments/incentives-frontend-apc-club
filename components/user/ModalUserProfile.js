@@ -25,7 +25,7 @@ const ModalUserProfile = ({ user, closeModal, token }) => {
   const deleteProfileImage = () => {
     return axios
       .patch(
-        `${process.env.BACKURL}/users/${user.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
         {
           profilePhotoPath: "noImage",
         },
@@ -66,13 +66,13 @@ const ModalUserProfile = ({ user, closeModal, token }) => {
 
     axios
       .post(
-        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`,
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
         form
       )
       .then((res) => {
         axios
           .patch(
-            `${process.env.BACKURL}/users/${user.id}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
             { profilePhotoPath: res.data.url },
             {
               headers: {
@@ -87,14 +87,14 @@ const ModalUserProfile = ({ user, closeModal, token }) => {
               icon: "success",
               position: "top",
               title: t("user.fotoUpdate"),
-              width: "100%"
+              width: "100%",
             });
             closeModal();
           });
       })
       .catch((error) => console.log(error));
   };
-  
+
   return (
     <>
       <div className="grid grid-rows-9 mr-8 ml-8 mb-3 mt-3">

@@ -72,7 +72,7 @@ const dashboard = ({ entries, banners }) => {
 
     axios
       .patch(
-        `${process.env.BACKURL}/users/${user?.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user?.id}`,
         { passwordReset: true, password: data.target[0].value },
         {
           headers: {

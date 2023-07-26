@@ -128,7 +128,7 @@ const UserOptions = ({ user, token, logout, menuUser, setMenuUser }) => {
   const deleteProfileImage = () => {
     return axios
       .patch(
-        `${process.env.BACKURL}/users/${user.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
         {
           profilePhotoPath: "noImage",
         },
@@ -168,13 +168,13 @@ const UserOptions = ({ user, token, logout, menuUser, setMenuUser }) => {
 
     axios
       .post(
-        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`,
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
         form
       )
       .then((res) => {
         axios
           .patch(
-            `${process.env.BACKURL}/users/${user.id}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
             { profilePhotoPath: res.data.url },
             {
               headers: {

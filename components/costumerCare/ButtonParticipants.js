@@ -31,7 +31,7 @@ const ButtonParticipants = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.BACKURL}/pos`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/pos`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -52,7 +52,7 @@ const ButtonParticipants = () => {
     e.preventDefault();
 
     // axios.post(
-    //   `${process.env.BACKURL}/pos`,
+    //   `${process.env.NEXT_PUBLIC_BACKEND_URL}/pos`,
     //   {
     //     name: `${form.name} ${form.lastName}`,
     //     email: form.email,

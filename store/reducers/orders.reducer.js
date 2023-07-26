@@ -28,7 +28,7 @@ export default ordersAction.reducer;
 
 export const getOrders = (token, id) => async (dispatch) => {
   axios
-    .get(`${process.env.BACKURL}/order-carts`, {
+    .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/order-carts`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -42,7 +42,7 @@ export const getOrders = (token, id) => async (dispatch) => {
 export const getOrdersAll = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/redeem`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/redeem`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

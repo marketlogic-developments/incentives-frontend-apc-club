@@ -109,7 +109,7 @@ export default saleActions.reducer;
 export const getSalesData = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/files-so`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/files-so`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -127,7 +127,7 @@ export const processFile = (token, data) => async (dispatch) => {
   try {
     return axios
       .post(
-        `${process.env.BACKURL}/csv-files/`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/csv-files/`,
         {
           fileProcess: data,
           userAssign: 1,
@@ -151,7 +151,7 @@ export const processFile = (token, data) => async (dispatch) => {
 export const getSalesPointsData = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/assigned/`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/assigned/`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -169,7 +169,7 @@ export const getSalesPointsData = (token) => async (dispatch) => {
 export const getProductsData = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/products/`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/products/`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -187,7 +187,7 @@ export const getProductsData = (token) => async (dispatch) => {
 export const getStatus = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/operation-status/`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/operation-status/`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -203,7 +203,7 @@ export const getStatus = (token) => async (dispatch) => {
 export const createSaleData = (token, data) => async (dispatch) => {
   try {
     axios
-      .post(`${process.env.BACKURL}/uploads/document/`, data, {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/document/`, data, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -220,13 +220,16 @@ export const createSaleData = (token, data) => async (dispatch) => {
 export const getDigipointsAll = (token) => async (dispatch) => {
   try {
     axios
-      .get(`${process.env.BACKURL}/reporters/partner-admin-accums-all/`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/partner-admin-accums-all/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         dispatch(getDigiPa(res.data));
       });
@@ -237,13 +240,16 @@ export const getDigipointsAll = (token) => async (dispatch) => {
 export const getDigipointsPa = (token, data) => async (dispatch) => {
   try {
     axios
-      .get(`${process.env.BACKURL}/partner-admin-accums/${data}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/partner-admin-accums/${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         const dataObj = res.data.map((data) => ({
           ...data,
@@ -272,13 +278,16 @@ export const getDigipointsPa = (token, data) => async (dispatch) => {
 export const getSalesBySegmentAll = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/salesbysegmentall/`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesbysegmentall/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         dispatch(getSalesSegment(res.data));
       });
@@ -289,13 +298,16 @@ export const getSalesBySegmentAll = (token) => async (dispatch) => {
 export const getSalesBySegmentComp = (token, data) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/salesbysegment/${data}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesbysegment/${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         dispatch(getSalesSegment(res.data));
       });
@@ -307,13 +319,16 @@ export const getSalesBySegmentComp = (token, data) => async (dispatch) => {
 export const getSalesBySegmentDist = (token, data) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/salesbysegment-distri/${data}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesbysegment-distri/${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => dispatch(getSalesSegment(res.data)));
   } catch (err) {
     console.log(err);
@@ -322,13 +337,16 @@ export const getSalesBySegmentDist = (token, data) => async (dispatch) => {
 export const getSalesByTypeAll = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/salesbybtypeall/`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesbybtypeall/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         dispatch(getSalesType(res.data));
       });
@@ -340,13 +358,16 @@ export const getSalesByTypeAll = (token) => async (dispatch) => {
 export const getSalesByTypeComp = (token, data) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/salesbybtype/${data}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesbybtype/${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         dispatch(getSalesType(res.data));
       });
@@ -358,13 +379,16 @@ export const getSalesByTypeComp = (token, data) => async (dispatch) => {
 export const getSalesByTypeDist = (token, data) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/salesbybtype-distri/${data}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesbybtype-distri/${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         dispatch(getSalesType(res.data));
       });
@@ -376,7 +400,7 @@ export const getSalesByTypeDist = (token, data) => async (dispatch) => {
 export const getSalesAll = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/salesall/`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesall/`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -392,13 +416,16 @@ export const getSalesAll = (token) => async (dispatch) => {
 export const getSalesAllByChannel = (token, data) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/salesallbychannels/${data}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesallbychannels/${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => dispatch(getallSales(res.data)));
   } catch (err) {
     console.log(err);
@@ -408,13 +435,16 @@ export const getSalesAllByChannel = (token, data) => async (dispatch) => {
 export const getSalesAllByDist = (token, data) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/salesallbydistri/${data}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesallbydistri/${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => dispatch(getallSales(res.data)));
   } catch (err) {
     console.log(err);
@@ -424,13 +454,16 @@ export const getSalesAllByDist = (token, data) => async (dispatch) => {
 export const getGoalsByChannel = (token, data) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/goalsbycompaniessegment/${data}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/goalsbycompaniessegment/${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => dispatch(getGoals(res.data)));
   } catch (err) {
     console.log(err);
@@ -439,13 +472,16 @@ export const getGoalsByChannel = (token, data) => async (dispatch) => {
 export const getGoalsByDistri = (token, data) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/goalsbydistrisegment/${data}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/goalsbydistrisegment/${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => dispatch(getGoals(res.data)));
   } catch (err) {
     console.log(err);
@@ -454,7 +490,7 @@ export const getGoalsByDistri = (token, data) => async (dispatch) => {
 export const getAllGoals = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/goalsbysegment`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/goalsbysegment`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -469,7 +505,7 @@ export const getAllGoals = (token) => async (dispatch) => {
 export const getUserSalePerformance = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/userperformance`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/userperformance`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -485,13 +521,16 @@ export const getUserSalePerformance = (token) => async (dispatch) => {
 export const getSalesPerformance = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/salesperformance`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesperformance`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => dispatch(getSalePer(res.data)));
   } catch (err) {
     console.log(err);
@@ -501,13 +540,16 @@ export const getSalesPerformance = (token) => async (dispatch) => {
 export const getInvoiceReport = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/invoiceperformance`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/invoiceperformance`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => dispatch(getInvoicePer(res.data)));
   } catch (err) {
     console.log(err);
@@ -517,7 +559,7 @@ export const getInvoiceReport = (token) => async (dispatch) => {
 export const getSalesvGoals = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/getsalesvsgoals`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getsalesvsgoals`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -533,13 +575,16 @@ export const getSalesvGoals = (token) => async (dispatch) => {
 export const getDigipointsPermonth = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/getdigipointspermonth`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getdigipointspermonth`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => dispatch(getDigipointsPer(res.data)));
   } catch (err) {
     console.log(err);
@@ -549,13 +594,16 @@ export const getDigipointsPermonth = (token) => async (dispatch) => {
 export const getSalesvsGoalsUsePerformance = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/getsalesvsredeem`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getsalesvsredeem`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => dispatch(getSalesvsGoalsUsePer(res.data)));
   } catch (err) {
     console.log(err);

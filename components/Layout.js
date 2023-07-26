@@ -96,18 +96,21 @@ const Layout = ({ children }) => {
       const userGetData = JSON.parse(window.sessionStorage.getItem("infoDt"));
 
       axios
-        .get(`${process.env.BACKURL}/users/${userGetData?.id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${userGetData?.token}`,
-          },
-        })
+        .get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userGetData?.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${userGetData?.token}`,
+            },
+          }
+        )
         .then((userInfo) => {
           //Get user digiPoints
           axios
             .get(
-              `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/${userGetData?.id}`,
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/2/${userGetData?.id}`,
               {
                 headers: {
                   "Content-Type": "application/json",
@@ -146,7 +149,7 @@ const Layout = ({ children }) => {
 
           axios
             .get(
-              `${process.env.BACKURL}/${compOrDist.endpoint}/${compOrDist.byId}`,
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/${compOrDist.endpoint}/${compOrDist.byId}`,
               {
                 headers: {
                   "Content-Type": "application/json",

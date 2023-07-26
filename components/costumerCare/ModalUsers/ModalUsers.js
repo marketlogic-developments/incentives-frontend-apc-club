@@ -85,7 +85,7 @@ const ModalUsers = ({ userDataToModal, token }) => {
 
     if (userDataToModal.companyId === null) {
       axios
-        .get(`${process.env.BACKURL}/distribution-channel`, {
+        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/distribution-channel`, {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
@@ -97,7 +97,7 @@ const ModalUsers = ({ userDataToModal, token }) => {
         });
     } else {
       axios
-        .get(`${process.env.BACKURL}/companies`, {
+        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/companies`, {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
@@ -155,7 +155,7 @@ const ModalUsers = ({ userDataToModal, token }) => {
 
     return axios
       .patch(
-        `${process.env.BACKURL}/users/${userDataToModal.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userDataToModal.id}`,
         elementosFiltrados,
         {
           headers: {
@@ -187,7 +187,7 @@ const ModalUsers = ({ userDataToModal, token }) => {
   const handleChangePassword = () => {
     return axios
       .patch(
-        `${process.env.BACKURL}/users/${userDataToModal.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userDataToModal.id}`,
         {
           password: changePassword,
         },
