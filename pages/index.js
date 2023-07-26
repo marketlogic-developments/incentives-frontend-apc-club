@@ -29,8 +29,6 @@ import LoginTarget from "../components/login/LoginTarget";
 export default function Home() {
   const user = useSelector((state) => state.user);
   const dataFromAxios = useSelector((state) => state.sales);
-  console.log(process.env.NEXT_PUBLIC_BACKEND_URL);
-
   const [t, i18n] = useTranslation("global");
 
   const dispatch = useDispatch();
