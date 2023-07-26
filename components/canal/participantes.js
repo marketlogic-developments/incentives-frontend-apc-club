@@ -40,7 +40,7 @@ const Participantes = () => {
 
       axios
         .get(
-          `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const Participantes = () => {
 
   const handleChangeCheckbox = (e) => {
     axios.patch(
-      `${process.env.BACKURL}/users/${userDataToModal.id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userDataToModal.id}`,
       {
         operationStatusId: e.target.checked === false ? 5 : 4,
       },
@@ -74,7 +74,7 @@ const Participantes = () => {
 
   const getUser = (userData) => {
     axios
-      .get(`${process.env.BACKURL}/users/${userData.id}`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userData.id}`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -93,7 +93,7 @@ const Participantes = () => {
   const quitUser = () => {
     axios
       .patch(
-        `${process.env.BACKURL}/users/${userDataToModal.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userDataToModal.id}`,
         { companyId: 0 },
         {
           headers: {

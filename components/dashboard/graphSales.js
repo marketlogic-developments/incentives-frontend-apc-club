@@ -44,12 +44,15 @@ const GraphSales = () => {
   }, [token]);
 
   useEffect(() => {
-    setCC(
-      sales.filter(({ business_unit }) => business_unit === "Creative Cloud")
-    );
-    setDC(
-      sales.filter(({ business_unit }) => business_unit === "Document Cloud")
-    );
+    // Check if the sales state is an array before filtering and setting CC state
+    if (Array.isArray(sales) && typeof setCC === 'function') {
+      setCC(sales.filter(({ business_unit }) => business_unit === 'Creative Cloud'));
+    }
+
+    // Check if the sales state is an array before filtering and setting DC state
+    if (Array.isArray(sales) && typeof setDC === 'function') {
+      setDC(sales.filter(({ business_unit }) => business_unit === 'Document Cloud'));
+    }
   }, [sales]);
 
   return (

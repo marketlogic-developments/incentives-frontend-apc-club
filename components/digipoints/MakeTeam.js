@@ -46,7 +46,7 @@ const MakeTeam = () => {
     if ([1, 2, 3].includes(user?.roleId)) {
       axios
         .get(
-          `${process.env.BACKURL}/reporters/all-users-by-groupname-where-id/${user.id}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/all-users-by-groupname-where-id/${user.id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -65,13 +65,16 @@ const MakeTeam = () => {
     dispatch(changeLoadingData(true));
 
     axios
-      .get(`${process.env.BACKURL}/partner-admin-group-headers/${data.id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/partner-admin-group-headers/${data.id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res1) => {
         setInfoModal(res1.data);
         setOpened(true);
@@ -99,7 +102,7 @@ const MakeTeam = () => {
       if (result.isConfirmed) {
         axios
           .delete(
-            `${process.env.BACKURL}/partner-admin-group-headers/${data.id}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/partner-admin-group-headers/${data.id}`,
             {
               headers: {
                 "Content-Type": "application/json",

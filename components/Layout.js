@@ -43,7 +43,7 @@ import {
   ShoppingCard,
   Megaphone,
 } from "./icons";
-import ModalUserProfile from "./user/ModalUserProfile";
+import ModalPersonalize from "./Lay0ut/ModalPersonalize";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -78,6 +78,15 @@ const Layout = ({ children }) => {
     };
   });
 
+  useEffect(() => {
+    if (userRedux.cpf !== "viewVideo" && userRedux !== 0) {
+      setModal(1);
+      setTimeout(() => {
+        setOpened(true);
+      }, 2000);
+    }
+  }, [userRedux]);
+
   const modalCustomerCare = () => {
     setModalCustomer(!modalCustomer);
   };
@@ -87,18 +96,21 @@ const Layout = ({ children }) => {
       const userGetData = JSON.parse(window.sessionStorage.getItem("infoDt"));
 
       axios
-        .get(`${process.env.BACKURL}/users/${userGetData?.id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${userGetData?.token}`,
-          },
-        })
+        .get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userGetData?.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${userGetData?.token}`,
+            },
+          }
+        )
         .then((userInfo) => {
           //Get user digiPoints
           axios
             .get(
-              `${process.env.BACKURL}/reporters/digipoints-redeem-status/2/${userGetData?.id}`,
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/2/${userGetData?.id}`,
               {
                 headers: {
                   "Content-Type": "application/json",
@@ -137,7 +149,7 @@ const Layout = ({ children }) => {
 
           axios
             .get(
-              `${process.env.BACKURL}/${compOrDist.endpoint}/${compOrDist.byId}`,
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/${compOrDist.endpoint}/${compOrDist.byId}`,
               {
                 headers: {
                   "Content-Type": "application/json",
@@ -815,13 +827,7 @@ const Layout = ({ children }) => {
       return <ModalCustomerCare closeModal={closeModal} />;
     }
     if (modal === 1) {
-      return (
-        <ModalUserProfile
-          closeModal={closeModal}
-          user={userRedux}
-          token={token}
-        />
-      );
+      return <ModalPersonalize onClose={setOpened} />;
     }
   }, [modal, opened]);
 
@@ -970,7 +976,8 @@ const Layout = ({ children }) => {
       <Modal
         opened={opened}
         withCloseButton={modal == 0 ? true : false}
-        onClose={closeModal}
+        onClose={modal !== 1 && closeModal}
+        fullScreen={modal === 1}
         centered
         size={"auto"}
         transitionProps={{ transition: "rotate-left" }}

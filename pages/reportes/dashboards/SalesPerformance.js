@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSalesPerformance } from "../../../store/reducers/sales.reducer";
+import {
+  getDigipointsPermonth,
+  getSalesPerformance,
+  getSalesvGoals,
+} from "../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
@@ -43,11 +47,34 @@ const SalesPerformance = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const products = useSelector((state) => state.sales.products);
   const [data, setData] = useState([]);
+  const [dataBarChar, setDataBarChar] = useState([]);
+  const [dataLineChar, setDataLineChar] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
+  const [loadingBarChart, setLoadingBarChart] = useState(true);
   const router = useRouter();
+  const sortedData = {};
+  const [goalAmount, setGoalAmount] = useState([]);
+  const [totalSales, setTotalSales] = useState([]);
+  const months = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+  const goalAmountArray = [];
+  const totalSalesArray = [];
+  const totalPointsAssigned = [];
 
   useEffect(() => {
     setIsLoaded(true);
@@ -64,69 +91,58 @@ const SalesPerformance = () => {
         .catch((error) => {
           console.log(error);
         });
+
+      setLoading(true);
+      dispatch(getSalesvGoals(token))
+        .then((response) => {
+          setLoading(false);
+          setDataBarChar(response.payload[0].json_agg);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      setLoading(true);
+      dispatch(getDigipointsPermonth(token))
+        .then((response) => {
+          setLoading(false);
+          setDataLineChar(response.payload);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [isLoaded]);
+  
+  useEffect(() => {
+    if (dataBarChar) {
+      setLoadingBarChart(true);
+      dataBarChar.forEach((item) => {
+        const { mes_transformado, sum_goal_amount, sum_total_sales_us } = item;
+        const monthName = months[mes_transformado - 1];
 
+        if (!sortedData[monthName]) {
+          sortedData[monthName] = true;
+          goalAmountArray.push(Number(sum_goal_amount).toFixed(2));
+          totalSalesArray.push(Number(sum_total_sales_us).toFixed(2));
+        }
+      });
+      setGoalAmount(goalAmountArray);
+      setTotalSales(totalSalesArray);
+      setLoadingBarChart(false);
+    }
+    
+  }, [dataBarChar]);
+
+  totalPointsAssigned = dataLineChar.map(({ total_points_assigned }) => total_points_assigned);
+  
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
       .toFixed(0)
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
   };
-
-  const example = [
-    {
-      id: 1,
-      compania: "Adobe",
-      region: "-",
-      pais: "Colombia",
-      membership_Id: "Adobe",
-      tipo: "ML0001",
-      nivel: "Gold certified",
-      status: "Inactivo",
-      registrado: "Sí",
-      cc_renewal: "0",
-      cc_new_business: "396,942",
-      dc_renewal: "0",
-    },
-    {
-      id: 2,
-      compania: "Adobe",
-      region: "-",
-      pais: "Guatemala",
-      membership_Id: "Adobe",
-      tipo: "ML0001",
-      nivel: "Gold certified",
-      status: "Activo",
-      registrado: "Sí",
-      cc_renewal: "0",
-      cc_new_business: "396,942",
-      dc_renewal: "0",
-    },
-  ];
-  const dataOnew = [
-    2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3,
-  ];
-  const dataTwo = [
-    2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,
-  ];
-  const xValuesBar = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
-  const datas = [
-    2.3, 6.0, 18.8, 48.7, 182.2, 175.6, 70.7, 28.7, 26.4, 9.0, 5.9, 2.6,
-  ];
+  
   const xValuesLine = [
     "Ene",
     "Feb",
@@ -201,8 +217,6 @@ const SalesPerformance = () => {
       return item;
     });
   }, [filters, filteredUsers]);
-
-  console.log(dataTable);
 
   /* Clear Filter */
   const clearSelects = () => {
@@ -330,31 +344,28 @@ const SalesPerformance = () => {
           />
         </div>
       </div> */}
-      {/* <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
-        <CardChart title={t("Reportes.metas_vs_cumplimiento")} paragraph="">
+      <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
+        <CardChart title={"Goals vs. Sales"} paragraph="">
           <BarChar
-            title={t("Reportes.ventas_mensuales")}
+            title={"Monthly sales"}
             colorBarOne={"black"}
             colorBarTwo={"#2799F6"}
-            dataLeyend={[
-              t("Reportes.ingresos_esperados"),
-              t("Reportes.ingreso_actual"),
-            ]}
-            dataOne={dataOne}
-            dataTwo={dataTwo}
-            xValues={xValuesBar}
+            dataLeyend={["Goals", "Current sales"]}
+            dataOne={goalAmount}
+            dataTwo={totalSales}
+            xValues={xValuesLine}
           />
         </CardChart>
         <CardChart title={t("Reportes.digiponits")}>
           <LineChart
-            title={t("Reportes.dp_cargados_mensualmente")}
+            title={"Monthly loaded DigiPoints"}
             color={"red"}
             xValues={xValuesLine}
-            data={datas}
+            data={totalPointsAssigned}
           />
         </CardChart>
-      </div> */}
-      <div className="grid sm:grid-cols-2 grid-rows-1">
+      </div>
+      <div className="grid sm:grid-cols-2 grid-rows-1 mt-5">
         <div className="grid sm:grid-cols-3 sm:justify-items-start justify-items-center mt-3">
           <div className="sm:w-[90%] w-[60%]">
             <SelectInputValue
@@ -447,8 +458,11 @@ const SalesPerformance = () => {
                 // "Revenue Q2 (USD)",
                 // "Revenue Q3 (USD)",
                 // "Revenue Q4 (USD)",
-                "Actual Revenue",
-                "Sales DigiPoints",
+                "Total VIP Revenue (USD)",
+                "Total VMP Revenue (USD)",
+                "Actual Revenue (USD)",
+                "RMA (USD)",
+                "Total Revenue (USD)",
               ]}
             >
               {currentItems &&
@@ -522,9 +536,20 @@ const SalesPerformance = () => {
                       {numberToMoney(data.revenue_q4)}
                     </th> */}
                     <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.total_vip)}
+                    </th>
+                    <th className="text-left py-3 mx-7">
+                      {numberToMoney(data.total_vmp)}
+                    </th>
+                    <th className="text-left py-3 mx-7">
                       ${data.actual_revenue}
                     </th>
-                    <th className="text-left py-3 mx-7">{data.puntos}</th>
+                    <th className="text-left py-3 mx-7">
+                      {data.rma}
+                    </th>
+                    <th className="text-left py-3 mx-7">
+                      {data.total_revenue}
+                    </th>
                   </tr>
                 ))}
             </Table>

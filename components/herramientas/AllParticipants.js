@@ -72,7 +72,7 @@ const AllParticipants = () => {
 
   const handleChangeCheckbox = (e) => {
     axios.patch(
-      `${process.env.BACKURL}/users/${userDataToModal.id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userDataToModal.id}`,
       {
         operationStatusId: e.target.checked === false ? 5 : 4,
       },

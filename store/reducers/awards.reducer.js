@@ -53,7 +53,7 @@ export default awardsAction.reducer;
 export const pushReward = (token, data) => async (dispatch) => {
   try {
     axios
-      .post(`${process.env.BACKURL}/awards`, data, {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/awards`, data, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -69,7 +69,7 @@ export const pushReward = (token, data) => async (dispatch) => {
 export const getDataAwards = (token, user) => async (dispatch) => {
   try {
     axios
-      .get(`${process.env.BACKURL}/awards`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/awards`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -137,7 +137,7 @@ export const getDataAwards = (token, user) => async (dispatch) => {
 export const getDataRules = (token) => async (dispatch) => {
   try {
     axios
-      .get(`${process.env.BACKURL}/rules`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/rules`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

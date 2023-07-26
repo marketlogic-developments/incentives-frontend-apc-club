@@ -245,7 +245,7 @@ const DigipointsAll = () => {
       if (result.isConfirmed) {
         axios
           .post(
-            `${process.env.BACKURL}/employee-poits-collects/unassign-invoice`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/employee-poits-collects/unassign-invoice`,
             {
               isGold: false,
               invoiceReference: obj.salesOrder,
@@ -339,8 +339,8 @@ const DigipointsAll = () => {
   function Table({ currentItems }) {
     return (
       <>
-        <table className="w-full text-sm text-left text-black-500">
-          <thead className="text-xs text-black-500 uppercase">
+        <table className="w-full text-sm text-left text-black-500 tableJustify overflow-hidden rounded-md">
+          <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
             <tr>
               <th scope="col" className="py-3 px-6">
                 {t("tabla.fecha")}
@@ -349,10 +349,10 @@ const DigipointsAll = () => {
                 {t("tabla.nfactura")}
               </th>
               <th scope="col" className="py-3 px-6">
-                ORGANIZACION
+                Organización
               </th>
               <th scope="col" className="py-3 px-6">
-                ORGANIZACION ID
+                Organización ID
               </th>
               <th scope="col" className="py-3 px-6">
                 Digipoints
@@ -369,7 +369,9 @@ const DigipointsAll = () => {
             {currentItems &&
               currentItems.map((obj, index) => (
                 <tr
-                  className="bg-white border-b dark:border-gray-500"
+                  className={`${
+                    (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
+                  } w-full`}
                   key={index}
                 >
                   <td className="py-4 px-6">{formatDate(obj?.load_date)}</td>
@@ -460,85 +462,51 @@ const DigipointsAll = () => {
       >
         {typeModal}
       </Modal>
-      <div className="flex flex-col gap-16">
-        <div className="w-full md:w-2/2 shadow p-5 rounded-lg bg-white">
-          {!loading && (
+      <div className="flex flex-col gap-6 mt-6">
+        {!loading ? (
+          <>
             <div className="w-full grid grid-cols-3 gap-4 mb-4">
-              <div className="relative">
-                <select
-                  value={emailFilter}
-                  onChange={handleEmailFilterChange}
-                  className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                >
-                  <option value="">{t("menu.Participantes")}</option>
-                  {uniqueEmails.map((email) => (
-                    <option key={email} value={email}>
-                      {email}
-                    </option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg
-                    className="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 13.707a1 1 0 001.414 0l4-4a1 1 0 00-1.414-1.414L11 11.586V3a1 1 0 10-2 0v8.586l-2.293-2.293a1 1 0 00-1.414 1.414l4 4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
+              <select
+                value={emailFilter}
+                onChange={handleEmailFilterChange}
+                className="select select-bordered w-3/4 bg-[#F4F4F4]"
+              >
+                <option value="">{t("menu.Participantes")}</option>
+                {uniqueEmails.map((email) => (
+                  <option key={email} value={email}>
+                    {email}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={reasonAssignFilter}
+                onChange={handleReasonAssignFilterChange}
+                className="select select-bordered w-3/4 bg-[#F4F4F4]"
+              >
+                <option value="">Invoice</option>
+                {uniqueReasonAssign.map((reason) => (
+                  <option key={reason} value={reason}>
+                    {reason}
+                  </option>
+                ))}
+              </select>
 
-              <div className="relative">
-                <select
-                  value={reasonAssignFilter}
-                  onChange={handleReasonAssignFilterChange}
-                  className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                >
-                  <option value="">Invoice</option>
-                  {uniqueReasonAssign.map((reason) => (
-                    <option key={reason} value={reason}>
-                      {reason}
-                    </option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg
-                    className="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 13.707a1 1 0 001.414 0l4-4a1 1 0 00-1.414-1.414L11 11.586V3a1 1 0 10-2 0v8.586l-2.293-2.293a1 1 0 00-1.414 1.414l4 4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-              </div>
               <div className="relative justify-items-center grid grid-flow-col">
                 <button
-                  className="btn bg-red-500 hover:bg-red-700 text-white font-bold text-[12px] h-1 min-h-full rounded-full"
+                  className="font-bold !text-info cursor-pointer"
                   onClick={handleResetFilters}
                 >
                   {t("tabla.limpiar")}
                 </button>
                 <button
-                  className="btn bg-red-500 hover:bg-red-700 text-white font-bold text-[12px] h-1 min-h-full rounded-full"
+                  className="font-bold !text-info cursor-pointer"
                   onClick={() => importFile(filteredUsers)}
                 >
                   Exportar
                 </button>
               </div>
             </div>
-          )}
-          {loading && <div className="lds-dual-ring"></div>}
-
-          {!loading && <Table currentItems={currentItems} />}
-          {!loading && (
+            <Table currentItems={currentItems} />
             <ReactPaginate
               pageCount={pageCount}
               marginPagesDisplayed={2}
@@ -560,8 +528,10 @@ const DigipointsAll = () => {
                 <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
               }
             />
-          )}
-        </div>
+          </>
+        ) : (
+          <div className="lds-dual-ring"></div>
+        )}
       </div>
     </>
   );

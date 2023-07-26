@@ -17,3 +17,4 @@ export { default as TableUserPerformance } from "./table/TableUserPerformance";
 export { default as ModalUserProfile } from "./user/ModalUserProfile";
 export { default as NoImageProfile } from "./user/perfil/NoImageProfile";
 export { default as ImageProfile } from "./user/perfil/ImageProfile";
+export { default as MultiLineChart } from "./charts/MultiLineChart";
