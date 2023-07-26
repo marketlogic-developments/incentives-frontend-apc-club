@@ -621,7 +621,7 @@ export const getSalesvsGoalsUsePerformance = (token) => async (dispatch) => {
 export const getLicenciesByMonth = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.BACKURL}/reporters/getlicenciesbymonth`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getlicenciesbymonth`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
