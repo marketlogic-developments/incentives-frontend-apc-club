@@ -544,16 +544,16 @@ const SalesPerformance = () => {
                       {numberToMoney(data.total_vmp)}
                     </th>
                     <th className="text-left py-3 mx-7">
-                      ${data.actual_revenue}
+                      {numberToMoney(data.actual_revenue)}
                     </th>
                     <th className="text-left py-3 mx-7">
-                      ${data.rma}
+                      {numberToMoney(data.rma)}
                     </th>
                     <th className="text-left py-3 mx-7">
-                      ${data.total_revenue}
+                      {numberToMoney(data.total_revenue)}
                     </th>
                     <th className="text-left py-3 mx-7">
-                      ${data.expected_revenue}
+                      {numberToMoney(data.expected_revenue)}
                     </th>
                     <th className="text-left py-3 mx-7">
                       %{data.avg_effectiveness}
