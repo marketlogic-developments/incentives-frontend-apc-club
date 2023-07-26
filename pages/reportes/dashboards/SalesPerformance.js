@@ -556,7 +556,7 @@ const SalesPerformance = () => {
                       ${data.expected_revenue}
                     </th>
                     <th className="text-left py-3 mx-7">
-                      %{data.avg_effectiveness}
+                      {data.avg_effectiveness}%
                     </th>
                   </tr>
                 ))}
