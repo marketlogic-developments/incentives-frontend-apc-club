@@ -355,6 +355,15 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">
                         {data.name.split(" ").slice(0, -1).join(" ")}
                       </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.country_id}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.region}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.name.split(" ").slice(0, -1).join(" ")}
+                      </th>
                       {/* <th className="text-left py-3 px-2 mx-4">{data.country_id}</th> */}
                       <th className="text-left py-3 px-2 mx-4">
                         {data.region}
@@ -365,6 +374,10 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">
                         {data.reseller_or_dist_name}
                       </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.dcname}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">{data.rtype}</th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.dcname}
                       </th>

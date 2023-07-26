@@ -18,6 +18,7 @@ const initialState = {
   getsalesvsgoals: [],
   getdigipointspermonth: [],
   getsalesvsgoalsuseper: [],
+  getlicenciesbymonth: [],
 };
 
 export const saleActions = createSlice({
@@ -72,6 +73,12 @@ export const saleActions = createSlice({
     getDigipointsPer: (state, action) => {
       state.getdigipointspermonth = action.payload;
     },
+    getSalesvsGoalsUsePer: (state, action) => {
+      state.getsalesvsgoalsuseper = action.payload;
+    },
+    getLicenciesbyMonth: (state, action) => {
+      state.getlicenciesbymonth = action.payload;
+    },
 
     getSalesvsGoalsUsePer: (state, action) => {
       state.getsalesvsgoalsuseper = action.payload;
@@ -102,6 +109,7 @@ export const {
   getSalesVSGoals,
   getDigipointsPer,
   getSalesvsGoalsUsePer,
+  getLicenciesbyMonth,
 } = saleActions.actions;
 
 export default saleActions.reducer;
@@ -605,6 +613,22 @@ export const getSalesvsGoalsUsePerformance = (token) => async (dispatch) => {
         }
       )
       .then((res) => dispatch(getSalesvsGoalsUsePer(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getLicenciesByMonth = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.BACKURL}/reporters/getlicenciesbymonth`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getLicenciesbyMonth(res.data)));
   } catch (err) {
     console.log(err);
   }
