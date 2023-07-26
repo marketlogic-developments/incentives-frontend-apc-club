@@ -27,6 +27,7 @@ import { CardChart, InputReporte } from "../components";
 import { SearchIcon } from "../components/icons";
 import client from "../contentful";
 import { getVideos } from "../store/reducers/contentful.reducer";
+import { getLicenciesByMonth } from "../store/reducers/sales.reducer";
 
 const dashboard = ({ entries, banners }) => {
   const token = useSelector((state) => state.user.token);
@@ -39,11 +40,87 @@ const dashboard = ({ entries, banners }) => {
   const route = useRouter();
   const [t, i18n] = useTranslation("global");
   const [modalType, setModalType] = useState([]);
+  const [data, setData] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [salesData, setSalesData] = useState({
+    documentCloud: { teams: [], enterprise: [], education: [] },
+    creativeCloud: { teams: [], enterprise: [], education: [] },
+    numberData: [],
+  });
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   useEffect(() => {
     dispatch(getVideos(entries));
     redirection();
   }, [user]);
+
+  useEffect(() => {
+    if (isLoaded && token) {
+      setLoading(true);
+      dispatch(getLicenciesByMonth(token))
+        .then((response) => {
+          setLoading(false);
+          setData(response.payload[0].monthly_sales_data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [isLoaded]);
+
+  useEffect(() => {
+    if (data) {
+      const newData = {
+        documentCloud: { teams: [], enterprise: [], education: [] },
+        creativeCloud: { teams: [], enterprise: [], education: [] },
+        numberData: [],
+      };
+
+      Object.values(data).forEach((value) => {
+        let teamsD = 0;
+        let educationD = 0;
+        let enterpriseD = 0;
+        let teamsC = 0;
+        let educationC = 0;
+        let enterpriseC = 0;
+
+        value.forEach((item) => {
+          const { business_unit, sub_bu, total_sales_qt } = item;
+
+          if (business_unit === "Document Cloud") {
+            if (sub_bu === "Teams") {
+              teamsD += Number(total_sales_qt);
+            } else if (sub_bu === "Enterprise") {
+              enterpriseD += Number(total_sales_qt);
+            } else if (sub_bu === "Education") {
+              educationD += Number(total_sales_qt);
+            }
+          } else if (business_unit === "Creative Cloud") {
+            if (sub_bu === "Teams") {
+              teamsC += Number(total_sales_qt);
+            } else if (sub_bu === "Enterprise") {
+              enterpriseC += Number(total_sales_qt);
+            } else if (sub_bu === "Education") {
+              educationC += Number(total_sales_qt);
+            }
+          }
+        });
+
+        newData.documentCloud.teams.push(teamsD);
+        newData.documentCloud.enterprise.push(enterpriseD);
+        newData.documentCloud.education.push(educationD);
+        newData.creativeCloud.teams.push(teamsC);
+        newData.creativeCloud.enterprise.push(enterpriseC);
+        newData.creativeCloud.education.push(educationC);
+      });
+      newData.numberData = Object.keys(data);
+      setSalesData(newData);
+    }
+  }, [data]);
 
   const redirection = () => {
     if (!user?.passwordReset) {
@@ -322,26 +399,7 @@ const dashboard = ({ entries, banners }) => {
           // setOpened2(false);
         }}
         className={"modalCloseDashboard"}
-      >
-        {/* <a href="mailto:info@adobepcclub.com">
-          <figure>
-            {i18n.resolvedLanguage === "por" ? (
-              <img
-                src="assets/dashboard/banners/bannerPApor.webp"
-                alt="Sales_PA"
-                className="w-full"
-              ></img>
-            ) : (
-              <img
-                src="assets/dashboard/banners/bannerPA.webp"
-                alt="Sales_PA"
-                className="w-full"
-              ></img>
-            )}
-          </figure>s
-        </a> */}
-        <BannerColombia user={user} token={token} />
-      </Modal>
+      ></Modal>
       <ContainerContent pageTitle={"Dashboard"}>
         <div className="m-6 flex flex-col gap-10 ">
           <CarouselBanners banners={banners} />
@@ -349,7 +407,7 @@ const dashboard = ({ entries, banners }) => {
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
             <GraphSales />
-            {/* <div className="sm:w-full w-[355px]">
+            <div className="sm:w-full w-[355px]">
               <CardChart title={"Licencias"} paragraph="">
                 <LicenseChart
                   dataLeyend={[
@@ -360,13 +418,13 @@ const dashboard = ({ entries, banners }) => {
                     "DC Enterprise",
                     "DC Education",
                   ]}
-                  dataX={[0, 1, 2, 3, 4, 5]}
-                  dataOne={[120, 132, 101, 134, 90, 230, 210]}
-                  dataTwo={[220, 182, 191, 234, 290, 330, 310]}
-                  dataThree={[150, 232, 201, 154, 190, 330, 410]}
-                  dataFour={[320, 332, 301, 334, 390, 330, 320]}
-                  dataFive={[820, 932, 901, 934, 1290, 1330, 1320]}
-                  dataSix={[830, 832, 101, 234, 1190, 1230, 1340]}
+                  dataX={salesData.numberData}
+                  dataOne={salesData.creativeCloud.teams}
+                  dataTwo={salesData.creativeCloud.enterprise}
+                  dataThree={salesData.creativeCloud.education}
+                  dataFour={salesData.documentCloud.teams}
+                  dataFive={salesData.documentCloud.enterprise}
+                  dataSix={salesData.documentCloud.education}
                   colorsLine={[
                     "black",
                     "blue",
@@ -377,34 +435,20 @@ const dashboard = ({ entries, banners }) => {
                   ]}
                 />
               </CardChart>
-            </div> */}
-            <div className="grid w-full">
-              <div>
-                <h1 className="font-bold">{t("dashboard.topUsuarios")}</h1>
-              </div>
-              <InputReporte
-                image={<SearchIcon />}
-                placeHolder={t("Reportes.buscar")}
-                stylesContainer={"mt-2"}
-                stylesInput={
-                  "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
-                }
-                stylesImage={"pb-0"}
-              />
-              <TableTopsRanking
-                containerStyles={
-                  "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-[300px]"
-                }
-                tableStyles={"table-zebra !text-sm"}
-                thStyles={"sticky text-white"}
-                cols={[
-                  t("Top"),
-                  t("tabla.nombre"),
-                  t("Email"),
-                  t("tabla.region"),
-                ]}
-              />
             </div>
+            <TableTopsRanking
+              containerStyles={
+                "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-[300px]"
+              }
+              tableStyles={"table-zebra !text-sm"}
+              thStyles={"sticky text-white"}
+              cols={[
+                t("Top"),
+                t("tabla.nombre"),
+                t("Email"),
+                t("tabla.region"),
+              ]}
+            />
           </div>
         </div>
       </ContainerContent>
