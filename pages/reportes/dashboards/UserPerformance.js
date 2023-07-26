@@ -108,10 +108,10 @@ const SalesPerformance = () => {
   }, [isLoaded]);
 
   useEffect(() => {
-    if(dataBarChar){
+    if (dataBarChar) {
       for (let i = 1; i <= 12; i++) {
         const monthData = dataBarChar.find((item) => item.month_redeem === i);
-  
+
         if (monthData) {
           redeemPointsArray.push(monthData.redeem_points);
           salesPointsArray.push(monthData.sales_points);
@@ -226,7 +226,7 @@ const SalesPerformance = () => {
         <div className="pr-4">
           <CardChart title={"DigiPoints"} paragraph="">
             <MultiLineChart
-              dataLeyend={["Sale DigiPoints", "DigiPoints Redeemed"]}
+              dataLeyend={["DigiPoints Redeemed", "Sale DigiPoints"]}
               dataX={months}
               dataOne={redeemPoints}
               dataTwo={salesPoints}
@@ -309,7 +309,8 @@ const SalesPerformance = () => {
               cols={[
                 "User Name",
                 "Name",
-                // "Country",
+                "LastName",
+                "Country",
                 "Region",
                 // "Company ID",
                 "Company Name",
@@ -335,9 +336,12 @@ const SalesPerformance = () => {
                 // "Revenue Q2",
                 // "Revenue Q3",
                 // "Revenue Q4",
-                "Actual Revenue",
-                "Sales DigiPoints",
-                "Redemptions",
+                "Total VIP Revenue (USD)",
+                "Total VMP Revenue (USD)",
+                "Actual Revenue (USD)",
+                "RMA (USD)",
+                "Total DigiPoints",
+                "DigiPoints Redeemed",
               ]}
             >
               {currentItems &&
@@ -353,7 +357,10 @@ const SalesPerformance = () => {
                     <tr key={index}>
                       <th className="text-left py-3 px-2 mx-4">{data.email}</th>
                       <th className="text-left py-3 px-2 mx-4">
-                        {data.name.split(" ").slice(0, -1).join(" ")}
+                        {data.name.split(" ")[0]}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.name.split(" ").length > 1 ? data.name.split(" ").pop() : ""}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.country_id}
@@ -361,13 +368,7 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">
                         {data.region}
                       </th>
-                      <th className="text-left py-3 px-2 mx-4">
-                        {data.name.split(" ").slice(0, -1).join(" ")}
-                      </th>
                       {/* <th className="text-left py-3 px-2 mx-4">{data.country_id}</th> */}
-                      <th className="text-left py-3 px-2 mx-4">
-                        {data.region}
-                      </th>
                       {/* <th className="text-left py-3 px-2 mx-4">
                         {data.reseller_or_dist_id}
                       </th> */}
@@ -377,10 +378,10 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">
                         {data.dcname}
                       </th>
-                      <th className="text-left py-3 px-2 mx-4">{data.rtype}</th>
-                      <th className="text-left py-3 px-2 mx-4">
+                      {/* <th className="text-left py-3 px-2 mx-4">{data.rtype}</th> */}
+                      {/* <th className="text-left py-3 px-2 mx-4">
                         {data.dcname}
-                      </th>
+                      </th> */}
                       {/* <th className="text-left py-3 px-2 mx-4">{data.rtype}</th> */}
                       {/* <th className="text-left py-3 px-2 mx-4">
                         {numberToMoney(data.vip_cc_renewal)}
@@ -435,10 +436,19 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q3)}</th>
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q4)}</th> */}
                       <th className="text-left py-3 px-2 mx-4">
+                        ${data.vip_revenue_total}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        ${data.vmp_revenue_total}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
                         ${data.revenue_actual}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
-                        {data.sales_points}
+                        ${data.rma}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.total_digipoints}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.redenciones}
