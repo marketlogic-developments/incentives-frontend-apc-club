@@ -108,7 +108,6 @@ const dashboard = ({ entries, banners }) => {
               educationC += Number(total_sales_qt);
             }
           }
-
         });
 
         newData.documentCloud.teams.push(teamsD);
@@ -400,26 +399,7 @@ const dashboard = ({ entries, banners }) => {
           // setOpened2(false);
         }}
         className={"modalCloseDashboard"}
-      >
-        {/* <a href="mailto:info@adobepcclub.com">
-          <figure>
-            {i18n.resolvedLanguage === "por" ? (
-              <img
-                src="assets/dashboard/banners/bannerPApor.webp"
-                alt="Sales_PA"
-                className="w-full"
-              ></img>
-            ) : (
-              <img
-                src="assets/dashboard/banners/bannerPA.webp"
-                alt="Sales_PA"
-                className="w-full"
-              ></img>
-            )}
-          </figure>s
-        </a> */}
-        <BannerColombia user={user} token={token} />
-      </Modal>
+      ></Modal>
       <ContainerContent pageTitle={"Dashboard"}>
         <div className="m-6 flex flex-col gap-10 ">
           <CarouselBanners banners={banners} />
@@ -456,33 +436,19 @@ const dashboard = ({ entries, banners }) => {
                 />
               </CardChart>
             </div>
-            <div className="grid w-full">
-              <div>
-                <h1 className="font-bold">{t("dashboard.topUsuarios")}</h1>
-              </div>
-              <InputReporte
-                image={<SearchIcon />}
-                placeHolder={t("Reportes.buscar")}
-                stylesContainer={"mt-2"}
-                stylesInput={
-                  "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
-                }
-                stylesImage={"pb-0"}
-              />
-              <TableTopsRanking
-                containerStyles={
-                  "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-[300px]"
-                }
-                tableStyles={"table-zebra !text-sm"}
-                thStyles={"sticky text-white"}
-                cols={[
-                  t("Top"),
-                  t("tabla.nombre"),
-                  t("Email"),
-                  t("tabla.region"),
-                ]}
-              />
-            </div>
+            <TableTopsRanking
+              containerStyles={
+                "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-[300px]"
+              }
+              tableStyles={"table-zebra !text-sm"}
+              thStyles={"sticky text-white"}
+              cols={[
+                t("Top"),
+                t("tabla.nombre"),
+                t("Email"),
+                t("tabla.region"),
+              ]}
+            />
           </div>
         </div>
       </ContainerContent>
