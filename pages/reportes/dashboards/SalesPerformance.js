@@ -463,6 +463,8 @@ const SalesPerformance = () => {
                 "Actual Revenue (USD)",
                 "RMA (USD)",
                 "Total Revenue (USD)",
+                "Expected Revenue (USD)",
+                "Total % effectiveness",
               ]}
             >
               {currentItems &&
@@ -545,10 +547,16 @@ const SalesPerformance = () => {
                       ${data.actual_revenue}
                     </th>
                     <th className="text-left py-3 mx-7">
-                      {data.rma}
+                      ${data.rma}
                     </th>
                     <th className="text-left py-3 mx-7">
-                      {data.total_revenue}
+                      ${data.total_revenue}
+                    </th>
+                    <th className="text-left py-3 mx-7">
+                      ${data.expected_revenue}
+                    </th>
+                    <th className="text-left py-3 mx-7">
+                      %{data.avg_effectiveness}
                     </th>
                   </tr>
                 ))}
