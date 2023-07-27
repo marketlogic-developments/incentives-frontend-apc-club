@@ -431,20 +431,20 @@ const SalesPerformance = () => {
           thStyles={"sticky text-white"}
           cols={[
             { rowStyles:"", sort:true, symbol:"", identity: "company_name", columnName: "Company Name" },
-            { sort:false, symbol:"", identity: "region", columnName: "Region" },
-            { sort:true, symbol:"", identity: "level", columnName: "Company Level" },
-            { sort:true, symbol:"", identity: "usuarios", columnName: "Company Active Users" },
-            { sort:true, symbol:"USD", identity: "total_vip", columnName: "Total VIP Revenue (USD)" },
-            { sort:true, symbol:"USD", identity: "total_vmp", columnName: "Total VMP Revenue (USD)" },
-            { sort:true, symbol:"USD", identity: "actual_revenue", columnName: "Actual Revenue (USD)" },
-            { sort:true, symbol:"USD", identity: "rma", columnName: "RMA (USD)" },
-            { sort:true, symbol:"USD", identity: "total_revenue", columnName: "Total Revenue (USD)" },
+            { identity: "region", columnName: "Region" },
+            { identity: "level", columnName: "Company Level" },
+            { identity: "usuarios", columnName: "Company Active Users" },
+            { symbol:"USD", identity: "total_vip", columnName: "Total VIP Revenue (USD)" },
+            { symbol:"USD", identity: "total_vmp", columnName: "Total VMP Revenue (USD)" },
+            { symbol:"USD", identity: "actual_revenue", columnName: "Actual Revenue (USD)" },
+            { symbol:"USD", identity: "rma", columnName: "RMA (USD)" },
+            { symbol:"USD", identity: "total_revenue", columnName: "Total Revenue (USD)" },
             {
-              sort:true, symbol:"USD", identity: "expected_revenue",
+              symbol:"USD", identity: "expected_revenue",
               columnName: "Expected Revenue (USD)",
             },
             {
-              sort:true, symbol:"%", identity: "avg_effectiveness",
+              symbol:"%", identity: "avg_effectiveness",
               columnName: "Total % effectiveness",
             },
           ]}
