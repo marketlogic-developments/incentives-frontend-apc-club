@@ -430,7 +430,7 @@ const SalesPerformance = () => {
           colStyles={"p-2"}
           thStyles={"sticky text-white"}
           cols={[
-            { sort:true, symbol:"", identity: "company_name", columnName: "Company Name" },
+            { rowStyles:"", sort:true, symbol:"", identity: "company_name", columnName: "Company Name" },
             { sort:false, symbol:"", identity: "region", columnName: "Region" },
             { sort:true, symbol:"", identity: "level", columnName: "Company Level" },
             { sort:true, symbol:"", identity: "usuarios", columnName: "Company Active Users" },
@@ -448,6 +448,7 @@ const SalesPerformance = () => {
               columnName: "Total % effectiveness",
             },
           ]}
+          generalRowStyles={"text-left py-3 mx-7"}
           paginate={true}
           pageCount={pageCount}
           currentItems={currentItems}

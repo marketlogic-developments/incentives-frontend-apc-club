@@ -1,21 +1,31 @@
 import React, { useMemo, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { ArrowDown } from "../icons";
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
 const SortedTable = ({
   containerStyles = "",
   tableStyles = "",
   thStyles = "",
+  generalRowStyles = "",
   colStyles = "",
-  cols = [{
-    sort:false, symbol:"", identity: "", columnName: ""
-  }],
+  cols = [
+    {
+      rowStyles: "",
+      sort: false,
+      symbol: "",
+      identity: "",
+      columnName: "",
+    },
+  ],
   currentItems = [],
   pageCount = 0,
   paginate = false,
   handlePageClick,
-  sort = false
 }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
@@ -53,7 +63,9 @@ const SortedTable = ({
               {cols.length !== 0 &&
                 cols.map((col, index) => (
                   <th
-                    className={`text-left ${colStyles} ${col.sort && 'cursor-pointer'} `}
+                    className={`text-left ${colStyles} ${
+                      col.sort && "cursor-pointer"
+                    } `}
                     onClick={() => col.sort && handleSort(col.identity)}
                   >
                     {col.columnName}
@@ -66,7 +78,12 @@ const SortedTable = ({
               [...sortedData].map((row, index) => (
                 <tr key={index}>
                   {cols.map((col) => (
-                    <th key={col.identity} className="text-left py-3 mx-7">
+                    <th
+                      key={col.identity}
+                      className={
+                        col.rowStyles ? col.rowStyles : generalRowStyles
+                      }
+                    >
                       {col.symbol === "USD"
                         ? numberToMoney(row[col.identity])
                         : col.symbol + row[col.identity]}
