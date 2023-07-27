@@ -1,17 +1,21 @@
 import React, { useMemo, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { ArrowDown } from "../icons";
 
 const SortedTable = ({
   containerStyles = "",
   tableStyles = "",
   thStyles = "",
   colStyles = "",
-  cols = [],
+  cols = [{
+    sort:false, symbol:"", identity: "", columnName: ""
+  }],
   currentItems = [],
   pageCount = 0,
   paginate = false,
   handlePageClick,
+  sort = false
 }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
@@ -49,8 +53,8 @@ const SortedTable = ({
               {cols.length !== 0 &&
                 cols.map((col, index) => (
                   <th
-                    className={`text-left ${colStyles}`}
-                    onClick={() => handleSort(col.identity)}
+                    className={`text-left ${colStyles} ${col.sort && 'cursor-pointer'} `}
+                    onClick={() => col.sort && handleSort(col.identity)}
                   >
                     {col.columnName}
                   </th>
