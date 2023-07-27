@@ -47,7 +47,7 @@ const puntosporventas = () => {
           }
         );
       } else {
-        dispatch(getSalesAllByChannel(token, company.resellerMasterId)).then(
+        dispatch(getSalesAllByChannel(token, company.resellerMasterId, user.id)).then(
           (response) => {
             setLoading(false);
           }
