@@ -33,6 +33,7 @@ import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
+import SortedTable from "../../../components/table/SortedTable";
 
 const SalesPerformance = () => {
   const dispatch = useDispatch();
@@ -113,7 +114,7 @@ const SalesPerformance = () => {
         });
     }
   }, [isLoaded]);
-  
+
   useEffect(() => {
     if (dataBarChar) {
       setLoadingBarChart(true);
@@ -131,18 +132,19 @@ const SalesPerformance = () => {
       setTotalSales(totalSalesArray);
       setLoadingBarChart(false);
     }
-    
   }, [dataBarChar]);
 
-  totalPointsAssigned = dataLineChar.map(({ total_points_assigned }) => total_points_assigned);
-  
+  totalPointsAssigned = dataLineChar.map(
+    ({ total_points_assigned }) => total_points_assigned
+  );
+
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
       .toFixed(0)
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
   };
-  
+
   const xValuesLine = [
     "Ene",
     "Feb",
@@ -229,7 +231,6 @@ const SalesPerformance = () => {
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
-    console.log(itemOffset, endOffset);
 
     if (dataTable.length === 1) {
       return dataTable;
@@ -591,6 +592,35 @@ const SalesPerformance = () => {
           </>
         )}
       </div>
+      {/* <SortedTable
+        containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
+        tableStyles={"table-zebra !text-sm"}
+        colStyles={"p-2"}
+        thStyles={"sticky text-white"}
+        cols={[
+          { symbol:"", identity: "company_name", columnName: "Company Name" },
+          { symbol:"", identity: "region", columnName: "Region" },
+          { symbol:"", identity: "level", columnName: "Company Level" },
+          { symbol:"", identity: "usuarios", columnName: "Company Active Users" },
+          { symbol:"USD", identity: "total_vip", columnName: "Total VIP Revenue (USD)" },
+          { symbol:"USD", identity: "total_vmp", columnName: "Total VMP Revenue (USD)" },
+          { symbol:"USD", identity: "actual_revenue", columnName: "Actual Revenue (USD)" },
+          { symbol:"USD", identity: "rma", columnName: "RMA (USD)" },
+          { symbol:"USD", identity: "total_revenue", columnName: "Total Revenue (USD)" },
+          {
+            symbol:"USD", identity: "expected_revenue",
+            columnName: "Expected Revenue (USD)",
+          },
+          {
+            symbol:"%", identity: "avg_effectiveness",
+            columnName: "Total % effectiveness",
+          },
+        ]}
+        paginate={true}
+        pageCount={pageCount}
+        currentItems={currentItems}
+        handlePageClick={handlePageClick}
+      /> */}
     </div>
   );
 };
