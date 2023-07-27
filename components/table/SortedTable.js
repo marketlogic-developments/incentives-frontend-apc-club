@@ -1,11 +1,12 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { ArrowDown } from "../icons";
 
 /**
- * 
- * @param {*} param0 
- * @returns 
+ *
+ * @param {*} param0
+ * @returns
  */
 const SortedTable = ({
   containerStyles = "",
@@ -25,7 +26,7 @@ const SortedTable = ({
   currentItems = [],
   pageCount = 0,
   paginate = false,
-  handlePageClick,
+  handlePageClick = () => {},
 }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
@@ -68,7 +69,9 @@ const SortedTable = ({
                     } `}
                     onClick={() => col.sort && handleSort(col.identity)}
                   >
-                    {col.columnName}
+                    <div className="flex items-center gap-1">
+                      {col.columnName} {col.sort ? <ArrowDown /> : ""}
+                    </div>
                   </th>
                 ))}
             </tr>
