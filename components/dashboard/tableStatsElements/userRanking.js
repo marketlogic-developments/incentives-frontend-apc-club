@@ -13,7 +13,7 @@ const UserRanking = ({ data, index }) => {
         </div>
         <div className="flex flex-col">
           <p className="!text-xs font-bold">{data.names}</p>
-          <p className="!text-xs">{data.position}</p>
+          <p className="!text-xs">{`${data.company} | ${data.region}`}</p>
         </div>
       </div>
       <div className="whitespace-nowrap"># {data.ranking}</div>
