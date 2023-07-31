@@ -455,8 +455,7 @@ const dashboard = ({ entries, banners }) => {
     </>
   );
 };
-
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const entries = await client.getEntries({
     content_type: "videosApc",
   });
@@ -471,7 +470,6 @@ export async function getStaticProps() {
       banners: banners.items.map(({ fields }) => fields),
       protected: true,
       userTypes: [1, 2, 3, 4, 5],
-      revalidate: 10,
     },
   };
 }

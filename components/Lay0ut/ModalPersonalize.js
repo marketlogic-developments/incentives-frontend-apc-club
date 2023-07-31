@@ -2,12 +2,15 @@ import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
 import { userUpdate } from "../../store/reducers/users.reducer";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import { Video } from "cloudinary-react";
 
 const ModalPersonalize = ({ onClose }) => {
   const video = useSelector((state) => state.contentful.videos[0]);
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
+  const [t, i18n] = useTranslation("global");
 
   const handleVideo = () => {
     axios
@@ -25,7 +28,6 @@ const ModalPersonalize = ({ onClose }) => {
         }
       )
       .then(() => {
-        console.log("aaaa");
         dispatch(userUpdate({ cpf: "viewVideo" }));
       })
       .catch((e) => console.log(e))
@@ -37,7 +39,7 @@ const ModalPersonalize = ({ onClose }) => {
   return (
     <div className="w-screen h-screen animationVideo">
       <ReactPlayer
-        url={video.linkUrl}
+        url={i18n.resolvedLanguage === "por" ? video.linkUrlPor : video.linkUrl}
         controls
         playing={true}
         width={"100%"}
