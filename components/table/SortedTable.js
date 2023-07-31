@@ -26,7 +26,7 @@ const SortedTable = ({
   currentItems = [],
   pageCount = 0,
   paginate = false,
-  handlePageClick = () => {},
+  handlePageClick = () => { },
 }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
@@ -36,6 +36,18 @@ const SortedTable = ({
       .toFixed(0)
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  };
+  const formatDate = (dateString) => {
+    const options = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const date = new Date(dateString);
+    return date.toLocaleString("es-GT", options);
   };
 
   const handleSort = (column) => {
@@ -64,9 +76,8 @@ const SortedTable = ({
               {cols.length !== 0 &&
                 cols.map((col, index) => (
                   <th
-                    className={`text-left ${colStyles} ${
-                      col.sort && "cursor-pointer"
-                    } `}
+                    className={`text-left ${colStyles} ${col.sort && "cursor-pointer"
+                      } `}
                     onClick={() => col.sort && handleSort(col.identity)}
                   >
                     <div className="flex items-center gap-1">
@@ -87,9 +98,11 @@ const SortedTable = ({
                         col.rowStyles ? col.rowStyles : generalRowStyles
                       }
                     >
-                      {col.symbol === "USD"
-                        ? numberToMoney(row[col.identity])
-                        : col.symbol + row[col.identity]}
+                      {col.symbol === "DATE"
+                        ? formatDate(row[col.identity])
+                        : col.symbol === "USD"
+                          ? numberToMoney(row[col.identity])
+                          : row[col.identity] + col.symbol}
                     </th>
                   ))}
                 </tr>
