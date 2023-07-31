@@ -33,7 +33,7 @@ const TableTopsRanking = ({
         return;
       }
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-      saveAs(blob, "Top_10_users.csv");
+      saveAs(blob, "Top_5_users.csv");
     });
   };
 
