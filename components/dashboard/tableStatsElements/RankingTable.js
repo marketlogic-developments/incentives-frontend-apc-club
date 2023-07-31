@@ -33,48 +33,17 @@ const RankingTable = () => {
   ];
 
   useEffect(() => {
-    if (user.roleId === 1) {
-      axios
-        .get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/ranking-global`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then(({ data }) => {
-          dispatch(setRanking(data));
-        });
-    } else {
-      const compOrDist =
-        user.company === null
-          ? {
-              endpoint: "digipoints-redeem-status-all-distri",
-              byId: user.distributionChannelId,
-            }
-          : {
-              endpoint: "digipoints-redeem-status-all-compa",
-              byId: user.companyId,
-            };
-
-      if (token) {
-        axios
-          .get(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then(({ data }) => dispatch(setRanking(data)));
-      }
-    }
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/ranking-global`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({ data }) => {
+        dispatch(setRanking(data));
+      });
   }, [token]);
 
   return (
@@ -87,7 +56,7 @@ const RankingTable = () => {
         {ranking.length === 0 ? (
           <NoDataRanking />
         ) : (
-          ranking
+          [...ranking]
             .slice(0, 3)
             .map((data, index) => <UserRanking data={data} index={index + 1} />)
         )}
