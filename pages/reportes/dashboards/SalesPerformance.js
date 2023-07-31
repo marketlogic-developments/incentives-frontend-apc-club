@@ -33,6 +33,7 @@ import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
+import SortedTable from "../../../components/table/SortedTable";
 
 const SalesPerformance = () => {
   const dispatch = useDispatch();
@@ -113,7 +114,7 @@ const SalesPerformance = () => {
         });
     }
   }, [isLoaded]);
-  
+
   useEffect(() => {
     if (dataBarChar) {
       setLoadingBarChart(true);
@@ -131,18 +132,19 @@ const SalesPerformance = () => {
       setTotalSales(totalSalesArray);
       setLoadingBarChart(false);
     }
-    
   }, [dataBarChar]);
 
-  totalPointsAssigned = dataLineChar.map(({ total_points_assigned }) => total_points_assigned);
-  
+  totalPointsAssigned = dataLineChar.map(
+    ({ total_points_assigned }) => total_points_assigned
+  );
+
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
       .toFixed(0)
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
   };
-  
+
   const xValuesLine = [
     "Ene",
     "Feb",
@@ -229,7 +231,6 @@ const SalesPerformance = () => {
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
-    console.log(itemOffset, endOffset);
 
     if (dataTable.length === 1) {
       return dataTable;
@@ -423,172 +424,36 @@ const SalesPerformance = () => {
       <div className="grid grid-rows-1 justify-items-center pt-5">
         {loading && <div className="lds-dual-ring"></div>}
         {!loading && (
-          <>
-            <Table
-              containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
-              tableStyles={"table-zebra !text-sm"}
-              colStyles={"p-2"}
-              thStyles={"sticky text-white"}
-              cols={[
-                // "Membership ID",
-                "Company Name",
-                "Region",
-                // "Country",
-                // "Company Type",
-                "Company Level",
-                // "Company Status",
-                "Company Active Users",
-                // "VIP CC Renewal (USD)",
-                // "VIP CC New Business (USD)",
-                // "VIP DC Renewal (USD)",
-                // "VIP DC New Business (USD)",
-                // "VMP CC Renewal (USD)",
-                // "VMP CC New Business (USD)",
-                // "VMP DC Renewal (USD)",
-                // "VMP DC New Business",
-                // "VIP Revenue Q1 (USD)",
-                // "VIP Revenue Q2 (USD)",
-                // "VIP Revenue Q3 (USD)",
-                // "VIP Revenue Q4 (USD)",
-                // "VMP Revenue Q1 (USD)",
-                // "VMP Revenue Q2 (USD)",
-                // "VMP Revenue Q3 (USD)",
-                // "VMP Revenue Q4 (USD)",
-                // "Revenue Q1 (USD)",
-                // "Revenue Q2 (USD)",
-                // "Revenue Q3 (USD)",
-                // "Revenue Q4 (USD)",
-                "Total VIP Revenue (USD)",
-                "Total VMP Revenue (USD)",
-                "Actual Revenue (USD)",
-                "RMA (USD)",
-                "Total Revenue (USD)",
-                "Expected Revenue (USD)",
-                "Total % effectiveness",
-              ]}
-            >
-              {currentItems &&
-                [...currentItems].map((data, index) => (
-                  <tr key={index}>
-                    {/* <th className="text-left py-3 mx-7">{data.company_id}</th> */}
-                    <th className="text-left py-3 mx-7">{data.company_name}</th>
-                    <th className="text-left py-3 mx-7">{data.region}</th>
-                    {/* <th className="text-left py-3 mx-7">{data.country_id}</th> */}
-                    <th className="text-left py-3 mx-7">{data.level}</th>
-                    {/* <th className="text-left py-3 mx-7">{data.active}</th> */}
-                    <th className="text-left py-3 mx-7">{data.usuarios}</th>
-                    {/* <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vip_cc_renewal)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vip_cc_newbusiness)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vip_dc_renewal)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vip_dc_newbusiness)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vmp_cc_renewal)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vmp_cc_newbusiness)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vmp_dc_renewal)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vmp_dc_newbusiness)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vip_revenue_q1)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vip_revenue_q2)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vip_revenue_q3)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vip_revenue_q4)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vmp_revenue_q1)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vmp_revenue_q2)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vmp_revenue_q3)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.vmp_revenue_q4)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.revenue_q1)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.revenue_q2)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.revenue_q3)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.revenue_q4)}
-                    </th> */}
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.total_vip)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {numberToMoney(data.total_vmp)}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      ${data.actual_revenue}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      ${data.rma}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      ${data.total_revenue}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      ${data.expected_revenue}
-                    </th>
-                    <th className="text-left py-3 mx-7">
-                      {data.avg_effectiveness}%
-                    </th>
-                  </tr>
-                ))}
-            </Table>
-          </>
-        )}
-      </div>
-      <div className="w-full pt-5">
-        {!loading && (
-          <>
-            <ReactPaginate
-              pageCount={pageCount}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageClick}
-              containerClassName={"pagination"}
-              subContainerClassName={"pages pagination"}
-              nextClassName={"item next "}
-              previousClassName={"item previous"}
-              activeClassName={"item active "}
-              breakClassName={"item break-me "}
-              breakLabel={"..."}
-              disabledClassName={"disabled-page"}
-              pageClassName={"item pagination-page "}
-              nextLabel={
-                <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
-              }
-              previousLabel={
-                <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
-              }
-            />
-          </>
+          <SortedTable
+          containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
+          tableStyles={"table-zebra !text-sm"}
+          colStyles={"p-2"}
+          thStyles={"sticky text-white"}
+          cols={[
+            { rowStyles:"", sort:true, symbol:"", identity: "company_name", columnName: "Company Name" },
+            { identity: "region", columnName: "Region" },
+            { identity: "level", columnName: "Company Level" },
+            { identity: "usuarios", columnName: "Company Active Users" },
+            { symbol:"USD", identity: "total_vip", columnName: "Total VIP Revenue (USD)" },
+            { symbol:"USD", identity: "total_vmp", columnName: "Total VMP Revenue (USD)" },
+            { symbol:"USD", identity: "actual_revenue", columnName: "Actual Revenue (USD)" },
+            { symbol:"USD", identity: "rma", columnName: "RMA (USD)" },
+            { symbol:"USD", identity: "total_revenue", columnName: "Total Revenue (USD)" },
+            {
+              symbol:"USD", identity: "expected_revenue",
+              columnName: "Expected Revenue (USD)",
+            },
+            {
+              symbol:"%", identity: "avg_effectiveness",
+              columnName: "Total % effectiveness",
+            },
+          ]}
+          generalRowStyles={"text-left py-3 mx-7"}
+          paginate={true}
+          pageCount={pageCount}
+          currentItems={currentItems}
+          handlePageClick={handlePageClick}
+        />
         )}
       </div>
     </div>
