@@ -421,11 +421,11 @@ export const getSalesAll = (token) => async (dispatch) => {
   }
 };
 
-export const getSalesAllByChannel = (token, data) => async (dispatch) => {
+export const getSalesAllByChannel = (token, data, iduser) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesallbychannels/${data}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesallbychannels/${data}/${iduser}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -440,11 +440,11 @@ export const getSalesAllByChannel = (token, data) => async (dispatch) => {
   }
 };
 
-export const getSalesAllByDist = (token, data) => async (dispatch) => {
+export const getSalesAllByDist = (token, data, iduser) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesallbydistri/${data}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesallbydistri/${data}/${iduser}`,
         {
           headers: {
             "Content-Type": "application/json",

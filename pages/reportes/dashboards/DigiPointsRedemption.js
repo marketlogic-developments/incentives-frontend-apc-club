@@ -24,6 +24,7 @@ import {
 } from "../../../store/reducers/orders.reducer";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
+import SortedTable from "../../../components/table/SortedTable";
 
 const DigiPointsRedemption = () => {
   const dispatch = useDispatch();
@@ -222,77 +223,37 @@ const DigiPointsRedemption = () => {
         />
       </div>
       <div className="grid overflow-x-auto w-full">
-        {loading ? (
-          <div className="lds-dual-ring"></div>
-        ) : (
-          <>
-            <div>
-              <Table
-                containerStyles={
-                  "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-max"
-                }
-                tableStyles={"table-zebra !text-sm"}
-                colStyles={"p-2"}
-                thStyles={"sticky text-white"}
-                cols={
-                    [
-                      "First Name",
-                      "Last Name",
-                      "User Email",
-                      "Reward Status",
-                      "Redeemed DigiPoints",
-                      // "Quantity",
-                      // "Amount",
-                      "Request ID",
-                      "Redeemed On",
-                    ]
-                }
-              >
-                {currentItems &&
-                  [...currentItems]
-                    .filter((item) => {
-                      if (searchByInvoice !== "") {
-                        return item.name.startsWith(searchByInvoice);
-                      }
-
-                      return item;
-                    })
-                    .map((data, index) => (
-                      <tr key={index}>
-                        <td className="text-start p-4">{(data.name).split(' ').slice(0, -1).join(" ")}</td>
-                        <td className="text-start p-4">{(data.name).split(' ').slice(-1)[0]}</td>
-                        <td className="text-start p-4">{data.email}</td>
-                        <td className="text-start p-4">{data.status_name}</td>
-                        <td className="text-start p-4">{data.digipoint_substract}</td>
-                        <td className="text-start p-4">{data.ordernumber}</td>
-                        <td className="text-start p-4">{formatDate(data.created_at)}</td>
-                      </tr>
-                    ))}
-              </Table>
-              <ReactPaginate
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={handlePageClick}
-                containerClassName={"pagination"}
-                subContainerClassName={"pages pagination"}
-                nextClassName={"item next "}
-                previousClassName={"item previous"}
-                activeClassName={"item active "}
-                breakClassName={"item break-me "}
-                breakLabel={"..."}
-                disabledClassName={"disabled-page"}
-                pageClassName={"item pagination-page "}
-                nextLabel={
-                  <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
-                }
-                previousLabel={
-                  <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
-                }
-              />
-            </div>
-          </>
-        )}
+        {!loading && (
+            <SortedTable
+            containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
+            tableStyles={"table-zebra !text-sm"}
+            colStyles={"p-2"}
+            thStyles={"sticky text-white"}
+            cols={[
+              { rowStyles:"", sort:true, symbol:"", identity: "email", columnName: "User Email" },
+              { symbol:"", identity: "name", columnName: "First Name" },
+              { symbol:"", identity: "role_name", columnName: "User Role" },
+              { symbol:"", identity: "region", columnName: "Region" },
+              { symbol:"", identity: "country", columnName: "Country" },
+              { symbol:"", identity: "company_id", columnName: "Company ID" },
+              { symbol:"", identity: "company_name", columnName: "Company Name" },
+              { symbol:"", identity: "company_level", columnName: "Company Level" },
+              { symbol:"", identity: "pp_email", columnName: "Partner Principal User Email" },
+              { symbol:"", identity: "pp_tos", columnName: "Partner Principal Accepted ToS" },
+              { symbol:"", identity: "ordernumber", columnName: "Request ID" },
+              { symbol:"", identity: "digipoint_substract", columnName: "Redeemed DigiPoints" },
+              { symbol:"", identity: "total_quantity", columnName: "Quantity" },
+              { symbol:"", identity: "total_price", columnName: "Amount (USD)" },
+              { symbol:"DATE", identity: "created_at", columnName: "Redeemed On" },
+              { symbol:"", identity: "status_name", columnName: "Reward Status" },
+            ]}
+            generalRowStyles={"text-left py-3 mx-7"}
+            paginate={true}
+            pageCount={pageCount}
+            currentItems={currentItems}
+            handlePageClick={handlePageClick}
+          />
+          )}
       </div>
     </div>
   );
