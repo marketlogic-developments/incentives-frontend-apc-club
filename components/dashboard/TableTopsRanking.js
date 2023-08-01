@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import NoDataRanking from "./tableStatsElements/NoDataRanking";
 import { useTranslation } from "react-i18next";
@@ -63,21 +63,21 @@ const TableTopsRanking = ({
       }
     );
 
-    Promise.allSettled([companies, distribution])
-      .then((res) => {
-        const arrMap1 = res[0].value.data.map(({ name }) => ({ name: name }));
-        const arrMap2 = res[1].value.data.map(({ nameDist }) => ({
-          nameDist: nameDist,
-        }));
+    Promise.allSettled([companies, distribution]).then((res) => {
+      const arrMap1 = res[0].value.data.map(({ name }) => ({ name: name }));
+      const arrMap2 = res[1].value.data.map(({ nameDist }) => ({
+        nameDist: nameDist,
+      }));
 
-        setAllCompanies([...arrMap1, ...arrMap2].sort());
-      })
-      .finally(() => {
-        const regions = [...new Set(ranking.map(({ region }) => region))];
+      setAllCompanies([...arrMap1, ...arrMap2].sort());
+    });
+  }, [token, ranking]);
 
-        setRegions(regions);
-      });
-  }, [token]);
+  const funRegions = useMemo(() => {
+    const regions = [...new Set(ranking.map(({ region }) => region))];
+
+    setRegions(regions);
+  }, [ranking]);
 
   const handleFilter = (name, info) => {
     const { [name]: extractedValue, ...rest } = filters;
@@ -85,6 +85,8 @@ const TableTopsRanking = ({
     console.log(keys);
     setFilters({ [keys[0]]: "", [name]: info });
   };
+
+  console.log(regions);
 
   return (
     <div className="grid w-full">
@@ -173,9 +175,16 @@ const TableTopsRanking = ({
                 .slice(0, 5)
                 .map((data, index) => (
                   <tr>
-                    <td className="p-2 text-xl font-bold text-left">
-                      #{data.ranking}
-                    </td>
+                    {filters.company !== "" || filters.region !== "" ? (
+                      <td className="p-2 text-xl font-bold text-left">
+                        #{index + 1}
+                      </td>
+                    ) : (
+                      <td className="p-2 text-xl font-bold text-left">
+                        #{data.ranking}
+                      </td>
+                    )}
+
                     <td className="text-left">{data.names}</td>
                     <td className="text-left">{data.email}</td>
                     <td className="text-left">{data.region}</td>
