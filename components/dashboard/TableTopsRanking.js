@@ -71,7 +71,7 @@ const TableTopsRanking = ({
 
       setAllCompanies([...arrMap1, ...arrMap2].sort());
     });
-  }, [token, ranking]);
+  }, []);
 
   const funRegions = useMemo(() => {
     const regions = [...new Set(ranking.map(({ region }) => region))];
