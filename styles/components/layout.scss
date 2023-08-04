@@ -79,6 +79,10 @@
                 stroke: $primaryColorRed;
                 fill: transparent;
                 stroke-width: 1;
+
+                path {
+                  stroke: $primaryColorRed;
+                }
               }
             }
           }
@@ -107,6 +111,10 @@
               stroke: $primaryColorRed;
               fill: transparent;
               stroke-width: 1;
+
+              path {
+                stroke: $primaryColorRed;
+              }
             }
           }
 

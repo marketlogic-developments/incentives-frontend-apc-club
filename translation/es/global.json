@@ -47,6 +47,7 @@
     "Participantes": "Organización",
     "Puntos_por_ventas": "DigiPoints por ventas",
     "Reportes": "My Reports",
+    "AsignarDigipoints": "Asignación de Facturas",
     "Digipoints": "Mis DigiPoints",
     "DDigipoints": "Distribución de DigiPoints",
     "Productos": "Productos participantes",
@@ -58,7 +59,8 @@
     "admin": "Administración",
     "redenciones": "Redenciones",
     "reglas": "Reglas",
-    "customer_care": "Customer Care"
+    "customer_care": "Customer Care",
+    "formCustomerCare": "Envía tus comentarios"
   },
 
   "perfil": {
