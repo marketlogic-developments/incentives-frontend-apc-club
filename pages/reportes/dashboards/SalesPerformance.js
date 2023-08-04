@@ -376,6 +376,7 @@ const SalesPerformance = () => {
               icon={<ArrowDown />}
               onChange={handleFilters}
               name={"company"}
+              searchable={true}
             />
           </div>
           <div className="sm:w-[90%] w-[60%]">
