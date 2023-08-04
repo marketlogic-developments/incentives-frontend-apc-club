@@ -49,7 +49,7 @@ const RankingTable = () => {
   return (
     <div className="flex flex-col w-full p-6 gap-6 targetDashboard">
       <div>
-        <h2 className="!text-xl font-bold">TOP Sales Rep LATAM/h2>
+        <h2 className="!text-xl font-bold">TOP Sales Rep LATAM</h2>
         <p className="!text-xs">{`${Months[month]} ${year}`}</p>
       </div>
       <div className="flex flex-col gap-6 h-full">
