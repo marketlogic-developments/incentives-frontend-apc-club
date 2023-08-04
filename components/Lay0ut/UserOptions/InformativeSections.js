@@ -143,7 +143,7 @@ const InformativeSections = ({ actionCustomerCare }) => {
           />
         </svg>
       ),
-      text: "Envía tus comentarios",
+      text: t("menu.formCustomerCare"),
     },
   ];
   return (

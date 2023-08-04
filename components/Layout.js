@@ -922,8 +922,8 @@ const Layout = ({ children }) => {
           return t("menu.Participantes");
         }
 
-        if (location.includes("comunicado")) {
-          return "Comunicados";
+        if (location.includes("productos")) {
+          return t("menu.Productos");
         }
       }
 
