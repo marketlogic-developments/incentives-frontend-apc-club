@@ -374,6 +374,18 @@
   text-transform: none;
   font-size: 0.75rem;
 }
+.newbtn {
+  @apply rounded-full;
+  text-transform: none;
+  font-size: 0.75rem;
+  min-height: 2.563rem;
+  height: 2.563rem;
+
+  @media (min-width: 1024px) {
+    min-height: 1.563rem;
+    height: 1.563rem;
+  }
+}
 .sw2Custom {
   background-color: white;
   color: black;
