@@ -90,11 +90,16 @@ export const getDataAwards = (token, user) => async (dispatch) => {
               return e;
             }
 
+            if (user.countryId) {
+              if (user.countryId === "CHILE") {
+                return e.name.split(" ")[0] === "Cencosud";
+              }
+
+              return e.description === user.countryId;
+            }
+
             if (countryCompany === "Colombia") {
-              return (
-                // e.name.split(" ")[0] === "Rappi" ||
-                e.name.split(" ")[0] === "Falabella"
-              );
+              return e.description === "COLOMBIA";
             }
             if (countryCompany === "Chile") {
               return e.name.split(" ")[0] === "Cencosud";
