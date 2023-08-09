@@ -11,6 +11,8 @@ import SelectInputValue from "../inputs/SelectInputValue";
 import { comment } from "postcss";
 import axios from "axios";
 import BtnFilter from "../cardReportes/BtnFilter";
+import DropDownReport from "../cardReportes/DropDownReport";
+import { utils, write } from "xlsx";
 
 const TableTopsRanking = ({
   containerStyles = "",
@@ -42,6 +44,8 @@ const TableTopsRanking = ({
       saveAs(blob, "Top_5_users.csv");
     });
   };
+
+
 
   useEffect(() => {
     const companies = axios.get(
@@ -124,22 +128,42 @@ const TableTopsRanking = ({
           />
         </div>
         {user.roleId === 1 && (
-          <div>
-            <BtnWithImage
-              text={t("Reportes.descargar")}
+          <div className="sm:w-[20%] w-[60%]">
+            <DropDownReport
               icon={<CloudDownload />}
-              styles={
-                "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
-              }
-              onClick={() => {
-                const newRank = ranking.map((data) => {
-                  const { employ_id, ...info } = data;
+              title={t("Reportes.descargar")}
+            >
+              <BtnWithImage
+                text={t("Reportes.descargar") + " csv"}
+                icon={<CloudDownload />}
+                styles={
+                  "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+                }
+                onClick={() => {
+                  const newRank = ranking.map((data) => {
+                    const { employ_id, ...info } = data;
 
-                  return info;
-                });
-                return importFile(newRank);
-              }}
-            />
+                    return info;
+                  });
+                  return importFile(newRank);
+                }}
+              />
+              <BtnWithImage
+                text={t("Reportes.descargar") + " excel"}
+                icon={<CloudDownload />}
+                styles={
+                  "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+                }
+                onClick={() => {
+                  const newRank = ranking.map((data) => {
+                    const { employ_id, ...info } = data;
+
+                    return info;
+                  });
+                  return importFileExcel(newRank);
+                }}
+              />
+            </DropDownReport>
           </div>
         )}
       </div>
