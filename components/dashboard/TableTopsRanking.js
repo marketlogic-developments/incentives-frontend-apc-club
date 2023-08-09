@@ -234,7 +234,7 @@ const TableTopsRanking = ({
                         : filters.region)
                     );
                   }
-                  if (filters.company.length > 0) {
+                  if (filters.company?.length > 0) {
                     return i.company === filters.company;
                   }
 
