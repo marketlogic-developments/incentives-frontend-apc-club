@@ -29,7 +29,13 @@ const ModalUsers = ({ userDataToModal, token }) => {
   const [distribuitorData, setDistribuitorData] = useState([]);
   const [changePassword, setChangePassword] = useState("");
 
-  const paisesAmerica = ["COLOMBIA", "BRASIL", "NOLA - SOLA - MEX", "CHILE"];
+  const paisesAmerica = [
+    "COLOMBIA",
+    "BRASIL",
+    "NOLA - SOLA - MEX",
+    "CHILE",
+    "Nothing",
+  ];
 
   const Toast = Swal.mixin({
     toast: true,
