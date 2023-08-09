@@ -63,8 +63,14 @@ const SortedTable = ({
 
   const sortedData = [...currentItems].sort((a, b) => {
     if (sortColumn) {
-      if (a[sortColumn] < b[sortColumn]) return sortOrder === "asc" ? -1 : 1;
-      if (a[sortColumn] > b[sortColumn]) return sortOrder === "asc" ? 1 : -1;
+      const valueA = parseFloat(a[sortColumn].replace(/,/g, ''));
+      const valueB = parseFloat(b[sortColumn].replace(/,/g, ''));
+  
+      if (!isNaN(valueA) && !isNaN(valueB)) {
+        return (valueA - valueB) * (sortOrder === "asc" ? 1 : -1);
+      }
+      
+      return a[sortColumn].localeCompare(b[sortColumn]) * (sortOrder === "asc" ? 1 : -1);
     }
     return 0;
   });
