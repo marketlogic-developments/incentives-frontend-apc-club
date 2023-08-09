@@ -45,7 +45,50 @@ const TableTopsRanking = ({
     });
   };
 
+  const importFileExcel = (data) => {
+    jsonexport(data, (error) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const ws = utils.json_to_sheet(data);
+      const wb = utils.book_new();
+      utils.sheet_add_aoa(
+        ws,
+        [
+          [
+            "Ranking",
+            "Names",
+            "Email",
+            "Region",
+            "Country Id",
+            "Position",
+            "Amount by User",
+            "Company",
+            "Points Assigned",
+          ],
+        ],
+        { origin: "A1" }
+      );
 
+      ws["!cols"] = [
+        { wch: 8 },
+        { wch: 30 },
+        { wch: 38 },
+        { wch: 10 },
+        { wch: 10 },
+        { wch: 10 },
+        { wch: 14 },
+        { wch: 50 },
+        { wch: 14 },
+      ];
+      utils.book_append_sheet(wb, ws, "Top 5 usuarios");
+      const blob = new Blob([write(wb, { bookType: "xlsx", type: "array" })], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      saveAs(blob, "Top_5_users.xlsx");
+    });
+  };
 
   useEffect(() => {
     const companies = axios.get(
