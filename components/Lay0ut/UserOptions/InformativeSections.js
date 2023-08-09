@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 
-const InformativeSections = ({ actionCustomerCare }) => {
+const InformativeSections = ({ actionCustomerCare, setMenuUser }) => {
   const [t, i18n] = useTranslation("global");
   const route = useRouter();
   const sections = [
@@ -153,7 +153,11 @@ const InformativeSections = ({ actionCustomerCare }) => {
         {sections.map(({ page, text, icon, differentAction, action }) => (
           <div
             className="flex gap-3 items-center cursor-pointer"
-            onClick={() => (differentAction ? action() : route.push(page))}
+            onClick={() =>
+              differentAction
+                ? (action(), setMenuUser(false))
+                : (route.push(page), setMenuUser(false))
+            }
           >
             {icon}
             <p className="text-xs font-bold">{text}</p>

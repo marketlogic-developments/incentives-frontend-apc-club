@@ -407,7 +407,7 @@ const dashboard = ({ entries, banners }) => {
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
             <GraphSales />
-            <div className="sm:w-full w-[355px]">
+            {/* <div className="sm:w-full w-[355px]">
               <CardChart title={"Licencias"} paragraph="">
                 <LicenseChart
                   dataLeyend={[
@@ -435,7 +435,7 @@ const dashboard = ({ entries, banners }) => {
                   ]}
                 />
               </CardChart>
-            </div>
+            </div> */}
             <TableTopsRanking
               containerStyles={
                 "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-[300px]"

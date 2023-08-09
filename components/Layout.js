@@ -79,7 +79,11 @@ const Layout = ({ children }) => {
   });
 
   useEffect(() => {
-    if (userRedux.cpf !== "viewVideo" && userRedux !== 0) {
+    if (
+      userRedux.cpf !== "viewVideo" &&
+      userRedux !== 0 &&
+      location === "/dashboard"
+    ) {
       setModal(1);
       setTimeout(() => {
         setOpened(true);

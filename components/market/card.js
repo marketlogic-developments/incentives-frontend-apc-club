@@ -102,7 +102,7 @@ const CardMarket = ({ info }) => {
         withCloseButton={modal == 1 ? false : true}
         padding={modal === 1 && 0}
       >
-        {(info.description === "COLOMBIA" && user.policy_awards !== true) ||
+        {/* {(info.description === "COLOMBIA" && user.policy_awards !== true) ||
         (info.description === "COLOMBIA" && user.cedula === null) ? (
           modalTyC
         ) : (
@@ -112,7 +112,13 @@ const CardMarket = ({ info }) => {
             setCounter={setCounter}
             setOpened={setOpened}
           />
-        )}
+        )} */}
+        <ModalTargetInfo
+          info={info}
+          addItem={setGlobalStateAwards}
+          setCounter={setCounter}
+          setOpened={setOpened}
+        />
       </Modal>
       <div className="w-full">
         <div className="w-full justify-center border rounded-md pb-3">
