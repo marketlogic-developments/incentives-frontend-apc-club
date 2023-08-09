@@ -350,7 +350,6 @@ const SalesPerformance = () => {
                     if (searchByInvoice !== "") {
                       return item.email.startsWith(searchByInvoice);
                     }
-
                     return item;
                   })
                   .map((data, index) => (

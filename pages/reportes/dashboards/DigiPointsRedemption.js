@@ -251,6 +251,7 @@ const DigiPointsRedemption = () => {
             paginate={true}
             pageCount={pageCount}
             currentItems={currentItems}
+            searchByInvoice={searchByInvoice}
             handlePageClick={handlePageClick}
           />
           )}

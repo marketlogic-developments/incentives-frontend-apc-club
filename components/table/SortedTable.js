@@ -24,9 +24,10 @@ const SortedTable = ({
     },
   ],
   currentItems = [],
+  searchByInvoice = '',
   pageCount = 0,
   paginate = false,
-  handlePageClick = () => { },
+  handlePageClick = () => {},
 }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
@@ -76,8 +77,9 @@ const SortedTable = ({
               {cols.length !== 0 &&
                 cols.map((col, index) => (
                   <th
-                    className={`text-left ${colStyles} ${col.sort && "cursor-pointer"
-                      } `}
+                    className={`text-left ${colStyles} ${
+                      col.sort && "cursor-pointer"
+                    } `}
                     onClick={() => col.sort && handleSort(col.identity)}
                   >
                     <div className="flex items-center gap-1">
@@ -89,24 +91,31 @@ const SortedTable = ({
           </thead>
           <tbody>
             {sortedData &&
-              [...sortedData].map((row, index) => (
-                <tr key={index}>
-                  {cols.map((col) => (
-                    <th
-                      key={col.identity}
-                      className={
-                        col.rowStyles ? col.rowStyles : generalRowStyles
-                      }
-                    >
-                      {col.symbol === "DATE"
-                        ? formatDate(row[col.identity])
-                        : col.symbol === "USD"
+              [...sortedData]
+              .filter((item) => {
+                if (searchByInvoice !== "") {
+                  return item.email.startsWith(searchByInvoice);
+                }
+                return item;
+              })
+                .map((row, index) => (
+                  <tr key={index}>
+                    {cols.map((col) => (
+                      <th
+                        key={col.identity}
+                        className={
+                          col.rowStyles ? col.rowStyles : generalRowStyles
+                        }
+                      >
+                        {col.symbol === "DATE"
+                          ? formatDate(row[col.identity])
+                          : col.symbol === "USD"
                           ? numberToMoney(row[col.identity])
                           : row[col.identity] + col.symbol}
-                    </th>
-                  ))}
-                </tr>
-              ))}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
           </tbody>
         </table>
       </div>
