@@ -194,8 +194,8 @@ const SalesPerformance = () => {
       revenue_q4: "Revenue Q4 (USD)",
       total_vip: "Total VIP Revenue (USD)",
       total_vmp: "Total VMP Revenue (USD)",
-      actual_revenue: "Actual Revenue (USD)",
       rma: "RMA (USD)",
+      actual_revenue: "Actual Revenue (USD)",
       total_revenue: "Total Revenue (USD)",
       expected_revenue: "Expected Revenue (USD)",
       avg_effectiveness: "Total % effectiveness",
@@ -205,9 +205,10 @@ const SalesPerformance = () => {
         console.error(error);
         return;
       }
-      Object.keys(data[0])
-        .map((key) => columnMapping[key] || key)
-        .join(",") +
+      const csvContent =
+        Object.keys(data[0])
+          .map((key) => columnMapping[key] || key)
+          .join(",") +
         "\n" +
         data
           .map((row) =>
@@ -221,7 +222,7 @@ const SalesPerformance = () => {
               .join(",")
           )
           .join("\n");
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
       saveAs(blob, "Sales Performance.csv");
     });
   };
@@ -282,7 +283,7 @@ const SalesPerformance = () => {
       const blob = new Blob([write(wb, { bookType: "xlsx", type: "array" })], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
-      saveAs(blob, "Top_5_users.xlsx");
+      saveAs(blob, "Sales performance.xlsx");
     });
   };
 
