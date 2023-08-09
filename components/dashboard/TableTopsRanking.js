@@ -223,7 +223,7 @@ const TableTopsRanking = ({
             {ranking.length !== 0 &&
               [...ranking]
                 .filter((i) => {
-                  if (filters.region.length > 0) {
+                  if (filters.region?.length > 0) {
                     return (
                       i.region ===
                       (filters.region == "LATAM"
