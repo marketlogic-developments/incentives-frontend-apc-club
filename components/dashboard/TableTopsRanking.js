@@ -10,6 +10,7 @@ import { saveAs } from "file-saver";
 import SelectInputValue from "../inputs/SelectInputValue";
 import { comment } from "postcss";
 import axios from "axios";
+import BtnFilter from "../cardReportes/BtnFilter";
 
 const TableTopsRanking = ({
   containerStyles = "",
@@ -24,11 +25,17 @@ const TableTopsRanking = ({
   const [allCompanies, setAllCompanies] = useState([]);
   const [regions, setRegions] = useState([]);
   const [level, setLevel] = useState([]);
+  const [selectOne, setSelectOne] = useState("");
   const [t, i18n] = useTranslation("global");
   const [filters, setFilters] = useState({
     company: "",
     region: "",
   });
+
+  /* Clear Filter */
+  const clearSelects = () => {
+    setSelectOne("");
+  };
 
   /* Download */
   const importFile = (data) => {
@@ -86,8 +93,6 @@ const TableTopsRanking = ({
     setFilters({ [keys[0]]: "", [name]: info });
   };
 
-  console.log(regions);
-
   return (
     <div className="grid w-full">
       <div className="flex justify-between items-center">
@@ -118,9 +123,11 @@ const TableTopsRanking = ({
               name={"region"}
             />
           </div>
-        </div>
-        <div className="cursor-pointer flex items-center invisible">
-          <p className="text-[#828282]">Limpiar filtros</p>
+          <BtnFilter
+            text={t("Reportes.limpiar_filtros")}
+            styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
+            onClick={() => setFilters({ company: "", region: "" })}
+          />
         </div>
         {user.roleId === 1 && (
           <div>
