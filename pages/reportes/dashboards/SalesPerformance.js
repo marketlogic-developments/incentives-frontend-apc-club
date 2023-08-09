@@ -34,6 +34,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import SortedTable from "../../../components/table/SortedTable";
+import { utils, write } from "xlsx";
 
 const SalesPerformance = () => {
   const dispatch = useDispatch();
@@ -162,13 +163,126 @@ const SalesPerformance = () => {
 
   /* Download */
   const importFile = (data) => {
+    const columnMapping = {
+      id: "Membership ID",
+      company_id: "Company Name",
+      company_name: "Region",
+      region: "Country",
+      country_id: "Company Type",
+      level: "Company Level",
+      active: "Company Status",
+      usuarios: "Company Active Users",
+      vip_cc_newbusiness: "VIP Renewal CC (USD)",
+      vip_cc_renewal: "VIP Renewal DC (USD)",
+      vip_dc_newbusiness: "VIP New Business CC (USD)",
+      vip_dc_renewal: "VIP New Business DC (USD)",
+      vmp_cc_newbusiness: "VMP Renewal CC (USD)",
+      vmp_cc_renewal: "VMP Renewal DC (USD)",
+      vmp_dc_newbusiness: "VMP New Business CC (USD)",
+      vmp_dc_renewal: "VMP New Business DC (USD)",
+      vip_revenue_q1: "VIP Revenue Q1 (USD)",
+      vip_revenue_q2: "VIP Revenue Q2 (USD)",
+      vip_revenue_q3: "VIP Revenue Q3 (USD)",
+      vip_revenue_q4: "VIP Revenue Q4 (USD)",
+      vmp_revenue_q1: "VMP Revenue Q1 (USD)",
+      vmp_revenue_q2: "VMP Revenue Q2 (USD)",
+      vmp_revenue_q3: "VMP Revenue Q3 (USD)",
+      vmp_revenue_q4: "VMP Revenue Q4 (USD)",
+      revenue_q1: "Revenue Q1 (USD)",
+      revenue_q2: "Revenue Q2 (USD)",
+      revenue_q3: "Revenue Q3 (USD)",
+      revenue_q4: "Revenue Q4 (USD)",
+      total_vip: "Total VIP Revenue (USD)",
+      total_vmp: "Total VMP Revenue (USD)",
+      actual_revenue: "Actual Revenue (USD)",
+      rma: "RMA (USD)",
+      total_revenue: "Total Revenue (USD)",
+      expected_revenue: "Expected Revenue (USD)",
+      avg_effectiveness: "Total % effectiveness",
+    };
     jsonexport(data, (error, csv) => {
       if (error) {
         console.error(error);
         return;
       }
+      Object.keys(data[0])
+        .map((key) => columnMapping[key] || key)
+        .join(",") +
+        "\n" +
+        data
+          .map((row) =>
+            Object.values(row)
+              .map((value) => {
+                if (typeof value === "string" && value.includes(",")) {
+                  return `"${value}"`;
+                }
+                return value;
+              })
+              .join(",")
+          )
+          .join("\n");
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
       saveAs(blob, "Sales Performance.csv");
+    });
+  };
+
+  const importFileExcel = (data) => {
+    jsonexport(data, (error) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const ws = utils.json_to_sheet(data);
+      const wb = utils.book_new();
+      utils.sheet_add_aoa(
+        ws,
+        [
+          [
+            "Membership ID",
+            "Company Name",
+            "Region",
+            "Country",
+            "Company Type",
+            "Company Level",
+            "Company Status",
+            "Company Active Users",
+            "VIP Renewal CC (USD)",
+            "VIP Renewal DC (USD)",
+            "VIP New Business CC (USD)",
+            "VIP New Business DC (USD)",
+            "VMP Renewal CC (USD)",
+            "VMP Renewal DC (USD)",
+            "VMP New Business CC (USD)",
+            "VMP New Business DC (USD)",
+            "VIP Revenue Q1 (USD)",
+            "VIP Revenue Q2 (USD)",
+            "VIP Revenue Q3 (USD)",
+            "VIP Revenue Q4 (USD)",
+            "VMP Revenue Q1 (USD)",
+            "VMP Revenue Q2 (USD)",
+            "VMP Revenue Q3 (USD)",
+            "VMP Revenue Q4 (USD)",
+            "Revenue Q1 (USD)",
+            "Revenue Q2 (USD)",
+            "Revenue Q3 (USD)",
+            "Revenue Q4 (USD)",
+            "Total VIP Revenue (USD)",
+            "Total VMP Revenue (USD)",
+            "Actual Revenue (USD)",
+            "RMA (USD)",
+            "Total Revenue (USD)",
+            "Expected Revenue (USD)",
+            "Total % effectiveness",
+          ],
+        ],
+        { origin: "A1" }
+      );
+
+      utils.book_append_sheet(wb, ws, "Top 5 usuarios");
+      const blob = new Blob([write(wb, { bookType: "xlsx", type: "array" })], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      saveAs(blob, "Top_5_users.xlsx");
     });
   };
 
@@ -402,13 +516,25 @@ const SalesPerformance = () => {
             />
           </div>
         </div>
-        <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
+        <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
           <div
             className="grid sm:w-[45%]"
             onClick={() => importFile(dataTable)}
           >
             <BtnWithImage
               text={t("Reportes.descargar")}
+              icon={<CloudDownload />}
+              styles={
+                "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+              }
+            />
+          </div>
+          <div
+            className="grid sm:w-[45%]"
+            onClick={() => importFileExcel(dataTable)}
+          >
+            <BtnWithImage
+              text={t("Reportes.descargar") + " excel"}
               icon={<CloudDownload />}
               styles={
                 "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
@@ -426,35 +552,74 @@ const SalesPerformance = () => {
         {loading && <div className="lds-dual-ring"></div>}
         {!loading && (
           <SortedTable
-          containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
-          tableStyles={"table-zebra !text-sm"}
-          colStyles={"p-2"}
-          thStyles={"sticky text-white"}
-          cols={[
-            { rowStyles:"", sort:true, symbol:"", identity: "company_name", columnName: "Company Name" },
-            { symbol:"", identity: "region", columnName: "Region" },
-            { symbol:"", identity: "level", columnName: "Company Level" },
-            { symbol:"", identity: "usuarios", columnName: "Company Active Users" },
-            { symbol:"USD", sort:true, identity: "total_vip", columnName: "Total VIP Revenue (USD)" },
-            { symbol:"USD", sort:true, identity: "total_vmp", columnName: "Total VMP Revenue (USD)" },
-            { symbol:"USD", sort:true, identity: "actual_revenue", columnName: "Actual Revenue (USD)" },
-            { symbol:"USD", sort:true, identity: "rma", columnName: "RMA (USD)" },
-            { symbol:"USD", sort:true, identity: "total_revenue", columnName: "Total Revenue (USD)" },
-            {
-              symbol:"USD", sort:true, identity: "expected_revenue",
-              columnName: "Expected Revenue (USD)",
-            },
-            {
-              symbol:"%", sort:true, identity: "avg_effectiveness",
-              columnName: "Total % effectiveness",
-            },
-          ]}
-          generalRowStyles={"text-left py-3 mx-7"}
-          paginate={true}
-          pageCount={pageCount}
-          currentItems={currentItems}
-          handlePageClick={handlePageClick}
-        />
+            containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
+            tableStyles={"table-zebra !text-sm"}
+            colStyles={"p-2"}
+            thStyles={"sticky text-white"}
+            cols={[
+              {
+                rowStyles: "",
+                sort: true,
+                symbol: "",
+                identity: "company_name",
+                columnName: "Company Name",
+              },
+              { symbol: "", identity: "region", columnName: "Region" },
+              { symbol: "", identity: "level", columnName: "Company Level" },
+              {
+                symbol: "",
+                identity: "usuarios",
+                columnName: "Company Active Users",
+              },
+              {
+                symbol: "USD",
+                sort: true,
+                identity: "total_vip",
+                columnName: "Total VIP Revenue (USD)",
+              },
+              {
+                symbol: "USD",
+                sort: true,
+                identity: "total_vmp",
+                columnName: "Total VMP Revenue (USD)",
+              },
+              {
+                symbol: "USD",
+                sort: true,
+                identity: "actual_revenue",
+                columnName: "Actual Revenue (USD)",
+              },
+              {
+                symbol: "USD",
+                sort: true,
+                identity: "rma",
+                columnName: "RMA (USD)",
+              },
+              {
+                symbol: "USD",
+                sort: true,
+                identity: "total_revenue",
+                columnName: "Total Revenue (USD)",
+              },
+              {
+                symbol: "USD",
+                sort: true,
+                identity: "expected_revenue",
+                columnName: "Expected Revenue (USD)",
+              },
+              {
+                symbol: "%",
+                sort: true,
+                identity: "avg_effectiveness",
+                columnName: "Total % effectiveness",
+              },
+            ]}
+            generalRowStyles={"text-left py-3 mx-7"}
+            paginate={true}
+            pageCount={pageCount}
+            currentItems={currentItems}
+            handlePageClick={handlePageClick}
+          />
         )}
       </div>
     </div>
