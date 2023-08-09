@@ -7,9 +7,7 @@ import {
 } from "../../../components/icons";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getInvoiceReport,
-} from "../../../store/reducers/sales.reducer";
+import { getInvoiceReport } from "../../../store/reducers/sales.reducer";
 import {
   BtnFilter,
   BtnWithImage,
@@ -24,7 +22,6 @@ import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
-
 
 const InvoiceReport = () => {
   const itemsPerPage = 10;
@@ -41,7 +38,7 @@ const InvoiceReport = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const [searchByInvoice, setSearchByInvoice] = useState("");
   const router = useRouter();
-  
+
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
       .toFixed(0)
@@ -107,17 +104,13 @@ const InvoiceReport = () => {
   const filteredUsers = data.filter((user) => {
     if (
       selectThree &&
-      !user.company_name
-        .toLowerCase()
-        .includes(selectThree.toLowerCase())
+      !user.company_name.toLowerCase().includes(selectThree.toLowerCase())
     ) {
       return false;
     }
     if (
       selectTwo &&
-      !user.business_type
-        .toLowerCase()
-        .includes(selectTwo.toLowerCase())
+      !user.business_type.toLowerCase().includes(selectTwo.toLowerCase())
     ) {
       return false;
     }
@@ -137,6 +130,7 @@ const InvoiceReport = () => {
   const clearSelects = () => {
     setSelectOne("");
     setSelectTwo("");
+    setSelectThree("");
   };
 
   /* Download */
@@ -179,22 +173,28 @@ const InvoiceReport = () => {
         />
       </div>
       <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
-        <AiOutlineHome className="cursor-pointer"
+        <AiOutlineHome
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/dashboard");
-          }}/>
-        <span><AiOutlineRight /></span>
-        <span className="cursor-pointer"
+            router.push("/dashboard");
+          }}
+        />
+        <span>
+          <AiOutlineRight />
+        </span>
+        <span
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/reportesDashboard");
+            router.push("/reportesDashboard");
           }}
         >
-        My Reports
+          My Reports
         </span>
-        <span><AiOutlineRight /></span>
-        <span className="font-bold text-[#1473E6]"
-        >
-        {t("Reportes.invoice_report")}
+        <span>
+          <AiOutlineRight />
+        </span>
+        <span className="font-bold text-[#1473E6]">
+          {t("Reportes.invoice_report")}
         </span>
       </div>
       <div className="grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
@@ -254,43 +254,39 @@ const InvoiceReport = () => {
           <>
             <div className="grid grid-rows-1 justify-items-center pt-5">
               <Table
-                containerStyles={
-                  "mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"
-                }
+                containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
                 tableStyles={"table-zebra !text-sm"}
                 colStyles={"p-2"}
                 thStyles={"sticky text-white"}
-                cols={
-                  [
-                    "Membership ID",
-                    "Company Name",
-                    /* "Company Type", */
-                    "Company Level",
-                    "User Name",
-                    "User Role",
-                    "Invoice",
-                    /* "Material Sku", */
-                    /* "Licensing Contract", */
-                    /* "Major Licensing Programid",
+                cols={[
+                  "Membership ID",
+                  "Company Name",
+                  /* "Company Type", */
+                  "Company Level",
+                  "User Name",
+                  "User Role",
+                  "Invoice",
+                  /* "Material Sku", */
+                  /* "Licensing Contract", */
+                  /* "Major Licensing Programid",
                     "Business Unit",
                     "Business Type",
                     "Month", */
-                    "Date",
-                    "Client",
-                    /* "Product Name", */
-                    /* "Quantity", */
-                    /* "Total Sales Revenue (USD)",
+                  "Date",
+                  "Client",
+                  /* "Product Name", */
+                  /* "Quantity", */
+                  /* "Total Sales Revenue (USD)",
                     "Revenue by User (USD)",
                     "Total Sales DigiPoints",
                     "Sales DigiPoints by User",
                     "Promotions DigiPoints",
                     "Promotions Name", */
-                    "Revenue by user (USD)",
-                    "Sales DigiPoints by user",
-                    "Promotions DigiPoints",
-                    "Promotions Name",
-                  ]
-                }
+                  "Revenue by user (USD)",
+                  "Sales DigiPoints by user",
+                  "Promotions DigiPoints",
+                  "Promotions Name",
+                ]}
               >
                 {currentItems &&
                   [...currentItems]
@@ -303,27 +299,51 @@ const InvoiceReport = () => {
                     })
                     .map((data, index) => (
                       <tr key={index}>
-                        <td className="text-start mx-2 py-4 px-2">{data.company_id}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.company_name}</td>
+                        <td className="text-start mx-2 py-4 px-2">
+                          {data.company_id}
+                        </td>
+                        <td className="text-start mx-2 py-4 px-2">
+                          {data.company_name}
+                        </td>
                         {/* <td className="text-start mx-2 py-4 px-2">{data.partner_type}</td> */}
-                        <td className="text-start mx-2 py-4 px-2">{data.partner_type}</td>
+                        <td className="text-start mx-2 py-4 px-2">
+                          {data.partner_type}
+                        </td>
                         {/* <td className="text-start mx-2 py-4 px-2">{data.business_unit}</td> */}
-                        <td className="text-start mx-2 py-4 px-2">{data.user}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.user_rol}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.invoice}</td>
+                        <td className="text-start mx-2 py-4 px-2">
+                          {data.user}
+                        </td>
+                        <td className="text-start mx-2 py-4 px-2">
+                          {data.user_rol}
+                        </td>
+                        <td className="text-start mx-2 py-4 px-2">
+                          {data.invoice}
+                        </td>
                         {/* <td className="text-start mx-2 py-4 px-2">{data.material_sku}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.licensing_contract}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.major_licensing_program_id}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.business_unit}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.business_type}</td>
                         <td className="text-start mx-2 py-4 px-2">{data.month}</td> */}
-                        <td className="text-start mx-2 py-4 px-2">{data.date}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.client}</td>
+                        <td className="text-start mx-2 py-4 px-2">
+                          {data.date}
+                        </td>
+                        <td className="text-start mx-2 py-4 px-2">
+                          {data.client}
+                        </td>
                         {/* <td className="text-start mx-2 py-4 px-2">{data.product}</td> */}
-                        <td className="text-start mx-2 py-4 px-2">{numberToMoney(data.amount_by_user)}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.digipoints_by_user}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.puntosxpromo}</td>
-                        <td className="text-start mx-2 py-4 px-2">{data.promoname}</td>
+                        <td className="text-start mx-2 py-4 px-2">
+                          {numberToMoney(data.amount_by_user)}
+                        </td>
+                        <td className="text-start mx-2 py-4 px-2">
+                          {data.digipoints_by_user}
+                        </td>
+                        <td className="text-start mx-2 py-4 px-2">
+                          {data.puntosxpromo}
+                        </td>
+                        <td className="text-start mx-2 py-4 px-2">
+                          {data.promoname}
+                        </td>
                       </tr>
                     ))}
               </Table>
