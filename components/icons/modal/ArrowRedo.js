@@ -12,8 +12,8 @@ const ArrowRedo = ({ width = 18, height = 19 }) => {
       <path
         d="M9.65784 6.50001L5.86366 2.8783V4.94785C2.23268 4.94785 1.37964 7.55138 1.37964 10.1217C2.42756 8.77996 3.35433 8.05217 5.86366 8.05217V10.1217L9.65784 6.50001Z"
         stroke="black"
-        stroke-width="0.68985"
-        stroke-linejoin="round"
+        strokeWidth="0.68985"
+        strokeLinejoin="round"
       />
     </svg>
   );
