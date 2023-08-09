@@ -148,15 +148,6 @@ const TableTopsRanking = ({
             />
           </div>
         )}
-        <InputReporte
-          image={<SearchIcon />}
-          placeHolder={t("Reportes.buscar")}
-          stylesContainer={"mt-2"}
-          stylesInput={
-            "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
-          }
-          stylesImage={"pb-0"}
-        />
       </div>
 
       <div className={`w-full overflow-y-auto ${containerStyles}`}>
