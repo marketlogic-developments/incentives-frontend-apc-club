@@ -37,6 +37,7 @@ const InvoiceReport = () => {
   const [t, i18n] = useTranslation("global");
   const [selectOne, setSelectOne] = useState("");
   const [selectTwo, setSelectTwo] = useState("");
+  const [selectThree, setSelectThree] = useState("");
   const [itemOffset, setItemOffset] = useState(0);
   const [searchByInvoice, setSearchByInvoice] = useState("");
   const router = useRouter();
@@ -77,6 +78,10 @@ const InvoiceReport = () => {
     setSelectTwo(value);
   };
 
+  const handleSelectThreeChange = (name, value) => {
+    setSelectThree(value);
+  };
+
   const dataOne = [...new Set(data.map((user) => user.business_unit))];
 
   const dataSelectOne = dataOne.map((business_unit) => ({
@@ -91,8 +96,23 @@ const InvoiceReport = () => {
     label: business_type,
   }));
 
+  const dataThree = [...new Set(data.map((user) => user.company_name))];
+
+  const dataSelectThree = dataThree.map((company_name) => ({
+    value: company_name,
+    label: company_name,
+  }));
+
   /* Filter */
   const filteredUsers = data.filter((user) => {
+    if (
+      selectThree &&
+      !user.company_name
+        .toLowerCase()
+        .includes(selectThree.toLowerCase())
+    ) {
+      return false;
+    }
     if (
       selectTwo &&
       !user.business_type
@@ -177,7 +197,7 @@ const InvoiceReport = () => {
         {t("Reportes.invoice_report")}
         </span>
       </div>
-      <div className="grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
+      <div className="grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
           placeHolder={"Invoice"}
@@ -187,6 +207,15 @@ const InvoiceReport = () => {
           stylesInput={
             "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
           }
+        />
+        <SelectInputValue
+          placeholder={"Company Name"}
+          value={selectThree}
+          data={dataSelectThree}
+          icon={<ArrowDown />}
+          searchable={true}
+          onChange={handleSelectThreeChange}
+          name={"company_name"}
         />
         <SelectInputValue
           placeholder={"Business Unit"}
