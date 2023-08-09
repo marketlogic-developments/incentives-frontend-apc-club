@@ -25,17 +25,11 @@ const TableTopsRanking = ({
   const [allCompanies, setAllCompanies] = useState([]);
   const [regions, setRegions] = useState([]);
   const [level, setLevel] = useState([]);
-  const [selectOne, setSelectOne] = useState("");
   const [t, i18n] = useTranslation("global");
   const [filters, setFilters] = useState({
     company: "",
     region: "",
   });
-
-  /* Clear Filter */
-  const clearSelects = () => {
-    setSelectOne("");
-  };
 
   /* Download */
   const importFile = (data) => {
@@ -95,7 +89,7 @@ const TableTopsRanking = ({
 
   return (
     <div className="grid w-full">
-      <div className="flex justify-between items-center">
+      <div className="sm:flex justify-between items-center">
         <div>
           <h2 className="!text-xl font-bold">{t("dashboard.topUsuarios")}</h2>
         </div>
@@ -163,7 +157,15 @@ const TableTopsRanking = ({
               [...ranking]
                 .filter((i) => {
                   if (filters.region.length > 0) {
-                    return i.region === filters.region;
+                    return (
+                      i.region ===
+                      (filters.region == "LATAM"
+                        ? setFilters({
+                            ...filters,
+                            region: "",
+                          })
+                        : filters.region)
+                    );
                   }
                   if (filters.company.length > 0) {
                     return i.company === filters.company;
