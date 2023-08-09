@@ -10,6 +10,7 @@ import {
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 import InformativeSections from "./UserOptions/InformativeSections";
+import { useEffect } from "react";
 
 const UserOptions = ({
   user,
@@ -20,14 +21,29 @@ const UserOptions = ({
   actionCustomerCare,
 }) => {
   const route = useRouter();
-
-  const [opened, setOpened] = useState(false);
-  const [modal, setModal] = useState(0);
-  const [nInputs, setNInputs] = useState(0);
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
+  const componenteRef = useRef(null);
   const [image, setImage] = useState({});
   const [viewimage, setviewImage] = useState("");
+
+  useEffect(() => {
+    const handleClickFuera = (event) => {
+      if (
+        componenteRef.current &&
+        !componenteRef.current.contains(event.target)
+      ) {
+        // El clic se hizo fuera del componente
+        setMenuUser(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickFuera);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickFuera);
+    };
+  }, []);
 
   const fileInputRef = useRef(null);
 
@@ -127,6 +143,7 @@ const UserOptions = ({
           boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           borderRadius: "10px",
         }}
+        ref={componenteRef}
       >
         <div className="w-full flex justify-center">
           <div className="w-3/4 justify-center flex flex-col items-center gap-3">
@@ -217,7 +234,10 @@ const UserOptions = ({
             </button>
           </div>
         </div>
-        <InformativeSections actionCustomerCare={actionCustomerCare} />
+        <InformativeSections
+          actionCustomerCare={actionCustomerCare}
+          setMenuUser={setMenuUser}
+        />
         <div className="w-[70%] flex flex-col items-center">
           <hr className="w-full" />
           <p

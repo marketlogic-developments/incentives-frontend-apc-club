@@ -90,11 +90,23 @@ export const getDataAwards = (token, user) => async (dispatch) => {
               return e;
             }
 
+            if (user.countryId) {
+              if (user.countryId === "CHILE") {
+                return e.name.split(" ")[0] === "Cencosud";
+              }
+              if (user.countryId === "COLOMBIA") {
+                return e.name.split(" ")[0] === "Falabella";
+              }
+              if (user.countryId === "Nothing") {
+                return;
+              }
+
+              return e.description === user.countryId;
+            }
+
             if (countryCompany === "Colombia") {
-              return (
-                // e.name.split(" ")[0] === "Rappi" ||
-                e.name.split(" ")[0] === "Falabella"
-              );
+              // return e.description === "COLOMBIA";
+              return e.name.split(" ")[0] === "Falabella";
             }
             if (countryCompany === "Chile") {
               return e.name.split(" ")[0] === "Cencosud";

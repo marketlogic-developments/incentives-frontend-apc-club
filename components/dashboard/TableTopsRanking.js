@@ -64,8 +64,8 @@ const TableTopsRanking = ({
     );
 
     Promise.allSettled([companies, distribution]).then((res) => {
-      const arrMap1 = res[0].value.data.map(({ name }) => ({ name: name }));
-      const arrMap2 = res[1].value.data.map(({ nameDist }) => ({
+      const arrMap1 = res[0]?.value?.data?.map(({ name }) => ({ name: name }));
+      const arrMap2 = res[1]?.value?.data?.map(({ nameDist }) => ({
         nameDist: nameDist,
       }));
 
