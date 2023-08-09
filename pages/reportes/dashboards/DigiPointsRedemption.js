@@ -252,6 +252,7 @@ const DigiPointsRedemption = () => {
             pageCount={pageCount}
             currentItems={currentItems}
             searchByInvoice={searchByInvoice}
+            fieldSearchByInvoice={'email'}
             handlePageClick={handlePageClick}
           />
           )}

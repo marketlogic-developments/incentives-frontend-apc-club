@@ -24,7 +24,8 @@ const SortedTable = ({
     },
   ],
   currentItems = [],
-  searchByInvoice = '',
+  searchByInvoice = "",
+  fieldSearchByInvoice = "",
   pageCount = 0,
   paginate = false,
   handlePageClick = () => {},
@@ -92,12 +93,14 @@ const SortedTable = ({
           <tbody>
             {sortedData &&
               [...sortedData]
-              .filter((item) => {
-                if (searchByInvoice !== "") {
-                  return item.email.startsWith(searchByInvoice);
-                }
-                return item;
-              })
+                .filter((item) => {
+                  if (searchByInvoice !== "") {
+                    return item[fieldSearchByInvoice].startsWith(
+                      searchByInvoice
+                    );
+                  }
+                  return item;
+                })
                 .map((row, index) => (
                   <tr key={index}>
                     {cols.map((col) => (

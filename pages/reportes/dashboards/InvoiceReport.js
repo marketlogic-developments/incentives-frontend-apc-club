@@ -267,7 +267,7 @@ const InvoiceReport = () => {
                   [...currentItems]
                     .filter((item) => {
                       if (searchByInvoice !== "") {
-                        return item.company_name.startsWith(searchByInvoice);
+                        return item.invoice.startsWith(searchByInvoice);
                       }
 
                       return item;
