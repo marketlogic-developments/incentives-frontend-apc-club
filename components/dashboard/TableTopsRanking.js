@@ -98,6 +98,7 @@ const TableTopsRanking = ({
           <div className="sm:w-[90%] w-[60%]">
             <SelectInputValue
               placeholder={"Company Name"}
+              searchable={true}
               value={filters.company}
               data={allCompanies
                 .map(({ name, nameDist }) => name || nameDist)
