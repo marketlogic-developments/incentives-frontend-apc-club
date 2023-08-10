@@ -29,8 +29,10 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import {
+  importCsvFunction,
   importExcelFunction,
-  userPerformanceColumns,
+  userPerformanceColumnsCsv,
+  userPerformanceColumnsExcel,
 } from "../../../components/functions/reports";
 
 const SalesPerformance = () => {
@@ -136,81 +138,22 @@ const SalesPerformance = () => {
   };
 
   /* Download */
-  const importFile = (data) => {
-    const columnMapping = {
-      employ_id: "User Name",
-      email: "Email",
-      name: "FirstName",
-      last_name: "LastName",
-      country_id: "Country",
-      region: "Region",
-      reseller_or_dist_name: "Company Name",
-      reseller_or_dist_id: "Company Type",
-      rtype: "Company Level",
-      dcname: "Company Status",
-      rolname: "User Role",
-      vip_cc_newbusiness: "VIP Renewal CC (USD)",
-      vip_cc_renewal: "VIP Renewal DC (USD)",
-      vip_dc_newbusiness: "VIP New Business CC (USD)",
-      vip_dc_renewal: "VIP New Business DC (USD)",
-      vmp_cc_newbusiness: "VMP Renewal CC (USD)",
-      vmp_cc_renewal: "VMP Renewal DC (USD)",
-      vmp_dc_newbusiness: "VMP New Business CC (USD)",
-      vmp_dc_renewal: "VMP New Business DC (USD)",
-      vip_revenue_q1: "VIP Revenue Q1 (USD)",
-      vip_revenue_q2: "VIP Revenue Q2 (USD)",
-      vip_revenue_q3: "VIP Revenue Q3 (USD)",
-      vip_revenue_q4: "VIP Revenue Q4 (USD)",
-      vmp_revenue_q1: "VMP Revenue Q1 (USD)",
-      vmp_revenue_q2: "VMP Revenue Q2 (USD)",
-      vmp_revenue_q3: "VMP Revenue Q3 (USD)",
-      vmp_revenue_q4: "VMP Revenue Q4 (USD)",
-      revenue_q1: "Revenue Q1 (USD)",
-      revenue_q2: "Revenue Q2 (USD)",
-      revenue_q3: "Revenue Q3 (USD)",
-      revenue_q4: "Revenue Q4 (USD)",
-      vip_revenue_total: "Total VIP Revenue (USD)",
-      vmp_revenue_total: "Total VMP Revenue (USD)",
-      revenue_actual: "Actual Revenue (USD)",
-      rma: "RMA (USD)",
-      sales_digipoints: "Sales DigiPoints",
-      promotion_digipoints: "Promotion DigiPoints",
-      behavior_digiPoints: "Behavior DigiPoints",
-      total_digipoints: "Total DigiPoints",
-      redenciones: "DigiPoints Redeemed",
-      avg_effectiveness: "Total % effectiveness",
+  const importFile = async (data) => {
+    const columns = userPerformanceColumnsCsv(data);
+    const csvConfig = {
+      data: data,
+      columns: columns,
+      downloadTitle: "User Performance",
     };
-    jsonexport(data, (error, csv) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      const csvContent =
-        Object.keys(data[0])
-          .map((key) => columnMapping[key] || key)
-          .join(",") +
-        "\n" +
-        data
-          .map((row) =>
-            Object.values(row)
-              .map((value) => {
-                if (typeof value === "string" && value.includes(",")) {
-                  return `"${value}"`;
-                }
-                return value;
-              })
-              .join(",")
-          )
-          .join("\n");
-      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
-      saveAs(blob, "User Performance.csv");
-    });
+
+    const blob = await importCsvFunction(csvConfig);
+    /* saveAs(blob, `${csvConfig.downloadTitle}.csv`); */
   };
 
   const importFileExcel = async (data) => {
     const excelConfig = {
       data: data,
-      columns: userPerformanceColumns,
+      columns: userPerformanceColumnsExcel,
       downloadTitle: "User Performance",
     };
 

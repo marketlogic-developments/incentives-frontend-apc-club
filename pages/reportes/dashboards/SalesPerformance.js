@@ -36,7 +36,7 @@ import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import SortedTable from "../../../components/table/SortedTable";
 import {
   importExcelFunction,
-  salesPerformanceColumns,
+  salesPerformanceColumnsExcel,
 } from "../../../components/functions/reports";
 const SalesPerformance = () => {
   const dispatch = useDispatch();
@@ -232,7 +232,7 @@ const SalesPerformance = () => {
   const importFileExcel = async (data) => {
     const excelConfig = {
       data: data,
-      columns: salesPerformanceColumns,
+      columns: salesPerformanceColumnsExcel,
       downloadTitle: "Sales performance",
     };
 

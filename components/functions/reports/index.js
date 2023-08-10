@@ -1,2 +1,6 @@
-export { userPerformanceColumns, salesPerformanceColumns } from "./consts/Columns";
-export { importExcelFunction } from "./GenerateExcel";
+export {
+  userPerformanceColumnsExcel,
+  salesPerformanceColumnsExcel,
+  userPerformanceColumnsCsv,
+} from "./consts/Columns";
+export { importExcelFunction, importCsvFunction } from "./GenerateFiles";
