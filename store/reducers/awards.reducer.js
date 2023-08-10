@@ -79,8 +79,6 @@ export const getDataAwards = (token, user) => async (dispatch) => {
       .then((res) => {
         let obj = res.data
           .filter((e) => {
-            console.log(user);
-
             const countryCompany =
               user.companyId !== null
                 ? user.company.country
