@@ -2,8 +2,12 @@
  * Aqui van todos los encabezados para los diferentes reportes.
  */
 
-const parseData = (data, columns) => {
+import { date } from "./Headers";
+
+const parseData = (data, columns, customHeader) => {
   const csvContent =
+    customHeader.join(",") + // Agregar el encabezado personalizado
+    "\n" +
     Object.keys(data[0])
       .map((key) => columns[key] || key)
       .join(",") +
@@ -149,11 +153,16 @@ export const userPerformanceColumnsCsv = (data) => {
     redenciones: "DigiPoints Redeemed",
     avg_effectiveness: "Total % effectiveness",
   };
-  const result = parseData(data, columns);
+  const customHeader = [
+    "Adobe Partner Connection Club",
+    "User Performance",
+    date(),
+  ];
+  const result = parseData(data, columns, customHeader);
   return result;
 };
 
-export const salesPerformanceColumnsCsv = (data)=>{
+export const salesPerformanceColumnsCsv = (data) => {
   const columns = {
     id: "Membership ID",
     company_id: "Company Name",
@@ -192,6 +201,12 @@ export const salesPerformanceColumnsCsv = (data)=>{
     avg_effectiveness: "Total % effectiveness",
   };
 
-  const result = parseData(data, columns);
+  const customHeader = [
+    "Adobe Partner Connection Club",
+    "Sales Performance",
+    date(),
+  ];
+
+  const result = parseData(data, columns, customHeader);
   return result;
-}
+};

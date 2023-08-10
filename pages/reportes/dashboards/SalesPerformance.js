@@ -37,8 +37,8 @@ import SortedTable from "../../../components/table/SortedTable";
 import {
   importCsvFunction,
   importExcelFunction,
+  salesPerformanceColumnsCsv,
   salesPerformanceColumnsExcel,
-  userPerformanceColumnsCsv,
 } from "../../../components/functions/reports";
 const SalesPerformance = () => {
   const dispatch = useDispatch();
@@ -167,7 +167,7 @@ const SalesPerformance = () => {
 
   /* Download */
   const importFile = async (data) => {
-    const columns = userPerformanceColumnsCsv(data);
+    const columns = salesPerformanceColumnsCsv(data);
     const csvConfig = {
       data: data,
       columns: columns,
