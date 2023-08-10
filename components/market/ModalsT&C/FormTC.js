@@ -102,7 +102,6 @@ const FormTC = ({ opened, setContent, setModal }) => {
     setModal(0);
   };
 
-  console.log(cc);
   return (
     <form
       className="flex flex-col gap-3 items-center w-full h-full"
