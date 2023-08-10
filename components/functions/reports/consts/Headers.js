@@ -38,6 +38,27 @@ export const addTitleToHeader = (ws, downloadTitle) => {
   ws["A3"] = {
     t: "s",
     v: date(),
-    s: { font: { bold: true } },
+    s: {
+      border: {
+        top: { style: "thin" },
+        bottom: { style: "thin" },
+        left: { style: "thin" },
+        right: { style: "thin" },
+      },
+    },
   };
+};
+
+export const getColumnWidths = (data) => {
+  const columnWidths = [];
+  for (let i = 0; i < data[0].length; i++) {
+    let maxLength = 0;
+    for (let j = 0; j < data.length; j++) {
+      const cellValue = data[j][i];
+      const cellLength = cellValue ? cellValue.toString().length : 0;
+      maxLength = Math.max(maxLength, cellLength);
+    }
+    columnWidths.push({ wch: maxLength }); // Agregar margen
+  }
+  return columnWidths;
 };

@@ -1,5 +1,5 @@
 import { utils, write } from "xlsx";
-import { addTitleToHeader } from "./consts/Headers";
+import { addTitleToHeader, getColumnWidths } from "./consts/Headers";
 
 /**
  *
@@ -13,10 +13,12 @@ const importExcelFunction = async (excelConfig) => {
     return Object.keys(row).map((key) => row[key]);
   });
   const allData = [columns, ...dataRows];
+
   const ws = utils.aoa_to_sheet("");
   const wb = utils.book_new();
 
   addTitleToHeader(ws, downloadTitle);
+  ws['!cols'] = getColumnWidths(allData);
 
   utils.sheet_add_aoa(ws, allData, { origin: "A5" });
   utils.book_append_sheet(wb, ws, downloadTitle);
