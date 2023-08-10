@@ -279,11 +279,11 @@ const SalesPerformance = () => {
         { origin: "A1" }
       );
 
-      utils.book_append_sheet(wb, ws, "Top 5 usuarios");
+      utils.book_append_sheet(wb, ws, "Sales performance");
       const blob = new Blob([write(wb, { bookType: "xlsx", type: "array" })], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
-      saveAs(blob, "Sales performance.xlsx");
+      /* saveAs(blob, "Sales performance.xlsx"); */
     });
   };
 
