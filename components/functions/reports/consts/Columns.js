@@ -1,3 +1,6 @@
+/**
+ * Aqui van todos los encabezados para los diferentes reportes.
+ */
 export const userPerformanceColumns = [
   "User Name",
   "Email",
