@@ -38,11 +38,33 @@ const importExcelFunction = async (excelConfig) => {
   };
 };
 
-const GenerateCsv = () => {
-  const response = "Csv";
+const importFileCSV = async (excelConfig) => {
+  const { data, columns, downloadTitle } = excelConfig;
+
+  // Convertir los datos en un formato adecuado para el archivo CSV
+  const csvData = [
+    columns.map((col) => col.label),
+    ...data.map((row) => columns.map((col) => row[col.key])),
+  ].map((row) => row.join(","));
+
+  // Crear el contenido CSV como una cadena
+  const csvContent = csvData.join("\n");
+
+  // Crear un blob con el contenido CSV
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+
+  // Descargar el archivo CSV
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `${downloadTitle}.csv`;
+  link.style.display = "none";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
   return {
-    response,
+    blob,
   };
 };
 
-export { importExcelFunction, GenerateCsv };
+export { importExcelFunction, importFileCSV };

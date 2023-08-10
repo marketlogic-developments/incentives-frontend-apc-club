@@ -28,9 +28,10 @@ import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
-import { utils, write } from "xlsx";
-import { importExcelFunction } from "../../../components/functions/reports/GenerateExcel";
-import { userPerformanceColumns } from "../../../components/functions/reports/consts/Columns";
+import {
+  importExcelFunction,
+  userPerformanceColumns,
+} from "../../../components/functions/reports";
 
 const SalesPerformance = () => {
   const dispatch = useDispatch();

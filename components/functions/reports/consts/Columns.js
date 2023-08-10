@@ -45,7 +45,7 @@ export const userPerformanceColumns = [
   "Total % effectiveness",
 ];
 
-export const SalesPerformanceColumns = [
+export const salesPerformanceColumns = [
   "Membership ID",
   "Company Name",
   "Region",

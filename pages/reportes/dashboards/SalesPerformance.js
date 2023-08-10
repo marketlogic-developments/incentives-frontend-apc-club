@@ -34,10 +34,10 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import SortedTable from "../../../components/table/SortedTable";
-import { utils, write } from "xlsx";
-import { SalesPerformanceColumns } from "../../../components/functions/reports/consts/Columns";
-import { importExcelFunction } from "../../../components/functions/reports/GenerateExcel";
-
+import {
+  importExcelFunction,
+  salesPerformanceColumns,
+} from "../../../components/functions/reports";
 const SalesPerformance = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
@@ -232,7 +232,7 @@ const SalesPerformance = () => {
   const importFileExcel = async (data) => {
     const excelConfig = {
       data: data,
-      columns: SalesPerformanceColumns,
+      columns: salesPerformanceColumns,
       downloadTitle: "Sales performance",
     };
 
