@@ -29,7 +29,8 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import { utils, write } from "xlsx";
-import {importExcelFunction} from '../../../components/functions/reports/GenerateExcel'
+import { importExcelFunction } from "../../../components/functions/reports/GenerateExcel";
+import { userPerformanceColumns } from "../../../components/functions/reports/consts/Columns";
 
 const SalesPerformance = () => {
   const dispatch = useDispatch();
@@ -95,7 +96,6 @@ const SalesPerformance = () => {
         .catch((error) => {
           console.log(error);
         });
-
       setLoading(true);
       dispatch(getSalesvsGoalsUsePerformance(token))
         .then((response) => {
@@ -206,118 +206,16 @@ const SalesPerformance = () => {
     });
   };
 
-  const importFileExcel = (data) => {
-    const headers = [
-      "User Name",
-      "Email",
-      "FirstName",
-      "LastName",
-      "Country",
-      "Region",
-      "Company Name",
-      "Company Type",
-      "Company Level",
-      "Company Status",
-      "User Role",
-      "VIP Renewal CC (USD)",
-      "VIP Renewal DC (USD)",
-      "VIP New Business CC (USD)",
-      "VIP New Business DC (USD)",
-      "VMP Renewal CC (USD)",
-      "VMP Renewal DC (USD)",
-      "VMP New Business CC (USD)",
-      "VMP New Business DC (USD)",
-      "VIP Revenue Q1 (USD)",
-      "VIP Revenue Q2 (USD)",
-      "VIP Revenue Q3 (USD)",
-      "VIP Revenue Q4 (USD)",
-      "VMP Revenue Q1 (USD)",
-      "VMP Revenue Q2 (USD)",
-      "VMP Revenue Q3 (USD)",
-      "VMP Revenue Q4 (USD)",
-      "Revenue Q1 (USD)",
-      "Revenue Q2 (USD)",
-      "Revenue Q3 (USD)",
-      "Revenue Q4 (USD)",
-      "Total VIP Revenue (USD)",
-      "Total VMP Revenue (USD)",
-      "Actual Revenue (USD)",
-      "RMA (USD)",
-      "Sales DigiPoints",
-      "Promotion DigiPoints",
-      "Behavior DigiPoints",
-      "Total DigiPoints",
-      "DigiPoints Redeemed",
-      "Total % effectiveness",
-    ];
+  const importFileExcel = async (data) => {
+    const excelConfig = {
+      data: data,
+      columns: userPerformanceColumns,
+      downloadTitle: "User Performance",
+    };
 
-    const dataRows = data.map((row) => {
-      return [
-        row.employ_id,
-        row.email,
-        row.name,
-        row.last_name,
-        row.country_id,
-        row.region,
-        row.reseller_or_dist_name,
-        row.reseller_or_dist_id,
-        row.rtype,
-        row.dcname,
-        row.rolname,
-        row.vip_cc_newbusiness,
-        row.vip_cc_renewal,
-        row.vip_dc_newbusiness,
-        row.vip_dc_renewal,
-        row.vmp_cc_newbusiness,
-        row.vmp_cc_renewal,
-        row.vmp_dc_newbusiness,
-        row.vmp_dc_renewal,
-        row.vip_revenue_q1,
-        row.vip_revenue_q2,
-        row.vip_revenue_q3,
-        row.vip_revenue_q4,
-        row.vmp_revenue_q1,
-        row.vmp_revenue_q2,
-        row.vmp_revenue_q3,
-        row.vmp_revenue_q4,
-        row.revenue_q1,
-        row.revenue_q2,
-        row.revenue_q3,
-        row.revenue_q4,
-        row.vip_revenue_total,
-        row.vmp_revenue_total,
-        row.revenue_actual,
-        row.rma,
-        row.sales_digipoints,
-        row.promotion_digipoints,
-        row.total_digipoints,
-        row.redenciones,
-      ];
-    });
-
-    const allData = [headers, ...dataRows];
-
-    const ws = utils.aoa_to_sheet('');
-    const wb = utils.book_new();
-
-    // Fusionar celdas A1 a C1 para el título
-   /*  ws["!merges"] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 2 } }]; */
-
-    // Agregar el título en la celda A1
-    /* ws["A1"] = {
-      t: "s",
-      v: "User Performance",
-      s: { font: { bold: true } },
-    }; */
-
-    utils.sheet_add_aoa(ws, allData, { origin: "A1" });
-    utils.book_append_sheet(wb, ws, "User Performance");
-    const blob = new Blob([write(wb, { bookType: "xlsx", type: "array" })], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    });
-    saveAs(blob, "User Performance.xlsx");
+    const { blob } = await importExcelFunction(excelConfig);
+    saveAs(blob, `${excelConfig.downloadTitle}.xlsx`);
   };
-
 
   /* Selects */
   const handleSelectOneChange = (name, value) => {
