@@ -9,7 +9,7 @@ const ModalTyC = ({ setModal }) => {
       </div>
       <div className="text-center">
         <p className="font-bold !text-xl">Términos y Condiciones</p>
-        <p className="text-[#828282] !text-base">Actualización el dd/mm/yy</p>
+        <p className="text-[#828282] !text-base">Actualización el 11/08/23</p>
       </div>
       <div>
         <p className="text-center !text-xs">
