@@ -35,6 +35,8 @@ import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import SortedTable from "../../../components/table/SortedTable";
 import { utils, write } from "xlsx";
+import { SalesPerformanceColumns } from "../../../components/functions/reports/consts/Columns";
+import { importExcelFunction } from "../../../components/functions/reports/GenerateExcel";
 
 const SalesPerformance = () => {
   const dispatch = useDispatch();
@@ -227,64 +229,15 @@ const SalesPerformance = () => {
     });
   };
 
-  const importFileExcel = (data) => {
-    jsonexport(data, (error) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      const ws = utils.json_to_sheet(data);
-      const wb = utils.book_new();
-      utils.sheet_add_aoa(
-        ws,
-        [
-          [
-            "Membership ID",
-            "Company Name",
-            "Region",
-            "Country",
-            "Company Type",
-            "Company Level",
-            "Company Status",
-            "Company Active Users",
-            "VIP Renewal CC (USD)",
-            "VIP Renewal DC (USD)",
-            "VIP New Business CC (USD)",
-            "VIP New Business DC (USD)",
-            "VMP Renewal CC (USD)",
-            "VMP Renewal DC (USD)",
-            "VMP New Business CC (USD)",
-            "VMP New Business DC (USD)",
-            "VIP Revenue Q1 (USD)",
-            "VIP Revenue Q2 (USD)",
-            "VIP Revenue Q3 (USD)",
-            "VIP Revenue Q4 (USD)",
-            "VMP Revenue Q1 (USD)",
-            "VMP Revenue Q2 (USD)",
-            "VMP Revenue Q3 (USD)",
-            "VMP Revenue Q4 (USD)",
-            "Revenue Q1 (USD)",
-            "Revenue Q2 (USD)",
-            "Revenue Q3 (USD)",
-            "Revenue Q4 (USD)",
-            "Total VIP Revenue (USD)",
-            "Total VMP Revenue (USD)",
-            "Actual Revenue (USD)",
-            "RMA (USD)",
-            "Total Revenue (USD)",
-            "Expected Revenue (USD)",
-            "Total % effectiveness",
-          ],
-        ],
-        { origin: "A1" }
-      );
+  const importFileExcel = async (data) => {
+    const excelConfig = {
+      data: data,
+      columns: SalesPerformanceColumns,
+      downloadTitle: "Sales performance",
+    };
 
-      utils.book_append_sheet(wb, ws, "Sales performance");
-      const blob = new Blob([write(wb, { bookType: "xlsx", type: "array" })], {
-        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      });
-      /* saveAs(blob, "Sales performance.xlsx"); */
-    });
+    const { blob } = await importExcelFunction(excelConfig);
+    saveAs(blob, `${excelConfig.downloadTitle}.xlsx`);
   };
 
   /* Selects */
