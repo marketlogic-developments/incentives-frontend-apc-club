@@ -146,8 +146,7 @@ const SalesPerformance = () => {
       downloadTitle: "User Performance",
     };
 
-    const blob = await importCsvFunction(csvConfig);
-    /* saveAs(blob, `${csvConfig.downloadTitle}.csv`); */
+    await importCsvFunction(csvConfig);
   };
 
   const importFileExcel = async (data) => {
