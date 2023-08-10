@@ -19,9 +19,9 @@ export const date = () => {
 export const addTitleToHeader = (ws, downloadTitle) => {
   // Fusionar celdas A1 a C1 para el título
   ws["!merges"] = [
-    { s: { r: 0, c: 0 }, e: { r: 0, c: 2 } },
-    { s: { r: 1, c: 0 }, e: { r: 1, c: 2 } },
-    { s: { r: 2, c: 0 }, e: { r: 2, c: 2 } },
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 1 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 1 } },
+    { s: { r: 2, c: 0 }, e: { r: 2, c: 1 } },
   ];
 
   // Agregar el título en la celda A1
