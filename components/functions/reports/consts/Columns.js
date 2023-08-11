@@ -109,6 +109,25 @@ export const salesPerformanceColumnsExcel = [
   "Total % effectiveness",
 ];
 
+export const digipointRedemtionColumnsExcel = [
+  "User Email",
+  "First Name",
+  "User Role",
+  "Region",
+  "Country",
+  "Company ID",
+  "Company Name",
+  "Company Level",
+  "Partner Principal User Email",
+  "Partner Principal Accepted ToS",
+  "Request ID",
+  "Redeemed DigiPoints",
+  "Quantity",
+  "Amount (USD)",
+  "Redeemed On",
+  "Reward Status",
+];
+
 export const userPerformanceColumnsCsv = (data) => {
   const columns = {
     employ_id: "User Name",
@@ -210,3 +229,33 @@ export const salesPerformanceColumnsCsv = (data) => {
   const result = parseData(data, columns, customHeader);
   return result;
 };
+
+export const digipointRedemtionColumnsCsv =(data)=>{
+  const columns = {
+    email: "User Email",
+    name: "First Name",
+    role_name: "User Role",
+    region: "Region",
+    country: "Country",
+    company_id: "Company ID",
+    company_name: "Company Name",
+    company_level: "Company Level",
+    pp_email: "Partner Principal User Email",
+    pp_tos: "Partner Principal Accepted ToS",
+    ordernumber: "Request ID",
+    digipoint_substract: "Redeemed DigiPoints",
+    total_quantity: "Quantity",
+    total_price: "Amount (USD)",
+    created_at: "Redeemed On",
+    status_name: "Reward Status",
+  };
+
+  const customHeader = [
+    "Adobe Partner Connection Club",
+    "DigiPoints Redemption",
+    date(),
+  ];
+
+  const result = parseData(data, columns, customHeader);
+  return result;
+}
