@@ -128,6 +128,28 @@ export const digipointRedemtionColumnsExcel = {
   status_name: "Reward Status",
 };
 
+export const invoiceColumnsExcel = {
+  company_id: "Membership ID",
+  company_name: "Company Name",
+  partner_type: "Company Type",
+  company_level: "Company Level",
+  user: "User Name",
+  user_rol: "User Role",
+  invoice: "Invoice",
+  material_sku: "Material Sku",
+  licensing_contract: "Licensing Contract",
+  major_licensing_program_id: "Major Licensing Programid",
+  business_unit: "Business Unit",
+  business_type: "Business Type",
+  month: "Month",
+  date: "Date",
+  client: "Client",
+  revenue_by_user: "Revenue by user (USD)",
+  amount_by_user: "Sales DigiPoints by user",
+  puntosxpromo: "Promotions DigiPoints",
+  promoname: "Promotions Name",
+};
+
 export const userPerformanceColumnsCsv = (data) => {
   const columns = {
     employ_id: "User Name",
@@ -253,6 +275,39 @@ export const digipointRedemtionColumnsCsv = (data) => {
   const customHeader = [
     "Adobe Partner Connection Club",
     "DigiPoints Redemption",
+    date(),
+  ];
+
+  const result = parseData(data, columns, customHeader);
+  return result;
+};
+
+export const invoiceColumnsCsv = (data) => {
+  const columns = {
+    company_id: "Membership ID",
+    company_name: "Company Name",
+    partner_type: "Company Type",
+    company_level: "Company Level",
+    user: "User Name",
+    user_rol: "User Role",
+    invoice: "Invoice",
+    material_sku: "Material Sku",
+    licensing_contract: "Licensing Contract",
+    major_licensing_program_id: "Major Licensing Programid",
+    business_unit: "Business Unit",
+    business_type: "Business Type",
+    month: "Month",
+    date: "Date",
+    client: "Client",
+    revenue_by_user: "Revenue by user (USD)",
+    amount_by_user: "Sales DigiPoints by user",
+    puntosxpromo: "Promotions DigiPoints",
+    promoname: "Promotions Name",
+  };
+
+  const customHeader = [
+    "Adobe Partner Connection Club",
+    "Invoice",
     date(),
   ];
 
