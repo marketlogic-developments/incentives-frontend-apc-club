@@ -102,7 +102,6 @@ const FormTC = ({ opened, setContent, setModal }) => {
     setModal(0);
   };
 
-  console.log(cc);
   return (
     <form
       className="flex flex-col gap-3 items-center w-full h-full"
@@ -137,7 +136,6 @@ const FormTC = ({ opened, setContent, setModal }) => {
             <input
               className="input bg-[#F4F4F4] w-full"
               placeholder="0000000000"
-              minLength={10}
               maxLength={10}
               value={cc}
               required

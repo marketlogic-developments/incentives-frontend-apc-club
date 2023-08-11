@@ -14,7 +14,6 @@ const UserPhoto = ({ formData }) => {
   const fileInputRef = useRef(null);
 
   const openFileInput = () => {
-    console.log(fileInputRef);
     fileInputRef.current.click();
   };
 
