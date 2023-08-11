@@ -85,25 +85,6 @@ const ButtonParticipants = () => {
     //   }
     // );
 
-    console.log({
-      name: `${form.name} ${form.lastName}`,
-      email: form.email,
-      password: form.password,
-      roleId: Number(form.role.split("-")[0]),
-      policy: false,
-      passwordReset: false,
-      region: form.region,
-      cpf: "N/A",
-      names: form.name,
-      lastName: form.lastName,
-      birthDate: form.date,
-      position: form.role.split("-")[1],
-      phoneNumber: form.phone,
-      operationStatusId: 4,
-      academicDegreeId: 1,
-      languageId: form.region === "BRAZIL" ? 1 : 2,
-    });
-
     const Toast = Swal.mixin({
       toast: true,
       position: "top",

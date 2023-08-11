@@ -79,8 +79,6 @@ export const getDataAwards = (token, user) => async (dispatch) => {
       .then((res) => {
         let obj = res.data
           .filter((e) => {
-            console.log(user);
-
             const countryCompany =
               user.companyId !== null
                 ? user.company.country
@@ -94,9 +92,6 @@ export const getDataAwards = (token, user) => async (dispatch) => {
               if (user.countryId === "CHILE") {
                 return e.name.split(" ")[0] === "Cencosud";
               }
-              if (user.countryId === "COLOMBIA") {
-                return e.name.split(" ")[0] === "Falabella";
-              }
               if (user.countryId === "Nothing") {
                 return;
               }
@@ -105,8 +100,7 @@ export const getDataAwards = (token, user) => async (dispatch) => {
             }
 
             if (countryCompany === "Colombia") {
-              // return e.description === "COLOMBIA";
-              return e.name.split(" ")[0] === "Falabella";
+              return e.description === "COLOMBIA";
             }
             if (countryCompany === "Chile") {
               return e.name.split(" ")[0] === "Cencosud";

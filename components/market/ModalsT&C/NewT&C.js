@@ -37,7 +37,7 @@ const NewTyC = ({ setContent }) => {
     <div className="flex flex-col h-full gap-6">
       <div className="flex flex-col gap-3">
         <p className="font-bold !text-2xl">Términos y Condiciones</p>
-        <p className="!text-base text-[#828282]">Actualización el dd/mm/yy</p>
+        <p className="!text-base text-[#828282]">Actualización el 11/08/23</p>
       </div>
       <div className="h-[70%] overflow-x-hidden overflow-y-scroll">
         <div

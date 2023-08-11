@@ -154,8 +154,6 @@ export const getDigiPoints = (token, id) => async (dispatch) => {
     .then((dpInfo) => {
       const [digipoints] = dpInfo.data;
 
-      console.log();
-
       dispatch(
         digipoints === undefined
           ? setDigipoints({

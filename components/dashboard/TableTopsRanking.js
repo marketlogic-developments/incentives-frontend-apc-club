@@ -82,11 +82,8 @@ const TableTopsRanking = ({
   const handleFilter = (name, info) => {
     const { [name]: extractedValue, ...rest } = filters;
     const keys = Object.keys(rest);
-    console.log(keys);
     setFilters({ [keys[0]]: "", [name]: info });
   };
-
-  console.log(regions);
 
   return (
     <div className="grid w-full">
