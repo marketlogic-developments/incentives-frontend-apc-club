@@ -11,12 +11,12 @@ import { addTitleToHeader, getColumnWidths } from "./consts/Headers";
  */
 const importExcelFunction = async (excelConfig) => {
   const { data, columns, downloadTitle } = excelConfig;
-
+  
   // Convertir los datos en un formato adecuado para el archivo Excel
   const dataRows = data.map((row) => {
-    return Object.keys(row).map((key) => row[key]);
+    return Object.keys(columns).map((key) => row[key]);
   });
-  const allData = [columns, ...dataRows];
+  const allData = [Object.values(columns), ...dataRows];
 
   // Crear una hoja de cálculo y un libro
   const ws = utils.aoa_to_sheet("");
