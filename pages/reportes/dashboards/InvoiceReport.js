@@ -15,6 +15,7 @@ import {
   SelectInputValue,
   SearchInput,
   TitleWithIcon,
+  DropDownReport,
 } from "../../../components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
@@ -22,6 +23,12 @@ import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
+import {
+  importCsvFunction,
+  importExcelFunction,
+  invoiceColumnsCsv,
+  invoiceColumnsExcel,
+} from "../../../components/functions/reports";
 
 const InvoiceReport = () => {
   const itemsPerPage = 10;
@@ -134,15 +141,26 @@ const InvoiceReport = () => {
   };
 
   /* Download */
-  const importFile = (data) => {
-    jsonexport(data, (error, csv) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-      saveAs(blob, "InvoiceReport.csv");
-    });
+  const importFile = async (data) => {
+    const columns = invoiceColumnsCsv(data);
+    const csvConfig = {
+      data: data,
+      columns: columns,
+      downloadTitle: "InvoiceReport",
+    };
+
+    await importCsvFunction(csvConfig);
+  };
+
+  const importFileExcel = async (data) => {
+    const excelConfig = {
+      data: data,
+      columns: invoiceColumnsExcel,
+      downloadTitle: "InvoiceReport",
+    };
+
+    const { blob } = await importExcelFunction(excelConfig);
+    saveAs(blob, `${excelConfig.downloadTitle}.xlsx`);
   };
 
   /* Table */
@@ -238,14 +256,27 @@ const InvoiceReport = () => {
           styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
           onClick={clearSelects}
         />
-        <BtnWithImage
-          text={t("Reportes.descargar")}
+        <DropDownReport
           icon={<CloudDownload />}
-          styles={
-            "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
-          }
-          onClick={() => importFile(filteredUsers)}
-        />
+          title={t("Reportes.descargar")}
+        >
+          <BtnWithImage
+            text={t("Reportes.descargar")}
+            icon={<CloudDownload />}
+            styles={
+              "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+            }
+            onClick={() => importFile(filteredUsers)}
+          />
+          <BtnWithImage
+            text={t("Reportes.descargar") + " excel"}
+            icon={<CloudDownload />}
+            styles={
+              "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+            }
+            onClick={() => importFileExcel(filteredUsers)}
+          />
+        </DropDownReport>
       </div>
       <div className="grid overflow-x-hidden w-full">
         {loading ? (
