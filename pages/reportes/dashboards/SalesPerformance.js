@@ -418,10 +418,10 @@ const SalesPerformance = () => {
             />
           </div>
         </div>
-        <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
-          <div
-            className="grid sm:w-[45%]"
-            onClick={() => importFile(dataTable)}
+        <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
+          <DropDownReport
+            icon={<CloudDownload />}
+            title={t("Reportes.descargar")}
           >
             <BtnWithImage
               text={t("Reportes.descargar")}
@@ -429,20 +429,17 @@ const SalesPerformance = () => {
               styles={
                 "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
               }
+              onClick={() => importFile(dataTable)}
             />
-          </div>
-          <div
-            className="grid sm:w-[45%]"
-            onClick={() => importFileExcel(dataTable)}
-          >
             <BtnWithImage
               text={t("Reportes.descargar") + " excel"}
               icon={<CloudDownload />}
               styles={
                 "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
               }
+              onClick={() => importFileExcel(dataTable)}
             />
-          </div>
+          </DropDownReport>
           <div className="grid sm:w-[45%]" onClick={clearSelects}>
             <p className="bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2 cursor-pointer font-bold">
               Reset Filters
