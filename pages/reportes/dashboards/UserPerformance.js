@@ -16,6 +16,7 @@ import {
   BtnFilter,
   BtnWithImage,
   CardChart,
+  DropDownReport,
   MultiLineChart,
   SearchInput,
   SelectInputValue,
@@ -250,7 +251,7 @@ const SalesPerformance = () => {
           </CardChart>
         </div>
       </div>
-      <div className="pt-2 grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
+      <div className="pt-2 grid items-center sm:grid-cols-4 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
           placeHolder={"Email"}
@@ -275,23 +276,27 @@ const SalesPerformance = () => {
           styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
           onClick={clearSelects}
         />
-
-        <BtnWithImage
-          text={t("Reportes.descargar")}
+        <DropDownReport
           icon={<CloudDownload />}
-          styles={
-            "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
-          }
-          onClick={() => importFile(data)}
-        />
-        <BtnWithImage
-          text={t("Reportes.descargar") + " excel"}
-          icon={<CloudDownload />}
-          styles={
-            "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
-          }
-          onClick={() => importFileExcel(data)}
-        />
+          title={t("Reportes.descargar")}
+        >
+          <BtnWithImage
+            text={t("Reportes.descargar")}
+            icon={<CloudDownload />}
+            styles={
+              "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+            }
+            onClick={() => importFile(data)}
+          />
+          <BtnWithImage
+            text={t("Reportes.descargar") + " excel"}
+            icon={<CloudDownload />}
+            styles={
+              "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+            }
+            onClick={() => importFileExcel(data)}
+          />
+        </DropDownReport>
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1">
         <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
