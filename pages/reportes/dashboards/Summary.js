@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import { useRouter } from "next/router";
 import ButtonBgOut from "../../../components/buttons/ButtonBgOut";
+import { SalesYtd } from "../../../components/reports";
 
 const Summary = () => {
   /* Variables and conts */
@@ -63,6 +64,7 @@ const Summary = () => {
         />
       </div>
       {/* {contentPage} */}
+      <SalesYtd />
     </div>
   );
 };

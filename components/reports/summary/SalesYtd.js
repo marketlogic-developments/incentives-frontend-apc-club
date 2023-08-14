@@ -1,39 +1,51 @@
 import React from "react";
 import { SearchInput } from "../../inputs";
-import { SearchIcon } from "../../icons";
+import { ArrowDown, CloudDownload, SearchIcon } from "../../icons";
 import SelectInputValue from "../../inputs/SelectInputValue";
 import BtnFilter from "../../cardReportes/BtnFilter";
 import { useTranslation } from "react-i18next";
+import BtnWithImage from "../../cardReportes/BtnWithImage";
 
 const SalesYtd = () => {
   const [t, i18n] = useTranslation("global");
   return (
-    <div className="pt-2 grid items-center sm:grid-cols-4 grid-rows-1 gap-3">
-      <SearchInput
-        image={<SearchIcon />}
-        placeHolder={"Email"}
-        stylesContainer={""}
-        value={searchByInvoice}
-        onChange={(e) => setSearchByInvoice(e.target.value)}
-        stylesInput={
-          "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
-        }
-      />
+    <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
       <SelectInputValue
-        placeholder={"Company Name"}
+        placeholder={"Year"}
         /* value={selectOne}
           data={dataSelectOne} */
         icon={<ArrowDown />}
         searchable={true}
         /* onChange={handleSelectOneChange} */
-        name={"business"}
+        name={"year"}
       />
-      <BtnFilter
-        text={t("Reportes.limpiar_filtros")}
-        styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
-        /* onClick={clearSelects} */
+      <SelectInputValue
+        placeholder={"Quarter"}
+        /* value={selectOne}
+          data={dataSelectOne} */
+        icon={<ArrowDown />}
+        searchable={true}
+        /* onChange={handleSelectOneChange} */
+        name={"quarter"}
       />
-
+      <SelectInputValue
+        placeholder={"Month"}
+        /* value={selectOne}
+          data={dataSelectOne} */
+        icon={<ArrowDown />}
+        searchable={true}
+        /* onChange={handleSelectOneChange} */
+        name={"month"}
+      />
+      <SelectInputValue
+        placeholder={"Region"}
+        /* value={selectOne}
+          data={dataSelectOne} */
+        icon={<ArrowDown />}
+        searchable={true}
+        /* onChange={handleSelectOneChange} */
+        name={"region"}
+      />
       <BtnWithImage
         text={t("Reportes.descargar")}
         icon={<CloudDownload />}
@@ -42,6 +54,13 @@ const SalesYtd = () => {
         }
         /* onClick={() => importFile(data)} */
       />
+      <div className="w-4/5 justify-end">
+      <BtnFilter
+        text={t("Reportes.limpiar_filtros")}
+        styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
+        /* onClick={clearSelects} */
+      />
+      </div>
     </div>
   );
 };
