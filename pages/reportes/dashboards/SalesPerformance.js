@@ -184,8 +184,8 @@ const SalesPerformance = () => {
       downloadTitle: "Sales performance",
     };
 
-    const { blob } = await importExcelFunction(excelConfig);
-    saveAs(blob, `${excelConfig.downloadTitle}.xlsx`);
+    await importExcelFunction(excelConfig);
+    /* saveAs(blob, `${excelConfig.downloadTitle}.xlsx`); */
   };
 
   /* Selects */

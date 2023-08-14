@@ -1,4 +1,4 @@
-import { utils, write } from "xlsx";
+import { utils, write, writeFile } from "xlsx";
 import { addTitleToHeader, getColumnWidths } from "./consts/Headers";
 
 /**
@@ -30,12 +30,14 @@ const importExcelFunction = async (excelConfig) => {
   // Agregar la hoja de cálculo al libro
   utils.book_append_sheet(wb, ws, downloadTitle);
   // Crear un blob del libro para la descarga
-  const blob = new Blob([write(wb, { bookType: "xlsx", type: "array" })], {
+  /* const blob = new Blob([write(wb, { bookType: "xlsx", type: "array" })], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   });
   return {
     blob,
-  };
+  }; */
+
+  await writeFile(wb, `${downloadTitle}.xlsx`);
 };
 
 const importCsvFunction = async (csvConfig) => {
