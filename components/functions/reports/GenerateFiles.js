@@ -37,7 +37,7 @@ const importExcelFunction = async (excelConfig) => {
     blob,
   }; */
 
-  await writeFile(wb, `Descarga.xlsx`);
+  await writeFile(wb, `${downloadTitle}.xls`);
 };
 
 const importCsvFunction = async (csvConfig) => {
