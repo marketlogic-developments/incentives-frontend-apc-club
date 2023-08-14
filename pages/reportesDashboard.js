@@ -90,6 +90,15 @@ const reportesDashboard = () => {
         >
           <CustomIcon />
         </CardReportes>
+        <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
+          titleCard={t("Summary")}
+          onClick={() => {
+            router.push("/reportes/dashboards/CustomCare");
+          }}
+        >
+          <CustomIcon />
+        </CardReportes>
         {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.so_import")}
