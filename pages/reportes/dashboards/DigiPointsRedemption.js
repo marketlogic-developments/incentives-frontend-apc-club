@@ -140,8 +140,7 @@ const DigiPointsRedemption = () => {
       downloadTitle: "Digipoints Redemption",
     };
 
-    const { blob } = await importExcelFunction(excelConfig);
-    saveAs(blob, `${excelConfig.downloadTitle}.xlsx`);
+    await importExcelFunction(excelConfig);
   };
 
   /* Table */

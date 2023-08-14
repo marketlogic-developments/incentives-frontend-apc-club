@@ -159,8 +159,7 @@ const InvoiceReport = () => {
       downloadTitle: "InvoiceReport",
     };
 
-    const { blob } = await importExcelFunction(excelConfig);
-    saveAs(blob, `${excelConfig.downloadTitle}.xlsx`);
+    await importExcelFunction(excelConfig);
   };
 
   /* Table */
