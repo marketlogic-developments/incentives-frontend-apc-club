@@ -72,11 +72,10 @@ export const userPerformanceColumnsExcel = {
 };
 
 export const salesPerformanceColumnsExcel = {
-  id: "Membership ID",
-  company_id: "Company Name",
-  company_name: "Region",
-  region: "Country",
-  country_id: "Company Type",
+  company_id: "Membership ID",
+  company_name: "Company Name",
+  region: "Region",
+  country_id: "Country",
   level: "Company Level",
   active: "Company Status",
   usuarios: "Company Active Users",
