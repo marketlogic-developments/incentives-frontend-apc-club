@@ -5,7 +5,7 @@ const Summary = () => {
   return (
     <div className="mt-8">
          <div className="pt-2 grid items-center grid-rows-1 gap-3">
-        <TitleWithIcon icon={<User />} title={t("Reportes.user_performance")} />
+        <TitleWithIcon icon={<User />} title={t("Reportes.summary")} />
       </div>
     </div>
   )

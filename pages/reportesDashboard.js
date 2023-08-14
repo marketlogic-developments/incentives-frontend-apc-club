@@ -92,7 +92,7 @@ const reportesDashboard = () => {
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
-          titleCard={t("Summary")}
+          titleCard={t("Reportes.summary")}
           onClick={() => {
             router.push("/reportes/dashboards/Summary");
           }}
