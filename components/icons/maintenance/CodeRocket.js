@@ -246,8 +246,8 @@ const CodeRocket = ({ width = 422, height = 504 }) => {
           y2="201.1"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#EFC341" />
-          <stop offset="1" stop-color="#EFC341" />
+          <stop stopColor="#EFC341" />
+          <stop offset="1" stopColor="#EFC341" />
         </linearGradient>
       </defs>
     </svg>

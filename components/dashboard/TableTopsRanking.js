@@ -10,6 +10,9 @@ import { saveAs } from "file-saver";
 import SelectInputValue from "../inputs/SelectInputValue";
 import { comment } from "postcss";
 import axios from "axios";
+import BtnFilter from "../cardReportes/BtnFilter";
+import DropDownReport from "../cardReportes/DropDownReport";
+import { utils, write } from "xlsx";
 
 const TableTopsRanking = ({
   containerStyles = "",
@@ -39,6 +42,51 @@ const TableTopsRanking = ({
       }
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
       saveAs(blob, "Top_5_users.csv");
+    });
+  };
+
+  const importFileExcel = (data) => {
+    jsonexport(data, (error) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const ws = utils.json_to_sheet(data);
+      const wb = utils.book_new();
+      utils.sheet_add_aoa(
+        ws,
+        [
+          [
+            "Ranking",
+            "Names",
+            "Email",
+            "Region",
+            "Country Id",
+            "Position",
+            "Amount by User",
+            "Company",
+            "Points Assigned",
+          ],
+        ],
+        { origin: "A1" }
+      );
+
+      ws["!cols"] = [
+        { wch: 8 },
+        { wch: 30 },
+        { wch: 38 },
+        { wch: 10 },
+        { wch: 10 },
+        { wch: 10 },
+        { wch: 14 },
+        { wch: 50 },
+        { wch: 14 },
+      ];
+      utils.book_append_sheet(wb, ws, "Top 5 usuarios");
+      const blob = new Blob([write(wb, { bookType: "xlsx", type: "array" })], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      saveAs(blob, "Top_5_users.xlsx");
     });
   };
 
@@ -87,7 +135,7 @@ const TableTopsRanking = ({
 
   return (
     <div className="grid w-full">
-      <div className="flex justify-between items-center">
+      <div className="sm:flex justify-between items-center">
         <div>
           <h2 className="!text-xl font-bold">{t("dashboard.topUsuarios")}</h2>
         </div>
@@ -95,6 +143,7 @@ const TableTopsRanking = ({
           <div className="sm:w-[90%] w-[60%]">
             <SelectInputValue
               placeholder={"Company Name"}
+              searchable={true}
               value={filters.company}
               data={allCompanies
                 .map(({ name, nameDist }) => name || nameDist)
@@ -114,38 +163,51 @@ const TableTopsRanking = ({
               name={"region"}
             />
           </div>
-        </div>
-        <div className="cursor-pointer flex items-center invisible">
-          <p className="text-[#828282]">Limpiar filtros</p>
+          <BtnFilter
+            text={t("Reportes.limpiar_filtros")}
+            styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
+            onClick={() => setFilters({ company: "", region: "" })}
+          />
         </div>
         {user.roleId === 1 && (
-          <div>
-            <BtnWithImage
-              text={t("Reportes.descargar")}
+          <div className="sm:w-[20%] w-[60%]">
+            <DropDownReport
               icon={<CloudDownload />}
-              styles={
-                "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
-              }
-              onClick={() => {
-                const newRank = ranking.map((data) => {
-                  const { employ_id, ...info } = data;
+              title={t("Reportes.descargar")}
+            >
+              <BtnWithImage
+                text={t("Reportes.descargar") + " csv"}
+                icon={<CloudDownload />}
+                styles={
+                  "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+                }
+                onClick={() => {
+                  const newRank = ranking.map((data) => {
+                    const { employ_id, ...info } = data;
 
-                  return info;
-                });
-                return importFile(newRank);
-              }}
-            />
+                    return info;
+                  });
+                  return importFile(newRank);
+                }}
+              />
+              <BtnWithImage
+                text={t("Reportes.descargar") + " excel"}
+                icon={<CloudDownload />}
+                styles={
+                  "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+                }
+                onClick={() => {
+                  const newRank = ranking.map((data) => {
+                    const { employ_id, ...info } = data;
+
+                    return info;
+                  });
+                  return importFileExcel(newRank);
+                }}
+              />
+            </DropDownReport>
           </div>
         )}
-        <InputReporte
-          image={<SearchIcon />}
-          placeHolder={t("Reportes.buscar")}
-          stylesContainer={"mt-2"}
-          stylesInput={
-            "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
-          }
-          stylesImage={"pb-0"}
-        />
       </div>
 
       <div className={`w-full overflow-y-auto ${containerStyles}`}>
@@ -160,10 +222,18 @@ const TableTopsRanking = ({
             {ranking.length !== 0 &&
               [...ranking]
                 .filter((i) => {
-                  if (filters.region.length > 0) {
-                    return i.region === filters.region;
+                  if (filters.region?.length > 0) {
+                    return (
+                      i.region ===
+                      (filters.region == "LATAM"
+                        ? setFilters({
+                            ...filters,
+                            region: "",
+                          })
+                        : filters.region)
+                    );
                   }
-                  if (filters.company.length > 0) {
+                  if (filters.company?.length > 0) {
                     return i.company === filters.company;
                   }
 

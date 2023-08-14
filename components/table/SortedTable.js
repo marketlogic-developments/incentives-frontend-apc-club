@@ -24,9 +24,11 @@ const SortedTable = ({
     },
   ],
   currentItems = [],
+  searchByInvoice = "",
+  fieldSearchByInvoice = "",
   pageCount = 0,
   paginate = false,
-  handlePageClick = () => { },
+  handlePageClick = () => {},
 }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
@@ -61,8 +63,14 @@ const SortedTable = ({
 
   const sortedData = [...currentItems].sort((a, b) => {
     if (sortColumn) {
-      if (a[sortColumn] < b[sortColumn]) return sortOrder === "asc" ? -1 : 1;
-      if (a[sortColumn] > b[sortColumn]) return sortOrder === "asc" ? 1 : -1;
+      const valueA = parseFloat(a[sortColumn].replace(/,/g, ''));
+      const valueB = parseFloat(b[sortColumn].replace(/,/g, ''));
+  
+      if (!isNaN(valueA) && !isNaN(valueB)) {
+        return (valueA - valueB) * (sortOrder === "asc" ? 1 : -1);
+      }
+      
+      return a[sortColumn].localeCompare(b[sortColumn]) * (sortOrder === "asc" ? 1 : -1);
     }
     return 0;
   });
@@ -76,8 +84,9 @@ const SortedTable = ({
               {cols.length !== 0 &&
                 cols.map((col, index) => (
                   <th
-                    className={`text-left ${colStyles} ${col.sort && "cursor-pointer"
-                      } `}
+                    className={`text-left ${colStyles} ${
+                      col.sort && "cursor-pointer"
+                    } `}
                     onClick={() => col.sort && handleSort(col.identity)}
                   >
                     <div className="flex items-center gap-1">
@@ -89,24 +98,33 @@ const SortedTable = ({
           </thead>
           <tbody>
             {sortedData &&
-              [...sortedData].map((row, index) => (
-                <tr key={index}>
-                  {cols.map((col) => (
-                    <th
-                      key={col.identity}
-                      className={
-                        col.rowStyles ? col.rowStyles : generalRowStyles
-                      }
-                    >
-                      {col.symbol === "DATE"
-                        ? formatDate(row[col.identity])
-                        : col.symbol === "USD"
+              [...sortedData]
+                .filter((item) => {
+                  if (searchByInvoice !== "") {
+                    return item[fieldSearchByInvoice].startsWith(
+                      searchByInvoice
+                    );
+                  }
+                  return item;
+                })
+                .map((row, index) => (
+                  <tr key={index}>
+                    {cols.map((col) => (
+                      <th
+                        key={col.identity}
+                        className={
+                          col.rowStyles ? col.rowStyles : generalRowStyles
+                        }
+                      >
+                        {col.symbol === "DATE"
+                          ? formatDate(row[col.identity])
+                          : col.symbol === "USD"
                           ? numberToMoney(row[col.identity])
                           : row[col.identity] + col.symbol}
-                    </th>
-                  ))}
-                </tr>
-              ))}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
           </tbody>
         </table>
       </div>
