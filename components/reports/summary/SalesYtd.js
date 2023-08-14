@@ -1,9 +1,49 @@
-import React from 'react'
+import React from "react";
+import { SearchInput } from "../../inputs";
+import { SearchIcon } from "../../icons";
+import SelectInputValue from "../../inputs/SelectInputValue";
+import BtnFilter from "../../cardReportes/BtnFilter";
+import { useTranslation } from "react-i18next";
 
 const SalesYtd = () => {
+  const [t, i18n] = useTranslation("global");
   return (
-    <div>SalesYtd</div>
-  )
-}
+    <div className="pt-2 grid items-center sm:grid-cols-4 grid-rows-1 gap-3">
+      <SearchInput
+        image={<SearchIcon />}
+        placeHolder={"Email"}
+        stylesContainer={""}
+        value={searchByInvoice}
+        onChange={(e) => setSearchByInvoice(e.target.value)}
+        stylesInput={
+          "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
+        }
+      />
+      <SelectInputValue
+        placeholder={"Company Name"}
+        /* value={selectOne}
+          data={dataSelectOne} */
+        icon={<ArrowDown />}
+        searchable={true}
+        /* onChange={handleSelectOneChange} */
+        name={"business"}
+      />
+      <BtnFilter
+        text={t("Reportes.limpiar_filtros")}
+        styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
+        /* onClick={clearSelects} */
+      />
 
-export default SalesYtd
+      <BtnWithImage
+        text={t("Reportes.descargar")}
+        icon={<CloudDownload />}
+        styles={
+          "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+        }
+        /* onClick={() => importFile(data)} */
+      />
+    </div>
+  );
+};
+
+export default SalesYtd;

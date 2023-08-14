@@ -42,24 +42,24 @@ const Summary = () => {
       </div>
       <div className="gap-2 my-3 flex justify-start">
         <ButtonBgOut
-          title={t("comunicado.promocion")}
+          title={t("Reportes.sales_ytd")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          onClick={() => setContent(t("comunicado.promocion"))}
+          /* onClick={() => setContent(t("Reportes.promocion"))} */
         />
         <ButtonBgOut
-          title={t("comunicado.marketPlace")}
+          title={t("Reportes.grow_sales_yt")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          onClick={() => setContent(t("comunicado.marketPlace"))}
+          /* onClick={() => setContent(t("Reportes.marketPlace"))} */
         />
         <ButtonBgOut
-          title={t("comunicado.novedad")}
+          title={t("Reportes.digipoints_performance")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          onClick={() => setContent(t("comunicado.novedad"))}
+          /* onClick={() => setContent(t("Reportes.novedad"))} */
         />
         <ButtonBgOut
-          title={t("comunicado.evento")}
+          title={t("Reportes.organization")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          onClick={() => setContent(t("comunicado.evento"))}
+          /* onClick={() => setContent(t("Reportes.evento"))} */
         />
       </div>
       {/* {contentPage} */}
