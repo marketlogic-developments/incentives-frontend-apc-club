@@ -47,7 +47,7 @@ const SalesYtd = () => {
         name={"region"}
       />
       <BtnWithImage
-        text={t("Reportes.descargar")}
+        text={t("Más filtros")}
         icon={<CloudDownload />}
         styles={
           "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
