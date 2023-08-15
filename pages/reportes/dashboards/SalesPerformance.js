@@ -423,7 +423,7 @@ const SalesPerformance = () => {
             title={t("Reportes.descargar")}
           >
             <BtnWithImage
-              text={t("Reportes.descargar")}
+              text={t("Reportes.descargar") + " CSV"}
               icon={<CloudDownload />}
               styles={
                 "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
@@ -431,7 +431,7 @@ const SalesPerformance = () => {
               onClick={() => importFile(dataTable)}
             />
             <BtnWithImage
-              text={t("Reportes.descargar") + " excel"}
+              text={t("Reportes.descargar") + " Exel"}
               icon={<CloudDownload />}
               styles={
                 "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
