@@ -76,6 +76,7 @@ export const salesPerformanceColumnsExcel = {
   company_name: "Company Name",
   region: "Region",
   country_id: "Country",
+  company_type: "Company Name",
   level: "Company Level",
   active: "Company Status",
   usuarios: "Company Active Users",
