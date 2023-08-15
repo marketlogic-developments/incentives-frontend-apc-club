@@ -1,6 +1,6 @@
 import React from "react";
 import { SearchInput } from "../../inputs";
-import { ArrowDown, CloudDownload, SearchIcon } from "../../icons";
+import { ArrowDown, CloudDownload, Filter, SearchIcon } from "../../icons";
 import SelectInputValue from "../../inputs/SelectInputValue";
 import BtnFilter from "../../cardReportes/BtnFilter";
 import { useTranslation } from "react-i18next";
@@ -48,7 +48,7 @@ const SalesYtd = () => {
       />
       <BtnWithImage
         text={t("Más filtros")}
-        icon={<CloudDownload />}
+        icon={<Filter />}
         styles={
           "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
         }
