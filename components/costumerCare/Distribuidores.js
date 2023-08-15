@@ -13,7 +13,7 @@ const Distribuidores = () => {
   const [opened, setOpened] = useState(false);
   const [modal, setModal] = useState(0);
   const token = useSelector((state) => state.user.token);
-  const user = useSelector((state) => state.user.users);
+  const user = useSelector((state) => state.user.user);
 
   const currentPage = useSelector((state) => state.currentPage || 1);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -66,7 +66,7 @@ const Distribuidores = () => {
       <Modal opened={opened} onClose={() => setOpened(false)} size={"60%"}>
         {typeModal}
       </Modal>
-      <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white h-full flex flex-col gap-5">
+      <div className="w-full md:w-2/2 rounded-lg h-full flex flex-col gap-5">
         <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-4 mt-4 w-full place-items-center">
           <div className="relative col-span-2 w-full">
             <div className="absolute flex items-center ml-2 h-full">
@@ -100,8 +100,8 @@ const Distribuidores = () => {
 
         <div className="container">
           <div className="overflow-x-auto relative">
-            <table className="w-full text-sm text-left text-black-500">
-              <thead className="text-xs text-black-500 uppercase">
+            <table className="w-full text-sm text-left text-black-500 tableJustify overflow-hidden rounded-md">
+              <thead className="rounded h-12 bg-[#232B2F] text-xs text-[#F5F5F5] gap-5">
                 <tr>
                   <th scope="col" className="py-3 px-6">
                     Nombre del Distribuidor
@@ -115,11 +115,15 @@ const Distribuidores = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item) => {
+                {data.map((item, index) => {
                   return (
                     <tr
                       key={item.id}
-                      className="bg-white border-b dark:border-gray-500 hover:bg-warning hover:cursor-pointer"
+                      className={`${
+                        user?.roleId === 1
+                          ? "cursor-pointer hover:bg-warning "
+                          : ""
+                      }${(index + 1) % 2 === 0 && "bg-[#F5F5F5]"}`}
                       onClick={() => {
                         setModal(1);
                         setOpened(true);
