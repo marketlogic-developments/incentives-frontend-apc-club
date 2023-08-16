@@ -97,28 +97,33 @@ const SalesYtd = () => {
         </div>
       </div>
       <div className="grid">
-      <CardChart title={"Region vs Goals"} paragraph="">
-            <HorizontalBar />
+        <CardChart title={"Region vs Goals"} paragraph="">
+          <HorizontalBar />
+        </CardChart>
+      </div>
+      <div className="flex flex-col w-full gap-6 mt-5">
+        <div className="grid sm:grid-cols-3 grid-cols-1 gap-6">
+          <CardChart>
+            {/* <TargetSales
+              data={CC}
+              goal={goals.filter(
+                ({ business_unit }) => business_unit === "Creative Cloud"
+              )}
+            /> */}
           </CardChart>
+          <CardChart>
+            {/* <TargetSales
+              data={DC}
+              goal={goals.filter(
+                ({ business_unit }) => business_unit === "Document Cloud"
+              )}
+            /> */}
+          </CardChart>
+          <CardChart>
+            {/* <PerformaceSales CC={CC} DC={DC} goals={goals} /> */}
+          </CardChart>
+        </div>
       </div>
-      <div className="flex flex-col w-full gap-6">
-      <div className="grid gap-6">
-        {/* <TargetSales
-          data={CC}
-          goal={goals.filter(
-            ({ business_unit }) => business_unit === "Creative Cloud"
-          )}
-        />
-        <TargetSales
-          data={DC}
-          goal={goals.filter(
-            ({ business_unit }) => business_unit === "Document Cloud"
-          )}
-        />
-        <PerformaceSales CC={CC} DC={DC} goals={goals} /> */}
-        <GraphSales />
-      </div>
-    </div>
     </div>
   );
 };
