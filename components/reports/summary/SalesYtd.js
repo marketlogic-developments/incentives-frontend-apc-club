@@ -2,6 +2,7 @@ import React from "react";
 import { SearchInput } from "../../inputs";
 import {
   ArrowDown,
+  Check,
   Circle,
   CloudDownload,
   Filter,
@@ -17,6 +18,7 @@ const SalesYtd = () => {
   const [t, i18n] = useTranslation("global");
   const expected = "61,910,384";
   const reached = "50,866,384";
+  const progress = "82%";
 
   return (
     <div>
@@ -75,14 +77,20 @@ const SalesYtd = () => {
             <h1 className="text-black font-bold">$ {expected}</h1>
           </div>
         </div>
-        <div className="flex justify-center">
-          <Circle />
+        <div className="flex justify-center gap-3">
+          <Check />
           <div className="grid">
             <h3 className="text-gray-400 font-bold">Reached</h3>
             <h1 className="text-black font-bold">$ {reached}</h1>
           </div>
         </div>
-        <div className="flex justify-center">3</div>
+        <div className="flex justify-center gap-3">
+          <Circle />
+          <div className="grid">
+            <h3 className="text-gray-400 font-bold">Progress</h3>
+            <h1 className="text-black font-bold">{progress}</h1>
+          </div>
+        </div>
       </div>
     </div>
   );

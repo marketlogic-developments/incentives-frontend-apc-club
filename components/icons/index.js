@@ -34,3 +34,4 @@ export { default as Megaphone } from "./navbar/Megaphone";
 export { default as Camera } from "./perfil/Camera";
 export { default as Filter } from "./Reportes/Filter";
 export { default as Circle } from "./Reportes/Circle";
+export { default as Check } from "./Reportes/Check";
