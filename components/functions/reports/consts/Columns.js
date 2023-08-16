@@ -109,6 +109,27 @@ export const salesPerformanceColumnsExcel = {
   avg_effectiveness: "Total % effectiveness",
 };
 
+export const digiPointsPerformanceColumnsExcel = {
+  company_id: "Membership ID",
+  company_name: "Company Name",
+  region: "Region",
+  country: "Country",
+  company_type: "Company Type",
+  company_level: "Company Level",
+  company_status: "Company Status",
+  company_active_users: "Company Active Users",
+  sales_digipoints_admin: "Sales DigiPoints (Admin)",
+  sales_digipoints_sales_rep: "Sales DigiPoints (Sales Rep)",
+  promotion_digipoints: "Promotion DigiPoints",
+  behavior_digipoints: "Behavior DigiPoints",
+  so_digipoints: "Total DigiPoints Uploaded",
+  total_digipoints_assigned: "DigiPoints Assigned",
+  digipoints_redeemed: "DigiPoints Redeemed",
+  digipoints_redeemed_admin: "DigiPoints Redeemed (Admin)",
+  digipoints_redeemed_sales_rep: "DigiPoints Redeemed(Sales Rep)",
+  total_avg_effectiveness: "Total % effectiveness",
+};
+
 export const digipointRedemtionColumnsExcel = {
   email: "User Email",
   name: "First Name",
@@ -197,6 +218,36 @@ export const userPerformanceColumnsCsv = (data) => {
   const customHeader = [
     "Adobe Partner Connection Club",
     "User Performance",
+    date(),
+  ];
+  const result = parseData(data, columns, customHeader);
+  return result;
+};
+
+export const digiPointsPerformanceColumnsCsv = (data) => {
+  const columns = {
+    company_id: "Membership ID",
+    company_name: "Company Name",
+    region: "Region",
+    country: "Country",
+    company_type: "Company Type",
+    company_level: "Company Level",
+    company_status: "Company Status",
+    company_active_users: "Company Active Users",
+    sales_digipoints_admin: "Sales DigiPoints (Admin)",
+    sales_digipoints_sales_rep: "Sales DigiPoints (Sales Rep)",
+    promotion_digipoints: "Promotion DigiPoints",
+    behavior_digipoints: "Behavior DigiPoints",
+    so_digipoints: "Total DigiPoints Uploaded",
+    total_digipoints_assigned: "DigiPoints Assigned",
+    digipoints_redeemed: "DigiPoints Redeemed",
+    digipoints_redeemed_admin: "DigiPoints Redeemed (Admin)",
+    digipoints_redeemed_sales_rep: "DigiPoints Redeemed(Sales Rep)",
+    total_avg_effectiveness: "Total % effectiveness",
+  };
+  const customHeader = [
+    "Adobe Partner Connection Club",
+    "DigiPoints Performance",
     date(),
   ];
   const result = parseData(data, columns, customHeader);

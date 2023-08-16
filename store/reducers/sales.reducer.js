@@ -14,6 +14,7 @@ const initialState = {
   goals: [],
   userperformance: [],
   salesperformance: [],
+  digipointsperformance: [],
   invoiceperformance: [],
   getsalesvsgoals: [],
   getdigipointspermonth: [],
@@ -64,6 +65,9 @@ export const saleActions = createSlice({
     getSalePer: (state, action) => {
       state.salesperformance = action.payload;
     },
+    getDigiPointsPer: (state, action) => {
+      state.digipointsperformance = action.payload;
+    },
     getInvoicePer: (state, action) => {
       state.invoiceperformance = action.payload;
     },
@@ -105,6 +109,7 @@ export const {
   getGoals,
   getUserSale,
   getSalePer,
+  getDigiPointsPer,
   getInvoicePer,
   getSalesVSGoals,
   getDigipointsPer,
@@ -540,6 +545,25 @@ export const getSalesPerformance = (token) => async (dispatch) => {
         }
       )
       .then((res) => dispatch(getSalePer(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getDigiPointsPerformance = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipointsperformance`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getDigiPointsPer(res.data)));
   } catch (err) {
     console.log(err);
   }

@@ -33,3 +33,4 @@ export { default as Menu } from "./navbar/Menu";
 export { default as ShoppingCard } from "./navbar/ShoppingCard";
 export { default as Megaphone } from "./navbar/Megaphone";
 export { default as Camera } from "./perfil/Camera";
+export { default as Medal } from "./Reportes/Medal";
