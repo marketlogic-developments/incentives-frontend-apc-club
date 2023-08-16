@@ -110,7 +110,7 @@ const Layout = ({ children }) => {
           //Get user digiPoints
           axios
             .get(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/2/${userGetData?.id}`,
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/${userGetData?.id}`,
               {
                 headers: {
                   "Content-Type": "application/json",
