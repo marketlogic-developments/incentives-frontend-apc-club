@@ -14,6 +14,8 @@ import { useTranslation } from "react-i18next";
 import BtnWithImage from "../../cardReportes/BtnWithImage";
 import HorizontalBar from "../../charts/HorizontalBar";
 import CardChart from "../../cardReportes/CardChart";
+import TargetSales from "../../dashboard/GraphSales/TargetSales";
+import GraphSales from "../../dashboard/graphSales";
 
 const SalesYtd = () => {
   /* Variable and const */
@@ -23,7 +25,7 @@ const SalesYtd = () => {
   const progress = "82%";
 
   return (
-    <div>
+    <div className="m-5">
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
         <SelectInputValue
           placeholder={"Year"}
@@ -99,6 +101,24 @@ const SalesYtd = () => {
             <HorizontalBar />
           </CardChart>
       </div>
+      <div className="flex flex-col w-full gap-6">
+      <div className="grid gap-6">
+        {/* <TargetSales
+          data={CC}
+          goal={goals.filter(
+            ({ business_unit }) => business_unit === "Creative Cloud"
+          )}
+        />
+        <TargetSales
+          data={DC}
+          goal={goals.filter(
+            ({ business_unit }) => business_unit === "Document Cloud"
+          )}
+        />
+        <PerformaceSales CC={CC} DC={DC} goals={goals} /> */}
+        <GraphSales />
+      </div>
+    </div>
     </div>
   );
 };
