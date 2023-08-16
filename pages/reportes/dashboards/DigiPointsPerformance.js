@@ -148,24 +148,15 @@ const DigiPointsPerformance = () => {
 
   const dataTable = useMemo(() => {
     return filteredUsers.filter((item) => {
-      if (filters.company !== "") {
-        return item.company_name === filters.company;
-      }
-
-      if (filters.level !== "" && filters.region !== "") {
-        return item.company_level === filters.level && item.company_level === filters.region;
-      }
-
-      if (filters.level !== "") {
-        return item.company_level === filters.level;
-      }
-      if (filters.region !== "") {
-        return item.region === filters.region;
-      }
-
-      return item;
+      const companyFilter = filters.company === "" || item.company_name === filters.company;
+      const levelFilter = filters.level === "" || item.company_level === filters.level;
+      const regionFilter = filters.region === "" || item.region === filters.region;
+  
+      return companyFilter && levelFilter && regionFilter;
     });
   }, [filters, filteredUsers]);
+  
+  
 
   /* Clear Filter */
   const clearSelects = () => {
