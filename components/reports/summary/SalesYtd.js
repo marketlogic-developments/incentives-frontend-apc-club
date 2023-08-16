@@ -1,13 +1,23 @@
 import React from "react";
 import { SearchInput } from "../../inputs";
-import { ArrowDown, CloudDownload, Filter, SearchIcon } from "../../icons";
+import {
+  ArrowDown,
+  Circle,
+  CloudDownload,
+  Filter,
+  SearchIcon,
+} from "../../icons";
 import SelectInputValue from "../../inputs/SelectInputValue";
 import BtnFilter from "../../cardReportes/BtnFilter";
 import { useTranslation } from "react-i18next";
 import BtnWithImage from "../../cardReportes/BtnWithImage";
 
 const SalesYtd = () => {
+  /* Variable and const */
   const [t, i18n] = useTranslation("global");
+  const expected = "61,910,384";
+  const reached = "50,866,384";
+
   return (
     <div>
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
@@ -58,9 +68,21 @@ const SalesYtd = () => {
         <h1 className="text-black font-bold">Total Sales vs Goals</h1>
       </div>
       <div className="grid sm:grid-cols-3 grid-cols-1 divide-x">
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
+        <div className="flex justify-center gap-3">
+          <Circle />
+          <div className="grid">
+            <h3 className="text-gray-400 font-bold">Expected</h3>
+            <h1 className="text-black font-bold">$ {expected}</h1>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <Circle />
+          <div className="grid">
+            <h3 className="text-gray-400 font-bold">Reached</h3>
+            <h1 className="text-black font-bold">$ {reached}</h1>
+          </div>
+        </div>
+        <div className="flex justify-center">3</div>
       </div>
     </div>
   );
