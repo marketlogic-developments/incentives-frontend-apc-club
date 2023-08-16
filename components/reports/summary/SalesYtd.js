@@ -12,6 +12,8 @@ import SelectInputValue from "../../inputs/SelectInputValue";
 import BtnFilter from "../../cardReportes/BtnFilter";
 import { useTranslation } from "react-i18next";
 import BtnWithImage from "../../cardReportes/BtnWithImage";
+import HorizontalBar from "../../charts/HorizontalBar";
+import CardChart from "../../cardReportes/CardChart";
 
 const SalesYtd = () => {
   /* Variable and const */
@@ -91,6 +93,11 @@ const SalesYtd = () => {
             <h1 className="text-black font-bold">{progress}</h1>
           </div>
         </div>
+      </div>
+      <div className="grid">
+      <CardChart title={"Region vs Goals"} paragraph="">
+            <HorizontalBar />
+          </CardChart>
       </div>
     </div>
   );
