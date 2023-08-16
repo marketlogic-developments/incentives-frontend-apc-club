@@ -16,6 +16,7 @@ import HorizontalBar from "../../charts/HorizontalBar";
 import CardChart from "../../cardReportes/CardChart";
 import TargetSales from "../../dashboard/GraphSales/TargetSales";
 import PerformaceSales from "../../dashboard/GraphSales/PerformaceSales";
+import BarCircleChart from "../../charts/BarCircleChart";
 
 const SalesYtd = () => {
   /* Variable and const */
@@ -101,7 +102,7 @@ const SalesYtd = () => {
           <HorizontalBar />
         </CardChart>
       </div>
-      <div className="flex flex-col w-full gap-6 mt-5">
+      <div className="flex flex-col w-full gap-6 mt-5 mb-5">
         <div className="grid sm:grid-cols-3 grid-cols-1 gap-6">
           <CardChart>
             {/* <TargetSales
@@ -123,6 +124,9 @@ const SalesYtd = () => {
             {/* <PerformaceSales CC={CC} DC={DC} goals={goals} /> */}
           </CardChart>
         </div>
+      </div>
+      <div className="flex flex-col">
+        <BarCircleChart />
       </div>
     </div>
   );
