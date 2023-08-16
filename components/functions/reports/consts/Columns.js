@@ -165,8 +165,8 @@ export const invoiceColumnsExcel = {
   month: "Month",
   date: "Date",
   client: "Client",
-  revenue_by_user: "Revenue by user (USD)",
-  amount_by_user: "Sales DigiPoints by user",
+  amount_by_user: "Revenue by user (USD)",
+  digipoints_by_user: "Sales DigiPoints by user",
   puntosxpromo: "Promotions DigiPoints",
   promoname: "Promotions Name",
 };
@@ -350,8 +350,8 @@ export const invoiceColumnsCsv = (data) => {
     month: "Month",
     date: "Date",
     client: "Client",
-    revenue_by_user: "Revenue by user (USD)",
-    amount_by_user: "Sales DigiPoints by user",
+    amount_by_user: "Revenue by user (USD)",
+    digipoints_by_user: "Sales DigiPoints by user",
     puntosxpromo: "Promotions DigiPoints",
     promoname: "Promotions Name",
   };
