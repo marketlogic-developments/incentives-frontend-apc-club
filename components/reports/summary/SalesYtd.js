@@ -15,7 +15,7 @@ import BtnWithImage from "../../cardReportes/BtnWithImage";
 import HorizontalBar from "../../charts/HorizontalBar";
 import CardChart from "../../cardReportes/CardChart";
 import TargetSales from "../../dashboard/GraphSales/TargetSales";
-import GraphSales from "../../dashboard/graphSales";
+import PerformaceSales from "../../dashboard/GraphSales/PerformaceSales";
 
 const SalesYtd = () => {
   /* Variable and const */
