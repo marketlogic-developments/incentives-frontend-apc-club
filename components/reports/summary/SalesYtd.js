@@ -23,7 +23,7 @@ const SalesYtd = () => {
   /* Variable and const */
   const [t, i18n] = useTranslation("global");
   const [goalAmount, setGoalAmount] = useState([100, 200, 300, 400]);
-  const [totalSales, setTotalSales] = useState([150,250,350,450]);
+  const [totalSales, setTotalSales] = useState([150, 250, 350, 450]);
   const expected = "61,910,384";
   const reached = "50,866,384";
   const progress = "82%";
@@ -103,7 +103,15 @@ const SalesYtd = () => {
       </div>
       <div className="grid">
         <CardChart title={"Region vs Goals"} paragraph="">
-          <HorizontalBar />
+          <HorizontalBar
+            yNames={["Nola", "Sola", "Mexico", "Brazil"]}
+            datas={[
+              { value: 250, color: "#2799F6" },
+              { value: 230, color: "#1473E6" },
+              { value: 200, color: "#1C2226" },
+              { value: 180, color: "#21A5A2" },
+            ]}
+          />
         </CardChart>
       </div>
       <div className="flex flex-col w-full gap-6 mt-5 mb-5">
