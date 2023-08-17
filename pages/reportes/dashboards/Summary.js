@@ -1,5 +1,10 @@
 import React, { useMemo, useState } from "react";
-import { DigipoinstPerformance, SalesYoy, TitleWithIcon } from "../../../components";
+import {
+  DigipoinstPerformance,
+  Organization,
+  SalesYoy,
+  TitleWithIcon,
+} from "../../../components";
 import { useTranslation } from "react-i18next";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import { useRouter } from "next/router";
@@ -21,6 +26,9 @@ const Summary = () => {
     }
     if (content === t("DigipoinstPerformance")) {
       return <DigipoinstPerformance />;
+    }
+    if (content === t("Organization")) {
+      return <Organization />;
     }
   }, [content]);
 
@@ -73,7 +81,7 @@ const Summary = () => {
         <ButtonBgOut
           title={t("Reportes.organization")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          /* onClick={() => setContent(t("Reportes.evento"))} */
+          onClick={() => setContent(t("Organization"))}
         />
       </div>
       {contentPage}
