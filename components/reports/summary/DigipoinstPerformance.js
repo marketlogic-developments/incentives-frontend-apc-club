@@ -1,9 +1,11 @@
-import React from 'react'
-import SelectInputValue from '../../inputs/SelectInputValue'
-import { ArrowDown } from '../../icons'
-import BtnFilter from '../../cardReportes/BtnFilter';
-import { useTranslation } from 'react-i18next';
-import SalesYtdMultiselectModal from '../../ModalStateProducts/SalesYtdMultiselectModal';
+import React from "react";
+import SelectInputValue from "../../inputs/SelectInputValue";
+import { ArrowDown } from "../../icons";
+import BtnFilter from "../../cardReportes/BtnFilter";
+import { useTranslation } from "react-i18next";
+import SalesYtdMultiselectModal from "../../ModalStateProducts/SalesYtdMultiselectModal";
+import CardChart from "../../cardReportes/CardChart";
+import HorizontalDoubleChart from "../../charts/HorizontalDoubleChart";
 
 const DigipoinstPerformance = () => {
   /* Variables and const */
@@ -140,11 +142,27 @@ const DigipoinstPerformance = () => {
           />
         </div>
       </div>
-      <div className='grid sm:grid-cols-2 grid-rows-1'>
-        
+      <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4">
+        <CardChart title={"Region vs Goals"} paragraph="">
+          <HorizontalDoubleChart
+            yNames={["Nola", "Sola", "Mexico", "Brazil"]}
+            datas={[
+              {
+                leyend: "Current year",
+                values: [18203, 23489, 29034, 104970],
+                color: "#1473E6",
+              },
+              {
+                leyend: "Last year",
+                values: [19325, 23438, 31000, 121594],
+                color: "#1C2226",
+              },
+            ]}
+          />
+        </CardChart>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DigipoinstPerformance
+export default DigipoinstPerformance;
