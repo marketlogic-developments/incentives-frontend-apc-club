@@ -56,11 +56,22 @@ const SalesYtdMultiselectModal = ({
             />
           </div>
         ))}
-        <BtnFilter
-          text={t("Reportes.limpiar_filtros")}
-          styles="bg-white !text-gray-400 sm:!text-base hover:bg-white hover:!text-blue-500 border-none hover:border-none m-1"
-          /* onClick={clearSelects} */
-        />
+        <div className="grid sm:grid-cols-3 grid-rows-1 gap-3">
+          <BtnFilter
+            text={t("Reportes.limpiar_filtros")}
+            styles="bg-white !text-gray-400 sm:!text-base hover:bg-white hover:!text-blue-500 border-none hover:border-none m-1"
+            /* onClick={clearSelects} */
+          />
+          <BtnFilter
+            text={t("Cancelar")}
+            styles="!bg-gray-400 !text-white hover:!bg-gray-600 border-none"
+            onClick={close}
+          />
+          <BtnFilter
+            text={t("Filtrar")}
+            styles="!bg-blue-600 !text-white hover:!bg-blue-400 border-none"
+          />
+        </div>
       </Modal>
       <BtnWithImage
         text={t("Más filtros")}

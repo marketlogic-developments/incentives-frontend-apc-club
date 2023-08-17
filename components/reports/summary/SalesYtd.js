@@ -94,7 +94,7 @@ const SalesYtd = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: <ArrowDown />,
+      icon: '',
       name: "partner_level",
     },
     {
@@ -102,7 +102,7 @@ const SalesYtd = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: <ArrowDown />,
+      icon: '',
       name: "partner",
     },
     {
@@ -110,7 +110,7 @@ const SalesYtd = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: <ArrowDown />,
+      icon: '',
       name: "market_segment",
     },
     {
@@ -118,7 +118,7 @@ const SalesYtd = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: <ArrowDown />,
+      icon: '',
       name: "business_unit",
     },
     {
@@ -126,7 +126,7 @@ const SalesYtd = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: <ArrowDown />,
+      icon: '',
       name: "business_type",
     },
     {
@@ -134,7 +134,7 @@ const SalesYtd = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: <ArrowDown />,
+      icon: '',
       name: "licensiong",
     },
   ];
