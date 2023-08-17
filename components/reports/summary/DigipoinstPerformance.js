@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import SalesYtdMultiselectModal from "../../ModalStateProducts/SalesYtdMultiselectModal";
 import CardChart from "../../cardReportes/CardChart";
 import PieChart from "../../charts/PieChart";
+import StackedHorizontalBarChart from "../../charts/StackedHorizontalBarChart";
 
 const DigipoinstPerformance = () => {
   /* Variables and const */
@@ -142,7 +143,7 @@ const DigipoinstPerformance = () => {
           />
         </div>
       </div>
-      <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4">
+      <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
         <CardChart title={"DigiPoints uploaded YTD"} paragraph="">
           <PieChart
             datas={[
@@ -161,6 +162,26 @@ const DigipoinstPerformance = () => {
             ]}
             colors={["#21A5A2", "#009C3B", "#1473E6"]}
             formatter=""
+          />
+        </CardChart>
+        <CardChart title={"DigiPoints by business type"} paragraph="">
+          <StackedHorizontalBarChart
+            /* datas={[
+              {
+                value: 10,
+                name: "Promotion",
+              },
+              {
+                value: 70,
+                name: "Behavior",
+              },
+              {
+                value: 20,
+                name: "Sales",
+              },
+            ]}
+            colors={["#21A5A2", "#009C3B", "#1473E6"]}
+            formatter="" */
           />
         </CardChart>
       </div>

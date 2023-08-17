@@ -22,11 +22,11 @@ const StackedHorizontalBarChart = ({}) => {
     },
     yAxis: {
       type: "category",
-      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      data: ["Redeemed", "Assigned", "Uploaded"],
     },
     series: [
       {
-        name: "Direct",
+        name: "Brazil",
         type: "bar",
         stack: "total",
         label: {
@@ -38,7 +38,7 @@ const StackedHorizontalBarChart = ({}) => {
         data: [320, 302, 301, 334, 390, 330, 320],
       },
       {
-        name: "Mail Ad",
+        name: "México",
         type: "bar",
         stack: "total",
         label: {
@@ -50,7 +50,7 @@ const StackedHorizontalBarChart = ({}) => {
         data: [120, 132, 101, 134, 90, 230, 210],
       },
       {
-        name: "Affiliate Ad",
+        name: "SOLA",
         type: "bar",
         stack: "total",
         label: {
@@ -62,7 +62,7 @@ const StackedHorizontalBarChart = ({}) => {
         data: [220, 182, 191, 234, 290, 330, 310],
       },
       {
-        name: "Video Ad",
+        name: "NOLA",
         type: "bar",
         stack: "total",
         label: {
@@ -72,18 +72,6 @@ const StackedHorizontalBarChart = ({}) => {
           focus: "series",
         },
         data: [150, 212, 201, 154, 190, 330, 410],
-      },
-      {
-        name: "Search Engine",
-        type: "bar",
-        stack: "total",
-        label: {
-          show: true,
-        },
-        emphasis: {
-          focus: "series",
-        },
-        data: [820, 832, 901, 934, 1290, 1330, 1320],
       },
     ],
   };
