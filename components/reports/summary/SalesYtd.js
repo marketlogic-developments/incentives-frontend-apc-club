@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SearchInput } from "../../inputs";
 import {
   ArrowDown,
@@ -17,13 +17,17 @@ import CardChart from "../../cardReportes/CardChart";
 import TargetSales from "../../dashboard/GraphSales/TargetSales";
 import PerformaceSales from "../../dashboard/GraphSales/PerformaceSales";
 import BarCircleChart from "../../charts/BarCircleChart";
+import BarChar from "../../cardReportes/BarChar";
 
 const SalesYtd = () => {
   /* Variable and const */
   const [t, i18n] = useTranslation("global");
+  const [goalAmount, setGoalAmount] = useState([100, 200, 300, 400]);
+  const [totalSales, setTotalSales] = useState([150,250,350,450]);
   const expected = "61,910,384";
   const reached = "50,866,384";
   const progress = "82%";
+  const xValuesLine = ["Q1", "Q2", "Q3", "Q4"];
 
   return (
     <div className="m-5">
@@ -126,7 +130,26 @@ const SalesYtd = () => {
         </div>
       </div>
       <div className="flex flex-col">
-        <BarCircleChart />
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
+          <BarCircleChart
+            datas={[
+              { data: 0.25, color: "#232B2F" },
+              { data: 0.5, color: "#1473E6" },
+              { data: 0.75, color: "#21A5A2" },
+            ]}
+          />
+          <CardChart title={"Marketplace & VIP"} paragraph="">
+            <BarChar
+              title={"Monthly sales"}
+              colorBarOne={"black"}
+              colorBarTwo={"#2799F6"}
+              dataLeyend={["VIP", "Marketplace"]}
+              dataOne={goalAmount}
+              dataTwo={totalSales}
+              xValues={xValuesLine}
+            />
+          </CardChart>
+        </div>
       </div>
     </div>
   );
