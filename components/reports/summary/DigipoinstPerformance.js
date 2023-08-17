@@ -166,22 +166,28 @@ const DigipoinstPerformance = () => {
         </CardChart>
         <CardChart title={"DigiPoints by business type"} paragraph="">
           <StackedHorizontalBarChart
-            /* datas={[
+            datas={[
               {
-                value: 10,
-                name: "Promotion",
+                name: 'Brazil',
+                color: "#21A5A2",
+                data: [859000, 869000, 879000],
               },
               {
-                value: 70,
-                name: "Behavior",
+                name: 'México',
+                color: "#1C2226",
+                data: [80000, 90000, 100000],
               },
               {
-                value: 20,
-                name: "Sales",
+                name: 'SOLA',
+                color: "#1473E6",
+                data: [130000, 140000, 150000],
+              },
+              {
+                name: 'NOLA',
+                color: "#2799F6",
+                data: [180000, 190000, 200000],
               },
             ]}
-            colors={["#21A5A2", "#009C3B", "#1473E6"]}
-            formatter="" */
           />
         </CardChart>
       </div>

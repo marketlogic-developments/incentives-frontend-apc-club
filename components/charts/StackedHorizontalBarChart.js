@@ -1,7 +1,36 @@
 import React from "react";
 import ReactEcharts from "echarts-for-react";
 
-const StackedHorizontalBarChart = ({}) => {
+const StackedHorizontalBarChart = ({
+  datas = [{ name: "", color: "", data: [] }],
+}) => {
+
+  const data = datas.map((item) => ({
+    name: item.name,
+    type: "bar",
+    stack: "total",
+    itemStyle: {
+      color: item.color,
+    },
+    label: {
+      show: true,
+    },
+    emphasis: {
+      focus: "series",
+    },
+    data: item.data,
+    label: {
+      show: true,
+      formatter: function (params) {
+        return params.value >= 1000000
+          ? (params.value / 1000000).toFixed(0) + "M"
+          : params.value >= 1000
+          ? (params.value / 1000).toFixed(0) + "K"
+          : params.value;
+      },
+    },
+  }));
+  
   const option = {
     tooltip: {
       trigger: "axis",
@@ -39,104 +68,7 @@ const StackedHorizontalBarChart = ({}) => {
       type: "category",
       data: ["Redeemed", "Assigned", "Uploaded"],
     },
-    series: [
-      {
-        name: "Brazil",
-        type: "bar",
-        itemStyle: {
-          color: "#21A5A2",
-        },
-        label: {
-          show: true,
-        },
-        emphasis: {
-          focus: "series",
-        },
-        data: [859000, 869000, 879000],
-        label: {
-          show: true,
-          formatter: function (params) {
-            return params.value >= 1000000
-              ? (params.value / 1000000).toFixed(0) + "M"
-              : params.value >= 1000
-              ? (params.value / 1000).toFixed(0) + "K"
-              : params.value;
-          },
-        },
-      },
-      {
-        name: "México",
-        type: "bar",
-        itemStyle: {
-          color: "#1C2226",
-        },
-        label: {
-          show: true,
-        },
-        emphasis: {
-          focus: "series",
-        },
-        data: [80000, 90000, 100000],
-        label: {
-          show: true,
-          formatter: function (params) {
-            return params.value >= 1000000
-              ? (params.value / 1000000).toFixed(0) + "M"
-              : params.value >= 1000
-              ? (params.value / 1000).toFixed(0) + "K"
-              : params.value;
-          },
-        },
-      },
-      {
-        name: "SOLA",
-        type: "bar",
-        itemStyle: {
-          color: "#1473E6",
-        },
-        label: {
-          show: true,
-        },
-        emphasis: {
-          focus: "series",
-        },
-        data: [130000, 140000, 150000],
-        label: {
-          show: true,
-          formatter: function (params) {
-            return params.value >= 1000000
-              ? (params.value / 1000000).toFixed(0) + "M"
-              : params.value >= 1000
-              ? (params.value / 1000).toFixed(0) + "K"
-              : params.value;
-          },
-        },
-      },
-      {
-        name: "NOLA",
-        type: "bar",
-        itemStyle: {
-          color: "#2799F6",
-        },
-        label: {
-          show: true,
-        },
-        emphasis: {
-          focus: "series",
-        },
-        data: [180000, 190000, 200000],
-        label: {
-          show: true,
-          formatter: function (params) {
-            return params.value >= 1000000
-              ? (params.value / 1000000).toFixed(0) + "M"
-              : params.value >= 1000
-              ? (params.value / 1000).toFixed(0) + "K"
-              : params.value;
-          },
-        },
-      },
-    ],
+    series: data,
   };
   return (
     <div className="w-full">
