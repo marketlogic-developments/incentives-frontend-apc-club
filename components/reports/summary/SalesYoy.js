@@ -4,6 +4,8 @@ import { ArrowDown, Circle } from "../../icons";
 import BtnFilter from "../../cardReportes/BtnFilter";
 import SalesYtdMultiselectModal from "../../ModalStateProducts/SalesYtdMultiselectModal";
 import { useTranslation } from "react-i18next";
+import CardChart from "../../cardReportes/CardChart";
+import HorizontalDoubleChart from "../../charts/HorizontalDoubleChart";
 
 const SalesYoy = () => {
   /* Variable and const */
@@ -171,6 +173,35 @@ const SalesYoy = () => {
             </h1>
           </div>
         </div>
+      </div>
+      <div className="grid">
+        <CardChart
+          title={"Region vs Goals"}
+          paragraph=""
+          content={
+            <div className="grid justify-items-end">
+              <SelectInputValue
+                placeholder={"Period"}
+                /* value={selectOne}
+          data={dataSelectOne} */
+                icon={<ArrowDown />}
+                searchable={true}
+                /* onChange={handleSelectOneChange} */
+                name={"period"}
+              />
+            </div>
+          }
+        >
+          <HorizontalDoubleChart
+          /* yNames={["Nola", "Sola", "Mexico", "Brazil"]}
+            datas={[
+              { value: 250, color: "#2799F6" },
+              { value: 230, color: "#1473E6" },
+              { value: 200, color: "#1C2226" },
+              { value: 180, color: "#21A5A2" },
+            ]} */
+          />
+        </CardChart>
       </div>
     </div>
   );
