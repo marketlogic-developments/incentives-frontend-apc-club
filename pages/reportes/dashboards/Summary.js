@@ -1,5 +1,5 @@
-import React from "react";
-import { TitleWithIcon } from "../../../components";
+import React, { useMemo, useState } from "react";
+import { SalesYoy, TitleWithIcon } from "../../../components";
 import { useTranslation } from "react-i18next";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import { useRouter } from "next/router";
@@ -9,7 +9,17 @@ import { SalesYtd } from "../../../components/reports";
 const Summary = () => {
   /* Variables and conts */
   const router = useRouter();
+  const [content, setContent] = useState("SalesYtd");
   const [t, i18n] = useTranslation("global");
+
+  const contentPage = useMemo(() => {
+    if (content === t("SalesYtd")) {
+      return <SalesYtd />;
+    }
+    if (content === t("SalesYoy")) {
+      return <SalesYoy />;
+    }
+  }, [content]);
 
   return (
     <div className="mt-4">
@@ -45,12 +55,12 @@ const Summary = () => {
         <ButtonBgOut
           title={t("Reportes.sales_ytd")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          /* onClick={() => setContent(t("Reportes.promocion"))} */
+          onClick={() => setContent(t("SalesYtd"))}
         />
         <ButtonBgOut
           title={t("Reportes.grow_sales_yt")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          /* onClick={() => setContent(t("Reportes.marketPlace"))} */
+          onClick={() => setContent(t("SalesYoy"))}
         />
         <ButtonBgOut
           title={t("Reportes.digipoints_performance")}
@@ -63,8 +73,7 @@ const Summary = () => {
           /* onClick={() => setContent(t("Reportes.evento"))} */
         />
       </div>
-      {/* {contentPage} */}
-      <SalesYtd />
+      {contentPage}
     </div>
   );
 };

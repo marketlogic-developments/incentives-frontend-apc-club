@@ -20,3 +20,4 @@ export { default as ImageProfile } from "./user/perfil/ImageProfile";
 export { default as MultiLineChart } from "./charts/MultiLineChart";
 export { default as HorizontalBar } from "./charts/HorizontalBar";
 export { default as BarCircleChart } from "./charts/BarCircleChart";
+export { default as SalesYoy } from "./reports/summary/SalesYoy";
