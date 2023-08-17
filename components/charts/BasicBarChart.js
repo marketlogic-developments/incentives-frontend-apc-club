@@ -1,7 +1,7 @@
 import React from "react";
 import ReactEcharts from "echarts-for-react";
 
-const BasicBarChart = ({ xValues = [], datas = [] }) => {
+const BasicBarChart = ({ xValues = [], datas = [], color='' }) => {
   const option = {
     xAxis: {
       type: "category",
@@ -14,6 +14,9 @@ const BasicBarChart = ({ xValues = [], datas = [] }) => {
       {
         data: datas,
         type: "bar",
+        itemStyle: {
+            color: color,
+          },
       },
     ],
   };

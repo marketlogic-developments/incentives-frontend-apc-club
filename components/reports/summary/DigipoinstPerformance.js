@@ -8,7 +8,7 @@ import CardChart from "../../cardReportes/CardChart";
 import PieChart from "../../charts/PieChart";
 import StackedHorizontalBarChart from "../../charts/StackedHorizontalBarChart";
 import HorizontalBar from "../../charts/HorizontalBar";
-import BarChar from "../../cardReportes/BarChar";
+import BasicBarChart from "../../charts/BasicBarChart";
 
 const DigipoinstPerformance = () => {
   /* Variables and const */
@@ -209,10 +209,9 @@ const DigipoinstPerformance = () => {
           />
         </CardChart>
         <CardChart title={"Redemptions by region and amound"} paragraph="">
-          <BarChar
-            title={"Monthly sales"}
-            colorBarOne={"black"}
-            dataOne={redempion}
+          <BasicBarChart
+            color={"#1C2226"}
+            datas={redempion}
             xValues={xValuesLine}
           />
         </CardChart>
