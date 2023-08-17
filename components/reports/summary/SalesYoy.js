@@ -183,7 +183,7 @@ const SalesYoy = () => {
               <SelectInputValue
                 placeholder={"Period"}
                 /* value={selectOne}
-          data={dataSelectOne} */
+                data={dataSelectOne} */
                 icon={<ArrowDown />}
                 searchable={true}
                 /* onChange={handleSelectOneChange} */
@@ -193,13 +193,19 @@ const SalesYoy = () => {
           }
         >
           <HorizontalDoubleChart
-          /* yNames={["Nola", "Sola", "Mexico", "Brazil"]}
+            yNames={["Nola", "Sola", "Mexico", "Brazil"]}
             datas={[
-              { value: 250, color: "#2799F6" },
-              { value: 230, color: "#1473E6" },
-              { value: 200, color: "#1C2226" },
-              { value: 180, color: "#21A5A2" },
-            ]} */
+              {
+                leyend: "Current year",
+                values: [18203, 23489, 29034, 104970],
+                color: "#1473E6",
+              },
+              {
+                leyend: "Last year",
+                values: [19325, 23438, 31000, 121594],
+                color: "#1C2226",
+              },
+            ]}
           />
         </CardChart>
       </div>
