@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { SalesYoy, TitleWithIcon } from "../../../components";
+import { DigipoinstPerformance, SalesYoy, TitleWithIcon } from "../../../components";
 import { useTranslation } from "react-i18next";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import { useRouter } from "next/router";
@@ -20,7 +20,7 @@ const Summary = () => {
       return <SalesYoy />;
     }
     if (content === t("DigipoinstPerformance")) {
-      return <SalesYoy />;
+      return <DigipoinstPerformance />;
     }
   }, [content]);
 
