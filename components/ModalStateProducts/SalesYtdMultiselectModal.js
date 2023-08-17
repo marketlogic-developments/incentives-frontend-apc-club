@@ -47,11 +47,11 @@ const SalesYtdMultiselectModal = ({
           <div className="p-5 gap-3">
             <SelectInputValue
               placeholder={data.placeholder}
-              /* value={data.value}
-      data={data.dataSelect} */
+              value={data.value}
+              data={data.dataSelect}
               icon={data.icon}
               searchable={data.searchable}
-              /* onChange={data.onChange} */
+              onChange={data.onChange}
               name={data.name}
             />
           </div>
