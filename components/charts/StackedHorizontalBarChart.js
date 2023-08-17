@@ -10,7 +10,11 @@ const StackedHorizontalBarChart = ({}) => {
         type: "shadow", // 'shadow' as default; can also be 'line' or 'shadow'
       },
     },
-    legend: {},
+    legend: {
+      orient: "horizontal",
+      right: 10,
+      top: "top",
+    },
     grid: {
       left: "3%",
       right: "4%",
@@ -19,6 +23,17 @@ const StackedHorizontalBarChart = ({}) => {
     },
     xAxis: {
       type: "value",
+      axisLabel: {
+        formatter: function (value) {
+          if (value >= 1000000) {
+            return (value / 1000000).toFixed(0) + "M";
+          } else if (value >= 1000) {
+            return (value / 1000).toFixed(0) + "K";
+          } else {
+            return value.toFixed(0);
+          }
+        },
+      },
     },
     yAxis: {
       type: "category",
@@ -28,50 +43,98 @@ const StackedHorizontalBarChart = ({}) => {
       {
         name: "Brazil",
         type: "bar",
-        stack: "total",
+        itemStyle: {
+          color: "#21A5A2",
+        },
         label: {
           show: true,
         },
         emphasis: {
           focus: "series",
         },
-        data: [320, 302, 301, 334, 390, 330, 320],
+        data: [859000, 869000, 879000],
+        label: {
+          show: true,
+          formatter: function (params) {
+            return params.value >= 1000000
+              ? (params.value / 1000000).toFixed(0) + "M"
+              : params.value >= 1000
+              ? (params.value / 1000).toFixed(0) + "K"
+              : params.value;
+          },
+        },
       },
       {
         name: "México",
         type: "bar",
-        stack: "total",
+        itemStyle: {
+          color: "#1C2226",
+        },
         label: {
           show: true,
         },
         emphasis: {
           focus: "series",
         },
-        data: [120, 132, 101, 134, 90, 230, 210],
+        data: [80000, 90000, 100000],
+        label: {
+          show: true,
+          formatter: function (params) {
+            return params.value >= 1000000
+              ? (params.value / 1000000).toFixed(0) + "M"
+              : params.value >= 1000
+              ? (params.value / 1000).toFixed(0) + "K"
+              : params.value;
+          },
+        },
       },
       {
         name: "SOLA",
         type: "bar",
-        stack: "total",
+        itemStyle: {
+          color: "#1473E6",
+        },
         label: {
           show: true,
         },
         emphasis: {
           focus: "series",
         },
-        data: [220, 182, 191, 234, 290, 330, 310],
+        data: [130000, 140000, 150000],
+        label: {
+          show: true,
+          formatter: function (params) {
+            return params.value >= 1000000
+              ? (params.value / 1000000).toFixed(0) + "M"
+              : params.value >= 1000
+              ? (params.value / 1000).toFixed(0) + "K"
+              : params.value;
+          },
+        },
       },
       {
         name: "NOLA",
         type: "bar",
-        stack: "total",
+        itemStyle: {
+          color: "#2799F6",
+        },
         label: {
           show: true,
         },
         emphasis: {
           focus: "series",
         },
-        data: [150, 212, 201, 154, 190, 330, 410],
+        data: [180000, 190000, 200000],
+        label: {
+          show: true,
+          formatter: function (params) {
+            return params.value >= 1000000
+              ? (params.value / 1000000).toFixed(0) + "M"
+              : params.value >= 1000
+              ? (params.value / 1000).toFixed(0) + "K"
+              : params.value;
+          },
+        },
       },
     ],
   };
