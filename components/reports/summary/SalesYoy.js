@@ -1,6 +1,6 @@
 import React from "react";
 import SelectInputValue from "../../inputs/SelectInputValue";
-import { ArrowDown } from "../../icons";
+import { ArrowDown, Circle } from "../../icons";
 import BtnFilter from "../../cardReportes/BtnFilter";
 import SalesYtdMultiselectModal from "../../ModalStateProducts/SalesYtdMultiselectModal";
 import { useTranslation } from "react-i18next";
@@ -8,6 +8,10 @@ import { useTranslation } from "react-i18next";
 const SalesYoy = () => {
   /* Variable and const */
   const [t, i18n] = useTranslation("global");
+  const dataTotalSaleGoal = {
+    sales_ago: "61,910,384",
+    sale_now: "50,866,384",
+  };
   const multiSelect = [
     {
       placeholder: "Year",
@@ -98,6 +102,7 @@ const SalesYoy = () => {
       name: "licensiong",
     },
   ];
+  const date = new Date();
   return (
     <div className="m-5">
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
@@ -138,6 +143,33 @@ const SalesYoy = () => {
             styles="bg-white !text-gray-400 sm:!text-base hover:bg-white hover:!text-blue-500 border-none hover:border-none m-1"
             /* onClick={clearSelects} */
           />
+        </div>
+      </div>
+      <div className="p-3">
+        <h1 className="text-black font-bold">Total sales vs Sales Last Year</h1>
+      </div>
+      <div className="grid sm:grid-cols-2 grid-cols-1 divide-x">
+        <div className="flex justify-center gap-3">
+          <Circle />
+          <div className="grid">
+            <h3 className="text-gray-400 font-bold">
+              Ventas {date.getFullYear() - 1}
+            </h3>
+            <h1 className="text-black font-bold">
+              $ {dataTotalSaleGoal.sales_ago}
+            </h1>
+          </div>
+        </div>
+        <div className="flex justify-center gap-3">
+          <Circle />
+          <div className="grid">
+            <h3 className="text-gray-400 font-bold">
+              Ventas {date.getFullYear()}
+            </h3>
+            <h1 className="text-black font-bold">
+              $ {dataTotalSaleGoal.sale_now}
+            </h1>
+          </div>
         </div>
       </div>
     </div>
