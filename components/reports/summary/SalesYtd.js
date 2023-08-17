@@ -18,16 +18,35 @@ import TargetSales from "../../dashboard/GraphSales/TargetSales";
 import PerformaceSales from "../../dashboard/GraphSales/PerformaceSales";
 import BarCircleChart from "../../charts/BarCircleChart";
 import BarChar from "../../cardReportes/BarChar";
+import SortedTable from "../../table/SortedTable";
 
 const SalesYtd = () => {
   /* Variable and const */
   const [t, i18n] = useTranslation("global");
+  const [loading, setLoading] = useState(false);
   const [goalAmount, setGoalAmount] = useState([100, 200, 300, 400]);
   const [totalSales, setTotalSales] = useState([150, 250, 350, 450]);
   const expected = "61,910,384";
   const reached = "50,866,384";
   const progress = "82%";
   const xValuesLine = ["Q1", "Q2", "Q3", "Q4"];
+  const data = [
+    {
+      segmento: "Commercial",
+      total_sales: 1760017,
+      digipoints: 1760017,
+    },
+    {
+      segmento: "Goverment",
+      total_sales: 208991,
+      digipoints: 208991,
+    },
+    {
+      segmento: "Education",
+      total_sales: 244656,
+      digipoints: 244656,
+    },
+  ];
 
   return (
     <div className="m-5">
@@ -158,6 +177,41 @@ const SalesYtd = () => {
             />
           </CardChart>
         </div>
+      </div>
+      <div className="justify-items-center pt-5">
+        {loading && <div className="lds-dual-ring"></div>}
+        {!loading && (
+          <SortedTable
+            containerStyles={
+              "mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max !w-full"
+            }
+            tableStyles={"table-zebra !text-sm"}
+            colStyles={"p-2"}
+            thStyles={"sticky text-white"}
+            cols={[
+              {
+                rowStyles: "",
+                sort: false,
+                symbol: "",
+                identity: "segmento",
+                columnName: "Segmento",
+              },
+              {
+                symbol: "USD",
+                identity: "total_sales",
+                columnName: "Total Sales USD",
+              },
+              {
+                symbol: "USD",
+                identity: "digipoints",
+                columnName: "DigiPoints",
+              },
+            ]}
+            generalRowStyles={"text-left py-3 mx-7"}
+            currentItems={data}
+            sumColum={true}
+          />
+        )}
       </div>
     </div>
   );
