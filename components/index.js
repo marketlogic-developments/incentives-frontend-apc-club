@@ -21,3 +21,4 @@ export { default as MultiLineChart } from "./charts/MultiLineChart";
 export { default as HorizontalBar } from "./charts/HorizontalBar";
 export { default as BarCircleChart } from "./charts/BarCircleChart";
 export { default as SalesYoy } from "./reports/summary/SalesYoy";
+export { default as HorizontalDoubleChart } from "./charts/HorizontalDoubleChart";
