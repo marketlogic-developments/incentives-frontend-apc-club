@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SelectInputValue from "../../inputs/SelectInputValue";
 import { ArrowDown, Circle } from "../../icons";
 import BtnFilter from "../../cardReportes/BtnFilter";
@@ -6,14 +6,46 @@ import SalesYtdMultiselectModal from "../../ModalStateProducts/SalesYtdMultisele
 import { useTranslation } from "react-i18next";
 import CardChart from "../../cardReportes/CardChart";
 import HorizontalDoubleChart from "../../charts/HorizontalDoubleChart";
+import SortedTable from "../../table/SortedTable";
 
 const SalesYoy = () => {
   /* Variable and const */
   const [t, i18n] = useTranslation("global");
+  const [loading, setLoading] = useState(false);
   const dataTotalSaleGoal = {
     sales_ago: "61,910,384",
     sale_now: "50,866,384",
   };
+  const dataTable = [
+    {
+      level: "Gold",
+      partners_ly: "Partner 1",
+      partners_ytd: "Platinum certified",
+      sales_ly: 1760017,
+      sales_ytd: 1760017,
+    },
+    {
+      level: "Platinum",
+      partners_ly: "Partner 2",
+      partners_ytd: "Gold certified",
+      sales_ly: 208991,
+      sales_ytd: 208991,
+    },
+    {
+      level: "Distris",
+      partners_ly: "Partner 3",
+      partners_ytd: "Gold certified",
+      sales_ly: 244656,
+      sales_ytd: 244656,
+    },
+    {
+      level: "SOLA",
+      partners_ly: "Partner 4",
+      partners_ytd: "Gold certified",
+      sales_ly: 222374,
+      sales_ytd: 222374,
+    },
+  ];
   const multiSelect = [
     {
       placeholder: "Year",
@@ -276,6 +308,74 @@ const SalesYoy = () => {
             ]}
           />
         </CardChart>
+      </div>
+      <div className="flex items-center gap-5">
+        <p className="text-black font-bold text-3xl">
+          Market Segment vs Last Year
+        </p>
+        <SelectInputValue
+          placeholder={"Quarter"}
+          icon={<ArrowDown />}
+          searchable={true}
+          name={"quarter"}
+        />
+        <SelectInputValue
+          placeholder={"Business type"}
+          icon={<ArrowDown />}
+          searchable={true}
+          name={"business_type"}
+        />
+        <SelectInputValue
+          placeholder={"Business unit"}
+          icon={<ArrowDown />}
+          searchable={true}
+          name={"business_unit"}
+        />
+      </div>
+      <div className="justify-items-center pt-5">
+        {loading && <div className="lds-dual-ring"></div>}
+        {!loading && (
+          <SortedTable
+            containerStyles={
+              "mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max !w-full"
+            }
+            tableStyles={"table-zebra !text-sm"}
+            colStyles={"p-2"}
+            thStyles={"sticky text-white"}
+            cols={[
+              {
+                rowStyles: "",
+                sort: false,
+                symbol: "",
+                identity: "level",
+                columnName: "Level",
+              },
+              {
+                symbol: "",
+                identity: "partners_ly",
+                columnName: "Partners LY(#)",
+              },
+              {
+                symbol: "",
+                identity: "partners_ytd",
+                columnName: "Partners YTD(#)",
+              },
+              {
+                symbol: "USD",
+                identity: "sales_ly",
+                columnName: "Sales LY(#)",
+              },
+              {
+                symbol: "USD",
+                identity: "sales_ytd",
+                columnName: "Sales YTD(#)",
+              },
+            ]}
+            generalRowStyles={"text-left py-3 mx-7"}
+            currentItems={dataTable}
+            sumColum={true}
+          />
+        )}
       </div>
     </div>
   );
