@@ -103,33 +103,21 @@ const Organization = () => {
   ];
   const dataTable = [
     {
-      level: "Gold",
-      partners_ly: "Partner 1",
-      partners_ytd: "Platinum certified",
-      sales_ly: 1760017,
-      sales_ytd: 1760017,
+      region: "Distributor",
+      brazil: 1,
+      mexico: 2,
+      nola: 2,
+      sola: 8,
+      total: 13,
     },
     {
-      level: "Platinum",
-      partners_ly: "Partner 2",
-      partners_ytd: "Gold certified",
-      sales_ly: 208991,
-      sales_ytd: 208991,
-    },
-    {
-      level: "Distris",
-      partners_ly: "Partner 3",
-      partners_ytd: "Gold certified",
-      sales_ly: 244656,
-      sales_ytd: 244656,
-    },
-    {
-      level: "SOLA",
-      partners_ly: "Partner 4",
-      partners_ytd: "Gold certified",
-      sales_ly: 222374,
-      sales_ytd: 222374,
-    },
+      region: "Reseller",
+      brazil: 21,
+      mexico: 12,
+      nola: 23,
+      sola: 54,
+      total: 110,
+    }
   ];
 
   return (
@@ -174,6 +162,17 @@ const Organization = () => {
           />
         </div>
       </div>
+      <div className="flex items-center gap-5 pt-10">
+        <p className="text-black font-bold text-3xl">
+          Registered companies and users
+        </p>
+        <SelectInputValue
+          placeholder={"Companies"}
+          icon={<ArrowDown />}
+          searchable={true}
+          name={"companie"}
+        />
+      </div>
       <div className="justify-items-center pt-5">
         {loading && <div className="lds-dual-ring"></div>}
         {!loading && (
@@ -189,28 +188,33 @@ const Organization = () => {
                 rowStyles: "",
                 sort: false,
                 symbol: "",
-                identity: "level",
-                columnName: "Level",
+                identity: "region",
+                columnName: "Region",
               },
               {
-                symbol: "",
-                identity: "partners_ly",
-                columnName: "Partners LY(#)",
+                symbol: "N",
+                identity: "brazil",
+                columnName: "Brazil",
               },
               {
-                symbol: "",
-                identity: "partners_ytd",
-                columnName: "Partners YTD(#)",
+                symbol: "N",
+                identity: "mexico",
+                columnName: "México",
               },
               {
-                symbol: "USD",
-                identity: "sales_ly",
-                columnName: "Sales LY(#)",
+                symbol: "N",
+                identity: "nola",
+                columnName: "NOLA",
               },
               {
-                symbol: "USD",
-                identity: "sales_ytd",
-                columnName: "Sales YTD(#)",
+                symbol: "N",
+                identity: "sola",
+                columnName: "SOLA",
+              },
+              {
+                symbol: "N",
+                identity: "total",
+                columnName: "Total",
               },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}

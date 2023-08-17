@@ -130,7 +130,7 @@ const SortedTable = ({
                           ? formatDate(row[col.identity])
                           : col.symbol === "USD"
                           ? numberToMoney(row[col.identity])
-                          : row[col.identity] + col.symbol}
+                          : row[col.identity]}
                       </th>
                     ))}
                   </tr>
@@ -140,10 +140,12 @@ const SortedTable = ({
                 {cols.map((col, index) => (
                   <th
                     key={`total-${col.identity}`}
-                    className='text-black text-left text-lg font-bold'
+                    className="text-black text-left text-lg font-bold"
                   >
                     {col.symbol === "USD"
                       ? numberToMoney(columnSums[col.identity])
+                      : col.symbol === "N"
+                      ? columnSums[col.identity]
                       : index === 0
                       ? "Total"
                       : ""}
