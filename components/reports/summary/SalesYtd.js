@@ -27,11 +27,13 @@ const SalesYtd = () => {
   const [loading, setLoading] = useState(false);
   const [goalAmount, setGoalAmount] = useState([100, 200, 300, 400]);
   const [totalSales, setTotalSales] = useState([150, 250, 350, 450]);
-  const expected = "61,910,384";
-  const reached = "50,866,384";
-  const progress = "82%";
+  const dataTotalSaleGoal = {
+    expected: "61,910,384",
+    reached: "50,866,384",
+    progress: "82%",
+  };
   const xValuesLine = ["Q1", "Q2", "Q3", "Q4"];
-  const data = [
+  const dataTable = [
     {
       segmento: "Commercial",
       total_sales: 1760017,
@@ -94,7 +96,7 @@ const SalesYtd = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: '',
+      icon: "",
       name: "partner_level",
     },
     {
@@ -102,7 +104,7 @@ const SalesYtd = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: '',
+      icon: "",
       name: "partner",
     },
     {
@@ -110,7 +112,7 @@ const SalesYtd = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: '',
+      icon: "",
       name: "market_segment",
     },
     {
@@ -118,7 +120,7 @@ const SalesYtd = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: '',
+      icon: "",
       name: "business_unit",
     },
     {
@@ -126,7 +128,7 @@ const SalesYtd = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: '',
+      icon: "",
       name: "business_type",
     },
     {
@@ -134,7 +136,7 @@ const SalesYtd = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: '',
+      icon: "",
       name: "licensiong",
     },
   ];
@@ -189,21 +191,27 @@ const SalesYtd = () => {
           <Circle />
           <div className="grid">
             <h3 className="text-gray-400 font-bold">Expected</h3>
-            <h1 className="text-black font-bold">$ {expected}</h1>
+            <h1 className="text-black font-bold">
+              $ {dataTotalSaleGoal.expected}
+            </h1>
           </div>
         </div>
         <div className="flex justify-center gap-3">
           <Check />
           <div className="grid">
             <h3 className="text-gray-400 font-bold">Reached</h3>
-            <h1 className="text-black font-bold">$ {reached}</h1>
+            <h1 className="text-black font-bold">
+              $ {dataTotalSaleGoal.reached}
+            </h1>
           </div>
         </div>
         <div className="flex justify-center gap-3">
           <Circle />
           <div className="grid">
             <h3 className="text-gray-400 font-bold">Progress</h3>
-            <h1 className="text-black font-bold">{progress}</h1>
+            <h1 className="text-black font-bold">
+              {dataTotalSaleGoal.progress}
+            </h1>
           </div>
         </div>
       </div>
@@ -295,7 +303,7 @@ const SalesYtd = () => {
               },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
-            currentItems={data}
+            currentItems={dataTable}
             sumColum={true}
           />
         )}
