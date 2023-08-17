@@ -1,10 +1,25 @@
 import React from "react";
 import ReactEcharts from "echarts-for-react";
 
-const PieChart = () => {
+const PieChart = ({
+  datas = [
+    {
+      value: 0,
+      name: "",
+    },
+  ],
+  colors = [],
+  formatter = "",
+}) => {
+  const data = datas.map((item) => ({
+    value: item.value,
+    name: item.name,
+  }));
+
   const option = {
     tooltip: {
       trigger: "item",
+      formatter: formatter,
     },
     legend: {
       top: "0%",
@@ -15,7 +30,7 @@ const PieChart = () => {
         name: "",
         type: "pie",
         radius: ["50%", "70%"],
-        center: ["50%", "60%"], 
+        center: ["50%", "60%"],
         avoidLabelOverlap: false,
         itemStyle: {
           borderRadius: 5,
@@ -37,12 +52,8 @@ const PieChart = () => {
         labelLine: {
           show: true,
         },
-        data: [
-          { value: 10, name: "Promotion" },
-          { value: 70, name: "Behavior" },
-          { value: 20, name: "Sales" },
-        ],
-        color: ["#21A5A2", "#009C3B", "#1473E6"],
+        data: data,
+        color: colors,
       },
     ],
   };

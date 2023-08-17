@@ -145,19 +145,22 @@ const DigipoinstPerformance = () => {
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4">
         <CardChart title={"DigiPoints uploaded YTD"} paragraph="">
           <PieChart
-            /* yNames={["Nola", "Sola", "Mexico", "Brazil"]}
             datas={[
               {
-                leyend: "Current year",
-                values: [18203, 23489, 29034, 104970],
-                color: "#1473E6",
+                value: 10,
+                name: "Promotion",
               },
               {
-                leyend: "Last year",
-                values: [19325, 23438, 31000, 121594],
-                color: "#1C2226",
+                value: 70,
+                name: "Behavior",
               },
-            ]} */
+              {
+                value: 20,
+                name: "Sales",
+              },
+            ]}
+            colors={["#21A5A2", "#009C3B", "#1473E6"]}
+            formatter=""
           />
         </CardChart>
       </div>
