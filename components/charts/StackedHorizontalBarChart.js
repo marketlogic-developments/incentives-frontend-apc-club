@@ -3,8 +3,8 @@ import ReactEcharts from "echarts-for-react";
 
 const StackedHorizontalBarChart = ({
   datas = [{ name: "", color: "", data: [] }],
+  yNames = [],
 }) => {
-
   const data = datas.map((item) => ({
     name: item.name,
     type: "bar",
@@ -30,7 +30,7 @@ const StackedHorizontalBarChart = ({
       },
     },
   }));
-  
+
   const option = {
     tooltip: {
       trigger: "axis",
@@ -66,7 +66,7 @@ const StackedHorizontalBarChart = ({
     },
     yAxis: {
       type: "category",
-      data: ["Redeemed", "Assigned", "Uploaded"],
+      data: yNames,
     },
     series: data,
   };

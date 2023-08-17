@@ -7,6 +7,7 @@ import SalesYtdMultiselectModal from "../../ModalStateProducts/SalesYtdMultisele
 import CardChart from "../../cardReportes/CardChart";
 import PieChart from "../../charts/PieChart";
 import StackedHorizontalBarChart from "../../charts/StackedHorizontalBarChart";
+import HorizontalBar from "../../charts/HorizontalBar";
 
 const DigipoinstPerformance = () => {
   /* Variables and const */
@@ -188,8 +189,22 @@ const DigipoinstPerformance = () => {
                 data: [180000, 190000, 200000],
               },
             ]}
+            yNames={["Redeemed", "Assigned", "Uploaded"]}
           />
         </CardChart>
+      </div>
+      <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
+      <CardChart title={"DigiPoints by status"} paragraph="">
+          <HorizontalBar
+            yNames={["Redeemed", "Assigned", "Expected","Uploaded"]}
+            datas={[
+              { value: 250, color: "#2799F6" },
+              { value: 230, color: "#1473E6" },
+              { value: 200, color: "#1C2226" },
+              { value: 180, color: "#21A5A2" },
+            ]}
+          />
+      </CardChart>
       </div>
     </div>
   );
