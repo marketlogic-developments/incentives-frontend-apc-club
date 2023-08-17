@@ -5,7 +5,7 @@ import BtnFilter from "../../cardReportes/BtnFilter";
 import { useTranslation } from "react-i18next";
 import SalesYtdMultiselectModal from "../../ModalStateProducts/SalesYtdMultiselectModal";
 import CardChart from "../../cardReportes/CardChart";
-import HorizontalDoubleChart from "../../charts/HorizontalDoubleChart";
+import PieChart from "../../charts/PieChart";
 
 const DigipoinstPerformance = () => {
   /* Variables and const */
@@ -143,9 +143,9 @@ const DigipoinstPerformance = () => {
         </div>
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4">
-        <CardChart title={"Region vs Goals"} paragraph="">
-          <HorizontalDoubleChart
-            yNames={["Nola", "Sola", "Mexico", "Brazil"]}
+        <CardChart title={"DigiPoints uploaded YTD"} paragraph="">
+          <PieChart
+            /* yNames={["Nola", "Sola", "Mexico", "Brazil"]}
             datas={[
               {
                 leyend: "Current year",
@@ -157,7 +157,7 @@ const DigipoinstPerformance = () => {
                 values: [19325, 23438, 31000, 121594],
                 color: "#1C2226",
               },
-            ]}
+            ]} */
           />
         </CardChart>
       </div>
