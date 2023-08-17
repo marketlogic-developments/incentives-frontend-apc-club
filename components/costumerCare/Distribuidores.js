@@ -14,13 +14,13 @@ const Distribuidores = () => {
   const [modal, setModal] = useState(0);
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
-
   const currentPage = useSelector((state) => state.currentPage || 1);
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setData] = useState([]);
   const [postsPerPage, setPostsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
+  const [search, setSearch] = useState();
+
   const itemsPerPage = 10;
 
   useEffect(() => {
@@ -115,26 +115,28 @@ const Distribuidores = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => {
-                  return (
-                    <tr
-                      key={item.id}
-                      className={`${
-                        user?.roleId === 1
-                          ? "cursor-pointer hover:bg-warning "
-                          : ""
-                      }${(index + 1) % 2 === 0 && "bg-[#F5F5F5]"}`}
-                      onClick={() => {
-                        setModal(1);
-                        setOpened(true);
-                      }}
-                    >
-                      <td className="py-4 px-6">{item.nameDist}</td>
-                      <td className="py-4 px-6">{item.soldToParty}</td>
-                      <td className="py-4 px-6">DISTRIBUITOR</td>
-                    </tr>
-                  );
-                })}
+                {data
+                  .filter(() => {})
+                  .map((item, index) => {
+                    return (
+                      <tr
+                        key={item.id}
+                        className={`${
+                          user?.roleId === 1
+                            ? "cursor-pointer hover:bg-warning "
+                            : ""
+                        }${(index + 1) % 2 === 0 && "bg-[#F5F5F5]"}`}
+                        onClick={() => {
+                          setModal(1);
+                          setOpened(true);
+                        }}
+                      >
+                        <td className="py-4 px-6">{item.nameDist}</td>
+                        <td className="py-4 px-6">{item.soldToParty}</td>
+                        <td className="py-4 px-6">DISTRIBUITOR</td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
