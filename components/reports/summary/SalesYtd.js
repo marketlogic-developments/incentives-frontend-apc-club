@@ -25,8 +25,8 @@ const SalesYtd = () => {
   /* Variable and const */
   const [t, i18n] = useTranslation("global");
   const [loading, setLoading] = useState(false);
-  const [goalAmount, setGoalAmount] = useState([100, 200, 300, 400]);
-  const [totalSales, setTotalSales] = useState([150, 250, 350, 450]);
+  const [vip, setVip] = useState([100, 200, 300, 400]);
+  const [marketplace, setMarketplace] = useState([150, 250, 350, 450]);
   const dataTotalSaleGoal = {
     expected: "61,910,384",
     reached: "50,866,384",
@@ -266,8 +266,8 @@ const SalesYtd = () => {
               colorBarOne={"black"}
               colorBarTwo={"#2799F6"}
               dataLeyend={["VIP", "Marketplace"]}
-              dataOne={goalAmount}
-              dataTwo={totalSales}
+              dataOne={vip}
+              dataTwo={marketplace}
               xValues={xValuesLine}
             />
           </CardChart>
