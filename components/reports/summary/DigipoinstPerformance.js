@@ -8,6 +8,7 @@ import CardChart from "../../cardReportes/CardChart";
 import PieChart from "../../charts/PieChart";
 import StackedHorizontalBarChart from "../../charts/StackedHorizontalBarChart";
 import HorizontalBar from "../../charts/HorizontalBar";
+import BarChar from "../../cardReportes/BarChar";
 
 const DigipoinstPerformance = () => {
   /* Variables and const */
@@ -102,6 +103,8 @@ const DigipoinstPerformance = () => {
       name: "licensiong",
     },
   ];
+  const xValuesLine = [50, 100, 200, 300, 400, 500];
+  const redempion = [0, 100, 200, 300, 400];
   return (
     <div className="m-5">
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
@@ -169,22 +172,22 @@ const DigipoinstPerformance = () => {
           <StackedHorizontalBarChart
             datas={[
               {
-                name: 'Brazil',
+                name: "Brazil",
                 color: "#21A5A2",
                 data: [859000, 869000, 879000],
               },
               {
-                name: 'México',
+                name: "México",
                 color: "#1C2226",
                 data: [80000, 90000, 100000],
               },
               {
-                name: 'SOLA',
+                name: "SOLA",
                 color: "#1473E6",
                 data: [130000, 140000, 150000],
               },
               {
-                name: 'NOLA',
+                name: "NOLA",
                 color: "#2799F6",
                 data: [180000, 190000, 200000],
               },
@@ -194,9 +197,9 @@ const DigipoinstPerformance = () => {
         </CardChart>
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
-      <CardChart title={"DigiPoints by status"} paragraph="">
+        <CardChart title={"DigiPoints by status"} paragraph="">
           <HorizontalBar
-            yNames={["Redeemed", "Assigned", "Expected","Uploaded"]}
+            yNames={["Redeemed", "Assigned", "Expected", "Uploaded"]}
             datas={[
               { value: 250, color: "#2799F6" },
               { value: 230, color: "#1473E6" },
@@ -204,7 +207,15 @@ const DigipoinstPerformance = () => {
               { value: 180, color: "#21A5A2" },
             ]}
           />
-      </CardChart>
+        </CardChart>
+        <CardChart title={"Redemptions by region and amound"} paragraph="">
+          <BarChar
+            title={"Monthly sales"}
+            colorBarOne={"black"}
+            dataOne={redempion}
+            xValues={xValuesLine}
+          />
+        </CardChart>
       </div>
     </div>
   );
