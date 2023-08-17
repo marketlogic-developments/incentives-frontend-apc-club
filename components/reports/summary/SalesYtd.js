@@ -19,6 +19,7 @@ import PerformaceSales from "../../dashboard/GraphSales/PerformaceSales";
 import BarCircleChart from "../../charts/BarCircleChart";
 import BarChar from "../../cardReportes/BarChar";
 import SortedTable from "../../table/SortedTable";
+import SalesYtdMultiselectModal from "../../ModalStateProducts/SalesYtdMultiselectModal";
 
 const SalesYtd = () => {
   /* Variable and const */
@@ -45,6 +46,96 @@ const SalesYtd = () => {
       segmento: "Education",
       total_sales: 244656,
       digipoints: 244656,
+    },
+  ];
+  const multiSelect = [
+    {
+      placeholder: "Year",
+      value: [],
+      dataSelect: [],
+      searchable: true,
+      icon: <ArrowDown />,
+      name: "year",
+    },
+    {
+      placeholder: "Quater",
+      value: [],
+      dataSelect: [],
+      searchable: true,
+      icon: <ArrowDown />,
+      name: "quater",
+    },
+    {
+      placeholder: "Month",
+      value: [],
+      dataSelect: [],
+      searchable: true,
+      icon: <ArrowDown />,
+      name: "Month",
+    },
+    {
+      placeholder: "Region",
+      value: [],
+      dataSelect: [],
+      searchable: true,
+      icon: <ArrowDown />,
+      name: "region",
+    },
+    {
+      placeholder: "Country",
+      value: [],
+      dataSelect: [],
+      searchable: true,
+      icon: <ArrowDown />,
+      name: "country",
+    },
+    {
+      placeholder: "Partner level",
+      value: [],
+      dataSelect: [],
+      searchable: true,
+      icon: <ArrowDown />,
+      name: "partner_level",
+    },
+    {
+      placeholder: "Partner",
+      value: [],
+      dataSelect: [],
+      searchable: true,
+      icon: <ArrowDown />,
+      name: "partner",
+    },
+    {
+      placeholder: "Market segment",
+      value: [],
+      dataSelect: [],
+      searchable: true,
+      icon: <ArrowDown />,
+      name: "market_segment",
+    },
+    {
+      placeholder: "Business unit",
+      value: [],
+      dataSelect: [],
+      searchable: true,
+      icon: <ArrowDown />,
+      name: "business_unit",
+    },
+    {
+      placeholder: "Business type",
+      value: [],
+      dataSelect: [],
+      searchable: true,
+      icon: <ArrowDown />,
+      name: "business_type",
+    },
+    {
+      placeholder: "Licensing type",
+      value: [],
+      dataSelect: [],
+      searchable: true,
+      icon: <ArrowDown />,
+      name: "licensiong",
     },
   ];
 
@@ -78,13 +169,9 @@ const SalesYtd = () => {
           searchable={true}
           name={"region"}
         />
-        <BtnWithImage
-          text={t("Más filtros")}
-          icon={<Filter />}
-          styles={
-            "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
-          }
-          /* onClick={() => importFile(data)} */
+        <SalesYtdMultiselectModal
+          title={<p className="text-black font-bold text-lg">Filtrar por</p>}
+          datas={multiSelect}
         />
         <div className="w-4/5 justify-end">
           <BtnFilter
