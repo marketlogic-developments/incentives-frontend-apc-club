@@ -293,6 +293,7 @@ const Organization = () => {
             generalRowStyles={"text-left py-3 mx-7"}
             currentItems={dataTable}
             sumColum={true}
+            totalTableStyles={'text-green-400 text-left text-lg font-bold'}
           />
         )}
       </div>

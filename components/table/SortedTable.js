@@ -12,6 +12,7 @@ const SortedTable = ({
   containerStyles = "",
   tableStyles = "",
   thStyles = "",
+  totalTableStyles = "text-black text-left text-lg font-bold",
   generalRowStyles = "",
   colStyles = "",
   cols = [
@@ -140,7 +141,7 @@ const SortedTable = ({
                 {cols.map((col, index) => (
                   <th
                     key={`total-${col.identity}`}
-                    className="text-black text-left text-lg font-bold"
+                    className={totalTableStyles}
                   >
                     {col.symbol === "USD"
                       ? numberToMoney(columnSums[col.identity])
