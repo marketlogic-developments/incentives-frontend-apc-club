@@ -19,6 +19,9 @@ const Summary = () => {
     if (content === t("SalesYoy")) {
       return <SalesYoy />;
     }
+    if (content === t("DigipoinstPerformance")) {
+      return <SalesYoy />;
+    }
   }, [content]);
 
   return (
@@ -65,7 +68,7 @@ const Summary = () => {
         <ButtonBgOut
           title={t("Reportes.digipoints_performance")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          /* onClick={() => setContent(t("Reportes.novedad"))} */
+          onClick={() => setContent(t("DigipoinstPerformance"))}
         />
         <ButtonBgOut
           title={t("Reportes.organization")}
