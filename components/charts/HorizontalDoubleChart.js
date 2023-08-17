@@ -11,14 +11,14 @@ const HorizontalDoubleChart = ({
     },
   ],
 }) => {
-    const data = datas.map((item) => ({
-        name: item.leyend,
-        type: "bar",
-        data: item.values,
-        itemStyle: {
-          color: item.color,
-        },
-      }));
+  const data = datas.map((item) => ({
+    name: item.leyend,
+    type: "bar",
+    data: item.values,
+    itemStyle: {
+      color: item.color,
+    },
+  }));
 
   const option = {
     title: {
@@ -49,7 +49,7 @@ const HorizontalDoubleChart = ({
       type: "category",
       data: yNames,
     },
-    series: data
+    series: data,
   };
   return (
     <div className="w-full">

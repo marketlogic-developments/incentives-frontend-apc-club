@@ -174,7 +174,7 @@ const SalesYoy = () => {
           </div>
         </div>
       </div>
-      <div className="grid">
+      <div className="grid pt-4 pb-4">
         <CardChart
           title={"Region vs Goals"}
           paragraph=""
@@ -203,6 +203,74 @@ const SalesYoy = () => {
               {
                 leyend: "Last year",
                 values: [19325, 23438, 31000, 121594],
+                color: "#1C2226",
+              },
+            ]}
+          />
+        </CardChart>
+      </div>
+      <div className="grid pt-4 pb-4 sm:grid-cols-2 grid-rows-1 gap-4">
+        <CardChart
+          title={"Business Type vs Sales LY"}
+          paragraph=""
+          content={
+            <div className="grid justify-items-end">
+              <SelectInputValue
+                placeholder={"Period"}
+                /* value={selectOne}
+                data={dataSelectOne} */
+                icon={<ArrowDown />}
+                searchable={true}
+                /* onChange={handleSelectOneChange} */
+                name={"period"}
+              />
+            </div>
+          }
+        >
+          <HorizontalDoubleChart
+            yNames={["New business", "Renewal"]}
+            datas={[
+              {
+                leyend: "Current year",
+                values: [18203, 23489],
+                color: "#1473E6",
+              },
+              {
+                leyend: "Last year",
+                values: [19325, 23438],
+                color: "#1C2226",
+              },
+            ]}
+          />
+        </CardChart>
+        <CardChart
+          title={"Business unit vs Sales LY"}
+          paragraph=""
+          content={
+            <div className="grid justify-items-end">
+              <SelectInputValue
+                placeholder={"Period"}
+                /* value={selectOne}
+                data={dataSelectOne} */
+                icon={<ArrowDown />}
+                searchable={true}
+                /* onChange={handleSelectOneChange} */
+                name={"period"}
+              />
+            </div>
+          }
+        >
+          <HorizontalDoubleChart
+            yNames={["Document cloud", "Creative cloud"]}
+            datas={[
+              {
+                leyend: "Current year",
+                values: [29034, 104970],
+                color: "#1473E6",
+              },
+              {
+                leyend: "Last year",
+                values: [31000, 121594],
                 color: "#1C2226",
               },
             ]}
