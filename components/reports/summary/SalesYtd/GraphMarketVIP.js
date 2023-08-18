@@ -53,8 +53,6 @@ const GraphMarketVIP = ({ token }) => {
       });
   }, []);
 
-  console.log(vip, marketplace);
-
   return (
     <CardChart title={"Marketplace & VIP"} paragraph="">
       <BarChar
