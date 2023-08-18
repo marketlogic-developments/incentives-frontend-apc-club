@@ -12,6 +12,7 @@ const SortedTable = ({
   containerStyles = "",
   tableStyles = "",
   thStyles = "",
+  totalTableStyles = "text-black text-left text-lg font-bold",
   generalRowStyles = "",
   colStyles = "",
   cols = [
@@ -28,11 +29,19 @@ const SortedTable = ({
   fieldSearchByInvoice = "",
   pageCount = 0,
   paginate = false,
+  sumColum = false,
   handlePageClick = () => {},
 }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
-
+  const columnSums = currentItems.reduce((acc, obj) => {
+    Object.keys(obj).forEach((key) => {
+      if (typeof obj[key] === "number") {
+        acc[key] = (acc[key] || 0) + obj[key];
+      }
+    });
+    return acc;
+  }, {});
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
       .toFixed(0)
@@ -55,7 +64,6 @@ const SortedTable = ({
     const date = new Date(dateString);
     return date.toLocaleString("es-GT", options);
   };
-
   const handleSort = (column) => {
     if (sortColumn === column) {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -67,14 +75,17 @@ const SortedTable = ({
 
   const sortedData = [...currentItems].sort((a, b) => {
     if (sortColumn) {
-      const valueA = parseFloat(a[sortColumn].replace(/,/g, ''));
-      const valueB = parseFloat(b[sortColumn].replace(/,/g, ''));
-  
+      const valueA = parseFloat(a[sortColumn].replace(/,/g, ""));
+      const valueB = parseFloat(b[sortColumn].replace(/,/g, ""));
+
       if (!isNaN(valueA) && !isNaN(valueB)) {
         return (valueA - valueB) * (sortOrder === "asc" ? 1 : -1);
       }
-      
-      return a[sortColumn].localeCompare(b[sortColumn]) * (sortOrder === "asc" ? 1 : -1);
+
+      return (
+        a[sortColumn].localeCompare(b[sortColumn]) *
+        (sortOrder === "asc" ? 1 : -1)
+      );
     }
     return 0;
   });
@@ -131,6 +142,24 @@ const SortedTable = ({
                     ))}
                   </tr>
                 ))}
+            {sumColum && (
+              <tr>
+                {cols.map((col, index) => (
+                  <th
+                    key={`total-${col.identity}`}
+                    className={totalTableStyles}
+                  >
+                    {col.symbol === "USD"
+                      ? numberToMoney(columnSums[col.identity])
+                      : col.symbol === "N"
+                      ? columnSums[col.identity]
+                      : index === 0
+                      ? "Total"
+                      : ""}
+                  </th>
+                ))}
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
