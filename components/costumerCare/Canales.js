@@ -11,7 +11,7 @@ const Canales = () => {
   const [modal, setModal] = useState(0);
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
-
+  const [search, setSearch] = useState("");
   const currentPage = useSelector((state) => state.currentPage || 1);
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setData] = useState([]);
@@ -80,6 +80,7 @@ const Canales = () => {
               <input
                 type="text"
                 placeholder={"buscar por reseller"}
+                onChange={(e) => setSearch(e.target.value)}
                 className="px-8 py-3 w-10/12 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
               />
             </div>
@@ -112,26 +113,40 @@ const Canales = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => {
-                  return (
-                    <tr
-                      key={item.id}
-                      className={`${
-                        user?.roleId === 1
-                          ? "cursor-pointer hover:bg-warning "
-                          : ""
-                      }${(index + 1) % 2 === 0 && "bg-[#F5F5F5]"}`}
-                      onClick={() => {
-                        setModal(1);
-                        setOpened(true);
-                      }}
-                    >
-                      <td className="py-4 px-6">{item.name}</td>
-                      <td className="py-4 px-6">{item.resellerMasterId}</td>
-                      <td className="py-4 px-6">{item.distChannels.name}</td>
-                    </tr>
-                  );
-                })}
+                {data
+                  .filter((item) => {
+                    console.log(item.name);
+                    // Convertir ambos a minúsculas para hacer la comparación insensible a mayúsculas y minúsculas
+                    const itemLowerCase = item.name.toLowerCase();
+                    const searchLowerCase = search.toLowerCase();
+
+                    if (search !== "") {
+                      // Usar includes para buscar en cualquier parte del nombre
+                      return itemLowerCase.includes(searchLowerCase);
+                    }
+
+                    return true; // Si la búsqueda está vacía, mantener todos los elementos
+                  })
+                  .map((item, index) => {
+                    return (
+                      <tr
+                        key={item.id}
+                        className={`${
+                          user?.roleId === 1
+                            ? "cursor-pointer hover:bg-warning "
+                            : ""
+                        }${(index + 1) % 2 === 0 && "bg-[#F5F5F5]"}`}
+                        onClick={() => {
+                          setModal(1);
+                          setOpened(true);
+                        }}
+                      >
+                        <td className="py-4 px-6">{item.name}</td>
+                        <td className="py-4 px-6">{item.resellerMasterId}</td>
+                        <td className="py-4 px-6">{item.distChannels.name}</td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>

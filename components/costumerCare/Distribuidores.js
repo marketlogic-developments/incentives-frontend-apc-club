@@ -19,7 +19,7 @@ const Distribuidores = () => {
   const [data, setData] = useState([]);
   const [postsPerPage, setPostsPerPage] = useState(10);
   const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState("");
 
   const itemsPerPage = 10;
 
@@ -61,6 +61,8 @@ const Distribuidores = () => {
     }
   }, [modal]);
 
+  console.log();
+
   return (
     <>
       <Modal opened={opened} onClose={() => setOpened(false)} size={"60%"}>
@@ -82,7 +84,8 @@ const Distribuidores = () => {
             <div className="flex justify-between">
               <input
                 type="text"
-                placeholder={"buscar por reseller"}
+                placeholder={"buscar por nombre"}
+                onChange={(e) => setSearch(e.target.value)}
                 className="px-8 py-3 w-10/12 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
               />
             </div>
@@ -116,7 +119,18 @@ const Distribuidores = () => {
               </thead>
               <tbody>
                 {data
-                  .filter(() => {})
+                  .filter((item) => {
+                    // Convertir ambos a minúsculas para hacer la comparación insensible a mayúsculas y minúsculas
+                    const itemLowerCase = item.nameDist.toLowerCase();
+                    const searchLowerCase = search.toLowerCase();
+
+                    if (search !== "") {
+                      // Usar includes para buscar en cualquier parte del nombre
+                      return itemLowerCase.includes(searchLowerCase);
+                    }
+
+                    return true; // Si la búsqueda está vacía, mantener todos los elementos
+                  })
                   .map((item, index) => {
                     return (
                       <tr
