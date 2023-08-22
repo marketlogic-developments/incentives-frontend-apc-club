@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getDigipointsPermonth,
-  getSalesPerformance,
-  getSalesvGoals,
+  getDigiPointsPerformance,
 } from "../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
@@ -37,10 +35,10 @@ import SortedTable from "../../../components/table/SortedTable";
 import {
   importCsvFunction,
   importExcelFunction,
-  salesPerformanceColumnsCsv,
-  salesPerformanceColumnsExcel,
+  digiPointsPerformanceColumnsCsv,
+  digiPointsPerformanceColumnsExcel,
 } from "../../../components/functions/reports";
-const SalesPerformance = () => {
+const DigiPointsPerformance = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const [filters, setFilters] = useState({
@@ -49,12 +47,8 @@ const SalesPerformance = () => {
     region: "",
   });
   const [selectOne, setSelectOne] = useState("");
-  const [searchByInvoice, setSearchByInvoice] = useState("");
   const [itemOffset, setItemOffset] = useState(0);
-  const products = useSelector((state) => state.sales.products);
   const [data, setData] = useState([]);
-  const [dataBarChar, setDataBarChar] = useState([]);
-  const [dataLineChar, setDataLineChar] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
@@ -62,25 +56,6 @@ const SalesPerformance = () => {
   const [loadingBarChart, setLoadingBarChart] = useState(true);
   const router = useRouter();
   const sortedData = {};
-  const [goalAmount, setGoalAmount] = useState([]);
-  const [totalSales, setTotalSales] = useState([]);
-  const months = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
-  const goalAmountArray = [];
-  const totalSalesArray = [];
-  const totalPointsAssigned = [];
 
   useEffect(() => {
     setIsLoaded(true);
@@ -89,7 +64,7 @@ const SalesPerformance = () => {
   useEffect(() => {
     if (isLoaded && token) {
       setLoading(true);
-      dispatch(getSalesPerformance(token))
+      dispatch(getDigiPointsPerformance(token))
         .then((response) => {
           setLoading(false);
           setData(response.payload);
@@ -97,51 +72,8 @@ const SalesPerformance = () => {
         .catch((error) => {
           console.log(error);
         });
-
-      setLoading(true);
-      dispatch(getSalesvGoals(token))
-        .then((response) => {
-          setLoading(false);
-          setDataBarChar(response.payload[0].json_agg);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      setLoading(true);
-      dispatch(getDigipointsPermonth(token))
-        .then((response) => {
-          setLoading(false);
-          setDataLineChar(response.payload);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     }
   }, [isLoaded]);
-
-  useEffect(() => {
-    if (dataBarChar) {
-      setLoadingBarChart(true);
-      dataBarChar.forEach((item) => {
-        const { mes_transformado, sum_goal_amount, sum_total_sales_us } = item;
-        const monthName = months[mes_transformado - 1];
-
-        if (!sortedData[monthName]) {
-          sortedData[monthName] = true;
-          goalAmountArray.push(Number(sum_goal_amount).toFixed(2));
-          totalSalesArray.push(Number(sum_total_sales_us).toFixed(2));
-        }
-      });
-      setGoalAmount(goalAmountArray);
-      setTotalSales(totalSalesArray);
-      setLoadingBarChart(false);
-    }
-  }, [dataBarChar]);
-
-  totalPointsAssigned = dataLineChar.map(
-    ({ total_points_assigned }) => total_points_assigned
-  );
 
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
@@ -167,11 +99,11 @@ const SalesPerformance = () => {
 
   /* Download */
   const importFile = async (data) => {
-    const columns = salesPerformanceColumnsCsv(data);
+    const columns = digiPointsPerformanceColumnsCsv(data);
     const csvConfig = {
       data: data,
       columns: columns,
-      downloadTitle: "Sales Performance",
+      downloadTitle: "DigiPoints Performance",
     };
 
     await importCsvFunction(csvConfig);
@@ -180,8 +112,8 @@ const SalesPerformance = () => {
   const importFileExcel = async (data) => {
     const excelConfig = {
       data: data,
-      columns: salesPerformanceColumnsExcel,
-      downloadTitle: "Sales performance",
+      columns: digiPointsPerformanceColumnsExcel,
+      downloadTitle: "DigiPoints Performance",
     };
 
     await importExcelFunction(excelConfig);
@@ -198,13 +130,13 @@ const SalesPerformance = () => {
 
   const setRegion = [...new Set(data.map(({ region }) => region))];
 
-  const setLevel = [...new Set(data.map(({ level }) => level))];
+  const setLevel = [...new Set(data.map(({ company_level }) => company_level))];
 
   /* Filter */
   const filteredUsers = data.filter((user) => {
     if (
       selectOne &&
-      !user.reseller_or_dist_name
+      !user.company_name
         .toString()
         .toLowerCase()
         .includes(selectOne.toLowerCase())
@@ -216,24 +148,15 @@ const SalesPerformance = () => {
 
   const dataTable = useMemo(() => {
     return filteredUsers.filter((item) => {
-      if (filters.company !== "") {
-        return item.company_name === filters.company;
-      }
-
-      if (filters.level !== "" && filters.region !== "") {
-        return item.level === filters.level && item.region === filters.region;
-      }
-
-      if (filters.level !== "") {
-        return item.level === filters.level;
-      }
-      if (filters.region !== "") {
-        return item.region === filters.region;
-      }
-
-      return item;
+      const companyFilter = filters.company === "" || item.company_name === filters.company;
+      const levelFilter = filters.level === "" || item.company_level === filters.level;
+      const regionFilter = filters.region === "" || item.region === filters.region;
+  
+      return companyFilter && levelFilter && regionFilter;
     });
   }, [filters, filteredUsers]);
+  
+  
 
   /* Clear Filter */
   const clearSelects = () => {
@@ -271,7 +194,7 @@ const SalesPerformance = () => {
       <div className="grid grid-rows-1">
         <TitleWithIcon
           icon={<RocketIcon />}
-          title={t("Reportes.sales_performance")}
+          title={"DigiPoints Performance"}
         />
       </div>
       <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
@@ -296,7 +219,7 @@ const SalesPerformance = () => {
           <AiOutlineRight />
         </span>
         <span className="font-bold text-[#1473E6]">
-          {t("Reportes.sales_performance")}
+          {"DigiPoints Performance"}
         </span>
       </div>
       {/* <div className="grid grid-row-1 mt-8">
@@ -360,7 +283,7 @@ const SalesPerformance = () => {
           />
         </div>
       </div> */}
-      <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
+      {/* <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
         <CardChart title={"Goals vs. Sales"} paragraph="">
           <BarChar
             title={"Monthly sales"}
@@ -380,7 +303,7 @@ const SalesPerformance = () => {
             data={totalPointsAssigned}
           />
         </CardChart>
-      </div>
+      </div> */}
       <div className="grid sm:grid-cols-2 grid-rows-1 mt-5">
         <div className="grid sm:grid-cols-3 sm:justify-items-start justify-items-center mt-3">
           <div className="sm:w-[90%] w-[60%]">
@@ -463,53 +386,35 @@ const SalesPerformance = () => {
                 columnName: "Company Name",
               },
               { symbol: "", identity: "region", columnName: "Region" },
-              { symbol: "", identity: "level", columnName: "Company Level" },
+              { symbol: "", identity: "company_level", columnName: "Company Level" },
               {
                 symbol: "",
-                identity: "usuarios",
+                identity: "company_active_users",
                 columnName: "Company Active Users",
               },
               {
-                symbol: "USD",
+                symbol: "",
                 sort: true,
-                identity: "total_vip",
-                columnName: "Total VIP Revenue (USD)",
+                identity: "so_digipoints",
+                columnName: "Total DigiPoints Uploaded",
               },
               {
-                symbol: "USD",
+                symbol: "",
                 sort: true,
-                identity: "total_vmp",
-                columnName: "Total VMP Revenue (USD)",
+                identity: "total_digipoints_assigned",
+                columnName: "Total Digipoints Assigned",
               },
               {
-                symbol: "USD",
+                symbol: "",
                 sort: true,
-                identity: "actual_revenue",
-                columnName: "Actual Revenue (USD)",
+                identity: "digipoints_redeemed",
+                columnName: "DigiPoints Redeemed",
               },
               {
-                symbol: "USD",
+                symbol: "",
                 sort: true,
-                identity: "rma",
-                columnName: "RMA (USD)",
-              },
-              {
-                symbol: "USD",
-                sort: true,
-                identity: "total_revenue",
-                columnName: "Total Revenue (USD)",
-              },
-              {
-                symbol: "USD",
-                sort: true,
-                identity: "expected_revenue",
-                columnName: "Expected Revenue (USD)",
-              },
-              {
-                symbol: "%",
-                sort: true,
-                identity: "avg_effectiveness",
-                columnName: "Total % effectiveness",
+                identity: "total_avg_effectiveness",
+                columnName: "Total % effectiveness ",
               },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
@@ -524,4 +429,4 @@ const SalesPerformance = () => {
   );
 };
 
-export default SalesPerformance;
+export default DigiPointsPerformance;

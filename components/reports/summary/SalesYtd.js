@@ -20,19 +20,40 @@ import BarCircleChart from "../../charts/BarCircleChart";
 import BarChar from "../../cardReportes/BarChar";
 import SortedTable from "../../table/SortedTable";
 import SalesYtdMultiselectModal from "../../ModalStateProducts/SalesYtdMultiselectModal";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getSalesBySegmentAll } from "../../../store/reducers/sales.reducer";
+import { useMemo } from "react";
+import GraphMarketVIP from "./SalesYtd/GraphMarketVIP";
 
 const SalesYtd = () => {
   /* Variable and const */
   const [t, i18n] = useTranslation("global");
   const [loading, setLoading] = useState(false);
-  const [vip, setVip] = useState([100, 200, 300, 400]);
-  const [marketplace, setMarketplace] = useState([150, 250, 350, 450]);
-  const dataTotalSaleGoal = {
-    expected: "61,910,384",
-    reached: "50,866,384",
-    progress: "82%",
+  const salesReduce = () => {
+    const totalSalesReduce = Math.round(
+      sales.reduce(
+        (acc, { total_sales_amount }) => acc + Number(total_sales_amount),
+        0
+      )
+    );
+
+    setTotalSales(totalSalesReduce);
   };
-  const xValuesLine = ["Q1", "Q2", "Q3", "Q4"];
+  const dispatch = useDispatch();
+  const goalYear = useSelector((state) => state.user.user.company.goalsPerYear);
+  const sales = useSelector((state) => state.sales.salesgement);
+  const token = useSelector((state) => state.user.token);
+  const [totalSales, setTotalSales] = useState(0);
+  const dataTotalSaleGoal = useMemo(
+    () => ({
+      expected: goalYear,
+      reached: totalSales,
+      progress: `${Math.floor(Math.round((totalSales * 100) / goalYear))}%`,
+    }),
+    [totalSales, goalYear]
+  );
+
   const dataTable = [
     {
       segmento: "Commercial",
@@ -141,6 +162,36 @@ const SalesYtd = () => {
     },
   ];
 
+  function formatearNumero(numero) {
+    // Redondear el número hacia abajo para eliminar la parte decimal
+    numero = Math.floor(numero);
+
+    // Convertir el número a cadena de texto
+    let numeroStr = numero.toString();
+
+    // Dividir la cadena en grupos de tres caracteres desde la derecha
+    let grupos = [];
+    while (numeroStr.length > 0) {
+      grupos.unshift(numeroStr.slice(-3));
+      numeroStr = numeroStr.slice(0, -3);
+    }
+
+    // Unir los grupos con comas y retornar el resultado
+    return grupos.join(",");
+  }
+
+  useEffect(() => {
+    if (sales.length === 0) {
+      dispatch(getSalesBySegmentAll(token));
+    }
+
+    if (sales.length !== 0) {
+      salesReduce();
+    }
+  }, [sales]);
+
+  console.log("a");
+
   return (
     <div className="m-5">
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
@@ -192,7 +243,7 @@ const SalesYtd = () => {
           <div className="grid">
             <h3 className="text-gray-400 font-bold">Expected</h3>
             <h1 className="text-black font-bold">
-              $ {dataTotalSaleGoal.expected}
+              $ {formatearNumero(dataTotalSaleGoal.expected)}
             </h1>
           </div>
         </div>
@@ -201,7 +252,7 @@ const SalesYtd = () => {
           <div className="grid">
             <h3 className="text-gray-400 font-bold">Reached</h3>
             <h1 className="text-black font-bold">
-              $ {dataTotalSaleGoal.reached}
+              $ {formatearNumero(dataTotalSaleGoal.reached)}
             </h1>
           </div>
         </div>
@@ -260,17 +311,7 @@ const SalesYtd = () => {
               { data: 0.75, color: "#21A5A2" },
             ]}
           />
-          <CardChart title={"Marketplace & VIP"} paragraph="">
-            <BarChar
-              title={"Monthly sales"}
-              colorBarOne={"black"}
-              colorBarTwo={"#2799F6"}
-              dataLeyend={["VIP", "Marketplace"]}
-              dataOne={vip}
-              dataTwo={marketplace}
-              xValues={xValuesLine}
-            />
-          </CardChart>
+          <GraphMarketVIP token={token} />
         </div>
       </div>
       <div className="justify-items-center pt-5">

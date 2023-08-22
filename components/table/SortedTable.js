@@ -48,6 +48,10 @@ const SortedTable = ({
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
   };
+  const formatAVG = (avgnumber) => {
+    const formattedValue = (avgnumber * 100).toFixed(1);
+    return formattedValue;
+};
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -131,7 +135,9 @@ const SortedTable = ({
                           ? formatDate(row[col.identity])
                           : col.symbol === "USD"
                           ? numberToMoney(row[col.identity])
-                          : row[col.identity]}
+                          : col.symbol === "%"
+                          ? formatAVG(row[col.identity]) + col.symbol
+                          : row[col.identity] + col.symbol}
                       </th>
                     ))}
                   </tr>

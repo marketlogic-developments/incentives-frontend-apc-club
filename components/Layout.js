@@ -79,7 +79,11 @@ const Layout = ({ children }) => {
   });
 
   useEffect(() => {
-    if (userRedux.cpf !== "viewVideo" && userRedux !== 0) {
+    if (
+      userRedux.cpf !== "viewVideo" &&
+      userRedux !== 0 &&
+      location === "/dashboard"
+    ) {
       setModal(1);
       setTimeout(() => {
         setOpened(true);
@@ -106,7 +110,7 @@ const Layout = ({ children }) => {
           //Get user digiPoints
           axios
             .get(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/2/${userGetData?.id}`,
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/${userGetData?.id}`,
               {
                 headers: {
                   "Content-Type": "application/json",
@@ -321,22 +325,38 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: t("menu.Dashboard"),
     },
-    // {
-    //   page: "/comunicado",
-    //   iconactive: "",
-    //   icon: (
-    //     <svg
-    //       width={20}
-    //       height={20}
-    //       fill="none"
-    //       viewBox="0 0 24 24"
-    //       xmlns="http://www.w3.org/2000/svg"
-    //     >
-    //       <path d="M22.5 11.252a4.5 4.5 0 0 0-4.5-4.5h-3.75c-.047 0-4.913-.066-9.534-3.947a1.49 1.49 0 0 0-1.604-.207 1.472 1.472 0 0 0-.862 1.36v14.587a1.472 1.472 0 0 0 .862 1.36c.2.092.418.14.638.14.353.002.695-.12.966-.347 3.553-2.98 7.237-3.712 8.784-3.89v3.29a1.49 1.49 0 0 0 .665 1.247l1.032.694a1.576 1.576 0 0 0 1.378.15 1.49 1.49 0 0 0 .91-1.04l1.115-4.435a4.519 4.519 0 0 0 3.9-4.463Zm-6.469 8.53L15 19.099v-3.346h2.044l-1.013 4.03ZM18 14.253h-3v-6h3a3 3 0 0 1 0 6Z" />
-    //     </svg>
-    //   ),
-    //   text: "Comunicados",
-    // },
+    {
+      page: "/reportes/dashboards/InvoiceReportUser",
+      icon: (
+        <svg
+          width={20}
+          height={20}
+          fill="none"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M22.5 11.252a4.5 4.5 0 0 0-4.5-4.5h-3.75c-.047 0-4.913-.066-9.534-3.947a1.49 1.49 0 0 0-1.604-.207 1.472 1.472 0 0 0-.862 1.36v14.587a1.472 1.472 0 0 0 .862 1.36c.2.092.418.14.638.14.353.002.695-.12.966-.347 3.553-2.98 7.237-3.712 8.784-3.89v3.29a1.49 1.49 0 0 0 .665 1.247l1.032.694a1.576 1.576 0 0 0 1.378.15 1.49 1.49 0 0 0 .91-1.04l1.115-4.435a4.519 4.519 0 0 0 3.9-4.463Zm-6.469 8.53L15 19.099v-3.346h2.044l-1.013 4.03ZM18 14.253h-3v-6h3a3 3 0 0 1 0 6Z" />
+        </svg>
+      ),
+      iconactive: "",
+      text: "Invoice Report",
+    },
+    {
+      page: "/comunicado",
+      iconactive: "",
+      icon: (
+        <svg
+          width={20}
+          height={20}
+          fill="none"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M22.5 11.252a4.5 4.5 0 0 0-4.5-4.5h-3.75c-.047 0-4.913-.066-9.534-3.947a1.49 1.49 0 0 0-1.604-.207 1.472 1.472 0 0 0-.862 1.36v14.587a1.472 1.472 0 0 0 .862 1.36c.2.092.418.14.638.14.353.002.695-.12.966-.347 3.553-2.98 7.237-3.712 8.784-3.89v3.29a1.49 1.49 0 0 0 .665 1.247l1.032.694a1.576 1.576 0 0 0 1.378.15 1.49 1.49 0 0 0 .91-1.04l1.115-4.435a4.519 4.519 0 0 0 3.9-4.463Zm-6.469 8.53L15 19.099v-3.346h2.044l-1.013 4.03ZM18 14.253h-3v-6h3a3 3 0 0 1 0 6Z" />
+        </svg>
+      ),
+      text: "Comunicados",
+    },
     {
       page:
         userRedux.roleId === 1 ? "/digipointsall" : "/digipoints/mydigipoints",
@@ -822,10 +842,15 @@ const Layout = ({ children }) => {
                 "/dashboard",
                 "/digipointsall",
                 "/reportesDashboard",
+                "/comunicado",
               ].includes(page);
             }
             if (userRedux.roleId === 3) {
-              return ["/dashboard", "/digipoints/mydigipoints"].includes(page);
+              return [
+                "/dashboard",
+                "/digipoints/mydigipoints",
+                "/reportes/dashboards/InvoiceReportUser",
+              ].includes(page);
             }
 
             if (userRedux.roleId === 2) {
@@ -833,7 +858,11 @@ const Layout = ({ children }) => {
             }
 
             if (userRedux.roleId === 5) {
-              return ["/dashboard", "/digipoints/mydigipoints"].includes(page);
+              return [
+                "/dashboard",
+                "/digipoints/mydigipoints",
+                "/reportes/dashboards/InvoiceReportUser",
+              ].includes(page);
             }
           }
           if (n === 2) {
@@ -902,6 +931,7 @@ const Layout = ({ children }) => {
 
         if (
           location === "/reportes/dashboards/SalesPerformance" ||
+          location === "/reportes/dashboards/DigiPointsPerformance" ||
           location === "/reportes/dashboards/UserPerformance" ||
           location === "/reportes/dashboards/InvoiceReport" ||
           location === "/reportes/dashboards/DigiPointsRedemption" ||
@@ -910,9 +940,12 @@ const Layout = ({ children }) => {
           location === "/reportes/dashboards/SoImportReport" ||
           location === "/reportes/dashboards/RegistrationPerformance" ||
           location === "/reportes/dashboards/FollowUp" ||
-          location === "/reportes/dashboards/Summary" 
+          location === "/reportes/dashboards/Summary"
         ) {
           return t("Reportes.reportes");
+        }
+        if (location === "/reportes/dashboards/InvoiceReportUser") {
+          return "Invoice Report";
         }
 
         if (location.includes("comunicado")) {

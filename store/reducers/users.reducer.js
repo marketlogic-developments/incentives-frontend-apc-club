@@ -142,7 +142,7 @@ export const createUserData = (token, data) => async (dispatch) => {
 export const getDigiPoints = (token, id) => async (dispatch) => {
   return axios
     .get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/2/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/${id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -153,8 +153,6 @@ export const getDigiPoints = (token, id) => async (dispatch) => {
     )
     .then((dpInfo) => {
       const [digipoints] = dpInfo.data;
-
-      console.log();
 
       dispatch(
         digipoints === undefined

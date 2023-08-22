@@ -30,42 +30,11 @@ const ModalUsers = ({ userDataToModal, token }) => {
   const [changePassword, setChangePassword] = useState("");
 
   const paisesAmerica = [
-    "Antigua y Barbuda",
-    "Argentina",
-    "Bahamas",
-    "Barbados",
-    "Belice",
-    "Bolivia",
-    "Brazil",
-    "Canadá",
-    "Chile",
-    "Colombia",
-    "Costa Rica",
-    "Cuba",
-    "Dominica",
-    "Ecuador",
-    "El Salvador",
-    "Estados Unidos",
-    "Granada",
-    "Guatemala",
-    "Guyana",
-    "Haití",
-    "Honduras",
-    "Jamaica",
-    "México",
-    "Nicaragua",
-    "Panamá",
-    "Paraguay",
-    "Perú",
-    "Puerto Rico",
-    "República Dominicana",
-    "San Cristóbal y Nieves",
-    "Santa Lucía",
-    "San Vicente y las Granadinas",
-    "Surinam",
-    "Trinidad y Tobago",
-    "Uruguay",
-    "Venezuela",
+    "COLOMBIA",
+    "BRASIL",
+    "NOLA - SOLA - MEX",
+    "CHILE",
+    "Nothing",
   ];
 
   const Toast = Swal.mixin({
@@ -130,7 +99,7 @@ const ModalUsers = ({ userDataToModal, token }) => {
   const handleSubmit = () => {
     const obj = {
       birthDate: "",
-      countryId: formData.countryId,
+
       email: formData.email === userDataToModal.email ? null : formData.email,
       languageId: Number(formData.languageId),
       lastName: formData.lastName,
@@ -153,10 +122,15 @@ const ModalUsers = ({ userDataToModal, token }) => {
         return acc;
       }, {});
 
+    console.log(formData.countryId);
+
     return axios
       .patch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userDataToModal.id}`,
-        elementosFiltrados,
+        {
+          ...elementosFiltrados,
+          countryId: formData.countryId !== null ? formData.countryId : null,
+        },
         {
           headers: {
             "Content-Type": "application/json",
@@ -364,7 +338,7 @@ const ModalUsers = ({ userDataToModal, token }) => {
         </div>
         <div>
           <label className="label">
-            <span className="label-text">País</span>
+            <span className="label-text">Tipo de Catálogo</span>
           </label>
           <select
             name="countryId"
@@ -372,7 +346,7 @@ const ModalUsers = ({ userDataToModal, token }) => {
             onChange={handleInputChange}
             className="input input-bordered w-full input-sm"
           >
-            <option value={""}>Elegir país</option>
+            <option value={""}>¿Cual catálogo va a ver el usuario?</option>
             {paisesAmerica.map((e) => (
               <option key={e} value={e}>
                 {e}

@@ -11,6 +11,7 @@ import {
   TermsConditions,
   Thunderbolt,
   UserPerformance,
+  Medal,
 } from "../components/icons";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
@@ -53,6 +54,15 @@ const reportesDashboard = () => {
           }}
         >
           <UserPerformance />
+        </CardReportes>
+        <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
+          titleCard={"DigiPoints Performance"}
+          onClick={() => {
+            router.push("/reportes/dashboards/DigiPointsPerformance");
+          }}
+        >
+          <Medal />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"

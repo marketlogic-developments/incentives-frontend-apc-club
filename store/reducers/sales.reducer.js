@@ -14,7 +14,9 @@ const initialState = {
   goals: [],
   userperformance: [],
   salesperformance: [],
+  digipointsperformance: [],
   invoiceperformance: [],
+  invoiceperformancebyusuer: [],
   getsalesvsgoals: [],
   getdigipointspermonth: [],
   getsalesvsgoalsuseper: [],
@@ -64,8 +66,14 @@ export const saleActions = createSlice({
     getSalePer: (state, action) => {
       state.salesperformance = action.payload;
     },
+    getDigiPointsPer: (state, action) => {
+      state.digipointsperformance = action.payload;
+    },
     getInvoicePer: (state, action) => {
       state.invoiceperformance = action.payload;
+    },
+    getInvoicePerUser: (state, action) => {
+      state.invoiceperformancebyusuer = action.payload;
     },
     getSalesVSGoals: (state, action) => {
       state.getsalesvsgoals = action.payload;
@@ -105,7 +113,9 @@ export const {
   getGoals,
   getUserSale,
   getSalePer,
+  getDigiPointsPer,
   getInvoicePer,
+  getInvoicePerUser,
   getSalesVSGoals,
   getDigipointsPer,
   getSalesvsGoalsUsePer,
@@ -545,6 +555,25 @@ export const getSalesPerformance = (token) => async (dispatch) => {
   }
 };
 
+export const getDigiPointsPerformance = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipointsperformance`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getDigiPointsPer(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const getInvoiceReport = (token) => async (dispatch) => {
   try {
     return axios
@@ -559,6 +588,25 @@ export const getInvoiceReport = (token) => async (dispatch) => {
         }
       )
       .then((res) => dispatch(getInvoicePer(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getInvoiceReportByUser = (token, data) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/invoiceperformancebyuser/${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getInvoicePerUser(res.data)));
   } catch (err) {
     console.log(err);
   }
