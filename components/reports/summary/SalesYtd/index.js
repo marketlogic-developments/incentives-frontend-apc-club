@@ -1,45 +1,27 @@
 import React, { useState } from "react";
-import { SearchInput } from "../../inputs";
+import { SearchInput } from "../../../inputs";
 import {
   ArrowDown,
   Check,
   Circle,
-  CloudDownload,
-  Filter,
-  SearchIcon,
-} from "../../icons";
-import SelectInputValue from "../../inputs/SelectInputValue";
-import BtnFilter from "../../cardReportes/BtnFilter";
+} from "../../../icons";
 import { useTranslation } from "react-i18next";
-import BtnWithImage from "../../cardReportes/BtnWithImage";
-import HorizontalBar from "../../charts/HorizontalBar";
-import CardChart from "../../cardReportes/CardChart";
-import TargetSales from "../../dashboard/GraphSales/TargetSales";
-import PerformaceSales from "../../dashboard/GraphSales/PerformaceSales";
-import BarCircleChart from "../../charts/BarCircleChart";
-import BarChar from "../../cardReportes/BarChar";
-import SortedTable from "../../table/SortedTable";
-import SalesYtdMultiselectModal from "../../ModalStateProducts/SalesYtdMultiselectModal";
+import HorizontalBar from "../../../charts/HorizontalBar";
+import CardChart from "../../../cardReportes/CardChart";
+import BarCircleChart from "../../../charts/BarCircleChart";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getSalesBySegmentAll } from "../../../store/reducers/sales.reducer";
+import { getSalesBySegmentAll } from "../../../../store/reducers/sales.reducer";
 import { useMemo } from "react";
-import GraphMarketVIP from "./SalesYtd/GraphMarketVIP";
+import GraphMarketVIP from "./GraphMarketVIP";
+import FilterSection from "./FilterSection";
+import SortedTable from "../../../table/SortedTable";
 
 const SalesYtd = () => {
   /* Variable and const */
   const [t, i18n] = useTranslation("global");
   const [loading, setLoading] = useState(false);
-  const salesReduce = () => {
-    const totalSalesReduce = Math.round(
-      sales.reduce(
-        (acc, { total_sales_amount }) => acc + Number(total_sales_amount),
-        0
-      )
-    );
 
-    setTotalSales(totalSalesReduce);
-  };
   const dispatch = useDispatch();
   const goalYear = useSelector((state) => state.user.user.company.goalsPerYear);
   const sales = useSelector((state) => state.sales.salesgement);
@@ -162,6 +144,17 @@ const SalesYtd = () => {
     },
   ];
 
+  const salesReduce = () => {
+    const totalSalesReduce = Math.round(
+      sales.reduce(
+        (acc, { total_sales_amount }) => acc + Number(total_sales_amount),
+        0
+      )
+    );
+
+    setTotalSales(totalSalesReduce);
+  };
+
   const formatearNumero = (numero) => {
     // Redondear el número hacia abajo para eliminar la parte decimal
     numero = Math.floor(numero);
@@ -192,46 +185,8 @@ const SalesYtd = () => {
 
   return (
     <div className="m-5">
-      <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
-        <SelectInputValue
-          placeholder={"Year"}
-          /* value={selectOne}
-          data={dataSelectOne} */
-          icon={<ArrowDown />}
-          searchable={true}
-          /* onChange={handleSelectOneChange} */
-          name={"year"}
-        />
-        <SelectInputValue
-          placeholder={"Quarter"}
-          icon={<ArrowDown />}
-          searchable={true}
-          name={"quarter"}
-        />
-        <SelectInputValue
-          placeholder={"Month"}
-          icon={<ArrowDown />}
-          searchable={true}
-          name={"month"}
-        />
-        <SelectInputValue
-          placeholder={"Region"}
-          icon={<ArrowDown />}
-          searchable={true}
-          name={"region"}
-        />
-        <SalesYtdMultiselectModal
-          title={<p className="text-black font-bold text-lg">Filtrar por</p>}
-          datas={multiSelect}
-        />
-        <div className="w-4/5 justify-end">
-          <BtnFilter
-            text={t("Reportes.limpiar_filtros")}
-            styles="bg-white !text-gray-400 sm:!text-base hover:bg-white hover:!text-blue-500 border-none hover:border-none m-1"
-            /* onClick={clearSelects} */
-          />
-        </div>
-      </div>
+      <FilterSection multiSelect={multiSelect}/>
+      {/* TOTAL SALES VS GOALS SECTION */}
       <div className="p-3">
         <h1 className="text-black font-bold">Total Sales vs Goals</h1>
       </div>
@@ -264,6 +219,7 @@ const SalesYtd = () => {
           </div>
         </div>
       </div>
+      {/* REGION VS GOALS SECTION */}
       <div className="grid">
         <CardChart title={"Region vs Goals"} paragraph="">
           <HorizontalBar
@@ -277,6 +233,7 @@ const SalesYtd = () => {
           />
         </CardChart>
       </div>
+      {/* TARGET SALES SECTION */}
       <div className="flex flex-col w-full gap-6 mt-5 mb-5">
         <div className="grid sm:grid-cols-3 grid-cols-1 gap-6">
           <CardChart>
@@ -300,6 +257,7 @@ const SalesYtd = () => {
           </CardChart>
         </div>
       </div>
+      {/* MARKET PLACE SECTION */}
       <div className="flex flex-col">
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
           <BarCircleChart
@@ -312,6 +270,7 @@ const SalesYtd = () => {
           <GraphMarketVIP token={token} />
         </div>
       </div>
+      {/* TABLE SECTION */}
       <div className="justify-items-center pt-5">
         {loading && <div className="lds-dual-ring"></div>}
         {!loading && (
