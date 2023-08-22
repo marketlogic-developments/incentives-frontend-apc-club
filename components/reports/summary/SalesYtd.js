@@ -162,7 +162,7 @@ const SalesYtd = () => {
     },
   ];
 
-  function formatearNumero(numero) {
+  const formatearNumero = (numero) => {
     // Redondear el número hacia abajo para eliminar la parte decimal
     numero = Math.floor(numero);
 
@@ -178,7 +178,7 @@ const SalesYtd = () => {
 
     // Unir los grupos con comas y retornar el resultado
     return grupos.join(",");
-  }
+  };
 
   useEffect(() => {
     if (sales.length === 0) {
@@ -189,8 +189,6 @@ const SalesYtd = () => {
       salesReduce();
     }
   }, [sales]);
-
-  console.log("a");
 
   return (
     <div className="m-5">
