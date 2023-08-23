@@ -51,20 +51,6 @@ const SalesPerformance = () => {
   const [loadingBarChart, setLoadingBarChart] = useState(true);
   const router = useRouter();
   const [dataBarChar, setDataBarChar] = useState([]);
-  const xValues = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
   const months = [
     "Ene",
     "Feb",
@@ -94,16 +80,13 @@ const SalesPerformance = () => {
       setLoading(true);
       dispatch(getUserSalePerformance(token))
         .then((response) => {
-          setLoading(false);
           setData(response.payload);
         })
         .catch((error) => {
           console.log(error);
         });
-      setLoading(true);
       dispatch(getSalesvsGoalsUsePerformance(token))
         .then((response) => {
-          setLoading(false);
           setDataBarChar(response.payload[0].json_agg);
         })
         .catch((error) => {
@@ -146,7 +129,6 @@ const SalesPerformance = () => {
       columns: columns,
       downloadTitle: "User Performance",
     };
-
     await importCsvFunction(csvConfig);
   };
 
@@ -196,6 +178,8 @@ const SalesPerformance = () => {
     return filteredUsers.slice(itemOffset, endOffset);
   }, [itemOffset, filteredUsers]);
 
+  if (loading && currentItems.length) setLoading(false);
+
   /* Paginate */
   const pageCount = useMemo(
     () => Math.ceil(filteredUsers.length / itemsPerPage),
@@ -236,6 +220,43 @@ const SalesPerformance = () => {
         <span className="font-bold text-[#1473E6]">
           {t("Reportes.user_performance")}
         </span>
+      </div>
+      <div className="grid w-auto py-4 gap-2">
+        <div className="pr-4">
+          <CardChart title={t("Reportes.digiponits")} paragraph="">
+            <MultiLineChart
+              dataLeyend={[
+                "Sales DigiPoints",
+                "DigiPoints redeemed",
+                "Behaviour DigiPoints",
+              ]}
+              dataX={[
+                "Ene",
+                "Feb",
+                "Mar",
+                "Abri",
+                "May",
+                "Jun",
+                "Jul",
+                "Ago",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec",
+              ]}
+              dataOne={[
+                120, 132, 101, 134, 90, 230, 210, 201, 154, 190, 330, 410,
+              ]}
+              dataTwo={[
+                220, 182, 191, 234, 290, 330, 310, 101, 134, 90, 230, 210,
+              ]}
+              dataThree={[
+                150, 232, 201, 154, 190, 330, 410, 201, 154, 190, 330, 410,
+              ]}
+              colorsLine={["red", "green", "blue"]}
+            />
+          </CardChart>
+        </div>
       </div>
       <div className="grid w-auto gap-2">
         <div className="pr-4">
@@ -280,7 +301,7 @@ const SalesPerformance = () => {
           title={t("Reportes.descargar")}
         >
           <BtnWithImage
-            text={t("Reportes.descargar")}
+            text={t("Reportes.descargar") + " csv"}
             icon={<CloudDownload />}
             styles={
               "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
@@ -336,10 +357,10 @@ const SalesPerformance = () => {
               thStyles={"sticky text-white"}
               cols={[
                 "User Name",
-                "Name",
+                "FirstName",
                 "LastName",
-                "Country",
                 "Region",
+                "Country",
                 // "Company ID",
                 "Company Name",
                 "Company Level",
@@ -370,6 +391,7 @@ const SalesPerformance = () => {
                 "RMA (USD)",
                 "Total DigiPoints",
                 "DigiPoints Redeemed",
+                "Total % effectiveness",
               ]}
             >
               {currentItems &&
@@ -383,19 +405,15 @@ const SalesPerformance = () => {
                   .map((data, index) => (
                     <tr key={index}>
                       <th className="text-left py-3 px-2 mx-4">{data.email}</th>
+                      <th className="text-left py-3 px-2 mx-4">{data.name}</th>
                       <th className="text-left py-3 px-2 mx-4">
-                        {data.name.split(" ")[0]}
-                      </th>
-                      <th className="text-left py-3 px-2 mx-4">
-                        {data.name.split(" ").length > 1
-                          ? data.name.split(" ").pop()
-                          : ""}
-                      </th>
-                      <th className="text-left py-3 px-2 mx-4">
-                        {data.country_id}
+                        {data.last_name}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.region}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.country_user}
                       </th>
                       {/* <th className="text-left py-3 px-2 mx-4">{data.country_id}</th> */}
                       {/* <th className="text-left py-3 px-2 mx-4">
@@ -479,6 +497,9 @@ const SalesPerformance = () => {
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.redenciones}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.redenciones_over_total_digipoints}
                       </th>
                     </tr>
                   ))}

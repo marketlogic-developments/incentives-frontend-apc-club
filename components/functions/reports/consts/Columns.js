@@ -5,20 +5,23 @@
 import { date } from "./Headers";
 
 const parseData = (data, columns, customHeader) => {
+  const columnKeys = Object.keys(columns);
+
   const csvContent =
-    customHeader.join(",") + // Agregar el encabezado personalizado
+    customHeader.join(",") +
     "\n" +
-    Object.keys(data[0])
-      .map((key) => columns[key] || key)
-      .join(",") +
+    columnKeys.map((key) => columns[key]).join(",") +
     "\n" +
     data
       .map((row) =>
-        Object.values(row)
-          .map((value) => {
+        columnKeys
+          .map((key) => {
+            const value = row[key];
+
             if (typeof value === "string" && value.includes(",")) {
               return `"${value}"`;
             }
+
             return value;
           })
           .join(",")
@@ -28,25 +31,25 @@ const parseData = (data, columns, customHeader) => {
 };
 
 export const userPerformanceColumnsExcel = {
-  employ_id: "User Name",
-  email: "Email",
+  email: "User Name",
   name: "FirstName",
   last_name: "LastName",
-  country_id: "Country",
-  region: "Region",
-  reseller_or_dist_name: "Company Name",
-  reseller_or_dist_id: "Company Type",
-  rtype: "Company Level",
-  dcname: "Company Status",
   rolname: "User Role",
-  vip_cc_newbusiness: "VIP Renewal CC (USD)",
-  vip_cc_renewal: "VIP Renewal DC (USD)",
-  vip_dc_newbusiness: "VIP New Business CC (USD)",
-  vip_dc_renewal: "VIP New Business DC (USD)",
-  vmp_cc_newbusiness: "VMP Renewal CC (USD)",
-  vmp_cc_renewal: "VMP Renewal DC (USD)",
-  vmp_dc_newbusiness: "VMP New Business CC (USD)",
-  vmp_dc_renewal: "VMP New Business DC (USD)",
+  region: "Region",
+  country_user: "Country",
+  reseller_or_dist_id: "Membership ID",
+  reseller_or_dist_name: "Company Name",
+  rtype: "Company Type",
+  dcname: "Company Level",
+  company_status: "Company Status",
+  vip_cc_renewal: "VIP Renewal CC (USD)",
+  vip_dc_renewal: "VIP Renewal  DC (USD)",
+  vip_cc_newbusiness: "VIP New Business CC (USD)",
+  vip_dc_newbusiness: "VIP New Business DC (USD)",
+  vmp_cc_renewal: "VMP Renewal CC (USD)",
+  vmp_dc_renewal: "VMP Renewal DC (USD)",
+  vmp_cc_newbusiness: "VMP New Business CC (USD)",
+  vmp_dc_newbusiness: "VMP New Business DC (USD)",
   vip_revenue_q1: "VIP Revenue Q1 (USD)",
   vip_revenue_q2: "VIP Revenue Q2 (USD)",
   vip_revenue_q3: "VIP Revenue Q3 (USD)",
@@ -65,10 +68,10 @@ export const userPerformanceColumnsExcel = {
   rma: "RMA (USD)",
   sales_digipoints: "Sales DigiPoints",
   promotion_digipoints: "Promotion DigiPoints",
-  behavior_digiPoints: "Behavior DigiPoints",
+  behavior_digipoints: "Behavior DigiPoints",
   total_digipoints: "Total DigiPoints",
   redenciones: "DigiPoints Redeemed",
-  avg_effectiveness: "Total % effectiveness",
+  redenciones_over_total_digipoints: "Total % effectiveness",
 };
 
 export const salesPerformanceColumnsExcel = {
@@ -152,11 +155,13 @@ export const digipointRedemtionColumnsExcel = {
 export const invoiceColumnsExcel = {
   company_id: "Membership ID",
   company_name: "Company Name",
+  company_region: "Region",
+  company_country: "Country",
   partner_type: "Company Type",
   company_level: "Company Level",
-  user: "User Name",
+  user: " User Name",
   user_rol: "User Role",
-  invoice: "Invoice",
+  invoice: "Sales Order ",
   material_sku: "Material Sku",
   licensing_contract: "Licensing Contract",
   major_licensing_program_id: "Major Licensing Programid",
@@ -165,6 +170,8 @@ export const invoiceColumnsExcel = {
   month: "Month",
   date: "Date",
   client: "Client",
+  product: "Product Name",
+  quantity: "Quantity",
   amount_by_user: "Revenue by user (USD)",
   digipoints_by_user: "Sales DigiPoints by user",
   puntosxpromo: "Promotions DigiPoints",
@@ -173,25 +180,25 @@ export const invoiceColumnsExcel = {
 
 export const userPerformanceColumnsCsv = (data) => {
   const columns = {
-    employ_id: "User Name",
-    email: "Email",
+    email: "User Name",
     name: "FirstName",
     last_name: "LastName",
-    country_id: "Country",
-    region: "Region",
-    reseller_or_dist_name: "Company Name",
-    reseller_or_dist_id: "Company Type",
-    rtype: "Company Level",
-    dcname: "Company Status",
     rolname: "User Role",
-    vip_cc_newbusiness: "VIP Renewal CC (USD)",
-    vip_cc_renewal: "VIP Renewal DC (USD)",
-    vip_dc_newbusiness: "VIP New Business CC (USD)",
-    vip_dc_renewal: "VIP New Business DC (USD)",
-    vmp_cc_newbusiness: "VMP Renewal CC (USD)",
-    vmp_cc_renewal: "VMP Renewal DC (USD)",
-    vmp_dc_newbusiness: "VMP New Business CC (USD)",
-    vmp_dc_renewal: "VMP New Business DC (USD)",
+    region: "Region",
+    country_user: "Country",
+    reseller_or_dist_id: "Membership ID",
+    reseller_or_dist_name: "Company Name",
+    rtype: "Company Type",
+    dcname: "Company Level",
+    company_status: "Company Status",
+    vip_cc_renewal: "VIP Renewal CC (USD)",
+    vip_dc_renewal: "VIP Renewal DC (USD)",
+    vip_cc_newbusiness: "VIP New Business CC (USD)",
+    vip_dc_newbusiness: "VIP New Business DC (USD)",
+    vmp_cc_renewal: "VMP Renewal CC (USD)",
+    vmp_dc_renewal: "VMP Renewal DC (USD)",
+    vmp_cc_newbusiness: "VMP New Business CC (USD)",
+    vmp_dc_newbusiness: "VMP New Business DC (USD)",
     vip_revenue_q1: "VIP Revenue Q1 (USD)",
     vip_revenue_q2: "VIP Revenue Q2 (USD)",
     vip_revenue_q3: "VIP Revenue Q3 (USD)",
@@ -210,10 +217,10 @@ export const userPerformanceColumnsCsv = (data) => {
     rma: "RMA (USD)",
     sales_digipoints: "Sales DigiPoints",
     promotion_digipoints: "Promotion DigiPoints",
-    behavior_digiPoints: "Behavior DigiPoints",
+    behavior_digipoints: "Behavior DigiPoints",
     total_digipoints: "Total DigiPoints",
     redenciones: "DigiPoints Redeemed",
-    avg_effectiveness: "Total % effectiveness",
+    redenciones_over_total_digipoints: "Total % effectiveness",
   };
   const customHeader = [
     "Adobe Partner Connection Club",
@@ -337,11 +344,13 @@ export const invoiceColumnsCsv = (data) => {
   const columns = {
     company_id: "Membership ID",
     company_name: "Company Name",
+    company_region: "Region",
+    company_country: "Country",
     partner_type: "Company Type",
     company_level: "Company Level",
-    user: "User Name",
+    user: " User Name",
     user_rol: "User Role",
-    invoice: "Invoice",
+    invoice: "Sales Order ",
     material_sku: "Material Sku",
     licensing_contract: "Licensing Contract",
     major_licensing_program_id: "Major Licensing Programid",
@@ -350,17 +359,15 @@ export const invoiceColumnsCsv = (data) => {
     month: "Month",
     date: "Date",
     client: "Client",
+    product: "Product Name",
+    quantity: "Quantity",
     amount_by_user: "Revenue by user (USD)",
     digipoints_by_user: "Sales DigiPoints by user",
     puntosxpromo: "Promotions DigiPoints",
     promoname: "Promotions Name",
   };
 
-  const customHeader = [
-    "Adobe Partner Connection Club",
-    "Invoice",
-    date(),
-  ];
+  const customHeader = ["Adobe Partner Connection Club", "Invoice", date()];
 
   const result = parseData(data, columns, customHeader);
   return result;
