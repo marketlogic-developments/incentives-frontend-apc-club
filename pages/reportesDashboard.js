@@ -107,7 +107,7 @@ const reportesDashboard = () => {
             router.push("/reportes/dashboards/Summary");
           }}
         >
-          <CustomIcon />
+          <RocketIcon />
         </CardReportes>
         {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
