@@ -269,23 +269,25 @@ export const getDigipointsPa = (token, data) => async (dispatch) => {
         }
       )
       .then((res) => {
-        const dataObj = res.data.map((data) => ({
-          ...data,
-          date: data.invoiceDetails[0].billing_date.split(" ")[0],
-          country: data.invoiceDetails[0].deploy_to_country,
-          client: data.invoiceDetails[0].end_user_name1,
-          marketSegment: data.invoiceDetails[0].market_segment,
-          sku: data.invoiceDetails[0].materia_sku,
-          salesOrder: data.invoiceDetails[0].sales_order,
-          soldToParty: data.invoiceDetails[0].sold_to_party,
-          totalSalesAmount: data.invoiceDetails
-            .map(({ total_sales_amount }) => Number(total_sales_amount))
-            .reduce((currently, preValue) => currently + preValue),
-          salesQuantity: data.invoiceDetails
-            .map(({ total_sales_qty }) => Number(total_sales_qty))
-            .reduce((currently, preValue) => currently + preValue),
-          invoiceDetails: null,
-        }));
+        const dataObj = res.data
+          .filter(({ digipoints }) => digipoints != 0)
+          .map((data) => ({
+            ...data,
+            date: data.invoiceDetails[0].billing_date.split(" ")[0],
+            country: data.invoiceDetails[0].deploy_to_country,
+            client: data.invoiceDetails[0].end_user_name1,
+            marketSegment: data.invoiceDetails[0].market_segment,
+            sku: data.invoiceDetails[0].materia_sku,
+            salesOrder: data.invoiceDetails[0].sales_order,
+            soldToParty: data.invoiceDetails[0].sold_to_party,
+            totalSalesAmount: data.invoiceDetails
+              .map(({ total_sales_amount }) => Number(total_sales_amount))
+              .reduce((currently, preValue) => currently + preValue),
+            salesQuantity: data.invoiceDetails
+              .map(({ total_sales_qty }) => Number(total_sales_qty))
+              .reduce((currently, preValue) => currently + preValue),
+            invoiceDetails: null,
+          }));
 
         dispatch(getDigiPa(dataObj));
       });
@@ -431,24 +433,25 @@ export const getSalesAll = (token) => async (dispatch) => {
   }
 };
 
-export const getSalesAllByChannel = (token, data, iduser) => async (dispatch) => {
-  try {
-    return axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesallbychannels/${data}/${iduser}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => dispatch(getallSales(res.data)));
-  } catch (err) {
-    console.log(err);
-  }
-};
+export const getSalesAllByChannel =
+  (token, data, iduser) => async (dispatch) => {
+    try {
+      return axios
+        .get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesallbychannels/${data}/${iduser}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => dispatch(getallSales(res.data)));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 export const getSalesAllByDist = (token, data, iduser) => async (dispatch) => {
   try {
@@ -669,13 +672,16 @@ export const getSalesvsGoalsUsePerformance = (token) => async (dispatch) => {
 export const getLicenciesByMonth = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getlicenciesbymonth`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getlicenciesbymonth`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => dispatch(getLicenciesbyMonth(res.data)));
   } catch (err) {
     console.log(err);
