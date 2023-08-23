@@ -278,7 +278,6 @@ const SalesYtd = () => {
 
   useEffect(() => {
     dispatch(getSalesPerformance(token)).then((res) => {
-      console.log(res.payload);
       const formattedData = calculateAndFormatData(
         res.payload,
         calculateTotalRevenueByRegion,
