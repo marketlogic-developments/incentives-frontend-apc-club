@@ -105,6 +105,8 @@ const DigipointsDistribution = () => {
     });
   };
 
+  console.log(dataToTable);
+
   const handleSubmit = (invoice) => {
     let newData = [...dataToTable];
     let dataRedux = [...data];
@@ -309,14 +311,12 @@ const DigipointsDistribution = () => {
                   {dataToTable
                     .filter((item) => {
                       if (searchByInvoice !== "") {
-                        return (
-                          item.invoices_included.startsWith(
-                            searchByInvoice.toLowerCase()
-                          ) && item.digipoints > 0
+                        return item.invoices_included.startsWith(
+                          searchByInvoice.toLowerCase()
                         );
                       }
 
-                      return item.digipoints > 0;
+                      return true;
                     })
                     .map((obj, i) => {
                       const index =
