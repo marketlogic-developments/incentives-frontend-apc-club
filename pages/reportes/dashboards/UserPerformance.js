@@ -225,7 +225,7 @@ const SalesPerformance = () => {
           {t("Reportes.user_performance")}
         </span>
       </div>
-      <div className="grid w-auto gap-2">
+      <div className="grid w-auto py-4 gap-2">
         <div className="pr-4">
           <CardChart title={t("Reportes.digiponits")} paragraph="">
             <MultiLineChart
