@@ -842,7 +842,7 @@ const Layout = ({ children }) => {
                 "/dashboard",
                 "/digipointsall",
                 "/reportesDashboard",
-                "/comunicado",
+                // "/comunicado",
               ].includes(page);
             }
             if (userRedux.roleId === 3) {
