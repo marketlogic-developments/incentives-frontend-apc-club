@@ -11,10 +11,19 @@ import { addTitleToHeader, getColumnWidths } from "./consts/Headers";
  */
 const importExcelFunction = async (excelConfig) => {
   const { data, columns, downloadTitle } = excelConfig;
-  
+
   // Convertir los datos en un formato adecuado para el archivo Excel
   const dataRows = data.map((row) => {
-    return Object.keys(columns).map((key) => row[key]);
+    return Object.keys(columns).map((key) => {
+      const value = row[key];
+      if (typeof value === "number") {
+        return value; // Mantén los números como números
+      } else if (!isNaN(parseFloat(value))) {
+        return parseFloat(value); // Intenta convertir valores numéricos
+      } else {
+        return value; // Deja los otros valores como están
+      }
+    });
   });
   const allData = [Object.values(columns), ...dataRows];
 
@@ -29,13 +38,6 @@ const importExcelFunction = async (excelConfig) => {
   utils.sheet_add_aoa(ws, allData, { origin: "A5" });
   // Agregar la hoja de cálculo al libro
   utils.book_append_sheet(wb, ws, downloadTitle);
-  // Crear un blob del libro para la descarga
-  /* const blob = new Blob([write(wb, { bookType: "xlsx", type: "array" })], {
-    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  });
-  return {
-    blob,
-  }; */
 
   await writeFile(wb, `${downloadTitle}.xlsx`);
 };
@@ -45,10 +47,10 @@ const importCsvFunction = async (csvConfig) => {
 
   // Crear un blob con el contenido CSV
   const blob = new Blob([columns], { type: "text/csv;charset=utf-8;" });
-  const link = document.createElement('a');
+  const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
   link.download = `${downloadTitle}.csv`;
-  link.style.display = 'none';
+  link.style.display = "none";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
