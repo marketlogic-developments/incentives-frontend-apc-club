@@ -184,8 +184,6 @@ const SalesYtd = () => {
     });
   }, []);
 
-  console.log(regionVsGoals);
-
   const salesReduce = () => {
     const totalSalesReduce = Math.round(
       sales.reduce(
