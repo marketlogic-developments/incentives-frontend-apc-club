@@ -11,13 +11,21 @@ import {
   TermsConditions,
   Thunderbolt,
   UserPerformance,
+  Medal,
 } from "../components/icons";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import dynamic from "next/dynamic";
 
 const reportesDashboard = () => {
   const router = useRouter();
   const [t, i18n] = useTranslation("global");
+
+  const SharePoint = dynamic(() =>
+    import("../components/embedreports/sharePoint").then(
+      (powerBi) => powerBi.default
+    )
+  );
   return (
     <div className="mt-8">
       {/* <InputReporte
@@ -46,6 +54,15 @@ const reportesDashboard = () => {
           }}
         >
           <UserPerformance />
+        </CardReportes>
+        <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
+          titleCard={"DigiPoints Performance"}
+          onClick={() => {
+            router.push("/reportes/dashboards/DigiPointsPerformance");
+          }}
+        >
+          <Medal />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -85,6 +102,15 @@ const reportesDashboard = () => {
         </CardReportes>
         {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
+          titleCard={t("Reportes.summary")}
+          onClick={() => {
+            router.push("/reportes/dashboards/Summary");
+          }}
+        >
+          <CustomIcon />
+        </CardReportes> */}
+        {/* <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.so_import")}
           onClick={() => {
             router.push("/reportes/dashboards/SoImportReport");
@@ -111,6 +137,7 @@ const reportesDashboard = () => {
           <TermsConditions />
         </CardReportes>
       </div>
+      {/* <SharePoint /> */}
     </div>
   );
 };

@@ -246,9 +246,9 @@ const LaptopToDo = ({ width = 482, height = 391 }) => {
           y2="319.08"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#E7BA3B" />
-          <stop offset="0.17" stop-color="#E8BC3C" />
-          <stop offset="1" stop-color="#EFC341" />
+          <stop stopColor="#E7BA3B" />
+          <stop offset="0.17" stopColor="#E8BC3C" />
+          <stop offset="1" stopColor="#EFC341" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_1595_18852"
@@ -258,9 +258,9 @@ const LaptopToDo = ({ width = 482, height = 391 }) => {
           y2="388.58"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#E7BA3B" />
-          <stop offset="0.17" stop-color="#E8BC3C" />
-          <stop offset="1" stop-color="#EFC341" />
+          <stop stopColor="#E7BA3B" />
+          <stop offset="0.17" stopColor="#E8BC3C" />
+          <stop offset="1" stopColor="#EFC341" />
         </linearGradient>
       </defs>
     </svg>

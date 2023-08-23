@@ -34,20 +34,20 @@ const puntosporventas = () => {
   }, []);
 
   useEffect(() => {
-    if (token && data.length === 0) {
+    if (token && isLoaded && data.length === 0) {
       setLoading(true);
       if (user.roleId === 1) {
         dispatch(getSalesAll(token)).then((response) => {
           setLoading(false);
         });
       } else if (user.companyId === null) {
-        dispatch(getSalesAllByDist(token, distribuitor.soldToParty)).then(
+        dispatch(getSalesAllByDist(token, distribuitor.soldToParty, user.id)).then(
           (response) => {
             setLoading(false);
           }
         );
       } else {
-        dispatch(getSalesAllByChannel(token, company.resellerMasterId)).then(
+        dispatch(getSalesAllByChannel(token, company.resellerMasterId, user.id)).then(
           (response) => {
             setLoading(false);
           }
@@ -172,7 +172,7 @@ const puntosporventas = () => {
                       </td>
                     )}
                     <td className="py-4 px-2">
-                      ${parseFloat(data.total_sales_amount).toFixed(2)}
+                      ${parseFloat(data.total_sales_us).toFixed(2)}
                     </td>
                   </tr>
                 ))}

@@ -16,7 +16,7 @@ const FormDist = () => {
     e.preventDefault();
 
     // axios.post(
-    //   `${process.env.BACKURL}/companies`,
+    //   `${process.env.NEXT_PUBLIC_BACKEND_URL}/companies`,
     //   {
     /*  name: form.name,
               representativeId: form.representativeId,
@@ -36,16 +36,7 @@ const FormDist = () => {
     //   }
     // );
 
-    return console.log({
-      name: form.name,
-      representativeId: form.representativeId,
-      phoneNumber: form.phoneNumber,
-      distChannelsId: form.distChannelsId,
-      maxDayAssign: form.maxDayAssign,
-      resellerMasterId: form.resellerMasterId,
-      goalsPerQuarter: form.goalsPerQuarter,
-      goalsPerYear: form.goalsPerYear,
-    });
+    return;
   };
   const handleChange = (e) => {
     return setForm({

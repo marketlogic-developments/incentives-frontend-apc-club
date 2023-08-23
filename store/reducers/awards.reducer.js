@@ -53,7 +53,7 @@ export default awardsAction.reducer;
 export const pushReward = (token, data) => async (dispatch) => {
   try {
     axios
-      .post(`${process.env.BACKURL}/awards`, data, {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/awards`, data, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -69,7 +69,7 @@ export const pushReward = (token, data) => async (dispatch) => {
 export const getDataAwards = (token, user) => async (dispatch) => {
   try {
     axios
-      .get(`${process.env.BACKURL}/awards`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/awards`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -79,29 +79,35 @@ export const getDataAwards = (token, user) => async (dispatch) => {
       .then((res) => {
         let obj = res.data
           .filter((e) => {
+            const countryCompany =
+              user.companyId !== null
+                ? user.company.country
+                : user.distributionChannel.country;
+
             if (user.roleId === 1) {
               return e;
             }
 
-            if (user.companyId !== null) {
-              if (user.company.country === "Colombia") {
-                return e.description === "COLOMBIA";
+            if (user.countryId) {
+              if (user.countryId === "CHILE") {
+                return e.name.split(" ")[0] === "Cencosud";
               }
-              if (user.company.country === "Chile") {
-                return e.description !== "BRASIL";
+              if (user.countryId === "Nothing") {
+                return;
               }
+
+              return e.description === user.countryId;
             }
 
-            if (user.distributionChannelId !== null) {
-              if (user.distributionChannel.country === "Colombia") {
-                return e.description === "COLOMBIA";
-              }
+            if (countryCompany === "Colombia") {
+              return e.description === "COLOMBIA";
+            }
+            if (countryCompany === "Chile") {
+              return e.name.split(" ")[0] === "Cencosud";
+            }
 
-              if (user.distributionChannel.country === "Chile") {
-                return (
-                  e.description !== "BRASIL" && e.description !== "COLOMBIA"
-                );
-              }
+            if (countryCompany === "Paraguay") {
+              return e.name.split(" ")[0] === "Nothing";
             }
 
             if (user.region === "BRAZIL" || user.region === "Brazil") {
@@ -137,7 +143,7 @@ export const getDataAwards = (token, user) => async (dispatch) => {
 export const getDataRules = (token) => async (dispatch) => {
   try {
     axios
-      .get(`${process.env.BACKURL}/rules`, {
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/rules`, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",

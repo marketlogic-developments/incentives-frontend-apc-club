@@ -138,7 +138,7 @@ const DigipointsDistribution = () => {
       if (result.isConfirmed) {
         axios
           .post(
-            `${process.env.BACKURL}/employee-poits-collects/unassign-invoice`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/employee-poits-collects/unassign-invoice`,
             {
               isGold: false,
               invoiceReference: obj.salesOrder,
@@ -180,8 +180,12 @@ const DigipointsDistribution = () => {
   };
 
   const dowloadInvoices = () => {
-    const data = dataToTable.map((item) => {
-      let { invoiceDetails, invoices_included, is_gold, status, ...info } =
+    const filteredData = dataToTable.filter((item) => {
+      return item.digipoints > 0;
+    });
+
+    const data = filteredData.map((item) => {
+      const { invoiceDetails, invoices_included, is_gold, status, ...info } =
         item;
       return info;
     });
@@ -191,6 +195,7 @@ const DigipointsDistribution = () => {
         console.error(error);
         return;
       }
+
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
       saveAs(blob, "Channel_Invoices.csv");
     });
@@ -304,12 +309,14 @@ const DigipointsDistribution = () => {
                   {dataToTable
                     .filter((item) => {
                       if (searchByInvoice !== "") {
-                        return item.invoices_included.startsWith(
-                          searchByInvoice.toLocaleLowerCase()
+                        return (
+                          item.invoices_included.startsWith(
+                            searchByInvoice.toLowerCase()
+                          ) && item.digipoints > 0
                         );
                       }
 
-                      return item;
+                      return item.digipoints > 0;
                     })
                     .map((obj, i) => {
                       const index =

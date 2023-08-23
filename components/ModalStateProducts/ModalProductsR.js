@@ -8,6 +8,7 @@ import CardProduct from "./CardProduct";
 const ModalProductsR = ({ data }) => {
   const [statusId, setStatusId] = useState(data.operationstatusid);
   const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
   const [t, i18n] = useTranslation("global");
   const [state1, setState1] = useState(false);
   const [state2, setState2] = useState(false);
@@ -60,7 +61,7 @@ const ModalProductsR = ({ data }) => {
 
     axios
       .patch(
-        `${process.env.BACKURL}/order-carts/${data.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/order-carts/${data.id}`,
         {
           operationStatusId: Number(num),
         },
@@ -68,7 +69,7 @@ const ModalProductsR = ({ data }) => {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
@@ -89,7 +90,8 @@ const ModalProductsR = ({ data }) => {
           color: "#fff",
         });
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         Toast.fire({
           icon: "error",
           title: "Hubo un error al hacer la solicitud",
@@ -102,7 +104,9 @@ const ModalProductsR = ({ data }) => {
   return (
     <div className="flex flex-col gap-5">
       <div>
-        <p className="font-bold text-2xl py-5">{t("redenciones.rastrear")}</p>
+        <p className="font-bold !text-base py-5">
+          {t("estadoProducto.seguimiento")}
+        </p>
         <div className="w-full flex h-full">
           <div className="row w-full">
             <div className="col-12 col-md-10 pt45 pb20 h-full flex">

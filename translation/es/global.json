@@ -47,6 +47,7 @@
     "Participantes": "Organización",
     "Puntos_por_ventas": "DigiPoints por ventas",
     "Reportes": "My Reports",
+    "AsignarDigipoints": "Asignación de Facturas",
     "Digipoints": "Mis DigiPoints",
     "DDigipoints": "Distribución de DigiPoints",
     "Productos": "Productos participantes",
@@ -58,10 +59,11 @@
     "admin": "Administración",
     "redenciones": "Redenciones",
     "reglas": "Reglas",
-    "customer_care": "Customer Care"
+    "customer_care": "Customer Care",
+    "formCustomerCare": "Envía tus comentarios"
   },
 
-  "perfil":{
+  "perfil": {
     "verPerfil": "Ver perfil",
     "cerrarSesion": "Cerrar Sesión"
   },
@@ -103,7 +105,7 @@
     "rankingsininfo": "Aún no hay información disponible",
     "motivarankingsininfo": "Motiva a tus representantes de venta a obtener DigiPoints y redimir.",
     "motivalargorankingsininfo": "¡Vende con pasión y lidera en el ranking!",
-    "topUsuarios": "Top 10 usuarios"
+    "topUsuarios": "Top 5 usuarios"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
@@ -223,9 +225,9 @@
     "imagen": "Tarjeta",
     "idsol": "ID de solicitud",
     "nproductos": "No. de productos",
-    "valordigipoints": "valor en DigiPoints",
-    "fechasol": "FECHA DE SOLICITUD",
-    "estado": "estado",
+    "valordigipoints": "Valor en DigiPoints",
+    "fechasol": "Fecha de Solicitud",
+    "estado": "Estado",
     "agregarP": "Agregar participante",
     "ordenarFecha": "Ordenar por fecha",
     "ordenarPor": "Ordenar por",
@@ -278,7 +280,24 @@
     "bannerTarg": "Guía de uso de tarjetas"
   },
   "estadoProducto": {
-    "estado": "Estado de tus premios"
+    "estado": "Estado de mis premios",
+    "titleEstadoPremios": "¿Cómo obtienes <br/> tus premios?",
+    "recibir": "Recibimos tu solicitud de premios.",
+    "aprobar": "La aprobamos y auditamos.",
+    "recibirCorreo": "Recibes un correo electrónico.",
+    "imprimir": "Imprímelo o muéstralo desde tu cel cuando hagas tu compra.",
+    "detalleOrden": "Detalle de tu orden",
+    "seguimiento": "Seguimiento de orden",
+    "oRecibida": "Orden recibida",
+    "oAprovada": "Aprobada",
+    "oProceso": "En proceso de pago",
+    "oenviada": "Enviada",
+    "premiosSol": "Premios solicitados",
+    "condiciones": "Condiciones importantes",
+    "status1": "Recibida",
+    "status2": "Aprobada",
+    "status3": "Proceso de pago",
+    "status4": "Enviada"
   },
   "redenciones": {
     "idOrden": "ID de la orden",
@@ -369,16 +388,16 @@
     "ticketZoho": "Tu solicitud fue recibida. Te responderemos pronto. ¡Gracias!"
   },
   "htw": {
-    "copyCanal": "Alíneate a las prioridades del <strong> FY23 </strong> y acumula más DigiPoints <strong> migrando, renovando y vendiendo a través del Marketplace.</strong> <br /> Ahora todas las ventas de <strong>Creative Cloud</strong> y <strong>Document Cloud</strong>, tanto en renovaciones como nuevos negocios, ganan por igual en Marketplace. <br /> Tu oportunidad de <strong>GANAR</strong> más es hoy, combinando las mejores estrategias de renovación, retención y crecimiento. <br/><br/> Conoce la tabla completa de asignación de DigiPoints:",
+    "copyCanal": "Alíneate a las prioridades del <strong> FY23 </strong> y acumula más DigiPoints <strong> Migrando, Renovando y Vendiendo a través del Marketplace.</strong> <br /> Ahora todas las ventas de <strong>Creative Cloud</strong> y <strong>Document Cloud</strong>, tanto en renovaciones como nuevos negocios, ganan por igual en Marketplace. <br /> Tu oportunidad de <strong>GANAR</strong> más es hoy, combinando las mejores estrategias de renovación, retención y crecimiento. <br/><br/> Conoce la tabla completa de asignación de DigiPoints:",
     "copyDist": "Anímate a cumplir las metas del <strong>FY23</strong> y acumula más DigiPoints apoyando la gestión de <strong>tus canales Gold</strong>, con todas las ventas de los productos participantes de la marca <strong>Adobe</strong>. Durante este nuevo periodo, acumularás puntos de la siguiente manera: <strong>Gana 10 DigiPoints</strong> por cada <strong>$1,000 USD FOB,</strong> en ventas de <strong>canales GOLD</strong> de cualquier licencia de productos participantes, con Renovaciones y Nuevos Negocios. <br/><br/> Conoce la tabla completa de asignación de DigiPoints:",
     "pathTableCanal": "assets/htw/tablaHTW.webp",
     "pathTableDist": "assets/htw/tablaHTWDist.webp",
     "pathBanner": "assets/htw/bannerHTWsection.webp",
     "copyTextFooter": "¡Vende, Gana y Redime!",
     "title": "¿Cómo ganar con el <br /> Adobe Partner Connection Club?",
-    "secondTitle": "Acumula más DigiPoints migrando, <br /> renovando y vendiendo a través de Marketplace",
+    "secondTitle": "Acumula más DigiPoints Migrando, <br /> Renovando y Vendiendo a través de Marketplace",
     "phraseSecondTitle": "Ahora todas las ventas de Creative Cloud y Document Cloud, tanto en renovaciones como nuevos negocios, <br /> ganan por igual en Marketplace.",
-    "digipoints1000-1": "DigiPoints por cada USD 1,000 FCB",
+    "digipoints1000-1": "DigiPoints por cada USD 1,000 FOB",
     "digipoints1000-2": "en ventas en productos participantes",
     "renovaciones": "Renovaciones",
     "nuevosn": "Nuevos negocios",
@@ -406,8 +425,8 @@
     "novedad": "Novedades",
     "evento": "Eventos"
   },
-  
-  "Reportes" : {
+
+  "Reportes": {
     "reportes": "Reportes",
     "sales_performance": "Sales Performance",
     "digiPoints_performance": "DigiPoints Performance",
@@ -416,9 +435,14 @@
     "user_performance": "User Performance",
     "invoice_report": "Invoice Report",
     "digiPoints_redemption_request": "DigiPoints Redemption Request",
-    "custom_care": "Custom Care",
+    "custom_care": "Customer Care",
     "registration_performance": "Registration Performance",
     "follow_up": "Executive Summary",
+    "summary": "Summary",
+    "sales_ytd": "Sales YTD",
+    "grow_sales_yt": "Grow sales YoY",
+    "digipoints_performance": "DigiPoints performance",
+    "organization": "Organizations",
     "usuarios": "Usuarios",
     "tipos_usuarios": "Tipos de usuario",
     "anios": "Años",

@@ -16,9 +16,9 @@ const FormCanal = () => {
     e.preventDefault();
 
     // axios.post(
-    //   `${process.env.BACKURL}/companies`,
+    //   `${process.env.NEXT_PUBLIC_BACKEND_URL}/companies`,
     //   {
-             /*  name: form.name,
+    /*  name: form.name,
               representativeId: form.representativeId,
               phoneNumber: form.phoneNumber,
               distChannelsId: form.distChannelsId,
@@ -36,16 +36,7 @@ const FormCanal = () => {
     //   }
     // );
 
-    return console.log({
-                    name: form.name,
-                    representativeId: form.representativeId,
-                    phoneNumber: form.phoneNumber,
-                    distChannelsId: form.distChannelsId,
-                    maxDayAssign: form.maxDayAssign,
-                    resellerMasterId: form.resellerMasterId,
-                    goalsPerQuarter: form.goalsPerQuarter,
-                    goalsPerYear: form.goalsPerYear,
-                  });
+    return;
   };
   const handleChange = (e) => {
     return setForm({
@@ -84,7 +75,9 @@ const FormCanal = () => {
                 name="distChannelsId"
                 onChange={handleChange}
               >
-                <option disabled selected>Selecciona Uno</option>
+                <option disabled selected>
+                  Selecciona Uno
+                </option>
                 <option value="1">Gold</option>
                 <option value="2">Platinum</option>
               </select>
@@ -117,7 +110,9 @@ const FormCanal = () => {
                 name="resellerMasterId"
                 onChange={handleChange}
               >
-                <option disabled selected>Seleccione el usuario</option>
+                <option disabled selected>
+                  Seleccione el usuario
+                </option>
                 <option value="1">usuario 1</option>
                 <option value="2">usuario 2</option>
               </select>

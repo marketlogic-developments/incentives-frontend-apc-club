@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserSalePerformance } from "../../../store/reducers/sales.reducer";
+import {
+  getSalesvsGoalsUsePerformance,
+  getUserSalePerformance,
+} from "../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
@@ -9,22 +12,29 @@ import {
 } from "../../../components/icons";
 import { useTranslation } from "react-i18next";
 import {
+  BarChar,
   BtnFilter,
   BtnWithImage,
   CardChart,
+  DropDownReport,
   MultiLineChart,
   SearchInput,
   SelectInputValue,
   Table,
   TitleWithIcon,
 } from "../../../components";
-import * as XLSX from "xlsx";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
+import {
+  importCsvFunction,
+  importExcelFunction,
+  userPerformanceColumnsCsv,
+  userPerformanceColumnsExcel,
+} from "../../../components/functions/reports";
 
 const SalesPerformance = () => {
   const dispatch = useDispatch();
@@ -38,7 +48,42 @@ const SalesPerformance = () => {
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
+  const [loadingBarChart, setLoadingBarChart] = useState(true);
   const router = useRouter();
+  const [dataBarChar, setDataBarChar] = useState([]);
+  const xValues = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+  const months = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+  const sortedData = {};
+  const [redeemPoints, setRedeemPoints] = useState([]);
+  const [salesPoints, setSalesPoints] = useState([]);
+  const redeemPointsArray = [];
+  const salesPointsArray = [];
 
   useEffect(() => {
     setIsLoaded(true);
@@ -55,19 +100,64 @@ const SalesPerformance = () => {
         .catch((error) => {
           console.log(error);
         });
+      setLoading(true);
+      dispatch(getSalesvsGoalsUsePerformance(token))
+        .then((response) => {
+          setLoading(false);
+          setDataBarChar(response.payload[0].json_agg);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [isLoaded]);
 
-  /* Download */
-  const importFile = (data) => {
-    jsonexport(data, (error, csv) => {
-      if (error) {
-        console.error(error);
-        return;
+  useEffect(() => {
+    if (dataBarChar) {
+      for (let i = 1; i <= 12; i++) {
+        const monthData = dataBarChar.find((item) => item.month_redeem === i);
+
+        if (monthData) {
+          redeemPointsArray.push(monthData.redeem_points);
+          salesPointsArray.push(monthData.sales_points);
+        } else {
+          redeemPointsArray.push(0);
+          salesPointsArray.push(0);
+        }
       }
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-      saveAs(blob, "User Performance.csv");
-    });
+      setRedeemPoints(redeemPointsArray);
+      setSalesPoints(salesPointsArray);
+      setLoadingBarChart(false);
+    }
+  }, [dataBarChar]);
+
+  const numberToMoney = (quantity = 0) => {
+    return `$ ${Number(quantity)
+      .toFixed(0)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  };
+
+  /* Download */
+  const importFile = async (data) => {
+    const columns = userPerformanceColumnsCsv(data);
+    const csvConfig = {
+      data: data,
+      columns: columns,
+      downloadTitle: "User Performance",
+    };
+
+    await importCsvFunction(csvConfig);
+  };
+
+  const importFileExcel = async (data) => {
+    const excelConfig = {
+      data: data,
+      columns: userPerformanceColumnsExcel,
+      downloadTitle: "User Performance",
+    };
+
+    await importExcelFunction(excelConfig);
   };
 
   /* Selects */
@@ -77,7 +167,7 @@ const SalesPerformance = () => {
 
   const dataOne = [...new Set(data.map((user) => user.reseller_or_dist_name))];
 
-  const dataSelectOne = dataOne.map((companyName) => ({
+  const dataSelectOne = dataOne.sort().map((companyName) => ({
     value: companyName,
     label: companyName,
   }));
@@ -146,6 +236,9 @@ const SalesPerformance = () => {
         <span className="font-bold text-[#1473E6]">
           {t("Reportes.user_performance")}
         </span>
+        <span className="font-bold text-[#1473E6]">
+          {t("Reportes.user_performance")}
+        </span>
       </div>
       <div className="grid w-auto gap-2">
         <div className="pr-4">
@@ -184,7 +277,20 @@ const SalesPerformance = () => {
           </CardChart>
         </div>
       </div>
-      <div className="pt-2 grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
+      <div className="grid w-auto gap-2">
+        <div className="pr-4">
+          <CardChart title={"DigiPoints"} paragraph="">
+            <MultiLineChart
+              dataLeyend={["DigiPoints Redeemed", "Sale DigiPoints"]}
+              dataX={months}
+              dataOne={redeemPoints}
+              dataTwo={salesPoints}
+              colorsLine={["red", "green", "blue"]}
+            />
+          </CardChart>
+        </div>
+      </div>
+      <div className="pt-2 grid items-center sm:grid-cols-4 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
           placeHolder={"Email"}
@@ -200,6 +306,7 @@ const SalesPerformance = () => {
           value={selectOne}
           data={dataSelectOne}
           icon={<ArrowDown />}
+          searchable={true}
           onChange={handleSelectOneChange}
           name={"business"}
         />
@@ -208,14 +315,27 @@ const SalesPerformance = () => {
           styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
           onClick={clearSelects}
         />
-        <BtnWithImage
-          text={t("Reportes.descargar")}
+        <DropDownReport
           icon={<CloudDownload />}
-          styles={
-            "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none"
-          }
-          onClick={() => importFile(data)}
-        />
+          title={t("Reportes.descargar")}
+        >
+          <BtnWithImage
+            text={t("Reportes.descargar")}
+            icon={<CloudDownload />}
+            styles={
+              "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+            }
+            onClick={() => importFile(data)}
+          />
+          <BtnWithImage
+            text={t("Reportes.descargar") + " excel"}
+            icon={<CloudDownload />}
+            styles={
+              "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+            }
+            onClick={() => importFileExcel(data)}
+          />
+        </DropDownReport>
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1">
         <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
@@ -255,16 +375,17 @@ const SalesPerformance = () => {
               colStyles={"p-2"}
               thStyles={"sticky text-white"}
               cols={[
-                "Email",
-                "Name",
-                "Country",
+                "User Name",
+                "FirstName",
+                "LastName",
                 "Region",
-                "Company ID",
+                "Country",
+                // "Company ID",
                 "Company Name",
                 "Company Level",
-                "Company Type",
-                "VIP CC Renewal",
-                "VIP CC New business",
+                // "Company Type",
+                // "VIP CC Renewal",
+                /* "VIP CC New business",
                 "VIP DC Renewal",
                 "VIP DC New Business",
                 "VMP CC Renewal",
@@ -278,14 +399,18 @@ const SalesPerformance = () => {
                 "VMP Revenue Q1",
                 "VMP Revenue Q2",
                 "VMP Revenue Q3",
-                "VMP Revenue Q4",
-                "Revenue Q1",
-                "Revenue Q2",
-                "Revenue Q3",
-                "Revenue Q4",
-                "Actual Revenue",
-                "Sales DigiPoints",
-                "Redemptions",
+                "VMP Revenue Q4", */
+                // "Revenue Q1",
+                // "Revenue Q2",
+                // "Revenue Q3",
+                // "Revenue Q4",
+                "Total VIP Revenue (USD)",
+                "Total VMP Revenue (USD)",
+                "Actual Revenue (USD)",
+                "RMA (USD)",
+                "Total DigiPoints",
+                "DigiPoints Redeemed",
+                "Total % effectiveness",
               ]}
             >
               {currentItems &&
@@ -294,83 +419,108 @@ const SalesPerformance = () => {
                     if (searchByInvoice !== "") {
                       return item.email.startsWith(searchByInvoice);
                     }
-
                     return item;
                   })
                   .map((data, index) => (
                     <tr key={index}>
-                      <th className="text-left py-3 px-6">{data.email}</th>
-                      <th className="text-left py-3 px-6">{data.name}</th>
-                      <th className="text-left py-3 px-6">{data.country_id}</th>
-                      <th className="text-left py-3 px-6">{data.region}</th>
-                      <th className="text-left py-3 px-6">
-                        {data.reseller_or_dist_id}
+                      <th className="text-left py-3 px-2 mx-4">{data.email}</th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.name}
                       </th>
-                      <th className="text-left py-3 px-6">
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.last_name}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.region}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.country_user}
+                      </th>
+                      {/* <th className="text-left py-3 px-2 mx-4">{data.country_id}</th> */}
+                      {/* <th className="text-left py-3 px-2 mx-4">
+                        {data.reseller_or_dist_id}
+                      </th> */}
+                      <th className="text-left py-3 px-2 mx-4">
                         {data.reseller_or_dist_name}
                       </th>
-                      <th className="text-left py-3 px-6">{data.dcname}</th>
-                      <th className="text-left py-3 px-6">{data.rtype}</th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_cc_renewal}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.dcname}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_cc_newbusiness}
+                      {/* <th className="text-left py-3 px-2 mx-4">{data.rtype}</th> */}
+                      {/* <th className="text-left py-3 px-2 mx-4">
+                        {data.dcname}
+                      </th> */}
+                      {/* <th className="text-left py-3 px-2 mx-4">{data.rtype}</th> */}
+                      {/* <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vip_cc_renewal)}
+                      </th> */}
+                      {/* <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vip_cc_newbusiness)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_dc_renewal}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vip_dc_renewal)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_dc_newbusiness}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vip_dc_newbusiness)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_cc_renewal}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vmp_cc_renewal)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_cc_newbusiness}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vmp_cc_newbusiness)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_dc_renewal}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vmp_dc_renewal)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_dc_newbusiness}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vmp_dc_newbusiness)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_revenue_q1}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vip_revenue_q1)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_revenue_q2}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vip_revenue_q2)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_revenue_q3}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vip_revenue_q3)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vip_revenue_q4}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vip_revenue_q4)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_revenue_q1}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vmp_revenue_q1)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_revenue_q2}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vmp_revenue_q2)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_revenue_q3}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vmp_revenue_q3)}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.vmp_revenue_q4}
+                      <th className="text-left py-3 px-2 mx-4">
+                        {numberToMoney(data.vmp_revenue_q4)}
+                      </th> */}
+                      {/* <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q1)}</th>
+                      <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q2)}</th>
+                      <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q3)}</th>
+                      <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q4)}</th> */}
+                      <th className="text-left py-3 px-2 mx-4">
+                        ${data.vip_revenue_total}
                       </th>
-                      <th className="text-left py-3 px-6">{data.revenue_q1}</th>
-                      <th className="text-left py-3 px-6">{data.revenue_q2}</th>
-                      <th className="text-left py-3 px-6">{data.revenue_q3}</th>
-                      <th className="text-left py-3 px-6">{data.revenue_q4}</th>
-                      <th className="text-left py-3 px-6">
-                        {data.revenue_actual}
+                      <th className="text-left py-3 px-2 mx-4">
+                        ${data.vmp_revenue_total}
                       </th>
-                      <th className="text-left py-3 px-6">
-                        {data.sales_points}
+                      <th className="text-left py-3 px-2 mx-4">
+                        ${data.revenue_actual}
                       </th>
-                      <th className="text-left py-3 px-6">
+                      <th className="text-left py-3 px-2 mx-4">${data.rma}</th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.total_digipoints}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
                         {data.redenciones}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.redenciones_over_total_digipoints}
                       </th>
                     </tr>
                   ))}

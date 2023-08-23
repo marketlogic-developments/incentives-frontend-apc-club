@@ -93,7 +93,7 @@ const ModalPassword = ({ setOpened }) => {
 
     axios
       .patch(
-        `${process.env.BACKURL}/users/${user?.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user?.id}`,
         { password: data.target[0].value },
         {
           headers: {

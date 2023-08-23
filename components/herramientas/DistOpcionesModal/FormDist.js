@@ -16,7 +16,7 @@ const FormDist = () => {
     e.preventDefault();
 
     // axios.post(
-    //   `${process.env.BACKURL}/companies`,
+    //   `${process.env.NEXT_PUBLIC_BACKEND_URL}/companies`,
     //   {
     /*  name: form.name,
               representativeId: form.representativeId,

@@ -1,16 +1,12 @@
 import { Modal } from "@mantine/core";
 import axios, { Axios } from "axios";
-import Cookies from "js-cookie";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { SignModal } from "../components/terminosycondiciones/Canvas";
-import Tyces from "../components/terminosycondiciones/tyces";
-import Tycpor from "../components/terminosycondiciones/tycpor";
-import { policyAndPassword, userLogin } from "../store/reducers/users.reducer";
+import { userLogin } from "../store/reducers/users.reducer";
 
 const terminosycondiciones = () => {
   const [checked, setChecked] = useState(false);
@@ -41,7 +37,7 @@ const terminosycondiciones = () => {
       if (result.isConfirmed) {
         axios
           .patch(
-            `${process.env.BACKURL}/users/${user?.id}`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user?.id}`,
             {
               cpf: "active colTC",
             },

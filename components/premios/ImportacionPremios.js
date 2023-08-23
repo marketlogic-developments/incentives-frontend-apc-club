@@ -47,7 +47,7 @@ const ImportacionPremios = () => {
 
     const promises = jsonData.map(async (data) =>
       axios.post(
-        `${process.env.BACKURL}/awards`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/awards`,
         {
           name: data.name,
           digipoints: data.digipoints,

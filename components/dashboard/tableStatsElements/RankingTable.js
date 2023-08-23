@@ -33,58 +33,30 @@ const RankingTable = () => {
   ];
 
   useEffect(() => {
-    if (user.roleId === 1) {
-      axios
-        .get(`${process.env.BACKURL}/reporters/ranking-global`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then(({ data }) => {
-          dispatch(setRanking(data));
-        });
-    } else {
-      const compOrDist =
-        user.company === null
-          ? {
-              endpoint: "digipoints-redeem-status-all-distri",
-              byId: user.distributionChannelId,
-            }
-          : {
-              endpoint: "digipoints-redeem-status-all-compa",
-              byId: user.companyId,
-            };
-
-      if (token) {
-        axios
-          .get(
-            `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then(({ data }) => dispatch(setRanking(data)));
-      }
-    }
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/ranking-global`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({ data }) => {
+        dispatch(setRanking(data));
+      });
   }, [token]);
 
   return (
     <div className="flex flex-col w-full p-6 gap-6 targetDashboard">
       <div>
-        <h2 className="!text-xl font-bold">Ranking</h2>
+        <h2 className="!text-xl font-bold">TOP Sales Rep LATAM</h2>
         <p className="!text-xs">{`${Months[month]} ${year}`}</p>
       </div>
       <div className="flex flex-col gap-6 h-full">
         {ranking.length === 0 ? (
           <NoDataRanking />
         ) : (
-          ranking
+          [...ranking]
             .slice(0, 3)
             .map((data, index) => <UserRanking data={data} index={index + 1} />)
         )}

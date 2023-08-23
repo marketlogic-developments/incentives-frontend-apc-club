@@ -7,6 +7,7 @@ import teamsAction from "./reducers/teams.reducer";
 import loadingData from "./reducers/loading.reducer";
 import companyAction from "./reducers/company.reducer";
 import promosAction from "./reducers/promos.reducer";
+import contentfulAction from "./reducers/contentful.reducer";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     loadingData: loadingData,
     company: companyAction,
     promos: promosAction,
+    contentful: contentfulAction,
   },
 });

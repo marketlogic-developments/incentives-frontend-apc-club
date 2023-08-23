@@ -31,7 +31,7 @@ const ModalTargetParticipants = ({
 
     axios
       .get(
-        `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
         {
           headers: {
             "Content-Type": "application/json",

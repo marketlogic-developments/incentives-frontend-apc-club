@@ -374,6 +374,18 @@
   text-transform: none;
   font-size: 0.75rem;
 }
+.newbtn {
+  @apply rounded-full;
+  text-transform: none;
+  font-size: 0.75rem;
+  min-height: 2.563rem;
+  height: 2.563rem;
+
+  @media (min-width: 1024px) {
+    min-height: 1.563rem;
+    height: 1.563rem;
+  }
+}
 .sw2Custom {
   background-color: white;
   color: black;
@@ -453,4 +465,21 @@
 .axk {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
+.sharePointIframe {
+  iframe {
+    width: 100% !important;
+  }
+}
+
+.modalStatusProducts {
+  h2 {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  .mantine-Stepper-stepIcon {
+    color: #f1f3f5;
+  }
 }

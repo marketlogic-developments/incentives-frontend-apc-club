@@ -6,6 +6,7 @@ import {
   SelectInputValue,
   SearchInput,
   TitleWithIcon,
+  DropDownReport,
 } from "../../../components";
 import { saveAs } from "file-saver";
 import jsonexport from "jsonexport";
@@ -24,6 +25,8 @@ import {
 } from "../../../store/reducers/orders.reducer";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
+import SortedTable from "../../../components/table/SortedTable";
+import { digipointRedemtionColumnsCsv, digipointRedemtionColumnsExcel, importCsvFunction, importExcelFunction } from "../../../components/functions/reports";
 
 const DigiPointsRedemption = () => {
   const dispatch = useDispatch();
@@ -40,6 +43,12 @@ const DigiPointsRedemption = () => {
   const token = useSelector((state) => state.user.token);
   const router = useRouter();
   
+  const numberToMoney = (quantity = 0) => {
+    return `$ ${Number(quantity)
+      .toFixed(0)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  };
 
   /* Loader setter */
   useEffect(() => {
@@ -112,16 +121,26 @@ const DigiPointsRedemption = () => {
     setSelectTwo("");
   };
 
-  /* Download */
-  const importFile = (data) => {
-    jsonexport(data, (error, csv) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-      saveAs(blob, "Redemption.csv");
-    });
+  /* Download Redemption*/
+  const importFile = async (data) => {
+    const columns = digipointRedemtionColumnsCsv(data);
+    const csvConfig = {
+      data: data,
+      columns: columns,
+      downloadTitle: "Digipoints Redemption",
+    };
+
+    await importCsvFunction(csvConfig);
+  };
+
+  const importFileExcel = async (data) => {
+    const excelConfig = {
+      data: data,
+      columns: digipointRedemtionColumnsExcel,
+      downloadTitle: "Digipoints Redemption",
+    };
+
+    await importExcelFunction(excelConfig);
   };
 
   /* Table */
@@ -206,7 +225,11 @@ const DigiPointsRedemption = () => {
           styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
           onClick={clearSelects}
         />
-        <BtnWithImage
+        <DropDownReport
+          icon={<CloudDownload />}
+          title={t("Reportes.descargar")}
+        >
+          <BtnWithImage
           text={t("Reportes.descargar")}
           icon={<CloudDownload />}
           styles={
@@ -214,77 +237,51 @@ const DigiPointsRedemption = () => {
           }
           onClick={() => importFile(filteredUsers)}
         />
+          <BtnWithImage
+           text={t("Reportes.descargar") + " excel"}
+          icon={<CloudDownload />}
+          styles={
+            "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+          }
+          onClick={() => importFileExcel(filteredUsers)}
+        />
+        </DropDownReport>
+        
       </div>
       <div className="grid overflow-x-auto w-full">
-        {loading ? (
-          <div className="lds-dual-ring"></div>
-        ) : (
-          <>
-            <div>
-              <Table
-                containerStyles={
-                  "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-max"
-                }
-                tableStyles={"table-zebra !text-sm"}
-                colStyles={"p-2"}
-                thStyles={"sticky text-white"}
-                cols={
-                    [
-                      "User Name",
-                      "First Name",
-                      "Status",
-                      "DigiPoints",
-                      // "Quantity",
-                      // "Amount",
-                      "Request ID",
-                      "Redeemed On",
-                    ]
-                }
-              >
-                {currentItems &&
-                  [...currentItems]
-                    .filter((item) => {
-                      if (searchByInvoice !== "") {
-                        return item.name.startsWith(searchByInvoice);
-                      }
-
-                      return item;
-                    })
-                    .map((data, index) => (
-                      <tr key={index}>
-                        <td className="text-start p-4">{data.name}</td>
-                        <td className="text-start p-4">{data.email}</td>
-                        <td className="text-start p-4">{data.status_name}</td>
-                        <td className="text-start p-4">{data.digipoint_substract}</td>
-                        <td className="text-start p-4">{data.ordernumber}</td>
-                        <td className="text-start p-4">{formatDate(data.created_at)}</td>
-                      </tr>
-                    ))}
-              </Table>
-              <ReactPaginate
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={handlePageClick}
-                containerClassName={"pagination"}
-                subContainerClassName={"pages pagination"}
-                nextClassName={"item next "}
-                previousClassName={"item previous"}
-                activeClassName={"item active "}
-                breakClassName={"item break-me "}
-                breakLabel={"..."}
-                disabledClassName={"disabled-page"}
-                pageClassName={"item pagination-page "}
-                nextLabel={
-                  <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
-                }
-                previousLabel={
-                  <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
-                }
-              />
-            </div>
-          </>
-        )}
+        {!loading && (
+            <SortedTable
+            containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
+            tableStyles={"table-zebra !text-sm"}
+            colStyles={"p-2"}
+            thStyles={"sticky text-white"}
+            cols={[
+              { rowStyles:"", sort:true, symbol:"", identity: "email", columnName: "User Email" },
+              { symbol:"", identity: "name", columnName: "First Name" },
+              { symbol:"", identity: "role_name", columnName: "User Role" },
+              { symbol:"", identity: "region", columnName: "Region" },
+              { symbol:"", identity: "country", columnName: "Country" },
+              { symbol:"", identity: "company_id", columnName: "Company ID" },
+              { symbol:"", identity: "company_name", columnName: "Company Name" },
+              { symbol:"", identity: "company_level", columnName: "Company Level" },
+              { symbol:"", identity: "pp_email", columnName: "Partner Principal User Email" },
+              { symbol:"", identity: "pp_tos", columnName: "Partner Principal Accepted ToS" },
+              { symbol:"", identity: "ordernumber", columnName: "Request ID" },
+              { symbol:"", identity: "digipoint_substract", columnName: "Redeemed DigiPoints" },
+              { symbol:"", identity: "total_quantity", columnName: "Quantity" },
+              { symbol:"", identity: "total_price", columnName: "Amount (USD)" },
+              { symbol:"DATE", identity: "created_at", columnName: "Redeemed On" },
+              { symbol:"", identity: "status_name", columnName: "Reward Status" },
+            ]}
+            generalRowStyles={"text-left py-3 mx-7"}
+            paginate={true}
+            pageCount={pageCount}
+            currentItems={currentItems}
+            searchByInvoice={searchByInvoice}
+            fieldSearchByInvoice={'email'}
+            handlePageClick={handlePageClick}
+          />
+          )}
       </div>
     </div>
   );

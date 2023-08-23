@@ -47,6 +47,7 @@
     "Participantes": "Organização",
     "Puntos_por_ventas": "DigiPoints por vendas",
     "Reportes": "My Reports",
+    "AsignarDigipoints": "Atribuição de Faturas",
     "Digipoints": "Meus DigiPoints",
     "DDigipoints": "Distribuição de DigiPoints",
     "Productos": "Produtos Participantes",
@@ -58,10 +59,11 @@
     "vercatalogo": "Ver catálogo de prêmios",
     "admin": "Administração",
     "redenciones": "Resgates",
-    "reglas": "Regras"
+    "reglas": "Regras",
+    "formCustomerCare": "Envia teus comentários"
   },
 
-  "perfil":{
+  "perfil": {
     "verPerfil": "Ver perfil",
     "cerrarSesion": "Cerrar Sesión"
   },
@@ -94,8 +96,6 @@
     "contieneSC": "Um caractere especial (!@#$)",
     "contiene8C": "Pelo menos 8 caracteres",
     "coincidenContraseñas": "Las contraseñas coinciden",
-    "pdfDist": "assets/pdf/HTWDistPor.pdf",
-    "pdfComp": "assets/pdf/HTWPor.pdf",
     "titleTickets": "Precisa de ajuda? Entre em contato conosco agora!",
     "descripcionTickets": "Preencha nosso formulário de solicitações de clientes e receba ajuda de nossos especialistas para resolver seus problemas on-line. Deixe-nos ajudá-lo hoje mesmo!",
     "licencias": "Licenças",
@@ -103,7 +103,7 @@
     "rankingsininfo": "Ainda não há informações disponíveis",
     "motivarankingsininfo": "Motive seus representantes de vendas a obterem DigiPoints e resgatá-los.",
     "motivalargorankingsininfo": "Venda com paixão e lidere no ranking!",
-    "topUsuarios": "10 principais usuários"
+    "topUsuarios": "5 principais usuários"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",
@@ -225,10 +225,10 @@
     "sillas": "Quantidade",
     "precio": "Preço",
     "imagen": "Cartão",
-    "idsol": "ID DA APLICAÇÃO",
+    "idsol": "Id da Aplição",
     "nproductos": "No. de produtos",
-    "valordigipoints": "valor em digipoints",
-    "fechasol": "DATA DE APLICAÇÃO",
+    "valordigipoints": "Valor em digipoints",
+    "fechasol": "Data de Aplição",
     "estado": "ESTATUS",
     "agregarP": "Adicionar participante",
     "ordenarFecha": "Ordenar por data",
@@ -281,7 +281,24 @@
     "bannerTarg": "GUIA DE USO DE CARTÕES"
   },
   "estadoProducto": {
-    "estado": "Status de seus produtos"
+    "estado": "Status de seus produtos",
+    "titleEstadoPremios": "Como você recebe <br/> seus prêmios?",
+    "recibir": "Recebemos sua solicitação de prêmios.",
+    "aprobar": "Aprovamos e auditamos.",
+    "recibirCorreo": "Você recebe um e-mail.",
+    "imprimir": "Imprima ou mostre pelo seu celular ao fazer sua compra.",
+    "detalleOrden": "Detalhes do seu pedido",
+    "seguimiento": "Acompanhamento do pedido",
+    "oRecibida": "Pedido recebido",
+    "oAprovada": "Aprovado",
+    "oProceso": "Em processo de pagamento",
+    "oenviada": "Enviado",
+    "premiosSol": "Prêmios solicitados",
+    "condiciones": "Condições importantes",
+    "status1": "Recebida",
+    "status2": "Aprovada",
+    "status3": "Processo de pagamento",
+    "status4": "Enviada"
   },
   "redenciones": {
     "idOrden": "ID do pedido",
@@ -372,16 +389,16 @@
     "ticketZoho": "Sua solicitação foi recebida. Responderemos em breve. Obrigado/a!"
   },
   "htw": {
-    "copyCanal": "Alinhe-se às prioridades do <strong>FY23</strong> e acumule mais DigiPoints, <strong>migrando, renovando e vendendo através do Marketplace.</strong><br/> Agora todas as vendas de <strong>Creative Cloud</strong> e <strong>Document Cloud</strong>, tanto em renovações quanto em novos negócios, ganham igualmente no Marketplace.<br/> Sua oportunidade de <strong>GANHAR</strong> mais é hoje, combinando as melhores estratégias de renovação, retenção e crescimento. </br></br> Veja a tabela completa de atribuição de DigiPoints:",
+    "copyCanal": "Alinhe-se às prioridades do <strong>FY23</strong> e acumule mais DigiPoints, <strong>Migrando, Renovando e Vendendo através do Marketplace.</strong><br/> Agora todas as vendas de <strong>Creative Cloud</strong> e <strong>Document Cloud</strong>, tanto em renovações quanto em novos negócios, ganham igualmente no Marketplace.<br/> Sua oportunidade de <strong>GANHAR</strong> mais é hoje, combinando as melhores estratégias de renovação, retenção e crescimento. </br></br> Veja a tabela completa de atribuição de DigiPoints:",
     "copyDist": "Anime-se para atingir as metas do <strong>FY23</strong> e acumular mais DigiPoints apoiando a gestão das suas <strong>Revendas Gold</strong>, com todas as vendas dos produtos participantes da marca <strong>Adobe</strong>. Durante este novo período, você acumulará pontos da seguinte forma: <strong>Ganhe 10 DigiPoints</strong> para cada <strong>US $1,000 FOB</strong>, em vendas das <strong>Revendas GOLD</strong> de qualquer licença de produto participante, com Renovações e Novos Negócios. </br></br> Veja a tabela completa de atribuição de DigiPoints:",
     "pathTableCanal": "assets/htw/tablaHTWCanalesPor.webp",
     "pathTableDist": "assets/htw/tablaHTWDistPor.webp",
     "pathBanner": "/assets/htw/bannerHTWsectionPor.webp",
     "copyTextFooter": "Venda, Ganhe e Resgate!",
     "title": "Como ganhar com o <br /> Adobe Partner Connection Club?",
-    "secondTitle": "Acumule mais DigiPoints migrando, <br /> renovando e vendendo através do Marketplace",
+    "secondTitle": "Acumule mais DigiPoints Migrando, <br /> Renovando e Vendendo através do Marketplace",
     "phraseSecondTitle": "Agora todas as vendas do Creative Cloud e Document Cloud, tanto em renovações quanto em novos negócios, <br /> ganham igualmente no Marketplace.",
-    "digipoints1000-1": "DigiPoints a cada USD 1,000 FCB",
+    "digipoints1000-1": "DigiPoints a cada USD 1,000 FOB",
     "digipoints1000-2": "em vendas de produtos participantes",
     "renovaciones": "Renovações",
     "nuevosn": "Novos negócios",
@@ -408,7 +425,7 @@
     "novedad": "Novidades",
     "evento": "Eventos"
   },
-  "Reportes" : {
+  "Reportes": {
     "reportes": "Relatórios",
     "sales_performance": "Sales performance",
     "digiPoints_performance": "DigiPoints performance",
@@ -416,10 +433,15 @@
     "so_import": "SO import report",
     "user_performance": "User performance",
     "invoice_report": "Invoice report",
-    "digiPoints_redemption_request": "DigiPoints redemption request",
-    "custom_care": "Custom care",
+    "digiPoints_redemption_request": "DigiPoints Redemption Request",
+    "custom_care": "Customer care",
     "registration_performance": "Registration performance",
     "follow_up": "Executive Summary",
+    "summary": "Summary",
+    "sales_ytd": "Sales YTD",
+    "grow_sales_yt": "Grow sales YoY",
+    "digipoints_performance": "DigiPoints performance",
+    "organization": "Organizations",
     "usuarios": "Usuários",
     "tipos_usuarios": "Tipos de usuário",
     "anios": "preguntar",

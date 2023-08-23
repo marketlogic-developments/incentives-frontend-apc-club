@@ -52,7 +52,7 @@ const TableUsersOrganization = () => {
 
       axios
         .get(
-          `${process.env.BACKURL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -95,7 +95,7 @@ const TableUsersOrganization = () => {
     if (action === 1) {
       axios
         .patch(
-          `${process.env.BACKURL}/users/${id}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${id}`,
           {
             operationStatusId: 5,
           },
@@ -119,7 +119,7 @@ const TableUsersOrganization = () => {
     if (action === 2) {
       axios
         .patch(
-          `${process.env.BACKURL}/users/${id}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${id}`,
           {
             operationStatusId: 4,
           },

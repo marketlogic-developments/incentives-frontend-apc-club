@@ -31,7 +31,7 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
   useEffect(() => {
     axios
       .get(
-        `${process.env.BACKURL}/reporters/all-users-by-groupname-where-id/${user.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/all-users-by-groupname-where-id/${user.id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -55,7 +55,7 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
 
     axios
       .post(
-        `${process.env.BACKURL}/employee-poits-collects/assign-points/`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/employee-poits-collects/assign-points/`,
         {
           partnerAdminId: user.id,
           assignType: "group",

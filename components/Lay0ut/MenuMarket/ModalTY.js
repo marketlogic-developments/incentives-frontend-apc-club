@@ -209,8 +209,8 @@ const ModalTY = ({ setOpened }) => {
           className="btn btn-info w-1/2"
           onClick={() => {
             router.push("/estadoProducto");
-            dispatch(setMenuMarket(false));
             setOpened(false);
+            dispatch(setMenuMarket(false));
           }}
         >
           Ver estados de mis premios
