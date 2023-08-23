@@ -51,20 +51,6 @@ const SalesPerformance = () => {
   const [loadingBarChart, setLoadingBarChart] = useState(true);
   const router = useRouter();
   const [dataBarChar, setDataBarChar] = useState([]);
-  const xValues = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
   const months = [
     "Ene",
     "Feb",
@@ -146,7 +132,6 @@ const SalesPerformance = () => {
       columns: columns,
       downloadTitle: "User Performance",
     };
-
     await importCsvFunction(csvConfig);
   };
 
