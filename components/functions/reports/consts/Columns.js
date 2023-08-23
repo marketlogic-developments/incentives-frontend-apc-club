@@ -189,7 +189,7 @@ export const userPerformanceColumnsCsv = (data) => {
     dcname: "Company Level",
     company_status: "Company Status",
     vip_cc_renewal: "VIP Renewal CC (USD)",
-    vip_dc_renewal: "VIP Renewal  DC (USD)",
+    vip_dc_renewal: "VIP Renewal DC (USD)",
     vip_cc_newbusiness: "VIP New Business CC (USD)",
     vip_dc_newbusiness: "VIP New Business DC (USD)",
     vmp_cc_renewal: "VMP Renewal CC (USD)",
