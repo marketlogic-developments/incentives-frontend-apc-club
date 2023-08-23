@@ -18,6 +18,7 @@ import SortedTable from "../../../table/SortedTable";
 import SalesGoalsSection from "./SalesGoalsSection";
 import RegionGoalSection from "./RegionGoalSection";
 import GraphSales from "../../../dashboard/graphSales";
+import CdpSection from "./CdpSection";
 
 const SalesYtd = () => {
   /* Variable and const */
@@ -217,7 +218,8 @@ const SalesYtd = () => {
       }));
       setRegionVsGoals(formattedData);
     });
-  }, [dispatch, token]);
+
+  }, []);
 
   useEffect(() => {
     if (sales.length === 0) {
@@ -242,7 +244,7 @@ const SalesYtd = () => {
         />
       )}
       <RegionGoalSection regionVsGoals={regionVsGoals} />
-      <GraphSales />
+      <CdpSection />
       {/* MARKET PLACE SECTION */}
       <div className="flex flex-col">
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
@@ -253,7 +255,7 @@ const SalesYtd = () => {
               { data: 0.75, color: "#21A5A2" },
             ]}
           />
-          {/* <GraphMarketVIP token={token} /> */}
+          <GraphMarketVIP token={token} />
         </div>
       </div>
       {/* TABLE SECTION */}
