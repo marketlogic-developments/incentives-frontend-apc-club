@@ -17,7 +17,7 @@ const MarketplaceSection = ({ xValuesLine, marketplaceVip }) => {
         <CardChart title={"Marketplace & VIP"} paragraph="">
           {marketplaceVip && (
             <BarChar
-              title={"Monthly sales"}
+              title={""}
               colorBarOne={"black"}
               colorBarTwo={"#2799F6"}
               dataLeyend={["VIP", "Marketplace"]}
