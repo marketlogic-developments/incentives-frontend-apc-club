@@ -5,20 +5,23 @@
 import { date } from "./Headers";
 
 const parseData = (data, columns, customHeader) => {
+  const columnKeys = Object.keys(columns);
+
   const csvContent =
-    customHeader.join(",") + // Agregar el encabezado personalizado
+    customHeader.join(",") +
     "\n" +
-    Object.keys(data[0])
-      .map((key) => columns[key] || key)
-      .join(",") +
+    columnKeys.map((key) => columns[key]).join(",") +
     "\n" +
     data
       .map((row) =>
-        Object.values(row)
-          .map((value) => {
+        columnKeys
+          .map((key) => {
+            const value = row[key];
+
             if (typeof value === "string" && value.includes(",")) {
               return `"${value}"`;
             }
+
             return value;
           })
           .join(",")
@@ -364,11 +367,7 @@ export const invoiceColumnsCsv = (data) => {
     promoname: "Promotions Name",
   };
 
-  const customHeader = [
-    "Adobe Partner Connection Club",
-    "Invoice",
-    date(),
-  ];
+  const customHeader = ["Adobe Partner Connection Club", "Invoice", date()];
 
   const result = parseData(data, columns, customHeader);
   return result;
