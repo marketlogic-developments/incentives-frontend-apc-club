@@ -80,16 +80,13 @@ const SalesPerformance = () => {
       setLoading(true);
       dispatch(getUserSalePerformance(token))
         .then((response) => {
-          setLoading(false);
           setData(response.payload);
         })
         .catch((error) => {
           console.log(error);
         });
-      setLoading(true);
       dispatch(getSalesvsGoalsUsePerformance(token))
         .then((response) => {
-          setLoading(false);
           setDataBarChar(response.payload[0].json_agg);
         })
         .catch((error) => {
@@ -181,6 +178,8 @@ const SalesPerformance = () => {
     return filteredUsers.slice(itemOffset, endOffset);
   }, [itemOffset, filteredUsers]);
 
+  if (loading && currentItems.length) setLoading(false);
+
   /* Paginate */
   const pageCount = useMemo(
     () => Math.ceil(filteredUsers.length / itemsPerPage),
@@ -217,9 +216,6 @@ const SalesPerformance = () => {
         </span>
         <span>
           <AiOutlineRight />
-        </span>
-        <span className="font-bold text-[#1473E6]">
-          {t("Reportes.user_performance")}
         </span>
         <span className="font-bold text-[#1473E6]">
           {t("Reportes.user_performance")}
@@ -305,7 +301,7 @@ const SalesPerformance = () => {
           title={t("Reportes.descargar")}
         >
           <BtnWithImage
-            text={t("Reportes.descargar")}
+            text={t("Reportes.descargar") + " csv"}
             icon={<CloudDownload />}
             styles={
               "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
@@ -409,9 +405,7 @@ const SalesPerformance = () => {
                   .map((data, index) => (
                     <tr key={index}>
                       <th className="text-left py-3 px-2 mx-4">{data.email}</th>
-                      <th className="text-left py-3 px-2 mx-4">
-                        {data.name}
-                      </th>
+                      <th className="text-left py-3 px-2 mx-4">{data.name}</th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.last_name}
                       </th>
