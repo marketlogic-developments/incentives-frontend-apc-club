@@ -16,12 +16,13 @@ import GraphMarketVIP from "./GraphMarketVIP";
 import FilterSection from "./FilterSection";
 import SortedTable from "../../../table/SortedTable";
 import SalesGoalsSection from "./SalesGoalsSection";
+import RegionGoalSection from "./RegionGoalSection";
+import GraphSales from "../../../dashboard/graphSales";
 
 const SalesYtd = () => {
   /* Variable and const */
   const [t, i18n] = useTranslation("global");
   const [loading, setLoading] = useState(false);
-
   const dispatch = useDispatch();
   const goalYear = useSelector((state) => state.user.user.company.goalsPerYear);
   const sales = useSelector((state) => state.sales.salesgement);
@@ -216,7 +217,7 @@ const SalesYtd = () => {
       }));
       setRegionVsGoals(formattedData);
     });
-  }, []);
+  }, [dispatch, token]);
 
   useEffect(() => {
     if (sales.length === 0) {
@@ -240,36 +241,8 @@ const SalesYtd = () => {
           }}
         />
       )}
-      {/* REGION VS GOALS SECTION */}
-      <div className="grid">
-        <CardChart title={"Region vs Goals"} paragraph="">
-          {regionVsGoals.length && <HorizontalBar datas={regionVsGoals} />}
-        </CardChart>
-      </div>
-      {/* TARGET SALES SECTION */}
-      <div className="flex flex-col w-full gap-6 mt-5 mb-5">
-        <div className="grid sm:grid-cols-3 grid-cols-1 gap-6">
-          <CardChart>
-            {/* <TargetSales
-              data={CC}
-              goal={goals.filter(
-                ({ business_unit }) => business_unit === "Creative Cloud"
-              )}
-            /> */}
-          </CardChart>
-          <CardChart>
-            {/* <TargetSales
-              data={DC}
-              goal={goals.filter(
-                ({ business_unit }) => business_unit === "Document Cloud"
-              )}
-            /> */}
-          </CardChart>
-          <CardChart>
-            {/* <PerformaceSales CC={CC} DC={DC} goals={goals} /> */}
-          </CardChart>
-        </div>
-      </div>
+      <RegionGoalSection regionVsGoals={regionVsGoals} />
+      <GraphSales />
       {/* MARKET PLACE SECTION */}
       <div className="flex flex-col">
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
