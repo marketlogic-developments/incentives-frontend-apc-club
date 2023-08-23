@@ -100,7 +100,7 @@ const reportesDashboard = () => {
         >
           <CustomIcon />
         </CardReportes>
-        <CardReportes
+        {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.summary")}
           onClick={() => {
@@ -108,7 +108,7 @@ const reportesDashboard = () => {
           }}
         >
           <CustomIcon />
-        </CardReportes>
+        </CardReportes> */}
         {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.so_import")}
