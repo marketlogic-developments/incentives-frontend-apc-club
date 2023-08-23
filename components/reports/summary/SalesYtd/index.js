@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ArrowDown } from "../../../icons";
-import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
@@ -17,7 +16,6 @@ import MarketplaceSection from "./MarketplaceSection";
 
 const SalesYtd = () => {
   /* Variable and const */
-  const [t, i18n] = useTranslation("global");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const goalYear = useSelector((state) => state.user.user.company.goalsPerYear);
