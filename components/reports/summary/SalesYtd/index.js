@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import { SearchInput } from "../../../inputs";
-import { ArrowDown, Check, Circle } from "../../../icons";
+import { ArrowDown } from "../../../icons";
 import { useTranslation } from "react-i18next";
-import HorizontalBar from "../../../charts/HorizontalBar";
-import CardChart from "../../../cardReportes/CardChart";
-import BarCircleChart from "../../../charts/BarCircleChart";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
@@ -12,14 +8,11 @@ import {
   getSalesPerformance,
 } from "../../../../store/reducers/sales.reducer";
 import { useMemo } from "react";
-import GraphMarketVIP from "./GraphMarketVIP";
 import FilterSection from "./FilterSection";
 import SortedTable from "../../../table/SortedTable";
 import SalesGoalsSection from "./SalesGoalsSection";
 import RegionGoalSection from "./RegionGoalSection";
-import GraphSales from "../../../dashboard/graphSales";
 import CdpSection from "./CdpSection";
-import BarChar from "../../../cardReportes/BarChar";
 import MarketplaceSection from "./MarketplaceSection";
 
 const SalesYtd = () => {
@@ -307,7 +300,7 @@ const SalesYtd = () => {
       });
     });
   }, []);
-  
+
   useEffect(() => {
     if (sales.length === 0) {
       dispatch(getSalesBySegmentAll(token));
