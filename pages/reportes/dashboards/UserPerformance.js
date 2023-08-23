@@ -336,10 +336,10 @@ const SalesPerformance = () => {
               thStyles={"sticky text-white"}
               cols={[
                 "User Name",
-                "Name",
+                "FirstName",
                 "LastName",
-                "Country",
                 "Region",
+                "Country",
                 // "Company ID",
                 "Company Name",
                 "Company Level",
@@ -370,6 +370,7 @@ const SalesPerformance = () => {
                 "RMA (USD)",
                 "Total DigiPoints",
                 "DigiPoints Redeemed",
+                "Total % effectiveness",
               ]}
             >
               {currentItems &&
@@ -384,18 +385,16 @@ const SalesPerformance = () => {
                     <tr key={index}>
                       <th className="text-left py-3 px-2 mx-4">{data.email}</th>
                       <th className="text-left py-3 px-2 mx-4">
-                        {data.name.split(" ")[0]}
+                        {data.name}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
-                        {data.name.split(" ").length > 1
-                          ? data.name.split(" ").pop()
-                          : ""}
-                      </th>
-                      <th className="text-left py-3 px-2 mx-4">
-                        {data.country_id}
+                        {data.last_name}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.region}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.country_user}
                       </th>
                       {/* <th className="text-left py-3 px-2 mx-4">{data.country_id}</th> */}
                       {/* <th className="text-left py-3 px-2 mx-4">
@@ -479,6 +478,9 @@ const SalesPerformance = () => {
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.redenciones}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.redenciones_over_total_digipoints}
                       </th>
                     </tr>
                   ))}

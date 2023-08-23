@@ -289,7 +289,7 @@ const InvoiceReport = () => {
                 colStyles={"p-2"}
                 thStyles={"sticky text-white"}
                 cols={[
-                  "Membership ID",
+                  /* "Membership ID", */
                   "Company Name",
                   /* "Company Type", */
                   "Company Level",
@@ -329,9 +329,9 @@ const InvoiceReport = () => {
                     })
                     .map((data, index) => (
                       <tr key={index}>
-                        <td className="text-start mx-2 py-4 px-2">
+                        {/* <td className="text-start mx-2 py-4 px-2">
                           {data.company_id}
-                        </td>
+                        </td> */}
                         <td className="text-start mx-2 py-4 px-2">
                           {data.company_name}
                         </td>
