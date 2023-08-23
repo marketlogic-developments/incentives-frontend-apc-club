@@ -15,6 +15,7 @@ import { useMemo } from "react";
 import GraphMarketVIP from "./GraphMarketVIP";
 import FilterSection from "./FilterSection";
 import SortedTable from "../../../table/SortedTable";
+import SalesGoalsSection from "./SalesGoalsSection";
 
 const SalesYtd = () => {
   /* Variable and const */
@@ -25,16 +26,12 @@ const SalesYtd = () => {
   const goalYear = useSelector((state) => state.user.user.company.goalsPerYear);
   const sales = useSelector((state) => state.sales.salesgement);
   const token = useSelector((state) => state.user.token);
-  const [regionVsGoals, setRegionVsGoals] = useState({});
+  const [regionVsGoals, setRegionVsGoals] = useState({
+    name: "",
+    value: 0,
+    color: "",
+  });
   const [totalSales, setTotalSales] = useState(0);
-  const dataTotalSaleGoal = useMemo(
-    () => ({
-      expected: goalYear,
-      reached: totalSales,
-      progress: `${Math.floor(Math.round((totalSales * 100) / goalYear))}%`,
-    }),
-    [totalSales, goalYear]
-  );
   const dataTable = [
     {
       segmento: "Commercial",
@@ -148,6 +145,14 @@ const SalesYtd = () => {
     MEXICO: "#1C2226",
     BRAZIL: "#21A5A2",
   };
+  const dataTotalSaleGoal = useMemo(
+    () => ({
+      expected: goalYear,
+      reached: totalSales,
+      progress: `${Math.floor(Math.round((totalSales * 100) / goalYear))}%`,
+    }),
+    [totalSales, goalYear]
+  );
 
   const getColorForField = (value, mapping, defaultColor = "#828282") => {
     return mapping[value] || defaultColor;
@@ -172,18 +177,6 @@ const SalesYtd = () => {
     return revenueByRegion;
   };
 
-  useEffect(() => {
-    dispatch(getSalesPerformance(token)).then((res) => {
-      const revenueByRegion = calculateTotalRevenueByRegion(res.payload);
-      const formattedData = Object.keys(revenueByRegion).map((region) => ({
-        name: region,
-        value: revenueByRegion[region],
-        color: getColorForField(region, colorMapping),
-      }));
-      setRegionVsGoals(formattedData);
-    });
-  }, []);
-
   const salesReduce = () => {
     const totalSalesReduce = Math.round(
       sales.reduce(
@@ -195,7 +188,7 @@ const SalesYtd = () => {
     setTotalSales(totalSalesReduce);
   };
 
-  const formatearNumero = (numero) => {
+  const formattedNumber = (numero) => {
     // Redondear el número hacia abajo para eliminar la parte decimal
     numero = Math.floor(numero);
 
@@ -214,6 +207,18 @@ const SalesYtd = () => {
   };
 
   useEffect(() => {
+    dispatch(getSalesPerformance(token)).then((res) => {
+      const revenueByRegion = calculateTotalRevenueByRegion(res.payload);
+      const formattedData = Object.keys(revenueByRegion).map((region) => ({
+        name: region,
+        value: Number(revenueByRegion[region]).toFixed(2),
+        color: getColorForField(region, colorMapping),
+      }));
+      setRegionVsGoals(formattedData);
+    });
+  }, []);
+
+  useEffect(() => {
     if (sales.length === 0) {
       dispatch(getSalesBySegmentAll(token));
     }
@@ -225,44 +230,20 @@ const SalesYtd = () => {
 
   return (
     <div className="m-5">
-      <FilterSection multiSelect={multiSelect} />
-      {/* TOTAL SALES VS GOALS SECTION */}
-      <div className="p-3">
-        <h1 className="text-black font-bold">Total Sales vs Goals</h1>
-      </div>
-      <div className="grid sm:grid-cols-3 grid-cols-1 divide-x">
-        <div className="flex justify-center gap-3">
-          <Circle />
-          <div className="grid">
-            <h3 className="text-gray-400 font-bold">Expected</h3>
-            <h1 className="text-black font-bold">
-              $ {formatearNumero(dataTotalSaleGoal.expected)}
-            </h1>
-          </div>
-        </div>
-        <div className="flex justify-center gap-3">
-          <Check />
-          <div className="grid">
-            <h3 className="text-gray-400 font-bold">Reached</h3>
-            <h1 className="text-black font-bold">
-              $ {formatearNumero(dataTotalSaleGoal.reached)}
-            </h1>
-          </div>
-        </div>
-        <div className="flex justify-center gap-3">
-          <Circle />
-          <div className="grid">
-            <h3 className="text-gray-400 font-bold">Progress</h3>
-            <h1 className="text-black font-bold">
-              {dataTotalSaleGoal.progress}
-            </h1>
-          </div>
-        </div>
-      </div>
+      {multiSelect.length && <FilterSection multiSelect={multiSelect} />}
+      {dataTotalSaleGoal && (
+        <SalesGoalsSection
+          totalSaleGoal={{
+            expected: formattedNumber(dataTotalSaleGoal.expected),
+            reached: formattedNumber(dataTotalSaleGoal.reached),
+            progress: dataTotalSaleGoal.progress,
+          }}
+        />
+      )}
       {/* REGION VS GOALS SECTION */}
       <div className="grid">
         <CardChart title={"Region vs Goals"} paragraph="">
-          <HorizontalBar data={regionVsGoals} />
+          {regionVsGoals.length && <HorizontalBar datas={regionVsGoals} />}
         </CardChart>
       </div>
       {/* TARGET SALES SECTION */}
