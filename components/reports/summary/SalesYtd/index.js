@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { SearchInput } from "../../../inputs";
-import {
-  ArrowDown,
-  Check,
-  Circle,
-} from "../../../icons";
+import { ArrowDown, Check, Circle } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import HorizontalBar from "../../../charts/HorizontalBar";
 import CardChart from "../../../cardReportes/CardChart";
 import BarCircleChart from "../../../charts/BarCircleChart";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getSalesBySegmentAll } from "../../../../store/reducers/sales.reducer";
+import {
+  getSalesBySegmentAll,
+  getSalesPerformance,
+} from "../../../../store/reducers/sales.reducer";
 import { useMemo } from "react";
 import GraphMarketVIP from "./GraphMarketVIP";
 import FilterSection from "./FilterSection";
@@ -26,6 +25,7 @@ const SalesYtd = () => {
   const goalYear = useSelector((state) => state.user.user.company.goalsPerYear);
   const sales = useSelector((state) => state.sales.salesgement);
   const token = useSelector((state) => state.user.token);
+  const [regionVsGoals, setRegionVsGoals] = useState({});
   const [totalSales, setTotalSales] = useState(0);
   const dataTotalSaleGoal = useMemo(
     () => ({
@@ -35,7 +35,6 @@ const SalesYtd = () => {
     }),
     [totalSales, goalYear]
   );
-
   const dataTable = [
     {
       segmento: "Commercial",
@@ -143,6 +142,49 @@ const SalesYtd = () => {
       name: "licensiong",
     },
   ];
+  const colorMapping = {
+    NOLA: "#2799F6",
+    SOLA: "#1473E6",
+    MEXICO: "#1C2226",
+    BRAZIL: "#21A5A2",
+  };
+
+  const getColorForField = (value, mapping, defaultColor = "#828282") => {
+    return mapping[value] || defaultColor;
+  };
+
+  const calculateTotalRevenueByRegion = (data) => {
+    const regions = ["NOLA", "SOLA", "MEXICO", "BRAZIL"];
+
+    const revenueByRegion = {};
+
+    regions.forEach((region) => {
+      const totalRevenue = data.reduce((total, obj) => {
+        if (obj.region === region) {
+          const revenue = parseFloat(Number(obj.total_revenue).toFixed(2));
+          return total + revenue;
+        }
+        return total;
+      }, 0);
+      revenueByRegion[region] = totalRevenue;
+    });
+
+    return revenueByRegion;
+  };
+
+  useEffect(() => {
+    dispatch(getSalesPerformance(token)).then((res) => {
+      const revenueByRegion = calculateTotalRevenueByRegion(res.payload);
+      const formattedData = Object.keys(revenueByRegion).map((region) => ({
+        name: region,
+        value: revenueByRegion[region],
+        color: getColorForField(region, colorMapping),
+      }));
+      setRegionVsGoals(formattedData);
+    });
+  }, []);
+
+  console.log(regionVsGoals);
 
   const salesReduce = () => {
     const totalSalesReduce = Math.round(
@@ -185,7 +227,7 @@ const SalesYtd = () => {
 
   return (
     <div className="m-5">
-      <FilterSection multiSelect={multiSelect}/>
+      <FilterSection multiSelect={multiSelect} />
       {/* TOTAL SALES VS GOALS SECTION */}
       <div className="p-3">
         <h1 className="text-black font-bold">Total Sales vs Goals</h1>
@@ -222,15 +264,7 @@ const SalesYtd = () => {
       {/* REGION VS GOALS SECTION */}
       <div className="grid">
         <CardChart title={"Region vs Goals"} paragraph="">
-          <HorizontalBar
-            yNames={["Nola", "Sola", "Mexico", "Brazil"]}
-            datas={[
-              { value: 250, color: "#2799F6" },
-              { value: 230, color: "#1473E6" },
-              { value: 200, color: "#1C2226" },
-              { value: 180, color: "#21A5A2" },
-            ]}
-          />
+          <HorizontalBar data={regionVsGoals} />
         </CardChart>
       </div>
       {/* TARGET SALES SECTION */}
@@ -267,7 +301,7 @@ const SalesYtd = () => {
               { data: 0.75, color: "#21A5A2" },
             ]}
           />
-          <GraphMarketVIP token={token} />
+          {/* <GraphMarketVIP token={token} /> */}
         </div>
       </div>
       {/* TABLE SECTION */}
