@@ -19,6 +19,7 @@ import SalesGoalsSection from "./SalesGoalsSection";
 import RegionGoalSection from "./RegionGoalSection";
 import GraphSales from "../../../dashboard/graphSales";
 import CdpSection from "./CdpSection";
+import BarChar from "../../../cardReportes/BarChar";
 
 const SalesYtd = () => {
   /* Variable and const */
@@ -33,6 +34,7 @@ const SalesYtd = () => {
     value: 0,
     color: "",
   });
+  const [marketplaceVip, setMarketplaceVip] = useState();
   const [totalSales, setTotalSales] = useState(0);
   const dataTable = [
     {
@@ -141,6 +143,7 @@ const SalesYtd = () => {
       name: "licensiong",
     },
   ];
+  const xValuesLine = ["Q1", "Q2", "Q3", "Q4"];
   const colorMapping = {
     NOLA: "#2799F6",
     SOLA: "#1473E6",
@@ -156,13 +159,13 @@ const SalesYtd = () => {
     [totalSales, goalYear]
   );
 
+  /* REGION VS GOALS */
   const getColorForField = (value, mapping, defaultColor = "#828282") => {
     return mapping[value] || defaultColor;
   };
 
   const calculateTotalRevenueByRegion = (data) => {
     const regions = ["NOLA", "SOLA", "MEXICO", "BRAZIL"];
-
     const revenueByRegion = {};
 
     regions.forEach((region) => {
@@ -179,6 +182,79 @@ const SalesYtd = () => {
     return revenueByRegion;
   };
 
+  const calculateAndFormatData = (
+    data,
+    calculateTotalFunction,
+    getColorFunction,
+    colorMapping
+  ) => {
+    const revenueByRegion = calculateTotalFunction(data);
+    const formattedData = Object.keys(revenueByRegion).map((region) => ({
+      name: region,
+      value: Number(revenueByRegion[region]).toFixed(2),
+      color: getColorFunction(region, colorMapping),
+    }));
+    return formattedData;
+  };
+
+  /* MARKETPLACE & VIP */
+  const calculateQuarterlyTotals = (data, propertyNames) => {
+    const quarterlyTotals = propertyNames.reduce((totals, propertyName) => {
+      totals[propertyName] = {
+        Q1: 0,
+        Q2: 0,
+        Q3: 0,
+        Q4: 0,
+      };
+      return totals;
+    }, {});
+
+    data.forEach((obj) => {
+      propertyNames.forEach((propertyName) => {
+        for (let quarter = 1; quarter <= 4; quarter++) {
+          quarterlyTotals[propertyName][`Q${quarter}`] += parseFloat(
+            obj[`${propertyName}_revenue_q${quarter}`]
+          );
+        }
+      });
+    });
+
+    return quarterlyTotals;
+  };
+
+  const formatQuarterlyTotals = (totals) => {
+    const formattedTotals = {};
+    for (const propertyName in totals) {
+      formattedTotals[propertyName] = {
+        Q1: totals[propertyName].Q1.toFixed(2),
+        Q2: totals[propertyName].Q2.toFixed(2),
+        Q3: totals[propertyName].Q3.toFixed(2),
+        Q4: totals[propertyName].Q4.toFixed(2),
+      };
+    }
+    return formattedTotals;
+  };
+
+  const formatterDataToBarChart = (
+    data,
+    calculateQuarterlyTotals,
+    formatTotalsFunction,
+    legendLabels
+  ) => {
+    const quarterlyTotals = calculateQuarterlyTotals(data, legendLabels);
+    const formattedTotals = formatTotalsFunction(quarterlyTotals);
+
+    const dataObjects = legendLabels.map((label) => ({
+      label: label,
+      data: Object.keys(formattedTotals[label]).map((quarter) =>
+        Number(formattedTotals[label][quarter])
+      ),
+    }));
+
+    return dataObjects;
+  };
+
+  /* TOTAL SALES VS GOALS */
   const salesReduce = () => {
     const totalSalesReduce = Math.round(
       sales.reduce(
@@ -210,17 +286,27 @@ const SalesYtd = () => {
 
   useEffect(() => {
     dispatch(getSalesPerformance(token)).then((res) => {
-      const revenueByRegion = calculateTotalRevenueByRegion(res.payload);
-      const formattedData = Object.keys(revenueByRegion).map((region) => ({
-        name: region,
-        value: Number(revenueByRegion[region]).toFixed(2),
-        color: getColorForField(region, colorMapping),
-      }));
+      const formattedData = calculateAndFormatData(
+        res.payload,
+        calculateTotalRevenueByRegion,
+        getColorForField,
+        colorMapping
+      );
       setRegionVsGoals(formattedData);
+
+      const formattedTotals = formatterDataToBarChart(
+        res.payload,
+        calculateQuarterlyTotals,
+        formatQuarterlyTotals,
+        ["vip", "vmp"]
+      );
+      setMarketplaceVip({
+        vip: formattedTotals.find((item) => item.label === "vip").data,
+        vmp: formattedTotals.find((item) => item.label === "vmp").data,
+      });
     });
-
   }, []);
-
+  console.log(marketplaceVip);
   useEffect(() => {
     if (sales.length === 0) {
       dispatch(getSalesBySegmentAll(token));
@@ -255,7 +341,19 @@ const SalesYtd = () => {
               { data: 0.75, color: "#21A5A2" },
             ]}
           />
-          <GraphMarketVIP token={token} />
+          <CardChart title={"Marketplace & VIP"} paragraph="">
+            {marketplaceVip && (
+              <BarChar
+                title={"Monthly sales"}
+                colorBarOne={"black"}
+                colorBarTwo={"#2799F6"}
+                dataLeyend={["VIP", "Marketplace"]}
+                dataOne={marketplaceVip.vip}
+                dataTwo={marketplaceVip.vmp}
+                xValues={xValuesLine}
+              />
+            )}
+          </CardChart>
         </div>
       </div>
       {/* TABLE SECTION */}
