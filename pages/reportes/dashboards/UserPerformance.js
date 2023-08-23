@@ -51,20 +51,6 @@ const SalesPerformance = () => {
   const [loadingBarChart, setLoadingBarChart] = useState(true);
   const router = useRouter();
   const [dataBarChar, setDataBarChar] = useState([]);
-  const xValues = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
   const months = [
     "Ene",
     "Feb",
@@ -146,7 +132,6 @@ const SalesPerformance = () => {
       columns: columns,
       downloadTitle: "User Performance",
     };
-
     await importCsvFunction(csvConfig);
   };
 
@@ -236,6 +221,46 @@ const SalesPerformance = () => {
         <span className="font-bold text-[#1473E6]">
           {t("Reportes.user_performance")}
         </span>
+        <span className="font-bold text-[#1473E6]">
+          {t("Reportes.user_performance")}
+        </span>
+      </div>
+      <div className="grid w-auto gap-2">
+        <div className="pr-4">
+          <CardChart title={t("Reportes.digiponits")} paragraph="">
+            <MultiLineChart
+              dataLeyend={[
+                "Sales DigiPoints",
+                "DigiPoints redeemed",
+                "Behaviour DigiPoints",
+              ]}
+              dataX={[
+                "Ene",
+                "Feb",
+                "Mar",
+                "Abri",
+                "May",
+                "Jun",
+                "Jul",
+                "Ago",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec",
+              ]}
+              dataOne={[
+                120, 132, 101, 134, 90, 230, 210, 201, 154, 190, 330, 410,
+              ]}
+              dataTwo={[
+                220, 182, 191, 234, 290, 330, 310, 101, 134, 90, 230, 210,
+              ]}
+              dataThree={[
+                150, 232, 201, 154, 190, 330, 410, 201, 154, 190, 330, 410,
+              ]}
+              colorsLine={["red", "green", "blue"]}
+            />
+          </CardChart>
+        </div>
       </div>
       <div className="grid w-auto gap-2">
         <div className="pr-4">
