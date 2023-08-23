@@ -20,6 +20,7 @@ import RegionGoalSection from "./RegionGoalSection";
 import GraphSales from "../../../dashboard/graphSales";
 import CdpSection from "./CdpSection";
 import BarChar from "../../../cardReportes/BarChar";
+import MarketplaceSection from "./MarketplaceSection";
 
 const SalesYtd = () => {
   /* Variable and const */
@@ -306,7 +307,7 @@ const SalesYtd = () => {
       });
     });
   }, []);
-  console.log(marketplaceVip);
+  
   useEffect(() => {
     if (sales.length === 0) {
       dispatch(getSalesBySegmentAll(token));
@@ -331,31 +332,12 @@ const SalesYtd = () => {
       )}
       <RegionGoalSection regionVsGoals={regionVsGoals} />
       <CdpSection />
-      {/* MARKET PLACE SECTION */}
-      <div className="flex flex-col">
-        <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
-          <BarCircleChart
-            datas={[
-              { data: 0.25, color: "#232B2F" },
-              { data: 0.5, color: "#1473E6" },
-              { data: 0.75, color: "#21A5A2" },
-            ]}
-          />
-          <CardChart title={"Marketplace & VIP"} paragraph="">
-            {marketplaceVip && (
-              <BarChar
-                title={"Monthly sales"}
-                colorBarOne={"black"}
-                colorBarTwo={"#2799F6"}
-                dataLeyend={["VIP", "Marketplace"]}
-                dataOne={marketplaceVip.vip}
-                dataTwo={marketplaceVip.vmp}
-                xValues={xValuesLine}
-              />
-            )}
-          </CardChart>
-        </div>
-      </div>
+      {marketplaceVip && (
+        <MarketplaceSection
+          xValuesLine={xValuesLine}
+          marketplaceVip={marketplaceVip}
+        />
+      )}
       {/* TABLE SECTION */}
       <div className="justify-items-center pt-5">
         {loading && <div className="lds-dual-ring"></div>}

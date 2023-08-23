@@ -17,7 +17,7 @@ const BarCircleChart = ({
       </div>
       <div className="grid grid-flow-row h-full gap-3">
         {datas.map((data, index) => (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2" key={index}>
             <div className="flex w-full justify-between">
               <p className="lg:!text-xs xl:!text-sm font-bold">{t("Gold")}</p>
               <p className="!text-sm">{Number(data.data * 100).toFixed(0)}%</p>
