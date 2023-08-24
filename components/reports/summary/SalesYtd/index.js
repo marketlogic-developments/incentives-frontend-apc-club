@@ -29,23 +29,9 @@ const SalesYtd = () => {
   const [marketplaceVip, setMarketplaceVip] = useState();
   const [levelSale, setLevelSale] = useState();
   const [totalSales, setTotalSales] = useState(0);
-  const dataTable = [
-    {
-      segmento: "Commercial",
-      total_sales: 1760017,
-      digipoints: 1760017,
-    },
-    {
-      segmento: "Goverment",
-      total_sales: 208991,
-      digipoints: 208991,
-    },
-    {
-      segmento: "Education",
-      total_sales: 244656,
-      digipoints: 244656,
-    },
-  ];
+  const [dataTable, setDataTable] = useState();
+  const itemsPerPage = 10;
+  const [itemOffset, setItemOffset] = useState(0);
   const multiSelect = [
     {
       placeholder: "Year",
@@ -309,6 +295,29 @@ const SalesYtd = () => {
     return grupos.join(",");
   };
 
+  /* PAGINATE */
+  
+  const currentItems = useMemo(() => {
+    const endOffset = itemOffset + itemsPerPage;
+
+    if (dataTable?.length === 1) {
+      return dataTable;
+    }
+
+    return dataTable?.slice(itemOffset, endOffset);
+  }, [itemOffset, dataTable]);
+
+  const pageCount = useMemo(
+    () => Math.ceil(dataTable?.length / itemsPerPage),
+    [dataTable, itemsPerPage]
+  );
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage);
+
+    setItemOffset(newOffset);
+  };
+
   useEffect(() => {
     dispatch(getSalesPerformance(token)).then((res) => {
       const formattedData = calculateAndFormatData(
@@ -336,9 +345,10 @@ const SalesYtd = () => {
         "CERTIFIED",
       ]);
       setLevelSale(formatterRevenueTotals);
+      setDataTable(res.payload);
     });
   }, []);
-  
+  console.log(dataTable);
   useEffect(() => {
     if (sales.length === 0) {
       dispatch(getSalesBySegmentAll(token));
@@ -373,7 +383,7 @@ const SalesYtd = () => {
       {/* TABLE SECTION */}
       <div className="justify-items-center pt-5">
         {loading && <div className="lds-dual-ring"></div>}
-        {!loading && (
+        {!loading && dataTable && (
           <SortedTable
             containerStyles={
               "mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max !w-full"
@@ -386,22 +396,42 @@ const SalesYtd = () => {
                 rowStyles: "",
                 sort: false,
                 symbol: "",
-                identity: "segmento",
+                identity: "company_type",
+                columnName: "Segmento",
+              },
+              {
+                rowStyles: "",
+                sort: false,
+                symbol: "USD",
+                identity: "sales_education_cc",
                 columnName: "Segmento",
               },
               {
                 symbol: "USD",
-                identity: "total_sales",
-                columnName: "Total Sales USD",
+                identity: "sales_enterprise_cc",
+                columnName: "Total Sales Enterprice USD",
               },
               {
                 symbol: "USD",
-                identity: "digipoints",
-                columnName: "DigiPoints",
+                identity: "sales_teams_cc",
+                columnName: "Total sales Team USD",
+              },
+              {
+                symbol: "USD",
+                identity: "sales_enterprise_dc",
+                columnName: "Total Sales Enterprise USD",
+              },
+              {
+                symbol: "USD",
+                identity: "sales_acrobat_pro_dc",
+                columnName: "Sales Acrobat USD",
               },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
-            currentItems={dataTable}
+            currentItems={currentItems}
+            paginate={true}
+            pageCount={pageCount}
+            handlePageClick={handlePageClick}
             sumColum={true}
           />
         )}
