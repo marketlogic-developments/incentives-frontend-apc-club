@@ -389,7 +389,6 @@ const SalesYtd = () => {
 
   useEffect(() => {
     dispatch(getSalesYtd(token, filters)).then((res) => {
-      console.log(res.payload);
       const revenueSums = calculateRevenueSum(res.payload);
       setSales(revenueSums);
 
@@ -467,7 +466,7 @@ const SalesYtd = () => {
           marketplaceVip={marketplaceVip}
         />
       )}
-      {/* TABLE SECTION PENDIENTE */}
+      {/* TABLE SECTION */}
       <div className="justify-items-center pt-5">
         {loading && <div className="lds-dual-ring"></div>}
         {!loading && dataTable && (

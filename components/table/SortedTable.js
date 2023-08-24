@@ -34,7 +34,7 @@ const SortedTable = ({
 }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
-console.log(currentItems);
+  
   /* SUMA DE COLUMNAS */
   const columnSums = currentItems.reduce((acc, obj) => {
     Object.keys(obj).forEach((key) => {
