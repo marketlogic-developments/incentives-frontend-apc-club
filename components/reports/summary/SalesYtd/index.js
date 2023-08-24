@@ -18,7 +18,6 @@ const SalesYtd = () => {
   /* Variable and const */
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const goalYear = useSelector((state) => state.user.user.company.goalsPerYear);
   const [sales, setSales] = useState();
   const token = useSelector((state) => state.user.token);
   const [regionVsGoals, setRegionVsGoals] = useState({
@@ -30,104 +29,142 @@ const SalesYtd = () => {
   const [levelSale, setLevelSale] = useState();
   const [dataTable, setDataTable] = useState();
   const [filters, setFilters] = useState({
-    company_type: "",
+    company_name: "",
+    level: "",
     region: "",
     country_id: "",
-    level: "",
+    quarter: "",
+    month: "",
+    marketSegment: "",
+    businessUnit: "",
+    company_type: "",
   });
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [companiesName, setCompaniesName] = useState();
   const [levels, setLevels] = useState();
   const [regions, setRegions] = useState();
   const [countries, setCountries] = useState();
-  const [companies, setCompanies] = useState();
+  const [quarter, setQuarter] = useState(["q1", "q2", "q3", "q4"]);
+  const [month, setMonth] = useState(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']);
+  const [marketSegment, setMarketSegment] = useState([
+    "Teams",
+    "Enterprise",
+    "Education",
+    "Acrobat Pro",
+  ]);
+  const [businessUnit, setBusinessUnit] = useState([
+    "Document Cloud",
+    "Creative Cloud",
+  ]);
+  const [companies, setCompaniesType] = useState();
   const multiSelect = [
     {
-      placeholder: "Year",
-      value: [],
-      dataSelect: [],
+      placeholder: "Company name",
+      value: filters.company_name,
+      dataSelect: companiesName?.map((company_name) => ({
+        label: company_name,
+        value: company_name,
+      })),
+      onChange: (name, value) => handleFilters(name, value),
       searchable: true,
       icon: <ArrowDown />,
-      name: "year",
+      name: "company_name",
     },
     {
-      placeholder: "Quater",
-      value: [],
-      dataSelect: [],
+      placeholder: "Levels",
+      value: filters.level,
+      dataSelect: levels?.map((level) => ({
+        label: level,
+        value: level,
+      })),
+      onChange: (name, value) => handleFilters(name, value),
       searchable: true,
       icon: <ArrowDown />,
-      name: "quater",
-    },
-    {
-      placeholder: "Month",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "Month",
+      name: "level",
     },
     {
       placeholder: "Region",
-      value: [],
-      dataSelect: [],
+      value: filters.region,
+      dataSelect: regions?.map((region) => ({
+        label: region,
+        value: region,
+      })),
+      onChange: (name, value) => handleFilters(name, value),
       searchable: true,
       icon: <ArrowDown />,
       name: "region",
     },
     {
       placeholder: "Country",
-      value: [],
-      dataSelect: [],
+      value: filters.country_id,
+      dataSelect: countries?.map((country_id) => ({
+        label: country_id,
+        value: country_id,
+      })),
+      onChange: (name, value) => handleFilters(name, value),
       searchable: true,
       icon: <ArrowDown />,
-      name: "country",
+      name: "country_id",
     },
     {
-      placeholder: "Partner level",
-      value: [],
-      dataSelect: [],
+      placeholder: "Quarter",
+      value: filters.quarter,
+      dataSelect: quarter?.map((quarter) => ({
+        label: quarter,
+        value: quarter,
+      })),
+      onChange: (name, value) => handleFilters(name, value),
       searchable: true,
-      icon: "",
-      name: "partner_level",
+      icon: <ArrowDown />,
+      name: "quarter",
     },
     {
-      placeholder: "Partner",
-      value: [],
-      dataSelect: [],
+      placeholder: "Month",
+      value: filters.month,
+      dataSelect: month?.map((month) => ({
+        label: month,
+        value: month,
+      })),
+      onChange: (name, value) => handleFilters(name, value),
       searchable: true,
-      icon: "",
-      name: "partner",
+      icon: <ArrowDown />,
+      name: "month",
     },
     {
-      placeholder: "Market segment",
-      value: [],
-      dataSelect: [],
+      placeholder: "Market Segment",
+      value: filters.marketSegment,
+      dataSelect: marketSegment?.map((marketSegment) => ({
+        label: marketSegment,
+        value: marketSegment,
+      })),
+      onChange: (name, value) => handleFilters(name, value),
       searchable: true,
-      icon: "",
-      name: "market_segment",
+      icon: <ArrowDown />,
+      name: "marketSegment",
     },
     {
-      placeholder: "Business unit",
-      value: [],
-      dataSelect: [],
+      placeholder: "Business Unit",
+      value: filters.businessUnit,
+      dataSelect: businessUnit?.map((businessUnit) => ({
+        label: businessUnit,
+        value: businessUnit,
+      })),
+      onChange: (name, value) => handleFilters(name, value),
       searchable: true,
-      icon: "",
-      name: "business_unit",
+      icon: <ArrowDown />,
+      name: "businessUnit",
     },
     {
-      placeholder: "Business type",
-      value: [],
-      dataSelect: [],
+      placeholder: "Company",
+      value: filters.company_type,
+      dataSelect: companies?.map((company_type) => ({
+        label: company_type,
+        value: company_type,
+      })),
+      onChange: (name, value) => handleFilters(name, value),
       searchable: true,
-      icon: "",
-      name: "business_type",
-    },
-    {
-      placeholder: "Licensing type",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: "",
-      name: "licensiong",
+      icon: <ArrowDown />,
+      name: "company_type",
     },
   ];
   const xValuesLine = ["Q1", "Q2", "Q3", "Q4"];
@@ -145,12 +182,12 @@ const SalesYtd = () => {
   /* SET DATA */
   const sumSalesForCompanies = (data, companyTypes) => {
     const result = [];
-  
+
     companyTypes.forEach((companyType) => {
       const companyData = data.filter(
         (item) => item.company_type === companyType
       );
-  
+
       const salesSums = {
         company_type: companyType,
         sales_education_cc: "0",
@@ -160,42 +197,42 @@ const SalesYtd = () => {
         sales_teams_cc: "0",
         sales_acrobat_pro_dc: "0",
       };
-  
+
       companyData.forEach((item) => {
         salesSums.sales_education_cc = (
           parseFloat(salesSums.sales_education_cc) +
           (parseFloat(item.sales_education_cc) || 0)
         ).toFixed(2);
-  
+
         salesSums.sales_education_dc = (
           parseFloat(salesSums.sales_education_dc) +
           (parseFloat(item.sales_education_dc) || 0)
         ).toFixed(2);
-  
+
         salesSums.sales_enterprise_cc = (
           parseFloat(salesSums.sales_enterprise_cc) +
           (parseFloat(item.sales_enterprise_cc) || 0)
         ).toFixed(2);
-  
+
         salesSums.sales_enterprise_dc = (
           parseFloat(salesSums.sales_enterprise_dc) +
           (parseFloat(item.sales_enterprise_dc) || 0)
         ).toFixed(2);
-  
+
         salesSums.sales_teams_cc = (
           parseFloat(salesSums.sales_teams_cc) +
           (parseFloat(item.sales_teams_cc) || 0)
         ).toFixed(2);
-  
+
         salesSums.sales_acrobat_pro_dc = (
           parseFloat(salesSums.sales_acrobat_pro_dc) +
           (parseFloat(item.sales_acrobat_pro_dc) || 0)
         ).toFixed(2);
       });
-  
+
       result.push(salesSums);
     });
-  
+
     return result;
   };
 
@@ -206,6 +243,7 @@ const SalesYtd = () => {
 
   const clearSelects = () => {
     setFilters({
+      company_name: "",
       company_type: "",
       region: "",
       country_id: "",
@@ -424,10 +462,11 @@ const SalesYtd = () => {
         getUniqueFieldValues(res.payload, "company_type")
       );
       setDataTable(totalRevenueForCompany);
+      setCompaniesName(getUniqueFieldValues(res.payload, "company_name"));
       setLevels(getUniqueFieldValues(res.payload, "level"));
       setRegions(getUniqueFieldValues(res.payload, "region"));
       setCountries(getUniqueFieldValues(res.payload, "country_id"));
-      setCompanies(getUniqueFieldValues(res.payload, "company_type"));
+      setCompaniesType(getUniqueFieldValues(res.payload, "company_type"));
       setDataLoaded(true);
     });
   }, [filters]);
@@ -437,10 +476,15 @@ const SalesYtd = () => {
       {dataLoaded && (
         <FilterSection
           filters={filters}
-          companyType={companies}
+          companyName={companiesName}
+          levels={levels}
           region={regions}
           countries={countries}
-          levels={levels}
+          quarter={quarter}
+          month={month}
+          marketSegment={marketSegment}
+          businessUnit={businessUnit}
+          companyType={companies}
           handleFilters={handleFilters}
           multiSelect={multiSelect}
           clearSelects={clearSelects}

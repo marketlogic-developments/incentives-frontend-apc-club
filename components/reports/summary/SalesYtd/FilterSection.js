@@ -5,10 +5,15 @@ import { ArrowDown } from "../../../icons";
 import SelectInputValue from "../../../inputs/SelectInputValue";
 
 const FilterSection = ({
-  companyType,
+  companyName,
+  levels,
   region,
   countries,
-  levels,
+  quarter,
+  month,
+  marketSegment,
+  businessUnit,
+  companyType,
   handleFilters,
   filters,
   multiSelect,
@@ -30,6 +35,19 @@ const FilterSection = ({
         onChange={handleFilters}
         name={"company_type"}
       />
+
+      {/* <SelectInputValue
+        placeholder={"Company Name"}
+        value={filters.company_name}
+        data={companyName.map((company_name) => ({
+          label: company_name,
+          value: company_name,
+        }))}
+        icon={<ArrowDown />}
+        searchable={true}
+        onChange={handleFilters}
+        name={"company_name"}
+      /> */}
 
       <SelectInputValue
         placeholder={"Region"}
@@ -55,7 +73,7 @@ const FilterSection = ({
       />
 
       <SelectInputValue
-        placeholder={"Level"}
+        placeholder={"Partner level"}
         value={filters.level}
         data={levels.map((level) => ({ label: level, value: level }))}
         icon={<ArrowDown />}
