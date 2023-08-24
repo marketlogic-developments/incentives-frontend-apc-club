@@ -40,8 +40,6 @@ const SalesYtd = () => {
   const [regions, setRegions] = useState();
   const [countries, setCountries] = useState();
   const [companies, setCompanies] = useState();
-  const itemsPerPage = 10;
-  const [itemOffset, setItemOffset] = useState(0);
   const multiSelect = [
     {
       placeholder: "Year",
@@ -142,6 +140,63 @@ const SalesYtd = () => {
     PLATINUM: "#1473E6",
     DISTRIBUTOR: "#21A5A2",
     CERTIFIED: "#21A5A2",
+  };
+
+  /* SET DATA */
+  const sumSalesForCompanies = (data, companyTypes) => {
+    const result = [];
+  
+    companyTypes.forEach((companyType) => {
+      const companyData = data.filter(
+        (item) => item.company_type === companyType
+      );
+  
+      const salesSums = {
+        company_type: companyType,
+        sales_education_cc: "0",
+        sales_education_dc: "0",
+        sales_enterprise_cc: "0",
+        sales_enterprise_dc: "0",
+        sales_teams_cc: "0",
+        sales_acrobat_pro_dc: "0",
+      };
+  
+      companyData.forEach((item) => {
+        salesSums.sales_education_cc = (
+          parseFloat(salesSums.sales_education_cc) +
+          (parseFloat(item.sales_education_cc) || 0)
+        ).toFixed(2);
+  
+        salesSums.sales_education_dc = (
+          parseFloat(salesSums.sales_education_dc) +
+          (parseFloat(item.sales_education_dc) || 0)
+        ).toFixed(2);
+  
+        salesSums.sales_enterprise_cc = (
+          parseFloat(salesSums.sales_enterprise_cc) +
+          (parseFloat(item.sales_enterprise_cc) || 0)
+        ).toFixed(2);
+  
+        salesSums.sales_enterprise_dc = (
+          parseFloat(salesSums.sales_enterprise_dc) +
+          (parseFloat(item.sales_enterprise_dc) || 0)
+        ).toFixed(2);
+  
+        salesSums.sales_teams_cc = (
+          parseFloat(salesSums.sales_teams_cc) +
+          (parseFloat(item.sales_teams_cc) || 0)
+        ).toFixed(2);
+  
+        salesSums.sales_acrobat_pro_dc = (
+          parseFloat(salesSums.sales_acrobat_pro_dc) +
+          (parseFloat(item.sales_acrobat_pro_dc) || 0)
+        ).toFixed(2);
+      });
+  
+      result.push(salesSums);
+    });
+  
+    return result;
   };
 
   /* SELECTS */
@@ -319,29 +374,6 @@ const SalesYtd = () => {
     return grupos.join(",");
   };
 
-  /* PAGINATE */
-
-  const currentItems = useMemo(() => {
-    const endOffset = itemOffset + itemsPerPage;
-
-    if (dataTable?.length === 1) {
-      return dataTable;
-    }
-
-    return dataTable?.slice(itemOffset, endOffset);
-  }, [itemOffset, dataTable]);
-
-  const pageCount = useMemo(
-    () => Math.ceil(dataTable?.length / itemsPerPage),
-    [dataTable, itemsPerPage]
-  );
-
-  const handlePageClick = (event) => {
-    const newOffset = event.selected * itemsPerPage;
-
-    setItemOffset(newOffset);
-  };
-
   const getUniqueFieldValues = (data, fieldName) => {
     const uniqueValues = new Set();
 
@@ -360,6 +392,7 @@ const SalesYtd = () => {
       console.log(res.payload);
       const revenueSums = calculateRevenueSum(res.payload);
       setSales(revenueSums);
+
       const formattedData = calculateAndFormatData(
         res.payload,
         calculateTotalRevenueByRegion,
@@ -374,7 +407,6 @@ const SalesYtd = () => {
         formatQuarterlyTotals,
         ["vip", "vmp"]
       );
-
       setMarketplaceVip({
         vip: formattedTotals.find((item) => item.label === "vip").data,
         vmp: formattedTotals.find((item) => item.label === "vmp").data,
@@ -386,9 +418,13 @@ const SalesYtd = () => {
         "DISTRIBUTOR",
         "CERTIFIED",
       ]);
-
       setLevelSale(formatterRevenueTotals);
-      setDataTable(res.payload);
+
+      const totalRevenueForCompany = sumSalesForCompanies(
+        res.payload,
+        getUniqueFieldValues(res.payload, "company_type")
+      );
+      setDataTable(totalRevenueForCompany);
       setLevels(getUniqueFieldValues(res.payload, "level"));
       setRegions(getUniqueFieldValues(res.payload, "region"));
       setCountries(getUniqueFieldValues(res.payload, "country_id"));
@@ -486,10 +522,7 @@ const SalesYtd = () => {
               },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
-            currentItems={currentItems}
-            paginate={true}
-            pageCount={pageCount}
-            handlePageClick={handlePageClick}
+            currentItems={dataTable}
             sumColum={true}
           />
         )}
