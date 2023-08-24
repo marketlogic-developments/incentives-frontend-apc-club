@@ -4,38 +4,66 @@ import BtnFilter from "../../../cardReportes/BtnFilter";
 import { ArrowDown } from "../../../icons";
 import SelectInputValue from "../../../inputs/SelectInputValue";
 
-const FilterSection = ({ multiSelect }) => {
+const FilterSection = ({
+  companyType,
+  region,
+  countries,
+  levels,
+  handleFilters,
+  filters,
+  multiSelect,
+  clearSelects,
+}) => {
   const [t, i18n] = useTranslation("global");
 
   return (
     <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
       <SelectInputValue
-        placeholder={"Year"}
-        /* value={selectOne}
-          data={dataSelectOne} */
+        placeholder={"Company"}
+        value={filters.company_type}
+        data={companyType.map((company_type) => ({
+          label: company_type,
+          value: company_type,
+        }))}
         icon={<ArrowDown />}
         searchable={true}
-        /* onChange={handleSelectOneChange} */
-        name={"year"}
+        onChange={handleFilters}
+        name={"company_type"}
       />
-      <SelectInputValue
-        placeholder={"Quarter"}
-        icon={<ArrowDown />}
-        searchable={true}
-        name={"quarter"}
-      />
-      <SelectInputValue
-        placeholder={"Month"}
-        icon={<ArrowDown />}
-        searchable={true}
-        name={"month"}
-      />
+
       <SelectInputValue
         placeholder={"Region"}
+        value={filters.region}
+        data={region.map((region) => ({ label: region, value: region }))}
         icon={<ArrowDown />}
         searchable={true}
+        onChange={handleFilters}
         name={"region"}
       />
+
+      <SelectInputValue
+        placeholder={"Country"}
+        value={filters.country_id}
+        data={countries.map((country_id) => ({
+          label: country_id,
+          value: country_id,
+        }))}
+        icon={<ArrowDown />}
+        searchable={true}
+        onChange={handleFilters}
+        name={"country_id"}
+      />
+
+      <SelectInputValue
+        placeholder={"Level"}
+        value={filters.level}
+        data={levels.map((level) => ({ label: level, value: level }))}
+        icon={<ArrowDown />}
+        searchable={true}
+        onChange={handleFilters}
+        name={"level"}
+      />
+
       <SalesYtdMultiselectModal
         title={<p className="text-black font-bold text-lg">Filtrar por</p>}
         datas={multiSelect}
@@ -44,7 +72,7 @@ const FilterSection = ({ multiSelect }) => {
         <BtnFilter
           text={t("Reportes.limpiar_filtros")}
           styles="bg-white !text-gray-400 sm:!text-base hover:bg-white hover:!text-blue-500 border-none hover:border-none m-1"
-          /* onClick={clearSelects} */
+          onClick={clearSelects}
         />
       </div>
     </div>

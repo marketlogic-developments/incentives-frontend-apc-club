@@ -14,6 +14,7 @@ const initialState = {
   goals: [],
   userperformance: [],
   salesperformance: [],
+  salesperformancefilters: [],
   digipointsperformance: [],
   invoiceperformance: [],
   invoiceperformancebyusuer: [],
@@ -66,6 +67,9 @@ export const saleActions = createSlice({
     getSalePer: (state, action) => {
       state.salesperformance = action.payload;
     },
+    getSaleYTD: (state, action) => {
+      state.salesperformancefilters = action.payload;
+    },
     getDigiPointsPer: (state, action) => {
       state.digipointsperformance = action.payload;
     },
@@ -113,6 +117,7 @@ export const {
   getGoals,
   getUserSale,
   getSalePer,
+  getSaleYTD,
   getDigiPointsPer,
   getInvoicePer,
   getInvoicePerUser,
@@ -553,6 +558,25 @@ export const getSalesPerformance = (token) => async (dispatch) => {
         }
       )
       .then((res) => dispatch(getSalePer(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getSalesYtd = (token, data) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesperformancefilters/?company_type=${data.company_type}&region=${data.region}&country_id=${data.country_id}&level=${data.level}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getSaleYTD(res.data)));
   } catch (err) {
     console.log(err);
   }

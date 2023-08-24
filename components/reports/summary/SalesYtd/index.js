@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   getSalesBySegmentAll,
-  getSalesPerformance,
+  getSalesYtd,
 } from "../../../../store/reducers/sales.reducer";
 import { useMemo } from "react";
 import FilterSection from "./FilterSection";
@@ -19,7 +19,7 @@ const SalesYtd = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const goalYear = useSelector((state) => state.user.user.company.goalsPerYear);
-  const sales = useSelector((state) => state.sales.salesgement);
+  const [sales, setSales] = useState();
   const token = useSelector((state) => state.user.token);
   const [regionVsGoals, setRegionVsGoals] = useState({
     name: "",
@@ -30,6 +30,17 @@ const SalesYtd = () => {
   const [levelSale, setLevelSale] = useState();
   const [totalSales, setTotalSales] = useState(0);
   const [dataTable, setDataTable] = useState();
+  const [filters, setFilters] = useState({
+    company_type: "",
+    region: "",
+    country_id: "",
+    level: "",
+  });
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [levels, setLevels] = useState();
+  const [regions, setRegions] = useState();
+  const [countries, setCountries] = useState();
+  const [companies, setCompanies] = useState();
   const itemsPerPage = 10;
   const [itemOffset, setItemOffset] = useState(0);
   const multiSelect = [
@@ -142,6 +153,20 @@ const SalesYtd = () => {
     [totalSales, goalYear]
   );
 
+  /* SELECTS */
+  const handleFilters = (name, value) => {
+    return setFilters({ ...filters, [name]: value });
+  };
+
+  const clearSelects = () => {
+    setFilters({
+      company_type: "",
+      region: "",
+      country_id: "",
+      level: "",
+    });
+  };
+
   /* REGION VS GOALS */
   const getColorForField = (value, mapping, defaultColor = "#828282") => {
     return mapping[value] || defaultColor;
@@ -237,7 +262,7 @@ const SalesYtd = () => {
     return dataObjects;
   };
 
-  /* LELEVEL VS SALES GOAL */
+  /* LEVEL VS SALES GOAL */
   const calculateRevenueDifferences = (data, levels) => {
     const revenueDifferences = [];
 
@@ -266,15 +291,23 @@ const SalesYtd = () => {
   };
 
   /* TOTAL SALES VS GOALS */
-  const salesReduce = () => {
-    const totalSalesReduce = Math.round(
-      sales.reduce(
-        (acc, { total_sales_amount }) => acc + Number(total_sales_amount),
-        0
-      )
+  const calculateRevenueSum = (data) => {
+    const filteredItems = data.filter(
+      (item) => item.company_type === "RESELLER"
     );
 
-    setTotalSales(totalSalesReduce);
+    const totalRevenueSum = filteredItems.reduce((sum, item) => {
+      return sum + parseFloat(item.total_revenue);
+    }, 0);
+
+    const expectedRevenueSum = filteredItems.reduce((sum, item) => {
+      return sum + parseFloat(item.expected_revenue);
+    }, 0);
+
+    return {
+      totalRevenueSum,
+      expectedRevenueSum,
+    };
   };
 
   const formattedNumber = (numero) => {
@@ -296,7 +329,7 @@ const SalesYtd = () => {
   };
 
   /* PAGINATE */
-  
+
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
 
@@ -313,13 +346,29 @@ const SalesYtd = () => {
   );
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage);
+    const newOffset = event.selected * itemsPerPage;
 
     setItemOffset(newOffset);
   };
 
+  const getUniqueFieldValues = (data, fieldName) => {
+    const uniqueValues = new Set();
+
+    data.forEach((item) => {
+      const fieldValue = item[fieldName];
+      if (fieldValue !== null && fieldValue !== "") {
+        uniqueValues.add(fieldValue);
+      }
+    });
+
+    return Array.from(uniqueValues);
+  };
+
   useEffect(() => {
-    dispatch(getSalesPerformance(token)).then((res) => {
+    dispatch(getSalesYtd(token, filters)).then((res) => {
+      console.log(res.payload);
+      const revenueSums = calculateRevenueSum(res.payload);
+      setSales(revenueSums);
       const formattedData = calculateAndFormatData(
         res.payload,
         calculateTotalRevenueByRegion,
@@ -334,53 +383,64 @@ const SalesYtd = () => {
         formatQuarterlyTotals,
         ["vip", "vmp"]
       );
+
       setMarketplaceVip({
         vip: formattedTotals.find((item) => item.label === "vip").data,
         vmp: formattedTotals.find((item) => item.label === "vmp").data,
       });
+
       const formatterRevenueTotals = calculateRevenueDifferences(res.payload, [
         "GOLD",
         "PLATINUM",
         "DISTRIBUTOR",
         "CERTIFIED",
       ]);
+
       setLevelSale(formatterRevenueTotals);
       setDataTable(res.payload);
+      setLevels(getUniqueFieldValues(res.payload, "level"));
+      setRegions(getUniqueFieldValues(res.payload, "region"));
+      setCountries(getUniqueFieldValues(res.payload, "country_id"));
+      setCompanies(getUniqueFieldValues(res.payload, "company_type"));
+      setDataLoaded(true);
     });
-  }, []);
-  
-  useEffect(() => {
-    if (sales.length === 0) {
-      dispatch(getSalesBySegmentAll(token));
-    }
-
-    if (sales.length !== 0) {
-      salesReduce();
-    }
-  }, [sales]);
+  }, [filters]);
 
   return (
     <div className="m-5">
-      {multiSelect.length && <FilterSection multiSelect={multiSelect} />}
-      {dataTotalSaleGoal && (
+      {dataLoaded && (
+        <FilterSection
+          filters={filters}
+          companyType={companies}
+          region={regions}
+          countries={countries}
+          levels={levels}
+          handleFilters={handleFilters}
+          multiSelect={multiSelect}
+          clearSelects={clearSelects}
+        />
+      )}
+      {dataLoaded && (
         <SalesGoalsSection
           totalSaleGoal={{
-            expected: formattedNumber(dataTotalSaleGoal.expected),
-            reached: formattedNumber(dataTotalSaleGoal.reached),
-            progress: dataTotalSaleGoal.progress,
+            expected: formattedNumber(sales.expectedRevenueSum),
+            reached: formattedNumber(sales.totalRevenueSum),
+            progress: `${Number(
+              (sales.totalRevenueSum * 100) / sales.expectedRevenueSum
+            ).toFixed(0)} %`,
           }}
         />
       )}
       <RegionGoalSection regionVsGoals={regionVsGoals} />
       <CdpSection />
-      {marketplaceVip && levelSale.length && (
+      {dataLoaded && (
         <MarketplaceSection
           barCircleChart={levelSale}
           xValuesLine={xValuesLine}
           marketplaceVip={marketplaceVip}
         />
       )}
-      {/* TABLE SECTION */}
+      {/* TABLE SECTION PENDIENTE */}
       <div className="justify-items-center pt-5">
         {loading && <div className="lds-dual-ring"></div>}
         {!loading && dataTable && (
@@ -404,27 +464,34 @@ const SalesYtd = () => {
                 sort: false,
                 symbol: "USD",
                 identity: "sales_education_cc",
-                columnName: "Segmento",
+                columnName: "CC Education",
+              },
+              {
+                rowStyles: "",
+                sort: false,
+                symbol: "USD",
+                identity: "sales_education_dc",
+                columnName: "DC Education",
               },
               {
                 symbol: "USD",
                 identity: "sales_enterprise_cc",
-                columnName: "Total Sales Enterprice USD",
-              },
-              {
-                symbol: "USD",
-                identity: "sales_teams_cc",
-                columnName: "Total sales Team USD",
+                columnName: "CC Enterprise",
               },
               {
                 symbol: "USD",
                 identity: "sales_enterprise_dc",
-                columnName: "Total Sales Enterprise USD",
+                columnName: "DC Acrobat Pro",
+              },
+              {
+                symbol: "USD",
+                identity: "sales_teams_cc",
+                columnName: "CC Teams",
               },
               {
                 symbol: "USD",
                 identity: "sales_acrobat_pro_dc",
-                columnName: "Sales Acrobat USD",
+                columnName: "DC Acrobat Pro",
               },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
