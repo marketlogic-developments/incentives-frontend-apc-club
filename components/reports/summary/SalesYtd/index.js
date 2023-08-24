@@ -27,6 +27,7 @@ const SalesYtd = () => {
     color: "",
   });
   const [marketplaceVip, setMarketplaceVip] = useState();
+  const [levelSale, setLevelSale] = useState();
   const [totalSales, setTotalSales] = useState(0);
   const dataTable = [
     {
@@ -141,6 +142,10 @@ const SalesYtd = () => {
     SOLA: "#1473E6",
     MEXICO: "#1C2226",
     BRAZIL: "#21A5A2",
+    GOLD: "#232B2F",
+    PLATINUM: "#1473E6",
+    DISTRIBUTOR: "#21A5A2",
+    CERTIFIED: "#21A5A2",
   };
   const dataTotalSaleGoal = useMemo(
     () => ({
@@ -246,6 +251,34 @@ const SalesYtd = () => {
     return dataObjects;
   };
 
+  /* LELEVEL VS SALES GOAL */
+  const calculateRevenueDifferences = (data, levels) => {
+    const revenueDifferences = [];
+
+    levels.forEach((level) => {
+      const filteredData = data.filter((item) => item.level === level);
+      const totalRevenue = filteredData.reduce(
+        (sum, item) => sum + parseFloat(item.total_revenue),
+        0
+      );
+      const totalExpectedRevenue = filteredData.reduce(
+        (sum, item) => sum + parseFloat(item.expected_revenue),
+        0
+      );
+      const revenueDifference = totalExpectedRevenue - totalRevenue;
+
+      revenueDifferences.push({
+        data: revenueDifference.toFixed(2),
+        total_expected_revenue: totalExpectedRevenue.toFixed(2),
+        total_revenue: totalRevenue.toFixed(2),
+        level: level,
+        color: getColorForField(level, colorMapping),
+      });
+    });
+
+    return revenueDifferences;
+  };
+
   /* TOTAL SALES VS GOALS */
   const salesReduce = () => {
     const totalSalesReduce = Math.round(
@@ -296,9 +329,16 @@ const SalesYtd = () => {
         vip: formattedTotals.find((item) => item.label === "vip").data,
         vmp: formattedTotals.find((item) => item.label === "vmp").data,
       });
+      const formatterRevenueTotals = calculateRevenueDifferences(res.payload, [
+        "GOLD",
+        "PLATINUM",
+        "DISTRIBUTOR",
+        "CERTIFIED",
+      ]);
+      setLevelSale(formatterRevenueTotals);
     });
   }, []);
-
+  
   useEffect(() => {
     if (sales.length === 0) {
       dispatch(getSalesBySegmentAll(token));
@@ -323,8 +363,9 @@ const SalesYtd = () => {
       )}
       <RegionGoalSection regionVsGoals={regionVsGoals} />
       <CdpSection />
-      {marketplaceVip && (
+      {marketplaceVip && levelSale.length && (
         <MarketplaceSection
+          barCircleChart={levelSale}
           xValuesLine={xValuesLine}
           marketplaceVip={marketplaceVip}
         />
