@@ -1,8 +1,8 @@
 import React from "react";
 import ReactEcharts from "echarts-for-react";
 
-const HorizontalBar = ({ datas = [{ value: 0, color: "" }], yNames = [] }) => {
-  const data = datas.map((item) => ({
+const HorizontalBar = ({ datas = [{ name: "", value: 0, color: "" }] }) => {
+  const seriesData = datas.map((item) => ({
     value: item.value,
     itemStyle: {
       color: item.color,
@@ -31,11 +31,11 @@ const HorizontalBar = ({ datas = [{ value: 0, color: "" }], yNames = [] }) => {
     },
     yAxis: {
       type: "category",
-      data: yNames,
+      data: datas.map((item) => item.name),
     },
     series: [
       {
-        data: data,
+        data: seriesData,
         type: "bar",
         showBackground: true,
         backgroundColor: "#828282",
