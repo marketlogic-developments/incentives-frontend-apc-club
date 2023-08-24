@@ -15,13 +15,26 @@ const BarCircleChart = ({ datas }) => {
           <div className="flex flex-col gap-2" key={index}>
             <div className="flex w-full justify-between">
               <p className="lg:!text-xs xl:!text-sm font-bold">{data.level}</p>
-              <p className="!text-sm">{Number((data.total_revenue * 100) / data.total_expected_revenue).toFixed(0)} %</p>
+              <p className="!text-sm">
+                {Number(
+                  (data.total_revenue * 100) /
+                    (data.total_expected_revenue === '0.00'
+                      ? 1
+                      : data.total_expected_revenue)
+                ).toFixed(0)}{" "}
+                %
+              </p>
             </div>
             <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
               <span
                 className={`bg-[${data?.color}] h-full rounded-full`}
                 style={{
-                  width: `${Number((data.total_revenue * 100) / data.total_expected_revenue).toFixed(0)}%`,
+                  width: `${Number(
+                    (data.total_revenue * 100) /
+                      (data.total_expected_revenue === '0.00'
+                        ? 1
+                        : data.total_expected_revenue)
+                  ).toFixed(0)}%`,
                 }}
               />
             </div>

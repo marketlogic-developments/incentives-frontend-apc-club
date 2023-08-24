@@ -28,7 +28,6 @@ const SalesYtd = () => {
   });
   const [marketplaceVip, setMarketplaceVip] = useState();
   const [levelSale, setLevelSale] = useState();
-  const [totalSales, setTotalSales] = useState(0);
   const [dataTable, setDataTable] = useState();
   const [filters, setFilters] = useState({
     company_type: "",
@@ -144,14 +143,6 @@ const SalesYtd = () => {
     DISTRIBUTOR: "#21A5A2",
     CERTIFIED: "#21A5A2",
   };
-  const dataTotalSaleGoal = useMemo(
-    () => ({
-      expected: goalYear,
-      reached: totalSales,
-      progress: `${Math.floor(Math.round((totalSales * 100) / goalYear))}%`,
-    }),
-    [totalSales, goalYear]
-  );
 
   /* SELECTS */
   const handleFilters = (name, value) => {
