@@ -80,7 +80,7 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     if (
-      userRedux.cpf !== "viewVideo" &&
+      userRedux.cpf !== "viewVideo2" &&
       userRedux !== 0 &&
       location === "/dashboard"
     ) {
