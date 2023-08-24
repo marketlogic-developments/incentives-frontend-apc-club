@@ -348,7 +348,7 @@ const SalesYtd = () => {
       setDataTable(res.payload);
     });
   }, []);
-  console.log(dataTable);
+  
   useEffect(() => {
     if (sales.length === 0) {
       dispatch(getSalesBySegmentAll(token));
