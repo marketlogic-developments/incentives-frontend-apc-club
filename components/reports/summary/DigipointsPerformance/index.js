@@ -1,14 +1,12 @@
 import React from "react";
-import SelectInputValue from "../../inputs/SelectInputValue";
 import { ArrowDown } from "../../icons";
-import BtnFilter from "../../cardReportes/BtnFilter";
 import { useTranslation } from "react-i18next";
-import SalesYtdMultiselectModal from "../../ModalStateProducts/SalesYtdMultiselectModal";
 import CardChart from "../../cardReportes/CardChart";
 import PieChart from "../../charts/PieChart";
 import StackedHorizontalBarChart from "../../charts/StackedHorizontalBarChart";
 import HorizontalBar from "../../charts/HorizontalBar";
 import BasicBarChart from "../../charts/BasicBarChart";
+import SelectSection from "./SelectSection";
 
 const DigipoinstPerformance = () => {
   /* Variables and const */
@@ -108,44 +106,7 @@ const DigipoinstPerformance = () => {
   return (
     <div className="m-5">
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
-        <SelectInputValue
-          placeholder={"Year"}
-          /* value={selectOne}
-          data={dataSelectOne} */
-          icon={<ArrowDown />}
-          searchable={true}
-          /* onChange={handleSelectOneChange} */
-          name={"year"}
-        />
-        <SelectInputValue
-          placeholder={"Quarter"}
-          icon={<ArrowDown />}
-          searchable={true}
-          name={"quarter"}
-        />
-        <SelectInputValue
-          placeholder={"Month"}
-          icon={<ArrowDown />}
-          searchable={true}
-          name={"month"}
-        />
-        <SelectInputValue
-          placeholder={"Region"}
-          icon={<ArrowDown />}
-          searchable={true}
-          name={"region"}
-        />
-        <SalesYtdMultiselectModal
-          title={<p className="text-black font-bold text-lg">Filtrar por</p>}
-          datas={multiSelect}
-        />
-        <div className="w-4/5 justify-end">
-          <BtnFilter
-            text={t("Reportes.limpiar_filtros")}
-            styles="bg-white !text-gray-400 sm:!text-base hover:bg-white hover:!text-blue-500 border-none hover:border-none m-1"
-            /* onClick={clearSelects} */
-          />
-        </div>
+        <SelectSection multiSelect={multiSelect} />
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
         <CardChart title={"DigiPoints uploaded YTD"} paragraph="">
