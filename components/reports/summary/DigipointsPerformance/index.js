@@ -1,12 +1,11 @@
 import React from "react";
-import { ArrowDown } from "../../icons";
+import { ArrowDown } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import CardChart from "../../cardReportes/CardChart";
-import PieChart from "../../charts/PieChart";
-import StackedHorizontalBarChart from "../../charts/StackedHorizontalBarChart";
 import HorizontalBar from "../../charts/HorizontalBar";
 import BasicBarChart from "../../charts/BasicBarChart";
 import SelectSection from "./SelectSection";
+import DigipointSection from "./DigipointSection";
 
 const DigipoinstPerformance = () => {
   /* Variables and const */
@@ -109,53 +108,7 @@ const DigipoinstPerformance = () => {
         <SelectSection multiSelect={multiSelect} />
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
-        <CardChart title={"DigiPoints uploaded YTD"} paragraph="">
-          <PieChart
-            datas={[
-              {
-                value: 10,
-                name: "Promotion",
-              },
-              {
-                value: 70,
-                name: "Behavior",
-              },
-              {
-                value: 20,
-                name: "Sales",
-              },
-            ]}
-            colors={["#21A5A2", "#009C3B", "#1473E6"]}
-            formatter=""
-          />
-        </CardChart>
-        <CardChart title={"DigiPoints by business type"} paragraph="">
-          <StackedHorizontalBarChart
-            datas={[
-              {
-                name: "Brazil",
-                color: "#21A5A2",
-                data: [859000, 869000, 879000],
-              },
-              {
-                name: "México",
-                color: "#1C2226",
-                data: [80000, 90000, 100000],
-              },
-              {
-                name: "SOLA",
-                color: "#1473E6",
-                data: [130000, 140000, 150000],
-              },
-              {
-                name: "NOLA",
-                color: "#2799F6",
-                data: [180000, 190000, 200000],
-              },
-            ]}
-            yNames={["Redeemed", "Assigned", "Uploaded"]}
-          />
-        </CardChart>
+        <DigipointSection />
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
         <CardChart title={"DigiPoints by status"} paragraph="">
