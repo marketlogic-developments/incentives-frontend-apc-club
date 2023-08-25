@@ -105,8 +105,6 @@ const DigipointsDistribution = () => {
     });
   };
 
-  console.log(dataToTable);
-
   const handleSubmit = (invoice) => {
     let newData = [...dataToTable];
     let dataRedux = [...data];

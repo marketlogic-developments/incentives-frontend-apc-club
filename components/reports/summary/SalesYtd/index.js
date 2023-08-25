@@ -119,7 +119,7 @@ const SalesYtd = () => {
       icon: <ArrowDown />,
       name: "country_id",
     },
-    {
+    /* {
       placeholder: "Quarter",
       value: filters.quarter,
       dataSelect: quarter?.map((quarter) => ({
@@ -142,7 +142,7 @@ const SalesYtd = () => {
       searchable: true,
       icon: <ArrowDown />,
       name: "month",
-    },
+    }, */
     {
       placeholder: "Market Segment",
       value: filters.marketSegment,
@@ -167,7 +167,7 @@ const SalesYtd = () => {
       icon: <ArrowDown />,
       name: "businessUnit",
     },
-    {
+    /* {
       placeholder: "Company",
       value: filters.company_type,
       dataSelect: companies?.map((company_type) => ({
@@ -178,7 +178,7 @@ const SalesYtd = () => {
       searchable: true,
       icon: <ArrowDown />,
       name: "company_type",
-    },
+    }, */
   ];
   const xValuesLine = ["Q1", "Q2", "Q3", "Q4"];
   const colorMapping = {

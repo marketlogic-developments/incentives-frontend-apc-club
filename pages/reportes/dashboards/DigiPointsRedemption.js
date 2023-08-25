@@ -258,6 +258,7 @@ const DigiPointsRedemption = () => {
             cols={[
               { rowStyles:"", sort:true, symbol:"", identity: "email", columnName: "User Email" },
               { symbol:"", identity: "name", columnName: "First Name" },
+              { symbol:"", identity: "last_name", columnName: "Last Name" },
               { symbol:"", identity: "role_name", columnName: "User Role" },
               { symbol:"", identity: "region", columnName: "Region" },
               { symbol:"", identity: "country", columnName: "Country" },

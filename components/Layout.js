@@ -80,7 +80,7 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     if (
-      userRedux.cpf !== "viewVideo" &&
+      userRedux.cpf !== "viewVideo2" &&
       userRedux !== 0 &&
       location === "/dashboard"
     ) {
@@ -842,7 +842,7 @@ const Layout = ({ children }) => {
                 "/dashboard",
                 "/digipointsall",
                 "/reportesDashboard",
-                "/comunicado",
+                // "/comunicado",
               ].includes(page);
             }
             if (userRedux.roleId === 3) {
