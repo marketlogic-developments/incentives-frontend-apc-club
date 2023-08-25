@@ -487,7 +487,6 @@ const SalesYtd = () => {
           marketplaceVip={marketplaceVip}
         />
       )}
-      {/* TABLE SECTION */}
       <div className="justify-items-center pt-5">
         {loading && <div className="lds-dual-ring"></div>}
         {!loading && dataTable && <TableSection dataTable={dataTable} />}
