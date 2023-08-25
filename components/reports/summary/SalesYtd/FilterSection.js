@@ -18,11 +18,13 @@ const FilterSection = ({
   filters,
   multiSelect,
   clearSelects,
+  dataLoaded
 }) => {
   const [t, i18n] = useTranslation("global");
 
   return (
     <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
+      {!dataLoaded && <div className="lds-dual-ring"></div>}
       <SelectInputValue
         placeholder={"Company"}
         value={filters.company_type}

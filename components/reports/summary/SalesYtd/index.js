@@ -45,7 +45,20 @@ const SalesYtd = () => {
   const [regions, setRegions] = useState();
   const [countries, setCountries] = useState();
   const [quarter, setQuarter] = useState(["q1", "q2", "q3", "q4"]);
-  const [month, setMonth] = useState(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']);
+  const [month, setMonth] = useState([
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+  ]);
   const [marketSegment, setMarketSegment] = useState([
     "Teams",
     "Enterprise",
@@ -488,10 +501,12 @@ const SalesYtd = () => {
           handleFilters={handleFilters}
           multiSelect={multiSelect}
           clearSelects={clearSelects}
+          dataLoaded={dataLoaded}
         />
       )}
       {dataLoaded && (
         <SalesGoalsSection
+          dataLoaded={dataLoaded}
           totalSaleGoal={{
             expected: formattedNumber(sales.expectedRevenueSum),
             reached: formattedNumber(sales.totalRevenueSum),
@@ -501,10 +516,14 @@ const SalesYtd = () => {
           }}
         />
       )}
-      <RegionGoalSection regionVsGoals={regionVsGoals} />
-      <CdpSection />
+      <RegionGoalSection
+        dataLoaded={dataLoaded}
+        regionVsGoals={regionVsGoals}
+      />
+      <CdpSection dataLoaded={dataLoaded} />
       {dataLoaded && (
         <MarketplaceSection
+          dataLoaded={dataLoaded}
           barCircleChart={levelSale}
           xValuesLine={xValuesLine}
           marketplaceVip={marketplaceVip}
