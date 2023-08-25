@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ArrowDown } from "../../../icons";
 import { useTranslation } from "react-i18next";
 import SelectSection from "./SelectSection";
@@ -13,6 +13,27 @@ const DigipoinstPerformance = () => {
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
+  const [filters, setFilters] = useState({
+    company_name: "",
+    level: "",
+    region: "",
+    country_id: "",
+    quarter: "",
+    month: "",
+    marketSegment: "",
+    businessUnit: "",
+    company_type: "",
+  });
+  const colorMapping = {
+    NOLA: "#2799F6",
+    SOLA: "#1473E6",
+    MEXICO: "#1C2226",
+    BRAZIL: "#21A5A2",
+    GOLD: "#232B2F",
+    PLATINUM: "#1473E6",
+    DISTRIBUTOR: "#21A5A2",
+    CERTIFIED: "#21A5A2",
+  };
   const multiSelect = [
     {
       placeholder: "Year",
@@ -106,6 +127,44 @@ const DigipoinstPerformance = () => {
   const xValuesLine = [50, 100, 200, 300, 400, 500];
   const redempion = [0, 100, 200, 300, 400];
 
+/* DIGIPOINTS SECTION */
+const getColorForField = (value, mapping, defaultColor = "#828282") => {
+  return mapping[value] || defaultColor;
+};
+
+const calculateTotalRevenueByRegion = (data) => {
+  const regions = ["NOLA", "SOLA", "MEXICO", "BRAZIL"];
+  const revenueByRegion = {};
+
+  regions.forEach((region) => {
+    const totalRevenue = data.reduce((total, obj) => {
+      if (obj.region === region) {
+        const revenue = parseFloat(Number(obj.total_revenue).toFixed(2));
+        return total + revenue;
+      }
+      return total;
+    }, 0);
+    revenueByRegion[region] = totalRevenue;
+  });
+
+  return revenueByRegion;
+};
+
+const calculateAndFormatData = (
+  data,
+  calculateTotalFunction,
+  getColorFunction,
+  colorMapping
+) => {
+  const revenueByRegion = calculateTotalFunction(data);
+  const formattedData = Object.keys(revenueByRegion).map((region) => ({
+    name: region,
+    value: Number(revenueByRegion[region]).toFixed(2),
+    color: getColorFunction(region, colorMapping),
+  }));
+  return formattedData;
+};
+  
   const getUniqueFieldValues = (data, fieldName) => {
     const uniqueValues = new Set();
 
@@ -122,8 +181,14 @@ const DigipoinstPerformance = () => {
   /* GET DATA */
   useEffect(() => {
     dispatch(getDigiPointsPerformance(token)).then((res) => {
-      const totalRevenueForCompany = getUniqueFieldValues(res.payload, "company_type");
-      console.log(totalRevenueForCompany);
+      const uniqueFieldValues = getUniqueFieldValues(res.payload, "company_type");
+      const formattedData = calculateAndFormatData(
+        res.payload,
+        calculateTotalRevenueByRegion,
+        getColorForField,
+        colorMapping
+      );
+      console.log(res.payload);
     });
   });
 
