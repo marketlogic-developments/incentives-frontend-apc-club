@@ -1,13 +1,14 @@
 import React from "react";
 import { Check, Circle } from "../../../icons";
 
-const SalesGoalsSection = ({ totalSaleGoal }) => {
+const SalesGoalsSection = ({ dataLoaded, totalSaleGoal }) => {
   return (
     <>
       <div className="p-3">
         <h1 className="text-black font-bold">Total Sales vs Goals</h1>
       </div>
       <div className="grid sm:grid-cols-3 grid-cols-1 divide-x">
+        {!dataLoaded && <div className="lds-dual-ring"></div>}
         <div className="flex justify-center gap-3">
           <Circle />
           <div className="grid">

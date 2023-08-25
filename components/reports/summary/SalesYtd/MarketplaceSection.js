@@ -4,6 +4,7 @@ import BarChar from "../../../cardReportes/BarChar";
 import BarCircleChart from "../../../charts/BarCircleChart";
 
 const MarketplaceSection = ({
+  dataLoaded,
   barCircleChart,
   xValuesLine,
   marketplaceVip,
@@ -11,6 +12,7 @@ const MarketplaceSection = ({
   return (
     <div className="flex flex-col">
       <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
+        {!dataLoaded && <div className="lds-dual-ring"></div>}
         {barCircleChart && <BarCircleChart datas={barCircleChart} />}
         <CardChart title={"Marketplace & VIP"} paragraph="">
           {marketplaceVip && (

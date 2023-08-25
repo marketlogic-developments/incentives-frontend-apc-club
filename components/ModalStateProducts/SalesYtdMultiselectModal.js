@@ -20,6 +20,7 @@ const SalesYtdMultiselectModal = ({
       name: "",
     },
   ],
+  clearSelects,
 }) => {
   /* Variable and const */
   const theme = useMantineTheme();
@@ -60,7 +61,7 @@ const SalesYtdMultiselectModal = ({
           <BtnFilter
             text={t("Reportes.limpiar_filtros")}
             styles="bg-white !text-gray-400 sm:!text-base hover:bg-white hover:!text-blue-500 border-none hover:border-none m-1"
-            /* onClick={clearSelects} */
+            onClick={clearSelects}
           />
           <BtnFilter
             text={t("Cancelar")}
@@ -70,6 +71,7 @@ const SalesYtdMultiselectModal = ({
           <BtnFilter
             text={t("Filtrar")}
             styles="!bg-blue-600 !text-white hover:!bg-blue-400 border-none"
+            onClick={close}
           />
         </div>
       </Modal>
