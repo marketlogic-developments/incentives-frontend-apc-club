@@ -1,11 +1,9 @@
 import React from "react";
 import { ArrowDown } from "../../../icons";
 import { useTranslation } from "react-i18next";
-import CardChart from "../../cardReportes/CardChart";
-import HorizontalBar from "../../charts/HorizontalBar";
-import BasicBarChart from "../../charts/BasicBarChart";
 import SelectSection from "./SelectSection";
 import DigipointSection from "./DigipointSection";
+import DigipointRedemptionSection from "./DigipointRedemptionSection";
 
 const DigipoinstPerformance = () => {
   /* Variables and const */
@@ -111,24 +109,10 @@ const DigipoinstPerformance = () => {
         <DigipointSection />
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
-        <CardChart title={"DigiPoints by status"} paragraph="">
-          <HorizontalBar
-            yNames={["Redeemed", "Assigned", "Expected", "Uploaded"]}
-            datas={[
-              { value: 250, color: "#2799F6" },
-              { value: 230, color: "#1473E6" },
-              { value: 200, color: "#1C2226" },
-              { value: 180, color: "#21A5A2" },
-            ]}
-          />
-        </CardChart>
-        <CardChart title={"Redemptions by region and amound"} paragraph="">
-          <BasicBarChart
-            color={"#1C2226"}
-            datas={redempion}
-            xValues={xValuesLine}
-          />
-        </CardChart>
+        <DigipointRedemptionSection
+          redempion={redempion}
+          xValuesLine={xValuesLine}
+        />
       </div>
     </div>
   );

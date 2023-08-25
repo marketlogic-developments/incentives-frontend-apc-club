@@ -1,7 +1,7 @@
 import React from "react";
 import CardChart from "../../../cardReportes/CardChart";
-import { PieChart } from "recharts";
 import StackedHorizontalBarChart from "../../../charts/StackedHorizontalBarChart";
+import PieChart from "../../../charts/PieChart";
 
 const DigipointSection = () => {
   return (
