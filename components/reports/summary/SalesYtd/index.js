@@ -251,7 +251,7 @@ const SalesYtd = () => {
 
   /* SELECTS */
   const handleFilters = (name, value) => {
-    return setFilters({ ...filters, [name]: value });
+    return setFilters({ ...filters, [name]: value === null ? "" : value });
   };
 
   const clearSelects = () => {
