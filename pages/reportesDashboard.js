@@ -100,15 +100,15 @@ const reportesDashboard = () => {
         >
           <CustomIcon />
         </CardReportes>
-        {/* <CardReportes
+        <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.summary")}
           onClick={() => {
             router.push("/reportes/dashboards/Summary");
           }}
         >
-          <CustomIcon />
-        </CardReportes> */}
+          <RocketIcon />
+        </CardReportes>
         {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.so_import")}
@@ -117,7 +117,7 @@ const reportesDashboard = () => {
           }}
         >
           <RegistrationPerformance />
-        </CardReportes> */}
+        </CardReportes>
         {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.registration_performance")}

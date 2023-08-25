@@ -30,6 +30,8 @@ const TargetPromociones = ({ data }) => {
     12: "Diciembre",
   };
 
+  console.log(data);
+
   return (
     <>
       <div className="sm:ml-14 col-span-1 object-contain flex justify-center items-center">
@@ -49,14 +51,16 @@ const TargetPromociones = ({ data }) => {
         <p>{data.description.content[0].content[0].value}</p>
         <a
           className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs"
-          onClick={() => {
-            router.push({
-              pathname: `/comunicados${data.dynamicDirection}`,
-              query: {
-                data: JSON.stringify(data),
-              },
-            });
-          }}
+          href={data.pdfdelete.fields.file.url}
+          target="_blank"
+          // onClick={() => {
+          //   router.push({
+          //     pathname: `/comunicados${data.dynamicDirection}`,
+          //     query: {
+          //       data: JSON.stringify(data),
+          //     },
+          //   });
+          // }}
         >
           {t("comunicado.leer")}
         </a>
