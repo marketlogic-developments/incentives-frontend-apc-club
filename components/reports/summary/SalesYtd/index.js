@@ -2,17 +2,14 @@ import React, { useState } from "react";
 import { ArrowDown } from "../../../icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import {
-  getSalesBySegmentAll,
-  getSalesYtd,
-} from "../../../../store/reducers/sales.reducer";
-import { useMemo } from "react";
+import { getSalesYtd } from "../../../../store/reducers/sales.reducer";
 import FilterSection from "./FilterSection";
 import SortedTable from "../../../table/SortedTable";
 import SalesGoalsSection from "./SalesGoalsSection";
 import RegionGoalSection from "./RegionGoalSection";
 import CdpSection from "./CdpSection";
 import MarketplaceSection from "./MarketplaceSection";
+import TableSection from "./TableSection";
 
 const SalesYtd = () => {
   /* Variable and const */
@@ -40,10 +37,10 @@ const SalesYtd = () => {
     company_type: "",
   });
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [companiesName, setCompaniesName] = useState();
-  const [levels, setLevels] = useState();
-  const [regions, setRegions] = useState();
-  const [countries, setCountries] = useState();
+  const [companiesName, setCompaniesName] = useState([]);
+  const [levels, setLevels] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const [countries, setCountries] = useState([]);
   const [quarter, setQuarter] = useState(["q1", "q2", "q3", "q4"]);
   const [month, setMonth] = useState([
     "1",
@@ -69,7 +66,7 @@ const SalesYtd = () => {
     "Document Cloud",
     "Creative Cloud",
   ]);
-  const [companies, setCompaniesType] = useState();
+  const [companies, setCompaniesType] = useState([]);
   const multiSelect = [
     {
       placeholder: "Company name",
@@ -119,30 +116,6 @@ const SalesYtd = () => {
       icon: <ArrowDown />,
       name: "country_id",
     },
-    /* {
-      placeholder: "Quarter",
-      value: filters.quarter,
-      dataSelect: quarter?.map((quarter) => ({
-        label: quarter,
-        value: quarter,
-      })),
-      onChange: (name, value) => handleFilters(name, value),
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "quarter",
-    },
-    {
-      placeholder: "Month",
-      value: filters.month,
-      dataSelect: month?.map((month) => ({
-        label: month,
-        value: month,
-      })),
-      onChange: (name, value) => handleFilters(name, value),
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "month",
-    }, */
     {
       placeholder: "Market Segment",
       value: filters.marketSegment,
@@ -167,18 +140,6 @@ const SalesYtd = () => {
       icon: <ArrowDown />,
       name: "businessUnit",
     },
-    /* {
-      placeholder: "Company",
-      value: filters.company_type,
-      dataSelect: companies?.map((company_type) => ({
-        label: company_type,
-        value: company_type,
-      })),
-      onChange: (name, value) => handleFilters(name, value),
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "company_type",
-    }, */
   ];
   const xValuesLine = ["Q1", "Q2", "Q3", "Q4"];
   const colorMapping = {
@@ -487,24 +448,21 @@ const SalesYtd = () => {
 
   return (
     <div className="m-5">
-      {dataLoaded && (
-        <FilterSection
-          filters={filters}
-          companyName={companiesName}
-          levels={levels}
-          region={regions}
-          countries={countries}
-          quarter={quarter}
-          month={month}
-          marketSegment={marketSegment}
-          businessUnit={businessUnit}
-          companyType={companies}
-          handleFilters={handleFilters}
-          multiSelect={multiSelect}
-          clearSelects={clearSelects}
-          dataLoaded={dataLoaded}
-        />
-      )}
+      <FilterSection
+        filters={filters}
+        companyName={companiesName}
+        levels={levels}
+        region={regions}
+        countries={countries}
+        quarter={quarter}
+        month={month}
+        marketSegment={marketSegment}
+        businessUnit={businessUnit}
+        companyType={companies}
+        handleFilters={handleFilters}
+        multiSelect={multiSelect}
+        clearSelects={clearSelects}
+      />
       {dataLoaded && (
         <SalesGoalsSection
           dataLoaded={dataLoaded}
@@ -521,7 +479,7 @@ const SalesYtd = () => {
         dataLoaded={dataLoaded}
         regionVsGoals={regionVsGoals}
       />
-      <CdpSection dataLoaded={dataLoaded} />
+      {!dataLoaded ? <div className="lds-dual-ring"></div> : <CdpSection />}
       {dataLoaded && (
         <MarketplaceSection
           dataLoaded={dataLoaded}
@@ -533,62 +491,7 @@ const SalesYtd = () => {
       {/* TABLE SECTION */}
       <div className="justify-items-center pt-5">
         {loading && <div className="lds-dual-ring"></div>}
-        {!loading && dataTable && (
-          <SortedTable
-            containerStyles={
-              "mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max !w-full"
-            }
-            tableStyles={"table-zebra !text-sm"}
-            colStyles={"p-2"}
-            thStyles={"sticky text-white"}
-            cols={[
-              {
-                rowStyles: "",
-                sort: false,
-                symbol: "",
-                identity: "company_type",
-                columnName: "Segmento",
-              },
-              {
-                rowStyles: "",
-                sort: false,
-                symbol: "USD",
-                identity: "sales_education_cc",
-                columnName: "CC Education",
-              },
-              {
-                rowStyles: "",
-                sort: false,
-                symbol: "USD",
-                identity: "sales_education_dc",
-                columnName: "DC Education",
-              },
-              {
-                symbol: "USD",
-                identity: "sales_enterprise_cc",
-                columnName: "CC Enterprise",
-              },
-              {
-                symbol: "USD",
-                identity: "sales_enterprise_dc",
-                columnName: "DC Acrobat Pro",
-              },
-              {
-                symbol: "USD",
-                identity: "sales_teams_cc",
-                columnName: "CC Teams",
-              },
-              {
-                symbol: "USD",
-                identity: "sales_acrobat_pro_dc",
-                columnName: "DC Acrobat Pro",
-              },
-            ]}
-            generalRowStyles={"text-left py-3 mx-7"}
-            currentItems={dataTable}
-            sumColum={true}
-          />
-        )}
+        {!loading && dataTable && <TableSection dataTable={dataTable} />}
       </div>
     </div>
   );

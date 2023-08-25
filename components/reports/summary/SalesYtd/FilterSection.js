@@ -18,7 +18,6 @@ const FilterSection = ({
   filters,
   multiSelect,
   clearSelects,
-  dataLoaded
 }) => {
   const [t, i18n] = useTranslation("global");
 

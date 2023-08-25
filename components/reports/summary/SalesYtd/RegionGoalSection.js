@@ -7,7 +7,9 @@ const RegionGoalSection = ({ dataLoaded, regionVsGoals }) => {
     <div className="grid">
       <CardChart title={"Region vs Goals"} paragraph="">
         {!dataLoaded && <div className="lds-dual-ring"></div>}
-        {regionVsGoals.length && <HorizontalBar datas={regionVsGoals} />}
+        {dataLoaded && (
+          <HorizontalBar datas={regionVsGoals} />
+        )}
       </CardChart>
     </div>
   );

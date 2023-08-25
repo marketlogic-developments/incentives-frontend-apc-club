@@ -12,7 +12,7 @@ import {
   getSalesByTypeDist,
 } from "../../../../store/reducers/sales.reducer";
 
-const CdpSection = ({ dataLoaded }) => {
+const CdpSection = () => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const sales = useSelector((state) => state.sales.salesbType);
@@ -59,21 +59,18 @@ const CdpSection = ({ dataLoaded }) => {
   return (
     <div className="flex flex-col mb-4 mt-4 w-full gap-6">
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
-        {!dataLoaded && <div className="lds-dual-ring"></div>}
         <TargetSales
           data={CC}
           goal={goals.filter(
             ({ business_unit }) => business_unit === "Creative Cloud"
           )}
         />
-        {!dataLoaded && <div className="lds-dual-ring"></div>}
         <TargetSales
           data={DC}
           goal={goals.filter(
             ({ business_unit }) => business_unit === "Document Cloud"
           )}
         />
-        {!dataLoaded && <div className="lds-dual-ring"></div>}
         <PerformaceSales CC={CC} DC={DC} goals={goals} />
       </div>
     </div>
