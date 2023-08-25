@@ -439,6 +439,7 @@ const SalesYtd = () => {
   };
 
   useEffect(() => {
+    setDataLoaded(false);
     dispatch(getSalesYtd(token, filters)).then((res) => {
       const revenueSums = calculateRevenueSum(res.payload);
       setSales(revenueSums);
