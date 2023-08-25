@@ -567,7 +567,7 @@ export const getSalesYtd = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesperformancefilters/?company_type=${data.company_type}&region=${data.region}&country_id=${data.country_id}&level=${data.level}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesperformancefilters/?company_name=${data.company_name}&region=${data.region}&country_id=${data.country_id}&level=${data.level}`,
         {
           headers: {
             "Content-Type": "application/json",

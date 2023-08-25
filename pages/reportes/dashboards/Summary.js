@@ -72,7 +72,7 @@ const Summary = () => {
           }`}
           onClick={() => setContent(t("SalesYtd"))}
         />
-        <ButtonBgOut
+        {/* <ButtonBgOut
           title={t("Reportes.grow_sales_yt")}
           styles={`${
             content === "SalesYoy"
@@ -98,7 +98,7 @@ const Summary = () => {
               : "hover:bg-red-100 hover:!text-red-500 hover:!text-sm"
           }`}
           onClick={() => setContent(t("Organization"))}
-        />
+        /> */}
       </div>
       {contentPage}
     </div>

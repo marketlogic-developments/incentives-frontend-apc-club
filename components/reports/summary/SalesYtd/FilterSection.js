@@ -23,7 +23,7 @@ const FilterSection = ({
 
   return (
     <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
-      <SelectInputValue
+      {/* <SelectInputValue
         placeholder={"Company"}
         value={filters.company_type}
         data={companyType.map((company_type) => ({
@@ -34,9 +34,9 @@ const FilterSection = ({
         searchable={true}
         onChange={handleFilters}
         name={"company_type"}
-      />
+      /> */}
 
-      {/* <SelectInputValue
+      <SelectInputValue
         placeholder={"Company Name"}
         value={filters.company_name}
         data={companyName.map((company_name) => ({
@@ -47,7 +47,7 @@ const FilterSection = ({
         searchable={true}
         onChange={handleFilters}
         name={"company_name"}
-      /> */}
+      />
 
       <SelectInputValue
         placeholder={"Region"}
