@@ -75,13 +75,6 @@ const DigiPointsPerformance = () => {
     }
   }, [isLoaded]);
 
-  const numberToMoney = (quantity = 0) => {
-    return `$ ${Number(quantity)
-      .toFixed(0)
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
-  };
-
   const xValuesLine = [
     "Ene",
     "Feb",
