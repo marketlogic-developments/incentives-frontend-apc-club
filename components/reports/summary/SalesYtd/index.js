@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getSalesYtd } from "../../../../store/reducers/sales.reducer";
 import FilterSection from "./FilterSection";
-import SortedTable from "../../../table/SortedTable";
 import SalesGoalsSection from "./SalesGoalsSection";
 import RegionGoalSection from "./RegionGoalSection";
 import CdpSection from "./CdpSection";
