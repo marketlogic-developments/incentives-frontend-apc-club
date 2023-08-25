@@ -30,8 +30,6 @@ const TargetPromociones = ({ data }) => {
     12: "Diciembre",
   };
 
-  console.log(data);
-
   return (
     <>
       <div className="sm:ml-14 col-span-1 object-contain flex justify-center items-center">
@@ -44,14 +42,30 @@ const TargetPromociones = ({ data }) => {
         />
       </div>
       <div className="grid col-span-2 justify-items-start sm:pr-56 md:pr-3 pr-3">
-        <p className="sm:text-sm text-xs">{`Publicado el ${date.dd} de ${
-          months[date.mm]
-        } del ${date.aa} a las ${hour}`}</p>
-        <p className="font-bold sm:text-2xl text-sm">{data.title}</p>
-        <p>{data.description.content[0].content[0].value}</p>
+        <p className="sm:text-sm text-xs">
+          {i18n.resolvedLanguage === "por"
+            ? `Publicado em ${date.dd} de ${months[date.mm]} del ${
+                date.aa
+              } às ${hour}`
+            : `Publicado el ${date.dd} de ${months[date.mm]} del ${
+                date.aa
+              } a las ${hour}`}
+        </p>
+        <p className="font-bold sm:text-2xl text-sm">
+          {i18n.resolvedLanguage === "por" ? data.titlePor : data.title}
+        </p>
+        <p>
+          {i18n.resolvedLanguage === "por"
+            ? data.descriptionPor
+            : data.description.content[0].content[0].value}
+        </p>
         <a
           className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs"
-          href={data.pdfdelete.fields.file.url}
+          href={
+            i18n.resolvedLanguage === "por"
+              ? data.pdfdelete[1].fields.file.url
+              : data.pdfdelete[0].fields.file.url
+          }
           target="_blank"
           // onClick={() => {
           //   router.push({
