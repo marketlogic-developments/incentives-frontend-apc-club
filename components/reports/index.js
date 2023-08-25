@@ -1,1 +1,1 @@
-export { default as SalesYtd } from "./summary/SalesYtd";
+export { default as SalesYtd } from "./summary/SalesYtd/index";

@@ -314,6 +314,7 @@ export const digipointRedemtionColumnsCsv = (data) => {
   const columns = {
     email: "User Email",
     name: "First Name",
+    last_name: "Last Name",
     role_name: "User Role",
     region: "Region",
     country: "Country",

@@ -34,24 +34,33 @@ const SortedTable = ({
 }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
+  
+  /* SUMA DE COLUMNAS */
   const columnSums = currentItems.reduce((acc, obj) => {
     Object.keys(obj).forEach((key) => {
-      if (typeof obj[key] === "number") {
-        acc[key] = (acc[key] || 0) + obj[key];
+      if (typeof obj[key] === "string" && !isNaN(parseFloat(obj[key]))) {
+        const numericValue = parseFloat(obj[key]);
+        acc[key] = (acc[key] || 0) + numericValue;
       }
     });
     return acc;
   }, {});
+
+  /* FORMATO DE NUMERO A DINERO */
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
       .toFixed(0)
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
   };
+
+  /* FORMATO PARA EL PORCENTAJE */
   const formatAVG = (avgnumber) => {
     const formattedValue = (avgnumber * 100).toFixed(1);
     return formattedValue;
 };
+
+/* FORMATO PARA LA FECHA */
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -64,6 +73,8 @@ const SortedTable = ({
     const date = new Date(dateString);
     return date.toLocaleString("es-GT", options);
   };
+
+  /* SORT */
   const handleSort = (column) => {
     if (sortColumn === column) {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");

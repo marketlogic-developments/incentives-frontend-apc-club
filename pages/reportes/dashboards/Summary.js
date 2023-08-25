@@ -65,22 +65,38 @@ const Summary = () => {
       <div className="gap-2 my-3 flex justify-start">
         <ButtonBgOut
           title={t("Reportes.sales_ytd")}
-          styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
+          styles={`${
+            content === "SalesYtd"
+              ? "bg-red-100"
+              : "hover:bg-red-100 hover:!text-red-500 hover:!text-sm"
+          }`}
           onClick={() => setContent(t("SalesYtd"))}
         />
         <ButtonBgOut
           title={t("Reportes.grow_sales_yt")}
-          styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
+          styles={`${
+            content === "SalesYoy"
+              ? "bg-red-100"
+              : "hover:bg-red-100 hover:!text-red-500 hover:!text-sm"
+          }`}
           onClick={() => setContent(t("SalesYoy"))}
         />
         <ButtonBgOut
           title={t("Reportes.digipoints_performance")}
-          styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
+          styles={`${
+            content === "DigipoinstPerformance"
+              ? "bg-red-100"
+              : "hover:bg-red-100 hover:!text-red-500 hover:!text-sm"
+          }`}
           onClick={() => setContent(t("DigipoinstPerformance"))}
         />
         <ButtonBgOut
           title={t("Reportes.organization")}
-          styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
+          styles={`${
+            content === "Organization"
+              ? "bg-red-100"
+              : "hover:bg-red-100 hover:!text-red-500 hover:!text-sm"
+          }`}
           onClick={() => setContent(t("Organization"))}
         />
       </div>
