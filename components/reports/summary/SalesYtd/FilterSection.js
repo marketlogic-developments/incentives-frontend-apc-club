@@ -85,6 +85,7 @@ const FilterSection = ({
       <SalesYtdMultiselectModal
         title={<p className="text-black font-bold text-lg">Filtrar por</p>}
         datas={multiSelect}
+        clearSelects={clearSelects}
       />
       <div className="w-4/5 justify-end">
         <BtnFilter
