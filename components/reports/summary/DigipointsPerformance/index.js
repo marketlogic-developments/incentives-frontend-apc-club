@@ -4,10 +4,15 @@ import { useTranslation } from "react-i18next";
 import SelectSection from "./SelectSection";
 import DigipointSection from "./DigipointSection";
 import DigipointRedemptionSection from "./DigipointRedemptionSection";
+import { useEffect } from "react";
+import { getDigiPointsPerformance } from "../../../../store/reducers/sales.reducer";
+import { useDispatch, useSelector } from "react-redux";
 
 const DigipoinstPerformance = () => {
   /* Variables and const */
   const [t, i18n] = useTranslation("global");
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
   const multiSelect = [
     {
       placeholder: "Year",
@@ -100,6 +105,28 @@ const DigipoinstPerformance = () => {
   ];
   const xValuesLine = [50, 100, 200, 300, 400, 500];
   const redempion = [0, 100, 200, 300, 400];
+
+  const getUniqueFieldValues = (data, fieldName) => {
+    const uniqueValues = new Set();
+
+    data.forEach((item) => {
+      const fieldValue = item[fieldName];
+      if (fieldValue !== null && fieldValue !== "") {
+        uniqueValues.add(fieldValue);
+      }
+    });
+
+    return Array.from(uniqueValues);
+  };
+
+  /* GET DATA */
+  useEffect(() => {
+    dispatch(getDigiPointsPerformance(token)).then((res) => {
+      const totalRevenueForCompany = getUniqueFieldValues(res.payload, "company_type");
+      console.log(totalRevenueForCompany);
+    });
+  });
+
   return (
     <div className="m-5">
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
