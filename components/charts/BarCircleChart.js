@@ -4,6 +4,13 @@ import { useTranslation } from "react-i18next";
 
 const BarCircleChart = ({ datas }) => {
   const [t, i18n] = useTranslation("global");
+  const formatValue = (value) => {
+    return value >= 1000000
+      ? (value / 1000000).toFixed(2) + "M"
+      : value >= 1000
+      ? (value / 1000).toFixed(2) + "K"
+      : value;
+  };
   return (
     <div className="flex flex-col w-full p-4 gap-4 targetDashboard">
       <div className="flex justify-between">
@@ -20,13 +27,9 @@ const BarCircleChart = ({ datas }) => {
                   {data.level}
                 </p>
                 <p className="!text-sm">
-                  {Number(
-                    (data.total_revenue * 100) /
-                      (data.total_expected_revenue === "0.00"
-                        ? 1
-                        : data.total_expected_revenue)
-                  ).toFixed(0)}{" "}
-                  %
+                  {`$ ${formatValue(data.total_revenue)} / $ ${
+                    formatValue(data.total_expected_revenue)
+                  }`}
                 </p>
               </div>
               <Tooltip
