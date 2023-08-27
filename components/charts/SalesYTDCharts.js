@@ -12,7 +12,7 @@ const SalesYTDCharts = ({
 
   const expectedData = totalDatas.map((item) => ({
     value:
-      item.total > item.expected
+      Number(item.total) > Number(item.expected)
         ? 0
         : Number(item.expected - item.total).toFixed(0),
     itemStyle: { color: item.expectedColor },
