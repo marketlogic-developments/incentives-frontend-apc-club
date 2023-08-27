@@ -151,10 +151,12 @@ const PerformaceSales = ({ CC, DC, goals }) => {
             </p>
           </div>
           <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
-            <span
-              className="bg-[#1473E6] h-full rounded-full"
-              style={{ width: `${dataSalesByType.withCC}%` }}
-            />
+            <Tooltip label={`${Number(dataSalesByType.withCC).toFixed(2)}%`}>
+              <span
+                className="bg-[#1473E6] h-full rounded-full"
+                style={{ width: `${dataSalesByType.withCC}%` }}
+              />
+            </Tooltip>
           </div>
         </div>
         <div className="flex flex-col gap-2">
@@ -166,10 +168,12 @@ const PerformaceSales = ({ CC, DC, goals }) => {
             </p>
           </div>
           <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
-            <span
-              className={`bg-primary h-full rounded-full`}
-              style={{ width: `${dataSalesByType.withDC}%` }}
-            />
+            <Tooltip label={`${Number(dataSalesByType.withDC).toFixed(2)}%`}>
+              <span
+                className={`bg-primary h-full rounded-full`}
+                style={{ width: `${dataSalesByType.withDC}%` }}
+              />
+            </Tooltip>
           </div>
         </div>
       </div>
