@@ -1,6 +1,6 @@
 import React from "react";
 import CardChart from "../../../cardReportes/CardChart";
-import HorizontalBar from "../../../charts/HorizontalBar";
+import SalesYTDCharts from "../../../charts/SalesYTDCharts";
 
 const RegionGoalSection = ({ dataLoaded, regionVsGoals }) => {
   return (
@@ -8,7 +8,10 @@ const RegionGoalSection = ({ dataLoaded, regionVsGoals }) => {
       <CardChart title={"Region vs Goals"} paragraph="">
         {!dataLoaded && <div className="lds-dual-ring"></div>}
         {dataLoaded && (
-          <HorizontalBar datas={regionVsGoals} />
+          <SalesYTDCharts
+          totalDatas={regionVsGoals}
+          yNames={["NOLA", "SOLA", "México", "Brazil"]}
+        />
         )}
       </CardChart>
     </div>
