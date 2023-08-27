@@ -9,9 +9,6 @@ import RegionGoalSection from "./RegionGoalSection";
 import CdpSection from "./CdpSection";
 import MarketplaceSection from "./MarketplaceSection";
 import TableSection from "./TableSection";
-import StackedHorizontalBarChart from "../../../charts/StackedHorizontalBarChart";
-import CardChart from "../../../cardReportes/CardChart";
-import SalesYTDCharts from "../../../charts/SalesYTDCharts";
 
 const SalesYtd = () => {
   /* Variable and const */
