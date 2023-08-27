@@ -9,6 +9,9 @@ import RegionGoalSection from "./RegionGoalSection";
 import CdpSection from "./CdpSection";
 import MarketplaceSection from "./MarketplaceSection";
 import TableSection from "./TableSection";
+import StackedHorizontalBarChart from "../../../charts/StackedHorizontalBarChart";
+import CardChart from "../../../cardReportes/CardChart";
+import SalesYTDCharts from "../../../charts/SalesYTDCharts";
 
 const SalesYtd = () => {
   /* Variable and const */
@@ -17,9 +20,10 @@ const SalesYtd = () => {
   const [sales, setSales] = useState();
   const token = useSelector((state) => state.user.token);
   const [regionVsGoals, setRegionVsGoals] = useState({
-    name: "",
-    value: 0,
-    color: "",
+    total: 0,
+    expected: 0,
+    totalColor: "",
+    expectedColor: "#828282",
   });
   const [marketplaceVip, setMarketplaceVip] = useState();
   const [levelSale, setLevelSale] = useState();
@@ -241,7 +245,21 @@ const SalesYtd = () => {
         }
         return total;
       }, 0);
-      revenueByRegion[region] = totalRevenue;
+
+      const totalExpectedRevenue = data.reduce((total, obj) => {
+        if (obj.region === region) {
+          const expectedRevenue = parseFloat(
+            Number(obj.expected_revenue).toFixed(2)
+          );
+          return total + expectedRevenue;
+        }
+        return total;
+      }, 0);
+
+      revenueByRegion[region] = {
+        totalRevenue,
+        totalExpectedRevenue,
+      };
     });
 
     return revenueByRegion;
@@ -255,9 +273,10 @@ const SalesYtd = () => {
   ) => {
     const revenueByRegion = calculateTotalFunction(data);
     const formattedData = Object.keys(revenueByRegion).map((region) => ({
-      name: region,
-      value: Number(revenueByRegion[region]).toFixed(2),
-      color: getColorFunction(region, colorMapping),
+      total: Number(revenueByRegion[region].totalRevenue).toFixed(2),
+      expected: Number(revenueByRegion[region].totalExpectedRevenue).toFixed(2),
+      totalColor: getColorFunction(region, colorMapping),
+      expectedColor: "#828282",
     }));
     return formattedData;
   };
@@ -401,6 +420,7 @@ const SalesYtd = () => {
   useEffect(() => {
     setDataLoaded(false);
     dispatch(getSalesYtd(token, filters)).then((res) => {
+      console.log(res.payload);
       const revenueSums = calculateRevenueSum(res.payload);
       setSales(revenueSums);
 
@@ -474,10 +494,19 @@ const SalesYtd = () => {
           }}
         />
       )}
-      <RegionGoalSection
+      {dataLoaded && (
+        <CardChart title={"DigiPoints by business type"} paragraph="">
+          <SalesYTDCharts
+            totalDatas={regionVsGoals}
+            yNames={["NOLA", "SOLA", "México", "Brazil"]}
+          />
+        </CardChart>
+      )}
+
+      {/* <RegionGoalSection
         dataLoaded={dataLoaded}
         regionVsGoals={regionVsGoals}
-      />
+      /> */}
       {!dataLoaded ? <div className="lds-dual-ring"></div> : <CdpSection />}
       {dataLoaded && (
         <MarketplaceSection
