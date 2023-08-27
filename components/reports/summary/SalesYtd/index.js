@@ -494,19 +494,10 @@ const SalesYtd = () => {
           }}
         />
       )}
-      {dataLoaded && (
-        <CardChart title={"DigiPoints by business type"} paragraph="">
-          <SalesYTDCharts
-            totalDatas={regionVsGoals}
-            yNames={["NOLA", "SOLA", "México", "Brazil"]}
-          />
-        </CardChart>
-      )}
-
-      {/* <RegionGoalSection
+      <RegionGoalSection
         dataLoaded={dataLoaded}
         regionVsGoals={regionVsGoals}
-      /> */}
+      />
       {!dataLoaded ? <div className="lds-dual-ring"></div> : <CdpSection />}
       {dataLoaded && (
         <MarketplaceSection
