@@ -61,8 +61,6 @@ const Distribuidores = () => {
     }
   }, [modal]);
 
-  console.log();
-
   return (
     <>
       <Modal opened={opened} onClose={() => setOpened(false)} size={"60%"}>
