@@ -163,6 +163,9 @@ const InformativeSections = ({ actionCustomerCare, setMenuUser }) => {
             <p className="text-xs font-bold">{text}</p>
           </div>
         ))}
+        <div>
+          <button className="btn btn-primary">Switch</button>
+        </div>
       </div>
     </div>
   );
