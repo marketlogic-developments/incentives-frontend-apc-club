@@ -1,7 +1,13 @@
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import ModalSwitchUser from "./ModalSwitchUser";
 
-const InformativeSections = ({ actionCustomerCare, setMenuUser }) => {
+const InformativeSections = ({
+  actionCustomerCare,
+  setMenuUser,
+  opened,
+  setOpened,
+}) => {
   const [t, i18n] = useTranslation("global");
   const route = useRouter();
   const sections = [
@@ -163,9 +169,7 @@ const InformativeSections = ({ actionCustomerCare, setMenuUser }) => {
             <p className="text-xs font-bold">{text}</p>
           </div>
         ))}
-        <div>
-          <button className="btn btn-primary">Switch</button>
-        </div>
+        <ModalSwitchUser opened={opened} setOpened={setOpened} />
       </div>
     </div>
   );
