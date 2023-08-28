@@ -40,7 +40,7 @@ const TableSection = ({ dataTable }) => {
           {
             symbol: "USD",
             identity: "sales_enterprise_dc",
-            columnName: "DC Acrobat Pro",
+            columnName: "DC Enterprise",
           },
           {
             symbol: "USD",
