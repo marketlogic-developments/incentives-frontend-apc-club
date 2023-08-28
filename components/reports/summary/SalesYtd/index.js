@@ -506,7 +506,7 @@ const SalesYtd = () => {
       setDataLoaded(true);
     });
   }, [filters]);
-  console.log(marketplaceVip);
+
   return (
     <div className="m-5">
       <FilterSection
