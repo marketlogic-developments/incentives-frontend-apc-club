@@ -1,34 +1,18 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getDigiPointsPerformance,
-} from "../../../store/reducers/sales.reducer";
+import { getDigiPointsPerformance } from "../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
   RocketIcon,
-  SearchIcon,
 } from "../../../components/icons";
 import { useTranslation } from "react-i18next";
 import {
-  BarChar,
-  BtnFilter,
   BtnWithImage,
-  CardChart,
   DropDownReport,
-  InputReporte,
-  LineChart,
-  TableSalePerformance,
-  Table,
   TitleWithIcon,
   SelectInputValue,
 } from "../../../components";
-import { Menu, Button } from "@mantine/core";
-import * as XLSX from "xlsx";
-import jsonexport from "jsonexport";
-import { saveAs } from "file-saver";
-import ReactPaginate from "react-paginate";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import SortedTable from "../../../components/table/SortedTable";
@@ -74,13 +58,6 @@ const DigiPointsPerformance = () => {
         });
     }
   }, [isLoaded]);
-
-  const numberToMoney = (quantity = 0) => {
-    return `$ ${Number(quantity)
-      .toFixed(0)
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
-  };
 
   const xValuesLine = [
     "Ene",
@@ -148,15 +125,16 @@ const DigiPointsPerformance = () => {
 
   const dataTable = useMemo(() => {
     return filteredUsers.filter((item) => {
-      const companyFilter = filters.company === "" || item.company_name === filters.company;
-      const levelFilter = filters.level === "" || item.company_level === filters.level;
-      const regionFilter = filters.region === "" || item.region === filters.region;
-  
+      const companyFilter =
+        filters.company === "" || item.company_name === filters.company;
+      const levelFilter =
+        filters.level === "" || item.company_level === filters.level;
+      const regionFilter =
+        filters.region === "" || item.region === filters.region;
+
       return companyFilter && levelFilter && regionFilter;
     });
   }, [filters, filteredUsers]);
-  
-  
 
   /* Clear Filter */
   const clearSelects = () => {
@@ -192,10 +170,7 @@ const DigiPointsPerformance = () => {
   return (
     <div className="mt-8">
       <div className="grid grid-rows-1">
-        <TitleWithIcon
-          icon={<RocketIcon />}
-          title={"DigiPoints Performance"}
-        />
+        <TitleWithIcon icon={<RocketIcon />} title={"DigiPoints Performance"} />
       </div>
       <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
         <AiOutlineHome
@@ -386,7 +361,11 @@ const DigiPointsPerformance = () => {
                 columnName: "Company Name",
               },
               { symbol: "", identity: "region", columnName: "Region" },
-              { symbol: "", identity: "company_level", columnName: "Company Level" },
+              {
+                symbol: "",
+                identity: "company_level",
+                columnName: "Company Level",
+              },
               {
                 symbol: "",
                 identity: "company_active_users",

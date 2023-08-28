@@ -1,15 +1,10 @@
 import React, { useMemo, useState } from "react";
-import {
-  DigipoinstPerformance,
-  Organization,
-  SalesYoy,
-  TitleWithIcon,
-} from "../../../components";
+import { Organization, SalesYoy, TitleWithIcon } from "../../../components";
 import { useTranslation } from "react-i18next";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import { useRouter } from "next/router";
 import ButtonBgOut from "../../../components/buttons/ButtonBgOut";
-import { SalesYtd } from "../../../components/reports";
+import { SalesYtd, DigipoinstPerformance } from "../../../components/reports";
 
 const Summary = () => {
   /* Variables and conts */
@@ -80,8 +75,8 @@ const Summary = () => {
               : "hover:bg-red-100 hover:!text-red-500 hover:!text-sm"
           }`}
           onClick={() => setContent(t("SalesYoy"))}
-        />
-        <ButtonBgOut
+        /> */}
+        {/* <ButtonBgOut
           title={t("Reportes.digipoints_performance")}
           styles={`${
             content === "DigipoinstPerformance"
@@ -89,8 +84,8 @@ const Summary = () => {
               : "hover:bg-red-100 hover:!text-red-500 hover:!text-sm"
           }`}
           onClick={() => setContent(t("DigipoinstPerformance"))}
-        />
-        <ButtonBgOut
+        /> */}
+        {/* <ButtonBgOut
           title={t("Reportes.organization")}
           styles={`${
             content === "Organization"
