@@ -291,13 +291,15 @@ const SalesYtd = () => {
     }, {});
 
     data.forEach((obj) => {
-      propertyNames.forEach((propertyName) => {
-        for (let quarter = 1; quarter <= 4; quarter++) {
-          quarterlyTotals[propertyName][`Q${quarter}`] += parseFloat(
-            obj[`${propertyName}_revenue_q${quarter}`]
-          );
-        }
-      });
+      if (obj.company_type === "RESELLER") {
+        propertyNames.forEach((propertyName) => {
+          for (let quarter = 1; quarter <= 4; quarter++) {
+            quarterlyTotals[propertyName][`Q${quarter}`] += parseFloat(
+              obj[`${propertyName}_revenue_q${quarter}`]
+            );
+          }
+        });
+      }
     });
 
     return quarterlyTotals;
@@ -332,7 +334,54 @@ const SalesYtd = () => {
       ),
     }));
 
-    return dataObjects;
+    // Calcular totalVip, totalVmp y totalSale
+    const totalVip = dataObjects
+      .filter((obj) => obj.label.includes("vip"))
+      .reduce(
+        (total, obj) => total + obj.data.reduce((sum, value) => sum + value, 0),
+        0
+      );
+
+    const totalVmp = dataObjects
+      .filter((obj) => obj.label.includes("vmp"))
+      .reduce(
+        (total, obj) => total + obj.data.reduce((sum, value) => sum + value, 0),
+        0
+      );
+
+    const totalSale = totalVip + totalVmp;
+
+    // Calcular porcentajes y formatear el objeto resultante
+    const result = dataObjects.map((obj) => {
+      const total = obj.data.reduce((sum, value) => sum + value, 0);
+      const percentage = totalSale !== 0 ? (total / totalSale) * 100 : 0;
+
+      return {
+        label: obj.label,
+        data: obj.data,
+        porcentaje: percentage.toFixed(2),
+        totalVip: totalVip.toFixed(2),
+        totalVmp: totalVmp.toFixed(2),
+        totalSale: totalSale.toFixed(2),
+      };
+    });
+
+    return result;
+  };
+
+  const createMarketplaceVipObject = (formattedTotals) => {
+    const vipItem = formattedTotals.find((item) => item.label === "vip");
+    const vmpItem = formattedTotals.find((item) => item.label === "vmp");
+
+    return {
+      vip: vipItem.data,
+      vmp: vmpItem.data,
+      totalVip: vipItem.totalVip,
+      totalVmp: vmpItem.totalVmp,
+      totalSale: vipItem.totalSale,
+      percentageVip: vipItem.porcentaje,
+      percentageVmp: vmpItem.porcentaje,
+    };
   };
 
   /* LEVEL VS SALES GOAL */
@@ -434,10 +483,7 @@ const SalesYtd = () => {
         formatQuarterlyTotals,
         ["vip", "vmp"]
       );
-      setMarketplaceVip({
-        vip: formattedTotals.find((item) => item.label === "vip").data,
-        vmp: formattedTotals.find((item) => item.label === "vmp").data,
-      });
+      setMarketplaceVip(createMarketplaceVipObject(formattedTotals));
 
       const formatterRevenueTotals = calculateRevenueDifferences(res.payload, [
         "GOLD",
@@ -460,7 +506,7 @@ const SalesYtd = () => {
       setDataLoaded(true);
     });
   }, [filters]);
-
+  console.log(marketplaceVip);
   return (
     <div className="m-5">
       <FilterSection

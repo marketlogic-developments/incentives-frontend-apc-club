@@ -16,15 +16,23 @@ const MarketplaceSection = ({
         {barCircleChart && <BarCircleChart datas={barCircleChart} />}
         <CardChart title={"Marketplace & VIP"} paragraph="">
           {marketplaceVip && (
-            <BarChar
-              title={""}
-              colorBarOne={"black"}
-              colorBarTwo={"#2799F6"}
-              dataLeyend={["VIP", "Marketplace"]}
-              dataOne={marketplaceVip.vip}
-              dataTwo={marketplaceVip.vmp}
-              xValues={xValuesLine}
-            />
+            <>
+              <BarChar
+                title={""}
+                colorBarOne={"black"}
+                colorBarTwo={"#2799F6"}
+                dataLeyend={["VIP", "Marketplace"]}
+                dataOne={marketplaceVip.vip}
+                dataTwo={marketplaceVip.vmp}
+                xValues={xValuesLine}
+              />
+              <div className="flex flex-col justify-between">
+                Marketplace:{" "}
+                {`$ ${marketplaceVip.totalVmp}, ${marketplaceVip.percentageVmp}%`}
+                VIP:{" "}
+                {`$ ${marketplaceVip.totalVip}, ${marketplaceVip.percentageVip}%`}
+              </div>
+            </>
           )}
         </CardChart>
       </div>
