@@ -48,8 +48,6 @@ const UserOptions = ({
     };
   }, [opened]);
 
-  console.log(opened);
-
   const fileInputRef = useRef(null);
 
   const openFileInput = (event) => {
@@ -244,6 +242,7 @@ const UserOptions = ({
           setMenuUser={setMenuUser}
           opened={opened}
           setOpened={setOpened}
+          user={user}
         />
         <div className="w-[70%] flex flex-col items-center">
           <hr className="w-full" />

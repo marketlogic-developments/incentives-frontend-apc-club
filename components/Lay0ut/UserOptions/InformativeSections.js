@@ -7,6 +7,7 @@ const InformativeSections = ({
   setMenuUser,
   opened,
   setOpened,
+  user,
 }) => {
   const [t, i18n] = useTranslation("global");
   const route = useRouter();
@@ -169,7 +170,9 @@ const InformativeSections = ({
             <p className="text-xs font-bold">{text}</p>
           </div>
         ))}
-        <ModalSwitchUser opened={opened} setOpened={setOpened} />
+        {user.roleId === 1 && (
+          <ModalSwitchUser opened={opened} setOpened={setOpened} />
+        )}
       </div>
     </div>
   );

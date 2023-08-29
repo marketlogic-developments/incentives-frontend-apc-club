@@ -32,7 +32,7 @@ const EyeObserver = () => {
       },
     }).then((result) => {
       if (result.dismiss === Swal.DismissReason.timer) {
-        return router.reload();
+        return window.location.replace("/dashboard");
       }
     });
   };

@@ -85,7 +85,8 @@ const Layout = ({ children }) => {
     if (
       userRedux.cpf !== "viewVideo2" &&
       userRedux !== 0 &&
-      location === "/dashboard"
+      location === "/dashboard" &&
+      dataSession.prevData === undefined
     ) {
       setModal(1);
       setTimeout(() => {
