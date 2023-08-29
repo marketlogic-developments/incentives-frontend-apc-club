@@ -22,6 +22,7 @@ const SalesYtd = () => {
     totalColor: "",
     expectedColor: "#828282",
   });
+  const [cloudDocument, setCloudDocument] = useState();
   const [marketplaceVip, setMarketplaceVip] = useState();
   const [levelSale, setLevelSale] = useState();
   const [dataTable, setDataTable] = useState();
@@ -463,6 +464,78 @@ const SalesYtd = () => {
     return Array.from(uniqueValues);
   };
 
+  /* TOTAL DE CREATIVE CLOUD Y DOCUMENT CLOUD  */
+  const calculateCreativeDocumentSum = (data) => {
+    const propertiesToSum = [
+      "expected_cc_renew",
+      "expected_cc_newbusiness",
+      "expected_dc_renew",
+      "expected_dc_newbusiness",
+      "sales_cc_renewal",
+      "sales_cc_newbusiness",
+      "sales_dc_renewal",
+      "sales_dc_newbusiness",
+    ];
+
+    const filteredItems = data.filter(
+      (item) => item.company_type === "RESELLER"
+    );
+
+    const calculateTotal = (property) =>
+      filteredItems.reduce((sum, item) => {
+        const value = parseFloat(item[property]);
+        return isNaN(value) ? sum : sum + value;
+      }, 0);
+
+    const expected_cc_renew = calculateTotal("expected_cc_renew").toFixed(2);
+    const expected_cc_newbusiness = calculateTotal(
+      "expected_cc_newbusiness"
+    ).toFixed(2);
+    const expected_dc_renew = calculateTotal("expected_dc_renew").toFixed(2);
+    const expected_dc_newbusiness = calculateTotal(
+      "expected_dc_newbusiness"
+    ).toFixed(2);
+    const sales_cc_renewal = calculateTotal("sales_cc_renewal").toFixed(2);
+    const sales_cc_newbusiness = calculateTotal("sales_cc_newbusiness").toFixed(
+      2
+    );
+    const sales_dc_renewal = calculateTotal("sales_dc_renewal").toFixed(2);
+    const sales_dc_newbusiness = calculateTotal("sales_dc_newbusiness").toFixed(
+      2
+    );
+    const expectedCloud = (
+      calculateTotal("expected_cc_renew") +
+      calculateTotal("expected_cc_newbusiness")
+    ).toFixed(2);
+    const salesCloud = (
+      calculateTotal("sales_cc_renewal") +
+      calculateTotal("sales_cc_newbusiness")
+    ).toFixed(2);
+    const expectedDoc = (
+      calculateTotal("expected_dc_renew") +
+      calculateTotal("expected_dc_newbusiness")
+    ).toFixed(2);
+    const salesDoc = (
+      calculateTotal("sales_dc_renewal") +
+      calculateTotal("sales_dc_newbusiness")
+    ).toFixed(2);
+
+    return {
+      expected_cc_renew,
+      expected_cc_newbusiness,
+      expected_dc_newbusiness,
+      sales_cc_renewal,
+      sales_cc_newbusiness,
+      sales_dc_renewal,
+      sales_dc_newbusiness,
+      expected_dc_renew,
+      expectedCloud,
+      salesCloud,
+      expectedDoc,
+      salesDoc,
+    };
+  };
+
   useEffect(() => {
     setDataLoaded(false);
     dispatch(getSalesYtd(token, filters)).then((res) => {
@@ -476,6 +549,8 @@ const SalesYtd = () => {
         colorMapping
       );
       setRegionVsGoals(formattedData);
+
+      setCloudDocument(calculateCreativeDocumentSum(res.payload));
 
       const formattedTotals = formatterDataToBarChart(
         res.payload,
@@ -540,7 +615,7 @@ const SalesYtd = () => {
         dataLoaded={dataLoaded}
         regionVsGoals={regionVsGoals}
       />
-      {!dataLoaded ? <div className="lds-dual-ring"></div> : <CdpSection />}
+      {!dataLoaded ? <div className="lds-dual-ring"></div> : <CdpSection data={cloudDocument}/>}
       {dataLoaded && (
         <MarketplaceSection
           dataLoaded={dataLoaded}
