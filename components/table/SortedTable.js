@@ -38,10 +38,11 @@ const SortedTable = ({
   /* SUMA DE COLUMNAS */
   const columnSums = currentItems.reduce((acc, obj) => {
     Object.keys(obj).forEach((key) => {
-      if (typeof obj[key] === "string" && !isNaN(parseFloat(obj[key]))) {
+      if (!isNaN(obj[key]) || (typeof obj[key] === "string" && !isNaN(parseFloat(obj[key])))) {
         const numericValue = parseFloat(obj[key]);
         acc[key] = (acc[key] || 0) + numericValue;
       }
+  
     });
     return acc;
   }, {});
