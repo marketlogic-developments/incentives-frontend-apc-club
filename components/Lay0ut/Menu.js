@@ -12,6 +12,7 @@ const MenuAPC = ({
   location,
   collapse,
   setFloatMenu,
+  dataUserSwitch,
 }) => {
   const [drop, setDrop] = useState(false);
 
@@ -64,7 +65,7 @@ const MenuAPC = ({
           }}
         >
           {icon}
-          {!collapse && <p className="whitespace-nowrap">{text}</p>}
+          {!collapse && <p className={`whitespace-nowrap`}>{text}</p>}
         </div>
       </div>
       {subsections !== undefined && drop && (

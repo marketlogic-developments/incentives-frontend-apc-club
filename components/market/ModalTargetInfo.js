@@ -17,6 +17,8 @@ const ModalTargetInfo = ({ info, addItem, setCounter, setOpened }) => {
     setOpened(false);
   };
 
+  console.log(info);
+
   const items = [
     {
       svg: (
@@ -64,7 +66,7 @@ const ModalTargetInfo = ({ info, addItem, setCounter, setOpened }) => {
       ),
       text: arrayDescription[1],
     },
-    {
+    !info.name.includes("Bancolombia") && {
       svg: (
         <svg
           width="18"

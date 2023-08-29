@@ -26,12 +26,15 @@ const UserOptions = ({
   const componenteRef = useRef(null);
   const [image, setImage] = useState({});
   const [viewimage, setviewImage] = useState("");
+  const [opened, setOpened] = useState(false);
 
   useEffect(() => {
     const handleClickFuera = (event) => {
+      console.log(opened);
       if (
         componenteRef.current &&
-        !componenteRef.current.contains(event.target)
+        !componenteRef.current.contains(event.target) &&
+        opened === false
       ) {
         // El clic se hizo fuera del componente
         setMenuUser(false);
@@ -43,7 +46,7 @@ const UserOptions = ({
     return () => {
       document.removeEventListener("mousedown", handleClickFuera);
     };
-  }, []);
+  }, [opened]);
 
   const fileInputRef = useRef(null);
 
@@ -237,6 +240,9 @@ const UserOptions = ({
         <InformativeSections
           actionCustomerCare={actionCustomerCare}
           setMenuUser={setMenuUser}
+          opened={opened}
+          setOpened={setOpened}
+          user={user}
         />
         <div className="w-[70%] flex flex-col items-center">
           <hr className="w-full" />
