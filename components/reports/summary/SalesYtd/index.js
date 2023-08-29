@@ -155,61 +155,31 @@ const SalesYtd = () => {
   };
 
   /* SET DATA */
-  const sumSalesForCompanies = (data, companyTypes) => {
-    const result = [];
-
-    companyTypes.forEach((companyType) => {
-      const companyData = data.filter(
-        (item) => item.company_type === companyType
-      );
-
-      const salesSums = {
-        company_type: companyType,
-        sales_education_cc: "0",
-        sales_education_dc: "0",
-        sales_enterprise_cc: "0",
-        sales_enterprise_dc: "0",
-        sales_teams_cc: "0",
-        sales_acrobat_pro_dc: "0",
-      };
-
-      companyData.forEach((item) => {
-        salesSums.sales_education_cc = (
-          parseFloat(salesSums.sales_education_cc) +
-          (parseFloat(item.sales_education_cc) || 0)
-        ).toFixed(2);
-
-        salesSums.sales_education_dc = (
-          parseFloat(salesSums.sales_education_dc) +
-          (parseFloat(item.sales_education_dc) || 0)
-        ).toFixed(2);
-
-        salesSums.sales_enterprise_cc = (
-          parseFloat(salesSums.sales_enterprise_cc) +
-          (parseFloat(item.sales_enterprise_cc) || 0)
-        ).toFixed(2);
-
-        salesSums.sales_enterprise_dc = (
-          parseFloat(salesSums.sales_enterprise_dc) +
-          (parseFloat(item.sales_enterprise_dc) || 0)
-        ).toFixed(2);
-
-        salesSums.sales_teams_cc = (
-          parseFloat(salesSums.sales_teams_cc) +
-          (parseFloat(item.sales_teams_cc) || 0)
-        ).toFixed(2);
-
-        salesSums.sales_acrobat_pro_dc = (
-          parseFloat(salesSums.sales_acrobat_pro_dc) +
-          (parseFloat(item.sales_acrobat_pro_dc) || 0)
-        ).toFixed(2);
-      });
-
-      result.push(salesSums);
-    });
-
+  const calculateSegmentTotals = (data)=> {
+    const resellerData = data.filter(item => item.company_type === "RESELLER");
+  
+    const segmentTotals = resellerData.reduce((totals, item) => {
+      totals["Commercial"] = (totals["Commercial"] || 0) + parseFloat(item.sales_commercial);
+      totals["Government"] = (totals["Government"] || 0) + parseFloat(item.sales_government);
+      totals["Education"] = (totals["Education"] || 0) + parseFloat(item.sales_education);
+      return totals;
+    }, {});
+  
+    const pointsTotals = resellerData.reduce((totals, item) => {
+      totals["Commercial"] = (totals["Commercial"] || 0) + parseInt(item.puntos_commercial);
+      totals["Government"] = (totals["Government"] || 0) + parseInt(item.puntos_government);
+      totals["Education"] = (totals["Education"] || 0) + parseInt(item.puntos_education);
+      return totals;
+    }, {});
+  
+    const result = Object.keys(segmentTotals).map(segment => ({
+      segment,
+      total: segmentTotals[segment],
+      total_points: pointsTotals[segment],
+    }));
+  
     return result;
-  };
+  }
 
   /* SELECTS */
   const handleFilters = (name, value) => {
@@ -539,6 +509,7 @@ const SalesYtd = () => {
   useEffect(() => {
     setDataLoaded(false);
     dispatch(getSalesYtd(token, filters)).then((res) => {
+      console.log(res.payload);
       const revenueSums = calculateRevenueSum(res.payload);
       setSales(revenueSums);
 
@@ -568,11 +539,7 @@ const SalesYtd = () => {
       ]);
       setLevelSale(formatterRevenueTotals);
 
-      const totalRevenueForCompany = sumSalesForCompanies(
-        res.payload,
-        getUniqueFieldValues(res.payload, "company_type")
-      );
-      setDataTable(totalRevenueForCompany);
+      setDataTable(calculateSegmentTotals(res.payload));
       setCompaniesName(getUniqueFieldValues(res.payload, "company_name"));
       setLevels(getUniqueFieldValues(res.payload, "level"));
       setRegions(getUniqueFieldValues(res.payload, "region"));
