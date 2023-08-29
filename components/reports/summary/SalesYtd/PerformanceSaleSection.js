@@ -53,7 +53,7 @@ const PerformanceSaleSection = ({ data }) => {
         <div className="flex flex-col gap-2">
           <div className="flex w-full justify-between">
             <p className="lg:!text-xs xl:!text-sm font-bold">
-              {t("dashboard.renovaciones")}
+              {t("Renewals")}
             </p>
             <p className="!text-sm">
               $
@@ -80,7 +80,7 @@ const PerformanceSaleSection = ({ data }) => {
         <div className="flex flex-col gap-2">
           <div className="flex w-full justify-between">
             <p className="lg:!text-xs xl:!text-sm font-bold">
-              {t("dashboard.nbusiness")}
+              {t("New Business")}
             </p>
             <p className="!text-sm">
               $
