@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactEcharts from "echarts-for-react";
 
 const BarChar = ({
@@ -10,7 +10,28 @@ const BarChar = ({
   dataOne = [],
   dataTwo = [],
   dataLeyend = [],
+  onLegendSelect = () => {},
 }) => {
+  const chartRef = useRef(null);
+  const [selectedLegends, setSelectedLegends] = useState(
+    dataLeyend.map(() => false)
+  );
+
+  useEffect(() => {
+    if (chartRef.current) {
+      chartRef.current
+        .getEchartsInstance()
+        .on("legendselectchanged", function (params) {
+          const selected = params.selected;
+          const newlySelected = Object.keys(selected).filter(
+            (key) => selected[key]
+          );
+          setSelectedLegends(newlySelected);
+          onLegendSelect(newlySelected);
+        });
+    }
+  }, []);
+
   const option = {
     title: {
       textStyle: {
@@ -29,6 +50,12 @@ const BarChar = ({
       orient: "horizontal",
       right: "10",
       top: "15",
+      selected: {
+        selected: selectedLegends.reduce(
+          (selected, legend) => ({ ...selected, [legend]: true }),
+          {}
+        ),
+      },
     },
 
     calculable: true,
@@ -73,7 +100,7 @@ const BarChar = ({
 
   return (
     <div className="w-full">
-      <ReactEcharts option={option} />
+      <ReactEcharts ref={chartRef} option={option} />
     </div>
   );
 };

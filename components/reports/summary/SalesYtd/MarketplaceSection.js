@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CardChart from "../../../cardReportes/CardChart";
 import BarChar from "../../../cardReportes/BarChar";
 import BarCircleChart from "../../../charts/BarCircleChart";
@@ -9,6 +9,18 @@ const MarketplaceSection = ({
   xValuesLine,
   marketplaceVip,
 }) => {
+  const formatValue = (value) => {
+    return value >= 1000000
+      ? (value / 1000000).toFixed(2) + "M"
+      : value >= 1000
+      ? (value / 1000).toFixed(2) + "K"
+      : value;
+  };
+  const [legend, setlegend] = useState(["VIP", "Marketplace"]);
+  const handleLegendSelection = (selectedLegends) => {
+    setlegend(selectedLegends);
+  };
+
   return (
     <div className="flex flex-col">
       <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
@@ -16,15 +28,52 @@ const MarketplaceSection = ({
         {barCircleChart && <BarCircleChart datas={barCircleChart} />}
         <CardChart title={"Marketplace & VIP"} paragraph="">
           {marketplaceVip && (
-            <BarChar
-              title={""}
-              colorBarOne={"black"}
-              colorBarTwo={"#2799F6"}
-              dataLeyend={["VIP", "Marketplace"]}
-              dataOne={marketplaceVip.vip}
-              dataTwo={marketplaceVip.vmp}
-              xValues={xValuesLine}
-            />
+            <>
+              <BarChar
+                title={""}
+                colorBarOne={"black"}
+                colorBarTwo={"#2799F6"}
+                dataLeyend={["VIP", "Marketplace"]}
+                dataOne={marketplaceVip.vip}
+                dataTwo={marketplaceVip.vmp}
+                xValues={xValuesLine}
+                onLegendSelect={handleLegendSelection}
+              />
+              <div className="grid grid-cols-2 justify-between">
+                {legend.length === 2 ? (
+                  <>
+                    <div className="flex justify-start">
+                      Marketplace:{" "}
+                      {`$ ${formatValue(marketplaceVip.totalVmp)}, ${
+                        marketplaceVip.percentageVmp
+                      }%`}
+                    </div>
+                    <div className="flex justify-end">
+                      VIP:{" "}
+                      {`$ ${formatValue(marketplaceVip.totalVip)}, ${
+                        marketplaceVip.percentageVip
+                      }%`}
+                    </div>
+                  </>
+                ) : legend.includes("VIP") ? (
+                  <div className="flex justify-end">
+                    VIP:{" "}
+                    {`$ ${formatValue(marketplaceVip.totalVip)}, ${
+                      marketplaceVip.percentageVip
+                    }%`}
+                  </div>
+                ) : legend.includes("Marketplace") ? (
+                  <div className="flex justify-start">
+                    Marketplace:{" "}
+                    {`$ ${formatValue(marketplaceVip.totalVmp)}, ${
+                      marketplaceVip.percentageVmp
+                    }%`}
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            </>
           )}
         </CardChart>
       </div>

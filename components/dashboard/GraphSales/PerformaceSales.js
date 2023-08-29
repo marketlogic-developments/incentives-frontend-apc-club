@@ -91,13 +91,12 @@ const PerformaceSales = ({ CC, DC, goals }) => {
               {formatNumber(Number(dataSalesByType.totalSalesRenew))}
             </p>
           </div>
-          <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
-            <Tooltip
-              label={`${Number(
-                (dataSalesByType.renewal * 100) /
-                  dataSalesByType.totalSalesRenew
-              ).toFixed(2)}%`}
-            >
+          <Tooltip
+            label={`${Number(
+              (dataSalesByType.renewal * 100) / dataSalesByType.totalSalesRenew
+            ).toFixed(2)}%`}
+          >
+            <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
               <span
                 className="bg-[#232B2F] h-full rounded-full"
                 style={{
@@ -107,8 +106,8 @@ const PerformaceSales = ({ CC, DC, goals }) => {
                   }%`,
                 }}
               />
-            </Tooltip>
-          </div>
+            </div>
+          </Tooltip>
         </div>
         <div className="flex flex-col gap-2">
           <div className="flex w-full justify-between">
@@ -120,13 +119,13 @@ const PerformaceSales = ({ CC, DC, goals }) => {
               {formatNumber(Number(dataSalesByType.totalSalesNewBusiness))}
             </p>
           </div>
-          <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
-            <Tooltip
-              label={`${Number(
-                (dataSalesByType.newBusiness * 100) /
-                  dataSalesByType.totalSalesNewBusiness
-              ).toFixed(2)}%`}
-            >
+          <Tooltip
+            label={`${Number(
+              (dataSalesByType.newBusiness * 100) /
+                dataSalesByType.totalSalesNewBusiness
+            ).toFixed(2)}%`}
+          >
+            <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
               <span
                 className="bg-[#21A5A2] h-full rounded-full"
                 style={{
@@ -136,8 +135,8 @@ const PerformaceSales = ({ CC, DC, goals }) => {
                   }%`,
                 }}
               />
-            </Tooltip>
-          </div>
+            </div>
+          </Tooltip>
         </div>
       </div>
       <hr />
@@ -150,14 +149,14 @@ const PerformaceSales = ({ CC, DC, goals }) => {
               {formatNumber(Number(dataSalesByType.totalSalesCreativeCloud))}
             </p>
           </div>
-          <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
-            <Tooltip label={`${Number(dataSalesByType.withCC).toFixed(2)}%`}>
+          <Tooltip label={`${Number(dataSalesByType.withCC).toFixed(2)}%`}>
+            <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
               <span
                 className="bg-[#1473E6] h-full rounded-full"
                 style={{ width: `${dataSalesByType.withCC}%` }}
               />
-            </Tooltip>
-          </div>
+            </div>
+          </Tooltip>
         </div>
         <div className="flex flex-col gap-2">
           <div className="flex w-full justify-between">
@@ -167,14 +166,14 @@ const PerformaceSales = ({ CC, DC, goals }) => {
               {formatNumber(Number(dataSalesByType.totalSalesDocument))}
             </p>
           </div>
-          <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
-            <Tooltip label={`${Number(dataSalesByType.withDC).toFixed(2)}%`}>
+          <Tooltip label={`${Number(dataSalesByType.withDC).toFixed(2)}%`}>
+            <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
               <span
                 className={`bg-primary h-full rounded-full`}
                 style={{ width: `${dataSalesByType.withDC}%` }}
               />
-            </Tooltip>
-          </div>
+            </div>
+          </Tooltip>
         </div>
       </div>
     </div>
