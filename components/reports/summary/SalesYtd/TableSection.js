@@ -15,42 +15,22 @@ const TableSection = ({ dataTable }) => {
             rowStyles: "",
             sort: false,
             symbol: "",
-            identity: "company_type",
+            identity: "segment",
             columnName: "Segmento",
           },
           {
             rowStyles: "",
             sort: false,
             symbol: "USD",
-            identity: "sales_education_cc",
-            columnName: "CC Education",
+            identity: "total",
+            columnName: "Total Sales USD",
           },
           {
             rowStyles: "",
             sort: false,
             symbol: "USD",
-            identity: "sales_education_dc",
-            columnName: "DC Education",
-          },
-          {
-            symbol: "USD",
-            identity: "sales_enterprise_cc",
-            columnName: "CC Enterprise",
-          },
-          {
-            symbol: "USD",
-            identity: "sales_enterprise_dc",
-            columnName: "DC Enterprise",
-          },
-          {
-            symbol: "USD",
-            identity: "sales_teams_cc",
-            columnName: "CC Teams",
-          },
-          {
-            symbol: "USD",
-            identity: "sales_acrobat_pro_dc",
-            columnName: "DC Acrobat Pro",
+            identity: "total_points",
+            columnName: "DigiPoints",
           },
         ]}
         generalRowStyles={"text-left py-3 mx-7"}
