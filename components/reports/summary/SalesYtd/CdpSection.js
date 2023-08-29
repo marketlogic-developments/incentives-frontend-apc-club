@@ -3,6 +3,7 @@ import TargetSales from "../../../dashboard/GraphSales/TargetSales";
 import PerformaceSales from "../../../dashboard/GraphSales/PerformaceSales";
 import PieChart from "../../../dashboard/GraphSales/PieChart";
 import { useTranslation } from "react-i18next";
+import PerformanceSaleSection from "./PerformanceSaleSection";
 
 const CdpSection = ({ data }) => {
   const [t, i18n] = useTranslation("global");
@@ -74,7 +75,7 @@ const CdpSection = ({ data }) => {
             />
           </div>
         </div>
-        {/* <PerformaceSales CC={CC} DC={DC} goals={goals} /> */}
+        <PerformanceSaleSection data={data}/>
       </div>
     </div>
   );

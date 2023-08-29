@@ -581,7 +581,7 @@ const SalesYtd = () => {
       setDataLoaded(true);
     });
   }, [filters]);
-console.log(cloudDocument);
+
   return (
     <div className="m-5">
       <FilterSection
