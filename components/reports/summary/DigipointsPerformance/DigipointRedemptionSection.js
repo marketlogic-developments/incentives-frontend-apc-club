@@ -20,7 +20,7 @@ const DigipointRedemptionSection = ({
       <CardChart title={"DigiPoints by status"} paragraph="">
         {!isDigipointStatus && <div className="lds-dual-ring"></div>}
         {isDigipointStatus && (
-          <HorizontalBar datas={dataDigStatus} symbol="$ " />
+          <HorizontalBar datas={dataDigStatus} symbol="$" />
         )}
       </CardChart>
       <CardChart title={"Redemptions by region and amound"} paragraph="">

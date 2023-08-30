@@ -64,7 +64,7 @@ const HorizontalBar = ({ datas = [{ name: "", value: 0, color: "" }], symbol='' 
         backgroundColor: "#828282",
         label: {
           show: true,
-          position: "insideRight", // You can adjust the position as needed
+          position: "inside",
           formatter: function (params) {
             return `${symbol} ${valueFormatter(params.value)}`;
           },
