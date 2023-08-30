@@ -436,16 +436,6 @@ const SalesYtd = () => {
 
   /* TOTAL DE CREATIVE CLOUD Y DOCUMENT CLOUD  */
   const calculateCreativeDocumentSum = (data) => {
-    const propertiesToSum = [
-      "expected_cc_renew",
-      "expected_cc_newbusiness",
-      "expected_dc_renew",
-      "expected_dc_newbusiness",
-      "sales_cc_renewal",
-      "sales_cc_newbusiness",
-      "sales_dc_renewal",
-      "sales_dc_newbusiness",
-    ];
 
     const filteredItems = data.filter(
       (item) => item.company_type === "RESELLER"
