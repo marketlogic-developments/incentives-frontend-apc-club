@@ -26,7 +26,12 @@ const DigipoinstPerformance = () => {
     licensing_type: "",
   });
   const [digipointUploaded, setDigipointUploaded] = useState([]);
+  const [digipointSR, setDigipointSR] = useState({
+    datas: {},
+    yNames: [],
+  });
   const [isDigipointsUploaded, setIsDigipointsUploaded] = useState(false);
+  const [isDigipointSR, setIsDigipointSR] = useState(false);
   const multiSelect = [
     {
       placeholder: "Year",
@@ -123,11 +128,18 @@ const DigipoinstPerformance = () => {
   /* GET DATA */
   useEffect(() => {
     dispatch(getDigiPointPerformance(token, filters)).then((res) => {
-      console.log(res.payload.digipointsUploaded);
+      console.log(res.payload.digipointsByStatusAndRegion);
       /* DIGIPOINTS UPLOADED */
       setIsDigipointsUploaded(false);
       setDigipointUploaded(res.payload.digipointsUploaded);
       setIsDigipointsUploaded(true);
+
+      /* DIGIPOINTS BY STATUS AND REGION PENDING*/
+      setIsDigipointSR(false);
+      setDigipointSR({
+        yNames: res.payload.digipointsByStatusAndRegion.yAxis.data,
+      });
+      setIsDigipointSR(true);
     });
   }, [filters]);
 
@@ -140,6 +152,8 @@ const DigipoinstPerformance = () => {
         <DigipointSection
           dataUploaded={digipointUploaded}
           isDigipointsUploaded={isDigipointsUploaded}
+          dataSR={digipointSR}
+          isDigipointSR={isDigipointSR}
         />
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
