@@ -31,9 +31,14 @@ const DigipoinstPerformance = () => {
     yNames: [],
   });
   const [digipointsStatus, setDigipointStatus] = useState([]);
+  const [digipointsRA, setDigipointRA] = useState({
+    datas: {},
+    yNames: [],
+  });
   const [isDigipointsUploaded, setIsDigipointsUploaded] = useState(false);
   const [isDigipointSR, setIsDigipointSR] = useState(false);
   const [isDigipointStatus, setIsDigipointStatus] = useState(false);
+  const [isDigipointRA, setIsDigipointRA] = useState(false);
   const multiSelect = [
     {
       placeholder: "Year",
@@ -150,7 +155,7 @@ const DigipoinstPerformance = () => {
   /* GET DATA */
   useEffect(() => {
     dispatch(getDigiPointPerformance(token, filters)).then((res) => {
-      console.log(res.payload.digipointsByStatus);
+      console.log(res.payload);
       /* DIGIPOINTS UPLOADED */
       setIsDigipointsUploaded(false);
       setDigipointUploaded(res.payload.digipointsUploaded);
@@ -169,9 +174,16 @@ const DigipoinstPerformance = () => {
         mapColorsToData(res.payload.digipointsByStatus, colorsData)
       );
       setIsDigipointStatus(true);
+
+      /* DIGIPOINTS BY REGION AND AMOUND */
+      setIsDigipointRA(false);
+      setDigipointRA({
+        yNames: res.payload.redempionsByRegionAndAmount.yAxis.data,
+      });
+      setIsDigipointRA(true);
     });
   }, [filters]);
-  console.log(digipointsStatus);
+
   return (
     <div className="m-5">
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
@@ -187,10 +199,10 @@ const DigipoinstPerformance = () => {
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
         <DigipointRedemptionSection
-          isDigipointStatus={isDigipointStatus}
           dataDigStatus={digipointsStatus}
-          redempion={redempion}
-          xValuesLine={xValuesLine}
+          isDigipointStatus={isDigipointStatus}
+          digipointsRA={digipointsRA}
+          isDigipointRA={isDigipointRA}
         />
       </div>
     </div>
