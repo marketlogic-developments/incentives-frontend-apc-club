@@ -5,7 +5,7 @@ import SelectSection from "./SelectSection";
 import DigipointSection from "./DigipointSection";
 import DigipointRedemptionSection from "./DigipointRedemptionSection";
 import { useEffect } from "react";
-import { getDigiPointsPerformance } from "../../../../store/reducers/sales.reducer";
+import { getDigiPointPerformance } from "../../../../store/reducers/sales.reducer";
 import { useDispatch, useSelector } from "react-redux";
 
 const DigipoinstPerformance = () => {
@@ -14,26 +14,28 @@ const DigipoinstPerformance = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const [filters, setFilters] = useState({
-    company_name: "",
-    level: "",
-    region: "",
-    country_id: "",
     quarter: "",
     month: "",
-    marketSegment: "",
-    businessUnit: "",
-    company_type: "",
+    region: "",
+    country: "",
+    partner_level: "",
+    partner: "",
+    market_segment: "",
+    business_unit: "",
+    business_type: "",
+    licensing_type: "",
   });
-  const colorMapping = {
-    NOLA: "#2799F6",
-    SOLA: "#1473E6",
-    MEXICO: "#1C2226",
-    BRAZIL: "#21A5A2",
-    GOLD: "#232B2F",
-    PLATINUM: "#1473E6",
-    DISTRIBUTOR: "#21A5A2",
-    CERTIFIED: "#21A5A2",
-  };
+  const [digipointUploaded, setDigipointUploaded] = useState([]);
+  const [digipointSR, setDigipointSR] = useState({
+    datas: {},
+    yNames: [],
+  });
+  const [digipointsStatus, setDigipointStatus] = useState([]);
+  const [digipointsRA, setDigipointRA] = useState({
+    datas: [],
+    yNames: [],
+  });
+  const [isDataReady, setIsReady] = useState(false);
   const multiSelect = [
     {
       placeholder: "Year",
@@ -124,86 +126,101 @@ const DigipoinstPerformance = () => {
       name: "licensiong",
     },
   ];
-  const xValuesLine = [50, 100, 200, 300, 400, 500];
-  const redempion = [0, 100, 200, 300, 400];
+  const colorsData = [
+    { name: "Digipoints", color: "#0149A0" },
+    { name: "Expected", color: "#1473E6" },
+    { name: "Assigned", color: "#75AFF5" },
+    { name: "Redeemed", color: "#A4CDFF" },
+  ];
 
-/* DIGIPOINTS SECTION */
-const getColorForField = (value, mapping, defaultColor = "#828282") => {
-  return mapping[value] || defaultColor;
-};
+  const mapColorsToData = (originalData, colorsData) => {
+    const colorMap = colorsData.reduce((map, item) => {
+      map[item.name] = item.color;
+      return map;
+    }, {});
 
-const calculateTotalRevenueByRegion = (data) => {
-  const regions = ["NOLA", "SOLA", "MEXICO", "BRAZIL"];
-  const revenueByRegion = {};
+    const modifiedData = originalData.map((item) => ({
+      ...item,
+      color: colorMap[item.name] || "#000000", // Color predeterminado si no se encuentra en el mapa
+    }));
 
-  regions.forEach((region) => {
-    const totalRevenue = data.reduce((total, obj) => {
-      if (obj.region === region) {
-        const revenue = parseFloat(Number(obj.total_revenue).toFixed(2));
-        return total + revenue;
-      }
-      return total;
-    }, 0);
-    revenueByRegion[region] = totalRevenue;
-  });
+    return modifiedData;
+  };
 
-  return revenueByRegion;
-};
-
-const calculateAndFormatData = (
-  data,
-  calculateTotalFunction,
-  getColorFunction,
-  colorMapping
-) => {
-  const revenueByRegion = calculateTotalFunction(data);
-  const formattedData = Object.keys(revenueByRegion).map((region) => ({
-    name: region,
-    value: Number(revenueByRegion[region]).toFixed(2),
-    color: getColorFunction(region, colorMapping),
-  }));
-  return formattedData;
-};
-  
-  const getUniqueFieldValues = (data, fieldName) => {
-    const uniqueValues = new Set();
-
-    data.forEach((item) => {
-      const fieldValue = item[fieldName];
-      if (fieldValue !== null && fieldValue !== "") {
-        uniqueValues.add(fieldValue);
-      }
-    });
-
-    return Array.from(uniqueValues);
+  const transformDataWithColors = (data, colorsByCountry) => {
+    return data
+      .filter((item) => item.name !== null)
+      .map((item) => {
+        const countryColor = colorsByCountry[item.name] || "#000000"; // Default color if not found
+        return {
+          name: item.name,
+          color: countryColor,
+          data: item.data.map((value) => parseInt(value)),
+        };
+      });
   };
 
   /* GET DATA */
   useEffect(() => {
-    dispatch(getDigiPointsPerformance(token)).then((res) => {
-      const uniqueFieldValues = getUniqueFieldValues(res.payload, "company_type");
-      const formattedData = calculateAndFormatData(
-        res.payload,
-        calculateTotalRevenueByRegion,
-        getColorForField,
-        colorMapping
+    dispatch(getDigiPointPerformance(token, filters)).then((res) => {
+      /* DIGIPOINTS UPLOADED */
+      setIsReady(false);
+      setDigipointUploaded(res.payload.digipointsUploaded);
+      
+
+      /* DIGIPOINTS BY STATUS AND REGION PENDING*/
+      setDigipointSR({
+        datas: transformDataWithColors(
+          res.payload.digipointsByStatusAndRegion.series,
+          {
+            MEXICO: "#1C2226",
+            NOLA: "#2799F6",
+            SOLA: "#1473E6",
+            BRAZIL: "#21A5A2",
+          }
+        ),
+        yNames: res.payload.digipointsByStatusAndRegion.yAxis.data,
+      });
+
+      /* DIGIPOINTS BY STATUS */
+      setDigipointStatus(
+        mapColorsToData(res.payload.digipointsByStatus, colorsData)
       );
-      console.log(res.payload);
+
+      /* DIGIPOINTS BY REGION AND AMOUND */
+      setDigipointRA({
+        datas: transformDataWithColors(
+          res.payload.redempionsByRegionAndAmount.series,
+          {
+            MEXICO: "#1C2226",
+            NOLA: "#2799F6",
+            SOLA: "#1473E6",
+            BRAZIL: "#21A5A2",
+          }
+        ),
+        yNames: res.payload.redempionsByRegionAndAmount.yAxis.data,
+      });
+      setIsReady(true);
     });
-  });
+  }, [filters]);
 
   return (
     <div className="m-5">
-      <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
+      {/* <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
         <SelectSection multiSelect={multiSelect} />
-      </div>
+      </div> */}
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
-        <DigipointSection />
+        <DigipointSection
+          dataUploaded={digipointUploaded}
+          isDataReady={isDataReady}
+          dataSR={digipointSR}
+        />
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
         <DigipointRedemptionSection
-          redempion={redempion}
-          xValuesLine={xValuesLine}
+          dataDigStatus={digipointsStatus}
+          isDataReady={isDataReady}
+          digipointsRA={digipointsRA}
         />
       </div>
     </div>
