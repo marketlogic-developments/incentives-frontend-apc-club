@@ -135,8 +135,6 @@ const DigipoinstPerformance = () => {
     { name: "Assigned", color: "#75AFF5" },
     { name: "Redeemed", color: "#A4CDFF" },
   ];
-  const xValuesLine = [50, 100, 200, 300, 400, 500];
-  const redempion = [0, 100, 200, 300, 400];
 
   const mapColorsToData = (originalData, colorsData) => {
     const colorMap = colorsData.reduce((map, item) => {
