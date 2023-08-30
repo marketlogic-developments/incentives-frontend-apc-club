@@ -76,7 +76,7 @@ const Summary = () => {
           }`}
           onClick={() => setContent(t("SalesYoy"))}
         /> */}
-        {/* <ButtonBgOut
+        <ButtonBgOut
           title={t("Reportes.digipoints_performance")}
           styles={`${
             content === "DigipoinstPerformance"
@@ -84,7 +84,7 @@ const Summary = () => {
               : "hover:bg-red-100 hover:!text-red-500 hover:!text-sm"
           }`}
           onClick={() => setContent(t("DigipoinstPerformance"))}
-        /> */}
+        />
         {/* <ButtonBgOut
           title={t("Reportes.organization")}
           styles={`${
