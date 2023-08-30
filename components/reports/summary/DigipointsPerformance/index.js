@@ -32,13 +32,10 @@ const DigipoinstPerformance = () => {
   });
   const [digipointsStatus, setDigipointStatus] = useState([]);
   const [digipointsRA, setDigipointRA] = useState({
-    datas: {},
+    datas: [],
     yNames: [],
   });
-  const [isDigipointsUploaded, setIsDigipointsUploaded] = useState(false);
-  const [isDigipointSR, setIsDigipointSR] = useState(false);
-  const [isDigipointStatus, setIsDigipointStatus] = useState(false);
-  const [isDigipointRA, setIsDigipointRA] = useState(false);
+  const [isDataReady, setIsReady] = useState(false);
   const multiSelect = [
     {
       placeholder: "Year",
@@ -150,35 +147,61 @@ const DigipoinstPerformance = () => {
     return modifiedData;
   };
 
+  const transformDataWithColors = (data, colorsByCountry) => {
+    return data
+      .filter((item) => item.name !== null)
+      .map((item) => {
+        const countryColor = colorsByCountry[item.name] || "#000000"; // Default color if not found
+        return {
+          name: item.name,
+          color: countryColor,
+          data: item.data.map((value) => parseInt(value)),
+        };
+      });
+  };
+
   /* GET DATA */
   useEffect(() => {
     dispatch(getDigiPointPerformance(token, filters)).then((res) => {
       console.log(res.payload);
       /* DIGIPOINTS UPLOADED */
-      setIsDigipointsUploaded(false);
+      setIsReady(false);
       setDigipointUploaded(res.payload.digipointsUploaded);
-      setIsDigipointsUploaded(true);
+      
 
       /* DIGIPOINTS BY STATUS AND REGION PENDING*/
-      setIsDigipointSR(false);
       setDigipointSR({
+        datas: transformDataWithColors(
+          res.payload.digipointsByStatusAndRegion.series,
+          {
+            MEXICO: "#1C2226",
+            NOLA: "#2799F6",
+            SOLA: "#1473E6",
+            BRAZIL: "#21A5A2",
+          }
+        ),
         yNames: res.payload.digipointsByStatusAndRegion.yAxis.data,
       });
-      setIsDigipointSR(true);
 
       /* DIGIPOINTS BY STATUS */
-      setIsDigipointStatus(false);
       setDigipointStatus(
         mapColorsToData(res.payload.digipointsByStatus, colorsData)
       );
-      setIsDigipointStatus(true);
 
       /* DIGIPOINTS BY REGION AND AMOUND */
-      setIsDigipointRA(false);
       setDigipointRA({
+        datas: transformDataWithColors(
+          res.payload.redempionsByRegionAndAmount.series,
+          {
+            MEXICO: "#1C2226",
+            NOLA: "#2799F6",
+            SOLA: "#1473E6",
+            BRAZIL: "#21A5A2",
+          }
+        ),
         yNames: res.payload.redempionsByRegionAndAmount.yAxis.data,
       });
-      setIsDigipointRA(true);
+      setIsReady(true);
     });
   }, [filters]);
 
@@ -190,17 +213,15 @@ const DigipoinstPerformance = () => {
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
         <DigipointSection
           dataUploaded={digipointUploaded}
-          isDigipointsUploaded={isDigipointsUploaded}
+          isDataReady={isDataReady}
           dataSR={digipointSR}
-          isDigipointSR={isDigipointSR}
         />
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
         <DigipointRedemptionSection
           dataDigStatus={digipointsStatus}
-          isDigipointStatus={isDigipointStatus}
+          isDataReady={isDataReady}
           digipointsRA={digipointsRA}
-          isDigipointRA={isDigipointRA}
         />
       </div>
     </div>

@@ -12,21 +12,6 @@ const Summary = () => {
   const [content, setContent] = useState("SalesYtd");
   const [t, i18n] = useTranslation("global");
 
-  const contentPage = useMemo(() => {
-    if (content === t("SalesYtd")) {
-      return <SalesYtd />;
-    }
-    if (content === t("SalesYoy")) {
-      return <SalesYoy />;
-    }
-    if (content === t("DigipoinstPerformance")) {
-      return <DigipoinstPerformance />;
-    }
-    if (content === t("Organization")) {
-      return <Organization />;
-    }
-  }, [content]);
-
   return (
     <div className="mt-4">
       <div className="pt-2 grid items-center grid-rows-1 gap-3">
@@ -95,7 +80,12 @@ const Summary = () => {
           onClick={() => setContent(t("Organization"))}
         /> */}
       </div>
-      {contentPage}
+      <div className={`${content === "SalesYtd" ? "block" : 'hidden'}`}>
+        <SalesYtd />
+      </div>
+      <div className={`${content === "DigipoinstPerformance" ? "block" : 'hidden'}`}>
+        <DigipoinstPerformance />
+      </div>
     </div>
   );
 };

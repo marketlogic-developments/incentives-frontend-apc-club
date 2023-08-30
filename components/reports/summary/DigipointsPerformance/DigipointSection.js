@@ -4,16 +4,15 @@ import StackedHorizontalBarChart from "../../../charts/StackedHorizontalBarChart
 import PieChart from "../../../charts/PieChart";
 
 const DigipointSection = ({
-  isDigipointsUploaded,
-  isDigipointSR,
+  isDataReady,
   dataUploaded = [],
   dataSR = { datas: {}, yNames: [] },
 }) => {
   return (
     <>
       <CardChart title={"DigiPoints uploaded YTD"} paragraph="">
-        {!isDigipointsUploaded && <div className="lds-dual-ring"></div>}
-        {isDigipointsUploaded && (
+        {!isDataReady && <div className="lds-dual-ring"></div>}
+        {isDataReady && (
           <PieChart
             datas={dataUploaded}
             colors={["#21A5A2", "#009C3B", "#1473E6"]}
@@ -22,31 +21,10 @@ const DigipointSection = ({
         )}
       </CardChart>
       <CardChart title={"DigiPoints by Status and Region"} paragraph="">
-        {!isDigipointSR && <div className="lds-dual-ring"></div>}
-        {isDigipointSR && (
+        {!isDataReady && <div className="lds-dual-ring"></div>}
+        {isDataReady && (
           <StackedHorizontalBarChart
-            datas={[
-              {
-                name: "Brazil",
-                color: "#21A5A2",
-                data: [859000, 869000, 879000],
-              },
-              {
-                name: "México",
-                color: "#1C2226",
-                data: [80000, 90000, 100000],
-              },
-              {
-                name: "SOLA",
-                color: "#1473E6",
-                data: [130000, 140000, 150000],
-              },
-              {
-                name: "NOLA",
-                color: "#2799F6",
-                data: [180000, 190000, 200000],
-              },
-            ]}
+            datas={dataSR.datas}
             yNames={dataSR.yNames}
           />
         )}
