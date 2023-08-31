@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import SortedTable from "../../../table/SortedTable";
 import { SegmentedControl } from "@mantine/core";
 
-export const RegisteredSection = ({ isDataLoading, dataTable }) => {
+export const RegisteredSection = ({
+  registerCompanies,
+  registerUsers,
+  isDataLoading,
+}) => {
+  const [selectedValue, setSelectedValue] = useState("company");
+  const handleSegmentChange = (value) => {
+    setSelectedValue(value);
+  };
   return (
     <>
       <div className="grid sm:grid-cols-2 grid-rows-1 gap-5 pt-10">
@@ -11,12 +19,13 @@ export const RegisteredSection = ({ isDataLoading, dataTable }) => {
         </p>
         <SegmentedControl
           data={[
-            { value: "preview", label: "Companies" },
-            { value: "code", label: "Users" },
+            { value: "company", label: "Companies" },
+            { value: "user", label: "Users" },
           ]}
           color="dark"
-          fullWidth 
-          radius={'lg'}
+          fullWidth
+          radius={"lg"}
+          onChange={handleSegmentChange}
         />
       </div>
       <div className="justify-items-center pt-5">
@@ -34,27 +43,27 @@ export const RegisteredSection = ({ isDataLoading, dataTable }) => {
                 rowStyles: "",
                 sort: false,
                 symbol: "",
-                identity: "region",
+                identity: "category",
                 columnName: "Region",
               },
               {
                 symbol: "N",
-                identity: "brazil",
+                identity: "BRAZIL",
                 columnName: "Brazil",
               },
               {
                 symbol: "N",
-                identity: "mexico",
+                identity: "MEXICO",
                 columnName: "México",
               },
               {
                 symbol: "N",
-                identity: "nola",
+                identity: "NOLA",
                 columnName: "NOLA",
               },
               {
                 symbol: "N",
-                identity: "sola",
+                identity: "SOLA",
                 columnName: "SOLA",
               },
               {
@@ -64,7 +73,9 @@ export const RegisteredSection = ({ isDataLoading, dataTable }) => {
               },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
-            currentItems={dataTable}
+            currentItems={
+              selectedValue === "company" ? registerCompanies : registerUsers
+            }
             sumColum={true}
           />
         )}

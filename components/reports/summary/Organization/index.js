@@ -149,7 +149,11 @@ const Organization = () => {
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
         <SelectSection multiSelect={multiSelect} />
       </div>
-      <RegisteredSection isDataLoading={isDataLoading} dataTable={dataTable} />
+      <RegisteredSection
+        isDataLoading={isDataLoading}
+        registerCompanies={registerCompanies}
+        registerUsers={registerUsers}
+      />
       <PartnerSection isDataLoading={isDataLoading} dataTable={dataTable} />
     </div>
   );
