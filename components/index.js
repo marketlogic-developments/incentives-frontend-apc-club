@@ -25,4 +25,4 @@ export { default as BasicBarChart } from "./charts/BasicBarChart";
 export { default as PieChart } from "./charts/PieChart";
 export { default as SalesYoy } from "./reports/summary/SalesYoy";
 export { default as HorizontalDoubleChart } from "./charts/HorizontalDoubleChart";
-export { default as Organization } from "./reports/summary/Organization";
+export { default as Organization } from "./reports/summary/Organization/index";
