@@ -136,11 +136,24 @@ const Organization = () => {
     },
   ];
 
+  const addTotalColumn = (data) => {
+    return data.map((item) => {
+      const total = item.BRAZIL + item.MEXICO + item.NOLA + item.SOLA;
+      return {
+        ...item,
+        TOTAL: total,
+      };
+    });
+  };
+
   useEffect(() => {
     dispatch(getOrganizations(token, filters)).then((res) => {
+      console.log(res.payload);
+      setIsDataLoading(false);
       /* REGISTER COMPANIES */
-      setRegisterCompanies(res.payload.registeredCompanies);
-      setRegisterUsers(res.payload.registeredUsers);
+      setRegisterCompanies(addTotalColumn(res.payload.registeredCompanies));
+      setRegisterUsers(addTotalColumn(res.payload.registeredUsers));
+      setIsDataLoading(true)
     });
   }, [filters]);
 

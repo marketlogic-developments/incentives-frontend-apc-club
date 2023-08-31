@@ -20,8 +20,8 @@ const PartnerSection = ({ isDataLoading, dataTable }) => {
         />
       </div>
       <div className="justify-items-center pt-5">
-        {isDataLoading && <div className="lds-dual-ring"></div>}
-        {!isDataLoading && (
+        {!isDataLoading && <div className="lds-dual-ring"></div>}
+        {isDataLoading && (
           <SortedTable
             containerStyles={
               "mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max !w-full"
