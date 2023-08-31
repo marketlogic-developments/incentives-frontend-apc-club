@@ -2,19 +2,23 @@ import React from "react";
 import SortedTable from "../../../table/SortedTable";
 import SelectInputValue from "../../../inputs/SelectInputValue";
 import { ArrowDown } from "../../../icons";
+import { SegmentedControl } from "@mantine/core";
 
-export const RegisteredSection = ({loading,dataTable}) => {
+export const RegisteredSection = ({ loading, dataTable }) => {
   return (
     <>
-      <div className="flex items-center gap-5 pt-10">
+      <div className="grid grid-cols-2 gap-5 pt-10">
         <p className="text-black font-bold text-3xl">
           Registered companies and users
         </p>
-        <SelectInputValue
-          placeholder={"Companies"}
-          icon={<ArrowDown />}
-          searchable={true}
-          name={"companie"}
+        <SegmentedControl
+          data={[
+            { value: "preview", label: "Companies" },
+            { value: "code", label: "Users" },
+          ]}
+          color="dark"
+          fullWidth 
+          radius={'lg'}
         />
       </div>
       <div className="justify-items-center pt-5">

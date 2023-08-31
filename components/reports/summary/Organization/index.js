@@ -1,18 +1,29 @@
-import React from "react";
-import SelectInputValue from "../../../inputs/SelectInputValue";
+import React, { useState, useEffect } from "react";
 import { ArrowDown } from "../../../icons";
-import SalesYtdMultiselectModal from "../../../ModalStateProducts/SalesYtdMultiselectModal";
-import BtnFilter from "../../../cardReportes/BtnFilter";
 import { useTranslation } from "react-i18next";
-import SortedTable from "../../../table/SortedTable";
-import { useState } from "react";
 import SelectSection from "../DigipointsPerformance/SelectSection";
 import { RegisteredSection } from "./RegisteredSection";
 import PartnerSection from "./PartnerSection";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrganizations } from "../../../../store/reducers/sales.reducer";
 
 const Organization = () => {
   /* Variable and const */
   const [t, i18n] = useTranslation("global");
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
+  const [filters, setFilters] = useState({
+    quarter: "",
+    month: "",
+    region: "",
+    country: "",
+    partner_level: "",
+    partner: "",
+    market_segment: "",
+    business_unit: "",
+    business_type: "",
+    licensing_type: "",
+  });
   const [loading, setLoading] = useState(false);
   const multiSelect = [
     {
@@ -122,6 +133,12 @@ const Organization = () => {
       total: 110,
     },
   ];
+
+  useEffect(() => {
+    dispatch(getOrganizations(token, filters)).then((res) => {
+      console.log(res.payload);
+    });
+  }, [filters]);
 
   return (
     <div className="m-5">
