@@ -1,37 +1,27 @@
 import React from "react";
 import SortedTable from "../../../table/SortedTable";
-import { ArrowDown } from "../../../icons";
-import SelectInputValue from "../../../inputs/SelectInputValue";
+import { SegmentedControl } from "@mantine/core";
 
-const PartnerSection = ({ loading, dataTable }) => {
+const PartnerSection = ({ isDataLoading, dataTable }) => {
   return (
     <>
-      <div className="flex items-center gap-5 pt-10">
+      <div className="grid sm:grid-cols-2 grid-rows-1 gap-5 pt-10">
         <p className="text-black font-bold text-3xl">
           Partner that grew and decreased +-50
         </p>
-        <SelectInputValue
-          placeholder={"Region"}
-          icon={<ArrowDown />}
-          searchable={true}
-          name={"region"}
-        />
-        <SelectInputValue
-          placeholder={"Business type"}
-          icon={<ArrowDown />}
-          searchable={true}
-          name={"business_type"}
-        />
-        <SelectInputValue
-          placeholder={"Who decreased -50%"}
-          icon={<ArrowDown />}
-          searchable={true}
-          name={"who_decreased"}
+        <SegmentedControl
+          data={[
+            { value: "preview", label: "Who increased +50%" },
+            { value: "code", label: "Who decreased -50%" },
+          ]}
+          color="dark"
+          fullWidth 
+          radius={'lg'}
         />
       </div>
       <div className="justify-items-center pt-5">
-        {loading && <div className="lds-dual-ring"></div>}
-        {!loading && (
+        {isDataLoading && <div className="lds-dual-ring"></div>}
+        {!isDataLoading && (
           <SortedTable
             containerStyles={
               "mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max !w-full"

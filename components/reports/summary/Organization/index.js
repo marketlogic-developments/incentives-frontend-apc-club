@@ -24,7 +24,9 @@ const Organization = () => {
     business_type: "",
     licensing_type: "",
   });
-  const [loading, setLoading] = useState(false);
+  const [isDataLoading, setIsDataLoading] = useState(false);
+  const [registerCompanies, setRegisterCompanies] = useState();
+  const [registerUsers, setRegisterUsers] = useState();
   const multiSelect = [
     {
       placeholder: "Year",
@@ -136,7 +138,9 @@ const Organization = () => {
 
   useEffect(() => {
     dispatch(getOrganizations(token, filters)).then((res) => {
-      console.log(res.payload);
+      /* REGISTER COMPANIES */
+      setRegisterCompanies(res.payload.registeredCompanies);
+      setRegisterUsers(res.payload.registeredUsers);
     });
   }, [filters]);
 
@@ -145,8 +149,8 @@ const Organization = () => {
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
         <SelectSection multiSelect={multiSelect} />
       </div>
-      <RegisteredSection loading={loading} dataTable={dataTable} />
-      <PartnerSection loading={loading} dataTable={dataTable} />
+      <RegisteredSection isDataLoading={isDataLoading} dataTable={dataTable} />
+      <PartnerSection isDataLoading={isDataLoading} dataTable={dataTable} />
     </div>
   );
 };

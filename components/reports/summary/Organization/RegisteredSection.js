@@ -1,13 +1,11 @@
 import React from "react";
 import SortedTable from "../../../table/SortedTable";
-import SelectInputValue from "../../../inputs/SelectInputValue";
-import { ArrowDown } from "../../../icons";
 import { SegmentedControl } from "@mantine/core";
 
-export const RegisteredSection = ({ loading, dataTable }) => {
+export const RegisteredSection = ({ isDataLoading, dataTable }) => {
   return (
     <>
-      <div className="grid grid-cols-2 gap-5 pt-10">
+      <div className="grid sm:grid-cols-2 grid-rows-1 gap-5 pt-10">
         <p className="text-black font-bold text-3xl">
           Registered companies and users
         </p>
@@ -22,8 +20,8 @@ export const RegisteredSection = ({ loading, dataTable }) => {
         />
       </div>
       <div className="justify-items-center pt-5">
-        {loading && <div className="lds-dual-ring"></div>}
-        {!loading && (
+        {isDataLoading && <div className="lds-dual-ring"></div>}
+        {!isDataLoading && (
           <SortedTable
             containerStyles={
               "mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max !w-full"
