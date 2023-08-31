@@ -10,18 +10,12 @@ const SelectSection = ({ multiSelect }) => {
   return (
     <>
       <SelectInputValue
-        placeholder={"Year"}
+        placeholder={"Quarter"}
         /* value={selectOne}
           data={dataSelectOne} */
         icon={<ArrowDown />}
         searchable={true}
         /* onChange={handleSelectOneChange} */
-        name={"year"}
-      />
-      <SelectInputValue
-        placeholder={"Quarter"}
-        icon={<ArrowDown />}
-        searchable={true}
         name={"quarter"}
       />
       <SelectInputValue
@@ -35,6 +29,12 @@ const SelectSection = ({ multiSelect }) => {
         icon={<ArrowDown />}
         searchable={true}
         name={"region"}
+      />
+      <SelectInputValue
+        placeholder={"Country"}
+        icon={<ArrowDown />}
+        searchable={true}
+        name={"country"}
       />
       <SalesYtdMultiselectModal
         title={<p className="text-black font-bold text-lg">Filtrar por</p>}

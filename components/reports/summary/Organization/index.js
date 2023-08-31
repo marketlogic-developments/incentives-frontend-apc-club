@@ -29,51 +29,11 @@ const Organization = () => {
   const [registerUsers, setRegisterUsers] = useState();
   const multiSelect = [
     {
-      placeholder: "Year",
+      placeholder: "Partner Level",
       value: [],
       dataSelect: [],
       searchable: true,
       icon: <ArrowDown />,
-      name: "year",
-    },
-    {
-      placeholder: "Quater",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "quater",
-    },
-    {
-      placeholder: "Month",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "Month",
-    },
-    {
-      placeholder: "Region",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "region",
-    },
-    {
-      placeholder: "Country",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "country",
-    },
-    {
-      placeholder: "Partner level",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: "",
       name: "partner_level",
     },
     {
@@ -81,40 +41,40 @@ const Organization = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: "",
+      icon: <ArrowDown />,
       name: "partner",
     },
     {
-      placeholder: "Market segment",
+      placeholder: "Market Segment",
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: "",
+      icon: <ArrowDown />,
       name: "market_segment",
     },
     {
-      placeholder: "Business unit",
+      placeholder: "Business Unit",
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: "",
+      icon: <ArrowDown />,
       name: "business_unit",
     },
     {
-      placeholder: "Business type",
+      placeholder: "Business Type",
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: "",
+      icon: <ArrowDown />,
       name: "business_type",
     },
     {
-      placeholder: "Licensing type",
+      placeholder: "Licensing Type",
       value: [],
       dataSelect: [],
       searchable: true,
       icon: "",
-      name: "licensiong",
+      name: "licensing_type",
     },
   ];
   const dataTable = [
@@ -153,7 +113,7 @@ const Organization = () => {
       /* REGISTER COMPANIES */
       setRegisterCompanies(addTotalColumn(res.payload.registeredCompanies));
       setRegisterUsers(addTotalColumn(res.payload.registeredUsers));
-      setIsDataLoading(true)
+      setIsDataLoading(true);
     });
   }, [filters]);
 
