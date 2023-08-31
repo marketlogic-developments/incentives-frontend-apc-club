@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import SortedTable from "../../../table/SortedTable";
 import { useState } from "react";
 import SelectSection from "../DigipointsPerformance/SelectSection";
+import { RegisteredSection } from "./RegisteredSection";
 
 const Organization = () => {
   /* Variable and const */
@@ -126,67 +127,7 @@ const Organization = () => {
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
         <SelectSection multiSelect={multiSelect} />
       </div>
-      <div className="flex items-center gap-5 pt-10">
-        <p className="text-black font-bold text-3xl">
-          Registered companies and users
-        </p>
-        <SelectInputValue
-          placeholder={"Companies"}
-          icon={<ArrowDown />}
-          searchable={true}
-          name={"companie"}
-        />
-      </div>
-      <div className="justify-items-center pt-5">
-        {loading && <div className="lds-dual-ring"></div>}
-        {!loading && (
-          <SortedTable
-            containerStyles={
-              "mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max !w-full"
-            }
-            tableStyles={"table-zebra !text-sm"}
-            colStyles={"p-2"}
-            thStyles={"sticky text-white"}
-            cols={[
-              {
-                rowStyles: "",
-                sort: false,
-                symbol: "",
-                identity: "region",
-                columnName: "Region",
-              },
-              {
-                symbol: "N",
-                identity: "brazil",
-                columnName: "Brazil",
-              },
-              {
-                symbol: "N",
-                identity: "mexico",
-                columnName: "México",
-              },
-              {
-                symbol: "N",
-                identity: "nola",
-                columnName: "NOLA",
-              },
-              {
-                symbol: "N",
-                identity: "sola",
-                columnName: "SOLA",
-              },
-              {
-                symbol: "N",
-                identity: "total",
-                columnName: "Total",
-              },
-            ]}
-            generalRowStyles={"text-left py-3 mx-7"}
-            currentItems={dataTable}
-            sumColum={true}
-          />
-        )}
-      </div>
+      <RegisteredSection loading={loading} dataTable={dataTable}/>
       <div className="flex items-center gap-5 pt-10">
         <p className="text-black font-bold text-3xl">
           Partner that grew and decreased +-50
