@@ -1,28 +1,35 @@
 import React from "react";
 import CardChart from "../../../cardReportes/CardChart";
 import HorizontalBar from "../../../charts/HorizontalBar";
-import BasicBarChart from "../../../charts/BasicBarChart";
+import StackedHorizontalBarChart from "../../../charts/StackedHorizontalBarChart";
 
-const DigipointRedemptionSection = ({redempion, xValuesLine}) => {
+const DigipointRedemptionSection = ({
+  dataDigStatus = [
+    {
+      name: "",
+      value: "",
+      color: "",
+    },
+  ],
+  isDataReady,
+  digipointsRA,
+}) => {
   return (
     <>
       <CardChart title={"DigiPoints by status"} paragraph="">
-        <HorizontalBar
-          yNames={["Redeemed", "Assigned", "Expected", "Uploaded"]}
-          datas={[
-            { value: 250, color: "#2799F6" },
-            { value: 230, color: "#1473E6" },
-            { value: 200, color: "#1C2226" },
-            { value: 180, color: "#21A5A2" },
-          ]}
-        />
+        {!isDataReady && <div className="lds-dual-ring"></div>}
+        {isDataReady && (
+          <HorizontalBar datas={dataDigStatus} symbol="$" />
+        )}
       </CardChart>
       <CardChart title={"Redemptions by region and amound"} paragraph="">
-        <BasicBarChart
-          color={"#1C2226"}
-          datas={redempion}
-          xValues={xValuesLine}
-        />
+        {!isDataReady && <div className="lds-dual-ring"></div>}
+        {isDataReady && (
+          <StackedHorizontalBarChart
+            datas={digipointsRA.datas}
+            yNames={digipointsRA.yNames}
+          />
+        )}
       </CardChart>
     </>
   );
