@@ -149,6 +149,8 @@ const SortedTable = ({
                           ? numberToMoney(row[col.identity])
                           : col.symbol === "%"
                           ? formatAVG(row[col.identity]) + col.symbol
+                          : col.symbol === "N"
+                          ? row[col.identity]
                           : row[col.identity] + col.symbol}
                       </th>
                     ))}

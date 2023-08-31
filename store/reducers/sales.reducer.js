@@ -74,6 +74,9 @@ export const saleActions = createSlice({
     getDigiPointPerformanceFilter: (state, action) => {
       state.digipointsperformancefilters = action.payload;
     },
+    getOrganizationsCharts: (state, action) => {
+      state.digipointsperformancefilters = action.payload;
+    },
     getDigiPointsPer: (state, action) => {
       state.digipointsperformance = action.payload;
     },
@@ -123,6 +126,7 @@ export const {
   getSalePer,
   getSaleYTD,
   getDigiPointPerformanceFilter,
+  getOrganizationsCharts,
   getDigiPointsPer,
   getInvoicePer,
   getInvoicePerUser,
@@ -601,6 +605,25 @@ export const getDigiPointPerformance = (token, data) => async (dispatch) => {
         }
       )
       .then((res) => dispatch(getDigiPointPerformanceFilter(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getOrganizations = (token, data) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/organizations?_quarter=${data.quarter}&_month=${data.month}&_region=${data.region}&_country=${data.country}&_partner_level=${data.partner_level}&_partner=${data.partner}&_market_segment=${data.market_segment}&_business_unit=${data.business_unit}&_business_type=${data.business_type}&_licensing_type=${data.licensing_type}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getOrganizationsCharts(res.data)));
   } catch (err) {
     console.log(err);
   }

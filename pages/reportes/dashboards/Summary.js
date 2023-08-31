@@ -86,6 +86,9 @@ const Summary = () => {
       <div className={`${content === "DigipoinstPerformance" ? "block" : 'hidden'}`}>
         <DigipoinstPerformance />
       </div>
+      {/* <div className={`${content === "Organization" ? "block" : 'hidden'}`}>
+        <Organization />
+      </div> */}
     </div>
   );
 };
