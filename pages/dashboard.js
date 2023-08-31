@@ -32,7 +32,7 @@ import { getLicenciesByMonth } from "../store/reducers/sales.reducer";
 const dashboard = ({ entries, banners }) => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
-  const ranking = useSelector((state) => state.user.ranking);
+  const dataUserSwitch = useSelector((state) => state.user.userSwitch);
   const [opened, setOpened] = useState(false);
   const [opened2, setOpened2] = useState(false);
   const [view, setView] = useState("password");
@@ -123,25 +123,10 @@ const dashboard = ({ entries, banners }) => {
   }, [data]);
 
   const redirection = () => {
-    if (!user?.passwordReset) {
+    if (!user?.passwordReset && dataUserSwitch.prevData === undefined) {
       setModalType(0);
       return setOpened(true);
     }
-
-    //Delete This When All Users have accepted TC
-
-    // if (user.companyId) {
-    //   user.company.country === "Colombia" &&
-    //     user.cpf.split(" ")[1] !== "colTC" &&
-    //     user.roleId !== 1 &&
-    //     setOpened2(true);
-    // }
-    // if (user.distributionChannelId) {
-    //   user.distributionChannel.country === "Colombia" &&
-    //     user.roleId !== 1 &&
-    //     user.cpf.split(" ")[1] !== "colTC" &&
-    //     setOpened2(true);
-    // }
   };
 
   const handleSubmit = (data) => {

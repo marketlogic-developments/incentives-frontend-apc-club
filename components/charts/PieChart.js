@@ -19,7 +19,13 @@ const PieChart = ({
   const option = {
     tooltip: {
       trigger: "item",
-      formatter: formatter,
+      formatter: function (params) {
+        return params.value >= 1000000
+          ? formatter + (params.value / 1000000).toFixed(0) + "M"
+          : params.value >= 1000
+          ? formatter + (params.value / 1000).toFixed(0) + "K"
+          : formatter + params.value;
+      },
     },
     legend: {
       top: "0%",
@@ -29,7 +35,7 @@ const PieChart = ({
       {
         name: "",
         type: "pie",
-        radius: ["50%", "70%"],
+        radius: ["50%", "65%"],
         center: ["50%", "60%"],
         avoidLabelOverlap: false,
         itemStyle: {
@@ -40,7 +46,15 @@ const PieChart = ({
         label: {
           show: true,
           position: "outside",
-          formatter: "{b}: ${c}.00",
+          formatter: function (params) {
+            const formattedValue =
+              params.value >= 1000000
+                ? formatter + (params.value / 1000000).toFixed(0) + "M"
+                : params.value >= 1000
+                ? formatter + (params.value / 1000).toFixed(0) + "K"
+                : formatter + params.value;
+            return `${params.name}: ${formattedValue}.00`;
+          },
         },
         emphasis: {
           label: {
@@ -57,6 +71,7 @@ const PieChart = ({
       },
     ],
   };
+
   return (
     <div className="w-full">
       <ReactEcharts option={option} className="w-auto h-auto" />
