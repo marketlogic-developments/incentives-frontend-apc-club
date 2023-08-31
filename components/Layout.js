@@ -346,7 +346,7 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: "Invoice Report",
     },
-    /* {
+    {
       page: "/comunicado",
       iconactive: "",
       icon: (
@@ -361,7 +361,7 @@ const Layout = ({ children }) => {
         </svg>
       ),
       text: "Comunicados",
-    }, */
+    },
     {
       page:
         userRedux.roleId === 1 ? "/digipointsall" : "/digipoints/mydigipoints",
