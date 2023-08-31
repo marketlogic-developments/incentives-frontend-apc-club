@@ -147,7 +147,7 @@ const SortedTable = ({
                           ? formatDate(row[col.identity])
                           : col.symbol === "USD"
                           ? numberToMoney(row[col.identity])
-                          : col.symbol === "%"
+                          : col.symbol === "AVG"
                           ? formatAVG(row[col.identity]) + col.symbol
                           : col.symbol === "N"
                           ? row[col.identity]

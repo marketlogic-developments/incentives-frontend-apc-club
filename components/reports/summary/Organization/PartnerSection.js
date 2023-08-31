@@ -2,7 +2,7 @@ import React from "react";
 import SortedTable from "../../../table/SortedTable";
 import { SegmentedControl } from "@mantine/core";
 
-const PartnerSection = ({ isDataLoading, dataTable }) => {
+const PartnerSection = ({ isDataLoading, partner }) => {
   return (
     <>
       <div className="grid sm:grid-cols-2 grid-rows-1 gap-5 pt-10">
@@ -38,33 +38,58 @@ const PartnerSection = ({ isDataLoading, dataTable }) => {
                 columnName: "Region",
               },
               {
-                symbol: "N",
-                identity: "brazil",
-                columnName: "Brazil",
+                symbol: "",
+                identity: "organization",
+                columnName: "Organization",
               },
               {
-                symbol: "N",
-                identity: "mexico",
-                columnName: "México",
+                symbol: "",
+                identity: "country",
+                columnName: "Country",
               },
               {
-                symbol: "N",
-                identity: "nola",
-                columnName: "NOLA",
+                symbol: "",
+                identity: "medal",
+                columnName: "Medal",
               },
               {
-                symbol: "N",
-                identity: "sola",
-                columnName: "SOLA",
+                symbol: "USD",
+                identity: "sales",
+                columnName: "Sales YTD",
               },
               {
-                symbol: "N",
-                identity: "total",
-                columnName: "Total",
+                symbol: "USD",
+                identity: "growth",
+                columnName: "Sales LY",
+              },
+              {
+                symbol: "%",
+                identity: "growth",
+                columnName: "Growth",
+              },
+              {
+                symbol: "USD",
+                identity: "cc_sales",
+                columnName: "CC Sales",
+              },
+              {
+                symbol: "%",
+                identity: "cc_growth",
+                columnName: "CC Growth",
+              },
+              {
+                symbol: "USD",
+                identity: "dc_sales",
+                columnName: "DC Sales",
+              },
+              {
+                symbol: "%",
+                identity: "dc_growth",
+                columnName: "DC Growth",
               },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
-            currentItems={dataTable}
+            currentItems={partner}
             sumColum={true}
             totalTableStyles={"text-green-400 text-left text-lg font-bold"}
           />

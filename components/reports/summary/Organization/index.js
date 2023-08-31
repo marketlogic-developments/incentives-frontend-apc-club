@@ -27,6 +27,7 @@ const Organization = () => {
   const [isDataLoading, setIsDataLoading] = useState(false);
   const [registerCompanies, setRegisterCompanies] = useState();
   const [registerUsers, setRegisterUsers] = useState();
+  const [partner, setPartner] = useState();
   const multiSelect = [
     {
       placeholder: "Partner Level",
@@ -113,6 +114,8 @@ const Organization = () => {
       /* REGISTER COMPANIES */
       setRegisterCompanies(addTotalColumn(res.payload.registeredCompanies));
       setRegisterUsers(addTotalColumn(res.payload.registeredUsers));
+      /* Partners */
+      setPartner(res.payload.partners)
       setIsDataLoading(true);
     });
   }, [filters]);
@@ -120,14 +123,14 @@ const Organization = () => {
   return (
     <div className="m-5">
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
-        <SelectSection multiSelect={multiSelect} />
+        {/* <SelectSection multiSelect={multiSelect} /> */}
       </div>
       <RegisteredSection
         isDataLoading={isDataLoading}
         registerCompanies={registerCompanies}
         registerUsers={registerUsers}
       />
-      <PartnerSection isDataLoading={isDataLoading} dataTable={dataTable} />
+      <PartnerSection isDataLoading={isDataLoading} partner={partner} />
     </div>
   );
 };
