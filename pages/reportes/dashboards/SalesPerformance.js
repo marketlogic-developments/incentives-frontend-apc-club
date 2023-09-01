@@ -506,7 +506,7 @@ const SalesPerformance = () => {
                 columnName: "Expected Revenue (USD)",
               },
               {
-                symbol: "%",
+                symbol: "AVG",
                 sort: true,
                 identity: "avg_effectiveness",
                 columnName: "Total % effectiveness",

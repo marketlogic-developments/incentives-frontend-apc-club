@@ -27,53 +27,14 @@ const Organization = () => {
   const [isDataLoading, setIsDataLoading] = useState(false);
   const [registerCompanies, setRegisterCompanies] = useState();
   const [registerUsers, setRegisterUsers] = useState();
+  const [partner, setPartner] = useState();
   const multiSelect = [
     {
-      placeholder: "Year",
+      placeholder: "Partner Level",
       value: [],
       dataSelect: [],
       searchable: true,
       icon: <ArrowDown />,
-      name: "year",
-    },
-    {
-      placeholder: "Quater",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "quater",
-    },
-    {
-      placeholder: "Month",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "Month",
-    },
-    {
-      placeholder: "Region",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "region",
-    },
-    {
-      placeholder: "Country",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "country",
-    },
-    {
-      placeholder: "Partner level",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: "",
       name: "partner_level",
     },
     {
@@ -81,40 +42,40 @@ const Organization = () => {
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: "",
+      icon: <ArrowDown />,
       name: "partner",
     },
     {
-      placeholder: "Market segment",
+      placeholder: "Market Segment",
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: "",
+      icon: <ArrowDown />,
       name: "market_segment",
     },
     {
-      placeholder: "Business unit",
+      placeholder: "Business Unit",
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: "",
+      icon: <ArrowDown />,
       name: "business_unit",
     },
     {
-      placeholder: "Business type",
+      placeholder: "Business Type",
       value: [],
       dataSelect: [],
       searchable: true,
-      icon: "",
+      icon: <ArrowDown />,
       name: "business_type",
     },
     {
-      placeholder: "Licensing type",
+      placeholder: "Licensing Type",
       value: [],
       dataSelect: [],
       searchable: true,
       icon: "",
-      name: "licensiong",
+      name: "licensing_type",
     },
   ];
   const dataTable = [
@@ -153,21 +114,23 @@ const Organization = () => {
       /* REGISTER COMPANIES */
       setRegisterCompanies(addTotalColumn(res.payload.registeredCompanies));
       setRegisterUsers(addTotalColumn(res.payload.registeredUsers));
-      setIsDataLoading(true)
+      /* Partners */
+      setPartner(res.payload.partners)
+      setIsDataLoading(true);
     });
   }, [filters]);
 
   return (
     <div className="m-5">
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
-        <SelectSection multiSelect={multiSelect} />
+        {/* <SelectSection multiSelect={multiSelect} /> */}
       </div>
       <RegisteredSection
         isDataLoading={isDataLoading}
         registerCompanies={registerCompanies}
         registerUsers={registerUsers}
       />
-      <PartnerSection isDataLoading={isDataLoading} dataTable={dataTable} />
+      <PartnerSection isDataLoading={isDataLoading} partner={partner} />
     </div>
   );
 };

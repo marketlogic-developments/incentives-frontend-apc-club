@@ -1,15 +1,39 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import SortedTable from "../../../table/SortedTable";
 import { SegmentedControl } from "@mantine/core";
 
-const PartnerSection = ({ isDataLoading, dataTable }) => {
+const PartnerSection = ({ isDataLoading, partner }) => {
+  const itemsPerPage = 10;
+  const [itemOffset, setItemOffset] = useState(0);
+
+  const currentItems = useMemo(() => {
+    const endOffset = itemOffset + itemsPerPage;
+
+    if (partner?.length === 1) {
+      return partner;
+    }
+
+    return partner?.slice(itemOffset, endOffset);
+  }, [itemOffset, partner]);
+    /* Paginate */
+    const pageCount = useMemo(
+      () => Math.ceil(partner?.length / itemsPerPage),
+      [itemsPerPage]
+    );
+
+    const handlePageClick = (event) => {
+      const newOffset = (event.selected * itemsPerPage);
+  
+      setItemOffset(newOffset);
+    };
+
   return (
     <>
       <div className="grid sm:grid-cols-2 grid-rows-1 gap-5 pt-10">
         <p className="text-black font-bold text-3xl">
           Partner that grew and decreased +-50
         </p>
-        <SegmentedControl
+        {/* <SegmentedControl
           data={[
             { value: "preview", label: "Who increased +50%" },
             { value: "code", label: "Who decreased -50%" },
@@ -17,7 +41,7 @@ const PartnerSection = ({ isDataLoading, dataTable }) => {
           color="dark"
           fullWidth 
           radius={'lg'}
-        />
+        /> */}
       </div>
       <div className="justify-items-center pt-5">
         {!isDataLoading && <div className="lds-dual-ring"></div>}
@@ -38,34 +62,62 @@ const PartnerSection = ({ isDataLoading, dataTable }) => {
                 columnName: "Region",
               },
               {
-                symbol: "N",
-                identity: "brazil",
-                columnName: "Brazil",
+                symbol: "",
+                identity: "organization",
+                columnName: "Organization",
               },
               {
-                symbol: "N",
-                identity: "mexico",
-                columnName: "México",
+                symbol: "",
+                identity: "country",
+                columnName: "Country",
               },
               {
-                symbol: "N",
-                identity: "nola",
-                columnName: "NOLA",
+                symbol: "",
+                identity: "medal",
+                columnName: "Medal",
               },
               {
-                symbol: "N",
-                identity: "sola",
-                columnName: "SOLA",
+                symbol: "USD",
+                identity: "sales",
+                columnName: "Sales YTD",
               },
               {
-                symbol: "N",
-                identity: "total",
-                columnName: "Total",
+                symbol: "USD",
+                identity: "expected_revenue",
+                columnName: "Sales LY",
+              },
+              {
+                symbol: "%",
+                identity: "growth",
+                columnName: "Total % effectiveness",
+              },
+              {
+                symbol: "USD",
+                identity: "cc_sales",
+                columnName: "CC Sales",
+              },
+              {
+                symbol: "%",
+                identity: "cc_growth",
+                columnName: "CC Growth",
+              },
+              {
+                symbol: "USD",
+                identity: "dc_sales",
+                columnName: "DC Sales",
+              },
+              {
+                symbol: "%",
+                identity: "dc_growth",
+                columnName: "DC Growth",
               },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
-            currentItems={dataTable}
+            paginate={true}
+            currentItems={currentItems}
             sumColum={true}
+            pageCount={pageCount}
+            handlePageClick={handlePageClick}
             totalTableStyles={"text-green-400 text-left text-lg font-bold"}
           />
         )}
