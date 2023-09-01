@@ -76,7 +76,7 @@ export const RegisteredSection = ({
             currentItems={
               selectedValue === "company" ? registerCompanies : registerUsers
             }
-            sumColum={true}
+            sumColum={false}
           />
         )}
       </div>
