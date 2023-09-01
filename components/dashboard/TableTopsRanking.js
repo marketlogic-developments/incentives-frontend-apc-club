@@ -21,8 +21,9 @@ const TableTopsRanking = ({
   cols = [],
   children,
 }) => {
-  const ranking = useSelector((state) => state.user.ranking);
+  const [ranking, setRanking] = useState([]);
   const user = useSelector((state) => state.user.user);
+  const rankGlobal = useSelector((state) => state.user.ranking);
   const token = useSelector((state) => state.user.token);
   const [allCompanies, setAllCompanies] = useState([]);
   const [regions, setRegions] = useState([]);
@@ -32,6 +33,36 @@ const TableTopsRanking = ({
     company: "",
     region: "",
   });
+
+  useEffect(() => {
+    if (user.roleId !== 1) {
+      const comp =
+        user.companyId === null
+          ? "/digipoints-redeem-status-all-distri"
+          : "/digipoints-redeem-status-all-compa";
+
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters${comp}/${
+            comp.includes("distri")
+              ? user.distributionChannelId
+              : user.companyId
+          }`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          setRanking(data);
+        });
+    }
+
+    return setRanking(rankGlobal);
+  }, [token, rankGlobal]);
 
   /* Download */
   const importFile = (data) => {
@@ -139,36 +170,39 @@ const TableTopsRanking = ({
         <div>
           <h2 className="!text-xl font-bold">{t("dashboard.topUsuarios")}</h2>
         </div>
-        <div className="cursor-pointer flex gap-3 items-center">
-          <div className="sm:w-[90%] w-[60%]">
-            <SelectInputValue
-              placeholder={"Company Name"}
-              searchable={true}
-              value={filters.company}
-              data={allCompanies
-                .map(({ name, nameDist }) => name || nameDist)
-                .sort()}
-              icon={<ArrowDown />}
-              onChange={handleFilter}
-              name={"company"}
+        {user.roleId === 1 && (
+          <div className="cursor-pointer flex gap-3 items-center">
+            <div className="sm:w-[90%] w-[60%]">
+              <SelectInputValue
+                placeholder={"Company Name"}
+                searchable={true}
+                value={filters.company}
+                data={allCompanies
+                  .map(({ name, nameDist }) => name || nameDist)
+                  .sort()}
+                icon={<ArrowDown />}
+                onChange={handleFilter}
+                name={"company"}
+              />
+            </div>
+            <div className="sm:w-[90%] w-[60%]">
+              <SelectInputValue
+                placeholder={"Región"}
+                value={filters.region}
+                data={regions.map((i) => i)}
+                icon={<ArrowDown />}
+                onChange={handleFilter}
+                name={"region"}
+              />
+            </div>
+            <BtnFilter
+              text={t("Reportes.limpiar_filtros")}
+              styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
+              onClick={() => setFilters({ company: "", region: "" })}
             />
           </div>
-          <div className="sm:w-[90%] w-[60%]">
-            <SelectInputValue
-              placeholder={"Región"}
-              value={filters.region}
-              data={regions.map((i) => i)}
-              icon={<ArrowDown />}
-              onChange={handleFilter}
-              name={"region"}
-            />
-          </div>
-          <BtnFilter
-            text={t("Reportes.limpiar_filtros")}
-            styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
-            onClick={() => setFilters({ company: "", region: "" })}
-          />
-        </div>
+        )}
+
         {user.roleId === 1 && (
           <div className="sm:w-[20%] w-[60%]">
             <DropDownReport
