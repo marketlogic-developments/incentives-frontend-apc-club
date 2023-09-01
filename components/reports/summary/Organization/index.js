@@ -109,7 +109,6 @@ const Organization = () => {
 
   useEffect(() => {
     dispatch(getOrganizations(token, filters)).then((res) => {
-      console.log(res.payload);
       setIsDataLoading(false);
       /* REGISTER COMPANIES */
       setRegisterCompanies(addTotalColumn(res.payload.registeredCompanies));
