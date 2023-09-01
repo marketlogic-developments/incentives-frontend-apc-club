@@ -50,6 +50,7 @@ import EyeObserver from "./Lay0ut/SwitchUser/EyeObserver";
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
   const userRedux = useSelector((state) => state.user.user);
+  const video = useSelector((state) => state.contentful.videos[0]);
   const token = useSelector((state) => state.user.token);
   const loading = useSelector((state) => state.user.loading);
   const loadingData = useSelector((state) => state.loadingData.loadingData);
@@ -83,7 +84,7 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     if (
-      userRedux.cpf !== "viewVideo2" &&
+      userRedux.cpf !== video?.key &&
       userRedux !== 0 &&
       location === "/dashboard" &&
       dataSession.prevData === undefined
@@ -93,7 +94,7 @@ const Layout = ({ children }) => {
         setOpened(true);
       }, 2000);
     }
-  }, [userRedux]);
+  }, [userRedux, video]);
 
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
@@ -346,7 +347,7 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: "Invoice Report",
     },
-     {
+    {
       page: "/comunicado",
       iconactive: "",
       icon: (
@@ -361,7 +362,7 @@ const Layout = ({ children }) => {
         </svg>
       ),
       text: "Comunicados",
-    }, 
+    },
     {
       page:
         userRedux.roleId === 1 ? "/digipointsall" : "/digipoints/mydigipoints",
