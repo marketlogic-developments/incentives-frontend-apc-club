@@ -31,7 +31,7 @@ const PartnerSection = ({ isDataLoading, partner }) => {
     <>
       <div className="grid sm:grid-cols-2 grid-rows-1 gap-5 pt-10">
         <p className="text-black font-bold text-3xl">
-          Partner that grew and decreased +-50
+        Partner's goal and achievement
         </p>
         {/* <SegmentedControl
           data={[
@@ -81,11 +81,11 @@ const PartnerSection = ({ isDataLoading, partner }) => {
                 identity: "sales",
                 columnName: "Sales YTD",
               },
-              {
+              /* {
                 symbol: "USD",
                 identity: "expected_revenue",
-                columnName: "Sales LY",
-              },
+                columnName: "Expected Revenue",
+              }, */
               {
                 symbol: "%",
                 identity: "growth",
