@@ -83,7 +83,7 @@ const PartnerSection = ({ isDataLoading, partner }) => {
               },
               {
                 symbol: "USD",
-                identity: "expected_revenue ",
+                identity: "expected_revenue",
                 columnName: "Sales LY",
               },
               {
