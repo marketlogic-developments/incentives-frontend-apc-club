@@ -1,7 +1,10 @@
 import React from "react";
 import ReactEcharts from "echarts-for-react";
 
-const HorizontalBar = ({ datas = [{ name: "", value: 0, color: "" }], symbol='' }) => {
+const HorizontalBar = ({
+  datas = [{ name: "", value: 0, color: "" }],
+  symbol = "",
+}) => {
   const seriesData = datas.map((item) => ({
     value: item.value,
     itemStyle: {
@@ -24,7 +27,9 @@ const HorizontalBar = ({ datas = [{ name: "", value: 0, color: "" }], symbol='' 
     tooltip: {
       trigger: "axis",
       formatter: function (params) {
-        return `${params[0].name}: ${symbol} ${valueFormatter(params[0].value)}`;
+        return `${params[0].name}: ${
+          params[0].name === "Digipoints" ? "" : symbol
+        } ${valueFormatter(params[0].value)}`;
       },
       axisPointer: {
         type: "shadow",
@@ -66,7 +71,9 @@ const HorizontalBar = ({ datas = [{ name: "", value: 0, color: "" }], symbol='' 
           show: true,
           position: "inside",
           formatter: function (params) {
-            return `${symbol} ${valueFormatter(params.value)}`;
+            return `${
+              params.name === "Digipoints" ? "" : symbol
+            } ${valueFormatter(params.value)}`;
           },
         },
       },
