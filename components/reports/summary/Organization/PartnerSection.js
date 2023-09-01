@@ -1,31 +1,34 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import SortedTable from "../../../table/SortedTable";
 import { SegmentedControl } from "@mantine/core";
 
 const PartnerSection = ({ isDataLoading, partner }) => {
   const itemsPerPage = 10;
-  const [itemOffset, setItemOffset] = useState(0);
+const [itemOffset, setItemOffset] = useState(0);
+const [pageCount, setPageCount] = useState(0);
 
-  const currentItems = useMemo(() => {
-    const endOffset = itemOffset + itemsPerPage;
+const currentItems = useMemo(() => {
+  const endOffset = itemOffset + itemsPerPage;
 
-    if (partner?.length === 1) {
-      return partner;
-    }
+  if (partner?.length === 1) {
+    return partner;
+  }
 
-    return partner?.slice(itemOffset, endOffset);
-  }, [itemOffset, partner]);
-    /* Paginate */
-    const pageCount = useMemo(
-      () => Math.ceil(partner?.length / itemsPerPage),
-      [itemsPerPage]
-    );
+  return partner?.slice(itemOffset, endOffset);
+}, [itemOffset, partner]);
 
-    const handlePageClick = (event) => {
-      const newOffset = (event.selected * itemsPerPage);
-  
-      setItemOffset(newOffset);
-    };
+/* Paginate */
+useEffect(() => {
+  if (partner) {
+    const calculatedPageCount = Math.ceil(partner.length / itemsPerPage);
+    setPageCount(calculatedPageCount);
+  }
+}, [partner, itemsPerPage]);
+
+const handlePageClick = (event) => {
+  const newOffset = event.selected * itemsPerPage;
+  setItemOffset(newOffset);
+};
 
   return (
     <>

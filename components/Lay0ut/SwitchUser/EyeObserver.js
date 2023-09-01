@@ -39,8 +39,8 @@ const EyeObserver = () => {
 
   const actionChangeOriginal = () =>
     Swal.fire({
-      title: "Estás en modo observador",
-      text: "¿Quieres volver a tu usuario administrador?",
+      title: "You are in observer mode",
+      text: "Back to your administrator user?",
       customClass: {
         icon: "no-border",
       },
@@ -49,8 +49,7 @@ const EyeObserver = () => {
       showCancelButton: true,
       confirmButtonColor: "#1473E6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Si",
-      cancelButtonText: "Cancelar",
+      confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
         return handleSubmit();

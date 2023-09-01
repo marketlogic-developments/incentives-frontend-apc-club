@@ -30,7 +30,6 @@ const UserOptions = ({
 
   useEffect(() => {
     const handleClickFuera = (event) => {
-      console.log(opened);
       if (
         componenteRef.current &&
         !componenteRef.current.contains(event.target) &&
