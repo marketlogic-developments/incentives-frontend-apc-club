@@ -6,16 +6,22 @@ import BtnFilter from "../../../cardReportes/BtnFilter";
 import { useTranslation } from "react-i18next";
 
 const SelectSection = ({ multiSelect }) => {
-    const [t, i18n] = useTranslation("global");
+  const [t, i18n] = useTranslation("global");
   return (
     <>
       <SelectInputValue
-        placeholder={"Quarter"}
+        placeholder={"Year"}
         /* value={selectOne}
           data={dataSelectOne} */
         icon={<ArrowDown />}
         searchable={true}
         /* onChange={handleSelectOneChange} */
+        name={"year"}
+      />
+      <SelectInputValue
+        placeholder={"Quarter"}
+        icon={<ArrowDown />}
+        searchable={true}
         name={"quarter"}
       />
       <SelectInputValue
@@ -29,12 +35,6 @@ const SelectSection = ({ multiSelect }) => {
         icon={<ArrowDown />}
         searchable={true}
         name={"region"}
-      />
-      <SelectInputValue
-        placeholder={"Country"}
-        icon={<ArrowDown />}
-        searchable={true}
-        name={"country"}
       />
       <SalesYtdMultiselectModal
         title={<p className="text-black font-bold text-lg">Filtrar por</p>}

@@ -4,6 +4,7 @@ import ReactEcharts from "echarts-for-react";
 const StackedHorizontalBarChart = ({
   datas = [{ name: "", color: "", data: [] }],
   yNames = [],
+  ySymbol = "",
 }) => {
   const data = datas.map((item) => ({
     name: item.name,
@@ -67,6 +68,11 @@ const StackedHorizontalBarChart = ({
     yAxis: {
       type: "category",
       data: yNames,
+      axisLabel: {
+        formatter: function (value) {
+          return ySymbol + value;
+        },
+      },
     },
     series: data,
   };

@@ -34,15 +34,17 @@ const SortedTable = ({
 }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
-  
+
   /* SUMA DE COLUMNAS */
   const columnSums = currentItems.reduce((acc, obj) => {
     Object.keys(obj).forEach((key) => {
-      if (!isNaN(obj[key]) || (typeof obj[key] === "string" && !isNaN(parseFloat(obj[key])))) {
+      if (
+        !isNaN(obj[key]) ||
+        (typeof obj[key] === "string" && !isNaN(parseFloat(obj[key])))
+      ) {
         const numericValue = parseFloat(obj[key]);
         acc[key] = (acc[key] || 0) + numericValue;
       }
-  
     });
     return acc;
   }, {});
@@ -59,9 +61,9 @@ const SortedTable = ({
   const formatAVG = (avgnumber) => {
     const formattedValue = (avgnumber * 100).toFixed(1);
     return formattedValue;
-};
+  };
 
-/* FORMATO PARA LA FECHA */
+  /* FORMATO PARA LA FECHA */
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -147,8 +149,10 @@ const SortedTable = ({
                           ? formatDate(row[col.identity])
                           : col.symbol === "USD"
                           ? numberToMoney(row[col.identity])
-                          : col.symbol === "%"
+                          : col.symbol === "AVG"
                           ? formatAVG(row[col.identity]) + col.symbol
+                          : col.symbol === "N"
+                          ? row[col.identity]
                           : row[col.identity] + col.symbol}
                       </th>
                     ))}
@@ -165,6 +169,8 @@ const SortedTable = ({
                       ? numberToMoney(columnSums[col.identity])
                       : col.symbol === "N"
                       ? columnSums[col.identity]
+                      : col.symbol === "%"
+                      ? Number(columnSums[col.identity]).toFixed(2) + col.symbol
                       : index === 0
                       ? "Total"
                       : ""}
