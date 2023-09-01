@@ -151,18 +151,24 @@ const DigipoinstPerformance = () => {
     return data
       .filter((item) => item.name !== null)
       .map((item) => {
-        const countryColor = colorsByCountry[item.name] || "#000000"; // Default color if not found
+        const countryColor = colorsByCountry[item.name] || "#000000";
+        const cleanedData = item.data.filter((value) => value !== 0);
         return {
           name: item.name,
           color: countryColor,
-          data: item.data.map((value) => parseInt(value)),
+          data: cleanedData.map((value) => parseInt(value)),
         };
       });
   };
 
+  function filterArray(arr, valueToExclude) {
+    return arr.filter((item) => item !== valueToExclude);
+  }
+
   /* GET DATA */
   useEffect(() => {
     dispatch(getDigiPointPerformance(token, filters)).then((res) => {
+      console.log(res.payload.digipointsByStatusAndRegion.series);
       /* DIGIPOINTS UPLOADED */
       setIsReady(false);
       setDigipointUploaded(res.payload.digipointsUploaded);
@@ -178,7 +184,10 @@ const DigipoinstPerformance = () => {
             BRAZIL: "#21A5A2",
           }
         ),
-        yNames: res.payload.digipointsByStatusAndRegion.yAxis.data,
+        yNames: filterArray(
+          res.payload.digipointsByStatusAndRegion.yAxis.data,
+          "Expected"
+        ),
       });
 
       /* DIGIPOINTS BY STATUS */
