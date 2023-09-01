@@ -166,7 +166,6 @@ const DigipoinstPerformance = () => {
       /* DIGIPOINTS UPLOADED */
       setIsReady(false);
       setDigipointUploaded(res.payload.digipointsUploaded);
-      
 
       /* DIGIPOINTS BY STATUS AND REGION PENDING*/
       setDigipointSR({
@@ -200,6 +199,7 @@ const DigipoinstPerformance = () => {
         ),
         yNames: res.payload.redempionsByRegionAndAmount.yAxis.data,
       });
+
       setIsReady(true);
     });
   }, [filters]);

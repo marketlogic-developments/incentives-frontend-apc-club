@@ -70,7 +70,7 @@ const Summary = () => {
           }`}
           onClick={() => setContent(t("DigipoinstPerformance"))}
         />
-        {/* <ButtonBgOut
+        <ButtonBgOut
           title={t("Reportes.organization")}
           styles={`${
             content === "Organization"
@@ -78,13 +78,16 @@ const Summary = () => {
               : "hover:bg-red-100 hover:!text-red-500 hover:!text-sm"
           }`}
           onClick={() => setContent(t("Organization"))}
-        /> */}
+        />
       </div>
       <div className={`${content === "SalesYtd" ? "block" : 'hidden'}`}>
         <SalesYtd />
       </div>
       <div className={`${content === "DigipoinstPerformance" ? "block" : 'hidden'}`}>
         <DigipoinstPerformance />
+      </div>
+      <div className={`${content === "Organization" ? "block" : 'hidden'}`}>
+        <Organization />
       </div>
     </div>
   );

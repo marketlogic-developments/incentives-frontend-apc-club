@@ -28,6 +28,7 @@ const DigipointRedemptionSection = ({
           <StackedHorizontalBarChart
             datas={digipointsRA.datas}
             yNames={digipointsRA.yNames}
+            ySymbol="$"
           />
         )}
       </CardChart>
