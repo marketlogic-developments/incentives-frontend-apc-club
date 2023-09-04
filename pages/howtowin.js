@@ -272,28 +272,32 @@ const howtowin = () => {
             </div>
             <div className="w-2/3 flex flex-col bg-[#F5F5F5] rounded-lg shadow-2xl h-full">
               <div className="flex flex-col h-1/2 justify-between items-center px-6 pt-6">
-                <div className="flex w-full items-center">
-                  <p>{t("htw.l1")}</p>
+                <div className="flex flex-col w-full items-center">
+                  <p className="mb-2">{t("htw.l1")}</p>
+                  <hr className="w-full" />
                 </div>
-                <hr className="w-full" />
-                <div className="flex w-full items-center">
-                  <p>{t("htw.l2")}</p>
+
+                <div className="flex flex-col w-full items-center">
+                  <p className="mb-2">{t("htw.l2")}</p>
+                  <hr className="w-full" />
                 </div>
-                <hr className="w-full" />
-                <div className="flex w-full items-center">
+
+                <div className="flex flex-col w-full items-center">
                   <p></p>
                 </div>
               </div>
               <div className="flex flex-col h-1/2 justify-between items-center px-6 pb-3">
-                <div className="flex w-full items-center">
-                  <p>{t("htw.l3")}</p>
+                <div className="flex flex-col w-full items-center">
+                  <p className="mb-1">{t("htw.l3")}</p>
+                  <hr className="w-full" />
                 </div>
-                <hr className="w-full" />
-                <div className="flex w-full items-center">
-                  <p>{t("htw.l4")}</p>
+
+                <div className="flex flex-col w-full items-center">
+                  <p className="mb-2">{t("htw.l4")}</p>
+                  <hr className="w-full" />
                 </div>
-                <hr className="w-full" />
-                <div className="flex w-full items-center">
+
+                <div className="flex flex-col w-full items-center">
                   <p>{t("htw.l5")}</p>
                 </div>
               </div>
