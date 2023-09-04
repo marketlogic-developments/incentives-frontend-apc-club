@@ -855,11 +855,14 @@ const Layout = ({ children }) => {
                 "/dashboard",
                 "/digipoints/mydigipoints",
                 "/reportes/dashboards/InvoiceReportUser",
+                "/comunicado",
               ].includes(page);
             }
 
             if (userRedux.roleId === 2) {
-              return ["/dashboard", "/puntosporventas"].includes(page);
+              return ["/dashboard", "/puntosporventas", "/comunicado"].includes(
+                page
+              );
             }
 
             if (userRedux.roleId === 5) {
@@ -867,6 +870,7 @@ const Layout = ({ children }) => {
                 "/dashboard",
                 "/digipoints/mydigipoints",
                 "/reportes/dashboards/InvoiceReportUser",
+                "/comunicado",
               ].includes(page);
             }
           }
