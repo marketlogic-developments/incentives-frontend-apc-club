@@ -133,7 +133,7 @@ const howtowin = () => {
     },
   ];
   const quantity = [42, 24, 12];
-  const nums = [5, 25000, 10, 50];
+  const nums = [5, 3000, 10, 50];
 
   useEffect(() => {
     if (user.companyId === null) {

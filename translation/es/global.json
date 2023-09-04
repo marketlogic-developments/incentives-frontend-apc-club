@@ -439,6 +439,7 @@
     "registration_performance": "Registration Performance",
     "follow_up": "Executive Summary",
     "summary": "Summary",
+    "fecha_summary": "Ventas hasta", 
     "sales_ytd": "Sales YTD",
     "grow_sales_yt": "Grow sales YoY",
     "digipoints_performance": "DigiPoints performance",
