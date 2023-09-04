@@ -29,7 +29,7 @@ const Videos10 = ({ dataContentfulVideos = [] }) => {
           <h2 className="font-bold text-4xl text-center">
             {t("comunicado.titleVideos1")}: <br />{" "}
             {t("comunicado.titleVideos2")}{" "}
-            <span className="text-red-600">APC</span>
+            <span className="text-red-600">APC CLUB</span>
           </h2>
           <div className="grid grid-cols-3 w-full pt-6">
             {dataContentfulVideos
