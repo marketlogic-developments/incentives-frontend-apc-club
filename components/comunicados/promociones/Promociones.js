@@ -32,7 +32,7 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
         <div className="grid grid-cols-2 gap-3">
           <TitleWithIcon
             icon={<Star width={40} height={40} />}
-            title={t("comunicado.promocion")}
+            title={t("comunicado.novedad")}
           />
           <div className="grid justify-items-end items-center">
             <Select
