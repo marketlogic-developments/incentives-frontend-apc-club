@@ -85,6 +85,7 @@ const Layout = ({ children }) => {
   useEffect(() => {
     if (
       userRedux.cpf !== video?.key &&
+      video?.key !== undefined &&
       userRedux !== 0 &&
       location === "/dashboard" &&
       dataSession.prevData === undefined

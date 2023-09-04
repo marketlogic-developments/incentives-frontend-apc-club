@@ -204,11 +204,19 @@ const ModalCustomerCare = ({ closeModal }) => {
         {t("modalCustomerCare.ayuda")}
       </div>
       <div className="text-center text-sm">
-        <p>{t("modalCustomerCare.infoUno")}</p>
+        <p>
+          {t("modalCustomerCare.infoCero")}{" "}
+          <a className="font-bold">{t("modalCustomerCare.apc")}</a>
+          {t("modalCustomerCare.infoUno")}
+        </p>
         <p>{t("modalCustomerCare.infoDos")}</p>
-        <p className="font-bold">{t("modalCustomerCare.infoTres")}</p>
+        <p>
+          <a className="font-bold underline">{t("modalCustomerCare.infoTres")}</a>
+          {t("modalCustomerCare.infoCuatro")}
+        </p>
       </div>
       <div className="mt-2">
+        <div className="font-bold mb-2">{t("modalCustomerCare.infoCinco")}</div>
         <div className="flex justify-start font-bold pb-2 text-sm">
           {t("modalCustomerCare.asunto")} <p className="text-red-600">*</p>
         </div>
