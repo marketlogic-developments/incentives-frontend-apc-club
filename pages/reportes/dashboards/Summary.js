@@ -11,11 +11,30 @@ const Summary = () => {
   const router = useRouter();
   const [content, setContent] = useState("SalesYtd");
   const [t, i18n] = useTranslation("global");
-
+  const date = new Date();
+  const month = [
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
+  ];
+  const dateFormatter = `${t(`Reportes.fecha_summary`)} ${date.getDate()} de ${
+    t(`meses.${month[date.getMonth()]}`)
+  } del ${date.getFullYear()}`;
+  
   return (
     <div className="mt-4">
       <div className="pt-2 grid items-center grid-rows-1 gap-3">
         <TitleWithIcon icon={""} title={t("Reportes.summary")} />
+        {/* <p className="text-sm">{dateFormatter}</p> */}
       </div>
       <div className="flex w-full items-center gap-4 mt-4 pb-2 pl-0">
         <AiOutlineHome
@@ -80,13 +99,17 @@ const Summary = () => {
           onClick={() => setContent(t("Organization"))}
         />
       </div>
-      <div className={`${content === "SalesYtd" ? "block" : 'hidden'}`}>
+      <div className={`${content === "SalesYtd" ? "block" : "hidden"}`}>
         <SalesYtd />
       </div>
-      <div className={`${content === "DigipoinstPerformance" ? "block" : 'hidden'}`}>
+      <div
+        className={`${
+          content === "DigipoinstPerformance" ? "block" : "hidden"
+        }`}
+      >
         <DigipoinstPerformance />
       </div>
-      <div className={`${content === "Organization" ? "block" : 'hidden'}`}>
+      <div className={`${content === "Organization" ? "block" : "hidden"}`}>
         <Organization />
       </div>
     </div>

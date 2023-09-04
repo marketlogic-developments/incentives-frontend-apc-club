@@ -483,3 +483,11 @@
     color: #f1f3f5;
   }
 }
+
+.imgMini {
+  iframe {
+    .vp-center {
+      display: none;
+    }
+  }
+}
