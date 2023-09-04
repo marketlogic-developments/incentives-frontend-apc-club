@@ -34,7 +34,7 @@ const Summary = () => {
     <div className="mt-4">
       <div className="pt-2 grid items-center grid-rows-1 gap-3">
         <TitleWithIcon icon={""} title={t("Reportes.summary")} />
-        <p className="text-sm">{dateFormatter}</p>
+        {/* <p className="text-sm">{dateFormatter}</p> */}
       </div>
       <div className="flex w-full items-center gap-4 mt-4 pb-2 pl-0">
         <AiOutlineHome
