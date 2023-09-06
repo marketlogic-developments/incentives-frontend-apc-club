@@ -115,7 +115,6 @@ const Canales = () => {
               <tbody>
                 {data
                   .filter((item) => {
-                    console.log(item.name);
                     // Convertir ambos a minúsculas para hacer la comparación insensible a mayúsculas y minúsculas
                     const itemLowerCase = item.name.toLowerCase();
                     const searchLowerCase = search.toLowerCase();

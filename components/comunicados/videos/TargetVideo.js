@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 const TargetVideo = ({ data, setUrlVideo, setOpen }) => {
   const [t, i18n] = useTranslation("global");
   return (
-    <div className="p-6">
+    <div className="p-6 flex flex-col xl:h-[400px]">
       <div
         className="imgMini flex w-full h-full rounded-t-lg bg-[#f5f5f5] relative overflow-hidden"
         onClick={() => {
