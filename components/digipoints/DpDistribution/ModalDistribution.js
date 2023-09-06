@@ -8,8 +8,6 @@ const ModalDistribution = ({ setOpened, invoiceData, handleSubmit }) => {
   const [t, i18n] = useTranslation("global");
   const [salesOption, setSalesOption] = useState("");
 
-  console.log(invoiceData);
-
   const typeContent = useMemo(() => {
     if (salesOption === "") {
       return (

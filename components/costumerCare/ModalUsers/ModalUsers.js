@@ -122,8 +122,6 @@ const ModalUsers = ({ userDataToModal, token }) => {
         return acc;
       }, {});
 
-    console.log(formData.countryId);
-
     return axios
       .patch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userDataToModal.id}`,

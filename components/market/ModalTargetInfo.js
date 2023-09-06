@@ -17,8 +17,6 @@ const ModalTargetInfo = ({ info, addItem, setCounter, setOpened }) => {
     setOpened(false);
   };
 
-  console.log(info);
-
   const items = [
     {
       svg: (
