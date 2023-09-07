@@ -185,8 +185,8 @@ const howtowin = ({ htws }) => {
           ></p>
         </div>
         <div className="w-full grid grid-cols-3">
-          <div className="flex gap-6">
-            <div className="px-6">
+          <div className="flex lg:gap-2 xl:gap-6">
+            <div className="lg:px-2 xl:px-6">
               <svg
                 width="99"
                 height="100"
