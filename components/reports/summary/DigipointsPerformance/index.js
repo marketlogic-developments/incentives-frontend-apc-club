@@ -161,8 +161,12 @@ const DigipoinstPerformance = () => {
       });
   };
 
-  function filterArray(arr, valueToExclude) {
+  const filterArray = (arr, valueToExclude) => {
     return arr.filter((item) => item !== valueToExclude);
+  }
+
+  const filterObject = (object, valueToExclude) => {
+    return object.filter(item => item.name !== valueToExclude);
   }
 
   /* GET DATA */
@@ -190,9 +194,8 @@ const DigipoinstPerformance = () => {
       });
 
       /* DIGIPOINTS BY STATUS */
-      setDigipointStatus(
-        mapColorsToData(res.payload.digipointsByStatus, colorsData)
-      );
+      const filerDigipintsStatus = filterObject(res.payload.digipointsByStatus, "Expected");
+      setDigipointStatus(mapColorsToData(filerDigipintsStatus, colorsData));
 
       /* DIGIPOINTS BY REGION AND AMOUND */
       setDigipointRA({

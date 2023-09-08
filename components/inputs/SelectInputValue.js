@@ -46,6 +46,7 @@ const SelectInputValue = ({
   name,
   searchable = false,
   disabled = false,
+  defaultValue,
 }) => {
   return (
     <Select
@@ -56,6 +57,7 @@ const SelectInputValue = ({
       rightSection={icon}
       value={value}
       data={data}
+      defaultValue={defaultValue}
       radius="md"
       size="md"
       transitionProps={{
