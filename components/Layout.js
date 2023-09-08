@@ -83,21 +83,6 @@ const Layout = ({ children }) => {
   });
 
   useEffect(() => {
-    if (
-      userRedux.cpf !== video?.key &&
-      video?.key !== undefined &&
-      userRedux !== 0 &&
-      location === "/dashboard" &&
-      dataSession.prevData === undefined
-    ) {
-      setModal(1);
-      setTimeout(() => {
-        setOpened(true);
-      }, 2000);
-    }
-  }, [userRedux, video]);
-
-  useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
       const userGetData = JSON.parse(window.sessionStorage.getItem("infoDt"));
       dispatch(setDataSession(userGetData));
