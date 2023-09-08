@@ -14,7 +14,7 @@ import { useMemo } from "react";
 import Videos10 from "../components/comunicados/videos/Videos10";
 import { useRouter } from "next/router";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const entries = await client.getEntries({
     content_type: "comunicados",
   });
