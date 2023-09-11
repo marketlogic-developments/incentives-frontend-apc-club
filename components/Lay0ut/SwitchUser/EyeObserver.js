@@ -21,7 +21,7 @@ const EyeObserver = () => {
 
     let timerInterval;
     Swal.fire({
-      title: `Volviendo al usuario administrador `,
+      title: `Returning to the administrator user`,
       timer: 2000,
       timerProgressBar: true,
       didOpen: () => {
