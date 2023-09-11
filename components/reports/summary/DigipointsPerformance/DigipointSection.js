@@ -16,7 +16,7 @@ const DigipointSection = ({
           <PieChart
             datas={dataUploaded}
             colors={["#21A5A2", "#009C3B", "#1473E6"]}
-            formatter="$ "
+            formatter=""
           />
         )}
       </CardChart>
