@@ -82,7 +82,7 @@ const ModalSwitchUser = ({ opened, setOpened }) => {
 
     let timerInterval;
     Swal.fire({
-      title: `Se redirigirá al perfil del usuario ${dataUserSwitch.name} `,
+      title: `You will be redirected to the user ${dataUserSwitch.name} `,
       timer: 2000,
       timerProgressBar: true,
       didOpen: () => {

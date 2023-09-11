@@ -178,6 +178,39 @@ export const invoiceColumnsExcel = {
   promoname: "Promotions Name",
 };
 
+export const digiPointsByPromotionsExel = {
+  promotions_name: "Promotions Name",
+  creation_date: "Creation Date",
+  invoice: "Invoice",
+  promotions_digipoints: "Promotions DigiPoints",
+  user_name: "User Name",
+  firstname: "FirstName",
+  lastname: "LastName",
+  user_role: "User Role",
+  user_region: "Region",
+  user_country: "Country",
+  membership_id: "Membership ID",
+  company_name: "Company Name",
+  company_type: "Company Type",
+  company_level: "Company Level",
+};
+
+export const digiPointsByBehaviorExel = {
+  behavior_name: "Behavior Name",
+  creation_date: "Creation Date",
+  behavior_digipoints: "Behavior DigiPoints",
+  user_name: "User Name",
+  firstname: "FirstName",
+  lastname: "LastName",
+  user_role: "User Role",
+  user_region: "Region",
+  user_country: "Country",
+  membership_id: "Membership ID",
+  company_name: "Company Name",
+  company_type: "Company Type",
+  company_level: "Company Level",
+};
+
 export const userPerformanceColumnsCsv = (data) => {
   const columns = {
     email: "User Name",
@@ -369,6 +402,53 @@ export const invoiceColumnsCsv = (data) => {
   };
 
   const customHeader = ["Adobe Partner Connection Club", "Invoice", date()];
+
+  const result = parseData(data, columns, customHeader);
+  return result;
+};
+
+export const digiPointsByPromotionsCsv = (data) => {
+  const columns = {
+    promotions_name: "Promotions Name",
+    creation_date: "Creation Date",
+    invoice: "Invoice",
+    promotions_digipoints: "Promotions DigiPoints",
+    user_name: "User Name",
+    firstname: "FirstName",
+    lastname: "LastName",
+    user_role: "User Role",
+    user_region: "Region",
+    user_country: "Country",
+    membership_id: "Membership ID",
+    company_name: "Company Name",
+    company_type: "Company Type",
+    company_level: "Company Level",
+  };
+
+  const customHeader = ["Adobe Partner Connection Club", "Promo Report", date()];
+
+  const result = parseData(data, columns, customHeader);
+  return result;
+};
+
+export const digiPointsByBehaviorCsv = (data) => {
+  const columns = {
+    behavior_name: "Behavior Name",
+    creation_date: "Creation Date",
+    behavior_digipoints: "Behavior DigiPoints",
+    user_name: "User Name",
+    firstname: "FirstName",
+    lastname: "LastName",
+    user_role: "User Role",
+    user_region: "Region",
+    user_country: "Country",
+    membership_id: "Membership ID",
+    company_name: "Company Name",
+    company_type: "Company Type",
+    company_level: "Company Level",
+  };
+
+  const customHeader = ["Adobe Partner Connection Club", "Behavior Report", date()];
 
   const result = parseData(data, columns, customHeader);
   return result;

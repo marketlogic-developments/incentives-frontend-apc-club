@@ -931,6 +931,8 @@ const Layout = ({ children }) => {
           location === "/reportes/dashboards/UserPerformance" ||
           location === "/reportes/dashboards/InvoiceReport" ||
           location === "/reportes/dashboards/DigiPointsRedemption" ||
+          location === "/reportes/dashboards/DigiPointsPromotions" ||
+          location === "/reportes/dashboards/DigiPointsBehavior" ||
           location === "/reportes/dashboards/GoogleAnalytic" ||
           location === "/reportes/dashboards/CustomCare" ||
           location === "/reportes/dashboards/SoImportReport" ||
