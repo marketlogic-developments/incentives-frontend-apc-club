@@ -255,7 +255,6 @@ const DigiPointsBehavior = () => {
             thStyles={"sticky text-white"}
             cols={[
               { rowStyles:"", symbol:"", identity: "behavior_name", columnName: "Behavior Name" },
-              { symbol:"", sort:true, symbol:"DATE", identity: "creation_date", columnName: "Creation Date" },
               { symbol:"", sort:true, identity: "behavior_digipoints", columnName: "Behavior DigiPoints" },
               { symbol:"", sort:true, identity: "user_name", columnName: "User Name" },
               { symbol:"", identity: "firstname", columnName: "FirstName" },

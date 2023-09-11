@@ -255,7 +255,6 @@ const DigiPointsPromotions = () => {
             thStyles={"sticky text-white"}
             cols={[
               { rowStyles:"", symbol:"", identity: "promotions_name", columnName: "Promotions Name" },
-              { symbol:"", sort:true, symbol:"DATE", identity: "creation_date", columnName: "Creation Date" },
               { symbol:"", identity: "invoice", columnName: "Invoice" },
               { symbol:"", sort:true, identity: "promotions_digipoints", columnName: "Promotions DigiPoints" },
               { symbol:"", sort:true, identity: "user_name", columnName: "User Name" },

@@ -180,7 +180,6 @@ export const invoiceColumnsExcel = {
 
 export const digiPointsByPromotionsExel = {
   promotions_name: "Promotions Name",
-  creation_date: "Creation Date",
   invoice: "Invoice",
   promotions_digipoints: "Promotions DigiPoints",
   user_name: "User Name",
@@ -197,7 +196,6 @@ export const digiPointsByPromotionsExel = {
 
 export const digiPointsByBehaviorExel = {
   behavior_name: "Behavior Name",
-  creation_date: "Creation Date",
   behavior_digipoints: "Behavior DigiPoints",
   user_name: "User Name",
   firstname: "FirstName",
@@ -410,7 +408,6 @@ export const invoiceColumnsCsv = (data) => {
 export const digiPointsByPromotionsCsv = (data) => {
   const columns = {
     promotions_name: "Promotions Name",
-    creation_date: "Creation Date",
     invoice: "Invoice",
     promotions_digipoints: "Promotions DigiPoints",
     user_name: "User Name",
@@ -434,7 +431,6 @@ export const digiPointsByPromotionsCsv = (data) => {
 export const digiPointsByBehaviorCsv = (data) => {
   const columns = {
     behavior_name: "Behavior Name",
-    creation_date: "Creation Date",
     behavior_digipoints: "Behavior DigiPoints",
     user_name: "User Name",
     firstname: "FirstName",
