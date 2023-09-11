@@ -16,6 +16,7 @@ import {
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import dynamic from "next/dynamic";
+import Promotion from "../components/icons/Reportes/Promotion";
 
 const reportesDashboard = () => {
   const router = useRouter();
@@ -81,6 +82,24 @@ const reportesDashboard = () => {
           }}
         >
           <Request />
+        </CardReportes>
+        <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
+          titleCard={"Promo Report"}
+          onClick={() => {
+            router.push("/reportes/dashboards/DigiPointsPromotions");
+          }}
+        >
+          <Promotion />
+        </CardReportes>
+        <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
+          titleCard={"Behavior Report"}
+          onClick={() => {
+            router.push("/reportes/dashboards/DigiPointsBehavior");
+          }}
+        >
+          <Promotion />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
