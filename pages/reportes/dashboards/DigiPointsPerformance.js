@@ -105,7 +105,7 @@ const DigiPointsPerformance = () => {
     return setFilters({ ...filters, [name]: value });
   };
 
-  const setRegion = [...new Set(data.map(({ region }) => region))];
+  const setRegion = [...new Set(data.filter(({region}) => region !== null).map(({ region }) => region))];
 
   const setLevel = [...new Set(data.map(({ company_level }) => company_level))];
 
@@ -296,7 +296,7 @@ const DigiPointsPerformance = () => {
             <SelectInputValue
               placeholder={"Level"}
               value={filters.level}
-              data={setLevel.map((item) => item)}
+              data={setLevel.map((level) => level)}
               icon={<ArrowDown />}
               onChange={handleFilters}
               name={"level"}
@@ -304,10 +304,10 @@ const DigiPointsPerformance = () => {
             />
           </div>
           <div className="sm:w-[90%] w-[60%]">
-            <SelectInputValue
+          <SelectInputValue
               placeholder={"Region"}
               value={filters.region}
-              data={setRegion.map((item) => item)}
+              data={setRegion}
               icon={<ArrowDown />}
               onChange={handleFilters}
               name={"region"}
