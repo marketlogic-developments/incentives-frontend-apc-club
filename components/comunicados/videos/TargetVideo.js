@@ -8,7 +8,9 @@ const TargetVideo = ({ data, setUrlVideo, setOpen }) => {
       <div
         className="imgMini flex w-full h-full rounded-t-lg bg-[#f5f5f5] relative overflow-hidden"
         onClick={() => {
-          setUrlVideo(data.urlEsp);
+          setUrlVideo(
+            i18n.resolvedLanguage === "por" ? data.urlPor : data.urlEsp
+          );
           setOpen(true);
         }}
       >

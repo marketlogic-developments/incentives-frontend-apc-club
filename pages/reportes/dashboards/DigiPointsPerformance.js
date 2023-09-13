@@ -105,7 +105,11 @@ const DigiPointsPerformance = () => {
     return setFilters({ ...filters, [name]: value });
   };
 
-  const setRegion = [...new Set(data.filter(({region}) => region !== null).map(({ region }) => region))];
+  const setRegion = [
+    ...new Set(
+      data.filter(({ region }) => region !== null).map(({ region }) => region)
+    ),
+  ];
 
   const setLevel = [...new Set(data.map(({ company_level }) => company_level))];
 
@@ -131,7 +135,6 @@ const DigiPointsPerformance = () => {
         filters.level === "" || item.company_level === filters.level;
       const regionFilter =
         filters.region === "" || item.region === filters.region;
-
       return companyFilter && levelFilter && regionFilter;
     });
   }, [filters, filteredUsers]);
@@ -304,7 +307,7 @@ const DigiPointsPerformance = () => {
             />
           </div>
           <div className="sm:w-[90%] w-[60%]">
-          <SelectInputValue
+            <SelectInputValue
               placeholder={"Region"}
               value={filters.region}
               data={setRegion}
@@ -390,7 +393,7 @@ const DigiPointsPerformance = () => {
                 columnName: "DigiPoints Redeemed",
               },
               {
-                symbol: "",
+                symbol: "%",
                 sort: true,
                 identity: "total_avg_effectiveness",
                 columnName: "Total % effectiveness ",
