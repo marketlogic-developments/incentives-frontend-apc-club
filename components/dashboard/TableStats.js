@@ -25,8 +25,10 @@ const TableStats = () => {
   const [loading, setLoading] = useState(0);
   const dataFromAxios = useSelector((state) => state.sales.salesgement);
   const golprogram = useSelector((state) => state.user.company.goalsPerYear);
+  const [wait, setWait] = useState(false);
 
-  useEffect(() => {
+  useEffect(async() => {
+    setWait(false);
     setLoading(true);
 
     const obj =
@@ -35,7 +37,7 @@ const TableStats = () => {
         : `/reporters/goalsbycompanies/${user?.company?.resellerMasterId}`;
 
     if (user) {
-      axios
+      await axios
         .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`, {
           headers: {
             "Content-Type": "application/json",
@@ -68,10 +70,11 @@ const TableStats = () => {
       }
     }
     setLoading(false);
+    setWait(true);
   }, [token]);
 
   useEffect(() => {
-    if (dataFromAxios.length !== 0) {
+    if (dataFromAxios.length !== 0 && wait) {
       setLoading(true);
 
       setTotalSales(dataFromAxios);
