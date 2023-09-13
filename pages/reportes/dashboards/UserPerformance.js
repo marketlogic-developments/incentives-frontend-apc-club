@@ -446,15 +446,15 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q3)}</th>
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q4)}</th> */}
                       <th className="text-left py-3 px-2 mx-4">
-                        ${data.vip_revenue_total}
+                        {numberToMoney(data.vip_revenue_total)}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
-                        ${data.vmp_revenue_total}
+                        {numberToMoney(data.vmp_revenue_total)}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
-                        ${data.revenue_actual}
+                        {numberToMoney(data.revenue_actual)}
                       </th>
-                      <th className="text-left py-3 px-2 mx-4">${data.rma}</th>
+                      <th className="text-left py-3 px-2 mx-4 min-w-min">{numberToMoney(data.rma)}</th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.total_digipoints}
                       </th>
