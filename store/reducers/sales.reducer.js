@@ -23,6 +23,8 @@ const initialState = {
   getdigipointspermonth: [],
   getsalesvsgoalsuseper: [],
   getlicenciesbymonth: [],
+  getdigipointsbypromotions: [],
+  getdigipointsbybeha: [],
 };
 
 export const saleActions = createSlice({
@@ -98,7 +100,12 @@ export const saleActions = createSlice({
     getLicenciesbyMonth: (state, action) => {
       state.getlicenciesbymonth = action.payload;
     },
-
+    getDigiPointsByPromotionsState: (state, action) => {
+      state.getdigipointsbypromotions = action.payload;
+    },
+    getDigiPointsByBehaState: (state, action) => {
+      state.getdigipointsbybeha = action.payload;
+    },
     getSalesvsGoalsUsePer: (state, action) => {
       state.getsalesvsgoalsuseper = action.payload;
     },
@@ -134,6 +141,8 @@ export const {
   getDigipointsPer,
   getSalesvsGoalsUsePer,
   getLicenciesbyMonth,
+  getDigiPointsByPromotionsState,
+  getDigiPointsByBehaState,
 } = saleActions.actions;
 
 export default saleActions.reducer;
@@ -754,6 +763,44 @@ export const getLicenciesByMonth = (token) => async (dispatch) => {
         }
       )
       .then((res) => dispatch(getLicenciesbyMonth(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getDigiPointsByPromotions = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getdigipointsbypromo`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getDigiPointsByPromotionsState(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getDigiPointsByBeha = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getdigipointsbybeha`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getDigiPointsByBehaState(res.data)));
   } catch (err) {
     console.log(err);
   }

@@ -64,7 +64,7 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
               const dateA = new Date(a.thisDate);
               const dateB = new Date(b.thisDate);
 
-              return filter === "des" ? dateB - dateA : dateA - dateB;
+              return filter === "des" ? dateA - dateB : dateB - dateA;
             })
             .map((data, index) => (
               <TargetPromociones data={data} key={index} />
