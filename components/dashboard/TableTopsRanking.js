@@ -89,14 +89,14 @@ const TableTopsRanking = ({
         [
           [
             "Ranking",
-            "Names",
-            "Email",
+            "Name",
+            "User",
             "Region",
-            "Country Id",
-            "Position",
-            "Amount by User",
-            "Company",
-            "Points Assigned",
+            "Country",
+            "User Role",
+            "Total Revenue (USD)",
+            "Company Name",
+            "Total DigiPoints",
           ],
         ],
         { origin: "A1" }
