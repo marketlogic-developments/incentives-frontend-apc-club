@@ -27,7 +27,7 @@ const TableStats = () => {
   const golprogram = useSelector((state) => state.user.company.goalsPerYear);
   const [wait, setWait] = useState(false);
 
-  useEffect(async() => {
+  useEffect(async () => {
     setWait(false);
     setLoading(true);
 
