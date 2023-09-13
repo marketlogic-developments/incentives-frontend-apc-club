@@ -19,7 +19,7 @@ const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
       </div>
       <div className="h-full w-full flex justify-center ">
         <div
-          className="radial-progress text-[#1473E6] flex justify-center items-center text-primary radialMeta"
+          className="radial-progress text-[#1473E6] flex justify-center items-center radialMeta"
           style={{
             "--value": percentageTotal,
           }}

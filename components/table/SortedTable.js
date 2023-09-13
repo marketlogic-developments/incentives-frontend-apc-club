@@ -59,7 +59,7 @@ const SortedTable = ({
 
   /* FORMATO PARA EL PORCENTAJE */
   const formatAVG = (avgnumber) => {
-    const formattedValue = (avgnumber * 100).toFixed(1);
+    const formattedValue = (avgnumber * 100).toFixed(1) + "%";
     return formattedValue;
   };
 
@@ -150,7 +150,7 @@ const SortedTable = ({
                           : col.symbol === "USD"
                           ? numberToMoney(row[col.identity])
                           : col.symbol === "AVG"
-                          ? formatAVG(row[col.identity]) + col.symbol
+                          ? formatAVG(row[col.identity])
                           : col.symbol === "N"
                           ? row[col.identity]
                           : row[col.identity] + col.symbol}
