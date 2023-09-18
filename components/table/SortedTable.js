@@ -63,6 +63,29 @@ const SortedTable = ({
     return formattedValue;
   };
 
+  /* FORMATO PARA EL Cantidades */
+  const formatNumberWithCommas = (number) => {
+    // Convierte el número a una cadena de texto
+    const numberString = number.toString();
+  
+    // Divide la cadena en partes por el punto decimal si hay uno
+    const parts = numberString.split(".");
+  
+    // Parte entera del número
+    const integerPart = parts[0];
+  
+    // Parte decimal del número (si existe)
+    const decimalPart = parts[1] || "";
+  
+    // Agrega comas para separar los miles en la parte entera
+    const formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  
+    // Combina la parte entera formateada y la parte decimal (si existe)
+    const formattedNumber = decimalPart ? `${formattedIntegerPart}.${decimalPart}` : formattedIntegerPart;
+  
+    return formattedNumber;
+  };
+
   /* FORMATO PARA LA FECHA */
   const formatDate = (dateString) => {
     const options = {
@@ -153,7 +176,10 @@ const SortedTable = ({
                           ? formatAVG(row[col.identity])
                           : col.symbol === "N"
                           ? row[col.identity]
-                          : row[col.identity] + col.symbol}
+                          : col.symbol === "Number"
+                          ? formatNumberWithCommas(row[col.identity])
+                          : row[col.identity]
+                          }
                       </th>
                     ))}
                   </tr>
@@ -167,7 +193,7 @@ const SortedTable = ({
                   >
                     {col.symbol === "USD"
                       ? numberToMoney(columnSums[col.identity])
-                      : col.symbol === "N"
+                      : col.symbol === "Number"
                       ? columnSums[col.identity]
                       : col.symbol === "%"
                       ? Number(columnSums[col.identity]).toFixed(2) + col.symbol
