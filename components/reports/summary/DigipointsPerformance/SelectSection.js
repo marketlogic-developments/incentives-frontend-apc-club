@@ -10,19 +10,13 @@ const SelectSection = ({ multiSelect }) => {
   return (
     <>
       <SelectInputValue
-        placeholder={"Quarter"}
+        placeholder={"Company Name"}
         /* value={selectOne}
           data={dataSelectOne} */
         icon={<ArrowDown />}
         searchable={true}
         /* onChange={handleSelectOneChange} */
-        name={"quarter"}
-      />
-      <SelectInputValue
-        placeholder={"Month"}
-        icon={<ArrowDown />}
-        searchable={true}
-        name={"month"}
+        name={"company_name"}
       />
       <SelectInputValue
         placeholder={"Region"}
@@ -36,10 +30,16 @@ const SelectSection = ({ multiSelect }) => {
         searchable={true}
         name={"country"}
       />
-      <SalesYtdMultiselectModal
+      <SelectInputValue
+        placeholder={"Level"}
+        icon={<ArrowDown />}
+        searchable={true}
+        name={"level"}
+      />
+      {/* <SalesYtdMultiselectModal
         title={<p className="text-black font-bold text-lg">Filtrar por</p>}
         datas={multiSelect}
-      />
+      /> */}
       <div className="w-4/5 justify-end">
         <BtnFilter
           text={t("Reportes.limpiar_filtros")}
