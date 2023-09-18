@@ -16,6 +16,7 @@ const initialState = {
   salesperformance: [],
   salesperformancefilters: [],
   digipointsperformancefilters: [],
+  getDigiPointsFilterCountry: [],
   digipointsperformance: [],
   invoiceperformance: [],
   invoiceperformancebyusuer: [],
@@ -76,6 +77,9 @@ export const saleActions = createSlice({
     getDigiPointPerformanceFilter: (state, action) => {
       state.digipointsperformancefilters = action.payload;
     },
+    getDigiPointsFilterCountry: (state, action) => {
+      state.getDigiPointsFilterCountry = action.payload;
+    },
     getOrganizationsCharts: (state, action) => {
       state.digipointsperformancefilters = action.payload;
     },
@@ -133,6 +137,7 @@ export const {
   getSalePer,
   getSaleYTD,
   getDigiPointPerformanceFilter,
+  getDigiPointsFilterCountry,
   getOrganizationsCharts,
   getDigiPointsPer,
   getInvoicePer,
@@ -614,6 +619,25 @@ export const getDigiPointPerformance = (token, data) => async (dispatch) => {
         }
       )
       .then((res) => dispatch(getDigiPointPerformanceFilter(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getDigiPointContry = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-performance-charts`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getDigiPointsFilterCountry(res.data)));
   } catch (err) {
     console.log(err);
   }
