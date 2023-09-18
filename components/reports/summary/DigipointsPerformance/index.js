@@ -5,7 +5,7 @@ import SelectSection from "./SelectSection";
 import DigipointSection from "./DigipointSection";
 import DigipointRedemptionSection from "./DigipointRedemptionSection";
 import { useEffect } from "react";
-import { getDigiPointPerformance } from "../../../../store/reducers/sales.reducer";
+import { getDigiPointContry, getDigiPointPerformance } from "../../../../store/reducers/sales.reducer";
 import { useDispatch, useSelector } from "react-redux";
 
 const DigipoinstPerformance = () => {
@@ -163,16 +163,22 @@ const DigipoinstPerformance = () => {
 
   const filterArray = (arr, valueToExclude) => {
     return arr.filter((item) => item !== valueToExclude);
-  }
+  };
 
   const filterObject = (object, valueToExclude) => {
-    return object.filter(item => item.name !== valueToExclude);
-  }
+    return object.filter((item) => item.name !== valueToExclude);
+  };
 
   /* GET DATA */
+
+  /* useEffect(() => {
+    dispatch(getDigiPointContry(token)).then((res) => {
+      console.log('contry',res.payload);
+    });
+  }, []); */
+
   useEffect(() => {
     dispatch(getDigiPointPerformance(token, filters)).then((res) => {
-      console.log(res.payload);
       /* DIGIPOINTS UPLOADED */
       setIsReady(false);
       setDigipointUploaded(res.payload.digipointsUploaded);
@@ -195,7 +201,10 @@ const DigipoinstPerformance = () => {
       });
 
       /* DIGIPOINTS BY STATUS */
-      const filerDigipintsStatus = filterObject(res.payload.digipointsByStatus, "Expected");
+      const filerDigipintsStatus = filterObject(
+        res.payload.digipointsByStatus,
+        "Expected"
+      );
       setDigipointStatus(mapColorsToData(filerDigipintsStatus, colorsData));
 
       /* DIGIPOINTS BY REGION AND AMOUND */
