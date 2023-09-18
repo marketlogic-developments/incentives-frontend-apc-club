@@ -16,12 +16,12 @@ const DigipointRedemptionSection = ({
 }) => {
   return (
     <>
-      <CardChart title={"DigiPoints by status"} paragraph="">
+      {/* <CardChart title={"DigiPoints by status"} paragraph="">
         {!isDataReady && <div className="lds-dual-ring"></div>}
         {isDataReady && (
           <HorizontalBar datas={dataDigStatus} symbol="" />
         )}
-      </CardChart>
+      </CardChart> */}
       <CardChart title={"Redemptions by region and amound"} paragraph="">
         {!isDataReady && <div className="lds-dual-ring"></div>}
         {isDataReady && (
