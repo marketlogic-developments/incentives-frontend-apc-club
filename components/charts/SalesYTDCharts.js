@@ -30,7 +30,7 @@ const SalesYTDCharts = ({
         const expectedValue = params[1].data.aux;
         return `Total: ${formatValue(totalValue)} / Expected: ${formatValue(
           expectedValue
-        )}`;
+        )} - ${Number((totalValue / expectedValue) * 100).toFixed(2)}%`;
       },
     },
     legend: {},
