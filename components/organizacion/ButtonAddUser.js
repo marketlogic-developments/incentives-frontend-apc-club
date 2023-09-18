@@ -165,17 +165,15 @@ const ButtonAddUser = () => {
           <div className="flex flex-col gap-6 h-[90vh]">
             <div className="flex flex-col gap-6 items-center">
               <p className="!text-2xl font-bold">
-                Solicitud para creación de usuario
+                {t("tabla.solicitudCreación")}
               </p>
-              <p className="!text-sm ">
-                Agrega personas y crea un equipo de trabajo.
-              </p>
+              <p className="!text-sm ">{t("tabla.agregarUsers")}</p>
             </div>
             <div>
               <div className="flex gap-6">
                 <div className="flex flex-col">
                   <label className="label">
-                    <span className="label-text">Nombre</span>
+                    <span className="label-text">{t("user.nome")}</span>
                   </label>
                   <input
                     className="input input-bordered"
@@ -187,7 +185,7 @@ const ButtonAddUser = () => {
                 </div>
                 <div className="flex flex-col">
                   <label className="label">
-                    <span className="label-text">Apellido</span>
+                    <span className="label-text">{t("user.Sobrenome")}</span>
                   </label>
                   <input
                     className="input input-bordered"
@@ -200,7 +198,7 @@ const ButtonAddUser = () => {
               </div>
               <div className="flex flex-col">
                 <label className="label">
-                  <span className="label-text">Correo</span>
+                  <span className="label-text">{t("login.email")}</span>
                 </label>
                 <input
                   className="input input-bordered"
@@ -214,7 +212,7 @@ const ButtonAddUser = () => {
               <div className="flex gap-6">
                 <div className="flex flex-col">
                   <label className="label">
-                    <span className="label-text">Región</span>
+                    <span className="label-text">{t("user.region")}</span>
                   </label>
                   <select
                     className="select select-bordered"
@@ -223,7 +221,7 @@ const ButtonAddUser = () => {
                     required
                   >
                     <option disabled selected>
-                      Selecciona la región
+                      {t("tabla.selectRegion")}
                     </option>
                     <option value="NOLA">NOLA</option>
                     <option value="SOLA">SOLA</option>
@@ -242,7 +240,7 @@ const ButtonAddUser = () => {
                     required
                   >
                     <option disabled selected>
-                      Selecciona el país
+                      {t("tabla.selectPais")}
                     </option>
                     {paisesAmerica.map((value) => (
                       <option value={value}>{value}</option>
@@ -252,7 +250,7 @@ const ButtonAddUser = () => {
               </div>
               <div className="flex flex-col">
                 <label className="label">
-                  <span className="label-text">Rol</span>
+                  <span className="label-text">{t("user.rol")}</span>
                 </label>
                 <select
                   className="select select-bordered"
@@ -261,14 +259,14 @@ const ButtonAddUser = () => {
                   required
                 >
                   <option disabled selected>
-                    Selecciona el rol
+                    {t("user.seleccionarRol")}
                   </option>
                   <option value="5">Sales Rep</option>
                 </select>
               </div>
               <div className="flex flex-col">
                 <label className="label">
-                  <span className="label-text">Contraseña temporal</span>
+                  <span className="label-text">{t("tabla.passtemp")}</span>
                 </label>
                 <input
                   className="input input-bordered"
@@ -295,7 +293,7 @@ const ButtonAddUser = () => {
         </div>
       </Modal>
       <button className="btn btn-primary w-1/2" onClick={() => setOpened(true)}>
-        Agregar Usuario
+        {t("tabla.addUser")}
       </button>
     </>
   );

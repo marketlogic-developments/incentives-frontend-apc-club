@@ -150,7 +150,7 @@ const TableUsersOrganization = () => {
     <div className="flex flex-col gap-6 mt-16">
       <div className="flex justify-between items-center">
         <div>
-          <p className="font-bold !text-xl">Usuarios</p>
+          <p className="font-bold !text-xl">{t("Reportes.usuarios")}</p>
         </div>
         <div className="flex gap-6 w-2/4">
           <div className="relative flex w-full">
