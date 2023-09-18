@@ -25,53 +25,68 @@ const TableStats = () => {
   const [loading, setLoading] = useState(0);
   const dataFromAxios = useSelector((state) => state.sales.salesgement);
   const golprogram = useSelector((state) => state.user.company.goalsPerYear);
+  const [wait, setWait] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
+    const fetchData = async () => {
+      try {
+        setWait(false);
+        setLoading(true);
 
-    const obj =
-      user.companyId === null
-        ? `/reporters/goalsbydistri/${user?.distributionChannel?.soldToParty}`
-        : `/reporters/goalsbycompanies/${user?.company?.resellerMasterId}`;
+        const obj =
+          user.companyId === null
+            ? `/reporters/goalsbydistri/${user?.distributionChannel?.soldToParty}`
+            : `/reporters/goalsbycompanies/${user?.company?.resellerMasterId}`;
 
-    if (user) {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
+        if (user) {
+          const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
           if (user.roleId === 1) {
             setGoal(golprogram);
           } else {
-            if (res.data.length !== 0) {
-              setGoal(res.data[0].meta);
+            if (response.data.length !== 0) {
+              setGoal(response.data[0].meta);
             }
           }
-        });
-    }
+        }
 
-    if (token && dataFromAxios.length === 0) {
-      if (user.roleId === 1) {
-        dispatch(getSalesBySegmentAll(token));
-      }
+        if (token && dataFromAxios.length === 0) {
+          if (user.roleId === 1) {
+            dispatch(getSalesBySegmentAll(token));
+          }
 
-      if (user.companyId === null) {
-        dispatch(
-          getSalesBySegmentDist(token, user.distributionChannel.soldToParty)
-        );
-      } else {
-        dispatch(getSalesBySegmentComp(token, user.company.resellerMasterId));
+          if (user.companyId === null) {
+            dispatch(
+              getSalesBySegmentDist(token, user.distributionChannel.soldToParty)
+            );
+          } else {
+            dispatch(
+              getSalesBySegmentComp(token, user.company.resellerMasterId)
+            );
+          }
+        }
+
+        setLoading(false);
+        setWait(true);
+      } catch (error) {
+        console.error("Error en la consulta:", error);
       }
-    }
-    setLoading(false);
+    };
+
+    fetchData();
   }, [token]);
 
   useEffect(() => {
-    if (dataFromAxios.length !== 0) {
+    if (dataFromAxios.length !== 0 && wait) {
       setLoading(true);
 
       setTotalSales(dataFromAxios);
