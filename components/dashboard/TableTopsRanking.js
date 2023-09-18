@@ -170,7 +170,7 @@ const TableTopsRanking = ({
     const keys = Object.keys(rest);
     setFilters({ [keys[0]]: "", [name]: info });
   };
-console.log(ranking);
+
   return (
     <div className="grid w-full">
       <div className="sm:flex justify-between items-center">
