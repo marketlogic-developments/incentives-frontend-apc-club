@@ -28,9 +28,9 @@ const SalesYTDCharts = ({
       formatter: function (params) {
         const totalValue = params[0].data.value;
         const expectedValue = params[1].data.aux;
-        return `Total: ${formatValue(totalValue)} / Expected: ${formatValue(
+        return `Reached: ${formatValue(totalValue)} / Expected: ${formatValue(
           expectedValue
-        )} - ${Number((totalValue / expectedValue) * 100).toFixed(2)}%`;
+        )} - Progress: ${Number((totalValue / expectedValue) * 100).toFixed(2)}%`;
       },
     },
     legend: {},
