@@ -607,9 +607,10 @@ export const getSalesYtd = (token, data) => async (dispatch) => {
 
 export const getDigiPointPerformance = (token, data) => async (dispatch) => {
   try {
+    console.log(data);
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-performance-charts?_quarter=${data.quarter}&_month=${data.month}&_region=${data.region}&_country=${data.country}&_partner_level=${data.partner_level}&_partner=${data.partner}&_market_segment=${data.market_segment}&_business_unit=${data.business_unit}&_business_type=${data.business_type}&_licensing_type=${data.licensing_type}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-performance-charts?_company_name=${data.company_name}&_region=${data.region}&_country=${data.country}`,
         {
           headers: {
             "Content-Type": "application/json",
