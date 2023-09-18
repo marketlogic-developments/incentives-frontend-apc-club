@@ -41,17 +41,17 @@ const puntosporventas = () => {
           setLoading(false);
         });
       } else if (user.companyId === null) {
-        dispatch(getSalesAllByDist(token, distribuitor.soldToParty, user.id)).then(
-          (response) => {
-            setLoading(false);
-          }
-        );
+        dispatch(
+          getSalesAllByDist(token, distribuitor.soldToParty, user.id)
+        ).then((response) => {
+          setLoading(false);
+        });
       } else {
-        dispatch(getSalesAllByChannel(token, company.resellerMasterId, user.id)).then(
-          (response) => {
-            setLoading(false);
-          }
-        );
+        dispatch(
+          getSalesAllByChannel(token, company.resellerMasterId, user.id)
+        ).then((response) => {
+          setLoading(false);
+        });
       }
     }
   }, [isLoaded, token]);
@@ -285,7 +285,7 @@ const puntosporventas = () => {
                 className="text-info font-bold 2xl:!text-sm cursor-pointer"
                 onClick={() => importFile(filteredUsers)}
               >
-                Descargar
+                {t("digipoints.descargar")}
               </p>
             </div>
           </div>
