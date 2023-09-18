@@ -28,7 +28,7 @@ const TableSection = ({ dataTable }) => {
           {
             rowStyles: "",
             sort: false,
-            symbol: "USD",
+            symbol: "N",
             identity: "total_points",
             columnName: "DigiPoints",
           },
