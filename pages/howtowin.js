@@ -220,7 +220,9 @@ const howtowin = ({ htws }) => {
                     value: data,
                     label:
                       lastHTWData.date === data.date
-                        ? `${new Date(data.date).toLocaleDateString()} (actual)`
+                        ? `${new Date(data.date).toLocaleDateString()} (${t(
+                            "htw.actual"
+                          )})`
                         : new Date(data.date).toLocaleDateString(),
                   };
                 })}

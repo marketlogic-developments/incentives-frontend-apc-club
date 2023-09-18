@@ -256,6 +256,7 @@
     "nombreDist": "Nombre de distribuidor",
     "nombreCanal": "Nombre del Canal",
     "addParticipante": "Agregar Participante",
+    "addUser": "Agregar Usuario",
     "valorVenta": "de Venta",
     "notiError": "Ha ocurrido un error, intentalo más tarde",
     "continuar": "Continuar",
@@ -265,7 +266,12 @@
     "cambioEmailSolicitud": "Cambio de correo",
     "otroSolicitud": "Otro",
     "elegirSol": "Elige tu tipo de solicitud",
-    "limpiar": "Limpiar filtro"
+    "limpiar": "Limpiar filtro",
+    "passtemp": "Contraseña temporal",
+    "selectRegion": "Selecciona la region",
+    "selectPais": "Selecciona el país",
+    "solicitudCreación": "Solicitud para creación de usuario",
+    "agregarUsers": "Agrega personas y crea un equipo de trabajo"
   },
   "shoopingcar": {
     "carrito": "Carrito",
@@ -357,6 +363,7 @@
     "ajustesdeperfil": "Ajustes de perfil",
     "informaciongeneral": "Información General",
     "informacionpersonal": "Información Personal",
+    "seguridad": "Seguridad",
     "nombre": "Nombre",
     "apellido": "Apellido",
     "correo1": "Correo empresarial",
@@ -409,7 +416,8 @@
     "l2": "Transacciones de Acrobat Sign",
     "l3": "Licencias de Teams",
     "l4": "Licencias SDL/Named",
-    "l5": "Licencias SLP"
+    "l5": "Licencias SLP",
+    "actual": "actual"
   },
   "releases": {
     "vip": "¿Por qué utilizar VIP Marketplace?",

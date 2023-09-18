@@ -147,9 +147,9 @@
   "digipoints": {
     "mis": "Meus",
     "DDigipoints": "Distribuição de",
-
     "Crear": "Equipes",
     "descargar": "Baixar",
+    "removerFil": "Remover Filtros",
     "crearEquipos": "Criar equipe",
     "historicos": "Históricos",
     "actuales": "Atuais",
@@ -257,6 +257,7 @@
     "nombreDist": "Nome da Revenda",
     "nombreCanal": "Nome da Revenda",
     "addParticipante": "Adicionar Participante",
+    "addUser": "Adicionar Usuário",
     "valorVenta": "de Venda",
     "notiError": "Ocorreu um erro, tente novamente mais tarde",
     "continuar": "SEGUINTE",
@@ -266,7 +267,12 @@
     "cambioEmailSolicitud": "Mudança de e-mail",
     "otroSolicitud": "Outro",
     "elegirSol": "Escolha o seu tipo de solicitação.",
-    "limpiar": "Limpar filtro"
+    "limpiar": "Limpar filtro",
+    "passtemp": "Sehna temporária",
+    "selectRegion": "Selecione a região",
+    "selectPais": "Selecione o país",
+    "solicitudCreación": "Solicitação para criação de usuário",
+    "agregarUsers": "Agrege pessoas e crie uma equipe de trabalho"
   },
   "shoopingcar": {
     "carrito": "Carrinho de compras",
@@ -358,6 +364,7 @@
     "ajustesdeperfil": "Ajustes do perfil",
     "informaciongeneral": "Informações Gerais",
     "informacionpersonal": "Informações Pessoais",
+    "seguridad": "Segurança",
     "nombre": "Nome",
     "apellido": "Sobrenome",
     "correo1": "E-mail comercial",
@@ -410,7 +417,8 @@
     "l2": "Transações do Acrobat Sign",
     "l3": "Licenças do Teams",
     "l4": "Licenças SDL/Named",
-    "l5": "Licenças SLP"
+    "l5": "Licenças SLP",
+    "actual": "atual"
   },
   "releases": {
     "vip": "Por que usar o VIP Marketplace?",
