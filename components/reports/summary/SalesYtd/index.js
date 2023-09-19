@@ -35,7 +35,7 @@ const SalesYtd = () => {
     month: "",
     marketSegment: "",
     businessUnit: "",
-    company_type: "",
+    company_type: "RESELLER",
   });
   const [dataLoaded, setDataLoaded] = useState(false);
   const [companiesName, setCompaniesName] = useState([]);
@@ -156,7 +156,7 @@ const SalesYtd = () => {
 
   /* SET DATA */
   const calculateSegmentTotals = (data)=> {
-    const resellerData = data.filter(item => item.company_type === "RESELLER");
+    const resellerData = data.filter(item => item.company_type === filters.company_type);
   
     const segmentTotals = resellerData.reduce((totals, item) => {
       totals["Commercial"] = (totals["Commercial"] || 0) + parseFloat(item.sales_commercial);
@@ -182,14 +182,19 @@ const SalesYtd = () => {
   }
 
   /* SELECTS */
-  const handleFilters = (name, value) => {
-    return setFilters({ ...filters, [name]: value === null ? "" : value });
+  const handleFilters = (name, value) => { 
+    console.log(name === "level", value === 'DISTRIBUTOR', name, value)
+    if (name === "level" && value === 'DISTRIBUTOR') {
+      return setFilters({ ...filters, level:value, company_type:"DISTRIBUITOR"});
+    }
+    return setFilters({ ...filters, [name]: value === null ? "" : value, company_type: "RESELLER" });
   };
+  console.log(filters);
 
   const clearSelects = () => {
     setFilters({
       company_name: "",
-      company_type: "",
+      company_type: "RESELLER",
       region: "",
       country_id: "",
       level: "",
@@ -262,7 +267,7 @@ const SalesYtd = () => {
     }, {});
 
     data.forEach((obj) => {
-      if (obj.company_type === "RESELLER") {
+      if (obj.company_type === filters.company_type) {
         propertyNames.forEach((propertyName) => {
           for (let quarter = 1; quarter <= 4; quarter++) {
             quarterlyTotals[propertyName][`Q${quarter}`] += parseFloat(
@@ -386,7 +391,7 @@ const SalesYtd = () => {
   /* TOTAL SALES VS GOALS */
   const calculateRevenueSum = (data) => {
     const filteredItems = data.filter(
-      (item) => item.company_type === "RESELLER"
+      (item) => item.company_type === filters.company_type
     );
 
     const totalRevenueSum = filteredItems.reduce((sum, item) => {
@@ -438,7 +443,7 @@ const SalesYtd = () => {
   const calculateCreativeDocumentSum = (data) => {
 
     const filteredItems = data.filter(
-      (item) => item.company_type === "RESELLER"
+      (item) => item.company_type === filters.company_type
     );
 
     const calculateTotal = (property) =>
