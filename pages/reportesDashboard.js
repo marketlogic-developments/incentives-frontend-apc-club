@@ -146,7 +146,7 @@ const reportesDashboard = () => {
         >
           <Thunderbolt />
         </CardReportes> */}
-        <CardReportes
+        {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.follow_up")}
           onClick={() => {
@@ -154,7 +154,7 @@ const reportesDashboard = () => {
           }}
         >
           <TermsConditions />
-        </CardReportes>
+        </CardReportes> */}
       </div>
       {/* <SharePoint /> */}
     </div>
