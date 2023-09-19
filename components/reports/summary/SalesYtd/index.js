@@ -35,7 +35,7 @@ const SalesYtd = () => {
     month: "",
     marketSegment: "",
     businessUnit: "",
-    company_type: "RESELLER",
+    company_type: "",
   });
   const [dataLoaded, setDataLoaded] = useState(false);
   const [companiesName, setCompaniesName] = useState([]);
@@ -155,46 +155,53 @@ const SalesYtd = () => {
   };
 
   /* SET DATA */
-  const calculateSegmentTotals = (data)=> {
-    const resellerData = data.filter(item => item.company_type === filters.company_type);
-  
+  const calculateSegmentTotals = (data) => {
+    const resellerData = data.filter((item) => {
+      const resDist =
+        filters.level === "DISTRIBUTOR" ? "DISTRIBUITOR" : "RESELLER";
+
+      return item.company_type === resDist;
+    });
+
     const segmentTotals = resellerData.reduce((totals, item) => {
-      totals["Commercial"] = (totals["Commercial"] || 0) + parseFloat(item.sales_commercial);
-      totals["Government"] = (totals["Government"] || 0) + parseFloat(item.sales_government);
-      totals["Education"] = (totals["Education"] || 0) + parseFloat(item.sales_education);
+      totals["Commercial"] =
+        (totals["Commercial"] || 0) + parseFloat(item.sales_commercial);
+      totals["Government"] =
+        (totals["Government"] || 0) + parseFloat(item.sales_government);
+      totals["Education"] =
+        (totals["Education"] || 0) + parseFloat(item.sales_education);
       return totals;
     }, {});
-  
+
     const pointsTotals = resellerData.reduce((totals, item) => {
-      totals["Commercial"] = (totals["Commercial"] || 0) + parseInt(item.puntos_commercial);
-      totals["Government"] = (totals["Government"] || 0) + parseInt(item.puntos_government);
-      totals["Education"] = (totals["Education"] || 0) + parseInt(item.puntos_education);
+      totals["Commercial"] =
+        (totals["Commercial"] || 0) + parseInt(item.puntos_commercial);
+      totals["Government"] =
+        (totals["Government"] || 0) + parseInt(item.puntos_government);
+      totals["Education"] =
+        (totals["Education"] || 0) + parseInt(item.puntos_education);
       return totals;
     }, {});
-  
-    const result = Object.keys(segmentTotals).map(segment => ({
+
+    const result = Object.keys(segmentTotals).map((segment) => ({
       segment,
       total: segmentTotals[segment],
       total_points: pointsTotals[segment],
     }));
-  
+
     return result;
-  }
+  };
 
   /* SELECTS */
-  const handleFilters = (name, value) => { 
-    console.log(name === "level", value === 'DISTRIBUTOR', name, value)
-    if (name === "level" && value === 'DISTRIBUTOR') {
-      return setFilters({ ...filters, level:value, company_type:"DISTRIBUITOR"});
-    }
-    return setFilters({ ...filters, [name]: value === null ? "" : value, company_type: "RESELLER" });
+  const handleFilters = (name, value) => {
+    return setFilters({ ...filters, [name]: value === null ? "" : value });
   };
   console.log(filters);
 
   const clearSelects = () => {
     setFilters({
       company_name: "",
-      company_type: "RESELLER",
+      company_type: "",
       region: "",
       country_id: "",
       level: "",
@@ -266,8 +273,11 @@ const SalesYtd = () => {
       return totals;
     }, {});
 
+    const resDist =
+      filters.level === "DISTRIBUTOR" ? "DISTRIBUITOR" : "RESELLER";
+
     data.forEach((obj) => {
-      if (obj.company_type === filters.company_type) {
+      if (obj.company_type === resDist) {
         propertyNames.forEach((propertyName) => {
           for (let quarter = 1; quarter <= 4; quarter++) {
             quarterlyTotals[propertyName][`Q${quarter}`] += parseFloat(
@@ -390,9 +400,12 @@ const SalesYtd = () => {
 
   /* TOTAL SALES VS GOALS */
   const calculateRevenueSum = (data) => {
-    const filteredItems = data.filter(
-      (item) => item.company_type === filters.company_type
-    );
+    const filteredItems = data.filter((item) => {
+      const resDist =
+        filters.level === "DISTRIBUTOR" ? "DISTRIBUITOR" : "RESELLER";
+
+      return item.company_type === resDist;
+    });
 
     const totalRevenueSum = filteredItems.reduce((sum, item) => {
       return sum + parseFloat(item.total_revenue);
@@ -441,10 +454,12 @@ const SalesYtd = () => {
 
   /* TOTAL DE CREATIVE CLOUD Y DOCUMENT CLOUD  */
   const calculateCreativeDocumentSum = (data) => {
+    const filteredItems = data.filter((item) => {
+      const resDist =
+        filters.level === "DISTRIBUTOR" ? "DISTRIBUITOR" : "RESELLER";
 
-    const filteredItems = data.filter(
-      (item) => item.company_type === filters.company_type
-    );
+      return item.company_type === resDist;
+    });
 
     const calculateTotal = (property) =>
       filteredItems.reduce((sum, item) => {
@@ -576,7 +591,11 @@ const SalesYtd = () => {
         dataLoaded={dataLoaded}
         regionVsGoals={regionVsGoals}
       />
-      {!dataLoaded ? <div className="lds-dual-ring"></div> : <CdpSection data={cloudDocument}/>}
+      {!dataLoaded ? (
+        <div className="lds-dual-ring"></div>
+      ) : (
+        <CdpSection data={cloudDocument} />
+      )}
       {dataLoaded && (
         <MarketplaceSection
           dataLoaded={dataLoaded}
