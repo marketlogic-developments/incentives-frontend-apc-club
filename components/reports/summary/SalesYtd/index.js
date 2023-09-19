@@ -156,12 +156,19 @@ const SalesYtd = () => {
 
   /* SET DATA */
   const calculateSegmentTotals = (data) => {
+    console.log(data);
     const resellerData = data.filter((item) => {
       const resDist =
-        filters.level === "DISTRIBUTOR" ? "DISTRIBUITOR" : "RESELLER";
+        filters.level === "DISTRIBUTOR" ||
+        (filters.company_name.length !== 0 &&
+          item.company_type === "DISTRIBUITOR")
+          ? "DISTRIBUITOR"
+          : "RESELLER";
 
       return item.company_type === resDist;
     });
+
+    console.log(resellerData);
 
     const segmentTotals = resellerData.reduce((totals, item) => {
       totals["Commercial"] =
@@ -273,10 +280,14 @@ const SalesYtd = () => {
       return totals;
     }, {});
 
-    const resDist =
-      filters.level === "DISTRIBUTOR" ? "DISTRIBUITOR" : "RESELLER";
-
     data.forEach((obj) => {
+      const resDist =
+        filters.level === "DISTRIBUTOR" ||
+        (filters.company_name.length !== 0 &&
+          obj.company_type === "DISTRIBUITOR")
+          ? "DISTRIBUITOR"
+          : "RESELLER";
+
       if (obj.company_type === resDist) {
         propertyNames.forEach((propertyName) => {
           for (let quarter = 1; quarter <= 4; quarter++) {
@@ -402,7 +413,11 @@ const SalesYtd = () => {
   const calculateRevenueSum = (data) => {
     const filteredItems = data.filter((item) => {
       const resDist =
-        filters.level === "DISTRIBUTOR" ? "DISTRIBUITOR" : "RESELLER";
+        filters.level === "DISTRIBUTOR" ||
+        (filters.company_name.length !== 0 &&
+          item.company_type === "DISTRIBUITOR")
+          ? "DISTRIBUITOR"
+          : "RESELLER";
 
       return item.company_type === resDist;
     });
@@ -456,7 +471,11 @@ const SalesYtd = () => {
   const calculateCreativeDocumentSum = (data) => {
     const filteredItems = data.filter((item) => {
       const resDist =
-        filters.level === "DISTRIBUTOR" ? "DISTRIBUITOR" : "RESELLER";
+        filters.level === "DISTRIBUTOR" ||
+        (filters.company_name.length !== 0 &&
+          item.company_type === "DISTRIBUITOR")
+          ? "DISTRIBUITOR"
+          : "RESELLER";
 
       return item.company_type === resDist;
     });
