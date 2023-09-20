@@ -388,7 +388,6 @@ const SalesYtd = () => {
     const filteredItems = data.filter(
       (item) => item.company_type === "RESELLER"
     );
-
     const totalRevenueSum = filteredItems.reduce((sum, item) => {
       return sum + parseFloat(item.total_revenue);
     }, 0);
