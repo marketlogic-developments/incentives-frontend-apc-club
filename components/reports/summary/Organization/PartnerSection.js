@@ -82,13 +82,13 @@ const handlePageClick = (event) => {
               {
                 symbol: "USD",
                 identity: "sales",
-                columnName: "Sales YTD",
+                columnName: "Total Revenue (USD)",
               },
-              /* {
+              {
                 symbol: "USD",
                 identity: "expected_revenue",
-                columnName: "Expected Revenue",
-              }, */
+                columnName: "Expected Revenue (USD)",
+              },
               {
                 symbol: "%",
                 identity: "growth",
@@ -97,22 +97,22 @@ const handlePageClick = (event) => {
               {
                 symbol: "USD",
                 identity: "cc_sales",
-                columnName: "CC Sales",
+                columnName: "CC Revenue (USD)",
               },
               {
                 symbol: "%",
                 identity: "cc_growth",
-                columnName: "CC Growth",
+                columnName: "CC Sales %",
               },
               {
                 symbol: "USD",
                 identity: "dc_sales",
-                columnName: "DC Sales",
+                columnName: "DC Revenue (USD)",
               },
               {
                 symbol: "%",
                 identity: "dc_growth",
-                columnName: "DC Growth",
+                columnName: "DC Sales %",
               },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
