@@ -610,7 +610,7 @@ export const getDigiPointPerformance = (token, data) => async (dispatch) => {
     console.log(data);
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-performance-charts?_company_name=${data.company_name}&_region=${data.region}&_country=${data.country}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-performance-charts?company_name=${data.company_name}&region=${data.region}&country=${data.country}`,
         {
           headers: {
             "Content-Type": "application/json",
