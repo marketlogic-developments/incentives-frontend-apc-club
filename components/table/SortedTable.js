@@ -176,7 +176,7 @@ const SortedTable = ({
                           ? formatAVG(row[col.identity])
                           : col.symbol === "N"
                           ? row[col.identity]
-                          : col.symbol === "Number"
+                          : col.symbol === "Numbers"
                           ? formatNumberWithCommas(row[col.identity])
                           : row[col.identity]
                           }
@@ -193,8 +193,8 @@ const SortedTable = ({
                   >
                     {col.symbol === "USD"
                       ? numberToMoney(columnSums[col.identity])
-                      : col.symbol === "Number"
-                      ? columnSums[col.identity]
+                      : col.symbol === "Numbers"
+                      ? formatNumberWithCommas(columnSums[col.identity])
                       : col.symbol === "%"
                       ? Number(columnSums[col.identity]).toFixed(2) + col.symbol
                       : index === 0
