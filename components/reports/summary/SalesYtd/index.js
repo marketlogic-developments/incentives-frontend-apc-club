@@ -156,7 +156,6 @@ const SalesYtd = () => {
 
   /* SET DATA */
   const calculateSegmentTotals = (data) => {
-    console.log(data);
     const resellerData = data.filter((item) => {
       const resDist =
         filters.level === "DISTRIBUTOR" ||
@@ -167,8 +166,6 @@ const SalesYtd = () => {
 
       return item.company_type === resDist;
     });
-
-    console.log(resellerData);
 
     const segmentTotals = resellerData.reduce((totals, item) => {
       totals["Commercial"] =
@@ -203,7 +200,6 @@ const SalesYtd = () => {
   const handleFilters = (name, value) => {
     return setFilters({ ...filters, [name]: value === null ? "" : value });
   };
-  console.log(filters);
 
   const clearSelects = () => {
     setFilters({
