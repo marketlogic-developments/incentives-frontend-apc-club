@@ -220,8 +220,19 @@ const SalesYtd = () => {
     const regions = ["NOLA", "SOLA", "MEXICO", "BRAZIL"];
     const revenueByRegion = {};
 
+    const filteredItems = data.filter((item) => {
+      const resDist =
+        filters.level === "DISTRIBUTOR" ||
+        (filters.company_name.length !== 0 &&
+          item.company_type === "DISTRIBUITOR")
+          ? "DISTRIBUITOR"
+          : "RESELLER";
+
+      return item.company_type === resDist;
+    });
+
     regions.forEach((region) => {
-      const totalRevenue = data.reduce((total, obj) => {
+      const totalRevenue = filteredItems.reduce((total, obj) => {
         if (obj.region === region) {
           const revenue = parseFloat(Number(obj.total_revenue).toFixed(2));
           return total + revenue;
@@ -229,7 +240,7 @@ const SalesYtd = () => {
         return total;
       }, 0);
 
-      const totalExpectedRevenue = data.reduce((total, obj) => {
+      const totalExpectedRevenue = filteredItems.reduce((total, obj) => {
         if (obj.region === region) {
           const expectedRevenue = parseFloat(
             Number(obj.expected_revenue).toFixed(2)
