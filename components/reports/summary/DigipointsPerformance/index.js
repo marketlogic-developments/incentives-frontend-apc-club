@@ -194,9 +194,9 @@ const DigipoinstPerformance = () => {
 
   /* GET DATA */
   useEffect(() => {
+    setIsReady(false);
     dispatch(getDigiPointPerformance(token, filters)).then((res) => {
       /* DIGIPOINTS UPLOADED */
-      setIsReady(false);
       setDigipointUploaded(res.payload.digipointsUploaded);
 
       /* DIGIPOINTS BY STATUS AND REGION PENDING*/
@@ -245,7 +245,6 @@ const DigipoinstPerformance = () => {
       setIsReady(true);
     });
   }, [filters]);
-
   return (
     <div className="m-5">
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
