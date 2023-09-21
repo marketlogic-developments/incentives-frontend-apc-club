@@ -4,6 +4,7 @@ import ReactEcharts from "echarts-for-react";
 const StackedHorizontalBarChart = ({
   datas = [{ name: "", color: "", data: [] }],
   yNames = [],
+  percentage = [],
   ySymbol = "",
 }) => {
   const data = datas.map((item) => ({
@@ -36,8 +37,41 @@ const StackedHorizontalBarChart = ({
     tooltip: {
       trigger: "axis",
       axisPointer: {
-        // Use axis to trigger tooltip
-        type: "shadow", // 'shadow' as default; can also be 'line' or 'shadow'
+        type: "shadow",
+      },
+      formatter: function (params) {
+        let tooltip = params[0].name + "<br/>";
+        params.forEach((param) => {
+          tooltip +=
+            param.marker +
+            " " +
+            param.seriesName +
+            ": " +
+            param.value +
+            "<br/>";
+
+          // Obtener el índice del objeto en el array datas
+          const dataIndex = datas.findIndex(
+            (item) => item.name === param.seriesName
+          );
+
+          // Verificar si hay un objeto en percentage correspondiente
+          if (dataIndex !== -1 && percentage[dataIndex]) {
+            if (param.axisValueLabel === "Redeemed") {
+              tooltip +=
+                " - " +
+                percentage[dataIndex].redeemVsAsigned +
+                "%<br/>";
+            }
+            if (param.axisValueLabel === "Assigned") {
+              tooltip +=
+                " - " +
+                percentage[dataIndex].asignedVsUpload +
+                "%<br/>";
+            }
+          }
+        });
+        return tooltip;
       },
     },
     legend: {
@@ -76,6 +110,7 @@ const StackedHorizontalBarChart = ({
     },
     series: data,
   };
+
   return (
     <div className="w-full">
       <ReactEcharts option={option} className="w-auto h-auto" />
