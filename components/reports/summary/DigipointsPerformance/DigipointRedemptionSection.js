@@ -1,7 +1,7 @@
 import React from "react";
 import CardChart from "../../../cardReportes/CardChart";
 import HorizontalBar from "../../../charts/HorizontalBar";
-import StackedHorizontalBarChart from "../../../charts/StackedHorizontalBarChart";
+import DigipointsRa from "./DigipointsRa";
 
 const DigipointRedemptionSection = ({
   dataDigStatus = [
@@ -25,7 +25,7 @@ const DigipointRedemptionSection = ({
       <CardChart title={"Redemptions by region and amound"} paragraph="">
         {!isDataReady && <div className="lds-dual-ring"></div>}
         {isDataReady && (
-          <StackedHorizontalBarChart
+          <DigipointsRa
             datas={digipointsRA.datas}
             yNames={digipointsRA.yNames}
             ySymbol="$"

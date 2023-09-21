@@ -9,6 +9,8 @@ const DigipointSection = ({
   dataSR = { datas: {}, yNames: [] },
 }) => {
   const [percentage, setPercentage] = useState([]);
+  const [chartData, setChartData] = useState([]);
+  const [chartNames, setChartNames] = useState([]);
   const calculatePercentage = (data) => {
     const resultado = data.map((item) => {
       const [total, asigned, redeem] = item.data;
@@ -25,31 +27,38 @@ const DigipointSection = ({
   };
 
   useEffect(() => {
-    if (dataSR?.datas.length && percentage.length === 0) {
+    if (dataSR?.datas.length) {
       const res = calculatePercentage(dataSR?.datas);
+      setChartData(dataSR.datas);
+      const names = dataSR.datas.map(item => item.name);
+      setChartNames(names);
       setPercentage(res);
     }
-  }, [dataSR]);
+  }, [dataSR?.datas.length, isDataReady]);
+
   return (
     <>
       <CardChart title={"DigiPoints uploaded YTD"} paragraph="">
-        {!isDataReady && <div className="lds-dual-ring"></div>}
-        {isDataReady && (
+        {isDataReady ? (
           <PieChart
             datas={dataUploaded}
             colors={["#21A5A2", "#009C3B", "#1473E6"]}
             formatter="$ "
           />
+        ) : (
+          <div className="lds-dual-ring"></div>
         )}
       </CardChart>
       <CardChart title={"DigiPoints by Status and Region"} paragraph="">
-        {!isDataReady && <div className="lds-dual-ring"></div>}
-        {isDataReady && (
+        {isDataReady && chartData ? (
           <StackedHorizontalBarChart
-            datas={dataSR.datas}
+            datas={chartData}
+            chartNames={chartNames}
             yNames={dataSR.yNames}
             percentage={percentage}
           />
+        ) : (
+          <div className="lds-dual-ring"></div>
         )}
       </CardChart>
     </>
