@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CardReportes, InputReporte } from "../components";
 import {
   CustomIcon,
@@ -20,7 +20,21 @@ import Promotion from "../components/icons/Reportes/Promotion";
 
 const reportesDashboard = () => {
   const router = useRouter();
+  const [screen, setScreen] = useState();
   const [t, i18n] = useTranslation("global");
+
+  useEffect(() => {
+    setScreen(window.innerWidth);
+    const handleWindowResize = () => {
+      setScreen(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  });
 
   const SharePoint = dynamic(() =>
     import("../components/embedreports/sharePoint").then(
@@ -45,7 +59,10 @@ const reportesDashboard = () => {
             router.push("/reportes/dashboards/SalesPerformance");
           }}
         >
-          <RocketIcon width={70} height={70} />
+          <RocketIcon
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -54,7 +71,10 @@ const reportesDashboard = () => {
             router.push("/reportes/dashboards/UserPerformance");
           }}
         >
-          <UserPerformance />
+          <UserPerformance
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -63,7 +83,10 @@ const reportesDashboard = () => {
             router.push("/reportes/dashboards/DigiPointsPerformance");
           }}
         >
-          <Medal />
+          <Medal
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -72,7 +95,10 @@ const reportesDashboard = () => {
             router.push("/reportes/dashboards/InvoiceReport");
           }}
         >
-          <IncentivePoints />
+          <IncentivePoints
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -81,7 +107,10 @@ const reportesDashboard = () => {
             router.push("/reportes/dashboards/DigiPointsRedemption");
           }}
         >
-          <Request />
+          <Request
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -90,7 +119,10 @@ const reportesDashboard = () => {
             router.push("/reportes/dashboards/DigiPointsPromotions");
           }}
         >
-          <Promotion />
+          <Promotion
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -99,7 +131,10 @@ const reportesDashboard = () => {
             router.push("/reportes/dashboards/DigiPointsBehavior");
           }}
         >
-          <Promotion />
+          <Promotion
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -108,7 +143,10 @@ const reportesDashboard = () => {
             router.push("/reportes/dashboards/GoogleAnalytic");
           }}
         >
-          <IncentivePoints />
+          <IncentivePoints
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -117,7 +155,10 @@ const reportesDashboard = () => {
             router.push("/reportes/dashboards/CustomCare");
           }}
         >
-          <CustomIcon />
+          <CustomIcon
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -126,7 +167,10 @@ const reportesDashboard = () => {
             router.push("/reportes/dashboards/Summary");
           }}
         >
-          <RocketIcon />
+          <RocketIcon
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
