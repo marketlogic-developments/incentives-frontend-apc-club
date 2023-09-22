@@ -3,6 +3,8 @@ import SalesYtdMultiselectModal from "../../../ModalStateProducts/SalesYtdMultis
 import BtnFilter from "../../../cardReportes/BtnFilter";
 import { ArrowDown } from "../../../icons";
 import SelectInputValue from "../../../inputs/SelectInputValue";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const FilterSection = ({
   companyName,
@@ -20,10 +22,25 @@ const FilterSection = ({
   clearSelects,
 }) => {
   const [t, i18n] = useTranslation("global");
+  const [screen, setScreen] = useState();
+
+  useEffect(() => {
+    setScreen(window.innerWidth);
+    const handleWindowResize = () => {
+      setScreen(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  });
 
   return (
-    <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
-      {/* <SelectInputValue
+    <div className="pt-2 grid items-center sm:grid-cols-6 grid-cols-2 gap-3">
+      <div className={screen < 639 ? 'hidden' : 'col-span-4 grid grid-cols-4 gap-2' }>
+        {/* <SelectInputValue
         placeholder={"Company"}
         value={filters.company_type}
         data={companyType.map((company_type) => ({
@@ -81,7 +98,7 @@ const FilterSection = ({
         onChange={handleFilters}
         name={"level"}
       />
-
+      </div>
       <SalesYtdMultiselectModal
         title={<p className="text-black font-bold text-lg">Filtrar por</p>}
         datas={multiSelect}
