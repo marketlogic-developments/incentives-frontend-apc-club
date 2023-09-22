@@ -215,7 +215,7 @@ const InvoiceReport = () => {
         </span>
       </div>
       <div className="grid items-center sm:grid-cols-6 grid-cols-3 gap-3">
-        <div className="col-span-3">
+        <div className="sm:col-span-1 col-span-3">
           <SearchInput
             image={<SearchIcon />}
             placeHolder={"Invoice"}
@@ -257,7 +257,7 @@ const InvoiceReport = () => {
           styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
           onClick={clearSelects}
         />
-        <div className="col-span-2">
+        <div className="sm:col-span-1 col-span-2">
         <DropDownReport
           icon={<CloudDownload />}
           title={t("Reportes.descargar")}
