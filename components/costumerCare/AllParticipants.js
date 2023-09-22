@@ -76,7 +76,9 @@ const AllParticipants = () => {
           setOpened(true);
         }}
       >
-        <td className="py-4 px-2">{user2.name}</td>
+        <td className="py-4 px-2">{`${user2.names} ${
+          user2.lastname || ""
+        }`}</td>
         <td className="py-4 px-2">{user2.email}</td>
         <td className="py-4 px-2">
           {user2.roleId === 1
@@ -124,21 +126,6 @@ const AllParticipants = () => {
                   )
                 )
               : viewTable(participantes)}
-            {/* {currentItems &&
-              currentItems.map((user, index) => (
-                <tr
-                  key={index}
-                  className="bg-white border-b dark:border-gray-500"
-                >
-                  <td className="py-4 px-2">{user.id}</td>
-                  <td className="py-4 px-2">{user.name}</td>
-                  <td className="py-4 px-2">{user.email}</td>
-                  <td className="py-4 px-2">{user.nameRol}</td>
-                  <td className="py-4 px-2">
-                    {moment(user.CreatedAt).format("MM/DD/YYYY")}
-                  </td>
-                </tr>
-              ))} */}
           </tbody>
         </table>
       </>
