@@ -446,7 +446,7 @@ const SalesPerformance = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-rows-1 justify-items-center pt-5">
+      
         {loading && <div className="lds-dual-ring"></div>}
         {!loading && (
           <SortedTable
@@ -519,7 +519,6 @@ const SalesPerformance = () => {
             handlePageClick={handlePageClick}
           />
         )}
-      </div>
     </div>
   );
 };

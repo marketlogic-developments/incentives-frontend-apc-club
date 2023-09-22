@@ -12,6 +12,7 @@ import {
   Thunderbolt,
   UserPerformance,
   Medal,
+  ArrowRight,
 } from "../components/icons";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
@@ -58,6 +59,7 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/SalesPerformance");
           }}
+          extra={<ArrowRight />}
         >
           <RocketIcon
             width={screen < 639 ? 45 : 70}
@@ -70,6 +72,7 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/UserPerformance");
           }}
+          extra={<ArrowRight />}
         >
           <UserPerformance
             width={screen < 639 ? 45 : 70}
@@ -82,6 +85,7 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/DigiPointsPerformance");
           }}
+          extra={<ArrowRight />}
         >
           <Medal
             width={screen < 639 ? 45 : 70}
@@ -94,6 +98,7 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/InvoiceReport");
           }}
+          extra={<ArrowRight />}
         >
           <IncentivePoints
             width={screen < 639 ? 45 : 70}
@@ -106,6 +111,7 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/DigiPointsRedemption");
           }}
+          extra={<ArrowRight />}
         >
           <Request
             width={screen < 639 ? 45 : 70}
@@ -118,6 +124,7 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/DigiPointsPromotions");
           }}
+          extra={<ArrowRight />}
         >
           <Promotion
             width={screen < 639 ? 45 : 70}
@@ -130,6 +137,7 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/DigiPointsBehavior");
           }}
+          extra={<ArrowRight />}
         >
           <Promotion
             width={screen < 639 ? 45 : 70}
@@ -142,6 +150,7 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/GoogleAnalytic");
           }}
+          extra={<ArrowRight />}
         >
           <IncentivePoints
             width={screen < 639 ? 45 : 70}
@@ -154,6 +163,7 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/CustomCare");
           }}
+          extra={<ArrowRight />}
         >
           <CustomIcon
             width={screen < 639 ? 45 : 70}
@@ -166,6 +176,7 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/Summary");
           }}
+          extra={<ArrowRight />}
         >
           <RocketIcon
             width={screen < 639 ? 45 : 70}

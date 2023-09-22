@@ -5,6 +5,7 @@ const Card = ({
   styles = "",
   titleCard = "Title",
   children,
+  extra,
   onClick = () => {},
 }) => {
   return (
@@ -13,7 +14,7 @@ const Card = ({
         {children}
         <h2 className="card-title text-sm lg:text-lg ">{titleCard}</h2>
         <div className="sm:hidden grid place-content-center">
-          <ArrowRight />
+          {extra}
         </div>
       </div>
     </div>
