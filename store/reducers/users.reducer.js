@@ -14,6 +14,7 @@ const initialState = {
   digipoints: {},
   distribuitor: {},
   ranking: [],
+  userSwitch: {},
 };
 
 export const userActions = createSlice({
@@ -60,6 +61,10 @@ export const userActions = createSlice({
       state.ranking = action.payload;
     },
 
+    setDataSession: (state, action) => {
+      state.userSwitch = action.payload;
+    },
+
     setInitialStateUser: (state, action) => {
       return initialState;
     },
@@ -81,6 +86,7 @@ export const {
   setInitialStateUser,
   userUpdate,
   setRanking,
+  setDataSession,
 } = userActions.actions;
 
 export default userActions.reducer;
@@ -142,7 +148,7 @@ export const createUserData = (token, data) => async (dispatch) => {
 export const getDigiPoints = (token, id) => async (dispatch) => {
   return axios
     .get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/2/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/${id}`,
       {
         headers: {
           "Content-Type": "application/json",

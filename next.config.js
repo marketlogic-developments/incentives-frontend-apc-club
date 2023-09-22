@@ -21,6 +21,6 @@ module.exports = {
     };
     return config;
   },
-  swcMinify: true,
+  swcMinify: false,
   reactStrictMode: false,
 };

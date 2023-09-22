@@ -16,18 +16,18 @@ const TargetPromociones = ({ data }) => {
   const hour = data.thisDate.split("T")[1].split("-")[0];
 
   const months = {
-    "01": "Enero",
-    "02": "Febrero",
-    "03": "Marzo",
-    "04": "Abril",
-    "05": "Mayo",
-    "06": "Junio",
-    "07": "Julio",
-    "08": "Agosto",
-    "09": "Septiembre",
-    10: "Octubre",
-    11: "Noviembre",
-    12: "Diciembre",
+    "01": t("meses.enero"),
+    "02": t("meses.febrero"),
+    "03": t("meses.marzo"),
+    "04": t("meses.abril"),
+    "05": t("meses.mayo"),
+    "06": t("meses.junio"),
+    "07": t("meses.julio"),
+    "08": t("meses.agosto"),
+    "09": t("meses.septiembre"),
+    10: t("meses.octubre"),
+    11: t("meses.noviembre"),
+    12: t("meses.diciembre"),
   };
 
   return (
@@ -42,21 +42,39 @@ const TargetPromociones = ({ data }) => {
         />
       </div>
       <div className="grid col-span-2 justify-items-start sm:pr-56 md:pr-3 pr-3">
-        <p className="sm:text-sm text-xs">{`Publicado el ${date.dd} de ${
-          months[date.mm]
-        } del ${date.aa} a las ${hour}`}</p>
-        <p className="font-bold sm:text-2xl text-sm">{data.title}</p>
-        <p>{data.description.content[0].content[0].value}</p>
+        <p className="sm:text-sm text-xs">
+          {i18n.resolvedLanguage === "por"
+            ? `Publicado em ${date.dd} de ${months[date.mm]} del ${
+                date.aa
+              } às ${hour}`
+            : `Publicado el ${date.dd} de ${months[date.mm]} del ${
+                date.aa
+              } a las ${hour}`}
+        </p>
+        <p className="font-bold sm:text-2xl text-sm">
+          {i18n.resolvedLanguage === "por" ? data.titlePor : data.title}
+        </p>
+        <p>
+          {i18n.resolvedLanguage === "por"
+            ? data.descriptionPor
+            : data.description.content[0].content[0].value}
+        </p>
         <a
           className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs"
-          onClick={() => {
-            router.push({
-              pathname: `/comunicados${data.dynamicDirection}`,
-              query: {
-                data: JSON.stringify(data),
-              },
-            });
-          }}
+          href={
+            i18n.resolvedLanguage === "por"
+              ? data.pdfdelete[1].fields.file.url
+              : data.pdfdelete[0].fields.file.url
+          }
+          target="_blank"
+          // onClick={() => {
+          //   router.push({
+          //     pathname: `/comunicados${data.dynamicDirection}`,
+          //     query: {
+          //       data: JSON.stringify(data),
+          //     },
+          //   });
+          // }}
         >
           {t("comunicado.leer")}
         </a>

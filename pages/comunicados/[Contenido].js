@@ -9,6 +9,8 @@ const Contenido = () => {
 
   const html = dataContent.html.content[0].content[0].value;
 
+  console.log(html);
+
   return (
     <div
       className="htmlContentComunications w-full flex justify-center"

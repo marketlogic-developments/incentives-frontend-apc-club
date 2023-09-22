@@ -93,7 +93,6 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
         });
       })
       .catch((e) => {
-        console.log(e);
         return Toast.fire({
           icon: "error",
           title: "An error has occurred",

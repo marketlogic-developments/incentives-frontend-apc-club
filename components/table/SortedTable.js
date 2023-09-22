@@ -12,6 +12,7 @@ const SortedTable = ({
   containerStyles = "",
   tableStyles = "",
   thStyles = "",
+  totalTableStyles = "text-black text-left text-lg font-bold",
   generalRowStyles = "",
   colStyles = "",
   cols = [
@@ -24,19 +25,45 @@ const SortedTable = ({
     },
   ],
   currentItems = [],
+  searchByInvoice = "",
+  fieldSearchByInvoice = "",
   pageCount = 0,
   paginate = false,
-  handlePageClick = () => { },
+  sumColum = false,
+  handlePageClick = () => {},
 }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
 
+  /* SUMA DE COLUMNAS */
+  const columnSums = currentItems.reduce((acc, obj) => {
+    Object.keys(obj).forEach((key) => {
+      if (
+        !isNaN(obj[key]) ||
+        (typeof obj[key] === "string" && !isNaN(parseFloat(obj[key])))
+      ) {
+        const numericValue = parseFloat(obj[key]);
+        acc[key] = (acc[key] || 0) + numericValue;
+      }
+    });
+    return acc;
+  }, {});
+
+  /* FORMATO DE NUMERO A DINERO */
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
       .toFixed(0)
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
   };
+
+  /* FORMATO PARA EL PORCENTAJE */
+  const formatAVG = (avgnumber) => {
+    const formattedValue = (avgnumber * 100).toFixed(1) + "%";
+    return formattedValue;
+  };
+
+  /* FORMATO PARA LA FECHA */
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -50,6 +77,7 @@ const SortedTable = ({
     return date.toLocaleString("es-GT", options);
   };
 
+  /* SORT */
   const handleSort = (column) => {
     if (sortColumn === column) {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -61,8 +89,17 @@ const SortedTable = ({
 
   const sortedData = [...currentItems].sort((a, b) => {
     if (sortColumn) {
-      if (a[sortColumn] < b[sortColumn]) return sortOrder === "asc" ? -1 : 1;
-      if (a[sortColumn] > b[sortColumn]) return sortOrder === "asc" ? 1 : -1;
+      const valueA = parseFloat(a[sortColumn].replace(/,/g, ""));
+      const valueB = parseFloat(b[sortColumn].replace(/,/g, ""));
+
+      if (!isNaN(valueA) && !isNaN(valueB)) {
+        return (valueA - valueB) * (sortOrder === "asc" ? 1 : -1);
+      }
+
+      return (
+        a[sortColumn].localeCompare(b[sortColumn]) *
+        (sortOrder === "asc" ? 1 : -1)
+      );
     }
     return 0;
   });
@@ -76,8 +113,9 @@ const SortedTable = ({
               {cols.length !== 0 &&
                 cols.map((col, index) => (
                   <th
-                    className={`text-left ${colStyles} ${col.sort && "cursor-pointer"
-                      } `}
+                    className={`text-left ${colStyles} ${
+                      col.sort && "cursor-pointer"
+                    } `}
                     onClick={() => col.sort && handleSort(col.identity)}
                   >
                     <div className="flex items-center gap-1">
@@ -89,24 +127,57 @@ const SortedTable = ({
           </thead>
           <tbody>
             {sortedData &&
-              [...sortedData].map((row, index) => (
-                <tr key={index}>
-                  {cols.map((col) => (
-                    <th
-                      key={col.identity}
-                      className={
-                        col.rowStyles ? col.rowStyles : generalRowStyles
-                      }
-                    >
-                      {col.symbol === "DATE"
-                        ? formatDate(row[col.identity])
-                        : col.symbol === "USD"
+              [...sortedData]
+                .filter((item) => {
+                  if (searchByInvoice !== "") {
+                    return item[fieldSearchByInvoice].startsWith(
+                      searchByInvoice
+                    );
+                  }
+                  return item;
+                })
+                .map((row, index) => (
+                  <tr key={index}>
+                    {cols.map((col) => (
+                      <th
+                        key={col.identity}
+                        className={
+                          col.rowStyles ? col.rowStyles : generalRowStyles
+                        }
+                      >
+                        {col.symbol === "DATE"
+                          ? formatDate(row[col.identity])
+                          : col.symbol === "USD"
                           ? numberToMoney(row[col.identity])
+                          : col.symbol === "AVG"
+                          ? formatAVG(row[col.identity])
+                          : col.symbol === "N"
+                          ? row[col.identity]
                           : row[col.identity] + col.symbol}
-                    </th>
-                  ))}
-                </tr>
-              ))}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+            {sumColum && (
+              <tr>
+                {cols.map((col, index) => (
+                  <th
+                    key={`total-${col.identity}`}
+                    className={totalTableStyles}
+                  >
+                    {col.symbol === "USD"
+                      ? numberToMoney(columnSums[col.identity])
+                      : col.symbol === "N"
+                      ? columnSums[col.identity]
+                      : col.symbol === "%"
+                      ? Number(columnSums[col.identity]).toFixed(2) + col.symbol
+                      : index === 0
+                      ? "Total"
+                      : ""}
+                  </th>
+                ))}
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

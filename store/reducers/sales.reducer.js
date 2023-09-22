@@ -14,11 +14,17 @@ const initialState = {
   goals: [],
   userperformance: [],
   salesperformance: [],
+  salesperformancefilters: [],
+  digipointsperformancefilters: [],
+  digipointsperformance: [],
   invoiceperformance: [],
+  invoiceperformancebyusuer: [],
   getsalesvsgoals: [],
   getdigipointspermonth: [],
   getsalesvsgoalsuseper: [],
   getlicenciesbymonth: [],
+  getdigipointsbypromotions: [],
+  getdigipointsbybeha: [],
 };
 
 export const saleActions = createSlice({
@@ -64,8 +70,23 @@ export const saleActions = createSlice({
     getSalePer: (state, action) => {
       state.salesperformance = action.payload;
     },
+    getSaleYTD: (state, action) => {
+      state.salesperformancefilters = action.payload;
+    },
+    getDigiPointPerformanceFilter: (state, action) => {
+      state.digipointsperformancefilters = action.payload;
+    },
+    getOrganizationsCharts: (state, action) => {
+      state.digipointsperformancefilters = action.payload;
+    },
+    getDigiPointsPer: (state, action) => {
+      state.digipointsperformance = action.payload;
+    },
     getInvoicePer: (state, action) => {
       state.invoiceperformance = action.payload;
+    },
+    getInvoicePerUser: (state, action) => {
+      state.invoiceperformancebyusuer = action.payload;
     },
     getSalesVSGoals: (state, action) => {
       state.getsalesvsgoals = action.payload;
@@ -79,7 +100,12 @@ export const saleActions = createSlice({
     getLicenciesbyMonth: (state, action) => {
       state.getlicenciesbymonth = action.payload;
     },
-
+    getDigiPointsByPromotionsState: (state, action) => {
+      state.getdigipointsbypromotions = action.payload;
+    },
+    getDigiPointsByBehaState: (state, action) => {
+      state.getdigipointsbybeha = action.payload;
+    },
     getSalesvsGoalsUsePer: (state, action) => {
       state.getsalesvsgoalsuseper = action.payload;
     },
@@ -105,11 +131,18 @@ export const {
   getGoals,
   getUserSale,
   getSalePer,
+  getSaleYTD,
+  getDigiPointPerformanceFilter,
+  getOrganizationsCharts,
+  getDigiPointsPer,
   getInvoicePer,
+  getInvoicePerUser,
   getSalesVSGoals,
   getDigipointsPer,
   getSalesvsGoalsUsePer,
   getLicenciesbyMonth,
+  getDigiPointsByPromotionsState,
+  getDigiPointsByBehaState,
 } = saleActions.actions;
 
 export default saleActions.reducer;
@@ -259,23 +292,25 @@ export const getDigipointsPa = (token, data) => async (dispatch) => {
         }
       )
       .then((res) => {
-        const dataObj = res.data.map((data) => ({
-          ...data,
-          date: data.invoiceDetails[0].billing_date.split(" ")[0],
-          country: data.invoiceDetails[0].deploy_to_country,
-          client: data.invoiceDetails[0].end_user_name1,
-          marketSegment: data.invoiceDetails[0].market_segment,
-          sku: data.invoiceDetails[0].materia_sku,
-          salesOrder: data.invoiceDetails[0].sales_order,
-          soldToParty: data.invoiceDetails[0].sold_to_party,
-          totalSalesAmount: data.invoiceDetails
-            .map(({ total_sales_amount }) => Number(total_sales_amount))
-            .reduce((currently, preValue) => currently + preValue),
-          salesQuantity: data.invoiceDetails
-            .map(({ total_sales_qty }) => Number(total_sales_qty))
-            .reduce((currently, preValue) => currently + preValue),
-          invoiceDetails: null,
-        }));
+        const dataObj = res.data
+          .filter(({ digipoints }) => digipoints != 0)
+          .map((data) => ({
+            ...data,
+            date: data.invoiceDetails[0].billing_date.split(" ")[0],
+            country: data.invoiceDetails[0].deploy_to_country,
+            client: data.invoiceDetails[0].end_user_name1,
+            marketSegment: data.invoiceDetails[0].market_segment,
+            sku: data.invoiceDetails[0].materia_sku,
+            salesOrder: data.invoiceDetails[0].sales_order,
+            soldToParty: data.invoiceDetails[0].sold_to_party,
+            totalSalesAmount: data.invoiceDetails
+              .map(({ total_sales_amount }) => Number(total_sales_amount))
+              .reduce((currently, preValue) => currently + preValue),
+            salesQuantity: data.invoiceDetails
+              .map(({ total_sales_qty }) => Number(total_sales_qty))
+              .reduce((currently, preValue) => currently + preValue),
+            invoiceDetails: null,
+          }));
 
         dispatch(getDigiPa(dataObj));
       });
@@ -421,24 +456,25 @@ export const getSalesAll = (token) => async (dispatch) => {
   }
 };
 
-export const getSalesAllByChannel = (token, data, iduser) => async (dispatch) => {
-  try {
-    return axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesallbychannels/${data}/${iduser}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => dispatch(getallSales(res.data)));
-  } catch (err) {
-    console.log(err);
-  }
-};
+export const getSalesAllByChannel =
+  (token, data, iduser) => async (dispatch) => {
+    try {
+      return axios
+        .get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesallbychannels/${data}/${iduser}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => dispatch(getallSales(res.data)));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 export const getSalesAllByDist = (token, data, iduser) => async (dispatch) => {
   try {
@@ -545,6 +581,82 @@ export const getSalesPerformance = (token) => async (dispatch) => {
   }
 };
 
+export const getSalesYtd = (token, data) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesperformancefilters/?company_name=${data.company_name}&region=${data.region}&country_id=${data.country_id}&level=${data.level}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getSaleYTD(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getDigiPointPerformance = (token, data) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-performance-charts?_quarter=${data.quarter}&_month=${data.month}&_region=${data.region}&_country=${data.country}&_partner_level=${data.partner_level}&_partner=${data.partner}&_market_segment=${data.market_segment}&_business_unit=${data.business_unit}&_business_type=${data.business_type}&_licensing_type=${data.licensing_type}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getDigiPointPerformanceFilter(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getOrganizations = (token, data) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/organizations?_quarter=${data.quarter}&_month=${data.month}&_region=${data.region}&_country=${data.country}&_partner_level=${data.partner_level}&_partner=${data.partner}&_market_segment=${data.market_segment}&_business_unit=${data.business_unit}&_business_type=${data.business_type}&_licensing_type=${data.licensing_type}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getOrganizationsCharts(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getDigiPointsPerformance = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipointsperformance`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getDigiPointsPer(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const getInvoiceReport = (token) => async (dispatch) => {
   try {
     return axios
@@ -559,6 +671,25 @@ export const getInvoiceReport = (token) => async (dispatch) => {
         }
       )
       .then((res) => dispatch(getInvoicePer(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getInvoiceReportByUser = (token, data) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/invoiceperformancebyuser/${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getInvoicePerUser(res.data)));
   } catch (err) {
     console.log(err);
   }
@@ -621,14 +752,55 @@ export const getSalesvsGoalsUsePerformance = (token) => async (dispatch) => {
 export const getLicenciesByMonth = (token) => async (dispatch) => {
   try {
     return axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getlicenciesbymonth`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getlicenciesbymonth`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => dispatch(getLicenciesbyMonth(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getDigiPointsByPromotions = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getdigipointsbypromo`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getDigiPointsByPromotionsState(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getDigiPointsByBeha = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getdigipointsbybeha`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getDigiPointsByBehaState(res.data)));
   } catch (err) {
     console.log(err);
   }

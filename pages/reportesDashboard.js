@@ -11,10 +11,12 @@ import {
   TermsConditions,
   Thunderbolt,
   UserPerformance,
+  Medal,
 } from "../components/icons";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import dynamic from "next/dynamic";
+import Promotion from "../components/icons/Reportes/Promotion";
 
 const reportesDashboard = () => {
   const router = useRouter();
@@ -56,6 +58,15 @@ const reportesDashboard = () => {
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
+          titleCard={"DigiPoints Performance"}
+          onClick={() => {
+            router.push("/reportes/dashboards/DigiPointsPerformance");
+          }}
+        >
+          <Medal />
+        </CardReportes>
+        <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.invoice_report")}
           onClick={() => {
             router.push("/reportes/dashboards/InvoiceReport");
@@ -71,6 +82,24 @@ const reportesDashboard = () => {
           }}
         >
           <Request />
+        </CardReportes>
+        <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
+          titleCard={"Promo Report"}
+          onClick={() => {
+            router.push("/reportes/dashboards/DigiPointsPromotions");
+          }}
+        >
+          <Promotion />
+        </CardReportes>
+        <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
+          titleCard={"Behavior Report"}
+          onClick={() => {
+            router.push("/reportes/dashboards/DigiPointsBehavior");
+          }}
+        >
+          <Promotion />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -90,6 +119,15 @@ const reportesDashboard = () => {
         >
           <CustomIcon />
         </CardReportes>
+        <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
+          titleCard={t("Reportes.summary")}
+          onClick={() => {
+            router.push("/reportes/dashboards/Summary");
+          }}
+        >
+          <RocketIcon />
+        </CardReportes>
         {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.so_import")}
@@ -98,7 +136,7 @@ const reportesDashboard = () => {
           }}
         >
           <RegistrationPerformance />
-        </CardReportes> */}
+        </CardReportes>
         {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.registration_performance")}

@@ -17,7 +17,7 @@ const ModalPersonalize = ({ onClose }) => {
       .patch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
         {
-          cpf: "viewVideo",
+          cpf: video.key,
         },
         {
           headers: {
@@ -28,7 +28,7 @@ const ModalPersonalize = ({ onClose }) => {
         }
       )
       .then(() => {
-        dispatch(userUpdate({ cpf: "viewVideo" }));
+        dispatch(userUpdate({ cpf: video.key }));
       })
       .catch((e) => console.log(e))
       .finally(() => {

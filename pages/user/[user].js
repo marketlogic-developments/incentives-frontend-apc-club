@@ -426,7 +426,9 @@ const user = () => {
                     fill="black"
                   />
                 </svg>
-                <p className="whitespace-nowrap">Información personal</p>
+                <p className="whitespace-nowrap">
+                  {t("user.informacionpersonal")}
+                </p>
               </div>
               <div
                 className={menu ? "itemLayoutSelect" : "itemLayout"}
@@ -466,7 +468,7 @@ const user = () => {
                     </clipPath>
                   </defs>
                 </svg>
-                <p className="whitespace-nowrap">Seguridad</p>
+                <p className="whitespace-nowrap">{t("user.seguridad")}</p>
               </div>
             </div>
           </div>

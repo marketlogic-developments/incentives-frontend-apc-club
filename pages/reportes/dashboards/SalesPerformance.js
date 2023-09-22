@@ -34,7 +34,12 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import SortedTable from "../../../components/table/SortedTable";
-
+import {
+  importCsvFunction,
+  importExcelFunction,
+  salesPerformanceColumnsCsv,
+  salesPerformanceColumnsExcel,
+} from "../../../components/functions/reports";
 const SalesPerformance = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
@@ -161,15 +166,25 @@ const SalesPerformance = () => {
   ];
 
   /* Download */
-  const importFile = (data) => {
-    jsonexport(data, (error, csv) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-      saveAs(blob, "Sales Performance.csv");
-    });
+  const importFile = async (data) => {
+    const columns = salesPerformanceColumnsCsv(data);
+    const csvConfig = {
+      data: data,
+      columns: columns,
+      downloadTitle: "Sales Performance",
+    };
+
+    await importCsvFunction(csvConfig);
+  };
+
+  const importFileExcel = async (data) => {
+    const excelConfig = {
+      data: data,
+      columns: salesPerformanceColumnsExcel,
+      downloadTitle: "Sales performance",
+    };
+
+    await importExcelFunction(excelConfig);
   };
 
   /* Selects */
@@ -403,18 +418,27 @@ const SalesPerformance = () => {
           </div>
         </div>
         <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
-          <div
-            className="grid sm:w-[45%]"
-            onClick={() => importFile(dataTable)}
+          <DropDownReport
+            icon={<CloudDownload />}
+            title={t("Reportes.descargar")}
           >
             <BtnWithImage
-              text={t("Reportes.descargar")}
+              text={t("Reportes.descargar") + " CSV"}
               icon={<CloudDownload />}
               styles={
                 "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
               }
+              onClick={() => importFile(dataTable)}
             />
-          </div>
+            <BtnWithImage
+              text={t("Reportes.descargar") + " Excel"}
+              icon={<CloudDownload />}
+              styles={
+                "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+              }
+              onClick={() => importFileExcel(dataTable)}
+            />
+          </DropDownReport>
           <div className="grid sm:w-[45%]" onClick={clearSelects}>
             <p className="bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2 cursor-pointer font-bold">
               Reset Filters
@@ -426,35 +450,74 @@ const SalesPerformance = () => {
         {loading && <div className="lds-dual-ring"></div>}
         {!loading && (
           <SortedTable
-          containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
-          tableStyles={"table-zebra !text-sm"}
-          colStyles={"p-2"}
-          thStyles={"sticky text-white"}
-          cols={[
-            { rowStyles:"", sort:true, symbol:"", identity: "company_name", columnName: "Company Name" },
-            { symbol:"", identity: "region", columnName: "Region" },
-            { symbol:"", identity: "level", columnName: "Company Level" },
-            { symbol:"", identity: "usuarios", columnName: "Company Active Users" },
-            { symbol:"USD", sort:true, identity: "total_vip", columnName: "Total VIP Revenue (USD)" },
-            { symbol:"USD", sort:true, identity: "total_vmp", columnName: "Total VMP Revenue (USD)" },
-            { symbol:"USD", sort:true, identity: "actual_revenue", columnName: "Actual Revenue (USD)" },
-            { symbol:"USD", sort:true, identity: "rma", columnName: "RMA (USD)" },
-            { symbol:"USD", sort:true, identity: "total_revenue", columnName: "Total Revenue (USD)" },
-            {
-              symbol:"USD", sort:true, identity: "expected_revenue",
-              columnName: "Expected Revenue (USD)",
-            },
-            {
-              symbol:"%", sort:true, identity: "avg_effectiveness",
-              columnName: "Total % effectiveness",
-            },
-          ]}
-          generalRowStyles={"text-left py-3 mx-7"}
-          paginate={true}
-          pageCount={pageCount}
-          currentItems={currentItems}
-          handlePageClick={handlePageClick}
-        />
+            containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
+            tableStyles={"table-zebra !text-sm"}
+            colStyles={"p-2"}
+            thStyles={"sticky text-white"}
+            cols={[
+              {
+                rowStyles: "",
+                sort: true,
+                symbol: "",
+                identity: "company_name",
+                columnName: "Company Name",
+              },
+              { symbol: "", identity: "region", columnName: "Region" },
+              { symbol: "", identity: "level", columnName: "Company Level" },
+              {
+                symbol: "",
+                identity: "usuarios",
+                columnName: "Company Active Users",
+              },
+              {
+                symbol: "USD",
+                sort: true,
+                identity: "total_vip",
+                columnName: "Total VIP Revenue (USD)",
+              },
+              {
+                symbol: "USD",
+                sort: true,
+                identity: "total_vmp",
+                columnName: "Total VMP Revenue (USD)",
+              },
+              {
+                symbol: "USD",
+                sort: true,
+                identity: "actual_revenue",
+                columnName: "Actual Revenue (USD)",
+              },
+              {
+                symbol: "USD",
+                sort: true,
+                identity: "rma",
+                columnName: "RMA (USD)",
+              },
+              {
+                symbol: "USD",
+                sort: true,
+                identity: "total_revenue",
+                columnName: "Total Revenue (USD)",
+              },
+              {
+                symbol: "USD",
+                sort: true,
+                identity: "expected_revenue",
+                columnName: "Expected Revenue (USD)",
+              },
+              {
+                symbol: "AVG",
+                sort: true,
+                identity: "avg_effectiveness",
+                columnName: "Total % effectiveness",
+              },
+            ]}
+            generalRowStyles={"text-left py-3 mx-7"}
+            paginate={true}
+            pageCount={pageCount}
+            currentItems={currentItems}
+            handlePageClick={handlePageClick}
+          />
         )}
       </div>
     </div>

@@ -16,19 +16,25 @@ import {
   BtnFilter,
   BtnWithImage,
   CardChart,
+  DropDownReport,
   MultiLineChart,
   SearchInput,
   SelectInputValue,
   Table,
   TitleWithIcon,
 } from "../../../components";
-import * as XLSX from "xlsx";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
+import {
+  importCsvFunction,
+  importExcelFunction,
+  userPerformanceColumnsCsv,
+  userPerformanceColumnsExcel,
+} from "../../../components/functions/reports";
 
 const SalesPerformance = () => {
   const dispatch = useDispatch();
@@ -45,20 +51,6 @@ const SalesPerformance = () => {
   const [loadingBarChart, setLoadingBarChart] = useState(true);
   const router = useRouter();
   const [dataBarChar, setDataBarChar] = useState([]);
-  const xValues = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
   const months = [
     "Ene",
     "Feb",
@@ -88,17 +80,13 @@ const SalesPerformance = () => {
       setLoading(true);
       dispatch(getUserSalePerformance(token))
         .then((response) => {
-          setLoading(false);
           setData(response.payload);
         })
         .catch((error) => {
           console.log(error);
         });
-
-      setLoading(true);
       dispatch(getSalesvsGoalsUsePerformance(token))
         .then((response) => {
-          setLoading(false);
           setDataBarChar(response.payload[0].json_agg);
         })
         .catch((error) => {
@@ -134,15 +122,24 @@ const SalesPerformance = () => {
   };
 
   /* Download */
-  const importFile = (data) => {
-    jsonexport(data, (error, csv) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-      saveAs(blob, "User Performance.csv");
-    });
+  const importFile = async (data) => {
+    const columns = userPerformanceColumnsCsv(data);
+    const csvConfig = {
+      data: data,
+      columns: columns,
+      downloadTitle: "User Performance",
+    };
+    await importCsvFunction(csvConfig);
+  };
+
+  const importFileExcel = async (data) => {
+    const excelConfig = {
+      data: data,
+      columns: userPerformanceColumnsExcel,
+      downloadTitle: "User Performance",
+    };
+
+    await importExcelFunction(excelConfig);
   };
 
   /* Selects */
@@ -180,6 +177,8 @@ const SalesPerformance = () => {
     const endOffset = itemOffset + itemsPerPage;
     return filteredUsers.slice(itemOffset, endOffset);
   }, [itemOffset, filteredUsers]);
+
+  if (loading && currentItems.length) setLoading(false);
 
   /* Paginate */
   const pageCount = useMemo(
@@ -235,7 +234,7 @@ const SalesPerformance = () => {
           </CardChart>
         </div>
       </div>
-      <div className="pt-2 grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
+      <div className="pt-2 grid items-center sm:grid-cols-4 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
           placeHolder={"Email"}
@@ -260,14 +259,27 @@ const SalesPerformance = () => {
           styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
           onClick={clearSelects}
         />
-        <BtnWithImage
-          text={t("Reportes.descargar")}
+        <DropDownReport
           icon={<CloudDownload />}
-          styles={
-            "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none"
-          }
-          onClick={() => importFile(data)}
-        />
+          title={t("Reportes.descargar")}
+        >
+          <BtnWithImage
+            text={t("Reportes.descargar") + " csv"}
+            icon={<CloudDownload />}
+            styles={
+              "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+            }
+            onClick={() => importFile(data)}
+          />
+          <BtnWithImage
+            text={t("Reportes.descargar") + " excel"}
+            icon={<CloudDownload />}
+            styles={
+              "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+            }
+            onClick={() => importFileExcel(data)}
+          />
+        </DropDownReport>
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1">
         <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
@@ -308,10 +320,10 @@ const SalesPerformance = () => {
               thStyles={"sticky text-white"}
               cols={[
                 "User Name",
-                "Name",
+                "FirstName",
                 "LastName",
-                "Country",
                 "Region",
+                "Country",
                 // "Company ID",
                 "Company Name",
                 "Company Level",
@@ -342,6 +354,7 @@ const SalesPerformance = () => {
                 "RMA (USD)",
                 "Total DigiPoints",
                 "DigiPoints Redeemed",
+                "Total % effectiveness",
               ]}
             >
               {currentItems &&
@@ -350,23 +363,20 @@ const SalesPerformance = () => {
                     if (searchByInvoice !== "") {
                       return item.email.startsWith(searchByInvoice);
                     }
-
                     return item;
                   })
                   .map((data, index) => (
                     <tr key={index}>
                       <th className="text-left py-3 px-2 mx-4">{data.email}</th>
+                      <th className="text-left py-3 px-2 mx-4">{data.name}</th>
                       <th className="text-left py-3 px-2 mx-4">
-                        {data.name.split(" ")[0]}
-                      </th>
-                      <th className="text-left py-3 px-2 mx-4">
-                        {data.name.split(" ").length > 1 ? data.name.split(" ").pop() : ""}
-                      </th>
-                      <th className="text-left py-3 px-2 mx-4">
-                        {data.country_id}
+                        {data.last_name}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.region}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.country_user}
                       </th>
                       {/* <th className="text-left py-3 px-2 mx-4">{data.country_id}</th> */}
                       {/* <th className="text-left py-3 px-2 mx-4">
@@ -436,22 +446,23 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q3)}</th>
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q4)}</th> */}
                       <th className="text-left py-3 px-2 mx-4">
-                        ${data.vip_revenue_total}
+                        {numberToMoney(data.vip_revenue_total)}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
-                        ${data.vmp_revenue_total}
+                        {numberToMoney(data.vmp_revenue_total)}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
-                        ${data.revenue_actual}
+                        {numberToMoney(data.revenue_actual)}
                       </th>
-                      <th className="text-left py-3 px-2 mx-4">
-                        ${data.rma}
-                      </th>
+                      <th className="text-left py-3 px-2 mx-4 min-w-min">{numberToMoney(data.rma)}</th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.total_digipoints}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.redenciones}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.redenciones_over_total_digipoints}
                       </th>
                     </tr>
                   ))}

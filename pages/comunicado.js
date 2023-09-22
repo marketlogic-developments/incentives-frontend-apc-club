@@ -11,22 +11,29 @@ import { useTranslation } from "react-i18next";
 import client from "../contentful";
 import { useEffect } from "react";
 import { useMemo } from "react";
+import Videos10 from "../components/comunicados/videos/Videos10";
+import { useRouter } from "next/router";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const entries = await client.getEntries({
     content_type: "comunicados",
+  });
+  const videos = await client.getEntries({
+    content_type: "videos10Aos",
   });
 
   return {
     props: {
       entries: entries.items.map(({ fields }) => fields),
+      videos: videos.items.map(({ fields }) => fields),
     },
   };
 }
 
-const comunicado = ({ entries }) => {
-  const [content, setContent] = useState("Promociones");
+const comunicado = ({ entries, videos }) => {
+  const [content, setContent] = useState(0);
   const [contentFul, setContentFul] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     setContentFul(entries);
@@ -43,7 +50,7 @@ const comunicado = ({ entries }) => {
   const [t, i18n] = useTranslation("global");
 
   const contentPage = useMemo(() => {
-    if (content === t("comunicado.promocion")) {
+    if (content === 0 && location.search === "") {
       return (
         <Promociones
           selectData={dataSelectOne}
@@ -52,26 +59,37 @@ const comunicado = ({ entries }) => {
         />
       );
     }
-    if (content === t("comunicado.marketPlace")) {
-      return <MarkertPlace dataContentful={contentFul} />;
+    if (content === 1 || location.search === "?videos") {
+      return <Videos10 dataContentfulVideos={videos} />;
     }
-    if (content === t("comunicado.novedad")) {
-      return <Novedad dataContentful={contentFul} />;
-    }
-    if (content === t("comunicado.evento")) {
-      return <Evento contentFul={contentFul} />;
-    }
+    // if (content === t("comunicado.marketPlace")) {
+    //   return <MarkertPlace dataContentful={contentFul} />;
+    // }
+    // if (content === t("comunicado.novedad")) {
+    //   return <Novedad dataContentful={contentFul} />;
+    // }
+    // if (content === t("comunicado.evento")) {
+    //   return <Evento contentFul={contentFul} />;
+    // }
   }, [entries, contentFul, content]);
 
   return (
     <div className="grid w-full">
       <div className="gap-2 my-3 flex justify-start">
         <ButtonBgOut
-          title={t("comunicado.promocion")}
+          title={t("comunicado.novedad")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
-          onClick={() => setContent(t("comunicado.promocion"))}
+          onClick={() => {
+            setContent(0);
+            router.push("/comunicado");
+          }}
         />
         <ButtonBgOut
+          title={t("comunicado.videosTestimonios")}
+          styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
+          onClick={() => setContent(1)}
+        />
+        {/* <ButtonBgOut
           title={t("comunicado.marketPlace")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
           onClick={() => setContent(t("comunicado.marketPlace"))}
@@ -85,7 +103,7 @@ const comunicado = ({ entries }) => {
           title={t("comunicado.evento")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
           onClick={() => setContent(t("comunicado.evento"))}
-        />
+        /> */}
       </div>
       {contentPage}
     </div>

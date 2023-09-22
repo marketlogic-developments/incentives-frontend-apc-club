@@ -12,16 +12,16 @@ const Laptop = ({ width = 18, height = 18 }) => {
       <path
         d="M9.27824 2.0625H1.72176C1.3404 2.0625 1.03125 2.37165 1.03125 2.75301V7.90324C1.03125 8.2846 1.3404 8.59375 1.72176 8.59375H9.27824C9.6596 8.59375 9.96875 8.2846 9.96875 7.90324V2.75301C9.96875 2.37165 9.6596 2.0625 9.27824 2.0625Z"
         stroke="black"
-        stroke-width="0.6875"
-        stroke-linejoin="round"
+        strokeWidth="0.6875"
+        strokeLinejoin="round"
       />
       <path d="M0.34375 8.9375H10.6562H0.34375Z" fill="black" />
       <path
         d="M0.34375 8.9375H10.6562"
         stroke="black"
-        stroke-width="0.6875"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.6875"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
     </svg>
   );

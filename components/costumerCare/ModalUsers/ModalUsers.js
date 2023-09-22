@@ -127,10 +127,7 @@ const ModalUsers = ({ userDataToModal, token }) => {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userDataToModal.id}`,
         {
           ...elementosFiltrados,
-          countryId:
-            formData.countryId.length > 0 || formData.countryId === null
-              ? formData.countryId
-              : null,
+          countryId: formData.countryId !== null ? formData.countryId : null,
         },
         {
           headers: {

@@ -204,7 +204,7 @@ export default function Home() {
 
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/2/${userData.user.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/${userData.user.id}`,
         {
           headers: {
             "Content-Type": "application/json",
