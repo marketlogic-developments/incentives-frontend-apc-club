@@ -12,7 +12,7 @@ const Card = ({
       <div className="sm:card-body sm:grid flex justify-between gap-3 p-3" onClick={onClick}>
         {children}
         <h2 className="card-title text-sm lg:text-lg ">{titleCard}</h2>
-        <div className="sm:hidden">
+        <div className="sm:hidden grid place-content-center">
           <ArrowRight />
         </div>
       </div>
