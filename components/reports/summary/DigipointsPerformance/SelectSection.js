@@ -6,9 +6,9 @@ import BtnFilter from "../../../cardReportes/BtnFilter";
 import { useTranslation } from "react-i18next";
 
 const SelectSection = ({
-  companiesName,
-  countries,
-  regions,
+  companiesName = [],
+  countries = [],
+  regions = [],
   handleFilters,
   clearSelects,
   filters,

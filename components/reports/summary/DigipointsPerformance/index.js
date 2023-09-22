@@ -247,7 +247,7 @@ const DigipoinstPerformance = () => {
   }, [filters]);
   return (
     <div className="m-5">
-      <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
+      <div className="pt-2 grid items-center sm:grid-cols-6 grid-cols-2 gap-3">
         <SelectSection
           filters={filters}
           companiesName={companiesName}
