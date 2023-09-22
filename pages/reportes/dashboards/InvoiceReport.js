@@ -214,17 +214,19 @@ const InvoiceReport = () => {
           {t("Reportes.invoice_report")}
         </span>
       </div>
-      <div className="grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
-        <SearchInput
-          image={<SearchIcon />}
-          placeHolder={"Invoice"}
-          stylesContainer={""}
-          value={searchByInvoice}
-          onChange={(e) => setSearchByInvoice(e.target.value)}
-          stylesInput={
-            "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
-          }
-        />
+      <div className="grid items-center sm:grid-cols-6 grid-cols-3 gap-3">
+        <div className="col-span-3">
+          <SearchInput
+            image={<SearchIcon />}
+            placeHolder={"Invoice"}
+            stylesContainer={""}
+            value={searchByInvoice}
+            onChange={(e) => setSearchByInvoice(e.target.value)}
+            stylesInput={
+              "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
+            }
+          />
+        </div>
         <SelectInputValue
           placeholder={"Company Name"}
           value={selectThree}
@@ -255,6 +257,7 @@ const InvoiceReport = () => {
           styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
           onClick={clearSelects}
         />
+        <div className="col-span-2">
         <DropDownReport
           icon={<CloudDownload />}
           title={t("Reportes.descargar")}
@@ -276,6 +279,7 @@ const InvoiceReport = () => {
             onClick={() => importFileExcel(filteredUsers)}
           />
         </DropDownReport>
+        </div>
       </div>
       <div className="grid overflow-x-hidden w-full">
         {loading ? (
