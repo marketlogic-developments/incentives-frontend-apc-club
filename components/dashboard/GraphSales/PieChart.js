@@ -5,9 +5,9 @@ const PieChart = ({ percentageTotal, sales, color, type }) => {
   function formatNumber(number) {
     const formattedNumber =
       number >= 1000000
-        ? (number / 1000000).toFixed(1) + "M"
+        ? (number / 1000000).toFixed(2) + "M"
         : number >= 1000
-        ? (number / 1000).toFixed(1) + "K"
+        ? (number / 1000).toFixed(2) + "K"
         : number.toLocaleString("en-US");
     return formattedNumber;
   }
@@ -28,13 +28,13 @@ const PieChart = ({ percentageTotal, sales, color, type }) => {
                 ${formatNumber(sales)}
               </p>
               <p className="lg:!text-[0.65rem] xl:!text-xs text-black">
-                {Math.round(percentageTotal)}%
+                {Number(percentageTotal).toFixed(2)}%
               </p>
             </div>
           </div>
         </div>
         <div className="w-full">
-          <Tooltip label={`${Math.round(percentageTotal)}%`}>
+          <Tooltip label={`${Number(percentageTotal).toFixed(2)} %`}>
             <p className="text-center text-sm">{type}</p>
           </Tooltip>
         </div>
