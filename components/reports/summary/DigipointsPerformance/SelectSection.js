@@ -19,50 +19,50 @@ const SelectSection = ({
     <>
        <SelectInputValue
         placeholder={"Region"}
-        /* value={filters.company_name}
+        value={filters.company_name}
         data={companiesName.map((company_name) => ({
           label: company_name.name,
           value: company_name.name,
-        }))} */
+        }))}
         icon={<ArrowDown />}
         searchable={true}
-        /* onChange={handleFilters} */
+        onChange={handleFilters}
         name={"region"}
       />
        <SelectInputValue
         placeholder={"Organization"}
-        /* value={filters.company_name}
+        value={filters.company_name}
         data={companiesName.map((company_name) => ({
           label: company_name.name,
           value: company_name.name,
-        }))} */
+        }))}
         icon={<ArrowDown />}
         searchable={true}
-        /* onChange={handleFilters} */
+        onChange={handleFilters}
         name={"organization"}
       />
       <SelectInputValue
         placeholder={"Country"}
-        /* value={filters.country}
+        value={filters.country}
         data={countries.map((country) => ({
           label: country.name,
           value: country.name,
-        }))} */
+        }))}
         icon={<ArrowDown />}
         searchable={true}
-        /* onChange={handleFilters} */
+        onChange={handleFilters}
         name={"country"}
       />
       <SelectInputValue
         placeholder={"Level"}
-        /* value={filters.region}
+        value={filters.region}
         data={regions.map((region) => ({
           label: region.name,
           value: region.name,
-        }))} */
+        }))}
         icon={<ArrowDown />}
         searchable={true}
-        /* onChange={handleFilters} */
+        onChange={handleFilters}
         name={"level"}
       />
       {/* <SalesYtdMultiselectModal
@@ -73,7 +73,7 @@ const SelectSection = ({
         <BtnFilter
           text={t("Reportes.limpiar_filtros")}
           styles="bg-white !text-gray-400 sm:!text-base hover:bg-white hover:!text-blue-500 border-none hover:border-none m-1"
-          /* onClick={clearSelects} */
+          onClick={clearSelects}
         />
       </div>
     </>
