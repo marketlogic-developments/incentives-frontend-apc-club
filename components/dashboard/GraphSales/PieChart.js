@@ -34,7 +34,7 @@ const PieChart = ({ percentageTotal, sales, color, type }) => {
           </div>
         </div>
         <div className="w-full">
-          <Tooltip label={`${percentageTotal}%`}>
+          <Tooltip label={`${Math.round(percentageTotal)}}%`}>
             <p className="text-center text-sm">{type}</p>
           </Tooltip>
         </div>
