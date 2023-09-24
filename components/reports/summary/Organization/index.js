@@ -132,8 +132,8 @@ const Organization = () => {
   };
 
   useEffect(() => {
+    setIsDataLoading(false);
     dispatch(getOrganizations(token, filters)).then((res) => {
-      setIsDataLoading(false);
       /* REGISTER COMPANIES */
       setRegisterCompanies(addTotalColumn(res.payload.registeredCompanies));
       setRegisterUsers(addTotalColumn(res.payload.registeredUsers));
