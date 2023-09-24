@@ -100,13 +100,13 @@ const FilterSection = ({
       />
       </div>
       <SalesYtdMultiselectModal
-        title={<p className="text-black font-bold text-lg">Filtrar por</p>}
+        title={<p className="text-black font-bold text-lg">{t("Reportes.filter_by")}</p>}
         datas={multiSelect}
         clearSelects={clearSelects}
       />
       <div className="w-4/5 justify-end">
         <BtnFilter
-          text={t("Reportes.limpiar_filtros")}
+          text={t("Reportes.clean_filters")}
           styles="bg-white !text-gray-400 sm:!text-base hover:bg-white hover:!text-blue-500 border-none hover:border-none m-1"
           onClick={clearSelects}
         />
