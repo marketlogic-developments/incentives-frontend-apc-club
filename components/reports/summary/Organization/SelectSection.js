@@ -53,12 +53,12 @@ const SelectSection = ({
         onChange={handleFilters}
         name={"country"}
       />
-      <SelectInputValue
+      {/* <SelectInputValue
         placeholder={"Level"}
         icon={<ArrowDown />}
         searchable={true}
         name={"level"}
-      />
+      /> */}
       {/* <SalesYtdMultiselectModal
         title={<p className="text-black font-bold text-lg">Filtrar por</p>}
         datas={multiSelect}
