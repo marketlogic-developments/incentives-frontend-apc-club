@@ -607,7 +607,6 @@ export const getSalesYtd = (token, data) => async (dispatch) => {
 
 export const getDigiPointPerformance = (token, data) => async (dispatch) => {
   try {
-    console.log(data);
     return axios
       .get(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-performance-charts?company_name=${data.company_name}&region=${data.region}&country=${data.country}`,
