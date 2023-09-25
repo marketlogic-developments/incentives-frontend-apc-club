@@ -37,6 +37,18 @@ const SalesYtd = () => {
     businessUnit: "",
     company_type: "",
   });
+  const filterAux = {
+    company_name: "",
+    level: "",
+    region: "",
+    country_id: "",
+    quarter: "",
+    month: "",
+    marketSegment: "",
+    businessUnit: "",
+    company_type: "",
+  };
+  const [multiFilter, setMultiFilter] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [companiesName, setCompaniesName] = useState([]);
   const [levels, setLevels] = useState([]);
@@ -70,18 +82,20 @@ const SalesYtd = () => {
   const [companies, setCompaniesType] = useState([]);
   const multiSelect = [
     {
+      multiSelect: true,
       placeholder: "Company name",
-      value: filters.company_name,
+      value: multiFilter,
       dataSelect: companiesName?.map((company_name) => ({
         label: company_name,
         value: company_name,
       })),
-      onChange: (name, value) => handleFilters(name, value),
+      onChange: (name, value) => handleMultiFilters(name, value),
       searchable: true,
       icon: <ArrowDown />,
       name: "company_name",
     },
     {
+      multiSelect: false,
       placeholder: "Levels",
       value: filters.level,
       dataSelect: levels?.map((level) => ({
@@ -94,6 +108,7 @@ const SalesYtd = () => {
       name: "level",
     },
     {
+      multiSelect: false,
       placeholder: "Region",
       value: filters.region,
       dataSelect: regions?.map((region) => ({
@@ -106,6 +121,7 @@ const SalesYtd = () => {
       name: "region",
     },
     {
+      multiSelect: false,
       placeholder: "Country",
       value: filters.country_id,
       dataSelect: countries?.map((country_id) => ({
@@ -118,6 +134,7 @@ const SalesYtd = () => {
       name: "country_id",
     },
     {
+      multiSelect: false,
       placeholder: "Market Segment",
       value: filters.marketSegment,
       dataSelect: marketSegment?.map((marketSegment) => ({
@@ -130,6 +147,7 @@ const SalesYtd = () => {
       name: "marketSegment",
     },
     {
+      multiSelect: false,
       placeholder: "Business Unit",
       value: filters.businessUnit,
       dataSelect: businessUnit?.map((businessUnit) => ({
@@ -201,6 +219,14 @@ const SalesYtd = () => {
     return setFilters({ ...filters, [name]: value === null ? "" : value });
   };
 
+  const handleMultiFilters = (name, value) => {
+    if (value !== "") {
+      if (multiFilter.length < 3) {
+        setMultiFilter(value);
+      }
+    }
+  };
+
   const clearSelects = () => {
     setFilters({
       company_name: "",
@@ -209,6 +235,7 @@ const SalesYtd = () => {
       country_id: "",
       level: "",
     });
+    setMultiFilter([]);
   };
 
   /* REGION VS GOALS */
@@ -542,6 +569,10 @@ const SalesYtd = () => {
     };
   };
 
+  const multiFilterButton = () => {
+    handleFilters("company_name", multiFilter);
+  };
+
   useEffect(() => {
     setDataLoaded(false);
     dispatch(getSalesYtd(token, filters)).then((res) => {
@@ -575,7 +606,6 @@ const SalesYtd = () => {
       setLevelSale(formatterRevenueTotals);
 
       setDataTable(calculateSegmentTotals(res.payload));
-      setCompaniesName(getUniqueFieldValues(res.payload, "company_name"));
       setLevels(getUniqueFieldValues(res.payload, "level"));
       setRegions(getUniqueFieldValues(res.payload, "region"));
       setCountries(getUniqueFieldValues(res.payload, "country_id"));
@@ -584,10 +614,17 @@ const SalesYtd = () => {
     });
   }, [filters]);
 
+  useEffect(() => {
+    dispatch(getSalesYtd(token, filterAux)).then((res) => {
+      setCompaniesName(getUniqueFieldValues(res.payload, "company_name"));
+    });
+  }, []);
+  
   return (
     <div className="m-5">
       <FilterSection
         filters={filters}
+        multiFilter={multiFilter}
         companyName={companiesName}
         levels={levels}
         region={regions}
@@ -598,6 +635,8 @@ const SalesYtd = () => {
         businessUnit={businessUnit}
         companyType={companies}
         handleFilters={handleFilters}
+        handleMultiFilters={handleMultiFilters}
+        multiFilterButton={multiFilterButton}
         multiSelect={multiSelect}
         clearSelects={clearSelects}
       />

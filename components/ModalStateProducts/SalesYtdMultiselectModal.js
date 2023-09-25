@@ -6,9 +6,11 @@ import BtnWithImage from "../cardReportes/BtnWithImage";
 import { useTranslation } from "react-i18next";
 import SelectInputValue from "../inputs/SelectInputValue";
 import BtnFilter from "../cardReportes/BtnFilter";
+import MultiSelectInput from "../inputs/MultiSelectInput";
 
 const SalesYtdMultiselectModal = ({
   title = "",
+  multiFilterButton,
   datas = [
     {
       placeholder: "",
@@ -26,6 +28,11 @@ const SalesYtdMultiselectModal = ({
   const theme = useMantineTheme();
   const [opened, { open, close }] = useDisclosure(false);
   const [t, i18n] = useTranslation("global");
+
+  const handleFilters = () => {
+    multiFilterButton();
+    close;
+  };
 
   return (
     <>
@@ -45,17 +52,31 @@ const SalesYtdMultiselectModal = ({
         padding={10}
       >
         {datas.map((data, index) => (
-          <div className="p-5 gap-3">
-            <SelectInputValue
-              placeholder={data.placeholder}
-              value={data.value}
-              data={data.dataSelect}
-              icon={data.icon}
-              searchable={data.searchable}
-              onChange={data.onChange}
-              name={data.name}
-            />
-          </div>
+          <React.Fragment key={index}>
+            {data.multiSelect ? (
+              <MultiSelectInput
+                placeholder={data.placeholder}
+                value={data.value}
+                data={data.dataSelect}
+                icon={data.icon}
+                searchable={true}
+                onChange={data.onChange}
+                name={data.name}
+              />
+            ) : (
+              <div className="p-5 gap-3">
+                <SelectInputValue
+                  placeholder={data.placeholder}
+                  value={data.value}
+                  data={data.dataSelect}
+                  icon={data.icon}
+                  searchable={data.searchable}
+                  onChange={data.onChange}
+                  name={data.name}
+                />
+              </div>
+            )}
+          </React.Fragment>
         ))}
         <div className="grid sm:grid-cols-3 grid-rows-1 gap-3">
           <BtnFilter
@@ -71,7 +92,7 @@ const SalesYtdMultiselectModal = ({
           <BtnFilter
             text={t("Filtrar")}
             styles="!bg-blue-600 !text-white hover:!bg-blue-400 border-none"
-            onClick={close}
+            /* onClick={handleFilters} */
           />
         </div>
       </Modal>
