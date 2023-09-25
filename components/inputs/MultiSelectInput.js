@@ -28,6 +28,7 @@ const MultiSelectInput = ({
   label = "",
   data = ['React', 'Angular', 'Vue', 'Svelte'],
   onChange,
+  searchable=false,
   name,
   disabled = false,
 }) => {
@@ -38,6 +39,7 @@ const MultiSelectInput = ({
       placeholder={placeholder}
       itemComponent={MultiSelectItem}
       rightSection={icon}
+      searchable={searchable}
       value={value}
       data={data}
       radius="md"
