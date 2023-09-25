@@ -92,7 +92,7 @@ const SalesYtdMultiselectModal = ({
           <BtnFilter
             text={t("Filtrar")}
             styles="!bg-blue-600 !text-white hover:!bg-blue-400 border-none"
-            /* onClick={handleFilters} */
+            onClick={handleFilters}
           />
         </div>
       </Modal>
