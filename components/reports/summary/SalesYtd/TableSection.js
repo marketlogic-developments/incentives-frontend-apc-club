@@ -1,7 +1,9 @@
 import React from "react";
 import SortedTable from "../../../table/SortedTable";
 
-const TableSection = ({ dataTable }) => {
+const TableSection = ({
+  dataTable = { segment: "", total: "", total_points: "" },
+}) => {
   return (
     <>
       <h2 className="text-2xl text-black font-bold">Market Segment</h2>
