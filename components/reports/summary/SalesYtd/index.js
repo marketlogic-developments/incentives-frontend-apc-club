@@ -609,7 +609,7 @@ const SalesYtd = () => {
             reached: formattedNumber(sales.totalRevenueSum),
             progress: `${Number(
               (sales.totalRevenueSum * 100) / sales.expectedRevenueSum
-            ).toFixed(0)} %`,
+            ).toFixed(2)} %`,
           }}
         />
       )}

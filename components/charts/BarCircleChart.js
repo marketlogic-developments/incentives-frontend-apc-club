@@ -15,7 +15,7 @@ const BarCircleChart = ({ datas }) => {
     <div className="flex flex-col w-full p-4 gap-4 targetDashboard">
       <div className="flex justify-between">
         <h3 className="font-bold xl:!text-3xl lg:!text-sm">
-          Levels vs Sales goal
+          {t("Reportes.level_goal")}
         </h3>
       </div>
       <div className="grid grid-flow-row h-full gap-3">

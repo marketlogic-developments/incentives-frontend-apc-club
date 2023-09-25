@@ -76,7 +76,7 @@ const SalesYtdMultiselectModal = ({
         </div>
       </Modal>
       <BtnWithImage
-        text={t("Más filtros")}
+        text={t("Reportes.filters")}
         icon={<Filter />}
         styles={
           "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"

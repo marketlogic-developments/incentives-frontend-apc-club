@@ -18,7 +18,7 @@ const SelectSection = ({
   return (
     <>
        <SelectInputValue
-        placeholder={"Company Name"}
+        placeholder={"Region"}
         value={filters.company_name}
         data={companiesName.map((company_name) => ({
           label: company_name.name,
@@ -27,7 +27,19 @@ const SelectSection = ({
         icon={<ArrowDown />}
         searchable={true}
         onChange={handleFilters}
-        name={"company_name"}
+        name={"region"}
+      />
+       <SelectInputValue
+        placeholder={"Organization"}
+        value={filters.company_name}
+        data={companiesName.map((company_name) => ({
+          label: company_name.name,
+          value: company_name.name,
+        }))}
+        icon={<ArrowDown />}
+        searchable={true}
+        onChange={handleFilters}
+        name={"organization"}
       />
       <SelectInputValue
         placeholder={"Country"}
@@ -42,7 +54,7 @@ const SelectSection = ({
         name={"country"}
       />
       <SelectInputValue
-        placeholder={"Region"}
+        placeholder={"Level"}
         value={filters.region}
         data={regions.map((region) => ({
           label: region.name,
@@ -51,7 +63,7 @@ const SelectSection = ({
         icon={<ArrowDown />}
         searchable={true}
         onChange={handleFilters}
-        name={"region"}
+        name={"level"}
       />
       {/* <SalesYtdMultiselectModal
         title={<p className="text-black font-bold text-lg">Filtrar por</p>}
