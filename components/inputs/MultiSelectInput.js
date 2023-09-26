@@ -14,32 +14,6 @@ const MultiSelectItem = ({ label, ...others }) => (
     </div>
   </div>
 );
-/**
- *
- * @param {*} param0
- * @returns
- */
-const MultiSelectCheckBoxItem = ({ label, selected, onChange, ...others }) => {
-  const [isChecked, setIsChecked] = useState(selected);
-
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-    onChange(label, !isChecked); // Llama a la función onChange con la etiqueta y el nuevo estado del checkbox
-  };
-
-  return (
-    <div {...others}>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <Checkbox
-          checked={isChecked}
-          onChange={handleCheckboxChange}
-          style={{ marginRight: 8 }}
-        />
-        <Text size="sm">{label}</Text>
-      </div>
-    </div>
-  );
-};
 
 /**
  * Componente adaptado para MultiSelect
@@ -56,7 +30,6 @@ const MultiSelectInput = ({
   onChange,
   searchable = false,
   name,
-  itemComponent = "MSI",
   disabled = false,
 }) => {
   const [selectedValues, setSelectedValues] = useState(value);
@@ -76,9 +49,7 @@ const MultiSelectInput = ({
       className={`${styles}`}
       label={label}
       placeholder={placeholder}
-      itemComponent={
-        itemComponent === "MSI" ? MultiSelectItem : MultiSelectCheckBoxItem
-      }
+      itemComponent={MultiSelectItem}
       rightSection={icon}
       searchable={searchable}
       value={value}
