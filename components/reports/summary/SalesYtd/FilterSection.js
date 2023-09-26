@@ -51,6 +51,7 @@ const FilterSection = ({
             searchable={true}
             onChange={handleMultiFilters}
             name={"company_name"}
+            itemComponent={"MSCBI"}
           />
         </div>
         <SelectInputValue
