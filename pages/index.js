@@ -25,10 +25,10 @@ import {
 } from "react-icons/ai";
 import { changeLoadingData } from "../store/reducers/loading.reducer";
 import LoginTarget from "../components/login/LoginTarget";
+import MaintenancePlataform from "../components/login/MaintenancePlataform";
+import client from "../contentful";
 
-export default function Home() {
-  const user = useSelector((state) => state.user);
-  const dataFromAxios = useSelector((state) => state.sales);
+export default function Home({ maintenance }) {
   const [t, i18n] = useTranslation("global");
 
   const dispatch = useDispatch();
@@ -515,45 +515,61 @@ export default function Home() {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      <main className="mainIndex bg-primary flex flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden min-h-screen">
-        <Recovery opened={opened} setOpened={setOpened} t={t} />
-        <Registro close={setRegister} register={register} />
-        <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] max-sm:max-h-[150px] flex w-full justify-between mt-10">
-          <figure className="ml-10 max-sm:m-auto">
-            <img
-              src="assets/login/adobe.webp"
-              className="max-w-[250px] max-sm:m-auto lg:w-[60%] 2xl:w-[80%]"
-              alt="Principal-Adobe-Logo"
-            />
-          </figure>
-          <div className="flex gap-6 mr-6 items-center">
-            <figure>
+      {maintenance.maintenance ? (
+        <MaintenancePlataform data={maintenance} />
+      ) : (
+        <main className="mainIndex bg-primary flex flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden min-h-screen">
+          <Recovery opened={opened} setOpened={setOpened} t={t} />
+          <Registro close={setRegister} register={register} />
+          <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] max-sm:max-h-[150px] flex w-full justify-between mt-10">
+            <figure className="ml-10 max-sm:m-auto">
               <img
-                src="assets/login/pcc.webp"
-                className="max-w-[400px] max-sm:m-auto ml-auto lg:w-[60%] 2xl:w-[80%]"
-                alt="10years-Logo"
+                src="assets/login/adobe.webp"
+                className="max-w-[250px] max-sm:m-auto lg:w-[60%] 2xl:w-[80%]"
+                alt="Principal-Adobe-Logo"
               />
             </figure>
+            <div className="flex gap-6 mr-6 items-center">
+              <figure>
+                <img
+                  src="assets/login/pcc.webp"
+                  className="max-w-[400px] max-sm:m-auto ml-auto lg:w-[60%] 2xl:w-[80%]"
+                  alt="10years-Logo"
+                />
+              </figure>
+            </div>
           </div>
-        </div>
-        <div className="container flex flex-row justify-center max-w-full max-h-full sm:my-auto">
-          <LoginTarget
-            handleSubmit={handleSubmit}
-            viewLogin={viewLogin}
-            setViewLogin={setViewLogin}
-            setEmail={setEmail}
-            setPassword={setPassword}
-            setRegister={setRegister}
-            setOpen={setOpen}
-          />
-        </div>
-        <figure className="absolute w-full z-[-1] opacity-25">
-          <img
-            src="/assets/login/bbapc.webp"
-            className="min-w-full min-h-screen"
-          ></img>
-        </figure>
-      </main>
+          <div className="container flex flex-row justify-center max-w-full max-h-full sm:my-auto">
+            <LoginTarget
+              handleSubmit={handleSubmit}
+              viewLogin={viewLogin}
+              setViewLogin={setViewLogin}
+              setEmail={setEmail}
+              setPassword={setPassword}
+              setRegister={setRegister}
+              setOpen={setOpen}
+            />
+          </div>
+          <figure className="absolute w-full z-[-1] opacity-25">
+            <img
+              src="/assets/login/bbapc.webp"
+              className="min-w-full min-h-screen"
+            ></img>
+          </figure>
+        </main>
+      )}
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const maintenance = await client.getEntries({
+    content_type: "maintenance",
+  });
+
+  return {
+    props: {
+      maintenance: maintenance.items.map(({ fields }) => fields)[0],
+    },
+  };
 }
