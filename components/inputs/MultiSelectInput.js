@@ -1,5 +1,5 @@
-import React from "react";
-import { MultiSelect, Text } from "@mantine/core";
+import React, { useState } from "react";
+import { Checkbox, MultiSelect, Text } from "@mantine/core";
 import { ArrowDown } from "../icons";
 
 /**
@@ -26,12 +26,24 @@ const MultiSelectInput = ({
   value = [],
   placeholder = "Pick value",
   label = "",
-  data = ['React', 'Angular', 'Vue', 'Svelte'],
+  data = ["React", "Angular", "Vue", "Svelte"],
   onChange,
-  searchable=false,
+  searchable = false,
   name,
   disabled = false,
 }) => {
+  const [selectedValues, setSelectedValues] = useState(value);
+
+  const handleMultiSelectChange = (values) => {
+    try {
+      // No elimines las opciones seleccionadas del listado de datos
+      setSelectedValues(values);
+      onChange(name, values);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <MultiSelect
       className={`${styles}`}
@@ -53,7 +65,7 @@ const MultiSelectInput = ({
       withinPortal
       clearable
       disabled={disabled}
-      onChange={(values) => onChange(name, values)}
+      onChange={handleMultiSelectChange}
     />
   );
 };

@@ -222,19 +222,13 @@ const SalesYtd = () => {
   const handleMultiFilters = (name, value) => {
     try {
       if (value !== "") {
-        if (multiFilter.includes(value)) {
-          setMultiFilter(multiFilter.filter((item) => item !== value));
-        } else if (multiFilter.length < 3) {
           setMultiFilter(value);
-        } else if(value.length < 3) {
-          setMultiFilter(value)
-        }
       }
     } catch (error) {
       console.log(error);
     }
   };
-  
+
   const clearSelects = () => {
     setFilters({
       company_name: "",
