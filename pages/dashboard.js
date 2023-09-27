@@ -431,6 +431,8 @@ const dashboard = ({ entries, banners }) => {
                 t("Top"),
                 t("tabla.nombre"),
                 t("Email"),
+                t("Revenue (USD)"),
+                t("DigiPoints"),
                 t("tabla.region"),
               ]}
             />

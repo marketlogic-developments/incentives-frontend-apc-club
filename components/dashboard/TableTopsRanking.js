@@ -76,6 +76,13 @@ const TableTopsRanking = ({
     });
   };
 
+  const numberToMoney = (quantity = 0) => {
+    return `$ ${Number(quantity)
+      .toFixed(0)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  };
+
   const importFileExcel = (data) => {
     jsonexport(data, (error) => {
       if (error) {
@@ -249,7 +256,7 @@ const TableTopsRanking = ({
           <thead className={`bg-black ${thStyles}`}>
             <tr>
               {cols.length !== 0 &&
-                cols.map((col) => <th className="text-left p-4">{col}</th>)}
+                cols.map((col) => <th className="text-left py-4">{col}</th>)}
             </tr>
           </thead>
           <tbody>
@@ -288,6 +295,8 @@ const TableTopsRanking = ({
 
                     <td className="text-left">{data.names}</td>
                     <td className="text-left">{data.email}</td>
+                    <td className="text-left">{numberToMoney(data.amount_by_user)}</td>
+                    <td className="text-left">{data.points_assigned}</td>
                     <td className="text-left">{data.region}</td>
                   </tr>
                 ))}

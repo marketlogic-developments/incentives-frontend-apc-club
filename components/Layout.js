@@ -1221,7 +1221,7 @@ const Layout = ({ children }) => {
                     )}
                   </div>
                 </div>
-                <div className="pt-1 px-6">{children}</div>
+                <div className="pt-1">{children}</div>
 
                 {screen < 639 && (
                   <div className="sticky bottom-0 w-full border-t-2 object-bottom">

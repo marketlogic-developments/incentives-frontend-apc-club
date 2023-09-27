@@ -80,36 +80,43 @@ const handlePageClick = (event) => {
                 columnName: "Medal",
               },
               {
+                sort: true,
                 symbol: "USD",
                 identity: "sales",
                 columnName: "Sales YTD",
               },
               {
+                sort: true,
                 symbol: "USD",
                 identity: "expected_revenue",
                 columnName: "Sales LY",
               },
               {
+                sort: true,
                 symbol: "%",
                 identity: "growth",
                 columnName: "Total % effectiveness",
               },
               {
+                sort: true,
                 symbol: "USD",
                 identity: "cc_sales",
                 columnName: "CC Sales",
               },
               {
+                sort: true,
                 symbol: "%",
                 identity: "cc_growth",
                 columnName: "CC Growth",
               },
               {
+                sort: true,
                 symbol: "USD",
                 identity: "dc_sales",
                 columnName: "DC Sales",
               },
               {
+                sort: true,
                 symbol: "%",
                 identity: "dc_growth",
                 columnName: "DC Growth",

@@ -97,18 +97,17 @@ export default function MyApp({ Component, pageProps }) {
       <I18nextProvider i18n={i18next}>
         <Provider store={store}>
           <MantineProvider withGlobalStyles withNormalizeCSS>
-            <Layout>
-              <Component {...pageProps} />
-              <Head>
-                
-                {/* Global Site Tag (gtag.js) - Google Analytics */}
-                <script
-                  async
-                  src={`https://www.googletagmanager.com/gtag/js?id=G-V1T7B23T0N`}
-                />
-                <script
-                  dangerouslySetInnerHTML={{
-                    __html: `
+              <Layout>
+                <Component {...pageProps} />
+                <Head>
+                  {/* Global Site Tag (gtag.js) - Google Analytics */}
+                  <script
+                    async
+                    src={`https://www.googletagmanager.com/gtag/js?id=G-V1T7B23T0N`}
+                  />
+                  <script
+                    dangerouslySetInnerHTML={{
+                      __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
@@ -116,24 +115,24 @@ export default function MyApp({ Component, pageProps }) {
               page_path: window.location.pathname,
             });
           `,
-                  }}
-                />
-              </Head>
-              <Script
-                strategy="afterInteractive"
-                type="text/javascript"
-                dangerouslySetInnerHTML={{
-                  __html: `(function(h,o,t,j,a,r){
+                    }}
+                  />
+                </Head>
+                <Script
+                  strategy="afterInteractive"
+                  type="text/javascript"
+                  dangerouslySetInnerHTML={{
+                    __html: `(function(h,o,t,j,a,r){
         h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
         h._hjSettings={hjid:3486911,hjsv:6};
         a=o.getElementsByTagName('head')[0];
         r=o.createElement('script');r.async=1;
         r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
         a.appendChild(r);
-      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`
-                }}
-              />
-            </Layout>
+      })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`,
+                  }}
+                />
+              </Layout>
           </MantineProvider>
         </Provider>
       </I18nextProvider>

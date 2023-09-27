@@ -222,7 +222,7 @@ const SalesPerformance = () => {
         </span>
       </div>
       <div className="grid w-auto gap-2">
-        <div className="pr-4">
+        <div className="">
           <CardChart title={"DigiPoints"} paragraph="">
             <MultiLineChart
               dataLeyend={["DigiPoints Redeemed", "Sale DigiPoints"]}
@@ -234,7 +234,7 @@ const SalesPerformance = () => {
           </CardChart>
         </div>
       </div>
-      <div className="pt-2 grid items-center sm:grid-cols-4 grid-rows-1 gap-3">
+      <div className="pt-2 grid items-center sm:grid-cols-4 grid-cols-2 gap-3">
         <SearchInput
           image={<SearchIcon />}
           placeHolder={"Email"}
@@ -282,11 +282,7 @@ const SalesPerformance = () => {
         </DropDownReport>
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1">
-        <div className="grid sm:grid-cols-3 grid-rows-1 sm:justify-items-start justify-items-center mt-3">
-          <div className="font-bold flex items-center">
-            <h2 className="lg:text-lg sm:text-xl">Users</h2>
-          </div>
-          {/* <div className="grid col-span-2 sm:w-[55%] w-[60%]">
+        {/* <div className="grid col-span-2 sm:w-[55%] w-[60%]">
             <DropDownReport icon={<ArrowDown />} title={t("Reportes.periodo")}>
               <li>
                 <a>Período 1</a>
@@ -296,7 +292,6 @@ const SalesPerformance = () => {
               </li>
             </DropDownReport>
           </div> */}
-        </div>
         <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
           {/* <InputReporte
             image={<SearchIcon />}
@@ -309,7 +304,10 @@ const SalesPerformance = () => {
           /> */}
         </div>
       </div>
-      <div className="grid grid-rows-1 justify-items-center pt-5">
+      <div className="font-bold flex items-center">
+        <h2 className="lg:text-lg sm:text-xl">Users</h2>
+      </div>
+      <div className="grid grid-rows-1 justify-items-center">
         {loading && <div className="lds-dual-ring"></div>}
         {!loading && (
           <>
@@ -454,7 +452,9 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">
                         {numberToMoney(data.revenue_actual)}
                       </th>
-                      <th className="text-left py-3 px-2 mx-4 min-w-min">{numberToMoney(data.rma)}</th>
+                      <th className="text-left py-3 px-2 mx-4 min-w-min">
+                        {numberToMoney(data.rma)}
+                      </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.total_digipoints}
                       </th>
