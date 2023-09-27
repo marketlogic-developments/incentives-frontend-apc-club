@@ -6,6 +6,8 @@ import SelectInputValue from "../../../inputs/SelectInputValue";
 import { useState } from "react";
 import { useEffect } from "react";
 import MultiSelectInput from "../../../inputs/MultiSelectInput";
+import { Button } from "primereact/button";
+import MultiSelectPrime from "../../../inputs/MultiSelectPrime";
 
 const FilterSection = ({
   companyName,
@@ -40,7 +42,7 @@ const FilterSection = ({
     <div className="pt-2 grid items-center sm:grid-cols-6 grid-cols-2 gap-3">
       <div className={screen < 639 ? "hidden" : "col-span-6 grid gap-2"}>
         <div className={screen < 639 ? "hidden" : "col-span-6"}>
-          <MultiSelectInput
+          <MultiSelectPrime
             placeholder={"Company Name"}
             value={multiFilter}
             data={companyName.map((company_name) => ({
@@ -48,6 +50,7 @@ const FilterSection = ({
               value: company_name,
             }))}
             icon={<ArrowDown />}
+            selectionLimit={3}
             searchable={true}
             onChange={handleMultiFilters}
             name={"company_name"}
