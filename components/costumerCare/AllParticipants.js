@@ -105,7 +105,9 @@ const AllParticipants = () => {
           setOpened(true);
         }}
       >
-        <td className="py-4 px-2">{user2.name}</td>
+        <td className="py-4 px-2">{`${user2.names} ${
+          user2.lastname || ""
+        }`}</td>
         <td className="py-4 px-2">{user2.email}</td>
         <td className="py-4 px-2">
           {user2.roleId === 1
@@ -145,7 +147,15 @@ const AllParticipants = () => {
               </th>
             </tr>
           </thead>
-          <tbody>{viewTable(currentItems)}</tbody>
+          <tbody>
+            {search !== ""
+              ? viewTable(
+                  participantes.filter(({ email }) =>
+                    email.startsWith(search.toLocaleLowerCase())
+                  )
+                )
+              : viewTable(participantes)}
+          </tbody>
         </table>
       </>
     );
