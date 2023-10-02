@@ -194,7 +194,11 @@ export default function Home({ maintenance }) {
       })
       .finally(() => {
         if (userData.user.policy) {
-          route.push("/dashboard");
+          const params = new URLSearchParams(window.location.search);
+
+          params.get("redirect")
+            ? route.push(`/${params.get("redirect")}`)
+            : route.push("/dashboard");
         } else {
           route.push("/terminosycondiciones");
         }
