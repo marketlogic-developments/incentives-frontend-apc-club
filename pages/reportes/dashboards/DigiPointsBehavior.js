@@ -201,7 +201,7 @@ const DigiPointsBehavior = () => {
         {"Behavior Report"}
         </span>
       </div>
-      <div className="grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
+      <div className="grid items-center sm:grid-cols-3 grid-rows-1 gap-3">
       <SelectInputValue
           placeholder={"Company Name"}
           value={selectTwo}
@@ -218,6 +218,7 @@ const DigiPointsBehavior = () => {
           onChange={handleSelectOneChange}
           name={"business"}
         />
+        <div className="sm:col-span-1 col-span-2 flex items-center">
         <BtnFilter
           text={t("Reportes.limpiar_filtros")}
           styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
@@ -244,6 +245,7 @@ const DigiPointsBehavior = () => {
           onClick={() => importFileExcel(filteredUsers)}
         />
         </DropDownReport>
+        </div>
         
       </div>
       <div className="grid overflow-x-auto w-full">

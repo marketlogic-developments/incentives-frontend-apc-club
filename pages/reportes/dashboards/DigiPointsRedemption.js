@@ -201,7 +201,7 @@ const DigiPointsRedemption = () => {
         {t("Reportes.digiPoints_redemption_request")}
         </span>
       </div>
-      <div className="grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
+      <div className="grid items-center sm:grid-cols-4 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
           placeHolder={"User Name"}
@@ -220,6 +220,7 @@ const DigiPointsRedemption = () => {
           onChange={handleSelectOneChange}
           name={"business"}
         />
+        <div className="sm:flex grid sm:grid-cols-3 grid-cols-2 items-center">
         <BtnFilter
           text={t("Reportes.limpiar_filtros")}
           styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
@@ -246,6 +247,7 @@ const DigiPointsRedemption = () => {
           onClick={() => importFileExcel(filteredUsers)}
         />
         </DropDownReport>
+        </div>
         
       </div>
       <div className="grid overflow-x-auto w-full">

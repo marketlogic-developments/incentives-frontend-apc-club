@@ -36,3 +36,4 @@ export { default as Medal } from "./Reportes/Medal";
 export { default as Filter } from "./Reportes/Filter";
 export { default as Circle } from "./Reportes/Circle";
 export { default as Check } from "./Reportes/Check";
+export { default as ArrowRight } from "./Reportes/ArrowRight";

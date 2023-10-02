@@ -283,8 +283,8 @@ const DigiPointsPerformance = () => {
         </CardChart>
       </div> */}
       <div className="grid sm:grid-cols-2 grid-rows-1 mt-5">
-        <div className="grid sm:grid-cols-3 sm:justify-items-start justify-items-center mt-3">
-          <div className="sm:w-[90%] w-[60%]">
+        <div className="grid grid-cols-3 sm:justify-items-start justify-items-center mt-3 gap-3">
+          <div className="sm:w-[90%] w-auto">
             <SelectInputValue
               placeholder={"Company Name"}
               value={filters.company}
@@ -295,7 +295,7 @@ const DigiPointsPerformance = () => {
               searchable={true}
             />
           </div>
-          <div className="sm:w-[90%] w-[60%]">
+          <div className="sm:w-[90%] w-auto">
             <SelectInputValue
               placeholder={"Level"}
               value={filters.level}
@@ -306,7 +306,7 @@ const DigiPointsPerformance = () => {
               disabled={filters.company !== "" ? true : false}
             />
           </div>
-          <div className="sm:w-[90%] w-[60%]">
+          <div className="sm:w-[90%] w-auto">
             <SelectInputValue
               placeholder={"Region"}
               value={filters.region}
@@ -347,7 +347,6 @@ const DigiPointsPerformance = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-rows-1 justify-items-center pt-5">
         {loading && <div className="lds-dual-ring"></div>}
         {!loading && (
           <SortedTable
@@ -406,7 +405,6 @@ const DigiPointsPerformance = () => {
             handlePageClick={handlePageClick}
           />
         )}
-      </div>
     </div>
   );
 };

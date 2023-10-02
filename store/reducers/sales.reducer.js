@@ -16,6 +16,7 @@ const initialState = {
   salesperformance: [],
   salesperformancefilters: [],
   digipointsperformancefilters: [],
+  getDigiPointsFilterCountry: [],
   digipointsperformance: [],
   invoiceperformance: [],
   invoiceperformancebyusuer: [],
@@ -76,6 +77,9 @@ export const saleActions = createSlice({
     getDigiPointPerformanceFilter: (state, action) => {
       state.digipointsperformancefilters = action.payload;
     },
+    getDigiPointsFilterCountry: (state, action) => {
+      state.getDigiPointsFilterCountry = action.payload;
+    },
     getOrganizationsCharts: (state, action) => {
       state.digipointsperformancefilters = action.payload;
     },
@@ -133,6 +137,7 @@ export const {
   getSalePer,
   getSaleYTD,
   getDigiPointPerformanceFilter,
+  getDigiPointsFilterCountry,
   getOrganizationsCharts,
   getDigiPointsPer,
   getInvoicePer,
@@ -604,7 +609,7 @@ export const getDigiPointPerformance = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-performance-charts?_quarter=${data.quarter}&_month=${data.month}&_region=${data.region}&_country=${data.country}&_partner_level=${data.partner_level}&_partner=${data.partner}&_market_segment=${data.market_segment}&_business_unit=${data.business_unit}&_business_type=${data.business_type}&_licensing_type=${data.licensing_type}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-performance-charts?company_name=${data.company_name}&region=${data.region}&country=${data.country}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -619,11 +624,30 @@ export const getDigiPointPerformance = (token, data) => async (dispatch) => {
   }
 };
 
+export const getDigiPointContry = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-performance-charts`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => dispatch(getDigiPointsFilterCountry(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const getOrganizations = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/organizations?_quarter=${data.quarter}&_month=${data.month}&_region=${data.region}&_country=${data.country}&_partner_level=${data.partner_level}&_partner=${data.partner}&_market_segment=${data.market_segment}&_business_unit=${data.business_unit}&_business_type=${data.business_type}&_licensing_type=${data.licensing_type}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/organizations?company_name=${data.company_name}&region=${data.region}&country=${data.country}&level=${data.level}`,
         {
           headers: {
             "Content-Type": "application/json",

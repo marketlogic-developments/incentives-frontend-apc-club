@@ -381,9 +381,9 @@ const SalesPerformance = () => {
           />
         </CardChart>
       </div>
-      <div className="grid sm:grid-cols-2 grid-rows-1 mt-5">
-        <div className="grid sm:grid-cols-3 sm:justify-items-start justify-items-center mt-3">
-          <div className="sm:w-[90%] w-[60%]">
+      <div className="grid sm:grid-cols-2 mt-5">
+        <div className="grid grid-cols-3 sm:justify-items-start justify-items-center mt-3 gap-3 ">
+          <div className="sm:w-[90%] w-auto">
             <SelectInputValue
               placeholder={"Company Name"}
               value={filters.company}
@@ -394,7 +394,7 @@ const SalesPerformance = () => {
               searchable={true}
             />
           </div>
-          <div className="sm:w-[90%] w-[60%]">
+          <div className="sm:w-[90%] w-auto">
             <SelectInputValue
               placeholder={"Level"}
               value={filters.level}
@@ -405,7 +405,7 @@ const SalesPerformance = () => {
               disabled={filters.company !== "" ? true : false}
             />
           </div>
-          <div className="sm:w-[90%] w-[60%]">
+          <div className="sm:w-[90%] w-auto">
             <SelectInputValue
               placeholder={"Region"}
               value={filters.region}
@@ -417,7 +417,7 @@ const SalesPerformance = () => {
             />
           </div>
         </div>
-        <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
+        <div className="grid grid-cols-2 sm:justify-items-end justify-items-center mt-3">
           <DropDownReport
             icon={<CloudDownload />}
             title={t("Reportes.descargar")}
@@ -439,87 +439,86 @@ const SalesPerformance = () => {
               onClick={() => importFileExcel(dataTable)}
             />
           </DropDownReport>
-          <div className="grid sm:w-[45%]" onClick={clearSelects}>
+          <div className="grid sm:w-[45%] w-auto" onClick={clearSelects}>
             <p className="bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2 cursor-pointer font-bold">
               Reset Filters
             </p>
           </div>
         </div>
       </div>
-      <div className="grid grid-rows-1 justify-items-center pt-5">
-        {loading && <div className="lds-dual-ring"></div>}
-        {!loading && (
-          <SortedTable
-            containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
-            tableStyles={"table-zebra !text-sm"}
-            colStyles={"p-2"}
-            thStyles={"sticky text-white"}
-            cols={[
-              {
-                rowStyles: "",
-                sort: true,
-                symbol: "",
-                identity: "company_name",
-                columnName: "Company Name",
-              },
-              { symbol: "", identity: "region", columnName: "Region" },
-              { symbol: "", identity: "level", columnName: "Company Level" },
-              {
-                symbol: "",
-                identity: "usuarios",
-                columnName: "Company Active Users",
-              },
-              {
-                symbol: "USD",
-                sort: true,
-                identity: "total_vip",
-                columnName: "Total VIP Revenue (USD)",
-              },
-              {
-                symbol: "USD",
-                sort: true,
-                identity: "total_vmp",
-                columnName: "Total VMP Revenue (USD)",
-              },
-              {
-                symbol: "USD",
-                sort: true,
-                identity: "actual_revenue",
-                columnName: "Actual Revenue (USD)",
-              },
-              {
-                symbol: "USD",
-                sort: true,
-                identity: "rma",
-                columnName: "RMA (USD)",
-              },
-              {
-                symbol: "USD",
-                sort: true,
-                identity: "total_revenue",
-                columnName: "Total Revenue (USD)",
-              },
-              {
-                symbol: "USD",
-                sort: true,
-                identity: "expected_revenue",
-                columnName: "Expected Revenue (USD)",
-              },
-              {
-                symbol: "AVG",
-                sort: true,
-                identity: "avg_effectiveness",
-                columnName: "Total % effectiveness",
-              },
-            ]}
-            generalRowStyles={"text-left py-3 mx-7"}
-            paginate={true}
-            pageCount={pageCount}
-            currentItems={currentItems}
-            handlePageClick={handlePageClick}
-          />
-        )}
-      </div>
+
+      {loading && <div className="lds-dual-ring"></div>}
+      {!loading && (
+        <SortedTable
+          containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
+          tableStyles={"table-zebra !text-sm"}
+          colStyles={"p-2"}
+          thStyles={"sticky text-white"}
+          cols={[
+            {
+              rowStyles: "",
+              sort: true,
+              symbol: "",
+              identity: "company_name",
+              columnName: "Company Name",
+            },
+            { symbol: "", identity: "region", columnName: "Region" },
+            { symbol: "", identity: "level", columnName: "Company Level" },
+            {
+              symbol: "",
+              identity: "usuarios",
+              columnName: "Company Active Users",
+            },
+            {
+              symbol: "USD",
+              sort: true,
+              identity: "total_vip",
+              columnName: "Total VIP Revenue (USD)",
+            },
+            {
+              symbol: "USD",
+              sort: true,
+              identity: "total_vmp",
+              columnName: "Total VMP Revenue (USD)",
+            },
+            {
+              symbol: "USD",
+              sort: true,
+              identity: "actual_revenue",
+              columnName: "Actual Revenue (USD)",
+            },
+            {
+              symbol: "USD",
+              sort: true,
+              identity: "rma",
+              columnName: "RMA (USD)",
+            },
+            {
+              symbol: "USD",
+              sort: true,
+              identity: "total_revenue",
+              columnName: "Total Revenue (USD)",
+            },
+            {
+              symbol: "USD",
+              sort: true,
+              identity: "expected_revenue",
+              columnName: "Expected Revenue (USD)",
+            },
+            {
+              symbol: "AVG",
+              sort: true,
+              identity: "avg_effectiveness",
+              columnName: "Total % effectiveness",
+            },
+          ]}
+          generalRowStyles={"text-left py-3 mx-7"}
+          paginate={true}
+          pageCount={pageCount}
+          currentItems={currentItems}
+          handlePageClick={handlePageClick}
+        />
+      )}
     </div>
   );
 };
