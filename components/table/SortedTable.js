@@ -65,31 +65,36 @@ const SortedTable = ({
 
   /* FORMATO PARA EL Cantidades */
   const formatNumberWithCommas = (number) => {
-    // Convierte el número a una cadena de texto
-    const numberString = number.toString();
+  if (typeof number !== 'number') {
+    console.error('El número no es válido.');
+    return ''; // Opcional: Devolver una cadena vacía u otro valor predeterminado en caso de número no válido.
+  }
 
-    // Divide la cadena en partes por el punto decimal si hay uno
-    const parts = numberString.split(".");
+  // Convierte el número a una cadena de texto
+  const numberString = number.toString();
 
-    // Parte entera del número
-    const integerPart = parts[0];
+  // Divide la cadena en partes por el punto decimal si hay uno
+  const parts = numberString.split(".");
 
-    // Parte decimal del número (si existe)
-    const decimalPart = parts[1] || "";
+  // Parte entera del número
+  const integerPart = parts[0];
 
-    // Agrega comas para separar los miles en la parte entera
-    const formattedIntegerPart = integerPart.replace(
-      /\B(?=(\d{3})+(?!\d))/g,
-      ","
-    );
+  // Parte decimal del número (si existe)
+  const decimalPart = parts[1] || "";
 
-    // Combina la parte entera formateada y la parte decimal (si existe)
-    const formattedNumber = decimalPart
-      ? `${formattedIntegerPart}.${decimalPart}`
-      : formattedIntegerPart;
+  // Agrega comas para separar los miles en la parte entera
+  const formattedIntegerPart = integerPart.replace(
+    /\B(?=(\d{3})+(?!\d))/g,
+    ","
+  );
 
-    return formattedNumber;
-  };
+  // Combina la parte entera formateada y la parte decimal (si existe)
+  const formattedNumber = decimalPart
+    ? `${formattedIntegerPart}.${decimalPart}`
+    : formattedIntegerPart;
+
+  return formattedNumber;
+};
 
   /* FORMATO PARA LA FECHA */
   const formatDate = (dateString) => {
