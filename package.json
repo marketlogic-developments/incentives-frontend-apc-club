@@ -41,6 +41,7 @@
     "pdfjs-dist": "^3.1.81",
     "postcss": "8.4.19",
     "powerbi-client": "^2.22.2",
+    "primereact": "^9.6.2",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",

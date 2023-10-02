@@ -5,7 +5,10 @@ import SelectSection from "./SelectSection";
 import DigipointSection from "./DigipointSection";
 import DigipointRedemptionSection from "./DigipointRedemptionSection";
 import { useEffect } from "react";
-import { getDigiPointPerformance } from "../../../../store/reducers/sales.reducer";
+import {
+  getDigiPointContry,
+  getDigiPointPerformance,
+} from "../../../../store/reducers/sales.reducer";
 import { useDispatch, useSelector } from "react-redux";
 
 const DigipoinstPerformance = () => {
@@ -14,18 +17,14 @@ const DigipoinstPerformance = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const [filters, setFilters] = useState({
-    quarter: "",
-    month: "",
+    company_name: "",
     region: "",
     country: "",
-    partner_level: "",
-    partner: "",
-    market_segment: "",
-    business_unit: "",
-    business_type: "",
-    licensing_type: "",
   });
   const [digipointUploaded, setDigipointUploaded] = useState([]);
+  const [companiesName, setCompaniesName] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const [regions, setRegions] = useState([]);
   const [digipointSR, setDigipointSR] = useState({
     datas: {},
     yNames: [],
@@ -133,6 +132,17 @@ const DigipoinstPerformance = () => {
     { name: "Redeemed", color: "#A4CDFF" },
   ];
 
+  const handleFilters = (name, value) => {
+    return setFilters({ ...filters, [name]: value === null ? "" : value });
+  };
+  const clearSelects = () => {
+    setFilters({
+      company_name: "",
+      region: "",
+      country: "",
+    });
+  };
+
   const mapColorsToData = (originalData, colorsData) => {
     const colorMap = colorsData.reduce((map, item) => {
       map[item.name] = item.color;
@@ -163,17 +173,30 @@ const DigipoinstPerformance = () => {
 
   const filterArray = (arr, valueToExclude) => {
     return arr.filter((item) => item !== valueToExclude);
-  }
+  };
 
   const filterObject = (object, valueToExclude) => {
-    return object.filter(item => item.name !== valueToExclude);
-  }
+    return object.filter((item) => item.name !== valueToExclude);
+  };
+
+  const getUniqueFieldValues = (data, fieldName) => {
+    const uniqueValues = new Set();
+
+    data.forEach((item) => {
+      const fieldValue = item[fieldName];
+      if (fieldValue !== null && fieldValue !== "") {
+        uniqueValues.add(fieldValue);
+      }
+    });
+
+    return Array.from(uniqueValues);
+  };
 
   /* GET DATA */
   useEffect(() => {
+    setIsReady(false);
     dispatch(getDigiPointPerformance(token, filters)).then((res) => {
       /* DIGIPOINTS UPLOADED */
-      setIsReady(false);
       setDigipointUploaded(res.payload.digipointsUploaded);
 
       /* DIGIPOINTS BY STATUS AND REGION PENDING*/
@@ -194,7 +217,10 @@ const DigipoinstPerformance = () => {
       });
 
       /* DIGIPOINTS BY STATUS */
-      const filerDigipintsStatus = filterObject(res.payload.digipointsByStatus, "Expected");
+      const filerDigipintsStatus = filterObject(
+        res.payload.digipointsByStatus,
+        "Expected"
+      );
       setDigipointStatus(mapColorsToData(filerDigipintsStatus, colorsData));
 
       /* DIGIPOINTS BY REGION AND AMOUND */
@@ -211,15 +237,27 @@ const DigipoinstPerformance = () => {
         yNames: res.payload.redempionsByRegionAndAmount.yAxis.data,
       });
 
+      /* SET DATA FILTER */
+      setCompaniesName(res.payload.digipointsFilterCompanyName);
+      setCountries(res.payload.digipointsFilterCountry);
+      setRegions(res.payload.digipointsFilterRegion);
+
       setIsReady(true);
     });
   }, [filters]);
-
   return (
     <div className="m-5">
-      {/* <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
-        <SelectSection multiSelect={multiSelect} />
-      </div> */}
+      <div className="pt-2 grid items-center sm:grid-cols-6 grid-cols-2 gap-3">
+        <SelectSection
+          filters={filters}
+          companiesName={companiesName}
+          countries={countries}
+          regions={regions}
+          multiSelect={multiSelect}
+          handleFilters={handleFilters}
+          clearSelects={clearSelects}
+        />
+      </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
         <DigipointSection
           dataUploaded={digipointUploaded}

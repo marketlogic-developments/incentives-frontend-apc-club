@@ -52,7 +52,7 @@ const Summary = () => {
             router.push("/reportesDashboard");
           }}
         >
-          My Reports
+          {t("Reportes.reports")}
         </span>
         <span>
           <AiOutlineRight />

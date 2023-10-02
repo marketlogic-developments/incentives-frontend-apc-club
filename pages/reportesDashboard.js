@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CardReportes, InputReporte } from "../components";
 import {
   CustomIcon,
@@ -12,6 +12,7 @@ import {
   Thunderbolt,
   UserPerformance,
   Medal,
+  ArrowRight,
 } from "../components/icons";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
@@ -20,7 +21,21 @@ import Promotion from "../components/icons/Reportes/Promotion";
 
 const reportesDashboard = () => {
   const router = useRouter();
+  const [screen, setScreen] = useState();
   const [t, i18n] = useTranslation("global");
+
+  useEffect(() => {
+    setScreen(window.innerWidth);
+    const handleWindowResize = () => {
+      setScreen(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  });
 
   const SharePoint = dynamic(() =>
     import("../components/embedreports/sharePoint").then(
@@ -44,8 +59,12 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/SalesPerformance");
           }}
+          extra={<ArrowRight />}
         >
-          <RocketIcon width={70} height={70} />
+          <RocketIcon
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -53,8 +72,12 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/UserPerformance");
           }}
+          extra={<ArrowRight />}
         >
-          <UserPerformance />
+          <UserPerformance
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -62,8 +85,12 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/DigiPointsPerformance");
           }}
+          extra={<ArrowRight />}
         >
-          <Medal />
+          <Medal
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -71,8 +98,12 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/InvoiceReport");
           }}
+          extra={<ArrowRight />}
         >
-          <IncentivePoints />
+          <IncentivePoints
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -80,8 +111,12 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/DigiPointsRedemption");
           }}
+          extra={<ArrowRight />}
         >
-          <Request />
+          <Request
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -89,8 +124,12 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/DigiPointsPromotions");
           }}
+          extra={<ArrowRight />}
         >
-          <Promotion />
+          <Promotion
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -98,8 +137,12 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/DigiPointsBehavior");
           }}
+          extra={<ArrowRight />}
         >
-          <Promotion />
+          <Promotion
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -107,8 +150,12 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/GoogleAnalytic");
           }}
+          extra={<ArrowRight />}
         >
-          <IncentivePoints />
+          <IncentivePoints
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -116,8 +163,12 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/CustomCare");
           }}
+          extra={<ArrowRight />}
         >
-          <CustomIcon />
+          <CustomIcon
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -125,8 +176,12 @@ const reportesDashboard = () => {
           onClick={() => {
             router.push("/reportes/dashboards/Summary");
           }}
+          extra={<ArrowRight />}
         >
-          <RocketIcon />
+          <RocketIcon
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
         </CardReportes>
         {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
@@ -146,7 +201,7 @@ const reportesDashboard = () => {
         >
           <Thunderbolt />
         </CardReportes> */}
-        <CardReportes
+        {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.follow_up")}
           onClick={() => {
@@ -154,7 +209,7 @@ const reportesDashboard = () => {
           }}
         >
           <TermsConditions />
-        </CardReportes>
+        </CardReportes> */}
       </div>
       {/* <SharePoint /> */}
     </div>
