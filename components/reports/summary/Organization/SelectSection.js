@@ -18,6 +18,18 @@ const SelectSection = ({
   return (
     <>
       <SelectInputValue
+        placeholder={"Company Name"}
+        value={filters.company_name}
+        data={company.map((company) => ({
+          label: company,
+          value: company,
+        }))}
+        icon={<ArrowDown />}
+        searchable={true}
+        onChange={handleFilters}
+        name={"company_name"}
+      />
+      <SelectInputValue
         placeholder={"Region"}
         value={filters.region}
         data={region.map((region) => ({
@@ -28,18 +40,6 @@ const SelectSection = ({
         searchable={true}
         onChange={handleFilters}
         name={"region"}
-      />
-      <SelectInputValue
-        placeholder={"Organization"}
-        value={filters.company_name}
-        data={company.map((company) => ({
-          label: company,
-          value: company,
-        }))}
-        icon={<ArrowDown />}
-        searchable={true}
-        onChange={handleFilters}
-        name={"company_name"}
       />
       <SelectInputValue
         placeholder={"Country"}

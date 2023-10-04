@@ -30,7 +30,7 @@ export default function MultiSelectInput({
       selectionLimit={selectionLimit}
       filter={searchable}
       placeholder={placeholder}
-      maxSelectedLabels={3}
+      maxSelectedLabels={99}
       className="w-full md:w-20rem bg-[#F1F3F5] h-10 border-none"
       virtualScrollerOptions={{ itemSize: 23 }}
       dropdownIcon={icon}

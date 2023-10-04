@@ -64,6 +64,7 @@ const Layout = ({ children }) => {
   const [modalCustomer, setModalCustomer] = useState(false);
   const [opened, setOpened] = useState(false);
   const [collapse, setCollapse] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [menuUser, setMenuUser] = useState(false);
   const menuMarket = useSelector((state) => state.awards.menuMarket);
   const [screen, setScreen] = useState();
@@ -514,7 +515,6 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: "Promociones",
     },
-
     {
       page: "/reportesDashboard",
       icon: (
@@ -1027,15 +1027,23 @@ const Layout = ({ children }) => {
       </Modal>
       <ContainerContent pageTitle={textLocation()}>
         <div className="containerGlobal">
-          <div className="globalContent bg-primary">
+          <div className="globalContent bg-primary ">
             <div
               className={`containerLayout`}
               style={{
                 "--wmenu": collapse ? "5.56%" : "18.3%",
                 "--wminmenu": collapse ? "82px" : "256px",
+                "--showmenu": showMenu ? "flex" : "none",
               }}
             >
-              <div className="flex flex-col py-6 h-screen gap-6">
+              <div className="flex flex-col py-6 gap-6 h-full">
+                {<MenuLines
+                  onClick={() => {
+                    setShowMenu(!showMenu);
+                  }}
+                  switchUser={typeof dataSession.prevData === "object" && true}
+                  styles={showMenu ? '' : 'hidden'}
+                />}
                 <div className="flex flex-col gap-6 px-6">
                   <div
                     className="logoAdobe cursor-pointer"
@@ -1096,12 +1104,22 @@ const Layout = ({ children }) => {
                   }`}
                 >
                   <div className="sticky grid justify-items-center items-center">
-                    <MenuLines
-                      onClick={() => setCollapse(!collapse)}
-                      switchUser={
-                        typeof dataSession.prevData === "object" && true
-                      }
-                    />
+                    <div className="md:hidden flex">
+                      <MenuLines
+                        onClick={() => setShowMenu(!showMenu)}
+                        switchUser={
+                          typeof dataSession.prevData === "object" && true
+                        }
+                      />
+                    </div>
+                    <div className="md:flex hidden">
+                      <MenuLines
+                        onClick={() => setCollapse(!collapse)}
+                        switchUser={
+                          typeof dataSession.prevData === "object" && true
+                        }
+                      />
+                    </div>
                   </div>
                   <div className="navbar grid grid-cols-3">
                     <div className="w-auto">

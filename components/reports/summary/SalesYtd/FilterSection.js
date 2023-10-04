@@ -50,7 +50,7 @@ const FilterSection = ({
               value: company_name,
             }))}
             icon={<ArrowDown />}
-            selectionLimit={3}
+            selectionLimit={99}
             searchable={true}
             onChange={handleMultiFilters}
             name={"company_name"}
