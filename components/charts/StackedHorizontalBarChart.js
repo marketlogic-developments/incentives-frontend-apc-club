@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactEcharts from "echarts-for-react";
+import { useMemo } from "react";
 
 const StackedHorizontalBarChart = ({
   datas = [{ name: "", color: "", data: [] }],
@@ -7,6 +8,8 @@ const StackedHorizontalBarChart = ({
   percentage = [],
   ySymbol = "",
 }) => {
+  const chartRef = useRef(null);
+
   const data = datas.map((item) => ({
     name: item.name,
     type: "bar",
@@ -59,15 +62,11 @@ const StackedHorizontalBarChart = ({
           if (dataIndex !== -1 && percentage[dataIndex]) {
             if (param.axisValueLabel === "Redeemed") {
               tooltip +=
-                " - " +
-                percentage[dataIndex].redeemVsAsigned +
-                "%<br/>";
+                " - " + percentage[dataIndex].redeemVsAsigned + "%<br/>";
             }
             if (param.axisValueLabel === "Assigned") {
               tooltip +=
-                " - " +
-                percentage[dataIndex].asignedVsUpload +
-                "%<br/>";
+                " - " + percentage[dataIndex].asignedVsUpload + "%<br/>";
             }
           }
         });
@@ -76,7 +75,7 @@ const StackedHorizontalBarChart = ({
     },
     legend: {
       orient: "horizontal",
-      right: 10,
+      right: 15,
       top: "top",
     },
     grid: {
@@ -111,9 +110,16 @@ const StackedHorizontalBarChart = ({
     series: data,
   };
 
+  useEffect(() => {
+    if (chartRef.current) {
+      chartRef.current.getEchartsInstance().clear();
+      chartRef.current.getEchartsInstance().setOption(option);
+    }
+  }, [datas]);
+
   return (
     <div className="w-full">
-      <ReactEcharts option={option} className="w-auto h-auto" />
+      <ReactEcharts ref={chartRef} option={option} className="w-full h-full" />
     </div>
   );
 };
