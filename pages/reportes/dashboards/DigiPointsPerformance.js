@@ -394,8 +394,8 @@ const DigiPointsPerformance = () => {
               {
                 symbol: "%",
                 sort: true,
-                identity: "total_avg_effectiveness",
-                columnName: "Total % effectiveness ",
+                identity: "total_avg_assigned",
+                columnName: "% Assigned",
               },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
