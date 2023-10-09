@@ -30,7 +30,7 @@ const DigipointSection = ({
     if (dataSR?.datas.length) {
       const res = calculatePercentage(dataSR?.datas);
       setChartData(dataSR.datas);
-      const names = dataSR.datas.map(item => item.name);
+      const names = dataSR.datas.map((item) => item.name);
       setChartNames(names);
       setPercentage(res);
     }
@@ -50,7 +50,7 @@ const DigipointSection = ({
         )}
       </CardChart>
       <CardChart title={"DigiPoints by Status and Region"} paragraph="">
-        {isDataReady && chartData ? (
+        {isDataReady && chartData.length !== 0 ? (
           <StackedHorizontalBarChart
             datas={chartData}
             chartNames={chartNames}

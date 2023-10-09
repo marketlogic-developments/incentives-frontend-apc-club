@@ -196,6 +196,8 @@ const DigipoinstPerformance = () => {
   useEffect(() => {
     setIsReady(false);
     dispatch(getDigiPointPerformance(token, filters)).then((res) => {
+      console.log(res);
+
       /* DIGIPOINTS UPLOADED */
       setDigipointUploaded(res.payload.digipointsUploaded);
 

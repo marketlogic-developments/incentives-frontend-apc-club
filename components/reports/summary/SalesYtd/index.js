@@ -172,6 +172,8 @@ const SalesYtd = () => {
     CERTIFIED: "#21A5A2",
   };
 
+  console.log(filters);
+
   /* SET DATA */
   const calculateSegmentTotals = (data) => {
     const resellerData = data.filter((item) => {
@@ -222,7 +224,7 @@ const SalesYtd = () => {
   const handleMultiFilters = (name, value) => {
     try {
       if (value !== "") {
-          setMultiFilter(value);
+        setMultiFilter(value);
       }
     } catch (error) {
       console.log(error);
@@ -572,7 +574,7 @@ const SalesYtd = () => {
   };
 
   const multiFilterButton = () => {
-    handleFilters("company_name", multiFilter);
+    handleFilters("company_name", multiFilter.join("~|~"));
   };
 
   useEffect(() => {
