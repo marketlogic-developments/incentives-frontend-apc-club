@@ -392,7 +392,7 @@ const DigiPointsPerformance = () => {
                 columnName: "DigiPoints Redeemed",
               },
               {
-                symbol: "%",
+                symbol: "AVG",
                 sort: true,
                 identity: "total_avg_assigned",
                 columnName: "% Assigned",
