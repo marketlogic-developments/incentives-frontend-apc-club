@@ -389,7 +389,7 @@ const DigiPointsPerformance = () => {
                 symbol: "",
                 sort: true,
                 identity: "digipoints_redeemed",
-                columnName: "DigiPoints Redeemed",
+                columnName: "Total DigiPoints Redeemed",
               },
               {
                 symbol: "%",
