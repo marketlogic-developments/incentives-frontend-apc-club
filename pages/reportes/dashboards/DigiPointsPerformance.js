@@ -389,13 +389,13 @@ const DigiPointsPerformance = () => {
                 symbol: "",
                 sort: true,
                 identity: "digipoints_redeemed",
-                columnName: "DigiPoints Redeemed",
+                columnName: "Total DigiPoints Redeemed",
               },
               {
                 symbol: "%",
                 sort: true,
-                identity: "total_avg_effectiveness",
-                columnName: "Total % effectiveness ",
+                identity: "total_avg_assigned",
+                columnName: "% Assigned",
               },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
