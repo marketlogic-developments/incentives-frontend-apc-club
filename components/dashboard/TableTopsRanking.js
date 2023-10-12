@@ -220,7 +220,7 @@ const TableTopsRanking = ({
                 text={t("Reportes.descargar") + " csv"}
                 icon={<CloudDownload />}
                 styles={
-                  "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+                  "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2 justify-start"
                 }
                 onClick={() => {
                   const newRank = ranking.map((data) => {
@@ -235,7 +235,7 @@ const TableTopsRanking = ({
                 text={t("Reportes.descargar") + " excel"}
                 icon={<CloudDownload />}
                 styles={
-                  "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+                  "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2 justify-start"
                 }
                 onClick={() => {
                   const newRank = ranking.map((data) => {
@@ -295,7 +295,9 @@ const TableTopsRanking = ({
 
                     <td className="text-left">{data.names}</td>
                     <td className="text-left">{data.email}</td>
-                    <td className="text-left">{numberToMoney(data.amount_by_user)}</td>
+                    <td className="text-left">
+                      {numberToMoney(data.amount_by_user)}
+                    </td>
                     <td className="text-left">{data.points_assigned}</td>
                     <td className="text-left">{data.region}</td>
                   </tr>

@@ -9,7 +9,7 @@ const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
         <div>
           <h2 className="font-bold 2xl:text-xl">Meta partners</h2>
         </div>
-        <div className="min-h-[45px] flex items-end">
+        <div className="min-h-[45px] flex items-top">
           {goal !== 0 && (
             <p className="2xl:!text-3xl lg:!text-xl font-bold text-[#1473E6]">
               ${formatNumber(goal)}
