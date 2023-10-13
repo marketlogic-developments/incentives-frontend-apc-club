@@ -56,11 +56,12 @@ const ModalSwitchUser = ({ opened, setOpened }) => {
 
   const companyIdentify = (data) => {
     if (data.companyId) {
+      console.log(data);
       return data.company?.name;
     }
 
     if (data.distributionChannelId) {
-      return data.company?.nameDist;
+      return data.distributionChannel.nameDist;
     }
 
     return "Null";
