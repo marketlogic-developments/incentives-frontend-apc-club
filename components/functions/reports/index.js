@@ -6,6 +6,7 @@ export {
   invoiceColumnsExcel,
   digiPointsByPromotionsExel,
   digiPointsByBehaviorExel,
+  digiPointsxVentasColumnsExcel,
   userPerformanceColumnsCsv,
   salesPerformanceColumnsCsv,
   digipointRedemtionColumnsCsv,
@@ -13,5 +14,6 @@ export {
   invoiceColumnsCsv,
   digiPointsByPromotionsCsv,
   digiPointsByBehaviorCsv,
+  digiPointsxVentasColumnsExcelCsv,
 } from "./consts/Columns";
 export { importExcelFunction, importCsvFunction } from "./GenerateFiles";

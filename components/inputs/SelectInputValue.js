@@ -89,6 +89,8 @@ const SelectInputValue = ({
             borderRadius: borderRadiusDataHover,
           },
         },
+
+        rightSection: { pointerEvents: "none" },
       })}
       onChange={(info) => onChange(name, info)}
     />

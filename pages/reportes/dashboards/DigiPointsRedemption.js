@@ -86,7 +86,7 @@ const DigiPointsRedemption = () => {
     label: email,
   }));
 
-  const dataTwo = [...new Set(data.map((user) => user.business_unit))];
+  const dataTwo = [...new Set(data.map((user) => user.ordernumber))];
 
   const dataSelectTwo = dataTwo.map((business) => ({
     value: business,
@@ -97,7 +97,7 @@ const DigiPointsRedemption = () => {
   const filteredUsers = data.filter((user) => {
     if (
       selectTwo &&
-      !user.reseller_partner_rollup
+      !user.ordernumber
         .toLowerCase()
         .includes(selectTwo.toLowerCase())
     ) {
@@ -202,15 +202,14 @@ const DigiPointsRedemption = () => {
         </span>
       </div>
       <div className="grid items-center sm:grid-cols-4 grid-rows-1 gap-3">
-        <SearchInput
-          image={<SearchIcon />}
-          placeHolder={"User Name"}
-          stylesContainer={""}
-          value={searchByInvoice}
-          onChange={(e) => setSearchByInvoice(e.target.value)}
-          stylesInput={
-            "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
-          }
+        <SelectInputValue
+          placeholder={"Request ID"}
+          value={selectTwo}
+          data={dataSelectTwo}
+          icon={<ArrowDown />}
+          onChange={handleSelectTwoChange}
+          name={"business"}
+          searchable={true}
         />
         <SelectInputValue
           placeholder={"Email"}
@@ -219,6 +218,7 @@ const DigiPointsRedemption = () => {
           icon={<ArrowDown />}
           onChange={handleSelectOneChange}
           name={"business"}
+          searchable={true}
         />
         <div className="sm:flex grid sm:grid-cols-3 grid-cols-2 items-center">
         <BtnFilter

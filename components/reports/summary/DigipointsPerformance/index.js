@@ -10,6 +10,7 @@ import {
   getDigiPointPerformance,
 } from "../../../../store/reducers/sales.reducer";
 import { useDispatch, useSelector } from "react-redux";
+import DigiPointsTotal from "./DigiPointsTotal";
 
 const DigipoinstPerformance = () => {
   /* Variables and const */
@@ -22,6 +23,10 @@ const DigipoinstPerformance = () => {
     country: "",
   });
   const [digipointUploaded, setDigipointUploaded] = useState([]);
+  const [totalUpload, setTtotalUpload] = useState(0);
+  const [assignedValue, setAssignedValue] = useState(0);
+  const [redeemedValue, setRedeemedValue] = useState(0);
+
   const [companiesName, setCompaniesName] = useState([]);
   const [countries, setCountries] = useState([]);
   const [regions, setRegions] = useState([]);
@@ -191,6 +196,23 @@ const DigipoinstPerformance = () => {
 
     return Array.from(uniqueValues);
   };
+  const formattedNumber = (numero) => {
+    // Redondear el número hacia abajo para eliminar la parte decimal
+    numero = Math.floor(numero);
+
+    // Convertir el número a cadena de texto
+    let numeroStr = numero.toString();
+
+    // Dividir la cadena en grupos de tres caracteres desde la derecha
+    let grupos = [];
+    while (numeroStr.length > 0) {
+      grupos.unshift(numeroStr.slice(-3));
+      numeroStr = numeroStr.slice(0, -3);
+    }
+
+    // Unir los grupos con comas y retornar el resultado
+    return grupos.join(",");
+  };
 
   /* GET DATA */
   useEffect(() => {
@@ -200,6 +222,8 @@ const DigipoinstPerformance = () => {
 
       /* DIGIPOINTS UPLOADED */
       setDigipointUploaded(res.payload.digipointsUploaded);
+      /* const total = digipointUploaded.reduce((acc, item) => acc + parseInt(item.value, 10), 0);
+      setTtotalUpload(total); */
 
       /* DIGIPOINTS BY STATUS AND REGION PENDING*/
       setDigipointSR({
@@ -224,6 +248,27 @@ const DigipoinstPerformance = () => {
         "Expected"
       );
       setDigipointStatus(mapColorsToData(filerDigipintsStatus, colorsData));
+
+
+      const digipointsByStatusALL = res.payload.digipointsByStatus;
+
+      // Busca el objeto con name igual a "Assigned"
+    const totalItem = digipointsByStatusALL.find(item => item.name === "Digipoints");
+    if (totalItem) {
+      setTtotalUpload(totalItem.value);
+    }
+
+    // Busca el objeto con name igual a "Assigned"
+    const assignedItem = digipointsByStatusALL.find(item => item.name === "Assigned");
+    if (assignedItem) {
+      setAssignedValue(assignedItem.value);
+    }
+
+    // Busca el objeto con name igual a "Redeemed"
+    const redeemedItem = digipointsByStatusALL.find(item => item.name === "Redeemed");
+    if (redeemedItem) {
+      setRedeemedValue(redeemedItem.value);
+    }
 
       /* DIGIPOINTS BY REGION AND AMOUND */
       setDigipointRA({
@@ -260,19 +305,30 @@ const DigipoinstPerformance = () => {
           clearSelects={clearSelects}
         />
       </div>
+      {isDataReady && (
+        <DigiPointsTotal
+          dataLoaded={isDataReady}
+          totalSaleGoal={{
+            expected: totalUpload,
+            reached: assignedValue,
+            progress: redeemedValue,
+          }}
+        />
+      )}
       <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
         <DigipointSection
           dataUploaded={digipointUploaded}
           isDataReady={isDataReady}
           dataSR={digipointSR}
         />
-      </div>
-      <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
         <DigipointRedemptionSection
           dataDigStatus={digipointsStatus}
           isDataReady={isDataReady}
           digipointsRA={digipointsRA}
         />
+      </div>
+      <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
+        
       </div>
     </div>
   );
