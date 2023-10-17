@@ -266,13 +266,14 @@ const DigipoinstPerformance = () => {
           isDataReady={isDataReady}
           dataSR={digipointSR}
         />
-      </div>
-      <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
         <DigipointRedemptionSection
           dataDigStatus={digipointsStatus}
           isDataReady={isDataReady}
           digipointsRA={digipointsRA}
         />
+      </div>
+      <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
+        
       </div>
     </div>
   );

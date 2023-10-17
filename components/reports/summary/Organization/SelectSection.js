@@ -9,6 +9,7 @@ const SelectSection = ({
   region,
   country,
   company,
+  level,
   multiSelect,
   handleFilters,
   filters,
@@ -52,6 +53,18 @@ const SelectSection = ({
         searchable={true}
         onChange={handleFilters}
         name={"country"}
+      />
+      <SelectInputValue
+        placeholder={"Level"}
+        value={filters.level}
+        data={level.map((level) => ({
+          label: level,
+          value: level,
+        }))}
+        icon={<ArrowDown />}
+        searchable={true}
+        onChange={handleFilters}
+        name={"level"}
       />
       {/* <SelectInputValue
         placeholder={"Level"}
