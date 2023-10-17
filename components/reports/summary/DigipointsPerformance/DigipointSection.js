@@ -49,7 +49,7 @@ const DigipointSection = ({
           <div className="lds-dual-ring"></div>
         )}
       </CardChart>
-      <CardChart title={"DigiPoints by Status and Region"} paragraph="">
+      {/* <CardChart title={"DigiPoints by Status and Region"} paragraph="">
         {isDataReady && chartData.length !== 0 ? (
           <StackedHorizontalBarChart
             datas={chartData}
@@ -60,7 +60,7 @@ const DigipointSection = ({
         ) : (
           <div className="lds-dual-ring"></div>
         )}
-      </CardChart>
+      </CardChart> */}
     </>
   );
 };

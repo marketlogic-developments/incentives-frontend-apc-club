@@ -105,6 +105,7 @@ const Organization = () => {
       company_name: "",
       region: "",
       country: "",
+      level: "",
     });
   };
 
@@ -142,6 +143,7 @@ const Organization = () => {
       setRegion(getUniqueFieldValues(res.payload.partners, "region"));
       setCompany(getUniqueFieldValues(res.payload.partners, "organization"));
       setCountry(getUniqueFieldValues(res.payload.partners, "country"));
+      setlevel(getUniqueFieldValues(res.payload.partners, "medal"));
       setIsDataLoading(true);
     });
   }, [filters]);
@@ -153,6 +155,7 @@ const Organization = () => {
           region={region}
           country={country}
           company={company}
+          level={level}
           multiSelect={multiSelect}
           handleFilters={handleFilters}
           clearSelects={clearSelects}

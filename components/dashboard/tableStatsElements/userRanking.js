@@ -8,7 +8,7 @@ const UserRanking = ({ data, index }) => {
       }`}
     >
       <div className="flex xl:gap-6 lg:gap-3">
-        <div class="user bg-[#1473E6] rounded-full w-[35px] h-[35px] flex items-center justify-center">
+        <div class="user bg-[#1473E6] rounded-full w-[35px] h-[35px] min-w-[35px] min-h-[35px] flex items-center justify-center">
           <p class="text-white text-center">{data.names[0]}</p>
         </div>
         <div className="flex flex-col">
@@ -16,7 +16,7 @@ const UserRanking = ({ data, index }) => {
           <p className="!text-xs">{`${data.company} | ${data.region}`}</p>
         </div>
       </div>
-      <div className="whitespace-nowrap"># {data.ranking}</div>
+      <div className="whitespace-nowrap font-bold"># {data.ranking}</div>
     </div>
   );
 };

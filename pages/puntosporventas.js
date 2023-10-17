@@ -14,6 +14,20 @@ import {
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import { AiOutlineSearch } from "react-icons/ai";
+import {
+  importCsvFunction,
+  importExcelFunction,
+  digiPointsxVentasColumnsExcelCsv,
+  digiPointsxVentasColumnsExcel,
+} from "../components/functions/reports";
+import {
+  BtnWithImage,
+  DropDownReport,
+} from "../components";
+import {
+  CloudDownload,
+  UserPerformance as User,
+} from "../components/icons";
 
 const puntosporventas = () => {
   const [t, i18n] = useTranslation("global");
@@ -200,7 +214,7 @@ const puntosporventas = () => {
     setItemOffset(newOffset);
   };
 
-  const importFile = (data) => {
+  /* const importFile = (data) => {
     // const workbook = XLSX.utils.book_new();
     // const sheet = XLSX.utils.json_to_sheet(data);
     // XLSX.utils.book_append_sheet(workbook, sheet, "Sheet1");
@@ -214,7 +228,28 @@ const puntosporventas = () => {
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
       saveAs(blob, "Puntos_por_ventas.csv");
     });
-  };
+  }; */
+
+    /* Download */
+    const importFile = async (currentItems) => {
+      const columns = digiPointsxVentasColumnsExcelCsv(currentItems);
+      const csvConfig = {
+        data: currentItems,
+        columns: columns,
+        downloadTitle: "DigiPoints por ventas",
+      };
+      await importCsvFunction(csvConfig);
+    };
+  
+    const importFileExcel = async (currentItems) => {
+      const excelConfig = {
+        data: currentItems,
+        columns: digiPointsxVentasColumnsExcel,
+        downloadTitle: "DigiPoints por ventas",
+      };
+  
+      await importExcelFunction(excelConfig);
+    };
 
   return (
     <ContainerContent pageTitle={"DigiPoints por ventas"}>
@@ -260,33 +295,36 @@ const puntosporventas = () => {
           </div>
 
           <div className="flex justify-end items-center gap-12 mr-6">
+            <div className="w-full">
             <p
               className="text-info font-bold 2xl:!text-sm cursor-pointer"
               onClick={handleResetFilters}
             >
               Remover filtros
             </p>
-            <div className="flex gap-3 items-center">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 10.5H12.375C14.0938 10.5 15.5 9.83716 15.5 8.13747C15.5 6.43778 13.8438 5.84153 12.5 5.77497C12.2222 3.11684 10.2813 1.49997 8.00003 1.49997C5.84378 1.49997 4.45503 2.93091 4.00003 4.34997C2.12503 4.52809 0.500031 5.47122 0.500031 7.42497C0.500031 9.37872 2.18753 10.5 4.25003 10.5H6.00003M6.00003 12.5031L8.00003 14.5L10 12.5031M8.00003 6.99997V14.0009"
-                  stroke="#1473E6"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <p
-                className="text-info font-bold 2xl:!text-sm cursor-pointer"
-                onClick={() => importFile(filteredUsers)}
-              >
-                {t("digipoints.descargar")}
-              </p>
+            </div>
+            <div className="dropdown w-full">
+                <DropDownReport
+                icon={<CloudDownload />}
+                title={t("Reportes.descargar")}
+                >
+                  <BtnWithImage
+                  text={t("Reportes.descargar") + " csv"}
+                  icon={<CloudDownload />}
+                  styles={
+                  "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+                  }
+                  onClick={() => importFile(data)}
+                  />
+                  <BtnWithImage
+                  text={t("Reportes.descargar") + " excel"}
+                  icon={<CloudDownload />}
+                  styles={
+                  "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+                  }
+                  onClick={() => importFileExcel(data)}
+                  />
+                </DropDownReport>
             </div>
           </div>
         </div>

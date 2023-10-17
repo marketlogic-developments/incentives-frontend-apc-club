@@ -74,6 +74,18 @@ export const userPerformanceColumnsExcel = {
   redenciones_over_total_digipoints: "Total % effectiveness",
 };
 
+export const digiPointsxVentasColumnsExcel = {
+  sales_order: "Invoice",
+  disti_partner_rollup: "Disti Partner Rollup",
+  reseller_partner_rollup: "Reseller Partner Rollup",
+  business_unit: "Business Unit",
+  business_type: "Business Type",
+  materia_sku: "SKU",
+  quarter: "Quarter",
+  max_digipoints_allocate: "DigiPoints",
+  total_sales_us: "Total Sales US",
+};
+
 export const salesPerformanceColumnsExcel = {
   company_id: "Membership ID",
   company_name: "Company Name",
@@ -258,6 +270,27 @@ export const userPerformanceColumnsCsv = (data) => {
   const customHeader = [
     "Adobe Partner Connection Club",
     "User Performance",
+    date(),
+  ];
+  const result = parseData(data, columns, customHeader);
+  return result;
+};
+
+export const digiPointsxVentasColumnsExcelCsv = (data) => {
+  const columns = {
+    sales_order: "Invoice",
+    disti_partner_rollup: "Disti Partner Rollup",
+    reseller_partner_rollup: "Reseller Partner Rollup",
+    business_unit: "Business Unit",
+    business_type: "Business Type",
+    materia_sku: "SKU",
+    quarter: "Quarter",
+    max_digipoints_allocate: "DigiPoints",
+    total_sales_us: "Total Sales US",
+  };
+  const customHeader = [
+    "Adobe Partner Connection Club",
+    "DigiPoints por ventas",
     date(),
   ];
   const result = parseData(data, columns, customHeader);

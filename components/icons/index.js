@@ -1,3 +1,5 @@
+import { fromJS } from "immutable";
+
 export { default as Star } from "./comunicaciones/Star";
 export { default as LaptopToDo } from "./maintenance/LaptopToDo";
 export { default as CodeRocket } from "./maintenance/CodeRocket";
@@ -37,3 +39,5 @@ export { default as Filter } from "./Reportes/Filter";
 export { default as Circle } from "./Reportes/Circle";
 export { default as Check } from "./Reportes/Check";
 export { default as ArrowRight } from "./Reportes/ArrowRight";
+export { default as Upload } from "./Reportes/upload";
+export { default as Redeem } from "./Reportes/Redeem";
