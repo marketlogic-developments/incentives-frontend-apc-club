@@ -54,6 +54,7 @@ const AgregarParticipante = ({ setParticipantes, participantes }) => {
     "Panamá",
     "Paraguay",
     "Perú",
+    "Puerto Rico",
     "República Dominicana",
     "San Cristóbal y Nieves",
     "Santa Lucía",
