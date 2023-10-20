@@ -19,6 +19,7 @@ const UserOptions = ({
   menuUser,
   setMenuUser,
   actionCustomerCare,
+  size,
 }) => {
   const route = useRouter();
   const dispatch = useDispatch();
@@ -140,17 +141,25 @@ const UserOptions = ({
   return (
     <>
       <div
-        className="w-full bg-[#FFFF] absolute top-[65px] right-0 p-4 max-w-[310px] flex flex-col gap-6 items-center mr-6"
+        className="w-full bg-[#FFFF] absolute top-[65px] right-0 p-4 max-w-[310px] flex flex-col gap-6 items-center mr-6 layoutMenuUser"
         style={{
           boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           borderRadius: "10px",
         }}
         ref={componenteRef}
       >
+        {size < 767 && (
+          <span
+            className="text-2xl fixed top-6 right-0 mr-6"
+            onClick={() => setMenuUser(false)}
+          >
+            X
+          </span>
+        )}
         <div className="w-full flex justify-center">
           <div className="w-3/4 justify-center flex flex-col items-center gap-3">
             {/* START */}
-            <div className="relative bg-[#1473E6] rounded-full xl:w-[80px] xl:h-[80px] lg:w-[60px] lg:h-[60px] flex items-center justify-center">
+            <div className="photoProfile relative bg-[#1473E6] rounded-full xl:w-[80px] xl:h-[80px] lg:w-[60px] lg:h-[60px] flex items-center justify-center">
               {user.profilePhotoPath === null ||
               user.profilePhotoPath === "" ||
               user.profilePhotoPath === "noImage" ? (

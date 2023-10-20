@@ -15,7 +15,7 @@ const Menu = ({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       onClick={onClick}
-      className={`cursor-pointer ${styles}`}
+      className={`cursor-pointer mx-6 ${styles}`}
     >
       <path
         d="M3.95312 6.82812H19.0469M3.95312 11.5H19.0469M3.95312 16.1719H19.0469"
