@@ -62,7 +62,7 @@ const InvoiceReport = () => {
   useEffect(() => {
     if (isLoaded && token) {
       setLoading(true);
-      dispatch(getInvoiceReportByUser(token,user.id))
+      dispatch(getInvoiceReportByUser(token, user.id))
         .then((response) => {
           setLoading(false);
           setData(response.payload);
@@ -182,7 +182,7 @@ const InvoiceReport = () => {
   };
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 p-6">
       <div className="grid grid-rows-1">
         <TitleWithIcon
           icon={<UserPerformance />}

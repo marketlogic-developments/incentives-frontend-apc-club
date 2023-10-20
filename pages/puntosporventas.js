@@ -20,14 +20,8 @@ import {
   digiPointsxVentasColumnsExcelCsv,
   digiPointsxVentasColumnsExcel,
 } from "../components/functions/reports";
-import {
-  BtnWithImage,
-  DropDownReport,
-} from "../components";
-import {
-  CloudDownload,
-  UserPerformance as User,
-} from "../components/icons";
+import { BtnWithImage, DropDownReport } from "../components";
+import { CloudDownload, UserPerformance as User } from "../components/icons";
 
 const puntosporventas = () => {
   const [t, i18n] = useTranslation("global");
@@ -230,26 +224,26 @@ const puntosporventas = () => {
     });
   }; */
 
-    /* Download */
-    const importFile = async (currentItems) => {
-      const columns = digiPointsxVentasColumnsExcelCsv(currentItems);
-      const csvConfig = {
-        data: currentItems,
-        columns: columns,
-        downloadTitle: "DigiPoints por ventas",
-      };
-      await importCsvFunction(csvConfig);
+  /* Download */
+  const importFile = async (currentItems) => {
+    const columns = digiPointsxVentasColumnsExcelCsv(currentItems);
+    const csvConfig = {
+      data: currentItems,
+      columns: columns,
+      downloadTitle: "DigiPoints por ventas",
     };
-  
-    const importFileExcel = async (currentItems) => {
-      const excelConfig = {
-        data: currentItems,
-        columns: digiPointsxVentasColumnsExcel,
-        downloadTitle: "DigiPoints por ventas",
-      };
-  
-      await importExcelFunction(excelConfig);
+    await importCsvFunction(csvConfig);
+  };
+
+  const importFileExcel = async (currentItems) => {
+    const excelConfig = {
+      data: currentItems,
+      columns: digiPointsxVentasColumnsExcel,
+      downloadTitle: "DigiPoints por ventas",
     };
+
+    await importExcelFunction(excelConfig);
+  };
 
   return (
     <ContainerContent pageTitle={"DigiPoints por ventas"}>
@@ -296,40 +290,40 @@ const puntosporventas = () => {
 
           <div className="flex justify-end items-center gap-12 mr-6">
             <div className="w-full">
-            <p
-              className="text-info font-bold 2xl:!text-sm cursor-pointer"
-              onClick={handleResetFilters}
-            >
-              Remover filtros
-            </p>
+              <p
+                className="text-info font-bold 2xl:!text-sm cursor-pointer"
+                onClick={handleResetFilters}
+              >
+                Remover filtros
+              </p>
             </div>
             <div className="dropdown w-full">
-                <DropDownReport
+              <DropDownReport
                 icon={<CloudDownload />}
                 title={t("Reportes.descargar")}
-                >
-                  <BtnWithImage
+              >
+                <BtnWithImage
                   text={t("Reportes.descargar") + " csv"}
                   icon={<CloudDownload />}
                   styles={
-                  "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+                    "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
                   }
                   onClick={() => importFile(data)}
-                  />
-                  <BtnWithImage
+                />
+                <BtnWithImage
                   text={t("Reportes.descargar") + " excel"}
                   icon={<CloudDownload />}
                   styles={
-                  "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+                    "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
                   }
                   onClick={() => importFileExcel(data)}
-                  />
-                </DropDownReport>
+                />
+              </DropDownReport>
             </div>
           </div>
         </div>
         <div className="w-full">
-          <div className="overflow-x-auto">
+          <div className="">
             {loading ? (
               <div className="lds-dual-ring"></div>
             ) : (

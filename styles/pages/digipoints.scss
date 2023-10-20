@@ -97,6 +97,11 @@
 }
 
 .tableJustify {
+  @media (max-width: 767px) {
+    display: block;
+    overflow-x: scroll;
+  }
+
   th,
   td {
     padding-left: 1.5rem;
