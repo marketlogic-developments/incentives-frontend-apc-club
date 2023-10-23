@@ -259,3 +259,18 @@ figure {
   animation-iteration-count: infinite;
   animation-timing-function: ease;
 }
+
+@media (max-width: 767px) {
+  .digiCards {
+    height: 73vh;
+
+    p {
+      font-size: 1rem !important;
+      min-width: 160px;
+    }
+  }
+
+  .responsiveSections {
+    height: 75vh;
+  }
+}

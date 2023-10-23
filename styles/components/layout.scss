@@ -14,7 +14,7 @@
     /* Pantalla móvil */
     @media (max-width: 767px) {
       width: 100%;
-      justify-content: center;
+      // overflow: hidden;
     }
 
     .containerLayout {
@@ -32,16 +32,16 @@
       /* Pantalla móvil */
       @media (max-width: 767px) {
         display: var(--showmenu);
-        position: absolute;
+        position: fixed;
         padding: 10;
-        height: 100%;
-        width: 100%;
+        height: 100vh;
+        width: 60%;
         .containerRedirections {
           width: 100%;
           display: flex;
           flex-direction: column;
           max-height: 580px;
-  
+
           .containerItemLayout {
             .itemLayout {
               display: flex;
@@ -54,33 +54,32 @@
               border-radius: 50px;
               padding: 8px;
               color: #000000;
-  
+
               p {
                 text-align: left;
                 text-shadow: 0px 0px 1px $primaryColorWhite;
                 font-size: 13px;
                 z-index: 2;
+                width: 50px;
               }
-  
+
               &:hover {
                 transition: all;
                 transition-duration: 0.2s;
                 background-color: #ffeeed;
-  
+
                 p {
                   font-weight: bold;
                   color: $primaryColorRed;
                 }
-  
               }
               svg {
-                stroke: $primaryColorRed;
                 fill: transparent;
                 stroke-width: 1;
                 margin: 0;
               }
             }
-  
+
             .itemLayoutSelect {
               display: flex;
               align-items: center;
@@ -94,14 +93,14 @@
               padding: 8px;
               color: $primaryColorWhite;
               font-weight: bold;
-  
+
               p {
                 text-align: left;
                 font-weight: bold;
                 font-size: 13px;
                 color: $primaryColorRed;
               }
-  
+
               svg {
                 stroke: $primaryColorRed;
                 fill: transparent;
@@ -109,7 +108,6 @@
                 margin: 0;
               }
             }
-
           }
         }
       }
@@ -754,6 +752,36 @@
     background-color: #25d366;
     .iconWhatsApp {
       stroke: #fff;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .menuShoppingCar {
+    width: 100%;
+
+    p {
+      font-size: 1rem !important;
+    }
+  }
+
+  .layoutMenuUser {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    z-index: 30;
+    margin: 0;
+    justify-content: center;
+
+    p {
+      font-size: 0.8rem !important;
+    }
+
+    .photoProfile {
+      width: 80px;
+      height: 80px;
     }
   }
 }

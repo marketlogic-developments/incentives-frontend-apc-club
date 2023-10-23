@@ -56,7 +56,6 @@ const ModalSwitchUser = ({ opened, setOpened }) => {
 
   const companyIdentify = (data) => {
     if (data.companyId) {
-      console.log(data);
       return data.company?.name;
     }
 

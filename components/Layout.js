@@ -1037,13 +1037,17 @@ const Layout = ({ children }) => {
               }}
             >
               <div className="flex flex-col py-6 gap-6 h-full">
-                {<MenuLines
-                  onClick={() => {
-                    setShowMenu(!showMenu);
-                  }}
-                  switchUser={typeof dataSession.prevData === "object" && true}
-                  styles={showMenu ? '' : 'hidden'}
-                />}
+                {
+                  <MenuLines
+                    onClick={() => {
+                      setShowMenu(!showMenu);
+                    }}
+                    switchUser={
+                      typeof dataSession.prevData === "object" && true
+                    }
+                    styles={showMenu ? "" : "hidden"}
+                  />
+                }
                 <div className="flex flex-col gap-6 px-6">
                   <div
                     className="logoAdobe cursor-pointer"
@@ -1233,35 +1237,24 @@ const Layout = ({ children }) => {
                       </div>
                     )}
                     {screen < 639 && (
-                      <div className="sm:invisible visible cursor-pointer">
+                      <div className="sm:invisible visible cursor-pointer none">
                         <Bell />
                       </div>
                     )}
                   </div>
                 </div>
-                <div className="pt-1">{children}</div>
+                <div className="pt-1 overflow-hidden">{children}</div>
 
                 {screen < 639 && (
                   <div className="sticky bottom-0 w-full border-t-2 object-bottom">
-                    <div className="navbar grid grid-cols-3 justify-items-center bg-white">
+                    <div className="navbar grid grid-cols-2 justify-items-center bg-white">
                       <div
                         className="shoopingMarket cursor-pointer"
-                        onClick={() => {
-                          router.push("/shoppingCar");
-                        }}
+                        onClick={() => dispatch(setMenuMarket(!menuMarket))}
                       >
                         <ShoppingCard />
                       </div>
-                      <div>
-                        <Megaphone />
-                      </div>
-                      <div
-                        className=""
-                        onClick={() => {
-                          setModal(1);
-                          setOpened(true);
-                        }}
-                      >
+                      <div className="" onClick={() => setMenuUser(!menuUser)}>
                         {profileImage}
                       </div>
                     </div>
@@ -1269,6 +1262,17 @@ const Layout = ({ children }) => {
                 )}
               </div>
               {menuMarket && <MenuMarket />}
+              {screen < 767 && menuUser && (
+                <UserOptions
+                  user={userRedux}
+                  token={token}
+                  logout={logout}
+                  menuUser={menuUser}
+                  setMenuUser={setMenuUser}
+                  actionCustomerCare={actionCustomerCare}
+                  size={screen}
+                />
+              )}
               {screen > 639 && (
                 <a
                   href="https://api.whatsapp.com/send?phone=5715800310&text=Hola,%20Necesito%20informacion%20sobre"

@@ -121,7 +121,7 @@ const MenuMarket = () => {
         <ModalTY setOpened={setOpened} ref={componenteRef} />
       </Modal>
       <div
-        className="w-[31.7%] bg-[#ffff] border right-0 h-screen fixed top-0 p-6 flex flex-col gap-6 z-[2]"
+        className="w-[31.7%] bg-[#ffff] border right-0 h-screen fixed top-0 p-6 flex flex-col gap-6 z-[2] menuShoppingCar"
         ref={componenteRef}
       >
         <div className="flex justify-between items-center">

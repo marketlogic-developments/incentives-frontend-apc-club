@@ -195,7 +195,7 @@ const MakeTeam = () => {
           setOpened={setOpened}
         />
       </Modal>
-      <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
+      <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white responsiveSections">
         <div className="w-full grid grid-cols-3 gap-1 mb-4">
           <div className="relative">
             <div className="absolute flex items-center ml-4 h-full">
