@@ -125,7 +125,7 @@ const handlePageClick = (event) => {
             generalRowStyles={"text-left py-3 mx-7"}
             paginate={true}
             currentItems={currentItems}
-            sumColum={true}
+            sumColum={false}
             pageCount={pageCount}
             handlePageClick={handlePageClick}
             totalTableStyles={"text-green-400 text-left text-lg font-bold"}
