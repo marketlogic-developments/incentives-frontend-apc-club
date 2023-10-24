@@ -146,8 +146,6 @@ const howtowin = ({ htws }) => {
       ? dataHTW.pointsResellers.quantity
       : dataHTW.pointsDist.quantity;
 
-  console.log(dataHTW);
-
   useEffect(() => {
     if (user.companyId === null) {
       setCopy({
@@ -213,6 +211,7 @@ const howtowin = ({ htws }) => {
               </svg>
             </div>
             <div className="flex flex-col justify-end gap-3 px-3">
+              <p className="text-xs text-[#cccccc]">DD/MM/AAAA</p>
               <Select
                 value={dataHTW}
                 data={htws.map((data) => {
@@ -332,6 +331,13 @@ const howtowin = ({ htws }) => {
               </>
             ))}
           </div>
+        </div>
+        <div className="w-full justify-center flex flex-col items-center">
+          <p className="font-bold">
+            <span className="font-bold text-[#eb1000]">{t("htw.pr1")}</span>{" "}
+            TEAMS * ENTERPRISE * EDUCATION
+          </p>
+          <p className="italic text-sm">{t("htw.pr2")}</p>
         </div>
       </div>
     </ContainerContent>

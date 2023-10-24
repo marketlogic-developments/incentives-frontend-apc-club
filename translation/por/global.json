@@ -418,7 +418,9 @@
     "l3": "Licenças do Teams",
     "l4": "Licenças SDL/Named",
     "l5": "Licenças SLP",
-    "actual": "atual"
+    "actual": "atual",
+    "pr1": "PRODUTOS PARTICIPANTES:",
+    "pr2": "(Não serão concedidos DigiPoints para Single App)"
   },
   "releases": {
     "vip": "Por que usar o VIP Marketplace?",
