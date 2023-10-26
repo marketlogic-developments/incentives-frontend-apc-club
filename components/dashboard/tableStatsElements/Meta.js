@@ -7,7 +7,7 @@ const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
     <div className="flex flex-col w-full p-6 gap-6 targetDashboard">
       <div className="flex justify-between">
         <div>
-          <h2 className="font-bold 2xl:text-xl">Meta partners</h2>
+          <h2 className="font-bold 2xl:text-xl">Goal partners</h2>
         </div>
         <div className="min-h-[45px] flex items-top">
           {goal !== 0 && (
