@@ -176,7 +176,7 @@ const user = () => {
     <>
       <ContainerContent pageTitle={"Ajustes de perfil"}>
         <div className="flex flex-col">
-          <div className="w-full gap-5 flex bg-white rounded-lg shadow-xl overflow-hidden ring-slate-900/5 p-5">
+          <div className="w-full gap-5 flex lg:flex-row flex-col bg-white rounded-lg shadow-xl overflow-hidden ring-slate-900/5 p-5">
             <UserPhoto formData={formData} />
             <div className="flex flex-col description gap-3 justify-center">
               <h1 className="font-bold text-3xl">
@@ -211,198 +211,9 @@ const user = () => {
               </div>
             </div>
           </div>
-          {/* <form
-            className="flex flex-col gap-5 items-center"
-            onSubmit={handleSubmit}
-          >
-            <div className="w-full flex justify-between">
-              <div className="containerProgress">
-                <div
-                  className="circular-progress"
-                  style={{
-                    "--progress": `${nInputs * 3.6}deg`,
-                  }}
-                >
-                  <div className="flip-card-imgPhoto">
-                    <div className="flip-card-inner-imgPhoto">
-                      <div className="flip-card-front-imgPhoto">
-                        <figure className="imgPhoto">
-                          <img
-                            src={
-                              formData.imgProfile === null ||
-                                formData.imgProfile === "" ||
-                                formData.imgProfile === "noImage"
-                                ? "/assets/Icons/user.webp"
-                                : formData.imgProfile
-                            }
-                          />
-                        </figure>
-                      </div>
-                      <div className="flip-card-back-imgPhoto">
-                        <p className="title-imgPhoto">{nInputs}%</p>
-                        <p>del porcentaje de tu perfil</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="btn btn-primary"
-                  onClick={() => {
-                    setModal(1);
-                    setOpened(true);
-                  }}
-                >
-                  {t("user.cambiarFoto")} foto de perfil
-                </div>
-              </div>
-              <div className="w-4/6 flex items-center">
-                <div className="w-full grid grid-cols-2 h-fit">
-                  <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                      <span className="label-text">{t("user.nombre")}</span>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs border border-accent"
-                      name="names"
-                      value={formData.names}
-                      onChange={handleChange}
-                      onBlur={handleChangeInputs}
-                      required
-                    />
-                  </div>
-                  <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                      <span className="label-text">{t("user.apellido")}</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="lastname"
-                      placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs border border-accent"
-                      value={formData.lastname}
-                      onChange={handleChange}
-                      required
-                      onBlur={handleChangeInputs}
-                    />
-                  </div>
-                  <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                      <span className="label-text">{t("user.correo1")}</span>
-                    </label>
-                    <span
-                      type="text"
-                      placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs p-3 border"
-                    >
-                      {formData.email}
-                    </span>
-                  </div>
-                  <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                      <span className="label-text">{t("user.rol")}</span>
-                    </label>
-                    <span
-                      type="text"
-                      placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs p-3"
-                    >
-                      {formData.role === 1
-                        ? "SuperAdmin"
-                        : formData.role === 2
-                          ? "Partner Principal"
-                          : formData.role === 3
-                            ? "Partner Admin"
-                            : formData.role === 5
-                              ? "Sales Rep"
-                              : ""}
-                    </span>
-                  </div>
-                  <div className="form-control w-full max-w-xs py-10">
-                    <span
-                      className="btn btn-primary"
-                      onClick={() => {
-                        setModal(2);
-                        setOpened(true);
-                      }}
-                    >
-                      {t("dashboard.cambiarpass")}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="w-full flex flex-col">
-              <div className="p-5">
-                <h2 className="font-bold">{t("user.informacionpersonal")}</h2>
-              </div>
-              <div className="w-full flex items-center">
-                <div className="w-full grid grid-cols-3 h-fit gap-y-5">
-                  <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                      <span className="label-text">{t("user.region")}</span>
-                    </label>
-                    <span
-                      type="text"
-                      placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs p-3"
-                    >
-                      {formData.region}
-                    </span>
-                  </div>
-                  <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                      <span className="label-text">{t("user.posicion")}</span>
-                    </label>
-                    <span
-                      type="text"
-                      placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs p-3"
-                    >
-                      {formData.position}
-                    </span>
-                  </div>
-                  <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                      <span className="label-text">{t("user.cel")}</span>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder={t("user.escriba")}
-                      className="input input-ghost w-full max-w-xs border border-accent"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      name="phone"
-                      required
-                      onBlur={handleChangeInputs}
-                    />
-                  </div>
-                  <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                      <span className="label-text">
-                        {t("user.FechaNacimiento")}
-                      </span>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="AAAA-MM-DD"
-                      className="input input-ghost w-full max-w-xs border border-accent"
-                      value={formData.birthDate}
-                      onChange={handleChange}
-                      name="birthDate"
-                      required
-                      onBlur={handleChangeInputs}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button className="btn btn-primary w-2/4">{t("user.boton")}</button>
-          </form> */}
         </div>
-        <div className="flex flex-row">
-          <div className="w-1/4 gap-5 flex p-5">
+        <div className="flex lg:flex-row flex-col">
+          <div className="lg:w-1/4 w-full gap-5 flex p-5">
             <div className="containerItemLayoutUser flex flex-col gap-y-3">
               <div
                 className={!menu ? "itemLayoutSelect" : "itemLayout"}
@@ -473,7 +284,7 @@ const user = () => {
             </div>
           </div>
           {!menu && (
-            <div className="w-3/4 gap-5 flex flex-col p-5">
+            <div className="lg:w-3/4 w-full gap-5 flex flex-col p-5">
               <div className="w-full flex description">
                 <div className="w-full flex justify-between">
                   <h2 className="font-bold">{t("user.informacionpersonal")}</h2>
@@ -512,7 +323,7 @@ const user = () => {
                   onSubmit={handleSubmit}
                 >
                   <div className="w-full flex justify-between">
-                    <div className="w-4/6 flex items-center">
+                    <div className="lg:w-4/6 w-full flex items-center">
                       <div className="w-full h-fit">
                         <div className="form-control w-full">
                           <label className="label">
@@ -679,7 +490,7 @@ const user = () => {
                   {editInfo && (
                     <div className="w-full flex flex-row gap-x-4">
                       <button
-                        className="btn bg-gray-300 hover:bg-black border-none w-1/4"
+                        className="btn bg-gray-300 hover:bg-black border-none lg:w-1/4 w-1/2"
                         onClick={(e) => {
                           e.preventDefault();
                           setEditInfo(!editInfo);
@@ -687,7 +498,7 @@ const user = () => {
                       >
                         Cancelar
                       </button>
-                      <button className="btn btn-info hover:bg-black w-1/4">
+                      <button className="btn btn-info hover:bg-black lg:w-1/4 w-1/2">
                         Guardar cambios
                       </button>
                     </div>
@@ -697,13 +508,13 @@ const user = () => {
             </div>
           )}
           {menu && (
-            <div className="w-3/4 gap-5 flex flex-col p-5">
+            <div className="lg:w-3/4 w-full gap-5 flex flex-col p-5">
               <div className="w-full flex description">
                 <div className="w-full flex justify-between">
                   <h2 className="font-bold">{t("dashboard.cambiarpass")}</h2>
                 </div>
               </div>
-              <div className="w-4/6 flex items-center">
+              <div className="lg:w-4/6 w-full flex items-center">
                 <ModalPassword setOpened={setOpened} />
               </div>
             </div>

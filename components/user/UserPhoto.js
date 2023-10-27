@@ -94,12 +94,12 @@ const UserPhoto = ({ formData }) => {
   };
 
   return (
-    <div className="photo relative min-w-[110px] flex">
+    <div className="photo relative min-w-[110px] flex justify-center">
       {formData.imgProfile === null ||
       formData.imgProfile === "" ||
       formData.imgProfile === "noImage" ? (
         <>
-          <div class="absolute h-full w-full flex justify-end items-end">
+          <div class="absolute h-full lg:w-full w-1/2 flex justify-end items-end">
             <label
               className="btn btn-circle btn-sm bg-gray-300	border-none hover:bg-gray-400 drop-shadow-lg text-black"
               onClick={openFileInput}
@@ -137,9 +137,9 @@ const UserPhoto = ({ formData }) => {
               </svg>
             </label>
           </div>
-          <div className="h-full bg-info rounded-full aspect-square">
+          <div className="h-full lg:w-full w-1/2 bg-info rounded-full aspect-square">
             <div className="w-full h-full justify-center items-center flex font-bold !text-xl text-white">
-              <p>{user.name[0]}</p>
+              <p className="!text-5xl lg:!text-2xl">{user.name[0]}</p>
             </div>
           </div>
         </>

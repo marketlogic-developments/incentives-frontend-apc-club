@@ -98,7 +98,7 @@ const catalogo = () => {
 
   return (
     <div className="flex flex-col gap-4 p-2">
-      <div className="flex justify-between">
+      <div className="flex lg:flex-row flex-col justify-between gap-6">
         <div className="flex flex-col gap-6">
           <h2 className="font-bold lg:!text-xl xl:!text-2xl 2xl:!text-3xl">
             {t("dashboard.Hola")}, {user.name}
@@ -107,7 +107,7 @@ const catalogo = () => {
             {t("adobeMarket.gana")}
           </p>
         </div>
-        <div className="w-1/4 flex items-end">
+        <div className="lg:w-1/4 w-1/2 flex items-end">
           <div className="relative flex w-full">
             <input
               className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full bg-[]"
@@ -122,7 +122,7 @@ const catalogo = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-between">
+      <div className="flex flex-col lg:flex-row justify-between">
         <div className="flex gap-6 items-center">
           <p className="font-bold lg:!text-base xl:!text-lg 2xl!text-xl">
             {arrayAwards.length} Gift Cards
@@ -183,7 +183,7 @@ const catalogo = () => {
         {!loading && (
           <>
             <div className="w-full">
-              <div className="w-full grid grid-cols-3 place-items-center gap-6">
+              <div className="w-full grid lg:grid-cols-3 place-items-center gap-6">
                 {currentItems.map((info) => (
                   <CardMarket
                     key={info.id}

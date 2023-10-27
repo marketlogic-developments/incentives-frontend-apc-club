@@ -255,9 +255,9 @@ const ModalPassword = ({ setOpened }) => {
         <button
           className={`btn ${
             allValid && passwordMatch === confirmPasswordMatch
-              ? "btn btn-info hover:bg-black w-1/4"
-              : "btn-active btn-ghost pointer-events-none w-1/4"
-          }`}
+              ? "btn btn-info hover:bg-black "
+              : "btn-active btn-ghost pointer-events-none "
+          } lg:w-1/4 w-full`}
         >
           {t("dashboard.cambiarpass")}
         </button>

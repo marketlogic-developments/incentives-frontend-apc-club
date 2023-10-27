@@ -121,7 +121,7 @@ const CardMarket = ({ info }) => {
             <div className="flex flex-col gap-3">
               <div className="flex justify-between">
                 <div className="flex flex-col gap-3">
-                  <p className="2xl:!text-lg font-bold">
+                  <p className="!text-lg font-bold">
                     {info.name.split(" ")[0]} Gift Card
                   </p>
                   <div className="flex gap-2">
@@ -140,7 +140,7 @@ const CardMarket = ({ info }) => {
                         stroke-linejoin="round"
                       />
                     </svg>
-                    <p className="font-thin xl:!text-sm lg:!text-xs">
+                    <p className="font-thin xl:!text-sm lg:!text-xs !text-sm">
                       {info.digipoints} DigiPoints
                     </p>
                   </div>
@@ -169,7 +169,7 @@ const CardMarket = ({ info }) => {
                       />
                     </svg>
                   </button>
-                  <p className="xl:!text-sm text-primary"> {counter} </p>
+                  <p className="!text-sm text-primary"> {counter} </p>
                   <button
                     onClick={() => counter !== 0 && setCounter(counter - 1)}
                   >

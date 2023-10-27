@@ -337,7 +337,6 @@ const howtowin = ({ htws }) => {
             <span className="font-bold text-[#eb1000]">{t("htw.pr1")}</span>{" "}
             TEAMS * ENTERPRISE * EDUCATION
           </p>
-          <p className="italic text-sm">{t("htw.pr2")}</p>
         </div>
       </div>
     </ContainerContent>
