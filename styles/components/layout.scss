@@ -33,8 +33,9 @@
       @media (max-width: 767px) {
         display: var(--showmenu);
         position: fixed;
-        padding: 10;
-        height: 100vh;
+        bottom: 0;
+        padding: 10px;
+        height: 92.5vh;
         width: 60%;
         .containerRedirections {
           width: 100%;
