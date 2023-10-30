@@ -196,7 +196,7 @@ const MakeTeam = () => {
         />
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white responsiveSections">
-        <div className="w-full grid grid-cols-3 gap-1 mb-4">
+        <div className="w-full lg:grid lg:grid-cols-3 lg:gap-1 gap-6 mb-4 flex flex-col">
           <div className="relative">
             <div className="absolute flex items-center ml-4 h-full">
               <img
@@ -215,7 +215,7 @@ const MakeTeam = () => {
           </div>
           <div className="relative">
             <select
-              className="block px-4 py-3 w-max rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+              className="block px-4 py-3 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm w-full lg:w-max"
               onChange={(e) => setSelectDate(e.target.value)}
             >
               <option value="">{t("tabla.ordenarFecha")}</option>

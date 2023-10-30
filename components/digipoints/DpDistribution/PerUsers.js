@@ -178,10 +178,10 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
           </div>
         </div>
       </div>
-      <div className="relative w-full flex justify-center justify-around mt-auto mb-6">
+      <div className="relative w-full flex lg:flex-row flex-col-reverse justify-center justify-around mt-auto mb-6 gap-4 lg:gap-0">
         <button
           type="cancel"
-          className="btn btn-cancel w-48"
+          className="btn btn-cancel lg:w-48 w-full"
           onClick={() => {
             setOpened(false);
           }}
@@ -189,7 +189,7 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
           {t("modalEquipos.cancelar")}
         </button>
         <button
-          className="btn btn-info w-48"
+          className="btn btn-cancel lg:w-48 w-full"
           onClick={handleAssign}
           disabled={loading}
         >

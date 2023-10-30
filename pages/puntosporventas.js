@@ -247,10 +247,10 @@ const puntosporventas = () => {
 
   return (
     <ContainerContent pageTitle={"DigiPoints por ventas"}>
-      <div className="mt-6 flex flex-col gap-10">
-        <div className="w-full grid grid-cols-2 gap-4 ">
-          <div className="flex gap-6">
-            <div className="relative flex w-1/2">
+      <div className="m-6 flex flex-col gap-10">
+        <div className="w-full lg:grid lg:grid-cols-2 flex flex-col gap-4 ">
+          <div className="flex gap-6 lg:flex-row flex-col">
+            <div className="relative flex lg:w-1/2 w-full">
               <input
                 className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
                 type="text"
@@ -265,7 +265,7 @@ const puntosporventas = () => {
             <select
               value={emailFilter}
               onChange={handleEmailFilterChange}
-              className="select select-bordered w-1/3 bg-[#F4F4F4]"
+              className="select select-bordered lg:w-1/3 w-full bg-[#F4F4F4]"
             >
               <option value="">{t("organizacion.organizacion")}</option>
               {uniqueEmails.map((email) => (
@@ -288,10 +288,10 @@ const puntosporventas = () => {
             </select>
           </div>
 
-          <div className="flex justify-end items-center gap-12 mr-6">
+          <div className="flex justify-end items-center gap-12 lg:mr-6">
             <div className="w-full">
               <p
-                className="text-info font-bold 2xl:!text-sm cursor-pointer"
+                className="text-info font-bold 2xl:!text-sm cursor-pointer !text-base"
                 onClick={handleResetFilters}
               >
                 Remover filtros

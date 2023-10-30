@@ -217,8 +217,8 @@ const DigipointsDistribution = () => {
         />
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
-        <div className="w-full flex gap-1 mb-4 justify-between">
-          <div className="lg:w-full xl:w-2/3 flex gap-3 items-center">
+        <div className="w-full flex lg:flex-row flex-col lg:gap-1 gap-3 mb-4 justify-between">
+          <div className="lg:w-full xl:w-2/3 flex lg:flex-row flex-col gap-3 items-center">
             <div className="relative flex w-full">
               <input
                 className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
@@ -231,7 +231,7 @@ const DigipointsDistribution = () => {
                 <AiOutlineSearch color="#eb1000" />
               </div>
             </div>
-            <div className="flex gap-5 w-full">
+            <div className="flex lg:flex-row flex-col gap-5 w-full">
               <select
                 name="date"
                 onChange={handleFilters}

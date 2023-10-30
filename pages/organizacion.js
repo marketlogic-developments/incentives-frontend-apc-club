@@ -109,8 +109,8 @@ const organizacion = () => {
     <>
       <ContainerContent pageTitle={t("menu.Participantes")} style>
         <div className="flex flex-col">
-          <div className="shadow-xl w-full px-6 py-10 flex gap-6 rounded-lg">
-            <div>
+          <div className="shadow-xl w-full px-6 py-10 flex flex-col lg:flex-row gap-6 rounded-lg">
+            <div className="flex w-full justify-center lg:w-auto">
               <svg
                 width="112"
                 height="112"
@@ -134,10 +134,10 @@ const organizacion = () => {
             </div>
             <div className="flex flex-col gap-2 justify-around">
               <div>
-                <p className="2xl:!text-3xl font-bold">
+                <p className="2xl:!text-3xl font-bold !text-base">
                   {company.name || company.nameDist}
                 </p>
-                <p className="text-base">{user.position}</p>
+                <p className="!text-base">{user.position}</p>
               </div>
               <div className="flex gap-6">
                 {objects
