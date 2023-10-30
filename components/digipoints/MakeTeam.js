@@ -223,13 +223,13 @@ const MakeTeam = () => {
               <option value="downUp">{t("tabla.antiguoR")}</option>
             </select>
           </div>
-          <div className="relative justify-items-center grid grid-flow-col">
+          <div className="relative justify-items-center lg:grid lg:grid-flow-col flex flex-col-reverse lg:gap-0 gap-5">
             <div
               className="flex items-center ml-4 h-full gap-1"
               onClick={dowloadTeams}
             >
               <img src="/assets/Icons/download.png" alt="search" />
-              <p className="text-[#1473E6] font-semibold cursor-pointer textShadowHTW">
+              <p className="text-[#1473E6] font-semibold cursor-pointer textShadowHTW !text-base">
                 {t("digipoints.descargar")}
               </p>
             </div>
