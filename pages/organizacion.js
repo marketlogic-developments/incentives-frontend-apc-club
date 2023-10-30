@@ -108,7 +108,7 @@ const organizacion = () => {
   return (
     <>
       <ContainerContent pageTitle={t("menu.Participantes")} style>
-        <div className="flex flex-col">
+        <div className="flex flex-col mx-6">
           <div className="shadow-xl w-full px-6 py-10 flex flex-col lg:flex-row gap-6 rounded-lg">
             <div className="flex w-full justify-center lg:w-auto">
               <svg
