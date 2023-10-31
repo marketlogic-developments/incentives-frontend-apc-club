@@ -31,7 +31,7 @@ const Videos10 = ({ dataContentfulVideos = [] }) => {
             {t("comunicado.titleVideos2")}{" "}
             <span className="text-red-600">APC CLUB</span>
           </h2>
-          <div className="grid grid-cols-3 w-full pt-6">
+          <div className="grid lg:grid-cols-3 w-full pt-6">
             {dataContentfulVideos
               .sort((a, b) => {
                 if (a.title < b.title) {
