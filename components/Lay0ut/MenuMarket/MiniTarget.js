@@ -17,7 +17,7 @@ const MiniTarget = ({ cardInfo }) => {
 
   return (
     <div
-      className={`w-[102.52px] h-[59px] rounded-lg p-2`}
+      className={`w-[102.52px] lg:h-[59px] h-[70px] rounded-lg p-2`}
       style={{ backgroundColor: backgroundColorCard() }}
     >
       <div>

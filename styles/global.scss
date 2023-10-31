@@ -25,10 +25,10 @@
 
 @import url("https://themes.googleusercontent.com/fonts/css?kit=-lTUqgJg2dxbe4D7B5DEICbzagQlgiMMTcfwSOywUzOVy0IPMoomNyLqSxNaFeOc");
 
-@import "primereact/resources/themes/lara-light-indigo/theme.css";     
-    
+@import "primereact/resources/themes/lara-light-indigo/theme.css";
+
 //core
-@import "primereact/resources/primereact.min.css";  
+@import "primereact/resources/primereact.min.css";
 
 * {
   margin: 0;
@@ -59,19 +59,19 @@
   }
 
   .p-checkbox-box:checked {
-    background-color: #FCA5A5 !important;
-    background: #FCA5A5 !important;
+    background-color: #fca5a5 !important;
+    background: #fca5a5 !important;
     border-color: #cccccc !important;
   }
 
   .p-checkbox .p-checkbox-box.p-highlight {
-    border-color: #FCA5A5 !important;
-    background: #FCA5A5 !important;
+    border-color: #fca5a5 !important;
+    background: #fca5a5 !important;
   }
-  
+
   .p-checkbox-box:hover {
-    border-color: #FCA5A5 !important;
-    background-color: #EF4444 !important;
+    border-color: #fca5a5 !important;
+    background-color: #ef4444 !important;
   }
 
   .custom-multiselect-token .p-checkbox-box {
@@ -80,33 +80,33 @@
   }
 
   .custom-multiselect-token .p-checkbox-box:hover {
-    border-color: #FCA5A5 !important;
+    border-color: #fca5a5 !important;
   }
-  
+
   /* Estilo de hover para el checkbox seleccionado */
   .custom-multiselect-token.p-highlight:hover .p-checkbox-box {
-    background-color: #EF4444 !important;
+    background-color: #ef4444 !important;
     border: none !important;
   }
 
   .custom-multiselect-token.p-highlight .p-checkbox-box {
-    background-color: #FCA5A5 !important;
-    border-color: #FCA5A5 !important;
+    background-color: #fca5a5 !important;
+    border-color: #fca5a5 !important;
   }
-  
+
   /* Estilo personalizado para el icono de verificación dentro del checkbox */
   .custom-multiselect-token.p-checkbox-icon {
-    color: #FFFFFF;
+    color: #ffffff;
   }
-  
+
   /* Estilo del icono de verificación del checkbox seleccionado */
   .custom-multiselect-token.p-highlight .p-checkbox-icon {
-    color: #FFFFFF;
+    color: #ffffff;
   }
 
   /* Estilo de las opciones seleccionadas */
   .custom-multiselect-option.p-highlight {
-    background-color: #FEE2E2 !important;
+    background-color: #fee2e2 !important;
     border: 1px solid #f58686 !important;
   }
 
@@ -558,5 +558,14 @@
     .vp-center {
       display: none;
     }
+  }
+}
+
+.mantine-Carousel-indicators {
+  @media (max-width: 767px) {
+    position: static;
+    background-color: rgb(147 143 143 / 38%);
+    padding: 0.5rem;
+    // overflow: hidden;
   }
 }

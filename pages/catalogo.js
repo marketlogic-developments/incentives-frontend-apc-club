@@ -122,8 +122,8 @@ const catalogo = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between">
-        <div className="flex gap-6 items-center">
+      <div className="flex flex-col lg:flex-row justify-between lg:gap-0 gap-6">
+        <div className="flex gap-6 items-center lg:justify-start justify-center">
           <p className="font-bold lg:!text-base xl:!text-lg 2xl!text-xl">
             {arrayAwards.length} Gift Cards
           </p>
@@ -137,7 +137,7 @@ const catalogo = () => {
             })}
           </select>
         </div>
-        <div className="flex gap-3 mr-3 cursor-pointer items-center">
+        <div className="flex gap-3 mr-3 cursor-pointer items-center lg:justify-start justify-center">
           <svg
             width="18"
             height="18"
@@ -168,7 +168,7 @@ const catalogo = () => {
             />
           </svg>
           <p
-            className="font-bold lg:!text-xs xl:!text-sm 2xl:!text-base text-info"
+            className="font-bold lg:!text-xs xl:!text-sm 2xl:!text-base text-info !text-base"
             onClick={() => {
               route.push("/estadoProducto");
             }}

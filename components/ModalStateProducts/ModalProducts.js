@@ -58,7 +58,7 @@ const ModalProducts = ({ data }) => {
   return (
     <div className="flex flex-col gap-5 w-[90%] mx-auto">
       <div>
-        <p className="font-bold text-base py-5">
+        <p className="font-bold !text-base py-5">
           {t("estadoProducto.seguimiento")}
         </p>
 
@@ -93,7 +93,7 @@ const ModalProducts = ({ data }) => {
                   stroke-linejoin="round"
                 />
               </svg>
-              <p className="font-bold">{t("estadoProducto.oRecibida")}</p>
+              <p className="font-bold ">{t("estadoProducto.oRecibida")}</p>
             </div>
             <div className="w-28 flex justify-center flex-col items-center">
               <svg
@@ -139,7 +139,7 @@ const ModalProducts = ({ data }) => {
                   stroke-linejoin="round"
                 />
               </svg>
-              <p className="font-bold whitespace-nowrap">
+              <p className="font-bold lg:whitespace-nowrap text-center">
                 {t("estadoProducto.oProceso")}
               </p>
             </div>
@@ -174,7 +174,7 @@ const ModalProducts = ({ data }) => {
               <p className="font-bold">{t("estadoProducto.oenviada")}</p>
             </div>
           </div>
-          <div className="w-[78%] mx-auto">
+          <div className="lg:w-[78%] w-full mx-auto">
             <StyledStepper active={active}>
               <Stepper.Step label="Step 1" description="Recibido" />
               <Stepper.Step label="Step 2" description="Aprobado" />
