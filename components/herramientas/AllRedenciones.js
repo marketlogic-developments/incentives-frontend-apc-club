@@ -70,9 +70,16 @@ const AllRedenciones = () => {
 
       const productos = item.productsobject
         .map((product) => {
-          return product.name;
+          return (
+            product.name +
+            `(Q:${product.quantity},DP:${
+              product.quantity * product.digipoints
+            })`
+          );
         })
         .join(", ");
+
+      console.log(productos);
 
       return {
         nombre: item.name,
@@ -88,14 +95,14 @@ const AllRedenciones = () => {
     });
 
     // Convertir la matriz filtrada en un archivo CSV
-    jsonexport(filteredData, (error, csv) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-      saveAs(blob, "Lista_Redenciones.csv");
-    });
+    // jsonexport(filteredData, (error, csv) => {
+    //   if (error) {
+    //     console.error(error);
+    //     return;
+    //   }
+    //   const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    //   saveAs(blob, "Lista_Redenciones.csv");
+    // });
   };
 
   const search = useMemo(() => {
