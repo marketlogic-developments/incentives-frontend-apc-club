@@ -299,26 +299,32 @@ export const getDigipointsPa = (token, data) => async (dispatch) => {
       .then((res) => {
         const dataObj = res.data
           .filter(({ digipoints }) => digipoints != 0)
-          .map((data) => ({
-            ...data,
-            date: data.invoiceDetails[0].billing_date.split(" ")[0],
-            country: data.invoiceDetails[0].deploy_to_country,
-            client: data.invoiceDetails[0].end_user_name1,
-            marketSegment: data.invoiceDetails[0].market_segment,
-            sku: data.invoiceDetails[0].materia_sku,
-            salesOrder: data.invoiceDetails[0].sales_order,
-            soldToParty: data.invoiceDetails[0].sold_to_party,
-            totalSalesAmount: data.invoiceDetails
-              .map(({ total_sales_amount }) => Number(total_sales_amount))
-              .reduce((currently, preValue) => currently + preValue),
-            salesQuantity: data.invoiceDetails
-              .map(({ total_sales_qty }) => Number(total_sales_qty))
-              .reduce((currently, preValue) => currently + preValue),
-            invoiceDetails: null,
-          }));
-
+          .map((data) => {
+            const invoiceDetails = data.invoiceDetails && data.invoiceDetails.length > 0 ? data.invoiceDetails[0] : null;
+      
+            if (invoiceDetails) {
+              return {
+                ...data,
+                date: invoiceDetails.billing_date ? invoiceDetails.billing_date.split(" ")[0] : null,
+                country: invoiceDetails.deploy_to_country,
+                client: invoiceDetails.end_user_name1,
+                marketSegment: invoiceDetails.market_segment,
+                sku: invoiceDetails.materia_sku,
+                salesOrder: invoiceDetails.sales_order,
+                soldToParty: invoiceDetails.sold_to_party,
+                totalSalesAmount: invoiceDetails.total_sales_amount ? Number(invoiceDetails.total_sales_amount) : 0,
+                salesQuantity: invoiceDetails.total_sales_qty ? Number(invoiceDetails.total_sales_qty) : 0,
+                invoiceDetails: null,
+              };
+            } else {
+              return null;
+            }
+          })
+          .filter((data) => data !== null);
+      
         dispatch(getDigiPa(dataObj));
       });
+      
   } catch (err) {
     console.log(err);
   }
