@@ -1,17 +1,17 @@
 import { Tooltip } from "@mantine/core";
 import React from "react";
 
-const PieChart = ({ percentageTotal, sales, color, type }) => {
-  function formatNumber(number) {
+const PieChart = ({ percentageTotal, sales, color, type, goal }) => {
+  const formatNumber = (number) => {
     const formattedNumber =
       number >= 1000000
-        ? (number / 1000000).toFixed(2) + "M"
+        ? (number / 1000000).toFixed(1) + "M"
         : number >= 1000
-        ? (number / 1000).toFixed(2) + "K"
+        ? (number / 1000).toFixed(1) + "K"
         : number.toLocaleString("en-US");
     return formattedNumber;
-  }
-
+  };
+  const goalNumber = parseFloat(goal); 
   return (
     <>
       <div className="flex flex-col gap-3">
@@ -34,7 +34,7 @@ const PieChart = ({ percentageTotal, sales, color, type }) => {
           </div>
         </div>
         <div className="w-full">
-          <Tooltip label={`${Number(percentageTotal).toFixed(2)} %`}>
+          <Tooltip label={`$${formatNumber(goalNumber)}`}>
             <p className="text-center text-sm">{type}</p>
           </Tooltip>
         </div>

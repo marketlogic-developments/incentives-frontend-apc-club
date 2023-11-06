@@ -27,6 +27,7 @@ const GraphSales = () => {
   const [t, i18n] = useTranslation("global");
 
   useEffect(() => {
+    console.log(goals);
     if (token && sales.length === 0) {
       if (user.roleId === 1) {
         dispatch(getSalesByTypeAll(token));
@@ -70,11 +71,31 @@ const GraphSales = () => {
           goal={goals.filter(
             ({ business_unit }) => business_unit === "Creative Cloud"
           )}
+          goalNew={goals.filter(
+            ({ business_unit, business_type }) => (
+              business_unit === "Creative Cloud" && business_type === "New Business"
+            )
+          )}
+          goalRenew={goals.filter(
+            ({ business_unit, business_type }) => (
+              business_unit === "Creative Cloud" && business_type === "Renewal"
+            )
+          )}
         />
         <TargetSales
           data={DC}
           goal={goals.filter(
             ({ business_unit }) => business_unit === "Document Cloud"
+          )}
+          goalNew={goals.filter(
+            ({ business_unit, business_type }) => (
+              business_unit === "Document Cloud" && business_type === "New Business"
+            )
+          )}
+          goalRenew={goals.filter(
+            ({ business_unit, business_type }) => (
+              business_unit === "Document Cloud" && business_type === "Renewal"
+            )
           )}
         />
         <PerformaceSales CC={CC} DC={DC} goals={goals} />
