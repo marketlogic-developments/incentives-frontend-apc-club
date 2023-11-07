@@ -54,6 +54,7 @@ const FilterSection = ({
             searchable={true}
             onChange={handleMultiFilters}
             name={"company_name"}
+            handleFilter={multiFilterButton}
           />
         </div>
         <SelectInputValue
@@ -98,13 +99,13 @@ const FilterSection = ({
           clearSelects={clearSelects}
           multiFilterButton={multiFilterButton}
         />
-        <div className="w-4/5 justify-end">
+        {/* <div className="w-4/5 justify-end">
           <BtnFilter
             text={t("Filter")}
             styles="bg-white !text-gray-400 sm:!text-base hover:bg-white hover:!text-blue-500 border-none hover:border-none m-1"
             onClick={multiFilterButton}
           />
-        </div>
+        </div> */}
         <div className="w-4/5 justify-end">
           <BtnFilter
             text={t("Reportes.clean_filters")}

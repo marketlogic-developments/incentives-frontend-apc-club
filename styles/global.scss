@@ -569,3 +569,11 @@
     // overflow: hidden;
   }
 }
+
+.p-link {
+  @media (min-width: 767px) {
+    height: auto !important;
+    width: auto !important;
+    border-radius: 5px !important;
+  }
+}

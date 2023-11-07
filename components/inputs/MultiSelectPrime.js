@@ -10,6 +10,7 @@ export default function MultiSelectInput({
   onChange,
   name,
   selectionLimit,
+  handleFilter,
 }) {
   const [selectedItems, setSelectedItems] = useState(value);
 
@@ -24,6 +25,11 @@ export default function MultiSelectInput({
     <MultiSelect
       value={value}
       onChange={handleOnChange}
+      closeIcon={
+        <p className="text-info p-3 w-auto" onClick={handleFilter}>
+          Filter
+        </p>
+      }
       options={data}
       optionLabel="label"
       showClear={true}
