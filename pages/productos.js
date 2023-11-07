@@ -173,9 +173,9 @@ const productos = () => {
         <div className="w-full flex justify-center flex-col">
           <InfoBannerPP />
         </div>
-        <div className="grid grid-cols-2">
-          <div className="flex gap-6">
-            <div className="relative flex w-1/2">
+        <div className="lg:grid lg:grid-cols-2 flex flex-col lg:gap-0 gap-3">
+          <div className="flex flex-col lg:flex-row gap-6">
+            <div className="relative flex lg:w-1/2 w-full">
               <input
                 className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
                 type="text"

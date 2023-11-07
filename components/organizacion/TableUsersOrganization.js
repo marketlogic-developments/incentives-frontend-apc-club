@@ -148,11 +148,11 @@ const TableUsersOrganization = () => {
 
   return (
     <div className="flex flex-col gap-6 mt-16">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col lg:flex-row justify-between lg:items-center lg:gap-0 gap-3">
         <div>
           <p className="font-bold !text-xl">{t("Reportes.usuarios")}</p>
         </div>
-        <div className="flex gap-6 w-2/4">
+        <div className="flex gap-6 lg:w-2/4 w-full">
           <div className="relative flex w-full">
             <input
               className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full bg-[]"

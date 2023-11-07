@@ -28,6 +28,20 @@ const MenuMarket = () => {
   const componenteRef = useRef(null);
   const [t, i18n] = useTranslation("global");
   const [loading, setLoading] = useState(false);
+  const [screen, setScreen] = useState();
+
+  useEffect(() => {
+    setScreen(window.innerWidth);
+    const handleWindowResize = () => {
+      setScreen(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  });
 
   const digipointsTotal = useMemo(
     () =>
@@ -108,7 +122,7 @@ const MenuMarket = () => {
   return (
     <>
       <Modal
-        size={"35%"}
+        size={screen < 768 ? "100%" : "35%"}
         centered
         opened={opened}
         onClose={() => {

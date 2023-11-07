@@ -8,7 +8,7 @@ import {
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 import Target from "./Target";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import ModalTargetInfo from "./ModalTargetInfo";
 
 import { data } from "autoprefixer";
@@ -32,6 +32,20 @@ const CardMarket = ({ info }) => {
       toast.addEventListener("mouseenter", Swal.stopTimer);
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
+  });
+  const [screen, setScreen] = useState();
+
+  useEffect(() => {
+    setScreen(window.innerWidth);
+    const handleWindowResize = () => {
+      setScreen(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
   });
 
   //Delete This after T&C has been accepted
@@ -95,7 +109,7 @@ const CardMarket = ({ info }) => {
   return (
     <>
       <Modal
-        size={modal === 1 ? "auto" : "50%"}
+        size={screen < 768 ? "100%" : modal === 1 ? "auto" : "50%"}
         centered
         opened={opened}
         onClose={() => modal !== 1 && setOpened(false)}

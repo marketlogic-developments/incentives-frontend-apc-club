@@ -178,8 +178,8 @@ const TableTopsRanking = ({
           <h2 className="!text-xl font-bold">{t("dashboard.topUsuarios")}</h2>
         </div>
         {user.roleId === 1 && (
-          <div className="cursor-pointer flex gap-3 items-center">
-            <div className="sm:w-[90%] w-[60%]">
+          <div className="cursor-pointer flex lg:flex-row flex-col gap-3 items-center">
+            <div className="w-[90%] lg:w-[60%]">
               <SelectInputValue
                 placeholder={"Company Name"}
                 searchable={true}
@@ -192,7 +192,7 @@ const TableTopsRanking = ({
                 name={"company"}
               />
             </div>
-            <div className="sm:w-[90%] w-[60%]">
+            <div className="w-[90%] lg:w-[60%]">
               <SelectInputValue
                 placeholder={"Región"}
                 value={filters.region}
@@ -211,7 +211,7 @@ const TableTopsRanking = ({
         )}
 
         {user.roleId === 1 && (
-          <div className="sm:w-[20%] w-[60%]">
+          <div className="w-full lg:w-[60%]">
             <DropDownReport
               icon={<CloudDownload />}
               title={t("Reportes.descargar")}

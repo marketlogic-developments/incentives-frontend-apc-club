@@ -19,10 +19,10 @@ const InfoBannerPP = () => {
   return (
     <div className="flex flex-col gap-3">
       <div className="grid grid-cols-7">
-        <div>
+        <div className="col-span-7 flex justify-center lg:col-span-1">
           <SvgPP />
         </div>
-        <div className="grid grid-cols-2 col-span-6 gap-6 w-full px-6">
+        <div className="grid grid-cols-2 lg:col-span-6 col-span-7 gap-6 w-full lg:px-6">
           {segments.map((item) => (
             <div>
               <div className="w-full bg-[#F4F4F4] p-1 h-1/2 flex justify-center items-center rounded-lg">
@@ -41,7 +41,7 @@ const InfoBannerPP = () => {
         </div>
       </div>
       <div className="grid grid-cols-7">
-        <div className="flex flex-col w-full items-center gap-6 p-6 bg-[#E0E0E0] rounded-lg [&_p]:!text-xs [&_p]:font-semibold">
+        <div className="flex flex-col w-full items-center gap-6 p-6 bg-[#E0E0E0] rounded-lg [&_p]:!text-xs [&_p]:font-semibold lg:col-span-1 col-span-2">
           <p>DC</p>
           <hr className="w-full" />
           <p>Teams</p>
@@ -50,7 +50,7 @@ const InfoBannerPP = () => {
           <hr className="w-full" />
           <p>Education</p>
         </div>
-        <div className="grid grid-cols-2 col-span-6 place-items-center px-6 tableProducts">
+        <div className="grid grid-cols-2 lg:col-span-6 col-span-5 place-items-center px-6 tableProducts">
           {secuency.map((item) => (
             <div className="w-full flex justify-center items-center border-b h-full">
               {item === 1 && (

@@ -16,6 +16,20 @@ const estadoProducto = () => {
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
+  const [screen, setScreen] = useState();
+
+  useEffect(() => {
+    setScreen(window.innerWidth);
+    const handleWindowResize = () => {
+      setScreen(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  });
 
   useEffect(() => {
     if (user) {
@@ -58,15 +72,15 @@ const estadoProducto = () => {
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        size={"70%"}
+        size={screen < 768 ? "100%" : "70%"}
         title={t("estadoProducto.detalleOrden")}
-        className="modalStatusProducts"
+        className={`modalStatusProducts ${screen < 768 && "modal100"}`}
       >
         <ModalProducts data={modalData} />
       </Modal>
       <ContainerContent pageTitle={"Estado de Tus Premios"}>
-        <div className="m-6 flex flex-col gap-16">
-          <div className="flex justify-around">
+        <div className="m-6 flex flex-col gap-16 responsiveSections">
+          <div className="flex lg:flex-row flex-col justify-around lg:gap-0 gap-6">
             <div className="flex gap-6">
               <Gift />
               <h2
@@ -76,7 +90,7 @@ const estadoProducto = () => {
                 }}
               />
             </div>
-            <div className="flex justify-between w-[60%]  gap-3">
+            <div className="lg:flex lg:justify-between grid grid-cols-2 lg:w-[60%] w-full  gap-3">
               <div className="flex justify-between gap-3 items-center">
                 <svg
                   width="26"
@@ -269,7 +283,7 @@ const estadoProducto = () => {
                     <td className="py-4 px-6">{data.digipointSubstract}</td>
                     <td className="py-2 px-3">
                       <p
-                        className={`w-1/2 py-2 px-3 font-semibold rounded-md !text-xs ${backgroundColor(
+                        className={`lg:w-1/2 w-max py-2 px-3 font-semibold rounded-md !text-xs ${backgroundColor(
                           data.operationStatusId
                         )}`}
                       >
