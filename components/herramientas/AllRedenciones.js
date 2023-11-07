@@ -70,9 +70,16 @@ const AllRedenciones = () => {
 
       const productos = item.productsobject
         .map((product) => {
-          return product.name;
+          return (
+            product.name +
+            `(Q:${product.quantity},DP:${
+              product.quantity * product.digipoints
+            })`
+          );
         })
         .join(", ");
+
+      console.log(productos);
 
       return {
         nombre: item.name,
