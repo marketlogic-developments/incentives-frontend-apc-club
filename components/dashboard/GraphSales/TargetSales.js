@@ -3,8 +3,10 @@ import PieChart from "./PieChart";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-const TargetSales = ({ data, goal }) => {
+const TargetSales = ({ data, goal, goalNew, goalRenew}) => {
   const [t, i18n] = useTranslation("global");
+  console.log(goalNew);
+  console.log(goalRenew);
 
   function formatNumber(number) {
     const formattedNumber =
@@ -29,9 +31,7 @@ const TargetSales = ({ data, goal }) => {
         .reduce((currently, preValue) => currently + preValue, 0) *
         100) /
       Math.round(
-        goal
-          .map(({ meta }) => Number(meta))
-          .reduce((currently, preValue) => currently + preValue, 0)
+        goalRenew?.map(({ meta }) => Number(meta))
       ),
     newBusiness: data
       .filter(({ business_type }) => business_type === "New Business")
@@ -44,9 +44,7 @@ const TargetSales = ({ data, goal }) => {
         .reduce((currently, preValue) => currently + preValue, 0) *
         100) /
       Math.round(
-        goal
-          .map(({ meta }) => Number(meta))
-          .reduce((currently, preValue) => currently + preValue, 0)
+        goalNew?.map(({ meta }) => Number(meta))
       ),
   };
 
@@ -70,12 +68,14 @@ const TargetSales = ({ data, goal }) => {
       <div className="flex justify-around my-auto">
         <PieChart
           sales={sales.renewal}
+          goal={goalRenew[0]?.meta}
           percentageTotal={sales.percentageRenewal}
           color={"#232B2F"}
           type={t("dashboard.renovaciones")}
         />
         <PieChart
-          sales={sales.newBusiness}
+          sales={sales.newBusiness}     
+          goal={goalNew[0]?.meta}
           percentageTotal={sales.percentageNewbusiness}
           color={"#21A5A2"}
           type={t("dashboard.nbusiness")}

@@ -162,7 +162,7 @@ const howtowin = ({ htws }) => {
 
   return (
     <ContainerContent pageTitle={t("dashboard.htw")}>
-      <div className="flex flex-col gap-10 mb-12">
+      <div className="flex flex-col gap-10 mb-12 m-6">
         <div className="bg-[#01505b] w-full h-[35vh] relative overflow-hidden flex">
           <div className="bgCointainerHTW"></div>
           <div className="w-full h-full flex justify-center items-center">
@@ -182,8 +182,8 @@ const howtowin = ({ htws }) => {
             dangerouslySetInnerHTML={{ __html: t("htw.phraseSecondTitle") }}
           ></p>
         </div>
-        <div className="w-full grid grid-cols-3">
-          <div className="flex lg:gap-2 xl:gap-6">
+        <div className="w-full grid grid-cols-3 lg:gap-0 gap-6">
+          <div className="flex col-span-3 lg:col-span-1 lg:gap-2 xl:gap-6">
             <div className="lg:px-2 xl:px-6">
               <svg
                 width="99"
@@ -236,9 +236,9 @@ const howtowin = ({ htws }) => {
               </p>
             </div>
           </div>
-          <div className="col-span-2 grid grid-cols-3 gap-x-6 gap-y-2">
+          <div className="col-span-3 lg:col-span-2 grid grid-cols-3 gap-x-6 gap-y-2">
             {typeSegment.map(({ svg, text }) => (
-              <div className="flex w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3">
+              <div className="flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3">
                 {svg}
                 <p className="!text-sm font-bold">{text}</p>
               </div>
@@ -271,10 +271,10 @@ const howtowin = ({ htws }) => {
             ))}
           </div>
         </div>
-        <div className="w-full grid grid-cols-3">
-          <div className="flex w-full">
-            <div className="w-1/3 flex flex-col gap-1">
-              <div className="flex flex-col bg-[#F5F5F5] rounded-l-lg p-6 items-center gap-3">
+        <div className="w-full lg:grid flex flex-col-reverse grid-cols-3">
+          <div className="flex flex-col lg:flex-row w-full">
+            <div className="lg:w-1/3 w-full flex lg:flex-col flex-row gap-1">
+              <div className="flex flex-col bg-[#F5F5F5] rounded-l-lg p-6 items-center gap-3 w-1/2 lg:w-full lg:h-1/2">
                 <figure className="w-[40px]">
                   <img src="/assets/dashboard/DC.webp"></img>
                 </figure>
@@ -282,7 +282,7 @@ const howtowin = ({ htws }) => {
                   Document <br /> Cloud
                 </p>
               </div>
-              <div className="flex flex-col bg-[#F5F5F5] rounded-l-lg p-6 items-center gap-3">
+              <div className="flex flex-col bg-[#F5F5F5] rounded-l-lg p-6 items-center gap-3 w-1/2 lg:w-full lg:h-1/2">
                 <figure className="w-[40px]">
                   <img src="/assets/dashboard/cc.webp"></img>
                 </figure>
@@ -291,15 +291,15 @@ const howtowin = ({ htws }) => {
                 </p>
               </div>
             </div>
-            <div className="w-2/3 flex flex-col bg-[#F5F5F5] rounded-lg shadow-2xl h-full">
+            <div className="w-full lg:w-2/3 flex flex-col bg-[#F5F5F5] rounded-lg shadow-2xl h-full">
               <div className="flex flex-col h-1/2 justify-between items-center px-6 pt-6">
                 <div className="flex flex-col w-full items-center">
-                  <p className="mb-2">{t("htw.l1")}</p>
+                  <p className="lg:mb-2 my-3 lg:my-0">{t("htw.l1")}</p>
                   <hr className="w-full" />
                 </div>
 
                 <div className="flex flex-col w-full items-center">
-                  <p className="mb-2">{t("htw.l2")}</p>
+                  <p className="lg:mb-2 my-3 lg:my-0">{t("htw.l2")}</p>
                   <hr className="w-full" />
                 </div>
 
@@ -309,17 +309,17 @@ const howtowin = ({ htws }) => {
               </div>
               <div className="flex flex-col h-1/2 justify-between items-center px-6 pb-3">
                 <div className="flex flex-col w-full items-center">
-                  <p className="mb-1">{t("htw.l3")}</p>
+                  <p className="lg:mb-2 my-3 lg:my-0">{t("htw.l3")}</p>
                   <hr className="w-full" />
                 </div>
 
                 <div className="flex flex-col w-full items-center">
-                  <p className="mb-2">{t("htw.l4")}</p>
+                  <p className="lg:mb-2 my-3 lg:my-0">{t("htw.l4")}</p>
                   <hr className="w-full" />
                 </div>
 
                 <div className="flex flex-col w-full items-center">
-                  <p>{t("htw.l5")}</p>
+                  <p className="lg:mb-2 my-3 lg:my-0">{t("htw.l5")}</p>
                 </div>
               </div>
             </div>
@@ -327,7 +327,7 @@ const howtowin = ({ htws }) => {
           <div className="col-span-2 grid grid-cols-3 place-items-center [&>*]:border-y-2 [&>*]:w-full [&>*]:h-full [&>*]:flex [&>*]:justify-center [&>*]:items-center [&>*]:lg:!text-xs [&>*]:xl:!text-sm px-2">
             {dataHTW.quantitySales.quantity.map((num) => (
               <>
-                <p>{num}</p>
+                <p className="lg:h-full !h-16">{num}</p>
               </>
             ))}
           </div>

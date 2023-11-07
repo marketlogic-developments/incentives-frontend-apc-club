@@ -2,9 +2,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const TargetPromociones = ({ data }) => {
   const router = useRouter();
+  const user = useSelector((state) => state.user.user);
   const [t, i18n] = useTranslation("global");
 
   const date = {
@@ -29,6 +31,13 @@ const TargetPromociones = ({ data }) => {
     11: t("meses.noviembre"),
     12: t("meses.diciembre"),
   };
+
+  const pdfs =
+    data.resAndDist && user.distributionChannelId !== null
+      ? data.pdfdelete.filter(({ fields }) => fields.description === "Dist")
+      : data.pdfdelete.filter(({ fields }) => fields.description !== "Dist");
+
+  console.log(pdfs);
 
   return (
     <>
@@ -63,8 +72,8 @@ const TargetPromociones = ({ data }) => {
           className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs"
           href={
             i18n.resolvedLanguage === "por"
-              ? data.pdfdelete[1].fields.file.url
-              : data.pdfdelete[0].fields.file.url
+              ? pdfs[1]?.fields.file.url
+              : pdfs[0]?.fields.file.url
           }
           target="_blank"
           // onClick={() => {

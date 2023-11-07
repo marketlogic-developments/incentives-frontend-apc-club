@@ -62,7 +62,7 @@ const ModalDistribution = ({ setOpened, invoiceData, handleSubmit }) => {
   }, [salesOption]);
 
   return (
-    <div className="grid grid-cols-3">
+    <div className="lg:grid lg:grid-cols-3 flex flex-col-reverse items-center gap-6 lg:items-start">
       <div className="flex flex-col w-full col-start-2 gap-10 min-h-[90vh]">
         <div className="flex flex-col gap-4">
           <h2 className="!text-2xl font-bold text-center">

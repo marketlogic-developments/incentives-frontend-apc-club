@@ -204,7 +204,7 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
 
   return (
     <div>
-      <div className="flex flex-col w-2/3 items-center mx-auto">
+      <div className="flex flex-col lg:w-2/3 w-full items-center mx-auto">
         <div>
           <p className="!text-xl font-bold text-center">
             {t("digipoints.Crear")}
@@ -214,7 +214,7 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
           </p>
         </div>
         <form
-          className="flex flex-col gap-5 p-10 w-full"
+          className="flex flex-col gap-5 lg:p-10 p-2 w-full"
           autoComplete="off"
           onSubmit={handleSaveChanges}
         >
@@ -340,10 +340,10 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
               </div>
             )}
 
-          <div className="relative justify-items-center grid grid-flow-col mt-8">
+          <div className="relative justify-items-center lg:grid lg:grid-flow-col flex flex-col-reverse lg:gap-0 gap-3 mt-8">
             <button
               type="cancel"
-              className="btn btn-cancel w-48"
+              className="btn btn-cancel lg:w-48 w-full"
               onClick={() => {
                 setOpened(false);
               }}
@@ -352,7 +352,7 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
             </button>
             <button
               type="submit"
-              className="btn btn-info w-48"
+              className="btn btn-info lg:w-48 w-full"
               disabled={percentage === 100 ? false : true}
             >
               {t("modalEquipos.gEquipo")}

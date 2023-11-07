@@ -21,9 +21,9 @@ const ContditionsProviders = ({ data }) => {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center">
-        <p className="font-bold text-base py-5">
+    <div className="flex flex-col gap-6">
+      <div className="flex lg:flex-row flex-col justify-between items-center">
+        <p className="font-bold !text-base py-5">
           {t("estadoProducto.condiciones")}
         </p>
         <div className="containerBgCardsStatus flex gap-6">

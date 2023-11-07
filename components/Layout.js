@@ -1243,7 +1243,9 @@ const Layout = ({ children }) => {
                     )}
                   </div>
                 </div>
-                <div className="pt-1 overflow-hidden">{children}</div>
+                <div className="pt-1 overflow-hidden lg:overflow-visible">
+                  {children}
+                </div>
 
                 {screen < 639 && (
                   <div className="sticky bottom-0 w-full border-t-2 object-bottom">

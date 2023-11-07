@@ -163,7 +163,7 @@ const ButtonAddUser = () => {
         size={"100%"}
       >
         <div className="w-full flex justify-center">
-          <div className="flex flex-col gap-6 h-[90vh]">
+          <div className="flex flex-col gap-6 h-[90vh] w-full">
             <div className="flex flex-col gap-6 items-center">
               <p className="!text-2xl font-bold">
                 {t("tabla.solicitudCreación")}
@@ -171,10 +171,10 @@ const ButtonAddUser = () => {
               <p className="!text-sm ">{t("tabla.agregarUsers")}</p>
             </div>
             <div>
-              <div className="flex gap-6">
+              <div className="flex lg:flex-row flex-col gap-6">
                 <div className="flex flex-col">
                   <label className="label">
-                    <span className="label-text">{t("user.nome")}</span>
+                    <span className="label-text">{t("user.nombre")}</span>
                   </label>
                   <input
                     className="input input-bordered"
@@ -186,7 +186,7 @@ const ButtonAddUser = () => {
                 </div>
                 <div className="flex flex-col">
                   <label className="label">
-                    <span className="label-text">{t("user.Sobrenome")}</span>
+                    <span className="label-text">{t("user.apellido")}</span>
                   </label>
                   <input
                     className="input input-bordered"
@@ -210,7 +210,7 @@ const ButtonAddUser = () => {
                   required
                 />
               </div>
-              <div className="flex gap-6">
+              <div className="flex lg:flex-row flex-col gap-6">
                 <div className="flex flex-col">
                   <label className="label">
                     <span className="label-text">{t("user.region")}</span>
@@ -279,14 +279,17 @@ const ButtonAddUser = () => {
                 />
               </div>
             </div>
-            <div className="flex justify-around mt-auto">
+            <div className="flex lg:flex-row flex-col-reverse justify-around mt-auto lg:gap-0 gap-6">
               <button
-                className="btn btn-cancel w-48"
+                className="btn btn-cancel lg:w-48 w-full"
                 onClick={() => setOpened(false)}
               >
                 Cancelar
               </button>
-              <button className="btn btn-info w-48" onClick={handleSubmit}>
+              <button
+                className="btn btn-info lg:w-48 w-full"
+                onClick={handleSubmit}
+              >
                 Enviar
               </button>
             </div>
