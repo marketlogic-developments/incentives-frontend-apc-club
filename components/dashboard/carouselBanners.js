@@ -30,7 +30,7 @@ const CarouselBanners = ({ banners }) => {
               type.findIndex((element) => !element.description.includes("POR"))
             ];
 
-      return pdf.file.url;
+      return pdf?.file?.url;
     }
 
     const type = data.map(({ fields }) => fields);
@@ -42,7 +42,7 @@ const CarouselBanners = ({ banners }) => {
             type.findIndex((element) => !element.description.includes("POR"))
           ];
 
-    return pdf.file.url;
+    return pdf?.file?.url;
   };
 
   return (
