@@ -18,8 +18,10 @@ const importExcelFunction = async (excelConfig) => {
       const value = row[key];
       if (typeof value === "number") {
         return value; // Mantén los números como números
-      } else if (!isNaN(parseFloat(value))) {
+      } else if (!isNaN(parseFloat(value)) && !value.includes("-")) {
         return parseFloat(value); // Intenta convertir valores numéricos
+      } else if (isValidDate(value) && value !== null) {
+        return formatDate(value); // Formatear fechas
       } else {
         return value; // Deja los otros valores como están
       }
@@ -40,6 +42,23 @@ const importExcelFunction = async (excelConfig) => {
   utils.book_append_sheet(wb, ws, downloadTitle);
 
   await writeFile(wb, `${downloadTitle}.xlsx`);
+};
+// Función para verificar si el valor es una fecha válida
+const isValidDate = (dateString) => {
+  // Asumiendo que la fecha viene en diferentes formatos: 'YYYY-MM-DD' o 'YYYY/MM/DD' o 'YYYY-MM-DD HH:mm:ss' o 'YYYY-MM-DDTHH:mm:ss.SSSZ'
+  const regex =
+    /^\d{4}[-/]\d{2}[-/]\d{2}( \d{2}:\d{2}:\d{2}(\.\d{3})?|T\d{2}:\d{2}:\d{2}.\d{3}Z)?/;
+  return regex.test(dateString);
+};
+
+// Función para formatear la fecha
+const formatDate = (dateString) => {
+  // console.log(dateString);
+  // Asumiendo que la fecha viene en diferentes formatos: 'YYYY-MM-DD' o 'YYYY/MM/DD' o 'YYYY-MM-DD HH:mm:ss' o 'YYYY-MM-DDTHH:mm:ss.SSSZ'
+  const date = new Date(dateString.split("T")[0]);
+  // console.log(date);
+  return date.toISOString().split("T")[0];
+  // Esto garantiza que la fecha se formatee como 'YYYY-MM-DD 00:00:00' independientemente del formato de entrada.
 };
 
 const importCsvFunction = async (csvConfig) => {
