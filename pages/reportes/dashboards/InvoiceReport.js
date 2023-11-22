@@ -348,7 +348,7 @@ const InvoiceReport = () => {
                           {data.user}
                         </td>
                         <td className="text-start mx-2 py-4 px-2">
-                          {data.user_rol}
+                          {data.user_role}
                         </td>
                         <td className="text-start mx-2 py-4 px-2">
                           {data.invoice}

@@ -358,7 +358,7 @@ const InvoiceReport = () => {
                           {data.digipoints_by_user}
                         </td>
                         <td className="text-start mx-2 py-4 px-2">
-                          {data.puntosxpromo}
+                          {data.is_promo_by_user}
                         </td>
                         <td className="text-start mx-2 py-4 px-2">
                           {data.promoname}

@@ -174,7 +174,7 @@ export const invoiceColumnsExcel = {
   partner_type: "Company Type",
   company_level: "Company Level",
   user: " User Name",
-  user_rol: "User Role",
+  user_role: "User Role",
   invoice: "Sales Order ",
   material_sku: "Material Sku",
   licensing_contract: "Licensing Contract",
@@ -188,7 +188,7 @@ export const invoiceColumnsExcel = {
   quantity: "Quantity",
   amount_by_user: "Revenue by user (USD)",
   digipoints_by_user: "Sales DigiPoints by user",
-  puntosxpromo: "Promotions DigiPoints",
+  is_promo_by_user: "Promotions DigiPoints",
   promoname: "Promotions Name",
 };
 
@@ -420,7 +420,7 @@ export const invoiceColumnsCsv = (data) => {
     partner_type: "Company Type",
     company_level: "Company Level",
     user: " User Name",
-    user_rol: "User Role",
+    user_role: "User Role",
     invoice: "Sales Order ",
     material_sku: "Material Sku",
     licensing_contract: "Licensing Contract",
@@ -434,7 +434,7 @@ export const invoiceColumnsCsv = (data) => {
     quantity: "Quantity",
     amount_by_user: "Revenue by user (USD)",
     digipoints_by_user: "Sales DigiPoints by user",
-    puntosxpromo: "Promotions DigiPoints",
+    is_promo_by_user: "Promotions DigiPoints",
     promoname: "Promotions Name",
   };
 
