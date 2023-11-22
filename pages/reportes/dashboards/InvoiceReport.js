@@ -23,6 +23,7 @@ import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
+import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
 import {
   importCsvFunction,
   importExcelFunction,
@@ -110,6 +111,12 @@ const InvoiceReport = () => {
   /* Filter */
   const filteredUsers = data.filter((user) => {
     if (
+      searchByInvoice &&
+      !user.invoice.toLowerCase().includes(searchByInvoice.toLowerCase())
+    ) {
+      return false;
+    }
+    if (
       selectThree &&
       !user.company_name.toLowerCase().includes(selectThree.toLowerCase())
     ) {
@@ -132,6 +139,7 @@ const InvoiceReport = () => {
     }
     return true;
   });
+
 
   /* Clear Filter */
   const clearSelects = () => {
@@ -258,27 +266,27 @@ const InvoiceReport = () => {
           onClick={clearSelects}
         />
         <div className="sm:col-span-1 col-span-2">
-        <DropDownReport
-          icon={<CloudDownload />}
-          title={t("Reportes.descargar")}
-        >
-          <BtnWithImage
-            text={t("Reportes.descargar")}
+          <DropDownReport
             icon={<CloudDownload />}
-            styles={
-              "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
-            }
-            onClick={() => importFile(filteredUsers)}
-          />
-          <BtnWithImage
-            text={t("Reportes.descargar") + " excel"}
-            icon={<CloudDownload />}
-            styles={
-              "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
-            }
-            onClick={() => importFileExcel(filteredUsers)}
-          />
-        </DropDownReport>
+            title={t("Reportes.descargar")}
+          >
+            <BtnWithImage
+              text={t("Reportes.descargar")}
+              icon={<CloudDownload />}
+              styles={
+                "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+              }
+              onClick={() => importFile(filteredUsers)}
+            />
+            <BtnWithImage
+              text={t("Reportes.descargar") + " excel"}
+              icon={<CloudDownload />}
+              styles={
+                "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+              }
+              onClick={() => importFileExcel(filteredUsers)}
+            />
+          </DropDownReport>
         </div>
       </div>
       <div className="grid overflow-x-hidden w-full">
@@ -348,7 +356,7 @@ const InvoiceReport = () => {
                           {data.user}
                         </td>
                         <td className="text-start mx-2 py-4 px-2">
-                          {data.user_rol}
+                          {data.user_role}
                         </td>
                         <td className="text-start mx-2 py-4 px-2">
                           {data.invoice}
@@ -373,11 +381,14 @@ const InvoiceReport = () => {
                           {data.digipoints_by_user}
                         </td>
                         <td className="text-start mx-2 py-4 px-2">
-                          {data.puntosxpromo}
+                        {data.is_promo_by_user ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
                         </td>
                         <td className="text-start mx-2 py-4 px-2">
                           {data.promoname}
                         </td>
+                        {/* <td className="text-start mx-2 py-4 px-2">
+                        {data.invoice_sale_date} - {data.invoice_load_date} - {data.invoice_assigned_date}
+                        </td> */}
                       </tr>
                     ))}
               </Table>

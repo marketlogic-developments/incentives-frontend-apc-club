@@ -271,7 +271,7 @@ const DigiPointsPromotions = () => {
               {
                 symbol: "",
                 sort: true,
-                identity: "promotions_digipoints",
+                identity: "is_promo_by_user",
                 columnName: "Promotions DigiPoints",
               },
               {
