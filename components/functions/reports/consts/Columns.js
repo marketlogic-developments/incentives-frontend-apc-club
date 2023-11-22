@@ -190,6 +190,9 @@ export const invoiceColumnsExcel = {
   digipoints_by_user: "Sales DigiPoints by user",
   is_promo_by_user: "Promotions DigiPoints",
   promoname: "Promotions Name",
+  invoice_sale_date: "Invoice Sale Date",
+  invoice_load_date: "Invoice Load Date",
+  invoice_assigned_date: "Invoice assigned Date",
 };
 
 export const digiPointsByPromotionsExel = {
@@ -436,6 +439,9 @@ export const invoiceColumnsCsv = (data) => {
     digipoints_by_user: "Sales DigiPoints by user",
     is_promo_by_user: "Promotions DigiPoints",
     promoname: "Promotions Name",
+    invoice_sale_date: "Invoice Sale Date",
+    invoice_load_date: "Invoice Load Date",
+    invoice_assigned_date: "Invoice assigned Date",
   };
 
   const customHeader = ["Adobe Partner Connection Club", "Invoice", date()];
