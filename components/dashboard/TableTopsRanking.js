@@ -295,7 +295,7 @@ const TableTopsRanking = ({
 
                     <td className="text-left">{data.names}</td>
                     <td className="text-left">{data.email}</td>
-                    <td className="text-left">
+                    <td className="text-left min-w-[65px]">
                       {numberToMoney(data.amount_by_user)}
                     </td>
                     <td className="text-left">{data.points_assigned}</td>

@@ -798,6 +798,10 @@ const Layout = ({ children }) => {
   };
 
   const href = (page) => {
+    if (showMenu) {
+      setShowMenu(false);
+    }
+
     router.push(page);
   };
 
@@ -1045,7 +1049,7 @@ const Layout = ({ children }) => {
                     switchUser={
                       typeof dataSession.prevData === "object" && true
                     }
-                    styles={showMenu ? "" : "hidden"}
+                    styles={showMenu ? "h-[50px]" : "hidden"}
                   />
                 }
                 <div className="flex flex-col gap-6 px-6">
@@ -1236,11 +1240,10 @@ const Layout = ({ children }) => {
                         </div>
                       </div>
                     )}
-                    {screen < 639 && (
-                      <div className="sm:invisible visible cursor-pointer none">
-                        <Bell />
-                      </div>
-                    )}
+                    {screen < 639 &&
+                      typeof dataSession.prevData === "object" && (
+                        <EyeObserver />
+                      )}
                   </div>
                 </div>
                 <div className="pt-1 overflow-hidden lg:overflow-visible">

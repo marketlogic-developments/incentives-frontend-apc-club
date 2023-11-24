@@ -139,7 +139,7 @@ const organizacion = () => {
                 </p>
                 <p className="!text-base">{user.position}</p>
               </div>
-              <div className="flex gap-6">
+              <div className="flex gap-6 flex-wrap justify-center">
                 {objects
                   .filter(({ text }) => text !== null && text.length !== 0)
                   .map(({ svg, text }) => (
