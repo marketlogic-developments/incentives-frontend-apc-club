@@ -236,11 +236,13 @@ const howtowin = ({ htws }) => {
               </p>
             </div>
           </div>
-          <div className="col-span-3 lg:col-span-2 grid grid-cols-3 gap-x-6 gap-y-2">
+          <div className="col-span-3 lg:col-span-2 grid grid-cols-3 lg:gap-x-6 gap-x-4 gap-y-2">
             {typeSegment.map(({ svg, text }) => (
               <div className="flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3">
                 {svg}
-                <p className="!text-sm font-bold">{text}</p>
+                <p className="!text-xs lg:!text-sm font-bold text-center">
+                  {text}
+                </p>
               </div>
             ))}
             {resellerDist.map((num) => (

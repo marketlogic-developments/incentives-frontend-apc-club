@@ -226,8 +226,8 @@ const ButtonAddUser = () => {
                     </option>
                     <option value="NOLA">NOLA</option>
                     <option value="SOLA">SOLA</option>
-                    <option value="BRAZIL">Brasil</option>
-                    <option value="MEXICO">México</option>
+                    <option value="BRAZIL">BRAZIL</option>
+                    <option value="MEXICO">MEXICO</option>
                   </select>
                 </div>
                 <div className="flex flex-col">

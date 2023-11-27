@@ -21,7 +21,7 @@ const ModalTyCProccess = ({ opened, setModal, user }) => {
   }, [content]);
 
   return (
-    <div className="w-[50vw] h-[90vh] flex">
+    <div className="w-full lg:w-[50vw] lg:h-[90vh] h-screen flex">
       <div className="h-full w-1/3 bg-[#F5F5F5] px-6">
         <div className="flex flex-col gap-3 mt-[18vh] !text-xs">
           <div className="flex gap-3 items-center">
