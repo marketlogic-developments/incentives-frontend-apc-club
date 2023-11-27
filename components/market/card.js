@@ -115,6 +115,7 @@ const CardMarket = ({ info }) => {
         onClose={() => modal !== 1 && setOpened(false)}
         withCloseButton={modal == 1 ? false : true}
         padding={modal === 1 && 0}
+        fullScreen={screen < 768}
       >
         {(info.description === "COLOMBIA" && user.policy_awards !== true) ||
         (info.description === "COLOMBIA" && user.cedula === null) ? (

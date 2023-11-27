@@ -465,7 +465,7 @@ const DigipointsAll = () => {
       <div className="flex flex-col gap-6 mt-6">
         {!loading ? (
           <>
-            <div className="w-full flex flex-col lg:grid lg:grid-cols-3 lg:gap-4 gap-6 mb-4">
+            <div className="w-full grid lg:grid-cols-3 gap-4 mb-4">
               <select
                 value={emailFilter}
                 onChange={handleEmailFilterChange}
@@ -490,7 +490,6 @@ const DigipointsAll = () => {
                   </option>
                 ))}
               </select>
-
               <div className="relative justify-items-center grid grid-flow-col">
                 <button
                   className="font-bold !text-info cursor-pointer"
