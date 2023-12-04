@@ -64,36 +64,37 @@ const ModalTargetInfo = ({ info, addItem, setCounter, setOpened }) => {
       ),
       text: arrayDescription[1],
     },
-    !info.name.includes("Bancolombia") && {
-      svg: (
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="self-baseline"
-        >
-          <path
-            d="M9 16.0312C12.8833 16.0312 16.0312 12.8832 16.0312 8.99999C16.0312 5.11674 12.8833 1.96874 9 1.96874C5.11675 1.96874 1.96875 5.11674 1.96875 8.99999C1.96875 12.8832 5.11675 16.0312 9 16.0312Z"
-            stroke="#1473E6"
-            stroke-width="1.6875"
-            stroke-miterlimit="10"
-          />
-          <path
-            d="M4.02821 4.02818L13.9718 13.9718L4.02821 4.02818Z"
-            fill="#1473E6"
-          />
-          <path
-            d="M4.02821 4.02818L13.9718 13.9718"
-            stroke="#1473E6"
-            stroke-width="1.6875"
-            stroke-miterlimit="10"
-          />
-        </svg>
-      ),
-      text: arrayDescription[2],
-    },
+    !info.name.includes("Bancolombia") &&
+      !info.name.includes("Tremendous") && {
+        svg: (
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="self-baseline"
+          >
+            <path
+              d="M9 16.0312C12.8833 16.0312 16.0312 12.8832 16.0312 8.99999C16.0312 5.11674 12.8833 1.96874 9 1.96874C5.11675 1.96874 1.96875 5.11674 1.96875 8.99999C1.96875 12.8832 5.11675 16.0312 9 16.0312Z"
+              stroke="#1473E6"
+              stroke-width="1.6875"
+              stroke-miterlimit="10"
+            />
+            <path
+              d="M4.02821 4.02818L13.9718 13.9718L4.02821 4.02818Z"
+              fill="#1473E6"
+            />
+            <path
+              d="M4.02821 4.02818L13.9718 13.9718"
+              stroke="#1473E6"
+              stroke-width="1.6875"
+              stroke-miterlimit="10"
+            />
+          </svg>
+        ),
+        text: arrayDescription[2],
+      },
     {
       svg: (
         <svg
