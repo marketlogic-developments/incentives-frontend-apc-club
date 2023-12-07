@@ -47,7 +47,7 @@ const FilterSection = ({
             value={multiFilter}
             data={companyName.map((company_name) => ({
               label: company_name,
-              value: company_name,
+              value: encodeURIComponent(company_name),
             }))}
             icon={<ArrowDown />}
             selectionLimit={99}
