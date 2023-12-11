@@ -14,6 +14,7 @@ import ModalDistribution from "./DpDistribution/ModalDistribution";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import { AiOutlineSearch } from "react-icons/ai";
+import GraphDigiPointsDistribution from "./DpDistribution/GraphDigiPointsDistribution";
 
 const DigipointsDistribution = () => {
   const [opened, setOpened] = useState(false);
@@ -217,6 +218,7 @@ const DigipointsDistribution = () => {
         />
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
+        <GraphDigiPointsDistribution data={data} />
         <div className="w-full flex lg:flex-row flex-col lg:gap-1 gap-3 mb-4 justify-between">
           <div className="lg:w-full xl:w-2/3 flex lg:flex-row flex-col gap-3 items-center">
             <div className="relative flex w-full">
