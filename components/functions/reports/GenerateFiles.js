@@ -13,7 +13,7 @@ const importExcelFunction = async (excelConfig) => {
   const { data, columns, downloadTitle } = excelConfig;
 
   // Convertir los datos en un formato adecuado para el archivo Excel
-  const dataRows = data.slice(24600, 24650).map((row) => {
+  const dataRows = data.map((row) => {
     return Object.keys(columns).map((key) => {
       const value = row[key];
       if (typeof value === "number") {
