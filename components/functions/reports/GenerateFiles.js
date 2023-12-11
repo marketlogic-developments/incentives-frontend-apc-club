@@ -13,12 +13,15 @@ const importExcelFunction = async (excelConfig) => {
   const { data, columns, downloadTitle } = excelConfig;
 
   // Convertir los datos en un formato adecuado para el archivo Excel
-  const dataRows = data.map((row) => {
+  const dataRows = data.slice(24600, 24650).map((row) => {
     return Object.keys(columns).map((key) => {
       const value = row[key];
       if (typeof value === "number") {
         return value; // Mantén los números como números
-      } else if (!isNaN(parseFloat(value)) && !value.includes("-")) {
+      } else if (
+        !isNaN(parseFloat(value)) &&
+        value.split("").filter((i) => i === "-").length !== 2
+      ) {
         return parseFloat(value); // Intenta convertir valores numéricos
       } else if (isValidDate(value) && value !== null) {
         return formatDate(value); // Formatear fechas
