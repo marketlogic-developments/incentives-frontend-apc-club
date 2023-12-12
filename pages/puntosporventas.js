@@ -150,40 +150,30 @@ const puntosporventas = () => {
           </thead>
           <tbody>
             {currentItems &&
-              [...currentItems]
-                .filter((item) => {
-                  if (searchByInvoice !== "") {
-                    return item.sales_order.startsWith(searchByInvoice);
-                  }
-
-                  return item;
-                })
-                .map((data, index) => (
-                  <tr
-                    className={`${
-                      (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
-                    } w-full`}
-                    key={index}
-                  >
-                    <td className="py-4 px-2">{data.sales_order}</td>
-                    <td className="py-4 px-2">{data.disti_partner_rollup}</td>
+              [...currentItems].map((data, index) => (
+                <tr
+                  className={`${
+                    (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
+                  } w-full`}
+                  key={index}
+                >
+                  <td className="py-4 px-2">{data.sales_order}</td>
+                  <td className="py-4 px-2">{data.disti_partner_rollup}</td>
+                  <td className="py-4 px-2">{data.reseller_partner_rollup}</td>
+                  <td className="py-4 px-2">{data.business_unit}</td>
+                  <td className="py-4 px-2">{data.business_type}</td>
+                  <td className="py-4 px-2">{data.materia_sku}</td>
+                  <td className="py-4 px-2">{data.quarter}</td>
+                  {user.roleId === 1 && (
                     <td className="py-4 px-2">
-                      {data.reseller_partner_rollup}
+                      {data.max_digipoints_allocate}
                     </td>
-                    <td className="py-4 px-2">{data.business_unit}</td>
-                    <td className="py-4 px-2">{data.business_type}</td>
-                    <td className="py-4 px-2">{data.materia_sku}</td>
-                    <td className="py-4 px-2">{data.quarter}</td>
-                    {user.roleId === 1 && (
-                      <td className="py-4 px-2">
-                        {data.max_digipoints_allocate}
-                      </td>
-                    )}
-                    <td className="py-4 px-2">
-                      ${parseFloat(data.total_sales_us).toFixed(2)}
-                    </td>
-                  </tr>
-                ))}
+                  )}
+                  <td className="py-4 px-2">
+                    ${parseFloat(data.total_sales_us).toFixed(2)}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </>
@@ -194,11 +184,30 @@ const puntosporventas = () => {
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
 
-    return filteredUsers.slice(itemOffset, endOffset);
+    const searchFilter = filteredUsers.filter((item) => {
+      if (searchByInvoice !== "") {
+        return item.sales_order.startsWith(searchByInvoice);
+      }
+
+      return item;
+    });
+
+    return searchByInvoice !== ""
+      ? searchFilter
+      : searchFilter.slice(itemOffset, endOffset);
   }, [itemOffset, data, filteredUsers]);
 
   const pageCount = useMemo(
-    () => Math.ceil(filteredUsers.length / itemsPerPage),
+    () =>
+      Math.ceil(
+        filteredUsers.filter((item) => {
+          if (searchByInvoice !== "") {
+            return item.sales_order.startsWith(searchByInvoice);
+          }
+
+          return item;
+        }).length / itemsPerPage
+      ),
     [filteredUsers, itemsPerPage]
   );
 
