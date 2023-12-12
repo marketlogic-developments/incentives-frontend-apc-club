@@ -202,6 +202,8 @@ const DigipointsDistribution = () => {
     });
   };
 
+  console.log(data);
+
   return (
     <>
       <Modal
@@ -218,7 +220,7 @@ const DigipointsDistribution = () => {
         />
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
-        <GraphDigiPointsDistribution data={data} />
+        {data.length !== 0 && <GraphDigiPointsDistribution data={data} />}
         <div className="w-full flex lg:flex-row flex-col lg:gap-1 gap-3 mb-4 justify-between">
           <div className="lg:w-full xl:w-2/3 flex lg:flex-row flex-col gap-3 items-center">
             <div className="relative flex w-full">
@@ -300,11 +302,12 @@ const DigipointsDistribution = () => {
                     Digipoints
                   </th>
                   <th scope="col" className="py-5 px-6">
-                    {t("tabla.asignar")} a
+                    {t("tabla.asignar")}
                   </th>
                 </tr>
               </thead>
-              {loading ? (
+
+              {data.length === 0 ? (
                 <div className="lds-dual-ring"></div>
               ) : (
                 <tbody>

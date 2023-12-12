@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Upload from "../../icons/Reportes/upload";
 import Check from "../../icons/Reportes/Check";
 
-const GraphDigiPointsDistribution = ({ data }) => {
+const GraphDigiPointsDistribution = ({ data = [] }) => {
   const uploadDigiPoints = data
     .map(({ digipoints }) => parseInt(digipoints))
-    .reduce((a, b) => a + b);
+    .reduce((a, b) => a + b, 0);
   const assignedDigiPoints = data
     .filter(({ status }) => status === true)
     .map(({ digipoints }) => parseInt(digipoints))
-    .reduce((a, b) => a + b);
+    .reduce((a, b) => a + b, 0);
   const percentage = parseInt((assignedDigiPoints * 100) / uploadDigiPoints);
 
   return (
