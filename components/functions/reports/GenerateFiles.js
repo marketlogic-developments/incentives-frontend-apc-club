@@ -18,7 +18,10 @@ const importExcelFunction = async (excelConfig) => {
       const value = row[key];
       if (typeof value === "number") {
         return value; // Mantén los números como números
-      } else if (!isNaN(parseFloat(value)) && !value.includes("-")) {
+      } else if (
+        !isNaN(parseFloat(value)) &&
+        value.split("").filter((i) => i === "-").length !== 2
+      ) {
         return parseFloat(value); // Intenta convertir valores numéricos
       } else if (isValidDate(value) && value !== null) {
         return formatDate(value); // Formatear fechas
