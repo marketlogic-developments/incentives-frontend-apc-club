@@ -27,6 +27,8 @@ import { changeLoadingData } from "../store/reducers/loading.reducer";
 import LoginTarget from "../components/login/LoginTarget";
 import MaintenancePlataform from "../components/login/MaintenancePlataform";
 import client from "../contentful";
+import ClosePlataform from "../components/login/ClosePlataform";
+import { mailsClosePlataform } from "../content/mails_close_plataform";
 
 export default function Home({ maintenance }) {
   const [t, i18n] = useTranslation("global");
@@ -59,6 +61,8 @@ export default function Home({ maintenance }) {
 
   const [showPopup, setShowPopup] = useState(false);
 
+  const [closePt, setClosePt] = useState(false);
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("token")) {
@@ -80,6 +84,11 @@ export default function Home({ maintenance }) {
 
     if (listRedirect.includes(email.split("@")[1])) {
       return route.push("https://bcr.adobepcclub.net/");
+    }
+
+    if (!mailsClosePlataform.includes(email)) {
+      dispatch(changeLoadingData(false));
+      return setClosePt(true);
     }
 
     axios
@@ -519,8 +528,8 @@ export default function Home({ maintenance }) {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      {maintenance.maintenance ? (
-        <MaintenancePlataform data={maintenance} />
+      {maintenance.maintenance && closePt ? (
+        <ClosePlataform data={maintenance[0]} />
       ) : (
         <main className="mainIndex bg-primary flex flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden min-h-screen">
           <Recovery opened={opened} setOpened={setOpened} t={t} />
@@ -573,7 +582,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      maintenance: maintenance.items.map(({ fields }) => fields)[0],
+      maintenance: maintenance.items.map(({ fields }) => fields),
     },
   };
 }
