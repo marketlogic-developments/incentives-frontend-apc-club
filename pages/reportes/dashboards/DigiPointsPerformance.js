@@ -376,13 +376,13 @@ const DigiPointsPerformance = () => {
               {
                 symbol: "",
                 sort: true,
-                identity: "so_digipoints",
+                identity: "digipoints_uploaded",
                 columnName: "Total DigiPoints Uploaded",
               },
               {
                 symbol: "",
                 sort: true,
-                identity: "total_digipoints_assigned",
+                identity: "digipoints_assigned",
                 columnName: "Total Digipoints Assigned",
               },
               {

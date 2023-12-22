@@ -86,6 +86,27 @@ const CarouselBanners = ({ banners }) => {
                     />
                   </figure>
                 </div>
+              ) : data.typeRedirectionLink ? (
+                <a
+                  className="w-full flex justify-center cursor-pointer p-[1px]"
+                  href={
+                    i18n.resolvedLanguage === "por"
+                      ? data.redirectionPor
+                      : data.redirection
+                  }
+                  target="_blank"
+                >
+                  <figure className="w-full">
+                    <img
+                      src={
+                        i18n.resolvedLanguage === "por"
+                          ? data.bannerPor.fields.file.url
+                          : data.bannerEsp.fields.file.url
+                      }
+                      className="bannersImg"
+                    />
+                  </figure>
+                </a>
               ) : (
                 <a
                   className="w-full flex justify-center cursor-pointer p-[1px]"

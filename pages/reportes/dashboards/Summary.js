@@ -27,10 +27,14 @@ const Summary = () => {
     "noviembre",
     "diciembre",
   ];
-  const dateFormatter = `${t(`Reportes.fecha_summary`)} ${date.getDate()} de ${
-    t(`meses.${month[date.getMonth()]}`)
-  } del ${date.getFullYear()}`;
-  
+  const dateFormatter = `${t(
+    `Reportes.fecha_summary`
+  )} ${date.getDate()} de ${t(
+    `meses.${month[date.getMonth()]}`
+  )} del ${date.getFullYear()}`;
+
+  console.log(content);
+
   return (
     <div className="mt-4">
       <div className="pt-2 grid items-center grid-rows-1 gap-3">
