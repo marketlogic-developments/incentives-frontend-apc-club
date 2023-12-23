@@ -77,6 +77,8 @@ export default function Home({ maintenance }) {
     }
   }, []);
 
+  console.log(closePt, maintenance);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -528,7 +530,7 @@ export default function Home({ maintenance }) {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      {maintenance.maintenance && closePt ? (
+      {maintenance[0].maintenance && closePt ? (
         <ClosePlataform data={maintenance[0]} />
       ) : (
         <main className="mainIndex bg-primary flex flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden min-h-screen">
