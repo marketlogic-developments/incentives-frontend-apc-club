@@ -57,4 +57,5 @@ export const mailsClosePlataform = [
   "pa-nexsyspe@adobe-partner.com",
   "admin@mymarketlogic.com",
   "thayna@infob.com.br",
+  "bea24468@adobe.com",
 ];
