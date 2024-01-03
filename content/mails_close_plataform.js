@@ -17,4 +17,7 @@ export const mailsClosePlataform = [
   "camilo.silva@mymarketlogic.com",
   "jhonier.leon@mymarketlogic.com",
   "carlos.vargas@mymarketlogic.com",
+  "sazorin@argos.com.ec",
+  "jaragon@argos.com.ec",
+  "orelvis@argos.com.ec",
 ];
