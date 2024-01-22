@@ -21,5 +21,6 @@ export const mailsClosePlataform = [
   "jaragon@argos.com.ec",
   "orelvis@argos.com.ec",
   "sou52478@adobe.com",
-  "lou14614@adobe.com"
+  "lou14614@adobe.com",
+  "roberto.almeida@brasoftware.com.br"
 ];
