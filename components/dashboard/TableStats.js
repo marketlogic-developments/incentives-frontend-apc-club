@@ -185,13 +185,19 @@ const TableStats = () => {
     return <div className="lds-dual-ring"></div>;
   }
   function formatNumber(number) {
-    const formattedNumber =
-      number >= 1000000
-        ? (number / 1000000).toFixed(2) + "M"
-        : number >= 1000
-        ? (number / 1000).toFixed(2) + "K"
-        : number.toLocaleString("en-US");
-    return formattedNumber;
+    if (number >= 1000000) {
+      const millionValue = (number / 1000000).toString();
+      return millionValue.includes('.')
+        ? millionValue.slice(0, millionValue.indexOf('.') + 3) + "M"
+        : millionValue + "M";
+    } else if (number >= 1000) {
+      const thousandValue = (number / 1000).toString();
+      return thousandValue.includes('.')
+        ? thousandValue.slice(0, thousandValue.indexOf('.') + 3) + "K"
+        : thousandValue + "K";
+    } else {
+      return number.toLocaleString("en-US");
+    }
   }
 
   return (
