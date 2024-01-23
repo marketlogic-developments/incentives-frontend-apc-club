@@ -90,7 +90,10 @@ export const getDataAwards = (token, user) => async (dispatch) => {
 
             if (user.countryId) {
               if (user.countryId === "CHILE") {
-                return e.name.split(" ")[0] === "Cencosud";
+                return (
+                  e.name.split(" ")[0] === "Cencosud" ||
+                  e.name.includes("Tremendous")
+                );
               }
 
               if (user.countryId === "Nothing") {
@@ -107,8 +110,19 @@ export const getDataAwards = (token, user) => async (dispatch) => {
             if (countryCompany === "Colombia") {
               return e.description === "COLOMBIA";
             }
+
             if (countryCompany === "Chile") {
-              return e.name.split(" ")[0] === "Cencosud";
+              return (
+                e.name.split(" ")[0] === "Cencosud" ||
+                e.name.includes("Tremendous")
+              );
+            }
+
+            if (countryCompany === "Argentina") {
+              return (
+                e.description === "NOLA - SOLA - MEX" ||
+                e.name.includes("Tremendous")
+              );
             }
 
             if (countryCompany === "Paraguay") {
