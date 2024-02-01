@@ -98,7 +98,10 @@ const Layout = ({ children }) => {
       }, 2000);
     }
 
-    if (true) {
+    if (
+      userRedux.user_update_data === null ||
+      userRedux.user_update_data === false
+    ) {
       setModal(2);
       return setOpened(true);
     }
