@@ -46,6 +46,7 @@ import {
 } from "./icons";
 import ModalPersonalize from "./Lay0ut/ModalPersonalize";
 import EyeObserver from "./Lay0ut/SwitchUser/EyeObserver";
+import ModalUpdateData from "./Lay0ut/Modals/ModalUpdateData";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -92,9 +93,14 @@ const Layout = ({ children }) => {
       dataSession.prevData === undefined
     ) {
       setModal(1);
-      setTimeout(() => {
+      return setTimeout(() => {
         setOpened(true);
       }, 2000);
+    }
+
+    if (true) {
+      setModal(2);
+      return setOpened(true);
     }
   }, [userRedux, video]);
 
@@ -840,6 +846,9 @@ const Layout = ({ children }) => {
     if (modal === 1) {
       return <ModalPersonalize onClose={setOpened} />;
     }
+    if (modal === 2) {
+      return <ModalUpdateData onClose={setOpened} />;
+    }
   }, [modal, opened]);
 
   const menu = (n) => {
@@ -1031,7 +1040,7 @@ const Layout = ({ children }) => {
         opened={opened}
         withCloseButton={modal == 0 ? true : false}
         onClose={modal !== 1 && closeModal}
-        fullScreen={modal === 1}
+        fullScreen={modal === 1 || modal === 2}
         centered
         size={"auto"}
         transitionProps={{ transition: "rotate-left" }}
