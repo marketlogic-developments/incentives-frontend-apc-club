@@ -60,7 +60,8 @@
     "redenciones": "Redemptions",
     "reglas": "Rules",
     "customer_care": "Customer Care",
-    "formCustomerCare": "Send your feedback"
+    "formCustomerCare": "Send your feedback",
+    "logout": "Log Out"
   },
 
   "perfil": {
