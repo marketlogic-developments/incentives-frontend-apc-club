@@ -85,18 +85,18 @@ const Layout = ({ children }) => {
   });
 
   useEffect(() => {
-    if (
-      userRedux.cpf !== video?.key &&
-      video?.key !== undefined &&
-      userRedux !== 0 &&
-      location === "/dashboard" &&
-      dataSession.prevData === undefined
-    ) {
-      setModal(1);
-      return setTimeout(() => {
-        setOpened(true);
-      }, 2000);
-    }
+    // if (
+    //   userRedux.cpf !== video?.key &&
+    //   video?.key !== undefined &&
+    //   userRedux !== 0 &&
+    //   location === "/dashboard" &&
+    //   dataSession.prevData === undefined
+    // ) {
+    //   setModal(1);
+    //   return setTimeout(() => {
+    //     setOpened(true);
+    //   }, 2000);
+    // }
 
     if (
       userRedux.user_update_data === null ||
@@ -286,8 +286,12 @@ const Layout = ({ children }) => {
     if (rolNum === 1) {
       return i18n.changeLanguage("por");
     }
-
-    return i18n.changeLanguage("es");
+    if (rolNum === 2) {
+      return i18n.changeLanguage("es");
+    }
+    if (rolNum === 3) {
+      return i18n.changeLanguage("en");
+    }
   };
 
   const locations = [

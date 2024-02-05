@@ -1,9 +1,9 @@
 {
   "login": {
-    "¿Has olvidado la contraseña?": "Have you forgotten your password?",
+    "¿Has_olvidado_la_contraseña?": "Have you forgotten your password?",
     "Email": "Email",
     "Password": "Password",
-    "Iniciar Sesión": "Log In",
+    "Iniciar_Sesión": "Log In",
     "continuar": "Continue",
     "errorLogin": "Your email and/or password do not match. Please try again.",
     "language": "Language",

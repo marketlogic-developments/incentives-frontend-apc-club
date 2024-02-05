@@ -475,12 +475,15 @@ const user = () => {
                             >
                               <option value="es">Español</option>
                               <option value="por">Português</option>
+                              <option value="en">English</option>
                             </select>
                           ) : (
                             <span className="input input-ghost w-full flex items-center">
                               {formData.languageId === 1
                                 ? "Portugués"
-                                : "Español"}
+                                : formData.languageId === 2
+                                ? "Español"
+                                : formData.languageId === 3 && "English"}
                             </span>
                           )}
                         </div>
