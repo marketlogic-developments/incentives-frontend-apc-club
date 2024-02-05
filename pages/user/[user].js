@@ -46,7 +46,7 @@ const user = () => {
     setFormData({
       name: user?.name,
       names: user?.names,
-      lastname: user?.lastName,
+      lastname: user?.last_name,
       email: user?.email,
       role: user?.roleId,
       position: user?.position,
@@ -60,7 +60,7 @@ const user = () => {
     const num = Object.values({
       name: user.name,
       names: user.names,
-      lastname: user.lastName,
+      lastname: user.last_name,
       imgProfile: user.profilePhotoPath,
       birthDate: user.birthDate,
       phone: user.phoneNumber,
