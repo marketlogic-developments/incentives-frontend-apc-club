@@ -199,7 +199,7 @@ const AllParticipants = () => {
                   />
                 </div>
               </div>
-              <div className="justify-self-end">
+              {/* <div className="justify-self-end">
                 <SelectInputValue
                   placeholder={"Rol de usuarios"}
                   value={roles}
@@ -211,7 +211,7 @@ const AllParticipants = () => {
                   }}
                   name={"rols"}
                 />
-              </div>
+              </div> */}
 
               {[1].includes(user?.roleId) && <ButtonParticipants />}
             </div>
