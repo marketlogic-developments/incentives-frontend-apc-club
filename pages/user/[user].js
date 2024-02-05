@@ -125,7 +125,7 @@ const user = () => {
       return {
         name: formData.name,
         names: formData.names,
-        lastName: formData.lastname,
+        last_name: formData.lastname,
         birthDate: formData.birthDate,
         phoneNumber: formData.phone,
         region: formData.region,
