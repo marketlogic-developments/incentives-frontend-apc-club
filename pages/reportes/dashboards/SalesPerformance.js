@@ -406,7 +406,7 @@ const SalesPerformance = () => {
             />
           </div>
           <div className="sm:w-[90%] w-auto">
-            <SelectInputValue
+            {/* <SelectInputValue
               placeholder={"Region"}
               value={filters.region}
               data={setRegion.map((item) => item)}
@@ -414,7 +414,7 @@ const SalesPerformance = () => {
               onChange={handleFilters}
               name={"region"}
               disabled={filters.company !== "" ? true : false}
-            />
+            /> */}
           </div>
         </div>
         <div className="grid grid-cols-2 sm:justify-items-end justify-items-center mt-3">
