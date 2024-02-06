@@ -72,6 +72,36 @@ export default function Home({ maintenance }) {
   }, []);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("documentKey")) {
+      console.log("se firmo el documento")
+      // Almacenar el valor en sessionStorage
+      sessionStorage.setItem("documentKey", "true");
+      // if (result.isConfirmed) {
+      //   axios
+      //     .patch(
+      //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user?.id}`,
+      //       {
+      //         cpf: "active colTC",
+      //       },
+      //       {
+      //         headers: {
+      //           "Content-Type": "application/json",
+      //           Authorization: `Bearer ${token}`,
+      //         },
+      //       }
+      //     )
+      //     .then(() => {
+      //       dispatch(userLogin({ ...user, cpf: "active" }));
+      //       return setOpened(true);
+      //     });
+      // }
+    }
+  }, []);
+  
+  
+
+  useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null) {
       route.push("/dashboard");
     }
