@@ -205,9 +205,6 @@ const ModalUpdateData = ({ onClose }) => {
             <option value="es">Español</option>
             <option value="por">Português</option>
             <option value="en">Ingles</option>
-            <option value="fr">Francés</option>
-            <option value="it">Italiano</option>
-            <option value="de">Aleman</option>
           </select>
         </div>
         <button class="btn btn-info hover:bg-black w-full">
