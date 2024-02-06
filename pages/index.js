@@ -74,7 +74,10 @@ export default function Home({ maintenance }) {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("documentKey")) {
-      console.log("se firmo el documento")
+      
+      console.log("se firmo el documento");
+      alert("se firmo el documento");
+      route.push("/dashboard");
       // Almacenar el valor en sessionStorage
       sessionStorage.setItem("documentKey", "true");
       // if (result.isConfirmed) {
