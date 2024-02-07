@@ -22,29 +22,44 @@ const terminosycondiciones = () => {
   useEffect(() => {
     const handleIframeLoad = () => {
       const iframeDocument = iframeRef.current.contentDocument;
+  
       if (iframeDocument) {
-        iframeDocument.addEventListener("click", handleIframeClick);
-      }
-    };
-
-    const handleIframeClick = () => {
-      console.log("Se hizo click dentro del iframe");
-      // Aquí puedes realizar las acciones que desees cuando se hace clic dentro del iframe
-    };
-
-    if (iframeRef.current) {
-      iframeRef.current.onload = handleIframeLoad;
-    }
-    
-    console.log(iframeRef.current)
-
-    return () => {
-      if (iframeRef.current) {
-        const iframeDocument = iframeRef.current.contentDocument;
-        if (iframeDocument) {
-          iframeDocument.removeEventListener("click", handleIframeClick);
+        console.log('iframe cargado');
+  
+        const companyInput = iframeDocument.querySelector('input[name="echosign_company"]');
+        const emailInput = iframeDocument.querySelector('input[name="echosign_email"]');
+        const signatureInput = iframeDocument.querySelector('input[name="echosign_signature"]');
+        const clickToEsignButton = iframeDocument.querySelector('.click-to-esign');
+  
+        console.log('Company Input:', companyInput);
+        console.log('Email Input:', emailInput);
+        console.log('Signature Input:', signatureInput);
+        console.log('Click to Esign Button:', clickToEsignButton);
+  
+        const areElementsAvailable =
+          companyInput && emailInput && signatureInput && clickToEsignButton;
+  
+        if (areElementsAvailable) {
+          console.log('Elementos disponibles:', companyInput, emailInput, signatureInput, clickToEsignButton);
+  
+          // Agregar un listener de eventos al documento dentro del iframe
+          iframeDocument.addEventListener('iframeAction', (event) => {
+            console.log('Evento personalizado dentro del iframe:', event.detail);
+  
+            // Realizar acciones adicionales según el evento personalizado
+          });
+          // Agregar un listener de eventos al documento dentro del iframe
+          const customEvent = new CustomEvent('iframeAction', { detail: 'Información adicional' });
+          document.dispatchEvent(customEvent);
         }
       }
+    };
+  
+    const iframeElement = iframeRef.current;
+    iframeElement.addEventListener('load', handleIframeLoad);
+  
+    return () => {
+      iframeElement.removeEventListener('load', handleIframeLoad);
     };
   }, []);
   
@@ -157,14 +172,14 @@ const terminosycondiciones = () => {
               <iframe
                 ref={iframeRef}
                 title="TermsAndContidionsAdobeSign"
-                src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhABD4W2XJNEz_USKC9kGCbe1cphk_YNQ2oSrbph6jQUJKZFLyXLSW4jvIn6TvN6VbU*"
+                src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhClfu6ib2RkR49yOgA7LX5pIQCOvI0naofEbv47wRmLL-TBFFMcs9GK5QUnNY51xFw*"
                 className="iframeTandC"
               ></iframe>
             ) : (
               <iframe
                 ref={iframeRef}
                 title="TermsAndContidionsAdobeSign"
-                src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhABD4W2XJNEz_USKC9kGCbe1cphk_YNQ2oSrbph6jQUJKZFLyXLSW4jvIn6TvN6VbU*"
+                src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCspkEYh8cL0ffVkee8dCS3gswOg-2w_X1m608sMsQf8vB-FEgLt_qgnJPSD0PCXKQ*"
                 className="iframeTandC"
               ></iframe>
             )}
