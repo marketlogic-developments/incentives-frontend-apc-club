@@ -567,7 +567,7 @@ export default function Home({ maintenance }) {
             />
             <figure className="hidden max-sm:m-auto w-1/2 h-[88dvh] lg:flex">
               <img
-                src="/assets/login/apclogo.webp"
+                src="/assets/login/apcLogo.webp"
                 className="max-sm:m-auto !w-full lg:object-cover object-contain h-full"
                 alt="APC"
               />
