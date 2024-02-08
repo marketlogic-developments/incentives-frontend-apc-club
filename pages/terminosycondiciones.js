@@ -9,62 +9,13 @@ import Swal from "sweetalert2";
 import { userLogin } from "../store/reducers/users.reducer";
 
 const terminosycondiciones = () => {
-  const [checked, setChecked] = useState(false);
   const route = useRouter();
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
-  const [modal, setModal] = useState(0);
-  const [imageSign, setImageSign] = useState(null);
-  const iframeRef = useRef(null);
-
-  useEffect(() => {
-    const handleIframeLoad = () => {
-      const iframeDocument = iframeRef.current.contentDocument;
-  
-      if (iframeDocument) {
-        console.log('iframe cargado');
-  
-        const companyInput = iframeDocument.querySelector('input[name="echosign_company"]');
-        const emailInput = iframeDocument.querySelector('input[name="echosign_email"]');
-        const signatureInput = iframeDocument.querySelector('input[name="echosign_signature"]');
-        const clickToEsignButton = iframeDocument.querySelector('.click-to-esign');
-  
-        console.log('Company Input:', companyInput);
-        console.log('Email Input:', emailInput);
-        console.log('Signature Input:', signatureInput);
-        console.log('Click to Esign Button:', clickToEsignButton);
-  
-        const areElementsAvailable =
-          companyInput && emailInput && signatureInput && clickToEsignButton;
-  
-        if (areElementsAvailable) {
-          console.log('Elementos disponibles:', companyInput, emailInput, signatureInput, clickToEsignButton);
-  
-          // Agregar un listener de eventos al documento dentro del iframe
-          iframeDocument.addEventListener('iframeAction', (event) => {
-            console.log('Evento personalizado dentro del iframe:', event.detail);
-  
-            // Realizar acciones adicionales según el evento personalizado
-          });
-          // Agregar un listener de eventos al documento dentro del iframe
-          const customEvent = new CustomEvent('iframeAction', { detail: 'Información adicional' });
-          document.dispatchEvent(customEvent);
-        }
-      }
-    };
-  
-    const iframeElement = iframeRef.current;
-    iframeElement.addEventListener('load', handleIframeLoad);
-  
-    return () => {
-      iframeElement.removeEventListener('load', handleIframeLoad);
-    };
-  }, []);
-  
-
   const [opened, setOpened] = useState(false);
+  const iframeRef = useRef(null);
 
   useEffect(() => {
     if (user?.cpf.split(" ")[0] === "active") {
@@ -190,20 +141,17 @@ const terminosycondiciones = () => {
                 className="iframeTandC"
               ></iframe>
             )}
-            
+
             <div className="flex gap-5 items-center">
               <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
                 <p className="text-white">3</p>
               </div>
               <p
-              dangerouslySetInnerHTML={{
-                __html: t("terminosycondiciones.deseas"),
-              }}
+                dangerouslySetInnerHTML={{
+                  __html: t("terminosycondiciones.deseas"),
+                }}
               />
             </div>
-            
-
-            
           </div>
         )}
       </main>
