@@ -89,10 +89,10 @@ export default function Home({ maintenance }) {
       return route.push("https://bcr.adobepcclub.net/");
     }
 
-    if (!mailsClosePlataform.includes(email)) {
-      dispatch(changeLoadingData(false));
-      return setClosePt(true);
-    }
+    // if (!mailsClosePlataform.includes(email)) {
+    //   dispatch(changeLoadingData(false));
+    //   return setClosePt(true);
+    // }
 
     axios
       .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {

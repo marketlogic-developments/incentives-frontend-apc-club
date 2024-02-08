@@ -111,6 +111,7 @@ const LoginTarget = ({
         >
           <option value="es">Español</option>
           <option value="por">Português</option>
+          <option value="en">English</option>
         </select>
       </div>
     </div>

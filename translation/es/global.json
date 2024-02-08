@@ -34,10 +34,10 @@
   "tyc": {
     "title1": "Solo hace falta un paso",
     "title12": "Verificar tu identidad.",
-    "title2": "Ve a tu correo, busca en tu bandeja de entrada el mail con el asunto:",
-    "title21": "Confirme su aprobación de APC Club - Términos y Condiciones",
-    "title22": "sigue las instrucciones para hacerlo.",
-    "title3": "Posterior a tu confirmación, espera la notificación de activación de tu usuario en un plazo de 24 horas. Dudas a",
+    "title2": "Hemos enviado a tu correo un email con el asunto:",
+    "title21": "Confirme su firma en APC Club - Términos y condiciones 2024",
+    "title22": " ",
+    "title3": "Dudas a",
     "firmar": "firmar",
     "borrar": "Limpiar"
   },
@@ -60,7 +60,8 @@
     "redenciones": "Redenciones",
     "reglas": "Reglas",
     "customer_care": "Customer Care",
-    "formCustomerCare": "Envía tus comentarios"
+    "formCustomerCare": "Envía tus comentarios",
+    "logout": "Cerrar sesión"
   },
 
   "perfil": {

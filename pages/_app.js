@@ -13,6 +13,7 @@ import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
 import global_es from "../translation/es/global.json";
 import global_por from "../translation/por/global.json";
+import global_en from "../translation/en/global.json";
 import { Html } from "next/document";
 import Head from "next/head";
 import Script from "next/script";
@@ -26,6 +27,9 @@ i18next.init({
     },
     por: {
       global: global_por,
+    },
+    en: {
+      global: global_en,
     },
   },
 });

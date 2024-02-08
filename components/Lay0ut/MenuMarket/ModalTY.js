@@ -213,7 +213,7 @@ const ModalTY = ({ setOpened }) => {
             dispatch(setMenuMarket(false));
           }}
         >
-          Ver estados de mis premios
+          {t("shoopingcar.ir")}
         </button>
       </div>
     </div>

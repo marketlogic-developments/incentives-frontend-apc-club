@@ -2,7 +2,7 @@ import { Modal } from "@mantine/core";
 import axios, { Axios } from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -17,6 +17,52 @@ const terminosycondiciones = () => {
   const [t, i18n] = useTranslation("global");
   const [modal, setModal] = useState(0);
   const [imageSign, setImageSign] = useState(null);
+  const iframeRef = useRef(null);
+
+  useEffect(() => {
+    const handleIframeLoad = () => {
+      const iframeDocument = iframeRef.current.contentDocument;
+  
+      if (iframeDocument) {
+        console.log('iframe cargado');
+  
+        const companyInput = iframeDocument.querySelector('input[name="echosign_company"]');
+        const emailInput = iframeDocument.querySelector('input[name="echosign_email"]');
+        const signatureInput = iframeDocument.querySelector('input[name="echosign_signature"]');
+        const clickToEsignButton = iframeDocument.querySelector('.click-to-esign');
+  
+        console.log('Company Input:', companyInput);
+        console.log('Email Input:', emailInput);
+        console.log('Signature Input:', signatureInput);
+        console.log('Click to Esign Button:', clickToEsignButton);
+  
+        const areElementsAvailable =
+          companyInput && emailInput && signatureInput && clickToEsignButton;
+  
+        if (areElementsAvailable) {
+          console.log('Elementos disponibles:', companyInput, emailInput, signatureInput, clickToEsignButton);
+  
+          // Agregar un listener de eventos al documento dentro del iframe
+          iframeDocument.addEventListener('iframeAction', (event) => {
+            console.log('Evento personalizado dentro del iframe:', event.detail);
+  
+            // Realizar acciones adicionales según el evento personalizado
+          });
+          // Agregar un listener de eventos al documento dentro del iframe
+          const customEvent = new CustomEvent('iframeAction', { detail: 'Información adicional' });
+          document.dispatchEvent(customEvent);
+        }
+      }
+    };
+  
+    const iframeElement = iframeRef.current;
+    iframeElement.addEventListener('load', handleIframeLoad);
+  
+    return () => {
+      iframeElement.removeEventListener('load', handleIframeLoad);
+    };
+  }, []);
+  
 
   const [opened, setOpened] = useState(false);
 
@@ -124,17 +170,20 @@ const terminosycondiciones = () => {
 
             {user?.languageId === 1 ? (
               <iframe
+                ref={iframeRef}
                 title="TermsAndContidionsAdobeSign"
-                src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCcW5vpqipVeP4okcl4cwzhtHBOExs8xsfkD9ObSqH_IqLxxQKpBR8Mcsy_xC5UXls*"
+                src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhClfu6ib2RkR49yOgA7LX5pIQCOvI0naofEbv47wRmLL-TBFFMcs9GK5QUnNY51xFw*"
                 className="iframeTandC"
               ></iframe>
             ) : (
               <iframe
+                ref={iframeRef}
                 title="TermsAndContidionsAdobeSign"
-                src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhC32ByET-MhnC7ODY9LX1A8LJ7RrvPZxWnF2y_LEeE15t0oNmDHPEc0PsQyDnA8Ty8*"
+                src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCspkEYh8cL0ffVkee8dCS3gswOg-2w_X1m608sMsQf8vB-FEgLt_qgnJPSD0PCXKQ*"
                 className="iframeTandC"
               ></iframe>
             )}
+            
 
             {/* <div className="flex flex-col gap-10 items-center">
             <div className="flex gap-5">

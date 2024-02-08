@@ -258,7 +258,7 @@ const UserOptions = ({
             className="!text-xs mt-6 font-bold cursor-pointer"
             onClick={logout}
           >
-            Cerrar Sesión
+            {t("menu.logout")}
           </p>
         </div>
       </div>

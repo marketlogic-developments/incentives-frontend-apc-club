@@ -46,7 +46,7 @@ const user = () => {
     setFormData({
       name: user?.name,
       names: user?.names,
-      lastname: user?.lastName,
+      lastname: user?.last_name,
       email: user?.email,
       role: user?.roleId,
       position: user?.position,
@@ -60,7 +60,7 @@ const user = () => {
     const num = Object.values({
       name: user.name,
       names: user.names,
-      lastname: user.lastName,
+      lastname: user.last_name,
       imgProfile: user.profilePhotoPath,
       birthDate: user.birthDate,
       phone: user.phoneNumber,
@@ -125,7 +125,7 @@ const user = () => {
       return {
         name: formData.name,
         names: formData.names,
-        lastName: formData.lastname,
+        last_name: formData.lastname,
         birthDate: formData.birthDate,
         phoneNumber: formData.phone,
         region: formData.region,
@@ -475,12 +475,15 @@ const user = () => {
                             >
                               <option value="es">Español</option>
                               <option value="por">Português</option>
+                              <option value="en">English</option>
                             </select>
                           ) : (
                             <span className="input input-ghost w-full flex items-center">
                               {formData.languageId === 1
                                 ? "Portugués"
-                                : "Español"}
+                                : formData.languageId === 2
+                                ? "Español"
+                                : formData.languageId === 3 && "English"}
                             </span>
                           )}
                         </div>
