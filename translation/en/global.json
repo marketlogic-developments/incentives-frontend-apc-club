@@ -110,12 +110,12 @@
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Terms and Conditions",
-    "aceptar": "Read and accept the Terms & Conditions of the program, click on the 'start' flag, and complete the required information.",
+    "aceptar": "Click on the continue button to access the Terms and Conditions.",
     "aprobar": "Approve",
     "bienvenido": "Next",
     "aceptarBtn": "Accept",
-    "deseas": "Do you wish to continue? \n Once you perform this action, you will not be able to go back to the Terms and Conditions",
-    "click": "If you have already accepted the Terms and Conditions, click on the 'next' button to continue with the process."
+    "deseas": "Confirm your email. We have sent an email to your email with the subject: Confirm your signature in <b>APC Club - Términos y condiciones 2024<b/> <br/> Click on the text: Confirm my email",
+    "click": "Read and accept the Terms and Conditions. Click on the “Start” flag and complete the required information (corporate email)."
   },
   "adobeMarket": {
     "estado": "View the Status of My Rewards",

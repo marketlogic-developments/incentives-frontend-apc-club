@@ -168,6 +168,13 @@ const terminosycondiciones = () => {
               <p>{t("terminosycondiciones.aceptar")}</p>
             </div>
 
+            <div className="flex gap-5 items-center">
+              <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
+                <p className="text-white">2</p>
+              </div>
+              <p>{t("terminosycondiciones.click")}</p>
+            </div>
+
             {user?.languageId === 1 ? (
               <iframe
                 ref={iframeRef}
@@ -184,43 +191,19 @@ const terminosycondiciones = () => {
               ></iframe>
             )}
             
-
-            {/* <div className="flex flex-col gap-10 items-center">
-            <div className="flex gap-5">
-              <input
-                type="checkbox"
-                class="checkbox checkbox-lg"
-                onChange={(e) => {
-                  setChecked(e.target.checked);
-                  setOpened(e.target.checked);
-                }}
-              />
-              <p className="text-3xl">{t("terminosycondiciones.aceptar")}</p>
-            </div>
-            {checked && imageSign !== null && (
-              <div>
-                <button
-                  className="btn btn-primary btn-lg"
-                  onClick={handleSubmit}
-                >
-                  {t("terminosycondiciones.bienvenido")}
-                </button>
-              </div>
-            )}
-          </div> */}
             <div className="flex gap-5 items-center">
               <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
-                <p className="text-white">2</p>
+                <p className="text-white">3</p>
               </div>
-              <p>{t("terminosycondiciones.click")}</p>
+              <p
+              dangerouslySetInnerHTML={{
+                __html: t("terminosycondiciones.deseas"),
+              }}
+              />
             </div>
+            
 
-            <button
-              className="btn btn-primary btn-lg mb-5"
-              onClick={handleSubmit}
-            >
-              {t("terminosycondiciones.bienvenido")}
-            </button>
+            
           </div>
         )}
       </main>
