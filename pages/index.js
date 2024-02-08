@@ -29,6 +29,7 @@ import MaintenancePlataform from "../components/login/MaintenancePlataform";
 import client from "../contentful";
 import ClosePlataform from "../components/login/ClosePlataform";
 import { mailsClosePlataform } from "../content/mails_close_plataform";
+import Image from "next/image";
 
 export default function Home({ maintenance }) {
   const [t, i18n] = useTranslation("global");
@@ -554,7 +555,7 @@ export default function Home({ maintenance }) {
               </figure>
             </div>
           </div>
-          <div className="container flex flex-row justify-center max-w-full max-h-full sm:my-auto">
+          <div className="container flex flex-row justify-center max-w-full max-h-full sm:my-auto items-center">
             <LoginTarget
               handleSubmit={handleSubmit}
               viewLogin={viewLogin}
@@ -564,6 +565,14 @@ export default function Home({ maintenance }) {
               setRegister={setRegister}
               setOpen={setOpen}
             />
+            <figure className="w-1/2 flex">
+              <Image
+                src={"/assets/login/apclogo.webp"}
+                width={800}
+                height={800}
+                className="w-full h-full object-cover"
+              />
+            </figure>
           </div>
           <figure className="absolute w-full z-[-1] opacity-25">
             <img

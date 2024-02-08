@@ -20,15 +20,6 @@ const LoginTarget = ({
     >
       <div className="flex flex-col justify-center items-center m-2">
         <div className="sm:my-4 my-2">
-          <figure className="w-full" id="apcLogo">
-            <img
-              src="/assets/login/apcLogo.webp"
-              className="xl:w-32 lg:w-20 md:w-10 w-28"
-              alt="logoAPC"
-            />
-          </figure>
-        </div>
-        <div className="sm:my-4 my-2">
           <h1 className="2xl:text-2xl lg:text-xl text-xl text-black font-bold text-center w-auto">
             {t("login.Iniciar_Sesión")}
           </h1>
