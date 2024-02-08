@@ -33,8 +33,6 @@ const ModalUpdateData = ({ onClose }) => {
 
     delete objPush[""];
 
-    console.log(objPush);
-
     axios
       .patch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
@@ -92,6 +90,7 @@ const ModalUpdateData = ({ onClose }) => {
               placeholder="Escriba aquí"
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="first_name"
+              required
             />
           </div>
           <div class="form-control w-full">
@@ -114,6 +113,7 @@ const ModalUpdateData = ({ onClose }) => {
               placeholder="Escriba aquí"
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="last_name"
+              required
             />
           </div>
           <div class="form-control w-full">
@@ -125,6 +125,7 @@ const ModalUpdateData = ({ onClose }) => {
               placeholder="Escriba aquí"
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="secondlastname"
+              required
             />
           </div>
         </div>
@@ -137,6 +138,7 @@ const ModalUpdateData = ({ onClose }) => {
             <select
               className="input input-ghost w-fit bg-[#F4F4F4]"
               name="documenttype"
+              required
             >
               <option value="" selected disabled hidden></option>
               <option value={"CC"}>CC</option>
@@ -149,6 +151,8 @@ const ModalUpdateData = ({ onClose }) => {
               placeholder="Escriba aquí"
               className="input input-ghost w-[88.5%] bg-[#F4F4F4]"
               name="documentinfo"
+              required
+              minLength={6}
             />
           </div>
         </div>
@@ -163,6 +167,7 @@ const ModalUpdateData = ({ onClose }) => {
               placeholder: t("user.escriba"),
               name: "phoneNumber",
               onBlur: console.log("aaa"),
+              required: true,
             }}
             countrySelectorStyleProps={{
               className:
@@ -188,6 +193,7 @@ const ModalUpdateData = ({ onClose }) => {
             // }
             variant="datepickerInput"
             className="datepickerInput"
+            required
           />
         </div>
         <div className="form-control w-full">
@@ -201,6 +207,7 @@ const ModalUpdateData = ({ onClose }) => {
             }}
             defaultValue={i18n.resolvedLanguage}
             name="languageId"
+            required
           >
             <option value="es">Español</option>
             <option value="por">Português</option>

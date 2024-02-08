@@ -1087,7 +1087,7 @@ const Layout = ({ children }) => {
                   <div
                     className="logoAdobe cursor-pointer"
                     style={{
-                      "--wlogo": collapse ? "100%" : "35%",
+                      "--wlogo": collapse ? "100%" : "60%",
                     }}
                     onClick={() => router.push("/dashboard")}
                   >

@@ -565,21 +565,20 @@ export default function Home({ maintenance }) {
               setRegister={setRegister}
               setOpen={setOpen}
             />
-            <figure className="w-1/2 flex">
-              <Image
-                src={"/assets/login/apclogo.webp"}
-                width={800}
-                height={800}
-                className="w-full h-full object-cover"
+            <figure className="hidden max-sm:m-auto w-1/2 h-[88dvh] lg:flex">
+              <img
+                src="assets/login/apclogo.webp"
+                className="max-sm:m-auto !w-full lg:object-cover object-contain h-full"
+                alt="APC"
               />
             </figure>
           </div>
-          <figure className="absolute w-full z-[-1] opacity-25">
+          {/* <figure className="absolute w-full z-[-1] opacity-25">
             <img
               src="/assets/login/bbapc.webp"
               className="min-w-full min-h-screen"
             ></img>
-          </figure>
+          </figure> */}
         </main>
       )}
     </>
