@@ -71,7 +71,6 @@ const terminosycondiciones = () => {
               </h1>
             </div>
           </div> */}
-          
 
           {user?.languageId === 1 ? (
             <iframe
@@ -88,7 +87,7 @@ const terminosycondiciones = () => {
               className="iframeTandC"
             ></iframe>
           )}
-        <div className="flex gap-5 items-center">
+          <div className="flex gap-5 items-center">
             <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
               <p className="text-white">1</p>
             </div>
@@ -112,7 +111,6 @@ const terminosycondiciones = () => {
               }}
             />
           </div>
-
         </div>
       </main>
     </>
