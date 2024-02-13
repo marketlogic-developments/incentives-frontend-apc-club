@@ -112,8 +112,9 @@
     "aprobar": "Aprovar",
     "bienvenido": "Seguinte",
     "aceptarBtn": "Aceitar",
-    "deseas": "Confirme seu endereço de e-mail. Enviamos a você um e-mail com o assunto: Confirme sua assinatura no <b>Clube APC - Termos e Condições 2024.<b/> <br/> Clique no texto: Confirmar meu endereço de e-mail",
-    "click": "Leia e aceite os Termos e Condições. Clique na etiqueta 'Inicio' e preencha as informações necessárias (e-mail corporativo)."
+    "deseas": "Confirme seu endereço de e-mail. Enviamos a você um e-mail com o assunto: Confirme sua assinatura no <b>Clube APC - Termos e Condições 2024.<b/> <br/><br/> Clique no texto: Confirmar meu endereço de e-mail",
+    "click": "Leia e aceite os Termos e Condições. Clique na etiqueta 'Inicio' e preencha as informações necessárias (e-mail corporativo).",
+    "paso4": "Para concluir, verifique o seu e-mail, nós enviamos um e-mail com o assunto: Parabéns, sua conta foi confirmada!"
   },
   "adobeMarket": {
     "visaDescription": "Com o cartão digital recarregável Visa, você poderá fazer compras pela internet (comércio eletrônico), permite uso internacional, transferências entre cartões OnlyPay ou contas bancárias, pagamento de contas e recargas de celular.  Assim que sua solicitação de prêmio for auditada e aprovada, você receberá um e-mail para concluir o processo de cadastro e desbloquear seu Cartão Virtual. Dessa forma você poderá verificar o saldo do cartão e revisar o extrato da sua conta e a data de vencimento, que é de <strong>24 meses</strong>. O cartão será recarregado em moeda local e o valor dependerá da variação da cotação do dólar na data da solicitação. Para obter mais informações, consulte os Termos & Condições do programa.",

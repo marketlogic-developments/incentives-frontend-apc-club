@@ -114,8 +114,9 @@
     "aprobar": "Approve",
     "bienvenido": "Next",
     "aceptarBtn": "Accept",
-    "deseas": "Confirm your email. We have sent an email to your email with the subject: Confirm your signature in <b>APC Club - Términos y condiciones 2024<b/> <br/> Click on the text: Confirm my email",
-    "click": "Read and accept the Terms and Conditions. Click on the “Start” flag and complete the required information (corporate email)."
+    "deseas": "Confirm your email. We have sent an email to your email with the subject: Confirm your signature in <b>APC Club - Términos y condiciones 2024<b/> <br/> <br/> Click on the text: Confirm my email",
+    "click": "Read and accept the Terms and Conditions. Click on the “Start” flag and complete the required information (corporate email).",
+    "paso4": ""
   },
   "adobeMarket": {
     "estado": "View the Status of My Rewards",

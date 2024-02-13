@@ -114,8 +114,9 @@
     "aprobar": "Aprobar",
     "bienvenido": "Siguiente",
     "aceptarBtn": "Aceptar",
-    "deseas": "Confirmar tu email. Hemos enviado a tu correo un email con el asunto: Confirme su firma en <b>APC Club - Términos y condiciones 2024<b/> <br/> Haz clic en el texto: Confirmar mi email",
-    "click": "Lee y acepta los Términos y condiciones. Haz clic en la bandera de “Inicio” y completa la información requerida (email corporativo)."
+    "deseas": "Confirmar tu email. Hemos enviado a tu correo un email con el asunto: Confirme su firma en <b>APC Club - Términos y condiciones 2024<b/> <br/> <br/> Haz clic en el texto: Confirmar mi email",
+    "click": "Lee y acepta los Términos y condiciones. Haz clic en la bandera de “Inicio” y completa la información requerida (email corporativo).",
+    "paso4": "Para finalizar revisa tu email, hemos enviado un correo con el asunto: ¡Felicidades! ¡Tu cuenta ha sido confirmada!"
   },
   "adobeMarket": {
     "estado": "Ver el estado de mis premios",
