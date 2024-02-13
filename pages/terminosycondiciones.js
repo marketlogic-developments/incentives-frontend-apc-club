@@ -95,7 +95,7 @@ const terminosycondiciones = () => {
           </div>
 
           <div className="flex gap-5 items-center">
-            <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
+            <div className="rounded-fu  ll bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
               <p className="text-white">2</p>
             </div>
             <p>{t("terminosycondiciones.click")}</p>
