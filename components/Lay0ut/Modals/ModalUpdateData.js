@@ -12,16 +12,42 @@ const ModalUpdateData = ({ onClose }) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
+  const inputsRequired = [
+    "birthDate",
+    "documentinfo",
+    "documenttype",
+    "first_name",
+    "languageId",
+    "last_name",
+    "phoneNumber",
+    "secondlastname",
+  ];
 
   const submitForm = (e) => {
     e.preventDefault();
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
 
     const data = Object.values(e.target);
 
     const objPush = { user_update_data: true };
 
-    const arrayForm = data.slice(0, 12).map((i) => {
-      if (i.value.length === 0) {
+    const arrInputsEmpty = [];
+
+    const arrayForm = data.slice(0, 11).map((i) => {
+      if (i.value?.length === 0) {
+        // console.log(i.id);
+        inputsRequired.includes(i.name) && arrInputsEmpty.push(i.id);
         return (objPush[i.name] = null);
       }
       if (i.name === "languageId") {
@@ -33,44 +59,45 @@ const ModalUpdateData = ({ onClose }) => {
 
     delete objPush[""];
 
-    axios
-      .patch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
-        objPush,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        dispatch(policyAndPassword(res.data));
-        onClose(false);
+    console.log(objPush);
 
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
-
-        return Toast.fire({
-          icon: "success",
-          title: "Datos actualizados",
-          background: "#000000",
-          color: "#fff",
-          customClass: {
-            content: "sw2Custom",
-          },
-        });
-      })
-      .catch((e) => console.log(e));
+    if (arrInputsEmpty.length !== 0) {
+      return Toast.fire({
+        icon: "error",
+        title: `faltan los campos: ${arrInputsEmpty.map((i) => i)}`,
+        background: "#000000",
+        color: "#fff",
+        customClass: {
+          content: "sw2Custom",
+        },
+      });
+    } else {
+      axios
+        .patch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
+          objPush,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          dispatch(policyAndPassword(res.data));
+          onClose(false);
+          return Toast.fire({
+            icon: "success",
+            title: "Datos actualizados",
+            background: "#000000",
+            color: "#fff",
+            customClass: {
+              content: "sw2Custom",
+            },
+          });
+        })
+        .catch((e) => console.log(e));
+    }
   };
 
   return (
@@ -90,7 +117,8 @@ const ModalUpdateData = ({ onClose }) => {
               placeholder="Escriba aquí"
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="first_name"
-              required
+              autoCapitalize
+              id="Primer Nombre"
             />
           </div>
           <div class="form-control w-full">
@@ -102,6 +130,7 @@ const ModalUpdateData = ({ onClose }) => {
               placeholder="Escriba aquí"
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="middlename"
+              autoCapitalize
             />
           </div>
           <div class="form-control w-full">
@@ -113,7 +142,8 @@ const ModalUpdateData = ({ onClose }) => {
               placeholder="Escriba aquí"
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="last_name"
-              required
+              autoCapitalize
+              id="Primer Apellido"
             />
           </div>
           <div class="form-control w-full">
@@ -125,7 +155,8 @@ const ModalUpdateData = ({ onClose }) => {
               placeholder="Escriba aquí"
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="secondlastname"
-              required
+              autoCapitalize
+              id="Segundo Apellido"
             />
           </div>
         </div>
@@ -138,7 +169,7 @@ const ModalUpdateData = ({ onClose }) => {
             <select
               className="input input-ghost w-fit bg-[#F4F4F4]"
               name="documenttype"
-              required
+              id="Tipo de Documento"
             >
               <option value="" selected disabled hidden></option>
               <option value={"CC"}>CC</option>
@@ -151,8 +182,8 @@ const ModalUpdateData = ({ onClose }) => {
               placeholder="Escriba aquí"
               className="input input-ghost w-[88.5%] bg-[#F4F4F4]"
               name="documentinfo"
-              required
               minLength={6}
+              id="Número de Documento"
             />
           </div>
         </div>
@@ -161,12 +192,12 @@ const ModalUpdateData = ({ onClose }) => {
             <span className="label-text">{t("user.cel")}</span>
           </label>
           <PhoneInput
-            defaultCountry="co"
             inputClassName="!ml-1 !input !input-ghost !w-full !rounded-r-lg !bg-[#F4F4F4]"
             inputProps={{
               placeholder: t("user.escriba"),
               name: "phoneNumber",
               onBlur: console.log("aaa"),
+              id: "Número de teléfono",
               required: true,
             }}
             countrySelectorStyleProps={{
@@ -181,7 +212,13 @@ const ModalUpdateData = ({ onClose }) => {
           <label className="label">
             <span className="label-text">{t("user.FechaNacimiento")}</span>
           </label>
-          <DateInput
+          <input
+            type="date"
+            className="!ml-1 !input !input-ghost !w-full !rounded-r-lg !bg-[#F4F4F4]"
+            name="birthDate"
+            id="Fecha de Nacimiento"
+          ></input>
+          {/* <DateInput
             name="birthDate"
             valueFormat="MM/DD/YYYY"
             // onChange={handleChangeDate}
@@ -193,8 +230,8 @@ const ModalUpdateData = ({ onClose }) => {
             // }
             variant="datepickerInput"
             className="datepickerInput"
-            required
-          />
+       
+          /> */}
         </div>
         <div className="form-control w-full">
           <label className="label">
@@ -207,7 +244,7 @@ const ModalUpdateData = ({ onClose }) => {
             }}
             defaultValue={i18n.resolvedLanguage}
             name="languageId"
-            required
+            id="Idioma"
           >
             <option value="es">Español</option>
             <option value="por">Português</option>

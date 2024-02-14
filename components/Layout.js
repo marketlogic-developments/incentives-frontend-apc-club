@@ -47,6 +47,8 @@ import {
 import ModalPersonalize from "./Lay0ut/ModalPersonalize";
 import EyeObserver from "./Lay0ut/SwitchUser/EyeObserver";
 import ModalUpdateData from "./Lay0ut/Modals/ModalUpdateData";
+import { VerifyTC } from "../functions/VerifyTC";
+import ModalTCPa from "./Lay0ut/Modals/ModalTCPa";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -70,6 +72,7 @@ const Layout = ({ children }) => {
   const menuMarket = useSelector((state) => state.awards.menuMarket);
   const [screen, setScreen] = useState();
   const dataSession = useSelector((state) => state.user.userSwitch);
+  const [verifytcResult, setVerifytcResult] = useState(false);
 
   useEffect(() => {
     setScreen(window.innerWidth);
@@ -83,6 +86,19 @@ const Layout = ({ children }) => {
       window.removeEventListener("resize", handleWindowResize);
     };
   });
+
+  const verifytc = useMemo(
+    () =>
+      userRedux !== 0 &&
+      VerifyTC(
+        token,
+        userRedux.companyId !== null
+          ? userRedux.companyId
+          : userRedux.distributionChannelId,
+        userRedux.companyId !== null ? "companies" : "distribution-channel"
+      ).then((res) => setVerifytcResult(res)),
+    [userRedux]
+  );
 
   useEffect(() => {
     // if (
@@ -105,7 +121,12 @@ const Layout = ({ children }) => {
       setModal(2);
       return setOpened(true);
     }
-  }, [userRedux, video]);
+
+    if (verifytcResult) {
+      setModal(3);
+      return setOpened(true);
+    }
+  }, [userRedux, verifytcResult]);
 
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
@@ -856,6 +877,9 @@ const Layout = ({ children }) => {
     if (modal === 2) {
       return <ModalUpdateData onClose={setOpened} />;
     }
+    if (modal === 3) {
+      return <ModalTCPa />;
+    }
   }, [modal, opened]);
 
   const menu = (n) => {
@@ -1046,10 +1070,20 @@ const Layout = ({ children }) => {
       <Modal
         opened={opened}
         withCloseButton={modal == 0 ? true : false}
-        onClose={modal !== 1 && closeModal}
-        fullScreen={modal === 1 || modal === 2}
+        onClose={
+          [0].includes(modal)
+            ? closeModal
+            : [3].includes(modal)
+            ? () => logout()
+            : () => {}
+        }
+        fullScreen={[1, 2].includes(modal)}
         centered
         size={"auto"}
+        overlayProps={{
+          backgroundOpacity: [0, 3].includes(modal) ? 1 : 0.55,
+          blur: 5,
+        }}
         transitionProps={{ transition: "rotate-left" }}
         closeButtonProps={{
           variant: "none",
@@ -1118,7 +1152,12 @@ const Layout = ({ children }) => {
                 </div>
                 <div className="flex justify-center w-full mt-auto">
                   {collapse ? (
-                    <Logo10 />
+                    <figure className="flex w-[36px]">
+                      <img
+                        src="/assets/dashboard/Logo11.png"
+                        alt="apc_canales"
+                      ></img>
+                    </figure>
                   ) : (
                     <figure className="flex">
                       <img
