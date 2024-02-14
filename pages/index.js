@@ -534,10 +534,10 @@ export default function Home({ maintenance }) {
       {maintenance[0].maintenance && closePt ? (
         <ClosePlataform data={maintenance[0]} />
       ) : (
-        <main className="mainIndex bg-primary flex flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden min-h-screen">
+        <main className="mainIndex bg-primary flex flex-col-reverse justify-center lg:flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden min-h-dvh">
           <Recovery opened={opened} setOpened={setOpened} t={t} />
           <Registro close={setRegister} register={register} />
-          <div className="max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] max-sm:max-h-[150px] flex w-full justify-between mt-10">
+          <div className="max-sm:flex max-sm:flex-row max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] max-sm:max-h-[150px] flex w-full justify-between mt-10">
             <figure className="ml-10 max-sm:m-auto">
               <img
                 src="assets/login/adobe.webp"
@@ -545,7 +545,7 @@ export default function Home({ maintenance }) {
                 alt="Principal-Adobe-Logo"
               />
             </figure>
-            <div className="flex gap-6 mr-6 items-center">
+            <div className="flex gap-6 lg:mr-6 items-center">
               <figure>
                 <img
                   src="assets/login/pcc.webp"

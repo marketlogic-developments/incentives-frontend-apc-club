@@ -71,19 +71,6 @@ const terminosycondiciones = () => {
               </h1>
             </div>
           </div> */}
-          <div className="flex gap-5 items-center">
-            <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
-              <p className="text-white">1</p>
-            </div>
-            <p>{t("terminosycondiciones.aceptar")}</p>
-          </div>
-
-          <div className="flex gap-5 items-center">
-            <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
-              <p className="text-white">2</p>
-            </div>
-            <p>{t("terminosycondiciones.click")}</p>
-          </div>
 
           {user?.languageId === 1 ? (
             <iframe
@@ -100,6 +87,19 @@ const terminosycondiciones = () => {
               className="iframeTandC"
             ></iframe>
           )}
+          <div className="flex gap-5 items-center">
+            <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
+              <p className="text-white">1</p>
+            </div>
+            <p>{t("terminosycondiciones.aceptar")}</p>
+          </div>
+
+          <div className="flex gap-5 items-center">
+            <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
+              <p className="text-white">2</p>
+            </div>
+            <p>{t("terminosycondiciones.click")}</p>
+          </div>
 
           <div className="flex gap-5 items-center">
             <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
@@ -108,6 +108,16 @@ const terminosycondiciones = () => {
             <p
               dangerouslySetInnerHTML={{
                 __html: t("terminosycondiciones.deseas"),
+              }}
+            />
+          </div>
+          <div className="flex gap-5 items-center">
+            <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
+              <p className="text-white">4</p>
+            </div>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: t("terminosycondiciones.paso4"),
               }}
             />
           </div>

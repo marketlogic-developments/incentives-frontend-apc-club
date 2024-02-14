@@ -15,21 +15,21 @@ const LoginTarget = ({
 
   return (
     <div
-      className="flex flex-col justify-center place-items-center sm:w-2/6 w-72 bg-white h-full m-4 rounded-xl shadow-lg py-6"
+      className="flex flex-col justify-center place-items-center sm:w-2/6 w-full bg-white h-full m-4 rounded-xl shadow-lg py-6"
       id="cardLogin"
     >
       <div className="flex flex-col justify-center items-center m-2">
         <div className="sm:my-4 my-2 lg:hidden">
-          <figure className="w-full" id="apcLogo">
+          <figure className="w-full flex justify-center" id="apcLogo">
             <img
               src="/assets/login/apcLogo.webp"
-              className="xl:w-32 lg:w-20 md:w-10 w-28"
+              className="xl:w-32 lg:w-20 md:w-10 w-[60%]"
               alt="logoAPC"
             />
           </figure>
         </div>
         <div className="sm:my-4 my-2">
-          <h1 className="2xl:text-3xl lg:text-xl text-xl text-black font-bold text-center w-auto">
+          <h1 className="2xl:text-3xl lg:text-xl text-2xl text-black font-bold text-center w-auto">
             {t("login.Iniciar_Sesión")}
           </h1>
         </div>
