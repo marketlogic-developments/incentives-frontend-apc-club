@@ -64,7 +64,7 @@ const ModalUpdateData = ({ onClose }) => {
     if (arrInputsEmpty.length !== 0) {
       return Toast.fire({
         icon: "error",
-        title: `faltan los campos: ${arrInputsEmpty.map((i) => i)}`,
+        title: `Faltan los campos: ${arrInputsEmpty.map((i) => i)}`,
         background: "#000000",
         color: "#fff",
         customClass: {
@@ -248,7 +248,7 @@ const ModalUpdateData = ({ onClose }) => {
           >
             <option value="es">Español</option>
             <option value="por">Português</option>
-            <option value="en">Ingles</option>
+            {/* <option value="en">Ingles</option> */}
           </select>
         </div>
         <button class="btn btn-info hover:bg-black w-full">
