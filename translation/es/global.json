@@ -42,6 +42,19 @@
     "borrar": "Limpiar"
   },
 
+  "modalUpdate": {
+    "firstName": "Primer Nombre",
+    "middleName": "Segundo Nombre",
+    "lastName": "Primer Apellido",
+    "secondLastName": "Segundo Apellido",
+    "document": "Documento",
+    "phone": "Teléfono",
+    "date": "Fecha de nacimiento",
+    "lenguaje": "Idioma",
+    "updateData": "Actualizar Datos",
+    "updateYourData": "Actualiza tus datos"
+  },
+
   "menu": {
     "Dashboard": "Dashboard",
     "Participantes": "Organización",

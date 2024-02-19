@@ -42,6 +42,19 @@
     "borrar": "Borrão"
   },
 
+  "modalUpdate": {
+    "firstName": "Primeiro Nome",
+    "middleName": "Segundo Nome",
+    "lastName": "Sobrenome Paterno",
+    "secondLastName": "Sobrenome Materno",
+    "document": "Documento",
+    "phone": "Telefone",
+    "date": "Data de Nascimento",
+    "lenguaje": "Idioma",
+    "updateData": "Atualizar Dados",
+    "updateYourData": "Atualize seus Dados"
+  },
+
   "menu": {
     "Dashboard": "Painél de controle",
     "Participantes": "Organização",
