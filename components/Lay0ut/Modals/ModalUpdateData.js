@@ -102,7 +102,9 @@ const ModalUpdateData = ({ onClose }) => {
 
   return (
     <div className="w-full p-6 flex flex-col items-center gap-6 justify-center lg:h-screen">
-      <h2 className="text-2xl font-bold text-center">Actualiza tus datos</h2>
+      <h2 className="text-2xl font-bold text-center">
+        {t("modalUpdate.updateYourData")}
+      </h2>
       <form
         className="flex flex-col gap-4 lg:w-1/2 w-full"
         onSubmit={submitForm}
@@ -110,24 +112,24 @@ const ModalUpdateData = ({ onClose }) => {
         <div className="grid lg:grid-cols-2 gap-4">
           <div class="form-control">
             <label class="label">
-              <span class="label-text">Primer Nombre *</span>
+              <span class="label-text">{t("modalUpdate.firstName")} *</span>
             </label>
             <input
               type="text"
-              placeholder="Escriba aquí"
+              placeholder={t("user.escriba")}
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="first_name"
               autoCapitalize
-              id="Primer Nombre"
+              id={t("modalUpdate.firstName")}
             />
           </div>
           <div class="form-control w-full">
             <label class="label">
-              <span class="label-text">Segundo Nombre</span>
+              <span class="label-text">{t("modalUpdate.middleName")}</span>
             </label>
             <input
               type="text"
-              placeholder="Escriba aquí"
+              placeholder={t("user.escriba")}
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="middlename"
               autoCapitalize
@@ -135,35 +137,37 @@ const ModalUpdateData = ({ onClose }) => {
           </div>
           <div class="form-control w-full">
             <label class="label">
-              <span class="label-text">Primer Apellido *</span>
+              <span class="label-text">{t("modalUpdate.lastName")} *</span>
             </label>
             <input
               type="text"
-              placeholder="Escriba aquí"
+              placeholder={t("user.escriba")}
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="last_name"
               autoCapitalize
-              id="Primer Apellido"
+              id={t("modalUpdate.lastName")}
             />
           </div>
           <div class="form-control w-full">
             <label class="label">
-              <span class="label-text">Segundo Apellido *</span>
+              <span class="label-text">
+                {t("modalUpdate.secondLastName")} *
+              </span>
             </label>
             <input
               type="text"
-              placeholder="Escriba aquí"
+              placeholder={t("user.escriba")}
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="secondlastname"
               autoCapitalize
-              id="Segundo Apellido"
+              id={t("modalUpdate.secondLastName")}
             />
           </div>
         </div>
 
         <div class="form-control w-full">
           <label class="label">
-            <span class="label-text">Documento</span>
+            <span class="label-text">{t("modalUpdate.document")}</span>
           </label>
           <div className="flex justify-between">
             <select
@@ -179,7 +183,7 @@ const ModalUpdateData = ({ onClose }) => {
             </select>
             <input
               type="text"
-              placeholder="Escriba aquí"
+              placeholder={t("user.escriba")}
               className="input input-ghost w-[88.5%] bg-[#F4F4F4]"
               name="documentinfo"
               minLength={6}
@@ -197,7 +201,7 @@ const ModalUpdateData = ({ onClose }) => {
               placeholder: t("user.escriba"),
               name: "phoneNumber",
               onBlur: console.log("aaa"),
-              id: "Número de teléfono",
+              id: t("user.cel"),
               required: true,
             }}
             countrySelectorStyleProps={{
@@ -216,7 +220,7 @@ const ModalUpdateData = ({ onClose }) => {
             type="date"
             className="!ml-1 !input !input-ghost !w-full !rounded-r-lg !bg-[#F4F4F4]"
             name="birthDate"
-            id="Fecha de Nacimiento"
+            id={t("user.FechaNacimiento")}
           ></input>
           {/* <DateInput
             name="birthDate"
@@ -235,7 +239,7 @@ const ModalUpdateData = ({ onClose }) => {
         </div>
         <div className="form-control w-full">
           <label className="label">
-            <span className="label-text">Idioma</span>
+            <span className="label-text">{t("modalUpdate.lenguaje")}</span>
           </label>
           <select
             className="select w-full bg-[#F4F4F4]"
@@ -244,7 +248,7 @@ const ModalUpdateData = ({ onClose }) => {
             }}
             defaultValue={i18n.resolvedLanguage}
             name="languageId"
-            id="Idioma"
+            id={t("modalUpdate.lenguaje")}
           >
             <option value="es">Español</option>
             <option value="por">Português</option>
@@ -252,7 +256,7 @@ const ModalUpdateData = ({ onClose }) => {
           </select>
         </div>
         <button class="btn btn-info hover:bg-black w-full">
-          Actualizar Datos
+          {t("modalUpdate.updateData")}
         </button>
       </form>
     </div>
