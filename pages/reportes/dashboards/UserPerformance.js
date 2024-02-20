@@ -37,6 +37,7 @@ import {
 } from "../../../components/functions/reports";
 import PieChart from "../../../components/dashboard/GraphSales/PieChart";
 import axios from "axios";
+import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
 
 const SalesPerformance = () => {
   const dispatch = useDispatch();
@@ -203,6 +204,18 @@ const SalesPerformance = () => {
   /* Clear Filter */
   const clearSelects = () => {
     setSelectOne("");
+  };
+  const formatDate = (dateString) => {
+    const options = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const date = new Date(dateString);
+    return date.toLocaleString("es-GT", options);
   };
 
   const currentItems = useMemo(() => {
@@ -386,10 +399,12 @@ const SalesPerformance = () => {
                 "LastName",
                 "Region",
                 "Country",
-                // "Company ID",
+                "Company ID",
                 "Company Name",
                 "Company Level",
-                // "Company Type",
+                "Company Type",
+                "T&C User",
+                "T&C Date",
                 // "VIP CC Renewal",
                 /* "VIP CC New business",
                 "VIP DC Renewal",
@@ -410,13 +425,13 @@ const SalesPerformance = () => {
                 // "Revenue Q2",
                 // "Revenue Q3",
                 // "Revenue Q4",
-                "Total VIP Revenue (USD)",
-                "Total VMP Revenue (USD)",
-                "Actual Revenue (USD)",
-                "RMA (USD)",
-                "Total DigiPoints",
-                "DigiPoints Redeemed",
-                "Total % effectiveness",
+                // "Total VIP Revenue (USD)",
+                // "Total VMP Revenue (USD)",
+                // "Actual Revenue (USD)",
+                // "RMA (USD)",
+                // "Total DigiPoints",
+                // "DigiPoints Redeemed",
+                // "Total % effectiveness",
               ]}
             >
               {currentItems &&
@@ -440,15 +455,24 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">
                         {data.country_user}
                       </th>
-                      {/* <th className="text-left py-3 px-2 mx-4">{data.country_id}</th> */}
-                      {/* <th className="text-left py-3 px-2 mx-4">
+                      <th className="text-left py-3 px-2 mx-4">
                         {data.reseller_or_dist_id}
-                      </th> */}
+                      </th>
+                      {/* <th className="text-left py-3 px-2 mx-4">{data.country_id}</th> */}
                       <th className="text-left py-3 px-2 mx-4">
                         {data.reseller_or_dist_name}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.dcname}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.rtype}
+                      </th>
+                      <td className="text-start mx-2 py-4 px-2">
+                        {data.tyc_user ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                      </td>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {formatDate(data.tyc_date)}
                       </th>
                       {/* <th className="text-left py-3 px-2 mx-4">{data.rtype}</th> */}
                       {/* <th className="text-left py-3 px-2 mx-4">
@@ -507,7 +531,7 @@ const SalesPerformance = () => {
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q2)}</th>
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q3)}</th>
                       <th className="text-left py-3 px-2 mx-4">{numberToMoney(data.revenue_q4)}</th> */}
-                      <th className="text-left py-3 px-2 mx-4">
+                      {/* <th className="text-left py-3 px-2 mx-4">
                         {numberToMoney(data.vip_revenue_total)}
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
@@ -527,7 +551,7 @@ const SalesPerformance = () => {
                       </th>
                       <th className="text-left py-3 px-2 mx-4">
                         {data.redenciones_over_total_digipoints}
-                      </th>
+                      </th> */}
                     </tr>
                   ))}
             </Table>

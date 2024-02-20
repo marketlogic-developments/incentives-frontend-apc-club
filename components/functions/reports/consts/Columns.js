@@ -30,6 +30,7 @@ const parseData = (data, columns, customHeader) => {
   return csvContent;
 };
 
+
 export const userPerformanceColumnsExcel = {
   email: "User Name",
   name: "FirstName",
@@ -41,6 +42,8 @@ export const userPerformanceColumnsExcel = {
   reseller_or_dist_name: "Company Name",
   rtype: "Company Type",
   dcname: "Company Level",
+  tyc_user: "T&C User",
+  tyc_date: "T&C Date",
   company_status: "Company Status",
   vip_cc_renewal: "VIP Renewal CC (USD)",
   vip_dc_renewal: "VIP Renewal  DC (USD)",
@@ -243,9 +246,11 @@ export const userPerformanceColumnsCsv = (data) => {
     reseller_or_dist_name: "Company Name",
     rtype: "Company Type",
     dcname: "Company Level",
+    tyc_user: "T&C User",
+    tyc_date: "T&C Date",
     company_status: "Company Status",
     vip_cc_renewal: "VIP Renewal CC (USD)",
-    vip_dc_renewal: "VIP Renewal DC (USD)",
+    vip_dc_renewal: "VIP Renewal  DC (USD)",
     vip_cc_newbusiness: "VIP New Business CC (USD)",
     vip_dc_newbusiness: "VIP New Business DC (USD)",
     vmp_cc_renewal: "VMP Renewal CC (USD)",
