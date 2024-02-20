@@ -191,7 +191,7 @@ const SalesPerformance = () => {
   const filteredUsers = data.filter((user) => {
     if (
       selectOne &&
-      !user.reseller_or_dist_name
+      !user?.reseller_or_dist_name
         .toString()
         .toLowerCase()
         .includes(selectOne.toLowerCase())
