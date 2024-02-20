@@ -206,6 +206,10 @@ const SalesPerformance = () => {
     setSelectOne("");
   };
   const formatDate = (dateString) => {
+    if (!dateString) {
+      return ""; // Devuelve una cadena vacía si la fecha es falsy (por ejemplo, si es undefined o una cadena vacía)
+    }
+  
     const options = {
       year: "numeric",
       month: "numeric",
@@ -217,6 +221,7 @@ const SalesPerformance = () => {
     const date = new Date(dateString);
     return date.toLocaleString("es-GT", options);
   };
+  
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
