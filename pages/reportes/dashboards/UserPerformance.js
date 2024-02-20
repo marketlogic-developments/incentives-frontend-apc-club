@@ -35,6 +35,8 @@ import {
   userPerformanceColumnsCsv,
   userPerformanceColumnsExcel,
 } from "../../../components/functions/reports";
+import PieChart from "../../../components/dashboard/GraphSales/PieChart";
+import axios from "axios";
 
 const SalesPerformance = () => {
   const dispatch = useDispatch();
@@ -51,6 +53,8 @@ const SalesPerformance = () => {
   const [loadingBarChart, setLoadingBarChart] = useState(true);
   const router = useRouter();
   const [dataBarChar, setDataBarChar] = useState([]);
+  const [dataUserPolicy, setDataUserPolicy] = useState([]);
+  const [dataCompanyPolicy, setDataCompanyPolicy] = useState([]);
   const months = [
     "Ene",
     "Feb",
@@ -94,6 +98,34 @@ const SalesPerformance = () => {
         });
     }
   }, [isLoaded]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getuserpolicy`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({ data }) => {
+        setDataUserPolicy(data);
+      });
+  }, [token]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getcompanypolicy`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({ data }) => {
+        setDataCompanyPolicy(data);
+      });
+  }, [token]);
 
   useEffect(() => {
     if (dataBarChar) {
@@ -221,8 +253,40 @@ const SalesPerformance = () => {
           {t("Reportes.user_performance")}
         </span>
       </div>
-      <div className="grid w-auto gap-2">
-        <div className="">
+      <div className="grid w-full gap-2 grid-cols-2 h-full">
+        <div className="h-full">
+          <CardChart title={"T&C Report"} paragraph="" hfull="h-full">
+            <br/>
+            <div className="flex justify-around my-auto">
+              
+              <PieChart
+                sales={dataCompanyPolicy.length > 0 ? dataCompanyPolicy[0]?.total_aceptados : 0}
+                percentageTotal={
+                  dataCompanyPolicy.length > 0
+                    ? (dataCompanyPolicy[0]?.total_aceptados / dataCompanyPolicy[0]?.total_empresas) * 100
+                    : 0
+                }
+                goal={dataCompanyPolicy.length > 0 ? dataCompanyPolicy[0]?.total_empresas : 0}
+                goalsim={false}
+                color={"#21A5A2"}
+                type={"Resellers"}
+              />
+              <PieChart
+                sales={dataUserPolicy.length > 0 ? dataUserPolicy[0]?.total_aceptados : 0}
+                percentageTotal={
+                  dataUserPolicy.length > 0
+                    ? (dataUserPolicy[0]?.total_aceptados / dataUserPolicy[0]?.total_usuarios) * 100
+                    : 0
+                }
+                goal={dataUserPolicy.length > 0 ? dataUserPolicy[0]?.total_usuarios : 0}
+                goalsim={false}
+                color={"#232B2F"}
+                type={"Users"}
+              />
+            </div>
+          </CardChart>
+        </div>
+        <div>
           <CardChart title={"DigiPoints"} paragraph="">
             <MultiLineChart
               dataLeyend={["DigiPoints Redeemed", "Sale DigiPoints"]}
