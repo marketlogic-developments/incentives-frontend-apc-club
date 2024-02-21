@@ -180,6 +180,11 @@ const ModalUpdateData = ({ onClose }) => {
               <option value={"CEX"}>CEX</option>
               <option value={"CPF"}>CPF</option>
               <option value={"RUT"}>RUT</option>
+              <option value={"CURP"}>CURP</option>
+              <option value={"DUI"}>DUI</option>
+              <option value={"DNI"}>DNI</option>
+              <option value={"CEDULA"}>Cédula</option>
+              <option value={"RG"}>RG</option>
             </select>
             <input
               type="text"
