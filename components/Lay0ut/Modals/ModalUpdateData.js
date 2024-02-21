@@ -177,7 +177,8 @@ const ModalUpdateData = ({ onClose }) => {
             >
               <option value="" selected disabled hidden></option>
               <option value={"CC"}>CC</option>
-              <option value={"CEDULA"}>Cédula</option>
+              <option value={"CEDULA"}>CÉDULA</option>
+              <option value={"CEX"}>CEX</option>
               <option value={"CI"}>CI</option>
               <option value={"CIC"}>CIC</option>
               <option value={"CPF"}>CPF</option>
@@ -190,7 +191,6 @@ const ModalUpdateData = ({ onClose }) => {
               <option value={"RFC"}>RFC</option>
               <option value={"RUT"}>RUT</option>
               <option value={"RUN"}>RUN</option>
-              <option value={"CEX"}>CEX</option>
             </select>
             <input
               type="text"
