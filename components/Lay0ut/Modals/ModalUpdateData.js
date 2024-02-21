@@ -185,6 +185,12 @@ const ModalUpdateData = ({ onClose }) => {
               <option value={"DNI"}>DNI</option>
               <option value={"CEDULA"}>Cédula</option>
               <option value={"RG"}>RG</option>
+              <option value={"RUN"}>RUN</option>
+              <option value={"RFC"}>RFC</option>
+              <option value={"CI"}>CI</option>
+              <option value={"CIC"}>CIC</option>
+              <option value={"DNIC"}>DNIC</option>
+              <option value={"DI"}>DI</option>
             </select>
             <input
               type="text"
