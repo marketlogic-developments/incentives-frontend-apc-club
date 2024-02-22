@@ -287,7 +287,7 @@ const SalesPerformance = () => {
                 goal={dataCompanyPolicy.length > 0 ? dataCompanyPolicy[0]?.total_empresas : 0}
                 goalsim={false}
                 color={"#21A5A2"}
-                type={"Resellers"}
+                type={"Partners"}
               />
               <PieChart
                 sales={dataUserPolicy.length > 0 ? dataUserPolicy[0]?.total_aceptados : 0}
