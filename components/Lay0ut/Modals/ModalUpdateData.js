@@ -187,6 +187,7 @@ const ModalUpdateData = ({ onClose }) => {
               <option value={"DNIC"}>DNIC</option>
               <option value={"DI"}>DI</option>
               <option value={"DUI"}>DUI</option>
+              <option value={"INE"}>INE</option>
               <option value={"RG"}>RG</option>
               <option value={"RFC"}>RFC</option>
               <option value={"RUT"}>RUT</option>
