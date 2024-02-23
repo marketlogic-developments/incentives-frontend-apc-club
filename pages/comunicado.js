@@ -31,7 +31,7 @@ export async function getServerSideProps() {
 }
 
 const comunicado = ({ entries, videos }) => {
-  const [content, setContent] = useState(0);
+  const [content, setContent] = useState(1);
   const [contentFul, setContentFul] = useState([]);
   const router = useRouter();
 
@@ -76,14 +76,14 @@ const comunicado = ({ entries, videos }) => {
   return (
     <div className="grid w-full">
       <div className="gap-2 my-3 flex justify-start">
-        <ButtonBgOut
+        {/* <ButtonBgOut
           title={t("comunicado.novedad")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
           onClick={() => {
             setContent(0);
             router.push("/comunicado");
           }}
-        />
+        /> */}
         <ButtonBgOut
           title={t("comunicado.videosTestimonios")}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
