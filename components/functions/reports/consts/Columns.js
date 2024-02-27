@@ -30,6 +30,20 @@ const parseData = (data, columns, customHeader) => {
   return csvContent;
 };
 
+export const partnertycColumnsExcel = {
+  idpartners :"Partner ID",
+  partnername :"Partner Name",
+  region :"Region",
+  country :"Country",
+  partnerlevel :"Partner Level",
+  partner_status :"Partner Status",
+  pptyc :"Status T&C PP",
+  pptycdate :"Date T&C PP",
+  patyc :"Status T&C PA",
+  totalsrusers :"Total User SR",
+  totalsruserstyc :"Total Accepted TyC SR",
+  acceptance_percentage :"% SR Accepted",
+};
 
 export const userPerformanceColumnsExcel = {
   email: "User Name",
@@ -232,6 +246,30 @@ export const digiPointsByBehaviorExel = {
   company_name: "Company Name",
   company_type: "Company Type",
   company_level: "Company Level",
+};
+
+export const partnertycColumnsCsv = (data) => {
+  const columns = {
+  idpartners :"Partner ID",
+  partnername :"Partner Name",
+  region :"Region",
+  country :"Country",
+  partnerlevel :"Partner Level",
+  partner_status :"Partner Status",
+  pptyc :"Status T&C PP",
+  pptycdate :"Date T&C PP",
+  patyc :"Status T&C PA",
+  totalsrusers :"Total User SR",
+  totalsruserstyc :"Total Accepted TyC SR",
+  acceptance_percentage :"% SR Accepted",
+};
+const customHeader = [
+  "Adobe Partner Connection Club",
+  "Partner T&C",
+  date(),
+];
+const result = parseData(data, columns, customHeader);
+return result;
 };
 
 export const userPerformanceColumnsCsv = (data) => {
