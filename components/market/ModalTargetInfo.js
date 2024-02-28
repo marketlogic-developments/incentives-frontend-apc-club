@@ -4,11 +4,11 @@ import { setMenuMarket } from "../../store/reducers/awards.reducer";
 import { useTranslation } from "react-i18next";
 
 const ModalTargetInfo = ({ info, addItem, setCounter, setOpened }) => {
+  const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const description = user.languageId === 2 ? info.cardInfoES : info.cardInfoPT;
+  const description = t(`awardsDescription.${info.provider}`);
   const arrayDescription = description.split("|");
-  const [t, i18n] = useTranslation("global");
 
   const handleAdd = () => {
     addItem();
