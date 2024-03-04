@@ -1,4 +1,5 @@
 export {
+  partnertycColumnsExcel,
   userPerformanceColumnsExcel,
   salesPerformanceColumnsExcel,
   digipointRedemtionColumnsExcel,
@@ -7,6 +8,7 @@ export {
   digiPointsByPromotionsExel,
   digiPointsByBehaviorExel,
   digiPointsxVentasColumnsExcel,
+  partnertycColumnsCsv,
   userPerformanceColumnsCsv,
   salesPerformanceColumnsCsv,
   digipointRedemtionColumnsCsv,
