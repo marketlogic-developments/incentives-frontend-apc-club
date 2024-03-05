@@ -77,22 +77,87 @@ const PartnerTyc = () => {
 
   /* Download */
   const importFile = async (data) => {
-    const columns = partnertycColumnsCsv(data);
+    const updatedData = data.map(record => {
+      let updatedRecord = { ...record }; // Copia el registro original para no modificarlo directamente
+  
+      // Verificar el valor de partner_status en cada registro
+      if (record.partner_status) {
+          // Si es true, asignar "yes"
+          updatedRecord.partner_status = "YES";
+      } else {
+          // Si es false, asignar "no"
+          updatedRecord.partner_status = "NOT";
+      }
+  
+      // Verificar el valor de pptyc en cada registro
+      if (record.pptyc) {
+          // Si es true, asignar "yes"
+          updatedRecord.pptyc = "YES";
+      } else {
+          // Si es false, asignar "no"
+          updatedRecord.pptyc = "NOT";
+      }
+
+      // Verificar el valor de pptyc en cada registro
+      if (record.patyc) {
+        // Si es true, asignar "yes"
+        updatedRecord.patyc = "YES";
+      } else {
+        // Si es false, asignar "no"
+        updatedRecord.patyc = "NOT";
+      }
+  
+      return updatedRecord; // Devolver el registro actualizado
+    });
+
     const csvConfig = {
       data: data,
-      columns: columns,
+      columns: partnertycColumnsCsv(updatedData),
       downloadTitle: "Partner T&C",
     };
     await importCsvFunction(csvConfig);
   };
 
   const importFileExcel = async (data) => {
+    const updatedData = data.map(record => {
+      let updatedRecord = { ...record }; // Copia el registro original para no modificarlo directamente
+  
+      // Verificar el valor de partner_status en cada registro
+      if (record.partner_status) {
+          // Si es true, asignar "yes"
+          updatedRecord.partner_status = "YES";
+      } else {
+          // Si es false, asignar "no"
+          updatedRecord.partner_status = "NOT";
+      }
+  
+      // Verificar el valor de pptyc en cada registro
+      if (record.pptyc) {
+          // Si es true, asignar "yes"
+          updatedRecord.pptyc = "YES";
+      } else {
+          // Si es false, asignar "no"
+          updatedRecord.pptyc = "NOT";
+      }
+
+      // Verificar el valor de pptyc en cada registro
+      if (record.patyc) {
+        // Si es true, asignar "yes"
+        updatedRecord.patyc = "YES";
+      } else {
+        // Si es false, asignar "no"
+        updatedRecord.patyc = "NOT";
+      }
+  
+      return updatedRecord; // Devolver el registro actualizado
+    });
+  
+  
     const excelConfig = {
-      data: data,
+      data: updatedData,
       columns: partnertycColumnsExcel,
       downloadTitle: "Partner T&C",
     };
-
     await importExcelFunction(excelConfig);
   };
 
