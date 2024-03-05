@@ -247,10 +247,6 @@ const ButtonParticipants = () => {
     }
 
     if (modal === 1) {
-      return <ImportExcel type={5} />;
-    }
-
-    if (modal === 2) {
       return <ImportUsers />;
     }
   }, [modal, pos, form]);
