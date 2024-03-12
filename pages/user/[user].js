@@ -88,7 +88,8 @@ const user = () => {
     const { name, value } = e.target;
 
     if (name === "languageId") {
-      const languageValue = value === "es" ? 2 : 1;
+      const languageValue =
+        value === "es" ? 2 : value === "es" ? 1 && value === "en" : 3;
       setFormData({
         ...formData,
         [name]: languageValue,
@@ -475,7 +476,7 @@ const user = () => {
                             >
                               <option value="es">Español</option>
                               <option value="por">Português</option>
-                              {/* <option value="en">English</option> */}
+                              <option value="en">English</option>
                             </select>
                           ) : (
                             <span className="input input-ghost w-full flex items-center">
