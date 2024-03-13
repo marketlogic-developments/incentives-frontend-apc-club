@@ -207,7 +207,7 @@ const MakeTeam = () => {
             </div>
             <input
               type="text"
-              placeholder="Buscar"
+              placeholder={t("tabla.buscar")}
               value={searchByName}
               onChange={(e) => setSearchByName(e.target.value)}
               className="px-11 py-3 w-11/12 rounded-full bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"

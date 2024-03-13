@@ -196,7 +196,7 @@ const ModalCustomerCare = ({ closeModal }) => {
   };
 
   return (
-    <div className="grid grid-rows-9 mr-8 ml-8 mb-8">
+    <div className="grid mr-8 ml-8 mb-8">
       <div className="flex justify-center pb-2">
         <CustomIcon />
       </div>
@@ -211,7 +211,9 @@ const ModalCustomerCare = ({ closeModal }) => {
         </p>
         <p>{t("modalCustomerCare.infoDos")}</p>
         <p>
-          <a className="font-bold underline">{t("modalCustomerCare.infoTres")}</a>
+          <a className="font-bold underline">
+            {t("modalCustomerCare.infoTres")}
+          </a>
           {t("modalCustomerCare.infoCuatro")}
         </p>
       </div>

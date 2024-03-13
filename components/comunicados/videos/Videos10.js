@@ -10,6 +10,8 @@ const Videos10 = ({ dataContentfulVideos = [] }) => {
   const [urlVideo, setUrlVideo] = useState("");
   const [t, i18n] = useTranslation("global");
 
+  console.log(dataContentfulVideos);
+
   return (
     <>
       <Modal opened={open} onClose={() => setOpen(false)} size={"70%"} centered>
@@ -42,6 +44,13 @@ const Videos10 = ({ dataContentfulVideos = [] }) => {
                 }
                 return 0;
               })
+              .filter((data) =>
+                i18n.resolvedLanguage === "por"
+                  ? data.urlEsp
+                  : i18n.resolvedLanguage === "en"
+                  ? data.urlEn
+                  : data.urlEsp
+              )
               .map((data) => (
                 <TargetVideo
                   data={data}

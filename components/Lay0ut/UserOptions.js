@@ -241,7 +241,7 @@ const UserOptions = ({
                 setMenuUser(!menuUser);
               }}
             >
-              Ver perfil
+              {t("perfil.verPerfil")}
             </button>
           </div>
         </div>

@@ -341,7 +341,7 @@ const premios = () => {
                     className="btn btn-primary w-max"
                     onClick={() => importFile(awards)}
                   >
-                    Exportar
+                    {t("tabla.exportar")}
                   </button>
                 </div>
               </div>

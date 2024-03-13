@@ -45,7 +45,7 @@ const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
           className="customLi lg:!text-xs xl:!text-base"
           style={{ "--colorBg": "#F2F2F2" }}
         >
-          Faltante
+          {t("dashboard.faltante")}
         </li>
       </div>
     </div>

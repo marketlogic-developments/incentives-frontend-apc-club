@@ -47,11 +47,7 @@ const ContditionsProviders = ({ data }) => {
       </div>
       <div className="w-full bg-[#F5F5F5] rounded-md">
         <CardConditions
-          description={
-            i18n.resolvedLanguage === "por"
-              ? dataProvider.cardInfoPT
-              : dataProvider.cardInfoES
-          }
+          description={t(`awardsDescription.${dataProvider.provider}`)}
         />
       </div>
     </div>
