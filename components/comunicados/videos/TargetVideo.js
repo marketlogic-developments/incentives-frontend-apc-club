@@ -9,7 +9,11 @@ const TargetVideo = ({ data, setUrlVideo, setOpen }) => {
         className="imgMini flex w-full h-full rounded-t-lg bg-[#f5f5f5] relative overflow-hidden"
         onClick={() => {
           setUrlVideo(
-            i18n.resolvedLanguage === "por" ? data.urlPor : data.urlEsp
+            i18n.resolvedLanguage === "por"
+              ? data.urlPor
+              : i18n.resolvedLanguage === "en"
+              ? data.urlEn
+              : data.urlEsp
           );
           setOpen(true);
         }}
@@ -26,7 +30,13 @@ const TargetVideo = ({ data, setUrlVideo, setOpen }) => {
           </svg>
         </div>
         <ReactPlayer
-          url={i18n.resolvedLanguage === "por" ? data.urlPor : data.urlEsp}
+          url={
+            i18n.resolvedLanguage === "por"
+              ? data.urlPor
+              : i18n.resolvedLanguage === "en"
+              ? data.urlEn
+              : data.urlEsp
+          }
           width={"100%"}
           height={"100%"}
         />
