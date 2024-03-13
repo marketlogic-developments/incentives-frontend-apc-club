@@ -15,6 +15,7 @@ const initialState = {
   distribuitor: {},
   ranking: [],
   userSwitch: {},
+  partnerTyc: [],
 };
 
 export const userActions = createSlice({
@@ -23,6 +24,9 @@ export const userActions = createSlice({
   reducers: {
     userLogin: (state, action) => {
       state.user = action.payload;
+    },
+    getPartnerTyc: (state, action) => {
+      state.partnerTyc = action.payload;
     },
     userToken: (state, action) => {
       state.token = action.payload;
@@ -73,6 +77,7 @@ export const userActions = createSlice({
 
 export const {
   userLogin,
+  getPartnerTyc,
   loadingUser,
   createUser,
   getUsers,
@@ -170,4 +175,20 @@ export const getDigiPoints = (token, id) => async (dispatch) => {
           : setDigipoints(digipoints)
       );
     });
+};
+
+export const getPartnerTycData = (token) => async (dispatch) => {
+  try {
+    return axios
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getpartnertyc`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => dispatch(getPartnerTyc(res.data)));
+  } catch (err) {
+    console.log(err);
+  }
 };

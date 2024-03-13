@@ -28,7 +28,7 @@ const files = () => {
                     className="btn btn-primary"
                     onClick={() => route.push("/cargaventas")}
                   >
-                    Exportar
+                    {t("tabla.exportar")}
                   </button>
                 </div>
               </div>

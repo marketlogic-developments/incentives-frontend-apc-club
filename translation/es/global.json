@@ -62,6 +62,7 @@
     "Reportes": "My Reports",
     "AsignarDigipoints": "Asignación de Facturas",
     "Digipoints": "Mis DigiPoints",
+    "comunicados": "Comunicados",
     "DDigipoints": "Distribución de DigiPoints",
     "Productos": "Productos participantes",
     "Premios": "Mis premios",
@@ -89,6 +90,7 @@
     "bienvenido": "¡Te damos la bienvenida a PartnerConnectionClub!",
     "continuar": "Para continuar ingresa tu nueva contraseña",
     "digitar": "Digita tu nueva contraseña",
+    "confirmarPass": "Confirma tu contraseña",
     "verpass": "Ver contraseña",
     "cambiarpass": "Cambiar contraseña",
     "podio": "Podio del",
@@ -119,7 +121,8 @@
     "rankingsininfo": "Aún no hay información disponible",
     "motivarankingsininfo": "Motiva a tus representantes de venta a obtener DigiPoints y redimir.",
     "motivalargorankingsininfo": "¡Vende con pasión y lidera en el ranking!",
-    "topUsuarios": "Top 5 usuarios"
+    "topUsuarios": "Top 5 usuarios",
+    "faltante": "Faltante"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
@@ -165,6 +168,7 @@
     "Crear": "Crear equipo",
     "crearEquipos": "Equipos",
     "descargar": "Descargar",
+    "removerFil": "Remover Filtros",
     "mis": "Mis",
     "historicos": "Históricos",
     "actuales": "Actuales",
@@ -262,6 +266,7 @@
     "asignar": "Asignar",
     "aDigipoints": "Asignar digipoints",
     "asignado": "Asignado",
+    "desasignado": "Sin asignar",
     "nomParticipantes": "NOMBRE DEL PARTICIPANTE",
     "sillas": "Cantidad",
     "borrar": "Borrar",
@@ -394,7 +399,9 @@
     "enviarSol": "Enviar solicitud",
     "cambiarFoto": "Cambiar",
     "fotoUpdate": "Tu foto de perfil ha sido actualizada",
-    "fotoDelete": "Tu foto de perfil ha sido eliminada"
+    "fotoDelete": "Tu foto de perfil ha sido eliminada",
+    "edit": "Editar",
+    "updateData": "Datos Actualizados"
   },
   "meses": {
     "enero": "Enero",
@@ -585,5 +592,13 @@
     "option82": "Usuario bloqueado",
     "option83": "Información general",
     "option91": "Otras consultas"
+  },
+  "awardsDescription": {
+    "CENCOSUD": "Con la tarjeta digital recargable Cenconsud, puedes hacer compras en tiendas y locales Jumbo, Paris, Paris.cl, Easy y Santa Isabel a lo largo de Chile.|La Gift Card tiene una vigencia de 12 Meses para su uso.|La tarjeta no es válida para uso en Easy.cl y Jumbo.cl.| Una vez que sea aprobado y auditado tu solicitud de premio, recibirás un correo electrónico, el cual podrás imprimir o mostrar desde tu celular al momento de realizar la compra. Esta Gift Card es normativa, lo que significa que puede ser utilizada solamente por el titular de la cuenta. Para consultar tu saldo, ingresa a www.giftcard.cl, con el número de tarjeta y clave impresos en el cupón. El valor de recarga o transferencia será pagado en la moneda local y dependerá de la variación del tipo de cambio del Dólar una vez que sea auditada y aprobada tu solicitud de premio. Para más información, por favor revisa los Términos y Condiciones del programa.",
+    "FALABELLA": "La tarjeta Gift Card Falabella se puede redimir en establecimientos de Falabella o en www.falabella.com.co.|La vigencia de la tarjeta es de 12 meses contando desde su emisión.|La Gift Card no se puede redimir con las alianzas que se tenga en el momento con Falabella.|La tarjeta GIFT CARD Falabella es una tarjeta virtual que llegará a tu correo empresarial. Para las tiendas físicas de Falabella, no necesitas tener la tarjeta impresa, puedes presentarla desde tu celular o medio digital. Para redimirla a través de Falabella.com, al elegir el medio de pago, selecciona \"Pagar con Gift Card\". Ingresa el número de la tarjeta que contiene 16 dígitos numéricos y el código de seguridad alfanumérico que contiene 8 dígitos. No puedes completar la compra con otros medios de pago. El valor de recarga o transferencia será pagado en la moneda local y dependerá de la variación del tipo de cambio del Dólar una vez que sea auditada y aprobada tu solicitud de premio. Para más información, por favor revisa los Términos y Condiciones del programa correspondiente a este incentivo.\n",
+    "BHN": "Con esta tarjeta solo podrás realizar compras en tiendas virtuales.|La fecha de expiración de tu premio es de 6 MESES.|La tarjeta no es válida para ningún otro tipo de transacciones o compras fuera de las tiendas virtuales.|Recibirás un correo electrónico con un código virtual. Solo tendrás 90 DÍAS para activarlo. Deberás ingresar a https://www.myprepaidcenter.com/redeem y crear un perfil. Una vez hayas finalizado este proceso, se te asignará una tarjeta débito virtual Mastercard de 16 dígitos, con su respectivo código de verificación. No olvides agregar la tarjeta a tu perfil. De esta manera, podrás revisar los datos como el balance y fecha de expiración de tu premio.",
+    "ONLYPAY": "Con la tarjeta digital recargable Visa, podrás hacer compras por Internet (comercio electrónico).|La fecha de expiración de la tarjeta es de 24 meses.|La tarjeta no es válida para transferencias entre Tarjetas OnlyPay o cuentas bancarias, pago de facturas y recargas del teléfono celular.|Una vez que sea auditada y aprobada tu solicitud de premio, recibirás un correo electrónico para que realices el trámite de registro y desbloquees tu Tarjeta Virtual. De esta manera podrás verificar el saldo de la tarjeta y revisar el extracto de tu cuenta. El valor de recarga o transferencia será pagado en la moneda local y dependerá de la variación del tipo de cambio del Dólar una vez que sea auditada y aprobada tu solicitud de premio. Para más información, por favor revisa los Términos y Condiciones del programa.",
+    "BANCOLOMBIA": "Con la tarjeta de incentivos Visa podrás hacer retiros en cajeros Bancolombia, otros bancos y cajeros internacionales. Además, puedes hacer compras en establecimientos físicos y electrónicos, incluyendo compras en línea.|La tarjeta tiene una vigencia de 5 años.|La tarjeta no tiene costo de reexpedición en caso de pérdida o robo.|Cuando solicites la emisión por primera vez o remisión de una tarjeta a través de nuestra plataforma, esta será enviada a la dirección principal de la oficina de tu compañía y deberá llegar en un plazo máximo de 20 días hábiles. La recarga será realizada posterior al recibimiento del plástico. La tarjeta funciona como una tarjeta de crédito en compras por Internet y te permite consultar el saldo disponible en todo momento. El valor de recarga o transferencia será pagado en la moneda local y dependerá de la variación del tipo de cambio del Dólar una vez que sea auditada y aprobada tu solicitud de premio. Para más información, por favor revisa los Términos y Condiciones del programa correspondiente a este incentivo.",
+    "TREMENDOUS": "Con tu tarjeta Visa Tremendous podrás realizar compras en establecimientos con convenio de franquicia Visa, además tendrás la libertad de comprar en línea.|La tarjeta tiene una vigencia de 36 meses, una vez activadas.| |Tu tarjeta virtual Visa internacional será recargada en Dólares posterior a ello recibirás un correo electrónico para que realices el trámite de registro y actives tu Tarjeta. De esta manera podrás verificar el saldo y revisar el extracto de tu cuenta. Para más información, por favor revisa los Términos y Condiciones del programa."
   }
 }

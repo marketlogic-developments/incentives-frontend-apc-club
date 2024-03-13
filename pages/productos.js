@@ -227,7 +227,7 @@ const productos = () => {
               />
             </svg>
             <p className="font-bold text-info xl:!text-base lg:!text-sm ">
-              Exportar
+              {t("tabla.exportar")}
             </p>
           </div>
         </div>

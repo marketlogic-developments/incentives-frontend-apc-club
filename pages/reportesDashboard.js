@@ -81,6 +81,19 @@ const reportesDashboard = () => {
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
+          titleCard={"Partner T&C"}
+          onClick={() => {
+            router.push("/reportes/dashboards/PartnerTyc");
+          }}
+          extra={<ArrowRight />}
+        >
+          <UserPerformance
+            width={screen < 639 ? 45 : 70}
+            height={screen < 639 ? 45 : 70}
+          />
+        </CardReportes>
+        <CardReportes
+          styles="hover:bg-red-600 hover:text-white"
           titleCard={"DigiPoints Performance"}
           onClick={() => {
             router.push("/reportes/dashboards/DigiPointsPerformance");

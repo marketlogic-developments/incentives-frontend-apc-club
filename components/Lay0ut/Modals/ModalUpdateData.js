@@ -88,7 +88,7 @@ const ModalUpdateData = ({ onClose }) => {
           onClose(false);
           return Toast.fire({
             icon: "success",
-            title: "Datos actualizados",
+            title: t("user.updateData"),
             background: "#000000",
             color: "#fff",
             customClass: {

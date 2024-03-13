@@ -397,7 +397,7 @@ const Layout = ({ children }) => {
           <path d="M22.5 11.252a4.5 4.5 0 0 0-4.5-4.5h-3.75c-.047 0-4.913-.066-9.534-3.947a1.49 1.49 0 0 0-1.604-.207 1.472 1.472 0 0 0-.862 1.36v14.587a1.472 1.472 0 0 0 .862 1.36c.2.092.418.14.638.14.353.002.695-.12.966-.347 3.553-2.98 7.237-3.712 8.784-3.89v3.29a1.49 1.49 0 0 0 .665 1.247l1.032.694a1.576 1.576 0 0 0 1.378.15 1.49 1.49 0 0 0 .91-1.04l1.115-4.435a4.519 4.519 0 0 0 3.9-4.463Zm-6.469 8.53L15 19.099v-3.346h2.044l-1.013 4.03ZM18 14.253h-3v-6h3a3 3 0 0 1 0 6Z" />
         </svg>
       ),
-      text: "Comunicados",
+      text: t("menu.comunicados"),
     },
     {
       page:
@@ -988,6 +988,7 @@ const Layout = ({ children }) => {
           location === "/reportes/dashboards/SalesPerformance" ||
           location === "/reportes/dashboards/DigiPointsPerformance" ||
           location === "/reportes/dashboards/UserPerformance" ||
+          location === "/reportes/dashboards/PartnerTyc" ||
           location === "/reportes/dashboards/InvoiceReport" ||
           location === "/reportes/dashboards/DigiPointsRedemption" ||
           location === "/reportes/dashboards/DigiPointsPromotions" ||
@@ -1006,7 +1007,7 @@ const Layout = ({ children }) => {
         }
 
         if (location.includes("comunicado")) {
-          return "Comunicados";
+          return t("menu.comunicados");
         }
 
         if (location.includes("organizacion")) {

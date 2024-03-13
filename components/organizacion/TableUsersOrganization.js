@@ -156,7 +156,7 @@ const TableUsersOrganization = () => {
           <div className="relative flex w-full">
             <input
               className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full bg-[]"
-              placeholder="Buscar"
+              placeholder={t("tabla.buscar")}
               type="text"
               onChange={(e) => setSearch(e.target.value)}
             />

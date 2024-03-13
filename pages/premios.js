@@ -319,7 +319,7 @@ const premios = () => {
           <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
             <div>
               <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-1 gap-4 mt-4 place-items-end">
-                <div className="w-full flex justify-end gap-10">
+                {/* <div className="w-full flex justify-end gap-10">
                   {user.roleId === 1 && (
                     <button
                       className="btn btn-primary w-max"
@@ -333,9 +333,9 @@ const premios = () => {
                     className="btn btn-primary w-max"
                     onClick={() => importFile(awards)}
                   >
-                    Exportar
+                    {t("tabla.exportar")}
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
             <br></br>
