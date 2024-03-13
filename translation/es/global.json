@@ -62,6 +62,7 @@
     "Reportes": "My Reports",
     "AsignarDigipoints": "Asignación de Facturas",
     "Digipoints": "Mis DigiPoints",
+    "comunicados": "Comunicados",
     "DDigipoints": "Distribución de DigiPoints",
     "Productos": "Productos participantes",
     "Premios": "Mis premios",
@@ -89,6 +90,7 @@
     "bienvenido": "¡Te damos la bienvenida a PartnerConnectionClub!",
     "continuar": "Para continuar ingresa tu nueva contraseña",
     "digitar": "Digita tu nueva contraseña",
+    "confirmarPass": "Confirma tu contraseña",
     "verpass": "Ver contraseña",
     "cambiarpass": "Cambiar contraseña",
     "podio": "Podio del",
@@ -119,7 +121,8 @@
     "rankingsininfo": "Aún no hay información disponible",
     "motivarankingsininfo": "Motiva a tus representantes de venta a obtener DigiPoints y redimir.",
     "motivalargorankingsininfo": "¡Vende con pasión y lidera en el ranking!",
-    "topUsuarios": "Top 5 usuarios"
+    "topUsuarios": "Top 5 usuarios",
+    "faltante": "Faltante"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Términos y condiciones",
@@ -165,6 +168,7 @@
     "Crear": "Crear equipo",
     "crearEquipos": "Equipos",
     "descargar": "Descargar",
+    "removerFil": "Remover Filtros",
     "mis": "Mis",
     "historicos": "Históricos",
     "actuales": "Actuales",
@@ -394,7 +398,9 @@
     "enviarSol": "Enviar solicitud",
     "cambiarFoto": "Cambiar",
     "fotoUpdate": "Tu foto de perfil ha sido actualizada",
-    "fotoDelete": "Tu foto de perfil ha sido eliminada"
+    "fotoDelete": "Tu foto de perfil ha sido eliminada",
+    "edit": "Editar",
+    "updateData": "Datos Actualizados"
   },
   "meses": {
     "enero": "Enero",

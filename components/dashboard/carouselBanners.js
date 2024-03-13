@@ -124,6 +124,8 @@ const CarouselBanners = ({ banners }) => {
                       src={
                         i18n.resolvedLanguage === "por"
                           ? data.bannerPor.fields.file.url
+                          : i18n.resolvedLanguage === "en"
+                          ? data.bannerEn.fields.file.url
                           : data.bannerEsp.fields.file.url
                       }
                       className="bannersImg"

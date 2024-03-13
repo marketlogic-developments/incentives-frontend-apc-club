@@ -303,7 +303,7 @@ const puntosporventas = () => {
                 className="text-info font-bold 2xl:!text-sm cursor-pointer !text-base"
                 onClick={handleResetFilters}
               >
-                Remover filtros
+                {t("digipoints.removerFil")}
               </p>
             </div>
             <div className="dropdown w-full">

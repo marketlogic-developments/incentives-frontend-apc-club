@@ -189,7 +189,7 @@ const promociones = () => {
                     className="btn btn-sm bg-red-500 btn-primary"
                     onClick={handleResetFilters}
                   >
-                    Remover filtros
+                    {t("digipoints.removerFil")}
                   </button>
                   <button
                     className="btn btn-sm bg-red-500 btn-primary"

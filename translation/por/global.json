@@ -62,6 +62,7 @@
     "Reportes": "My Reports",
     "AsignarDigipoints": "Atribuição de Faturas",
     "Digipoints": "Meus DigiPoints",
+    "comunicados": "Comunicados",
     "DDigipoints": "Distribuição de DigiPoints",
     "Productos": "Produtos Participantes",
     "Premios": "Meus Prêmios",
@@ -89,6 +90,7 @@
     "bienvenido": "Seja bem vindo (a) ao Adobe PartnerConnectionClub!",
     "continuar": "Para continuar, cadastre uma nova senha:",
     "digitar": "Digite sua nova senha",
+    "confirmarPass": "Confirme sua senha",
     "verpass": "Veja a senha",
     "cambiarpass": "Mudança de senha",
     "podio": "Pódio do",
@@ -117,7 +119,8 @@
     "rankingsininfo": "Ainda não há informações disponíveis",
     "motivarankingsininfo": "Motive seus representantes de vendas a obterem DigiPoints e resgatá-los.",
     "motivalargorankingsininfo": "Venda com paixão e lidere no ranking!",
-    "topUsuarios": "5 principais usuários"
+    "topUsuarios": "5 principais usuários",
+    "faltante": "Faltante"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Termos e Condições",
@@ -395,7 +398,9 @@
     "enviarSol": "ENVIAR PEDIDO DE INSCRIÇÃO",
     "cambiarFoto": "Alterar",
     "fotoUpdate": "Sua foto de perfil foi atualizada",
-    "fotoDelete": "Sua foto de perfil foi excluída."
+    "fotoDelete": "Sua foto de perfil foi excluída.",
+    "edit": "Editar",
+    "updateData": "Dados Atualizados"
   },
   "meses": {
     "enero": "Janeiro",

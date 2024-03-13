@@ -163,7 +163,7 @@ const user = () => {
 
         return Toast.fire({
           icon: "success",
-          title: "Datos actualizados",
+          title: t("user.updateData"),
           background: "#000000",
           color: "#fff",
           customClass: {
@@ -314,7 +314,7 @@ const user = () => {
                         fill="#1473E6"
                       />
                     </svg>
-                    Editar
+                    {t("user.edit")}
                   </div>
                 </div>
               </div>
@@ -462,7 +462,9 @@ const user = () => {
                         </div>
                         <div className="form-control w-full">
                           <label className="label">
-                            <span className="label-text">Idioma</span>
+                            <span className="label-text">
+                              {t("modalUpdate.lenguaje")}
+                            </span>
                           </label>
                           {editInfo ? (
                             <select

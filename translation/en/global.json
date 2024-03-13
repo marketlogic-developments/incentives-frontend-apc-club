@@ -42,6 +42,19 @@
     "borrar": "Clear"
   },
 
+  "modalUpdate": {
+    "firstName": "First Name",
+    "middleName": "Middle Name",
+    "lastName": "Last Name",
+    "secondLastName": "Second Last Name",
+    "document": "Document",
+    "phone": "Phone",
+    "date": "Date of Birth",
+    "lenguaje": "Language",
+    "updateData": "Update Data",
+    "updateYourData": "Update Your Data"
+  },
+
   "menu": {
     "Dashboard": "Dashboard",
     "Participantes": "Organization",
@@ -49,6 +62,7 @@
     "Reportes": "My Reports",
     "AsignarDigipoints": "Invoice DigiPoints Allocation",
     "Digipoints": "My DigiPoints",
+    "comunicados": "Communications",
     "DDigipoints": "Allocation of DigiPoints",
     "Productos": "Participating Products",
     "Premios": "My Rewards",
@@ -65,7 +79,7 @@
   },
 
   "perfil": {
-    "verPerfil": "View Profile",
+    "verPerfil": "Profile",
     "cerrarSesion": "Log Out"
   },
 
@@ -76,6 +90,7 @@
     "bienvenido": "Welcome to PartnerConnectionClub!",
     "continuar": "To continue, enter your new password",
     "digitar": "Enter your new password",
+    "confirmarPass": "Confirm your password",
     "verpass": "Show Password",
     "cambiarpass": "Change Password",
     "podio": "Podium of",
@@ -90,7 +105,7 @@
     "nbusiness": "New Business",
     "ventasOrg": "Sales of my organization",
     "misVentas": "My Sales",
-    "dpObtenidos": "Accumulated DigiPoints",
+    "dpObtenidos": "Earned DigiPoints",
     "contieneUL": "An Uppercase Letter (A-Z)",
     "contieneLL": "A Lowercase Letter (a-z)",
     "contieneN": "A Number (0-9)",
@@ -106,7 +121,8 @@
     "rankingsininfo": "No information available yet",
     "motivarankingsininfo": "Motivate your sales representatives to earn DigiPoints and redeem.",
     "motivalargorankingsininfo": "Sell with passion and lead the ranking!",
-    "topUsuarios": "Top 5 Users"
+    "topUsuarios": "Top 5 Users",
+    "faltante": "Target Balance"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Terms and Conditions",
@@ -152,6 +168,7 @@
     "Crear": "Create Team",
     "crearEquipos": "Teams",
     "descargar": "Download",
+    "removerFil": "Clear filter",
     "mis": "My",
     "historicos": "Historical",
     "actuales": "Current",
@@ -381,7 +398,9 @@
     "enviarSol": "Send Request",
     "cambiarFoto": "Change",
     "fotoUpdate": "Your profile picture has been updated",
-    "fotoDelete": "Your profile picture has been deleted"
+    "fotoDelete": "Your profile picture has been deleted",
+    "edit": "Edit",
+    "updateData": "Saved!"
   },
   "meses": {
     "enero": "January",
