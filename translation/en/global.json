@@ -160,7 +160,7 @@
     "organizaciones": "Organizations"
   },
   "cargaventas": {
-    "cargar": "Upload Points",
+    "cargar": "DigiPoints Upload",
     "id": "File ID"
   },
   "digipoints": {
@@ -266,6 +266,7 @@
     "asignar": "Assign",
     "aDigipoints": "Assign DigiPoints",
     "asignado": "Assigned",
+    "desasignado": "Unassigned",
     "nomParticipantes": "PARTICIPANT NAME",
     "sillas": "Quantity",
     "borrar": "Delete",

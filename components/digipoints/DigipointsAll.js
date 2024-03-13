@@ -349,10 +349,10 @@ const DigipointsAll = () => {
                 {t("tabla.nfactura")}
               </th>
               <th scope="col" className="py-3 px-6">
-                Organización
+                {t("organizacion.organizacion")}
               </th>
               <th scope="col" className="py-3 px-6">
-                Organización ID
+                {t("organizacion.organizacion")} ID
               </th>
               <th scope="col" className="py-3 px-6">
                 Digipoints
@@ -361,7 +361,7 @@ const DigipointsAll = () => {
                 Total Sales US
               </th>
               <th scope="col" className="py-3 px-6">
-                Estado
+                {t("tabla.estado")}
               </th>
             </tr>
           </thead>
@@ -391,7 +391,7 @@ const DigipointsAll = () => {
                       setOpened(true);
                     }} */
                       >
-                        Sin asignar
+                        {t("tabla.desasignado")}
                       </span>
                     ) : (
                       <span
@@ -400,7 +400,7 @@ const DigipointsAll = () => {
                       handleUnassign({ ...obj, index: index })
                     } */
                       >
-                        Asignado
+                        {t("tabla.asignado")}
                       </span>
                     )}
                   </td>

@@ -263,7 +263,7 @@ const puntosporventas = () => {
               <input
                 className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
                 type="text"
-                placeholder="Buscar"
+                placeholder={t("tabla.buscar")}
                 value={searchByInvoice}
                 onChange={(e) => setSearchByInvoice(e.target.value)}
               />
