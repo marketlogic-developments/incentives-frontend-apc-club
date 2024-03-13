@@ -501,7 +501,7 @@ const DigipointsAll = () => {
                   className="font-bold !text-info cursor-pointer"
                   onClick={() => importFile(filteredUsers)}
                 >
-                  Exportar
+                  {t("tabla.exportar")}
                 </button>
               </div>
             </div>

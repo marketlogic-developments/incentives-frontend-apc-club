@@ -66,7 +66,7 @@ const TableTyc = () => {
             importFile(data);
           }}
         >
-          Exportar
+          {t("tabla.exportar")}
         </button>
       </div>
 

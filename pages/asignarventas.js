@@ -88,7 +88,7 @@ const asignarventas = () => {
                     className="px-8 py-3 w-10/12 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                   />
                   <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
-                    Exportar
+                    {t("tabla.exportar")}
                   </button>
                 </div>
               </div>
