@@ -89,7 +89,7 @@ const user = () => {
 
     if (name === "languageId") {
       const languageValue =
-        value === "es" ? 2 : value === "es" ? 1 && value === "en" : 3;
+        value === "es" ? 2 : value === "por" ? 1 : value === "en" ? 3 : null;
       setFormData({
         ...formData,
         [name]: languageValue,
