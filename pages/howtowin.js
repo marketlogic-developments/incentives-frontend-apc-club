@@ -29,19 +29,19 @@ const howtowin = ({ htws }) => {
       : dataHTW.pointsDist.quantity;
 
   const htwRes = {
-    AcrobatPro: ["15", "10", "-", "40", "20", "20"],
-    AcrobatSign: ["15", "10", "-", "40", "20", "20"],
-    ForTeam: ["15", "10", "-", "40", "20", "20"],
-    SDL: ["15", "10", "-", "40", "20", "20"],
-    SLP: ["15", "10", "-", "40", "20", "20"],
+    AcrobatPro: ["15", "10", "-", "30", "20", "20"],
+    AcrobatSign: ["15", "10", "-", "30", "20", "20"],
+    ForTeam: ["20", "10", "-", "40", "20", "30"],
+    SDL: ["15", "10", "-", "30", "20", "25"],
+    SLP: ["15", "10", "-", "30", "20", "25"],
   };
 
   const htwDist = {
-    AcrobatPro: ["15", "5", "-", "15", "10", "5"],
-    AcrobatSign: ["15", "5", "-", "15", "10", "5"],
-    ForTeam: ["15", "5", "-", "15", "10", "5"],
-    SDL: ["15", "5", "-", "15", "10", "5"],
-    SLP: ["15", "5", "-", "15", "10", "5"],
+    AcrobatPro: ["10", "5", "-", "15", "10", "5"],
+    AcrobatSign: ["10", "5", "-", "15", "10", "5"],
+    ForTeam: ["10", "5", "-", "15", "10", "5"],
+    SDL: ["10", "5", "-", "15", "10", "5"],
+    SLP: ["10", "5", "-", "15", "10", "5"],
   };
 
   const htwData = user.companyId !== null ? htwRes : htwDist;
@@ -224,7 +224,7 @@ const howtowin = ({ htws }) => {
                     <p className="text-center">+ 10 {t("htw.licences")}</p>
                   </div>
                   <div className="col-span-4 grid grid-cols-3 gap-2">
-                    {htwData.AcrobatPro.map((text, idx) => (
+                    {htwData.ForTeam.map((text, idx) => (
                       <div
                         className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 h-fit border-l-4 ${
                           idx % 3 === 0
@@ -248,7 +248,7 @@ const howtowin = ({ htws }) => {
                     <p className="text-center">+ 50 {t("htw.licences")}</p>
                   </div>
                   <div className="col-span-4 grid grid-cols-3 gap-2">
-                    {htwData.AcrobatPro.map((text, idx) => (
+                    {htwData.SLP.map((text, idx) => (
                       <div
                         className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 h-fit border-l-4 ${
                           idx % 3 === 0
@@ -272,7 +272,7 @@ const howtowin = ({ htws }) => {
                     <p className="text-center">+ 25 {t("htw.licences")}</p>
                   </div>
                   <div className="col-span-4 grid grid-cols-3 gap-2">
-                    {htwData.AcrobatPro.map((text, idx) => (
+                    {htwData.SLP.map((text, idx) => (
                       <div
                         className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 h-fit border-l-4 ${
                           idx % 3 === 0
