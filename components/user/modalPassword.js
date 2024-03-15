@@ -166,7 +166,7 @@ const ModalPassword = ({ setOpened }) => {
         <div className="relative max-sm:w-full">
           <input
             type={view2}
-            placeholder={"Confirma tu contraseña"}
+            placeholder={t("dashboard.confirmarPass")}
             className={`input input-bordered input-primary w-full border ${
               confirmPasswordMatch.length === 0
                 ? "border-gray-300"

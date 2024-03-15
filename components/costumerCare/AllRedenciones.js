@@ -141,7 +141,7 @@ const AllRedenciones = () => {
             className="btn btn-primary text-white rounded-full justify-self-end"
             onClick={() => importFile(orders)}
           >
-            Exportar
+            {t("tabla.exportar")}
           </button>
         </div>
         <div className="container">

@@ -194,7 +194,7 @@ const TableTopsRanking = ({
             </div>
             <div className="w-[90%] lg:w-[60%]">
               <SelectInputValue
-                placeholder={"Región"}
+                placeholder={t("tabla.region")}
                 value={filters.region}
                 data={regions.map((i) => i)}
                 icon={<ArrowDown />}

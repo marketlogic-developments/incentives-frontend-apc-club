@@ -161,7 +161,7 @@ const RegistrationPerformance = () => {
       <div className="grid items-center sm:grid-cols-5 grid-rows-1 gap-3">
         <SearchInput
           image={<SearchIcon />}
-          placeHolder={"Buscar"}
+          placeHolder={t("tabla.buscar")}
           stylesContainer={""}
           value={searchByInvoice}
           onChange={(e) => setSearchByInvoice(e.target.value)}

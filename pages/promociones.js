@@ -189,7 +189,7 @@ const promociones = () => {
                     className="btn btn-sm bg-red-500 btn-primary"
                     onClick={handleResetFilters}
                   >
-                    Remover filtros
+                    {t("digipoints.removerFil")}
                   </button>
                   <button
                     className="btn btn-sm bg-red-500 btn-primary"
@@ -201,7 +201,7 @@ const promociones = () => {
                     className="btn btn-sm bg-red-500 btn-primary"
                     onClick={() => importFile(filteredUsers)}
                   >
-                    Exportar
+                    {t("tabla.exportar")}
                   </button>
                 </div>
                 <div className="w-full grid grid-flow-col auto-cols-fr gap-4 mb-4">

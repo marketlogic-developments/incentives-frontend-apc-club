@@ -387,7 +387,7 @@ const dashboard = ({ entries, banners }) => {
       ></Modal>
       <ContainerContent pageTitle={"Dashboard"}>
         <div className="m-6 flex flex-col gap-10 ">
-          {i18n.language !== "en" && <CarouselBanners banners={banners} />}
+          <CarouselBanners banners={banners} />
 
           <hr color="red" />
           <div className="gap-10 flex flex-col h-full items-center">

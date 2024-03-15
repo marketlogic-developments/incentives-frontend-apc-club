@@ -88,7 +88,7 @@ const ModalUpdateData = ({ onClose }) => {
           onClose(false);
           return Toast.fire({
             icon: "success",
-            title: "Datos actualizados",
+            title: t("user.updateData"),
             background: "#000000",
             color: "#fff",
             customClass: {
@@ -185,6 +185,7 @@ const ModalUpdateData = ({ onClose }) => {
               <option value={"CURP"}>CURP</option>
               <option value={"DNI"}>DNI</option>
               <option value={"DNIC"}>DNIC</option>
+              <option value={"DPI"}>DPI</option>
               <option value={"DI"}>DI</option>
               <option value={"DUI"}>DUI</option>
               <option value={"INE"}>INE</option>
@@ -192,6 +193,7 @@ const ModalUpdateData = ({ onClose }) => {
               <option value={"RFC"}>RFC</option>
               <option value={"RUT"}>RUT</option>
               <option value={"RUN"}>RUN</option>
+              <option value={"StateID"}>State ID</option>
             </select>
             <input
               type="text"

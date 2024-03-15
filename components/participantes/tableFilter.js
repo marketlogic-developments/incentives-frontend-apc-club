@@ -52,13 +52,13 @@ const TableFilter = () => {
 
               <input
                 type="text"
-                placeholder="Buscar"
+                placeholder={t("tabla.buscar")}
                 className="px-8 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
               />
             </div>
             <div className="flex items-center ml-2 h-full">
               <button className="bg-black-500 hover:bg-black-700 text-white font-bold py-2 px-4 rounded-full">
-                Buscar
+                {t("tabla.buscar")}
               </button>
             </div>
           </div>

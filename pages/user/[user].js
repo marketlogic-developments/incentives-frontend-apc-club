@@ -88,7 +88,8 @@ const user = () => {
     const { name, value } = e.target;
 
     if (name === "languageId") {
-      const languageValue = value === "es" ? 2 : 1;
+      const languageValue =
+        value === "es" ? 2 : value === "por" ? 1 : value === "en" ? 3 : null;
       setFormData({
         ...formData,
         [name]: languageValue,
@@ -162,7 +163,7 @@ const user = () => {
 
         return Toast.fire({
           icon: "success",
-          title: "Datos actualizados",
+          title: t("user.updateData"),
           background: "#000000",
           color: "#fff",
           customClass: {
@@ -313,7 +314,7 @@ const user = () => {
                         fill="#1473E6"
                       />
                     </svg>
-                    Editar
+                    {t("user.edit")}
                   </div>
                 </div>
               </div>
@@ -461,7 +462,9 @@ const user = () => {
                         </div>
                         <div className="form-control w-full">
                           <label className="label">
-                            <span className="label-text">Idioma</span>
+                            <span className="label-text">
+                              {t("modalUpdate.lenguaje")}
+                            </span>
                           </label>
                           {editInfo ? (
                             <select
@@ -475,7 +478,7 @@ const user = () => {
                             >
                               <option value="es">Español</option>
                               <option value="por">Português</option>
-                              {/* <option value="en">English</option> */}
+                              <option value="en">English</option>
                             </select>
                           ) : (
                             <span className="input input-ghost w-full flex items-center">

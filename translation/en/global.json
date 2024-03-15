@@ -42,6 +42,19 @@
     "borrar": "Clear"
   },
 
+  "modalUpdate": {
+    "firstName": "First Name",
+    "middleName": "Middle Name",
+    "lastName": "Last Name",
+    "secondLastName": "Second Last Name",
+    "document": "Document",
+    "phone": "Phone",
+    "date": "Date of Birth",
+    "lenguaje": "Language",
+    "updateData": "Update Data",
+    "updateYourData": "Update Your Data"
+  },
+
   "menu": {
     "Dashboard": "Dashboard",
     "Participantes": "Organization",
@@ -49,6 +62,7 @@
     "Reportes": "My Reports",
     "AsignarDigipoints": "Invoice DigiPoints Allocation",
     "Digipoints": "My DigiPoints",
+    "comunicados": "Communications",
     "DDigipoints": "Allocation of DigiPoints",
     "Productos": "Participating Products",
     "Premios": "My Rewards",
@@ -65,7 +79,7 @@
   },
 
   "perfil": {
-    "verPerfil": "View Profile",
+    "verPerfil": "Profile",
     "cerrarSesion": "Log Out"
   },
 
@@ -76,6 +90,7 @@
     "bienvenido": "Welcome to PartnerConnectionClub!",
     "continuar": "To continue, enter your new password",
     "digitar": "Enter your new password",
+    "confirmarPass": "Confirm your password",
     "verpass": "Show Password",
     "cambiarpass": "Change Password",
     "podio": "Podium of",
@@ -90,7 +105,7 @@
     "nbusiness": "New Business",
     "ventasOrg": "Sales of my organization",
     "misVentas": "My Sales",
-    "dpObtenidos": "Accumulated DigiPoints",
+    "dpObtenidos": "Earned DigiPoints",
     "contieneUL": "An Uppercase Letter (A-Z)",
     "contieneLL": "A Lowercase Letter (a-z)",
     "contieneN": "A Number (0-9)",
@@ -106,7 +121,8 @@
     "rankingsininfo": "No information available yet",
     "motivarankingsininfo": "Motivate your sales representatives to earn DigiPoints and redeem.",
     "motivalargorankingsininfo": "Sell with passion and lead the ranking!",
-    "topUsuarios": "Top 5 Users"
+    "topUsuarios": "Top 5 Users",
+    "faltante": "Target Balance"
   },
   "terminosycondiciones": {
     "TerminosyCondiciones": "Terms and Conditions",
@@ -114,8 +130,8 @@
     "aprobar": "Approve",
     "bienvenido": "Next",
     "aceptarBtn": "Accept",
-    "deseas": "Confirm your email. We have sent an email to your email with the subject: Confirm your signature in <b>APC Club - Términos y condiciones 2024<b/> <br/> Click on the text: Confirm my email",
-    "click": "Read and accept the Terms and Conditions. Click on the “Start” flag and complete the required information (corporate email).",
+    "deseas": "Confirm your email. We have sent you an email with the subject: Confirm your signature in <b>APC Club - Terms & conditions 2024<b/> <br/> Click on the text: Confirm my email",
+    "click": "Read and accept the Terms and Conditions. Click on the “Start” flag and complete the required information (business email).",
     "paso4": "To finish, please check your email. We have sent a message with the subject: Congratulations! Your account has been confirmed!"
   },
   "adobeMarket": {
@@ -144,7 +160,7 @@
     "organizaciones": "Organizations"
   },
   "cargaventas": {
-    "cargar": "Upload Points",
+    "cargar": "DigiPoints Upload",
     "id": "File ID"
   },
   "digipoints": {
@@ -152,6 +168,7 @@
     "Crear": "Create Team",
     "crearEquipos": "Teams",
     "descargar": "Download",
+    "removerFil": "Clear filter",
     "mis": "My",
     "historicos": "Historical",
     "actuales": "Current",
@@ -249,6 +266,7 @@
     "asignar": "Assign",
     "aDigipoints": "Assign DigiPoints",
     "asignado": "Assigned",
+    "desasignado": "Unassigned",
     "nomParticipantes": "PARTICIPANT NAME",
     "sillas": "Quantity",
     "borrar": "Delete",
@@ -381,7 +399,9 @@
     "enviarSol": "Send Request",
     "cambiarFoto": "Change",
     "fotoUpdate": "Your profile picture has been updated",
-    "fotoDelete": "Your profile picture has been deleted"
+    "fotoDelete": "Your profile picture has been deleted",
+    "edit": "Edit",
+    "updateData": "Saved!"
   },
   "meses": {
     "enero": "January",
@@ -408,7 +428,7 @@
     "pathBanner": "assets/htw/bannerHTWsection.webp",
     "copyTextFooter": "Sell, Earn, and Redeem!",
     "title": "How to win with the <br /> Adobe Partner Connection Club?",
-    "secondTitle": "In Q4 earn more DigiPoints by Migrating, <br /> Renewing, and Selling through the Marketplace",
+    "secondTitle": "In Q1 earn more DigiPoints by Migrating, <br /> Renewing, and Selling through the Marketplace",
     "phraseSecondTitle": "Now all sales of Creative Cloud and Document Cloud, both in renewals and new business, <br /> earn equally in the Marketplace.",
     "digipoints1000-1": "DigiPoints for every USD 1,000 FOB",
     "digipoints1000-2": "in sales of participating products",
@@ -421,7 +441,20 @@
     "l5": "SLP Licenses",
     "actual": "current",
     "pr1": "PARTICIPATING PRODUCTS:",
-    "pr2": "(No DigiPoints will be awarded for Single App)"
+    "pr2": "(No DigiPoints will be awarded for Single App)",
+    "tabletitle1": "VIP Marketplace Sales",
+    "tabletitle2": "VIP Sales",
+    "tabledescription1": "DigiPoints for every USD 1,000 FOB in sales on participating products",
+    "business1": "COMMERCIAL - GOVERNMENT - EDUCATION",
+    "business2": "GOVERNMENT - EDUCATION",
+    "autoRenova": "Auto Renewal",
+    "reactivation": "Reactivation",
+    "licences": "Licenses",
+    "transactions": "Transactions",
+    "autorenovaInput": "Auto-renewal =",
+    "reactivationInput": "Reactivation =",
+    "autorenovaDes": "Same VIP renewal on anniversary date",
+    "reactivationDes": "Same VIP renewal on anniversary date + 30 days"
   },
   "releases": {
     "vip": "Why use VIP Marketplace?",
@@ -572,5 +605,13 @@
     "option82": "Blocked User",
     "option83": "General Information",
     "option91": "Other Inquiries"
+  },
+  "awardsDescription": {
+    "CENCOSUD": "With the Cencosud rechargeable digital card, you can make purchases in Jumbo, Paris, Paris.cl, Easy and Santa Isabel and stores throughout Chile.|The Gift Card is valid for 12 Months of use.|The card is not valid for use at Easy.cl and Jumbo.cl.|Once your prize application is approved and audited, you will receive an email, which you can print or show from your cell phone when making the purchase. This Gift Card is normative, which means it can only be used by the account holder. To check your balance, go to www.giftcard.cl, with the card number and code printed on the coupon. The recharge or transfer value will be paid in the local currency and will depend on the variation in the Dollar exchange rate once your prize request is audited and approved. For more information, please review the program Terms and Conditions.",
+    "FALABELLA": "The Falabella Gift Card can be redeemed at Falabella stores or at www.falabella.com.co.|The validity of the card is 12 months counting from its issuance.|The Gift Card cannot be redeemed with the alliances you currently have with Falabella.|The Falabella GIFT CARD is a virtual card that will be sent to your business email. For Falabella's physical stores, you do not need to have the card printed, you can present it from your cell phone or in a digital version. To redeem through Falabella.com, when choosing the payment method, select 'Pay with Gift Card.' Enter the card number, which consists of 16 numerical digits, and the alphanumeric security code which contains 8 digits. You cannot complete the purchase with other payment methods. The value of the recharge or transfer will be paid in the local currency and will depend on the variation in the Dollar exchange rate once your prize request has been audited and approved. For more information, please review the Terms & Conditions of the program corresponding to this incentive.",
+    "BHN": "With this card you can only make purchases in virtual stores.|The expiration date of your prize is 6 MONTHS.|The card is not valid for any other type of transactions or purchases outside of virtual stores.|You will receive an email with a digital code. You will only have 90 DAYS to activate it. You must go to https://www.myprepaidcenter.com/redeem and create a profile. Once you have completed this process, you will be assigned a 16-digit Mastercard virtual debit card, with its respective verification code. Don't forget to add the card to your profile. This way, you can review data such as the balance and expiration date of your prize.",
+    "ONLYPAY": "With the Visa rechargeable digital card, you can make purchases online (e-commerce).|The expiration date of the card is 24 months.|The card is not valid for transfers between OnlyPay Cards or bank accounts, bill payments, or mobile top-ups.|Once your prize application is audited and approved, you will receive an email to complete the registration process and unlock your Digital Card. This way you can check the card balance and review your account statement. The recharge or transfer value will be paid in the local currency and will depend on the variation in the Dollar exchange rate once your prize request is audited and approved. For more information, please review the program Terms & Conditions.",
+    "BANCOLOMBIA": "With the Visa incentive card you can make cash withdrawals at Bancolombia ATMs, other banks, and international ATMs. In addition, you can make purchases in physical and electronic stores, including online purchases.|The card is valid for 5 years.|When you request the issuance or sending of a card for the first time through our platform, it will be sent to the main address of your company's office and must arrive within a maximum period of 20 business days. The recharge will be carried out after receiving the card. The card works like a credit card for online purchases and allows you to check the available balance at any time.The charge or transfer value will be paid in the local currency and will depend on the variation in the Dollar exchange rate once your prize application is audited and approved. For more information, please review the Program Terms & Conditions applicable to this incentive.",
+    "TREMENDOUS": "With your Visa Tremendous card you can make purchases in stores with a Visa franchise Agreement, and you will also have the freedom to buy online.|The card is valid for 36 months, once activated.|Your international Visa virtual card will be recharged in Dollars. After that, you will receive an email to complete the registration process and activate your Card. This way you can verify the balance and review your account statement. For more information, please review the program Terms and Conditions."
   }
 }

@@ -33,9 +33,11 @@ const GraphSales = () => {
         dispatch(getSalesByTypeAll(token));
         dispatch(getAllGoals(token));
       } else if (user.company === null) {
-        dispatch(getGoalsByDistri(token, user.distributionChannel.soldToParty));
         dispatch(
-          getSalesByTypeDist(token, user.distributionChannel.soldToParty)
+          getGoalsByDistri(token, user?.distributionChannel?.soldToParty)
+        );
+        dispatch(
+          getSalesByTypeDist(token, user?.distributionChannel?.soldToParty)
         );
       } else {
         dispatch(getGoalsByChannel(token, user.company.resellerMasterId));
@@ -46,13 +48,17 @@ const GraphSales = () => {
 
   useEffect(() => {
     // Check if the sales state is an array before filtering and setting CC state
-    if (Array.isArray(sales) && typeof setCC === 'function') {
-      setCC(sales.filter(({ business_unit }) => business_unit === 'Creative Cloud'));
+    if (Array.isArray(sales) && typeof setCC === "function") {
+      setCC(
+        sales.filter(({ business_unit }) => business_unit === "Creative Cloud")
+      );
     }
 
     // Check if the sales state is an array before filtering and setting DC state
-    if (Array.isArray(sales) && typeof setDC === 'function') {
-      setDC(sales.filter(({ business_unit }) => business_unit === 'Document Cloud'));
+    if (Array.isArray(sales) && typeof setDC === "function") {
+      setDC(
+        sales.filter(({ business_unit }) => business_unit === "Document Cloud")
+      );
     }
   }, [sales]);
 
@@ -72,14 +78,13 @@ const GraphSales = () => {
             ({ business_unit }) => business_unit === "Creative Cloud"
           )}
           goalNew={goals.filter(
-            ({ business_unit, business_type }) => (
-              business_unit === "Creative Cloud" && business_type === "New Business"
-            )
+            ({ business_unit, business_type }) =>
+              business_unit === "Creative Cloud" &&
+              business_type === "New Business"
           )}
           goalRenew={goals.filter(
-            ({ business_unit, business_type }) => (
+            ({ business_unit, business_type }) =>
               business_unit === "Creative Cloud" && business_type === "Renewal"
-            )
           )}
         />
         <TargetSales
@@ -88,14 +93,13 @@ const GraphSales = () => {
             ({ business_unit }) => business_unit === "Document Cloud"
           )}
           goalNew={goals.filter(
-            ({ business_unit, business_type }) => (
-              business_unit === "Document Cloud" && business_type === "New Business"
-            )
+            ({ business_unit, business_type }) =>
+              business_unit === "Document Cloud" &&
+              business_type === "New Business"
           )}
           goalRenew={goals.filter(
-            ({ business_unit, business_type }) => (
+            ({ business_unit, business_type }) =>
               business_unit === "Document Cloud" && business_type === "Renewal"
-            )
           )}
         />
         <PerformaceSales CC={CC} DC={DC} goals={goals} />
