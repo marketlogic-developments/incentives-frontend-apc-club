@@ -296,7 +296,7 @@ const ButtonAddUser = () => {
           </div>
         </div>
       </Modal>
-      <button className="btn btn-primary w-1/2" onClick={() => setOpened(true)}>
+      <button className="btn btn-info w-1/2" onClick={() => setOpened(true)}>
         {t("tabla.addUser")}
       </button>
     </>
