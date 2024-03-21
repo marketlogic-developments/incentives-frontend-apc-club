@@ -321,7 +321,7 @@
     "premiosSol": "Premios solicitados",
     "condiciones": "Condiciones importantes",
     "status1": "Order Received",
-    "status2": "Approved",
+    "status2": "On Review",
     "status3": "On Process",
     "status4": "Delivered"
   },
