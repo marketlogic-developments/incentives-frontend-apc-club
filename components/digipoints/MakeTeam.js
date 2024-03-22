@@ -234,7 +234,7 @@ const MakeTeam = () => {
               </p>
             </div>
             <button
-              className="btn btn-primary w-full"
+              className="btn btn-info w-full"
               onClick={() => {
                 setOpened(true);
               }}
