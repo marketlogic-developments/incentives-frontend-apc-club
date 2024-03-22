@@ -156,24 +156,49 @@ const SalesPerformance = () => {
 
   /* Download */
   const importFile = async (data) => {
-    const columns = userPerformanceColumnsCsv(data);
+
+    // Crear un nuevo array donde almacenaremos los registros con el campo tyc_user actualizado
+    const updatedData = data.map(record => {
+        // Verificar el valor de tyc_user en cada registro
+        if (record.tyc_user) {
+            // Si es true, asignar "yes"
+            return { ...record, tyc_user: "YES" };
+        } else {
+            // Si es false, asignar "no"
+            return { ...record, tyc_user: "NOT" };
+        }
+    });
+    console.log(updatedData);
     const csvConfig = {
-      data: data,
-      columns: columns,
-      downloadTitle: "User Performance",
+        data: updatedData,
+        columns: userPerformanceColumnsCsv(updatedData),
+        downloadTitle: "User Performance",
     };
     await importCsvFunction(csvConfig);
-  };
+};
 
-  const importFileExcel = async (data) => {
-    const excelConfig = {
-      data: data,
+const importFileExcel = async (data) => {
+
+  // Crear un nuevo array donde almacenaremos los registros con el campo tyc_user actualizado
+  const updatedData = data.map(record => {
+      // Verificar el valor de tyc_user en cada registro
+      if (record.tyc_user) {
+          // Si es true, asignar "yes"
+          return { ...record, tyc_user: "YES" };
+      } else {
+          // Si es false, asignar "no"
+          return { ...record, tyc_user: "NOT" };
+      }
+  });
+
+  const excelConfig = {
+      data: updatedData,
       columns: userPerformanceColumnsExcel,
       downloadTitle: "User Performance",
-    };
-
-    await importExcelFunction(excelConfig);
   };
+
+  await importExcelFunction(excelConfig);
+};
 
   /* Selects */
   const handleSelectOneChange = (name, value) => {
