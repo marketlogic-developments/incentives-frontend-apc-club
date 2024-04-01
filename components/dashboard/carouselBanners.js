@@ -1,6 +1,7 @@
 import { Carousel } from "@mantine/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import { useRouter } from "next/router";
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -10,6 +11,7 @@ const CarouselBanners = ({ banners }) => {
   const route = useRouter();
   const user = useSelector((state) => state.user.user);
   const [counter, setCounter] = useState(0);
+  const autoplay = useRef(Autoplay({ delay: 5000 }));
 
   const href = (compOrDist, data) => {
     if (compOrDist) {
@@ -49,9 +51,12 @@ const CarouselBanners = ({ banners }) => {
     <Carousel
       mx="auto"
       withIndicators
+      plugins={[autoplay.current]}
       onSlideChange={(i) => setCounter(i)}
       initialSlide={counter}
       loop
+      onMouseEnter={autoplay.current.stop}
+      onMouseLeave={autoplay.current.reset}
       styles={{
         indicator: {
           height: "1rem",
