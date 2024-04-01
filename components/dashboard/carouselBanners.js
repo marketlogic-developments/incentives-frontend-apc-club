@@ -11,7 +11,7 @@ const CarouselBanners = ({ banners }) => {
   const route = useRouter();
   const user = useSelector((state) => state.user.user);
   const [counter, setCounter] = useState(0);
-  const autoplay = useRef(Autoplay({ delay: 3000 }));
+  const autoplay = useRef(Autoplay({ delay: 5000 }));
 
   const href = (compOrDist, data) => {
     if (compOrDist) {
