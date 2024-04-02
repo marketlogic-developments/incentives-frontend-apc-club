@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 const Table2Htw = ({ user }) => {
   const [t, i18n] = useTranslation("global");
-  const typeSegment = [t("htw.nuevosn"), t("htw.renovaciones")];
+  const typeSegment = [t("htw.renovaciones"), t("htw.nuevosn")];
   const htwRes = {
     AcrobatPro: ["24", "12"],
     AcrobatSign: ["24", "12"],
