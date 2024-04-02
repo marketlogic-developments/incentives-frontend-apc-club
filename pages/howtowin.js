@@ -21,7 +21,7 @@ const howtowin = ({ htws }) => {
   const typeSegment = [
     t("htw.autoRenova"),
     t("htw.reactivation"),
-    t("htw.renovaciones"),
+    t("htw.nuevosn"),
   ];
   const resellerDist =
     user.companyId !== null
