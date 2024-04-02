@@ -10,6 +10,7 @@ import { Button } from "primereact/button";
 import MultiSelectPrime from "../../../inputs/MultiSelectPrime";
 
 const FilterSection = ({
+  year,
   companyName,
   levels,
   region,
@@ -41,6 +42,18 @@ const FilterSection = ({
   return (
     <div className="pt-2 grid items-center sm:grid-cols-6 grid-cols-2 gap-3">
       <div className={screen < 639 ? "hidden" : "col-span-6 grid gap-2"}>
+        <SelectInputValue
+          placeholder={"Year"}
+          value={filters.year}
+          data={year.map((year) => ({
+            label: year,
+            value: year,
+          }))}
+          icon={<ArrowDown />}
+          searchable={true}
+          onChange={handleFilters}
+          name={"year"}
+        />
         <div className={screen < 639 ? "hidden" : "col-span-6"}>
           <MultiSelectPrime
             placeholder={"Company Name"}
