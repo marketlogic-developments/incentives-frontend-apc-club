@@ -9,7 +9,6 @@ const DigipointsRa = ({
   const data = datas.map((item) => ({
     name: item.name,
     type: "bar",
-    stack: "total",
     itemStyle: {
       color: item.color,
     },
@@ -35,9 +34,10 @@ const DigipointsRa = ({
   const option = {
     tooltip: {
       trigger: "axis",
+
       axisPointer: {
         // Use axis to trigger tooltip
-        type: "shadow", // 'shadow' as default; can also be 'line' or 'shadow'
+        type: "line", // 'shadow' as default; can also be 'line' or 'shadow'
       },
     },
     legend: {
@@ -53,17 +53,19 @@ const DigipointsRa = ({
     },
     xAxis: {
       type: "value",
-      axisLabel: {
-        formatter: function (value) {
-          if (value >= 1000000) {
-            return (value / 1000000).toFixed(0) + "M";
-          } else if (value >= 1000) {
-            return (value / 1000).toFixed(0) + "K";
-          } else {
-            return value.toFixed(0);
-          }
-        },
-      },
+      // boundaryGap: [0, 8],
+      minInterval: 1,
+      // axisLabel: {
+      //   formatter: function (value) {
+      //     if (value >= 1000000) {
+      //       return (value / 1000000).toFixed(0) + "M";
+      //     } else if (value >= 1000) {
+      //       return (value / 1000).toFixed(0) + "K";
+      //     } else {
+      //       return value.toFixed(0);
+      //     }
+      //   },
+      // },
     },
     yAxis: {
       type: "category",
@@ -76,6 +78,7 @@ const DigipointsRa = ({
     },
     series: data,
   };
+
   return (
     <div className="w-full">
       <ReactEcharts option={option} className="w-auto h-auto" />
