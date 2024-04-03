@@ -11,6 +11,7 @@ import MarketplaceSection from "./MarketplaceSection";
 import TableSection from "./TableSection";
 
 const SalesYtd = () => {
+  const [defaultYear, setDefaultYear] = useState(['2023', '2024']);
   /* Variable and const */
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const SalesYtd = () => {
   const [levelSale, setLevelSale] = useState();
   const [dataTable, setDataTable] = useState();
   const [filters, setFilters] = useState({
+    year: "2024",
     company_name: "",
     level: "",
     region: "",
@@ -38,6 +40,7 @@ const SalesYtd = () => {
     company_type: "",
   });
   const filterAux = {
+    year: "",
     company_name: "",
     level: "",
     region: "",
@@ -81,6 +84,19 @@ const SalesYtd = () => {
   ]);
   const [companies, setCompaniesType] = useState([]);
   const multiSelect = [
+    {
+      multiSelect: false,
+      placeholder: "Year",
+      value: filters.year,
+      dataSelect: defaultYear?.map((year) => ({
+        label: year,
+        value: year,
+      })),
+      onChange: (name, value) => handleFilters(name, value),
+      searchable: true,
+      icon: <ArrowDown />,
+      name: "year",
+    },
     {
       multiSelect: true,
       placeholder: "Company name",
@@ -233,6 +249,7 @@ const SalesYtd = () => {
 
   const clearSelects = () => {
     setFilters({
+      year: "",
       company_name: "",
       company_type: "",
       region: "",
@@ -507,6 +524,7 @@ const SalesYtd = () => {
 
   /* TOTAL DE CREATIVE CLOUD Y DOCUMENT CLOUD  */
   const calculateCreativeDocumentSum = (data) => {
+    console.log(data)
     const filteredItems = data.filter((item) => {
       const resDist =
         filters.level === "DISTRIBUTOR" ||
@@ -629,6 +647,7 @@ const SalesYtd = () => {
       <FilterSection
         filters={filters}
         multiFilter={multiFilter}
+        year={defaultYear}
         companyName={companiesName}
         levels={levels}
         region={regions}
