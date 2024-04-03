@@ -37,7 +37,6 @@ const DigipoinstPerformance = () => {
   const [digipointsStatus, setDigipointStatus] = useState([]);
   const [digipointsRA, setDigipointRA] = useState({
     datas: [],
-    yNames: [],
   });
   const [isDataReady, setIsReady] = useState(false);
   const multiSelect = [
@@ -164,14 +163,15 @@ const DigipoinstPerformance = () => {
 
   const transformDataWithColors = (data, colorsByCountry) => {
     return data
-      .filter((item) => item.name !== null)
+      .filter((item) => item.category !== null)
       .map((item) => {
-        const countryColor = colorsByCountry[item.name] || "#000000";
+        const countryColor = colorsByCountry[item.category] || "#000000";
         const cleanedData = item.data.filter((value) => value !== 0);
         return {
-          name: item.name,
+          name: item.category,
           color: countryColor,
           data: cleanedData.map((value) => parseInt(value)),
+          label: item.labels,
         };
       });
   };
@@ -249,31 +249,36 @@ const DigipoinstPerformance = () => {
       );
       setDigipointStatus(mapColorsToData(filerDigipintsStatus, colorsData));
 
-
       const digipointsByStatusALL = res.payload.digipointsByStatus;
 
       // Busca el objeto con name igual a "Assigned"
-    const totalItem = digipointsByStatusALL.find(item => item.name === "Digipoints");
-    if (totalItem) {
-      setTtotalUpload(totalItem.value);
-    }
+      const totalItem = digipointsByStatusALL.find(
+        (item) => item.name === "Digipoints"
+      );
+      if (totalItem) {
+        setTtotalUpload(totalItem.value);
+      }
 
-    // Busca el objeto con name igual a "Assigned"
-    const assignedItem = digipointsByStatusALL.find(item => item.name === "Assigned");
-    if (assignedItem) {
-      setAssignedValue(assignedItem.value);
-    }
+      // Busca el objeto con name igual a "Assigned"
+      const assignedItem = digipointsByStatusALL.find(
+        (item) => item.name === "Assigned"
+      );
+      if (assignedItem) {
+        setAssignedValue(assignedItem.value);
+      }
 
-    // Busca el objeto con name igual a "Redeemed"
-    const redeemedItem = digipointsByStatusALL.find(item => item.name === "Redeemed");
-    if (redeemedItem) {
-      setRedeemedValue(redeemedItem.value);
-    }
+      // Busca el objeto con name igual a "Redeemed"
+      const redeemedItem = digipointsByStatusALL.find(
+        (item) => item.name === "Redeemed"
+      );
+      if (redeemedItem) {
+        setRedeemedValue(redeemedItem.value);
+      }
 
       /* DIGIPOINTS BY REGION AND AMOUND */
       setDigipointRA({
         datas: transformDataWithColors(
-          res.payload.redempionsByRegionAndAmount.series,
+          res.payload.redempionsByRegionAndAmount.yAxis.allData,
           {
             MEXICO: "#1C2226",
             NOLA: "#2799F6",
@@ -281,7 +286,6 @@ const DigipoinstPerformance = () => {
             BRAZIL: "#21A5A2",
           }
         ),
-        yNames: res.payload.redempionsByRegionAndAmount.yAxis.data,
       });
 
       /* SET DATA FILTER */
@@ -327,9 +331,7 @@ const DigipoinstPerformance = () => {
           digipointsRA={digipointsRA}
         />
       </div>
-      <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
-        
-      </div>
+      <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4"></div>
     </div>
   );
 };
