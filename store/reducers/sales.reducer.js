@@ -573,11 +573,11 @@ export const getUserSalePerformance = (token) => async (dispatch) => {
   }
 };
 
-export const getSalesPerformance = (token) => async (dispatch) => {
+export const getSalesPerformance = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesperformance`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesperformance/?year=${data.year}`,
         {
           headers: {
             "Content-Type": "application/json",

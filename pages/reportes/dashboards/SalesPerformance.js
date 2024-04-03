@@ -44,10 +44,12 @@ const SalesPerformance = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const [filters, setFilters] = useState({
+    year: "2024",
     company: "",
     level: "",
     region: "",
   });
+  const [defaultYear, setDefaultYear] = useState(['2023', '2024']);
   const [selectOne, setSelectOne] = useState("");
   const [searchByInvoice, setSearchByInvoice] = useState("");
   const [itemOffset, setItemOffset] = useState(0);
@@ -87,9 +89,10 @@ const SalesPerformance = () => {
   }, []);
 
   useEffect(() => {
+    setLoading(false);
     if (isLoaded && token) {
       setLoading(true);
-      dispatch(getSalesPerformance(token))
+      dispatch(getSalesPerformance(token, filters))
         .then((response) => {
           setLoading(false);
           setData(response.payload);
@@ -97,28 +100,22 @@ const SalesPerformance = () => {
         .catch((error) => {
           console.log(error);
         });
-
-      setLoading(true);
       dispatch(getSalesvGoals(token))
         .then((response) => {
-          setLoading(false);
           setDataBarChar(response.payload[0].json_agg);
         })
         .catch((error) => {
           console.log(error);
         });
-
-      setLoading(true);
       dispatch(getDigipointsPermonth(token))
         .then((response) => {
-          setLoading(false);
           setDataLineChar(response.payload);
         })
         .catch((error) => {
           console.log(error);
         });
     }
-  }, [isLoaded]);
+  }, [isLoaded, filters]);
 
   useEffect(() => {
     if (dataBarChar) {
@@ -190,7 +187,7 @@ const SalesPerformance = () => {
   /* Selects */
   const handleFilters = (name, value) => {
     if (name === "company") {
-      return setFilters({ level: "", region: "", company: value });
+      return setFilters({ year: "2024", level: "", region: "", company: value });
     }
 
     return setFilters({ ...filters, [name]: value });
@@ -238,6 +235,7 @@ const SalesPerformance = () => {
   /* Clear Filter */
   const clearSelects = () => {
     setFilters({
+      year: "2024",
       company: "",
       level: "",
       region: "",
@@ -383,6 +381,20 @@ const SalesPerformance = () => {
       </div>
       <div className="grid sm:grid-cols-2 mt-5">
         <div className="grid grid-cols-3 sm:justify-items-start justify-items-center mt-3 gap-3 ">
+          <div className="sm:w-[90%] w-auto">
+              <SelectInputValue
+              placeholder={"Year"}
+              value={filters.year}
+              data={defaultYear.map((year) => ({
+                label: year,
+                value: year,
+              }))}
+              icon={<ArrowDown />}
+              searchable={true}
+              onChange={handleFilters}
+              name={"year"}
+            />
+          </div>
           <div className="sm:w-[90%] w-auto">
             <SelectInputValue
               placeholder={"Company Name"}
