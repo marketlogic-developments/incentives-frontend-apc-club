@@ -653,7 +653,7 @@ export const getOrganizations = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/organizations?company_name=${data.company_name}&region=${data.region}&country=${data.country}&level=${data.level}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/organizations?year=${data.year}&company_name=${data.company_name}&region=${data.region}&country=${data.country}&level=${data.level}`,
         {
           headers: {
             "Content-Type": "application/json",

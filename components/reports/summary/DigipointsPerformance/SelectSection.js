@@ -26,7 +26,7 @@ const SelectSection = ({
             value: year,
           }))}
           icon={<ArrowDown />}
-          searchable={true}
+          searchable={false}
           onChange={handleFilters}
           name={"year"}
         />
