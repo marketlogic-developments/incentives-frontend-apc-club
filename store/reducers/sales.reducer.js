@@ -687,11 +687,11 @@ export const getDigiPointsPerformance = (token) => async (dispatch) => {
   }
 };
 
-export const getInvoiceReport = (token) => async (dispatch) => {
+export const getInvoiceReport = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/invoiceperformance`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/invoiceperformance?year=${data.year}`,
         {
           headers: {
             "Content-Type": "application/json",
