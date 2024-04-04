@@ -67,6 +67,7 @@ const SalesPerformance = () => {
   const [goalAmount, setGoalAmount] = useState([]);
   const [totalSales, setTotalSales] = useState([]);
   const months = [
+    "Dic",
     "Ene",
     "Feb",
     "Mar",
@@ -78,7 +79,6 @@ const SalesPerformance = () => {
     "Sep",
     "Oct",
     "Nov",
-    "Dic",
   ];
   const goalAmountArray = [];
   const totalSalesArray = [];
@@ -148,6 +148,7 @@ const SalesPerformance = () => {
   };
 
   const xValuesLine = [
+    "Dic",
     "Ene",
     "Feb",
     "Mar",
@@ -159,7 +160,6 @@ const SalesPerformance = () => {
     "Sep",
     "Oct",
     "Nov",
-    "Dic",
   ];
 
   /* Download */
