@@ -16,6 +16,19 @@ const organizacion = () => {
   const company =
     user.company === null ? user.distributionChannel : user.company;
 
+    console.log(user);
+
+  const niveles = {
+    "1": "GOLD",
+    "2": "PLATINUM",
+    "3": "DISTRIBUTOR",
+    "4": "CERTIFIED"
+  };
+
+  const userDistributionChannelId = user?.distributionChannel?.distChannelsId;
+  const userCompanyId = user?.company?.distChannelsId;
+    
+
   const objects = [
     {
       svg: (
@@ -71,7 +84,7 @@ const organizacion = () => {
           />
         </svg>
       ),
-      text: !company.soldToParty ? "Gold" : "Distribuitor",
+      text: user.company === null ? niveles[user?.distributionChannel?.distChannelsId] : niveles[user?.company?.distChannelsId],
     },
     {
       svg: (
