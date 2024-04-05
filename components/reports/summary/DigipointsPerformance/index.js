@@ -166,11 +166,13 @@ const DigipoinstPerformance = () => {
       .filter((item) => item.category !== null)
       .map((item) => {
         const countryColor = colorsByCountry[item.category] || "#000000";
-        const cleanedData = item.data.filter((value) => value !== 0);
+        const cleanedData = item.data.map((value) =>
+          value === 0 ? undefined : value
+        );
         return {
           name: item.category,
           color: countryColor,
-          data: cleanedData.map((value) => parseInt(value)),
+          data: cleanedData,
           label: item.labels,
         };
       });

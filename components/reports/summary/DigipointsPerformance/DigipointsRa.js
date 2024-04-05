@@ -21,15 +21,10 @@ const DigipointsRa = ({
     data: item.data,
     label: {
       show: true,
-      formatter: function (params) {
-        return params.value >= 1000000
-          ? (params.value / 1000000).toFixed(0) + "M"
-          : params.value >= 1000
-          ? (params.value / 1000).toFixed(0) + "K"
-          : params.value;
-      },
     },
   }));
+
+  console.log(data);
 
   const option = {
     tooltip: {
@@ -37,7 +32,7 @@ const DigipointsRa = ({
 
       axisPointer: {
         // Use axis to trigger tooltip
-        type: "line", // 'shadow' as default; can also be 'line' or 'shadow'
+        type: "shadow", // 'shadow' as default; can also be 'line' or 'shadow'
       },
     },
     legend: {

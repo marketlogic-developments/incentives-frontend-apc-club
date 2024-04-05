@@ -20,7 +20,7 @@ const DigipointRedemptionSection = ({
         .map(({ label }) => label)
         .reduce((a, b) => a.concat(b), [])
     ),
-  ];
+  ].sort((a, b) => a - b);
 
   console.log(digipointsRA, yAxis);
   return (
