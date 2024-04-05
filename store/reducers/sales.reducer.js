@@ -573,11 +573,11 @@ export const getUserSalePerformance = (token) => async (dispatch) => {
   }
 };
 
-export const getSalesPerformance = (token) => async (dispatch) => {
+export const getSalesPerformance = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesperformance`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesperformance/?year=${data.year}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -596,7 +596,7 @@ export const getSalesYtd = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesperformancefilters/?company_name=${data.company_name}&region=${data.region}&country_id=${data.country_id}&level=${data.level}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesperformancefilters/?year=${data.year}&company_name=${data.company_name}&region=${data.region}&country_id=${data.country_id}&level=${data.level}`,
         {
           headers: {
             "Content-Type": "application/json",
