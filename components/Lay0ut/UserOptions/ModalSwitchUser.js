@@ -16,16 +16,18 @@ const ModalSwitchUser = ({ opened, setOpened }) => {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [itemOffset, setItemOffset] = useState(0);
-  const users = useSelector((state) => state.user.users).filter(
+  const thisusers = useSelector((state) => state.user.users)?.filter(
     ({ operationStatusId, roleId }) => operationStatusId !== 5 && roleId !== 1
   );
+  const users = thisusers === undefined ? [] : thisusers;
+
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
     return users
-      .filter((data) => {
+      ?.filter((data) => {
         if (search !== "") {
           return data.email.startsWith(search.toLocaleLowerCase());
         }
@@ -43,7 +45,7 @@ const ModalSwitchUser = ({ opened, setOpened }) => {
   const pageCount = useMemo(
     () =>
       Math.ceil(
-        users.filter((data) => {
+        users?.filter((data) => {
           if (search !== "") {
             return data.email.startsWith(search.toLocaleLowerCase());
           }
