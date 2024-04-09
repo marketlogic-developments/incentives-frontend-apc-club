@@ -72,8 +72,19 @@ const PerformaceSales = ({ CC, DC, goals }) => {
       };
     }
 
-    return 0;
+    return {
+      renewal: 0,
+      totalSalesRenew: 0,
+      newBusiness: 0,
+      totalSalesNewBusiness: 0,
+      totalSalesCC: 0,
+      totalSalesCreativeCloud: 0,
+      totalSalesDC: 0,
+      totalSalesDocument: 0,
+    };
   }, [data]);
+
+  console.log(dataSalesByType);
 
   return (
     <div className="flex flex-col w-full p-4 gap-4 targetDashboard">
