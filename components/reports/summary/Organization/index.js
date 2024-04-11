@@ -140,7 +140,7 @@ const Organization = () => {
 
   const addTotalColumn = (data) => {
     return data.map((item) => {
-      const total = item.BRAZIL + item.MEXICO + item.NOLA + item.SOLA;
+      const total = Number(item.BRAZIL) + Number(item.MEXICO) + Number(item.NOLA) + Number(item.SOLA);
       return {
         ...item,
         TOTAL: total,
