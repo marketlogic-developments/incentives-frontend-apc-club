@@ -38,7 +38,7 @@ const DigipointSection = ({
 
   return (
     <>
-      <CardChart title={"DigiPoints assigned YTD"} paragraph="">
+      <CardChart title={"DigiPoints Uploaded YTD"} paragraph="">
         {isDataReady ? (
           <PieChart
             datas={dataUploaded}
