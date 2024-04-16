@@ -186,6 +186,22 @@ const DigipoinstPerformance = () => {
       });
   };
 
+  const transformDataWithColors2 = (data, colorsByCountry) => {
+    return data
+      .filter((item) => item.name !== null)
+      .map((item) => {
+        const countryColor = colorsByCountry[item.name] || "#000000";
+        const cleanedData = item.data.map((value) =>
+          value === 0 ? undefined : value
+        );
+        return {
+          name: item.name,
+          color: countryColor,
+          data: cleanedData,
+        };
+      });
+  };
+
   const filterArray = (arr, valueToExclude) => {
     return arr.filter((item) => item !== valueToExclude);
   };
@@ -228,8 +244,6 @@ const DigipoinstPerformance = () => {
   useEffect(() => {
     setIsReady(false);
     dispatch(getDigiPointPerformance(token, filters)).then((res) => {
-      console.log(res);
-
       /* DIGIPOINTS UPLOADED */
       setDigipointUploaded(res.payload.digipointsUploaded);
       /* const total = digipointUploaded.reduce((acc, item) => acc + parseInt(item.value, 10), 0);
@@ -237,7 +251,7 @@ const DigipoinstPerformance = () => {
 
       /* DIGIPOINTS BY STATUS AND REGION PENDING*/
       setDigipointSR({
-        datas: transformDataWithColors(
+        datas: transformDataWithColors2(
           res.payload.digipointsByStatusAndRegion.series,
           {
             MEXICO: "#1C2226",

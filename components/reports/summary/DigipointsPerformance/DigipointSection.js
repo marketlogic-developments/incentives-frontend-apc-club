@@ -36,6 +36,8 @@ const DigipointSection = ({
     }
   }, [dataSR?.datas.length, isDataReady]);
 
+  console.log(isDataReady, dataUploaded, dataSR);
+
   return (
     <>
       <CardChart title={"DigiPoints Uploaded YTD"} paragraph="">

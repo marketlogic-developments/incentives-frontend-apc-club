@@ -22,7 +22,6 @@ const DigipointRedemptionSection = ({
     ),
   ].sort((a, b) => a - b);
 
-  console.log(digipointsRA, yAxis);
   return (
     <>
       <CardChart title={"DigiPoints by status"} paragraph="">
