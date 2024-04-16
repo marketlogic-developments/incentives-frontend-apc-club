@@ -242,7 +242,6 @@ const DigipoinstPerformance = () => {
       setTtotalUpload(total); */
 
       /* DIGIPOINTS BY STATUS AND REGION PENDING*/
-      console.log(res.payload.digipointsByStatusAndRegion.series);
       setDigipointSR({
         datas: transformDataWithColors2(
           res.payload.digipointsByStatusAndRegion.series,
