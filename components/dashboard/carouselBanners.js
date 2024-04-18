@@ -98,7 +98,7 @@ const CarouselBanners = ({ banners }) => {
                   className="w-full flex justify-center cursor-pointer p-[1px]"
                   href={
                     i18n.resolvedLanguage === "por"
-                      ? data.redirectionPors
+                      ? data.redirectionPor
                       : i18n.resolvedLanguage === "en"
                       ? data.redirectionEn
                       : data.redirection
