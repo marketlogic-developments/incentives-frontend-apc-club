@@ -189,7 +189,7 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
           {t("modalEquipos.cancelar")}
         </button>
         <button
-          className="btn btn-cancel lg:w-48 w-full"
+          className="btn btn-info lg:w-48 w-full"
           onClick={handleAssign}
           disabled={loading}
         >
