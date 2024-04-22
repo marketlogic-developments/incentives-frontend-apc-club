@@ -615,7 +615,7 @@ export const getDigiPointPerformance = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-performance-charts?company_name=${data.company_name}&region=${data.region}&country=${data.country}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-performance-charts?year=${data.year}&company_name=${data.company_name}&region=${data.region}&country=${data.country}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -653,7 +653,7 @@ export const getOrganizations = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/organizations?company_name=${data.company_name}&region=${data.region}&country=${data.country}&level=${data.level}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/organizations?year=${data.year}&company_name=${data.company_name}&region=${data.region}&country=${data.country}&level=${data.level}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -687,11 +687,11 @@ export const getDigiPointsPerformance = (token) => async (dispatch) => {
   }
 };
 
-export const getInvoiceReport = (token) => async (dispatch) => {
+export const getInvoiceReport = (token, data) => async (dispatch) => {
   try {
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/invoiceperformance`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/invoiceperformance?year=${data.year}`,
         {
           headers: {
             "Content-Type": "application/json",

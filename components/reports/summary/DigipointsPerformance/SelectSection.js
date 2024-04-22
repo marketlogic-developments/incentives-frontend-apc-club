@@ -6,6 +6,7 @@ import BtnFilter from "../../../cardReportes/BtnFilter";
 import { useTranslation } from "react-i18next";
 
 const SelectSection = ({
+  year,
   companiesName = [],
   countries = [],
   regions = [],
@@ -17,6 +18,18 @@ const SelectSection = ({
   const [t, i18n] = useTranslation("global");
   return (
     <>
+        <SelectInputValue
+          placeholder={"Year"}
+          value={filters.year}
+          data={year.map((year) => ({
+            label: year,
+            value: year,
+          }))}
+          icon={<ArrowDown />}
+          searchable={false}
+          onChange={handleFilters}
+          name={"year"}
+        />
        <SelectInputValue
         placeholder={"Company Name"}
         value={filters.company_name}

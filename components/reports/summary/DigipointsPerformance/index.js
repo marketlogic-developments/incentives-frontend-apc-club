@@ -13,11 +13,13 @@ import { useDispatch, useSelector } from "react-redux";
 import DigiPointsTotal from "./DigiPointsTotal";
 
 const DigipoinstPerformance = () => {
+  const [defaultYear, setDefaultYear] = useState(['2023', '2024']);
   /* Variables and const */
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const [filters, setFilters] = useState({
+    year: "2024",
     company_name: "",
     region: "",
     country: "",
@@ -41,9 +43,14 @@ const DigipoinstPerformance = () => {
   const [isDataReady, setIsReady] = useState(false);
   const multiSelect = [
     {
+      multiSelect: false,
       placeholder: "Year",
-      value: [],
-      dataSelect: [],
+      value: filters.year,
+      dataSelect: defaultYear?.map((year) => ({
+        label: year,
+        value: year,
+      })),
+      onChange: (name, value) => handleFilters(name, value),
       searchable: true,
       icon: <ArrowDown />,
       name: "year",
@@ -141,6 +148,7 @@ const DigipoinstPerformance = () => {
   };
   const clearSelects = () => {
     setFilters({
+      year: "2024",
       company_name: "",
       region: "",
       country: "",
@@ -317,6 +325,7 @@ const DigipoinstPerformance = () => {
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-cols-2 gap-3">
         <SelectSection
           filters={filters}
+          year={defaultYear}
           companiesName={companiesName}
           countries={countries}
           regions={regions}

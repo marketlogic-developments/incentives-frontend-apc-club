@@ -9,11 +9,13 @@ import { getOrganizations } from "../../../../store/reducers/sales.reducer";
 import SelectSection from "./SelectSection";
 
 const Organization = () => {
+  const [defaultYear, setDefaultYear] = useState(['2023', '2024']);
   /* Variable and const */
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
   const [filters, setFilters] = useState({
+    year: "2024",
     region: "",
     country: "",
     company_name: "",
@@ -28,6 +30,19 @@ const Organization = () => {
   const [registerCompanies, setRegisterCompanies] = useState();
   const [partner, setPartner] = useState();
   const multiSelect = [
+    {
+      multiSelect: false,
+      placeholder: "Year",
+      value: filters.year,
+      dataSelect: defaultYear?.map((year) => ({
+        label: year,
+        value: year,
+      })),
+      onChange: (name, value) => handleFilters(name, value),
+      searchable: false,
+      icon: <ArrowDown />,
+      name: "year",
+    },
     {
       placeholder: "Partner Level",
       value: [],
@@ -102,6 +117,7 @@ const Organization = () => {
 
   const clearSelects = () => {
     setFilters({
+      year: "2024",
       company_name: "",
       region: "",
       country: "",
@@ -124,7 +140,7 @@ const Organization = () => {
 
   const addTotalColumn = (data) => {
     return data.map((item) => {
-      const total = item.BRAZIL + item.MEXICO + item.NOLA + item.SOLA;
+      const total = Number(item.BRAZIL) + Number(item.MEXICO) + Number(item.NOLA) + Number(item.SOLA);
       return {
         ...item,
         TOTAL: total,
@@ -152,6 +168,7 @@ const Organization = () => {
       <div className="pt-2 grid items-center sm:grid-cols-6 grid-rows-1 gap-3">
         <SelectSection
           filters={filters}
+          year={defaultYear}
           region={region}
           country={country}
           company={company}

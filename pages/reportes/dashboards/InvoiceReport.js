@@ -32,6 +32,10 @@ import {
 } from "../../../components/functions/reports";
 
 const InvoiceReport = () => {
+  const [defaultYear, setDefaultYear] = useState(['2023', '2024']);
+  const [filters, setFilters] = useState({
+    year: "2024",
+  });
   const itemsPerPage = 10;
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
@@ -43,6 +47,7 @@ const InvoiceReport = () => {
   const [selectOne, setSelectOne] = useState("");
   const [selectTwo, setSelectTwo] = useState("");
   const [selectThree, setSelectThree] = useState("");
+  const [selectYear, setSelectYear] = useState("");
   const [itemOffset, setItemOffset] = useState(0);
   const [searchByInvoice, setSearchByInvoice] = useState("");
   const router = useRouter();
@@ -63,7 +68,7 @@ const InvoiceReport = () => {
   useEffect(() => {
     if (isLoaded && token) {
       setLoading(true);
-      dispatch(getInvoiceReport(token))
+      dispatch(getInvoiceReport(token, filters))
         .then((response) => {
           setLoading(false);
           setData(response.payload);
@@ -72,7 +77,7 @@ const InvoiceReport = () => {
           console.log(error);
         });
     }
-  }, [isLoaded, token]);
+  }, [isLoaded, token, filters]);
 
   /* Selects */
   const handleSelectOneChange = (name, value) => {
@@ -85,6 +90,9 @@ const InvoiceReport = () => {
 
   const handleSelectThreeChange = (name, value) => {
     setSelectThree(value);
+  };
+  const handleSelectYearChange = (name, value) => {
+    return setFilters({ ...filters, [name]: value });
   };
 
   const dataOne = [...new Set(data.map((user) => user.business_unit))];
@@ -146,6 +154,7 @@ const InvoiceReport = () => {
     setSelectOne("");
     setSelectTwo("");
     setSelectThree("");
+    setSelectYear("2024");
   };
 
   /* Download */
@@ -223,6 +232,18 @@ const InvoiceReport = () => {
         </span>
       </div>
       <div className="grid items-center sm:grid-cols-6 grid-cols-3 gap-3">
+        <SelectInputValue
+          placeholder={"Year"}
+          value={filters.year}
+          data={defaultYear.map((year) => ({
+            label: year,
+            value: year,
+          }))}
+          icon={<ArrowDown />}
+          searchable={false}
+          onChange={handleSelectYearChange}
+          name={"year"}
+        />
         <div className="sm:col-span-1 col-span-3">
           <SearchInput
             image={<SearchIcon />}
