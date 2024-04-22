@@ -7,10 +7,47 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import TargetPromociones from "./TargetPromociones";
 import { Select } from "@mantine/core";
+import ButtonBgOut from "../../buttons/ButtonBgOut";
+import { useSelector } from "react-redux";
 
 const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
   const [t, i18n] = useTranslation("global");
   const [filter, setFilter] = useState("");
+  const [content, setContent] = useState("Todos");
+  const user = useSelector((state) => state.user.user);
+
+  const data = dataContentful.filter((data) => {
+    if (data.role === "PA" && [0, 1, 2, 3].includes(user.roleId)) {
+      return data.role === "PA";
+    }
+    if (data.role === "SR" && [5].includes(user.roleId)) {
+      return data.role === "SR";
+    }
+
+    return data;
+  });
+
+  const categorys = () => {
+    const arraysCategorys = dataContentful.map(({ category }) =>
+      category.split(",")
+    );
+
+    const categorysEsp = arraysCategorys.map((data) => data[0]);
+    const categorysPor = arraysCategorys.map((data) => data[1]);
+    const categorysEn = arraysCategorys.map((data) => data[2]);
+
+    if (i18n.language === "por") {
+      return [...new Set(categorysPor)];
+    }
+    if (i18n.language === "es") {
+      return [...new Set(categorysEsp)];
+    }
+    if (i18n.language === "en") {
+      return [...new Set(categorysEn)];
+    }
+  };
+
+  console.log(categorys());
 
   return (
     <div>
@@ -27,6 +64,17 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
         <div className="font-bold sm:text-4xl text-xl text-center text-red-600">
           {t("comunicado.tituloPartTres")}
         </div>
+      </div>
+      <div className="flex gap-6 justify-center mt-6">
+        {["Todos", ...categorys()].map((data) => (
+          <ButtonBgOut
+            title={data}
+            styles={`hover:bg-red-100 hover:!text-red-500 hover:!text-sm ${
+              data === content && "bg-red-100 !text-red-500"
+            }`}
+            onClick={() => setContent(data)}
+          />
+        ))}
       </div>
       <div className="grid sm:grid-cols-2 grid-rows-1 justify-items-center pt-8">
         <div className="grid grid-cols-2 gap-3">
@@ -59,7 +107,14 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
       </div>
       <div className="flex justify-center items-center pt-10 pb-10">
         <div className="grid grid-cols-3 gap-3 gap-y-6">
-          {dataContentful
+          {data
+            .filter((data) => {
+              if (content === "Todos") {
+                return data;
+              }
+
+              return data.category.includes(content);
+            })
             .sort((a, b) => {
               const dateA = new Date(a.thisDate);
               const dateB = new Date(b.thisDate);
