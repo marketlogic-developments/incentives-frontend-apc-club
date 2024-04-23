@@ -13,6 +13,8 @@ const ModalInfoAPC = ({ onClose }) => {
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
 
+  const typeText = i18n.language === "por" ? video.textPor : video.text;
+
   const handleVideo = () => {
     axios
       .patch(
@@ -40,7 +42,7 @@ const ModalInfoAPC = ({ onClose }) => {
   return (
     <div className="w-full h-full flex-col flex justify-center items-center gap-6">
       <div className="w-1/2 flex flex-col justify-center items-center pt-20 text-center gap-6">
-        {documentToReactComponents(video.text)}
+        {documentToReactComponents(typeText)}
       </div>
       <div className="p-6">
         <button className="btn btn-primary" onClick={handleVideo}>
