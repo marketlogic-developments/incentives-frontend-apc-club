@@ -34,10 +34,18 @@ const TargetPromociones = ({ data }) => {
 
   const pdfs =
     data.resAndDist && user.distributionChannelId !== null
-      ? data.pdfdelete.filter(({ fields }) => fields.description === "Dist")
-      : data.pdfdelete.filter(({ fields }) => fields.description !== "Dist");
+      ? data?.pdfdelete?.filter(({ fields }) => fields.description === "Dist")
+      : data?.pdfdelete?.filter(({ fields }) => fields.description !== "Dist");
 
-  console.log(pdfs);
+  const link = () => {
+    if (pdfs) {
+      return i18n.resolvedLanguage === "por"
+        ? pdfs[1]?.fields.file.url
+        : pdfs[0]?.fields.file.url;
+    }
+
+    return data.dynamicDirection;
+  };
 
   return (
     <>
@@ -70,11 +78,7 @@ const TargetPromociones = ({ data }) => {
         </p>
         <a
           className="text-blue-500 font-bold cursor-pointer hover:text-blue-400 sm:text-sm text-xs"
-          href={
-            i18n.resolvedLanguage === "por"
-              ? pdfs[1]?.fields.file.url
-              : pdfs[0]?.fields.file.url
-          }
+          href={link()}
           target="_blank"
           // onClick={() => {
           //   router.push({

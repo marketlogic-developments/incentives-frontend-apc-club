@@ -29,7 +29,7 @@ import client from "../contentful";
 import { getVideos } from "../store/reducers/contentful.reducer";
 import { getLicenciesByMonth } from "../store/reducers/sales.reducer";
 
-const dashboard = ({ entries, banners }) => {
+const dashboard = ({ entries, banners, infoApc }) => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const dataUserSwitch = useSelector((state) => state.user.userSwitch);
@@ -54,7 +54,7 @@ const dashboard = ({ entries, banners }) => {
   }, []);
 
   useEffect(() => {
-    dispatch(getVideos(entries));
+    dispatch(getVideos(infoApc));
     redirection();
   }, [user]);
 
@@ -444,6 +444,10 @@ const dashboard = ({ entries, banners }) => {
   );
 };
 export async function getServerSideProps() {
+  const infoApc = await client.getEntries({
+    content_type: "modalInformationApc",
+  });
+
   const entries = await client.getEntries({
     content_type: "videosApc",
   });
@@ -456,6 +460,7 @@ export async function getServerSideProps() {
     props: {
       entries: entries.items.map(({ fields }) => fields),
       banners: banners.items.map(({ fields }) => fields),
+      infoApc: infoApc.items.map(({ fields }) => fields),
       protected: true,
       userTypes: [1, 2, 3, 4, 5],
     },
