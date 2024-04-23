@@ -462,7 +462,8 @@
   color: black;
 }
 .mantine-UnstyledButton-root {
-  color: #000 !important;
+  color: #fff !important;
+  background-color: $primaryColorRed;
 }
 .datepickerInput {
   input {
