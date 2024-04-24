@@ -55,8 +55,21 @@ const dashboard = ({ entries, banners, infoApc }) => {
 
   useEffect(() => {
     dispatch(getVideos(infoApc));
-    redirection();
-  }, [user]);
+    if (
+      !user?.passwordReset &&
+      dataUserSwitch.prevData === undefined &&
+      token.length !== 0
+    ) {
+      console.log(
+        !user?.passwordReset &&
+          dataUserSwitch.prevData === undefined &&
+          token.length !== 0,
+        token,
+        user?.passwordReset
+      );
+      redirection();
+    }
+  }, [user, token]);
 
   useEffect(() => {
     if (isLoaded && token) {
@@ -123,10 +136,8 @@ const dashboard = ({ entries, banners, infoApc }) => {
   }, [data]);
 
   const redirection = () => {
-    if (!user?.passwordReset && dataUserSwitch.prevData === undefined) {
-      setModalType(0);
-      return setOpened(true);
-    }
+    setModalType(0);
+    return setOpened(true);
   };
 
   const handleSubmit = (data) => {

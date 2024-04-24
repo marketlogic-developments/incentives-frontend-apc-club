@@ -990,20 +990,22 @@ const Layout = ({ children }) => {
         }
 
         if (
-          location === "/reportes/dashboards/SalesPerformance" ||
-          location === "/reportes/dashboards/DigiPointsPerformance" ||
-          location === "/reportes/dashboards/UserPerformance" ||
-          location === "/reportes/dashboards/PartnerTyc" ||
-          location === "/reportes/dashboards/InvoiceReport" ||
-          location === "/reportes/dashboards/DigiPointsRedemption" ||
-          location === "/reportes/dashboards/DigiPointsPromotions" ||
-          location === "/reportes/dashboards/DigiPointsBehavior" ||
-          location === "/reportes/dashboards/GoogleAnalytic" ||
-          location === "/reportes/dashboards/CustomCare" ||
-          location === "/reportes/dashboards/SoImportReport" ||
-          location === "/reportes/dashboards/RegistrationPerformance" ||
-          location === "/reportes/dashboards/FollowUp" ||
-          location === "/reportes/dashboards/Summary"
+          [
+            "/reportes/dashboards/SalesPerformance",
+            "/reportes/dashboards/DigiPointsPerformance",
+            "/reportes/dashboards/UserPerformance",
+            "/reportes/dashboards/PartnerTyc",
+            "/reportes/dashboards/InvoiceReport",
+            "/reportes/dashboards/DigiPointsRedemption",
+            "/reportes/dashboards/DigiPointsPromotions",
+            "/reportes/dashboards/DigiPointsBehavior",
+            "/reportes/dashboards/GoogleAnalytic",
+            "/reportes/dashboards/CustomCare",
+            "/reportes/dashboards/SoImportReport",
+            "/reportes/dashboards/RegistrationPerformance",
+            "/reportes/dashboards/FollowUp",
+            "/reportes/dashboards/Summary",
+          ].includes(location)
         ) {
           return t("Reportes.reportes");
         }
