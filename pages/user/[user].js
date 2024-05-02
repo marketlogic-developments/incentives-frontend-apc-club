@@ -478,7 +478,9 @@ const user = () => {
                             >
                               <option value="es">Español</option>
                               <option value="por">Português</option>
-                              <option value="en">English</option>
+                              <option value="en" disabled>
+                                English
+                              </option>
                             </select>
                           ) : (
                             <span className="input input-ghost w-full flex items-center">

@@ -398,7 +398,7 @@ const dashboard = ({ entries, banners, infoApc }) => {
       ></Modal>
       <ContainerContent pageTitle={"Dashboard"}>
         <div className="m-6 flex flex-col gap-10 ">
-          <CarouselBanners banners={banners} />
+          {user.languageId !== 3 && <CarouselBanners banners={banners} />}
 
           <hr color="red" />
           <div className="gap-10 flex flex-col h-full items-center">
