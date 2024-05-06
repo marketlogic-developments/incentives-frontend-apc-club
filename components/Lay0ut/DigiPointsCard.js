@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const DigiPointsCard = ({ digipoints }) => {
+  const user = useSelector((state) => state.user.user);
   const [t, i18n] = useTranslation("global");
   const router = useRouter();
   return (
@@ -44,14 +46,16 @@ const DigiPointsCard = ({ digipoints }) => {
             </p>
           </div>
         </div>
-        <button
-          className="btn btn-info !btn-outline w-full whitespace-nowrap min-h-[2.563rem] h-[2.563rem]"
-          onClick={() => {
-            router.push("/catalogo");
-          }}
-        >
-          {t("menu.vercatalogo")}
-        </button>
+        {user?.distributionChannelId === null && (
+          <button
+            className="btn btn-info !btn-outline w-full whitespace-nowrap min-h-[2.563rem] h-[2.563rem]"
+            onClick={() => {
+              router.push("/catalogo");
+            }}
+          >
+            {t("menu.vercatalogo")}
+          </button>
+        )}
       </div>
     </div>
   );
