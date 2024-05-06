@@ -35,6 +35,11 @@ const catalogo = () => {
   const [filter, setFilter] = useState("");
   const [searchByName, setSearchByName] = useState("");
 
+  if (user?.distributionChannelId !== null) {
+    route.push("/dashboard");
+    return <></>;
+  }
+
   useEffect(() => {
     if (token && arrayAwards.length === 0) {
       dispatch(getDataAwards(token, user));
