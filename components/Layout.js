@@ -49,6 +49,7 @@ import EyeObserver from "./Lay0ut/SwitchUser/EyeObserver";
 import ModalUpdateData from "./Lay0ut/Modals/ModalUpdateData";
 import { VerifyTC } from "../functions/VerifyTC";
 import ModalTCPa from "./Lay0ut/Modals/ModalTCPa";
+import ModalInfoAPC from "./Lay0ut/ModalInfoAPC";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -101,32 +102,32 @@ const Layout = ({ children }) => {
   );
 
   useEffect(() => {
-    // if (
-    //   userRedux.cpf !== video?.key &&
-    //   video?.key !== undefined &&
-    //   userRedux !== 0 &&
-    //   location === "/dashboard" &&
-    //   dataSession.prevData === undefined
-    // ) {
-    //   setModal(1);
-    //   return setTimeout(() => {
-    //     setOpened(true);
-    //   }, 2000);
-    // }
+    if (
+      userRedux.cpf !== video?.key &&
+      video?.key !== undefined &&
+      userRedux !== 0 &&
+      location === "/dashboard" &&
+      dataSession.prevData === undefined
+    ) {
+      setModal(4);
+      setTimeout(() => {
+        setOpened(true);
+      }, 2000);
+    }
 
     if (
       userRedux.user_update_data === null ||
       userRedux.user_update_data === false
     ) {
       setModal(2);
-      return setOpened(true);
+      setOpened(true);
     }
 
     if (verifytcResult) {
       setModal(3);
-      return setOpened(true);
+      setOpened(true);
     }
-  }, [userRedux, verifytcResult]);
+  }, [userRedux, verifytcResult, video]);
 
   useEffect(() => {
     if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
@@ -880,6 +881,10 @@ const Layout = ({ children }) => {
     if (modal === 3) {
       return <ModalTCPa />;
     }
+
+    if (modal === 4) {
+      return <ModalInfoAPC onClose={setOpened} />;
+    }
   }, [modal, opened]);
 
   const menu = (n) => {
@@ -985,20 +990,22 @@ const Layout = ({ children }) => {
         }
 
         if (
-          location === "/reportes/dashboards/SalesPerformance" ||
-          location === "/reportes/dashboards/DigiPointsPerformance" ||
-          location === "/reportes/dashboards/UserPerformance" ||
-          location === "/reportes/dashboards/PartnerTyc" ||
-          location === "/reportes/dashboards/InvoiceReport" ||
-          location === "/reportes/dashboards/DigiPointsRedemption" ||
-          location === "/reportes/dashboards/DigiPointsPromotions" ||
-          location === "/reportes/dashboards/DigiPointsBehavior" ||
-          location === "/reportes/dashboards/GoogleAnalytic" ||
-          location === "/reportes/dashboards/CustomCare" ||
-          location === "/reportes/dashboards/SoImportReport" ||
-          location === "/reportes/dashboards/RegistrationPerformance" ||
-          location === "/reportes/dashboards/FollowUp" ||
-          location === "/reportes/dashboards/Summary"
+          [
+            "/reportes/dashboards/SalesPerformance",
+            "/reportes/dashboards/DigiPointsPerformance",
+            "/reportes/dashboards/UserPerformance",
+            "/reportes/dashboards/PartnerTyc",
+            "/reportes/dashboards/InvoiceReport",
+            "/reportes/dashboards/DigiPointsRedemption",
+            "/reportes/dashboards/DigiPointsPromotions",
+            "/reportes/dashboards/DigiPointsBehavior",
+            "/reportes/dashboards/GoogleAnalytic",
+            "/reportes/dashboards/CustomCare",
+            "/reportes/dashboards/SoImportReport",
+            "/reportes/dashboards/RegistrationPerformance",
+            "/reportes/dashboards/FollowUp",
+            "/reportes/dashboards/Summary",
+          ].includes(location)
         ) {
           return t("Reportes.reportes");
         }
@@ -1070,7 +1077,7 @@ const Layout = ({ children }) => {
       )}
       <Modal
         opened={opened}
-        withCloseButton={modal == 0 ? true : false}
+        withCloseButton={[0].includes(modal) ? true : false}
         onClose={
           [0].includes(modal)
             ? closeModal

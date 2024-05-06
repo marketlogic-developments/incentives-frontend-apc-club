@@ -29,7 +29,7 @@ import client from "../contentful";
 import { getVideos } from "../store/reducers/contentful.reducer";
 import { getLicenciesByMonth } from "../store/reducers/sales.reducer";
 
-const dashboard = ({ entries, banners }) => {
+const dashboard = ({ entries, banners, infoApc }) => {
   const token = useSelector((state) => state.user.token);
   const user = useSelector((state) => state.user.user);
   const dataUserSwitch = useSelector((state) => state.user.userSwitch);
@@ -54,9 +54,22 @@ const dashboard = ({ entries, banners }) => {
   }, []);
 
   useEffect(() => {
-    dispatch(getVideos(entries));
-    redirection();
-  }, [user]);
+    dispatch(getVideos(infoApc));
+    if (
+      !user?.passwordReset &&
+      dataUserSwitch.prevData === undefined &&
+      token.length !== 0
+    ) {
+      console.log(
+        !user?.passwordReset &&
+          dataUserSwitch.prevData === undefined &&
+          token.length !== 0,
+        token,
+        user?.passwordReset
+      );
+      redirection();
+    }
+  }, [user, token]);
 
   useEffect(() => {
     if (isLoaded && token) {
@@ -123,10 +136,8 @@ const dashboard = ({ entries, banners }) => {
   }, [data]);
 
   const redirection = () => {
-    if (!user?.passwordReset && dataUserSwitch.prevData === undefined) {
-      setModalType(0);
-      return setOpened(true);
-    }
+    setModalType(0);
+    return setOpened(true);
   };
 
   const handleSubmit = (data) => {
@@ -387,7 +398,7 @@ const dashboard = ({ entries, banners }) => {
       ></Modal>
       <ContainerContent pageTitle={"Dashboard"}>
         <div className="m-6 flex flex-col gap-10 ">
-          <CarouselBanners banners={banners} />
+          {user.languageId !== 3 && <CarouselBanners banners={banners} />}
 
           <hr color="red" />
           <div className="gap-10 flex flex-col h-full items-center">
@@ -444,6 +455,10 @@ const dashboard = ({ entries, banners }) => {
   );
 };
 export async function getServerSideProps() {
+  const infoApc = await client.getEntries({
+    content_type: "modalInformationApc",
+  });
+
   const entries = await client.getEntries({
     content_type: "videosApc",
   });
@@ -456,6 +471,7 @@ export async function getServerSideProps() {
     props: {
       entries: entries.items.map(({ fields }) => fields),
       banners: banners.items.map(({ fields }) => fields),
+      infoApc: infoApc.items.map(({ fields }) => fields),
       protected: true,
       userTypes: [1, 2, 3, 4, 5],
     },
