@@ -34,8 +34,20 @@ const catalogo = () => {
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("");
   const [searchByName, setSearchByName] = useState("");
+  const whiteListDist = [
+    "1472188",
+    "1654070",
+    "13595",
+    "901502",
+    "19472",
+    "1454183",
+    "1471126",
+  ];
 
-  if (user?.distributionChannelId !== null) {
+  if (
+    user?.distributionChannelId !== null ||
+    !whiteListDist.includes(user?.distributionChannel?.soldToParty)
+  ) {
     route.push("/dashboard");
     return <></>;
   }
