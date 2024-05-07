@@ -46,16 +46,14 @@ const DigiPointsCard = ({ digipoints }) => {
             </p>
           </div>
         </div>
-        {user?.distributionChannelId === null && (
-          <button
-            className="btn btn-info !btn-outline w-full whitespace-nowrap min-h-[2.563rem] h-[2.563rem]"
-            onClick={() => {
-              router.push("/catalogo");
-            }}
-          >
-            {t("menu.vercatalogo")}
-          </button>
-        )}
+        <button
+          className="btn btn-info !btn-outline w-full whitespace-nowrap min-h-[2.563rem] h-[2.563rem]"
+          onClick={() => {
+            router.push("/catalogo");
+          }}
+        >
+          {t("menu.vercatalogo")}
+        </button>
       </div>
     </div>
   );
