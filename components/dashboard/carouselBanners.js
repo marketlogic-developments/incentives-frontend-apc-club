@@ -70,6 +70,24 @@ const CarouselBanners = ({ banners }) => {
         },
       }}
     >
+      {user.roleId === 3 && user.region === "BRAZIL" && (
+        <Carousel.Slide>
+          <a
+            className="w-full flex justify-center cursor-pointer p-[1px]"
+            href={"https://evt.to/eaguuosuw"}
+            target="_blank"
+          >
+            <figure className="w-full">
+              <img
+                src={
+                  "https://images.ctfassets.net/3rdahgbju2vz/2bdXwai5k4xIrF8h1cSYMI/22defd4a77a1bd5462ba86bb61a8c7ae/CO_ADB_BANNER_Webinar_PA_POR.jpg"
+                }
+                className="bannersImg"
+              />
+            </figure>
+          </a>
+        </Carousel.Slide>
+      )}
       {[...banners]
         .sort((a, b) => a.order - b.order)
         .map((data) => {
