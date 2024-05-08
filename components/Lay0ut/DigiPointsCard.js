@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { userBlockCatalogo } from "../../block/UsersBlockCatalogo";
 
 const DigiPointsCard = ({ digipoints }) => {
   const user = useSelector((state) => state.user.user);
@@ -59,7 +60,8 @@ const DigiPointsCard = ({ digipoints }) => {
           </div>
         </div>
         {user?.distributionChannelId === null ||
-          (whiteListDist.includes(user?.distributionChannel?.soldToParty) && (
+          whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
+          (!userBlockCatalogo.includes(user.email) && (
             <button
               className="btn btn-info !btn-outline w-full whitespace-nowrap min-h-[2.563rem] h-[2.563rem]"
               onClick={() => {

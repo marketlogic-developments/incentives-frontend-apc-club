@@ -21,6 +21,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { changeLoadingData } from "../store/reducers/loading.reducer";
 import { Modal } from "@mantine/core";
 import { AiOutlineSearch } from "react-icons/ai";
+import { userBlockCatalogo } from "../block/UsersBlockCatalogo";
 
 const catalogo = () => {
   const [globalAwards, setGlobalAwards] = useState([]);
@@ -46,7 +47,8 @@ const catalogo = () => {
 
   if (
     user?.distributionChannelId !== null ||
-    !whiteListDist.includes(user?.distributionChannel?.soldToParty)
+    !whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
+    userBlockCatalogo.includes(user.email)
   ) {
     route.push("/dashboard");
     return <></>;
