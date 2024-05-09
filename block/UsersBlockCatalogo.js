@@ -11,7 +11,6 @@ export const userBlockCatalogo = [
   "jenni.luna@cadgrafics.com.mx",
   "rodrigo.gomez@cadgrafics.com.mx",
   "mariel_nunez@cecomsa.com",
-  "lernesto.castiblanco@goldsysla.com",
   "douglas.anjos@mapdata.com.br",
   "leticia.portela@mapdata.com.br",
   "julia.silva@mapdata.com.br",
