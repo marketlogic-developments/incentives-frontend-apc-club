@@ -50,6 +50,7 @@ import ModalUpdateData from "./Lay0ut/Modals/ModalUpdateData";
 import { VerifyTC } from "../functions/VerifyTC";
 import ModalTCPa from "./Lay0ut/Modals/ModalTCPa";
 import ModalInfoAPC from "./Lay0ut/ModalInfoAPC";
+import ETLA from "../public/assets/Icons/ETLA";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -1220,6 +1221,14 @@ const Layout = ({ children }) => {
                     </div>
                     {screen > 639 && (
                       <div className="sm:visible invisible notifications grid grid-cols-6 content-center gap-5">
+                        {/* adobe etla */}
+                        <div
+                          onClick={() => router.push("/etla/dashboardEtla")}
+                          className="w-full cursor-pointer"
+                        >
+                          <ETLA />
+                        </div>
+
                         {/* 1 */}
                         <div className="w-auto">
                           <div
