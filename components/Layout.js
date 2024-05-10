@@ -836,6 +836,57 @@ const Layout = ({ children }) => {
       iconactive: "",
       text: "Customer Care",
     },
+    {
+      page: "/etla/dashboardEtla",
+      icon: (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7.17189 1.6875H2.39063C2.0023 1.6875 1.6875 2.0023 1.6875 2.39062V7.17188C1.6875 7.5602 2.0023 7.875 2.39063 7.875H7.17189C7.56021 7.875 7.87502 7.5602 7.87502 7.17188V2.39062C7.87502 2.0023 7.56021 1.6875 7.17189 1.6875Z"
+            stroke="#232B2F"
+            strokeWidth="1.147"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M7.17189 1.6875H2.39063C2.0023 1.6875 1.6875 2.0023 1.6875 2.39062V7.17188C1.6875 7.5602 2.0023 7.875 2.39063 7.875H7.17189C7.56021 7.875 7.87502 7.5602 7.87502 7.17188V2.39062C7.87502 2.0023 7.56021 1.6875 7.17189 1.6875Z"
+            stroke="black"
+            strokeOpacity="0.2"
+            strokeWidth="1.147"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M15.6094 1.6875H10.8281C10.4398 1.6875 10.125 2.0023 10.125 2.39062V7.17188C10.125 7.5602 10.4398 7.875 10.8281 7.875H15.6094C15.9977 7.875 16.3125 7.5602 16.3125 7.17188V2.39062C16.3125 2.0023 15.9977 1.6875 15.6094 1.6875Z"
+            stroke="black"
+            strokeWidth="1.147"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M7.17189 10.125H2.39063C2.0023 10.125 1.6875 10.4398 1.6875 10.8281V15.6094C1.6875 15.9977 2.0023 16.3125 2.39063 16.3125H7.17189C7.56021 16.3125 7.87502 15.9977 7.87502 15.6094V10.8281C7.87502 10.4398 7.56021 10.125 7.17189 10.125Z"
+            stroke="black"
+            strokeWidth="1.147"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M15.6094 10.125H10.8281C10.4398 10.125 10.125 10.4398 10.125 10.8281V15.6094C10.125 15.9977 10.4398 16.3125 10.8281 16.3125H15.6094C15.9977 16.3125 16.3125 15.9977 16.3125 15.6094V10.8281C16.3125 10.4398 15.9977 10.125 15.6094 10.125Z"
+            stroke="black"
+            strokeWidth="1.147"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      ),
+      iconactive: "",
+      text: t("menu.Dashboard"),
+    },
   ];
 
   const redirection = (tyc) => {
@@ -1181,13 +1232,20 @@ const Layout = ({ children }) => {
             <div className="w-full relative">
               <div
                 className={`w-full ${
-                  typeof dataSession.prevData !== "object" && "pt-1 px-6"
+                  typeof dataSession.prevData === "object"
+                    ? "pt-0 px-0"
+                    : location.includes("/etla")
+                    ? "pt-0 px-0"
+                    : "pt-1 px-6"
                 }`}
               >
                 <div
                   className={`containerNavbar ${
-                    typeof dataSession.prevData === "object" &&
-                    "!bg-[#232B2F] py-2"
+                    typeof dataSession.prevData === "object"
+                      ? "!bg-[#232B2F] py-2"
+                      : location.includes("/etla")
+                      ? "!bg-[#7AA4C1] py-2"
+                      : "!bg-[#ffff] py-2"
                   }`}
                 >
                   <div className="sticky grid justify-items-center items-center">
@@ -1333,7 +1391,15 @@ const Layout = ({ children }) => {
                       )}
                   </div>
                 </div>
-                <div className="pt-1 overflow-hidden lg:overflow-visible">
+                <div
+                  className={`pt-1 overflow-hidden lg:overflow-visible ${
+                    typeof dataSession.prevData === "object"
+                      ? "px-6"
+                      : location.includes("/etla")
+                      ? "px-6"
+                      : "px-0"
+                  }`}
+                >
                   {children}
                 </div>
 

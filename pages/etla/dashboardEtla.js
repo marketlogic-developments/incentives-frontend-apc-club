@@ -1,10 +1,10 @@
 import React from "react";
 
-const dashboard = () => {
+const dashboardEtla = () => {
   return <div>aaaa</div>;
 };
 
-export default dashboard;
+export default dashboardEtla;
 
 export async function getServerSideProps() {
   return {
