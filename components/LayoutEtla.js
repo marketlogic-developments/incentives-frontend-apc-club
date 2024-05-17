@@ -52,7 +52,7 @@ import ModalTCPa from "./Lay0ut/Modals/ModalTCPa";
 import ModalInfoAPC from "./Lay0ut/ModalInfoAPC";
 import ETLA from "../public/assets/Icons/ETLA";
 
-const Layout = ({ children }) => {
+const LayoutEtla = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
   const userRedux = useSelector((state) => state.user.user);
   const video = useSelector((state) => state.contentful.videos[0]);
@@ -319,7 +319,7 @@ const Layout = ({ children }) => {
 
   const locations = [
     {
-      page: "/dashboard",
+      page: "/etla/dashboardEtla",
       icon: (
         <svg
           width="18"
@@ -370,7 +370,7 @@ const Layout = ({ children }) => {
       text: t("menu.Dashboard"),
     },
     {
-      page: "/reportes/dashboards/InvoiceReportUser",
+      page: "/etla/reportes/dashboards/InvoiceReportUser",
       icon: (
         <svg
           width={20}
@@ -383,27 +383,13 @@ const Layout = ({ children }) => {
         </svg>
       ),
       iconactive: "",
-      text: "Invoice Report",
-    },
-    {
-      page: "/comunicado",
-      iconactive: "",
-      icon: (
-        <svg
-          width={20}
-          height={20}
-          fill="none"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M22.5 11.252a4.5 4.5 0 0 0-4.5-4.5h-3.75c-.047 0-4.913-.066-9.534-3.947a1.49 1.49 0 0 0-1.604-.207 1.472 1.472 0 0 0-.862 1.36v14.587a1.472 1.472 0 0 0 .862 1.36c.2.092.418.14.638.14.353.002.695-.12.966-.347 3.553-2.98 7.237-3.712 8.784-3.89v3.29a1.49 1.49 0 0 0 .665 1.247l1.032.694a1.576 1.576 0 0 0 1.378.15 1.49 1.49 0 0 0 .91-1.04l1.115-4.435a4.519 4.519 0 0 0 3.9-4.463Zm-6.469 8.53L15 19.099v-3.346h2.044l-1.013 4.03ZM18 14.253h-3v-6h3a3 3 0 0 1 0 6Z" />
-        </svg>
-      ),
-      text: t("menu.comunicados"),
+      text: t("ETLA.menu.invoiceReport"),
     },
     {
       page:
-        userRedux.roleId === 1 ? "/digipointsall" : "/digipoints/mydigipoints",
+        userRedux.roleId === 1
+          ? "/etla/digipointsall"
+          : "/etla/digipoints/mydigipoints",
       icon: (
         <svg
           width="20"
@@ -528,46 +514,13 @@ const Layout = ({ children }) => {
                     />
                   </svg>
                 ),
-                text: t("menu.AsignarDigipoints"),
+                text: t("ETLA.menu.assignInvoices"),
               },
             ]
           : undefined,
     },
     {
-      page: "/promociones",
-      icon: (
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M15.3018 1.6875H10.9811C10.8467 1.6874 10.7178 1.74049 10.6225 1.83516L1.98458 10.473C1.79545 10.6631 1.68927 10.9203 1.68927 11.1885C1.68927 11.4566 1.79545 11.7138 1.98458 11.9039L6.09787 16.0172C6.28793 16.2063 6.54516 16.3125 6.8133 16.3125C7.08143 16.3125 7.33866 16.2063 7.52873 16.0172L16.1631 7.38281C16.2578 7.28749 16.3109 7.15857 16.3108 7.02422V2.7C16.3114 2.56715 16.2858 2.43549 16.2353 2.31258C16.1849 2.18967 16.1107 2.07796 16.0169 1.98385C15.9231 1.88975 15.8117 1.81512 15.6889 1.76426C15.5662 1.7134 15.4346 1.68731 15.3018 1.6875Z"
-            strokeWidth="1.125"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M15.3018 1.6875H10.9811C10.8467 1.6874 10.7178 1.74049 10.6225 1.83516L1.98458 10.473C1.79545 10.6631 1.68927 10.9203 1.68927 11.1885C1.68927 11.4566 1.79545 11.7138 1.98458 11.9039L6.09787 16.0172C6.28793 16.2063 6.54516 16.3125 6.8133 16.3125C7.08143 16.3125 7.33866 16.2063 7.52873 16.0172L16.1631 7.38281C16.2578 7.28749 16.3109 7.15857 16.3108 7.02422V2.7C16.3114 2.56715 16.2858 2.43549 16.2353 2.31258C16.1849 2.18967 16.1107 2.07796 16.0169 1.98385C15.9231 1.88975 15.8117 1.81512 15.6889 1.76426C15.5662 1.7134 15.4346 1.68731 15.3018 1.6875Z"
-            strokeOpacity="0.2"
-            strokeWidth="1.125"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path d="M13.5 5.625C13.2775 5.625 13.06 5.55902 12.875 5.4354C12.69 5.31179 12.5458 5.13609 12.4606 4.93052C12.3755 4.72495 12.3532 4.49875 12.3966 4.28052C12.44 4.0623 12.5472 3.86184 12.7045 3.70451C12.8618 3.54717 13.0623 3.44003 13.2805 3.39662C13.4988 3.35321 13.725 3.37549 13.9305 3.46064C14.1361 3.54578 14.3118 3.68998 14.4354 3.87498C14.559 4.05999 14.625 4.2775 14.625 4.5C14.625 4.79837 14.5065 5.08452 14.2955 5.2955C14.0845 5.50647 13.7984 5.625 13.5 5.625Z" />
-          <path
-            d="M13.5 5.625C13.2775 5.625 13.06 5.55902 12.875 5.4354C12.69 5.31179 12.5458 5.13609 12.4606 4.93052C12.3755 4.72495 12.3532 4.49875 12.3966 4.28052C12.44 4.0623 12.5472 3.86184 12.7045 3.70451C12.8618 3.54717 13.0623 3.44003 13.2805 3.39662C13.4988 3.35321 13.725 3.37549 13.9305 3.46064C14.1361 3.54578 14.3118 3.68998 14.4354 3.87498C14.559 4.05999 14.625 4.2775 14.625 4.5C14.625 4.79837 14.5065 5.08452 14.2955 5.2955C14.0845 5.50647 13.7984 5.625 13.5 5.625Z"
-            fill-opacity="0.2"
-          />
-        </svg>
-      ),
-      iconactive: "",
-      text: "Promociones",
-    },
-    {
-      page: "/reportesDashboard",
+      page: "/etla/reportesDashboard",
       icon: (
         <svg
           width="18"
@@ -606,10 +559,10 @@ const Layout = ({ children }) => {
         </svg>
       ),
       iconactive: "",
-      text: t("menu.Reportes"),
+      text: t("ETLA.menu.myReports"),
     },
     {
-      page: "/puntosporventas",
+      page: "/etla/puntosporventas",
       icon: (
         <svg
           width="18"
@@ -640,26 +593,10 @@ const Layout = ({ children }) => {
         </svg>
       ),
       iconactive: "",
-      text: t("menu.Puntos_por_ventas"),
+      text: t("ETLA.menu.DigipointsSales"),
     },
     {
-      page: "/reportTyC",
-      icon: (
-        <svg
-          width={30}
-          height={30}
-          fill="#000000"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="m20.925 6.412-1.5-3A.77.77 0 0 0 18.75 3H5.25a.769.769 0 0 0-.675.413l-1.5 3A.844.844 0 0 0 3 6.75V19.5A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5V6.75a.844.844 0 0 0-.075-.338Zm-5.213 8.185-3.178 3.187a.769.769 0 0 1-1.068 0l-3.178-3.187a.75.75 0 0 1 1.059-1.06l1.903 1.904V9.75a.75.75 0 1 1 1.5 0v5.69l1.903-1.902a.75.75 0 0 1 1.06 1.059ZM4.96 6l.75-1.5h12.582l.75 1.5H4.959Z" />
-        </svg>
-      ),
-      iconactive: "",
-      text: "Reporte T&C",
-    },
-    {
-      page: "/herramientas",
+      page: "/etla/herramientas",
       icon: (
         <svg
           width="16"
@@ -771,7 +708,7 @@ const Layout = ({ children }) => {
             </svg>
           ),
           iconactive: "",
-          text: t("menu.Carga_de_Ventas"),
+          text: t("ETLA.menu.updateSales"),
         },
         {
           page: "/reglas",
@@ -799,12 +736,12 @@ const Layout = ({ children }) => {
             </svg>
           ),
           iconactive: "",
-          text: t("menu.reglas"),
+          text: t("ETLA.menu.rules"),
         },
       ],
     },
     {
-      page: "/customercare",
+      page: "/etla/customercare",
       icon: (
         <svg
           width="18"
@@ -835,57 +772,6 @@ const Layout = ({ children }) => {
       ),
       iconactive: "",
       text: "Customer Care",
-    },
-    {
-      page: "/etla/dashboardEtla",
-      icon: (
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M7.17189 1.6875H2.39063C2.0023 1.6875 1.6875 2.0023 1.6875 2.39062V7.17188C1.6875 7.5602 2.0023 7.875 2.39063 7.875H7.17189C7.56021 7.875 7.87502 7.5602 7.87502 7.17188V2.39062C7.87502 2.0023 7.56021 1.6875 7.17189 1.6875Z"
-            stroke="#232B2F"
-            strokeWidth="1.147"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M7.17189 1.6875H2.39063C2.0023 1.6875 1.6875 2.0023 1.6875 2.39062V7.17188C1.6875 7.5602 2.0023 7.875 2.39063 7.875H7.17189C7.56021 7.875 7.87502 7.5602 7.87502 7.17188V2.39062C7.87502 2.0023 7.56021 1.6875 7.17189 1.6875Z"
-            stroke="black"
-            strokeOpacity="0.2"
-            strokeWidth="1.147"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M15.6094 1.6875H10.8281C10.4398 1.6875 10.125 2.0023 10.125 2.39062V7.17188C10.125 7.5602 10.4398 7.875 10.8281 7.875H15.6094C15.9977 7.875 16.3125 7.5602 16.3125 7.17188V2.39062C16.3125 2.0023 15.9977 1.6875 15.6094 1.6875Z"
-            stroke="black"
-            strokeWidth="1.147"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M7.17189 10.125H2.39063C2.0023 10.125 1.6875 10.4398 1.6875 10.8281V15.6094C1.6875 15.9977 2.0023 16.3125 2.39063 16.3125H7.17189C7.56021 16.3125 7.87502 15.9977 7.87502 15.6094V10.8281C7.87502 10.4398 7.56021 10.125 7.17189 10.125Z"
-            stroke="black"
-            strokeWidth="1.147"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M15.6094 10.125H10.8281C10.4398 10.125 10.125 10.4398 10.125 10.8281V15.6094C10.125 15.9977 10.4398 16.3125 10.8281 16.3125H15.6094C15.9977 16.3125 16.3125 15.9977 16.3125 15.6094V10.8281C16.3125 10.4398 15.9977 10.125 15.6094 10.125Z"
-            stroke="black"
-            strokeWidth="1.147"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      ),
-      iconactive: "",
-      text: t("menu.Dashboard"),
     },
   ];
 
@@ -946,47 +832,44 @@ const Layout = ({ children }) => {
           if (n === 1) {
             if (userRedux.roleId === 1) {
               return [
-                "/dashboard",
-                "/digipointsall",
-                "/reportesDashboard",
-                "/comunicado",
+                "/etla/dashboardEtla",
+                "/etla/digipointsall",
+                "/etla/reportesDashboard",
               ].includes(page);
             }
             if (userRedux.roleId === 3) {
               return [
-                "/dashboard",
-                "/digipoints/mydigipoints",
-                "/reportes/dashboards/InvoiceReportUser",
-                "/comunicado",
+                "/etla/dashboardEtla",
+                "/etla/digipoints/mydigipoints",
+                "/etla/reportes/dashboards/InvoiceReportUser",
               ].includes(page);
             }
 
             if (userRedux.roleId === 2) {
-              return ["/dashboard", "/puntosporventas", "/comunicado"].includes(
+              return ["/etla/dashboard", "/etla/puntosporventas"].includes(
                 page
               );
             }
 
             if (userRedux.roleId === 5) {
               return [
-                "/dashboard",
-                "/digipoints/mydigipoints",
-                "/reportes/dashboards/InvoiceReportUser",
-                "/comunicado",
+                "/etla/digipointsall",
+                "/etla/digipoints/mydigipoints",
+                "/etla/reportes/dashboards/InvoiceReportUser",
               ].includes(page);
             }
           }
           if (n === 2) {
             if (userRedux.roleId === 1) {
               return [
-                "/herramientas",
-                "/puntosporventas",
-                "/customercare",
+                "/etla/herramientas",
+                "/etla/puntosporventas",
+                "/etla/customercare",
               ].includes(page);
             }
 
             if (userRedux.roleId === 3) {
-              return ["/ManagmentDigipoints", "/puntosporventas"].includes(
+              return ["/ManagmentDigipoints", "/etla/puntosporventas"].includes(
                 page
               );
             }
@@ -1171,9 +1054,7 @@ const Layout = ({ children }) => {
                     onClick={() => {
                       setShowMenu(!showMenu);
                     }}
-                    switchUser={
-                      typeof dataSession.prevData === "object" && true
-                    }
+                    switchUser={true}
                     styles={showMenu ? "h-[50px]" : "hidden"}
                   />
                 }
@@ -1230,45 +1111,26 @@ const Layout = ({ children }) => {
               </div>
             </div>
             <div className="w-full relative">
-              <div
-                className={`w-full ${
-                  typeof dataSession.prevData === "object"
-                    ? "pt-0 px-0"
-                    : "pt-1 px-6"
-                }`}
-              >
-                <div
-                  className={`containerNavbar ${
-                    typeof dataSession.prevData === "object"
-                      ? "!bg-[#232B2F] py-2"
-                      : "!bg-[#ffff] py-2"
-                  }`}
-                >
+              <div className={`w-full pt-0 px-0`}>
+                <div className={`containerNavbar !bg-[#7AA4C1] py-2`}>
                   <div className="sticky grid justify-items-center items-center">
                     <div className="md:hidden flex">
                       <MenuLines
                         onClick={() => setShowMenu(!showMenu)}
-                        switchUser={
-                          typeof dataSession.prevData === "object" && true
-                        }
+                        switchUser={true}
                       />
                     </div>
                     <div className="md:flex hidden">
                       <MenuLines
                         onClick={() => setCollapse(!collapse)}
-                        switchUser={
-                          typeof dataSession.prevData === "object" && true
-                        }
+                        switchUser={true}
                       />
                     </div>
                   </div>
                   <div className="navbar grid grid-cols-3">
                     <div className="w-auto">
                       <p
-                        className={`sm:!text-3xl md:!text-3xl !text-sm font-bold ${
-                          typeof dataSession.prevData === "object" &&
-                          "text-white"
-                        }`}
+                        className={`sm:!text-3xl md:!text-3xl !text-sm font-bold text-white`}
                       >
                         {textLocation()}
                       </p>
@@ -1298,44 +1160,28 @@ const Layout = ({ children }) => {
                             >
                               <path
                                 d="M10.0938 25.2301C10.6005 25.2301 11.0114 24.8193 11.0114 24.3125C11.0114 23.8057 10.6005 23.3949 10.0938 23.3949C9.58698 23.3949 9.17615 23.8057 9.17615 24.3125C9.17615 24.8193 9.58698 25.2301 10.0938 25.2301Z"
-                                stroke={
-                                  typeof dataSession.prevData === "object"
-                                    ? "white"
-                                    : "black"
-                                }
+                                stroke="white"
                                 strokeWidth="1.83523"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                               />
                               <path
                                 d="M22.9403 25.2301C23.4471 25.2301 23.858 24.8193 23.858 24.3125C23.858 23.8057 23.4471 23.3949 22.9403 23.3949C22.4336 23.3949 22.0227 23.8057 22.0227 24.3125C22.0227 24.8193 22.4336 25.2301 22.9403 25.2301Z"
-                                stroke={
-                                  typeof dataSession.prevData === "object"
-                                    ? "white"
-                                    : "black"
-                                }
+                                stroke="white"
                                 strokeWidth="1.83523"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                               />
                               <path
                                 d="M2.75284 5.0426H6.42329L9.17613 20.642H23.858"
-                                stroke={
-                                  typeof dataSession.prevData === "object"
-                                    ? "white"
-                                    : "black"
-                                }
+                                stroke="white"
                                 strokeWidth="1.83523"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                               />
                               <path
                                 d="M9.17614 16.9716H23.4817C23.5878 16.9717 23.6907 16.9349 23.7728 16.8677C23.8549 16.8005 23.9111 16.7069 23.9319 16.6028L25.5836 8.34429C25.597 8.2777 25.5953 8.20897 25.5789 8.14308C25.5624 8.07719 25.5316 8.01578 25.4885 7.96327C25.4454 7.91076 25.3912 7.86847 25.3298 7.83945C25.2684 7.81042 25.2014 7.79539 25.1334 7.79544H7.34091"
-                                stroke={
-                                  typeof dataSession.prevData === "object"
-                                    ? "white"
-                                    : "black"
-                                }
+                                stroke="white"
                                 strokeWidth="1.83523"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -1389,7 +1235,11 @@ const Layout = ({ children }) => {
                 </div>
                 <div
                   className={`pt-1 overflow-hidden lg:overflow-visible ${
-                    typeof dataSession.prevData === "object" ? "px-6" : "px-0"
+                    typeof dataSession.prevData === "object"
+                      ? "px-6"
+                      : location.includes("/etla")
+                      ? "px-6"
+                      : "px-0"
                   }`}
                 >
                   {children}
@@ -1454,4 +1304,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+export default LayoutEtla;

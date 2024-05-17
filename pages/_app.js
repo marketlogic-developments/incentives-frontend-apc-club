@@ -17,6 +17,7 @@ import global_en from "../translation/en/global.json";
 import { Html } from "next/document";
 import Head from "next/head";
 import Script from "next/script";
+import LayoutEtla from "../components/LayoutEtla";
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -101,21 +102,22 @@ export default function MyApp({ Component, pageProps }) {
       <I18nextProvider i18n={i18next}>
         <Provider store={store}>
           <MantineProvider withGlobalStyles withNormalizeCSS>
-            <Layout>
-              <Component {...pageProps} />
-              <Head>
-                {/* Global Site Tag (gtag.js) - Google Analytics */}
-                <script
-                  async
-                  src={`https://www.googletagmanager.com/gtag/js?id=G-V1T7B23T0N`}
-                />
-                <meta
-                  name="viewport"
-                  content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-                />
-                <script
-                  dangerouslySetInnerHTML={{
-                    __html: `
+            {location.includes("/etla") ? (
+              <LayoutEtla>
+                <Component {...pageProps} />
+                <Head>
+                  {/* Global Site Tag (gtag.js) - Google Analytics */}
+                  <script
+                    async
+                    src={`https://www.googletagmanager.com/gtag/js?id=G-V1T7B23T0N`}
+                  />
+                  <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+                  />
+                  <script
+                    dangerouslySetInnerHTML={{
+                      __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
@@ -123,14 +125,41 @@ export default function MyApp({ Component, pageProps }) {
               page_path: window.location.pathname,
             });
           `,
-                  }}
-                />
-              </Head>
-              <Script
-                strategy="afterInteractive"
-                type="text/javascript"
-                dangerouslySetInnerHTML={{
-                  __html: `(function(h,o,t,j,a,r){
+                    }}
+                  />
+                </Head>
+              </LayoutEtla>
+            ) : (
+              <Layout>
+                <Component {...pageProps} />
+                <Head>
+                  {/* Global Site Tag (gtag.js) - Google Analytics */}
+                  <script
+                    async
+                    src={`https://www.googletagmanager.com/gtag/js?id=G-V1T7B23T0N`}
+                  />
+                  <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+                  />
+                  <script
+                    dangerouslySetInnerHTML={{
+                      __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-V1T7B23T0N', {
+              page_path: window.location.pathname,
+            });
+          `,
+                    }}
+                  />
+                </Head>
+                <Script
+                  strategy="afterInteractive"
+                  type="text/javascript"
+                  dangerouslySetInnerHTML={{
+                    __html: `(function(h,o,t,j,a,r){
         h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
         h._hjSettings={hjid:3486911,hjsv:6};
         a=o.getElementsByTagName('head')[0];
@@ -138,9 +167,10 @@ export default function MyApp({ Component, pageProps }) {
         r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
         a.appendChild(r);
       })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`,
-                }}
-              />
-            </Layout>
+                  }}
+                />
+              </Layout>
+            )}
           </MantineProvider>
         </Provider>
       </I18nextProvider>
