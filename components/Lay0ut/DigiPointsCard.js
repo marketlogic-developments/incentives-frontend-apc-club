@@ -17,8 +17,16 @@ const DigiPointsCard = ({ digipoints }) => {
     "1454183",
     "1471126",
   ];
+  const validations =
+    user?.distributionChannelId === null ||
+    whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
+    !userBlockCatalogo.includes(user.email);
 
-  console.log(user);
+  console.log(
+    user?.distributionChannelId !== null,
+    !whiteListDist.includes(user?.distributionChannel?.soldToParty),
+    userBlockCatalogo.includes(user.email)
+  );
 
   return (
     <div className="flex px-3 py-3.5 bg-base-100 border-[1px] border-[#E0E0E0] rounded-[10px] w-full">
@@ -59,18 +67,16 @@ const DigiPointsCard = ({ digipoints }) => {
             </p>
           </div>
         </div>
-        {user?.distributionChannelId === null ||
-          whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
-          (!userBlockCatalogo.includes(user.email) && (
-            <button
-              className="btn btn-info !btn-outline w-full whitespace-nowrap min-h-[2.563rem] h-[2.563rem]"
-              onClick={() => {
-                router.push("/catalogo");
-              }}
-            >
-              {t("menu.vercatalogo")}
-            </button>
-          ))}
+        {validations && (
+          <button
+            className="btn btn-info !btn-outline w-full whitespace-nowrap min-h-[2.563rem] h-[2.563rem]"
+            onClick={() => {
+              router.push("/catalogo");
+            }}
+          >
+            {t("menu.vercatalogo")}
+          </button>
+        )}
       </div>
     </div>
   );
