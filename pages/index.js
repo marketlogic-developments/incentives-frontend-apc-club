@@ -534,7 +534,7 @@ export default function Home({ maintenance }) {
       {maintenance[0].maintenance && closePt ? (
         <ClosePlataform data={maintenance[0]} />
       ) : (
-        <main className="mainIndex bg-primary flex flex-col-reverse justify-center lg:flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden min-h-dvh">
+        <main className="mainIndex !bg-[#2C2C2C] flex flex-col-reverse justify-center lg:flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden min-h-dvh">
           <Recovery opened={opened} setOpened={setOpened} t={t} />
           <Registro close={setRegister} register={register} />
           <div className="max-sm:flex max-sm:flex-row max-sm:gap-4 max-sm:justify-center max-sm:mt-10 max-h-[100px] max-sm:max-h-[150px] flex w-full justify-between mt-10">
