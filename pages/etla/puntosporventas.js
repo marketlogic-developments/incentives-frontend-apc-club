@@ -8,14 +8,14 @@ import {
   getSalesAll,
   getSalesAllByChannel,
   getSalesAllByDist,
-} from "../store/reducers/sales.reducer";
+} from "../../store/reducers/sales.reducer";
 import { AiOutlineSearch } from "react-icons/ai";
 import {
   importCsvFunction,
   importExcelFunction,
   digiPointsxVentasColumnsExcelCsv,
   digiPointsxVentasColumnsExcel,
-} from "../components/functions/reports";
+} from "../../components/functions/reports";
 import { BtnWithImage, DropDownReport } from "../../components";
 import { CloudDownload, UserPerformance as User } from "../../components/icons";
 
