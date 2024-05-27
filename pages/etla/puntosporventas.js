@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import ContainerContent from "../components/containerContent";
+import ContainerContent from "../../components/containerContent";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import * as XLSX from "xlsx";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
@@ -11,8 +9,6 @@ import {
   getSalesAllByChannel,
   getSalesAllByDist,
 } from "../store/reducers/sales.reducer";
-import jsonexport from "jsonexport";
-import { saveAs } from "file-saver";
 import { AiOutlineSearch } from "react-icons/ai";
 import {
   importCsvFunction,
@@ -20,8 +16,8 @@ import {
   digiPointsxVentasColumnsExcelCsv,
   digiPointsxVentasColumnsExcel,
 } from "../components/functions/reports";
-import { BtnWithImage, DropDownReport } from "../components";
-import { CloudDownload, UserPerformance as User } from "../components/icons";
+import { BtnWithImage, DropDownReport } from "../../components";
+import { CloudDownload, UserPerformance as User } from "../../components/icons";
 
 const puntosporventas = () => {
   const [t, i18n] = useTranslation("global");

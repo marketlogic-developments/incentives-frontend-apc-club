@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { userBlockCatalogo } from "../../block/UsersBlockCatalogo";
 
 const DigiPointsCard = ({ digipoints }) => {
+  const path = u;
   const user = useSelector((state) => state.user.user);
   const [t, i18n] = useTranslation("global");
   const router = useRouter();
@@ -21,12 +22,6 @@ const DigiPointsCard = ({ digipoints }) => {
     user?.distributionChannelId === null ||
     whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
     !userBlockCatalogo.includes(user.email);
-
-  console.log(
-    user?.distributionChannelId !== null,
-    !whiteListDist.includes(user?.distributionChannel?.soldToParty),
-    userBlockCatalogo.includes(user.email)
-  );
 
   return (
     <div className="flex px-3 py-3.5 bg-base-100 border-[1px] border-[#E0E0E0] rounded-[10px] w-full">

@@ -1,15 +1,10 @@
-import { Modal } from "@mantine/core";
-import axios from "axios";
 import React, { useMemo } from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import ContainerContent from "../components/containerContent";
-import AllParticipants from "../components/costumerCare/AllParticipants";
-import AllRedenciones from "../components/costumerCare/AllRedenciones";
-import Canales from "../components/costumerCare/Canales";
-import Distribuidores from "../components/costumerCare/Distribuidores";
+import ContainerContent from "../../components/containerContent";
+import AllParticipants from "../../components/costumerCare/AllParticipants";
+import Canales from "../../components/costumerCare/Canales";
+import Distribuidores from "../../components/costumerCare/Distribuidores";
 
 const customercare = () => {
   const [t, i18n] = useTranslation("global");
