@@ -9,15 +9,7 @@ const DigiPointsCard = ({ digipoints }) => {
   const user = useSelector((state) => state.user.user);
   const [t, i18n] = useTranslation("global");
   const router = useRouter();
-  const whiteListDist = [
-    "1472188",
-    "1654070",
-    "13595",
-    "901502",
-    "19472",
-    "1454183",
-    "1471126",
-  ];
+  const whiteListDist = [];
   const validations =
     user?.distributionChannelId === null ||
     whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
