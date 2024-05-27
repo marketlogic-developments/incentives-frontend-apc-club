@@ -27,12 +27,9 @@ import { setInitialStateOrders } from "../store/reducers/orders.reducer";
 import { setInitialStateSales } from "../store/reducers/sales.reducer";
 import { setInitialStateTeams } from "../store/reducers/teams.reducer";
 import { useState } from "react";
-import ModalFormCustomer from "./Lay0ut/ModalFormCustomer";
 import DigiPointsCard from "./Lay0ut/DigiPointsCard";
 import MenuAPC from "./Lay0ut/Menu";
-import Logo10 from "./Lay0ut/Logo10";
 import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
-import UserOptions from "./Lay0ut/UserOptions";
 import ContainerContent from "./containerContent";
 import MenuMarket from "./Lay0ut/MenuMarket";
 import ModalCustomerCare from "./costumerCare/modal/ModalCustomerCare";
@@ -51,6 +48,7 @@ import { VerifyTC } from "../functions/VerifyTC";
 import ModalTCPa from "./Lay0ut/Modals/ModalTCPa";
 import ModalInfoAPC from "./Lay0ut/ModalInfoAPC";
 import ETLA from "../public/assets/Icons/ETLA";
+import UserOptionsEtla from "./ETLA/Layout/UserOptionsEtla";
 
 const LayoutEtla = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -1212,7 +1210,7 @@ const LayoutEtla = ({ children }) => {
                             </div>
                           </div>
                           {menuUser && (
-                            <UserOptions
+                            <UserOptionsEtla
                               user={userRedux}
                               token={token}
                               logout={logout}
@@ -1260,7 +1258,7 @@ const LayoutEtla = ({ children }) => {
               </div>
               {menuMarket && <MenuMarket />}
               {screen < 767 && menuUser && (
-                <UserOptions
+                <UserOptionsEtla
                   user={userRedux}
                   token={token}
                   logout={logout}
