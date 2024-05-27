@@ -25,12 +25,6 @@ import {
   TitleWithIcon,
   SelectInputValue,
 } from "../../../../components";
-import { Menu, Button } from "@mantine/core";
-import * as XLSX from "xlsx";
-import jsonexport from "jsonexport";
-import { saveAs } from "file-saver";
-import ReactPaginate from "react-paginate";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import SortedTable from "../../../../components/table/SortedTable";
@@ -39,7 +33,7 @@ import {
   importExcelFunction,
   salesPerformanceColumnsCsv,
   salesPerformanceColumnsExcel,
-} from "../../../components/functions/reports";
+} from "../../../../components/functions/reports";
 const SalesPerformance = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
