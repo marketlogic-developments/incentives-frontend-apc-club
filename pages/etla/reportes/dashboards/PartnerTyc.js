@@ -1,13 +1,11 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getPartnerTycData,
-} from "../../../store/reducers/users.reducer";
+import { getPartnerTycData } from "../../../../store/reducers/users.reducer";
 import {
   ArrowDown,
   CloudDownload,
   UserPerformance as User,
-} from "../../../components/icons";
+} from "../../../../components/icons";
 import { useTranslation } from "react-i18next";
 import {
   BtnFilter,
@@ -16,7 +14,7 @@ import {
   SelectInputValue,
   Table,
   TitleWithIcon,
-} from "../../../components";
+} from "../../../../components";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
@@ -26,7 +24,7 @@ import {
   importExcelFunction,
   partnertycColumnsExcel,
   partnertycColumnsCsv,
-} from "../../../components/functions/reports";
+} from "../../../../components/functions/reports";
 import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
 
 const PartnerTyc = () => {
@@ -62,7 +60,6 @@ const PartnerTyc = () => {
     }
   }, [isLoaded, dispatch, token]);
 
-
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
       .toFixed(0)
@@ -77,25 +74,25 @@ const PartnerTyc = () => {
 
   /* Download */
   const importFile = async (data) => {
-    const updatedData = data.map(record => {
+    const updatedData = data.map((record) => {
       let updatedRecord = { ...record }; // Copia el registro original para no modificarlo directamente
-  
+
       // Verificar el valor de partner_status en cada registro
       if (record.partner_status) {
-          // Si es true, asignar "yes"
-          updatedRecord.partner_status = "YES";
+        // Si es true, asignar "yes"
+        updatedRecord.partner_status = "YES";
       } else {
-          // Si es false, asignar "no"
-          updatedRecord.partner_status = "NOT";
+        // Si es false, asignar "no"
+        updatedRecord.partner_status = "NOT";
       }
-  
+
       // Verificar el valor de pptyc en cada registro
       if (record.pptyc) {
-          // Si es true, asignar "yes"
-          updatedRecord.pptyc = "YES";
+        // Si es true, asignar "yes"
+        updatedRecord.pptyc = "YES";
       } else {
-          // Si es false, asignar "no"
-          updatedRecord.pptyc = "NOT";
+        // Si es false, asignar "no"
+        updatedRecord.pptyc = "NOT";
       }
 
       // Verificar el valor de pptyc en cada registro
@@ -106,7 +103,7 @@ const PartnerTyc = () => {
         // Si es false, asignar "no"
         updatedRecord.patyc = "NOT";
       }
-  
+
       return updatedRecord; // Devolver el registro actualizado
     });
 
@@ -119,25 +116,25 @@ const PartnerTyc = () => {
   };
 
   const importFileExcel = async (data) => {
-    const updatedData = data.map(record => {
+    const updatedData = data.map((record) => {
       let updatedRecord = { ...record }; // Copia el registro original para no modificarlo directamente
-  
+
       // Verificar el valor de partner_status en cada registro
       if (record.partner_status) {
-          // Si es true, asignar "yes"
-          updatedRecord.partner_status = "YES";
+        // Si es true, asignar "yes"
+        updatedRecord.partner_status = "YES";
       } else {
-          // Si es false, asignar "no"
-          updatedRecord.partner_status = "NOT";
+        // Si es false, asignar "no"
+        updatedRecord.partner_status = "NOT";
       }
-  
+
       // Verificar el valor de pptyc en cada registro
       if (record.pptyc) {
-          // Si es true, asignar "yes"
-          updatedRecord.pptyc = "YES";
+        // Si es true, asignar "yes"
+        updatedRecord.pptyc = "YES";
       } else {
-          // Si es false, asignar "no"
-          updatedRecord.pptyc = "NOT";
+        // Si es false, asignar "no"
+        updatedRecord.pptyc = "NOT";
       }
 
       // Verificar el valor de pptyc en cada registro
@@ -148,11 +145,10 @@ const PartnerTyc = () => {
         // Si es false, asignar "no"
         updatedRecord.patyc = "NOT";
       }
-  
+
       return updatedRecord; // Devolver el registro actualizado
     });
-  
-  
+
     const excelConfig = {
       data: updatedData,
       columns: partnertycColumnsExcel,
@@ -193,23 +189,17 @@ const PartnerTyc = () => {
     label: region,
   }));
 
-  
-
   /* Filter */
   const filteredUsers = data.filter((datos) => {
     if (
       selectThree &&
-      !datos.region
-        .toLowerCase()
-        .includes(selectThree.toLowerCase())
+      !datos.region.toLowerCase().includes(selectThree.toLowerCase())
     ) {
       return false;
     }
     if (
       selectTwo &&
-      !datos.partnername
-        .toLowerCase()
-        .includes(selectTwo.toLowerCase())
+      !datos.partnername.toLowerCase().includes(selectTwo.toLowerCase())
     ) {
       return false;
     }
@@ -224,7 +214,6 @@ const PartnerTyc = () => {
     }
     return true;
   });
-    
 
   /* Clear Filter */
   const clearSelects = () => {
@@ -236,7 +225,7 @@ const PartnerTyc = () => {
     if (!dateString) {
       return ""; // Devuelve una cadena vacía si la fecha es falsy (por ejemplo, si es undefined o una cadena vacía)
     }
-  
+
     const options = {
       year: "numeric",
       month: "numeric",
@@ -248,7 +237,6 @@ const PartnerTyc = () => {
     const date = new Date(dateString);
     return date.toLocaleString("es-GT", options);
   };
-  
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -294,9 +282,7 @@ const PartnerTyc = () => {
         <span>
           <AiOutlineRight />
         </span>
-        <span className="font-bold text-[#1473E6]">
-          {"Partner T&C"}
-        </span>
+        <span className="font-bold text-[#1473E6]">{"Partner T&C"}</span>
       </div>
       <div className="pt-2 grid items-center sm:grid-cols-5 grid-cols-2 gap-3">
         <SelectInputValue
@@ -410,20 +396,44 @@ const PartnerTyc = () => {
                   })
                   .map((data, index) => (
                     <tr key={index}>
-                      <th className="text-left py-3 px-2 mx-4">{data.idpartners}</th>
-                      <th className="text-left py-3 px-2 mx-4">{data.partnername}</th>
-                      <th className="text-left py-3 px-2 mx-4">{data.region}</th>
-                      <th className="text-left py-3 px-2 mx-4">{data.country}</th>
-                      <th className="text-left py-3 px-2 mx-4">{data.partnerlevel}</th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.idpartners}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.partnername}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.region}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.country}
+                      </th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {data.partnerlevel}
+                      </th>
                       <td className="text-start mx-2 py-4 px-2">
-                        {data.partner_status ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                        {data.partner_status ? (
+                          <ImCheckboxChecked />
+                        ) : (
+                          <ImCheckboxUnchecked />
+                        )}
                       </td>
                       <td className="text-start mx-2 py-4 px-2">
-                        {data.pptyc ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                        {data.pptyc ? (
+                          <ImCheckboxChecked />
+                        ) : (
+                          <ImCheckboxUnchecked />
+                        )}
                       </td>
-                      <th className="text-left py-3 px-2 mx-4">{formatDate(data.pptycdate)}</th>
+                      <th className="text-left py-3 px-2 mx-4">
+                        {formatDate(data.pptycdate)}
+                      </th>
                       <td className="text-start mx-2 py-4 px-2">
-                        {data.patyc ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                        {data.patyc ? (
+                          <ImCheckboxChecked />
+                        ) : (
+                          <ImCheckboxUnchecked />
+                        )}
                       </td>
                     </tr>
                   ))}

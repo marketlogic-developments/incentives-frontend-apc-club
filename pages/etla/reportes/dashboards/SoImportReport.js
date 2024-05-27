@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Maintenance, TitleWithIcon } from "../../../components";
-import { PageFix, RegistrationPerformance } from "../../../components/icons";
+import { Maintenance, TitleWithIcon } from "../../../../components";
+import { PageFix, RegistrationPerformance } from "../../../../components/icons";
 
 const SoImportReport = () => {
   const [t, i18n] = useTranslation("global");

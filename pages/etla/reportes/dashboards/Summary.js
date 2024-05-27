@@ -1,11 +1,14 @@
 import React, { useMemo, useState } from "react";
-import { Organization, SalesYoy, TitleWithIcon } from "../../../components";
+import { Organization, SalesYoy, TitleWithIcon } from "../../../../components";
 import { useTranslation } from "react-i18next";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import { useRouter } from "next/router";
-import ButtonBgOut from "../../../components/buttons/ButtonBgOut";
-import { SalesYtd, DigipoinstPerformance } from "../../../components/reports";
-import { SideBar } from "../../../components/menu";
+import ButtonBgOut from "../../../../components/buttons/ButtonBgOut";
+import {
+  SalesYtd,
+  DigipoinstPerformance,
+} from "../../../../components/reports";
+import { SideBar } from "../../../../components/menu";
 
 const Summary = () => {
   /* Variables and conts */

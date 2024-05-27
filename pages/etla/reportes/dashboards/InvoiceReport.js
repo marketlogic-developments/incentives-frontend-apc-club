@@ -4,10 +4,10 @@ import {
   CloudDownload,
   SearchIcon,
   UserPerformance,
-} from "../../../components/icons";
+} from "../../../../components/icons";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { getInvoiceReport } from "../../../store/reducers/sales.reducer";
+import { getInvoiceReport } from "../../../../store/reducers/sales.reducer";
 import {
   BtnFilter,
   BtnWithImage,
@@ -16,7 +16,7 @@ import {
   SearchInput,
   TitleWithIcon,
   DropDownReport,
-} from "../../../components";
+} from "../../../../components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import jsonexport from "jsonexport";
@@ -29,10 +29,10 @@ import {
   importExcelFunction,
   invoiceColumnsCsv,
   invoiceColumnsExcel,
-} from "../../../components/functions/reports";
+} from "../../../../components/functions/reports";
 
 const InvoiceReport = () => {
-  const [defaultYear, setDefaultYear] = useState(['2023', '2024']);
+  const [defaultYear, setDefaultYear] = useState(["2023", "2024"]);
   const [filters, setFilters] = useState({
     year: "2024",
   });
@@ -147,7 +147,6 @@ const InvoiceReport = () => {
     }
     return true;
   });
-
 
   /* Clear Filter */
   const clearSelects = () => {
@@ -402,7 +401,11 @@ const InvoiceReport = () => {
                           {data.digipoints_by_user}
                         </td>
                         <td className="text-start mx-2 py-4 px-2">
-                        {data.is_promo_by_user ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                          {data.is_promo_by_user ? (
+                            <ImCheckboxChecked />
+                          ) : (
+                            <ImCheckboxUnchecked />
+                          )}
                         </td>
                         <td className="text-start mx-2 py-4 px-2">
                           {data.promoname}

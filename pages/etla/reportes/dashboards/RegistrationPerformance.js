@@ -6,7 +6,7 @@ import {
   SelectInputValue,
   SearchInput,
   TitleWithIcon,
-} from "../../../components";
+} from "../../../../components";
 import { saveAs } from "file-saver";
 import jsonexport from "jsonexport";
 import {
@@ -14,7 +14,7 @@ import {
   CloudDownload,
   SearchIcon,
   Thunderbolt,
-} from "../../../components/icons";
+} from "../../../../components/icons";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import { useTranslation } from "react-i18next";
@@ -23,7 +23,7 @@ import {
   getSalesAll,
   getSalesAllByChannel,
   getSalesAllByDist,
-} from "../../../store/reducers/sales.reducer";
+} from "../../../../store/reducers/sales.reducer";
 
 const RegistrationPerformance = () => {
   const dispatch = useDispatch();

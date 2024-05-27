@@ -7,26 +7,29 @@ import {
   SearchInput,
   TitleWithIcon,
   DropDownReport,
-} from "../../../components";
+} from "../../../../components";
 import { saveAs } from "file-saver";
 import jsonexport from "jsonexport";
 import {
   ArrowDown,
   CloudDownload,
   SearchIcon,
-} from "../../../components/icons";
+} from "../../../../components/icons";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getDigiPointsByBeha
-} from "../../../store/reducers/sales.reducer";
+import { getDigiPointsByBeha } from "../../../../store/reducers/sales.reducer";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
-import SortedTable from "../../../components/table/SortedTable";
-import { digiPointsByBehaviorCsv, digiPointsByBehaviorExel, importCsvFunction, importExcelFunction } from "../../../components/functions/reports";
-import Promotion from "../../../components/icons/Reportes/Promotion";
+import SortedTable from "../../../../components/table/SortedTable";
+import {
+  digiPointsByBehaviorCsv,
+  digiPointsByBehaviorExel,
+  importCsvFunction,
+  importExcelFunction,
+} from "../../../../components/functions/reports";
+import Promotion from "../../../../components/icons/Reportes/Promotion";
 
 const DigiPointsBehavior = () => {
   const dispatch = useDispatch();
@@ -42,7 +45,7 @@ const DigiPointsBehavior = () => {
   const [t, i18n] = useTranslation("global");
   const token = useSelector((state) => state.user.token);
   const router = useRouter();
-  
+
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
       .toFixed(0)
@@ -97,18 +100,13 @@ const DigiPointsBehavior = () => {
   const filteredUsers = data.filter((user) => {
     if (
       selectTwo &&
-      !user.company_name
-        .toLowerCase()
-        .includes(selectTwo.toLowerCase())
+      !user.company_name.toLowerCase().includes(selectTwo.toLowerCase())
     ) {
       return false;
     }
     if (
       selectOne &&
-      !user.user_name
-        .toString()
-        .toLowerCase()
-        .includes(selectOne.toLowerCase())
+      !user.user_name.toString().toLowerCase().includes(selectOne.toLowerCase())
     ) {
       return false;
     }
@@ -177,32 +175,33 @@ const DigiPointsBehavior = () => {
   return (
     <div className="mt-8">
       <div className="grid grid-rows-1">
-        <TitleWithIcon
-          icon={<Promotion />}
-          title={"Behavior Report"}
-        />
+        <TitleWithIcon icon={<Promotion />} title={"Behavior Report"} />
       </div>
       <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
-        <AiOutlineHome className="cursor-pointer"
+        <AiOutlineHome
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/dashboard");
-          }}/>
-        <span><AiOutlineRight /></span>
-        <span className="cursor-pointer"
+            router.push("/dashboard");
+          }}
+        />
+        <span>
+          <AiOutlineRight />
+        </span>
+        <span
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/reportesDashboard");
+            router.push("/reportesDashboard");
           }}
         >
-        My Reports
+          My Reports
         </span>
-        <span><AiOutlineRight /></span>
-        <span className="font-bold text-[#1473E6]"
-        >
-        {"Behavior Report"}
+        <span>
+          <AiOutlineRight />
         </span>
+        <span className="font-bold text-[#1473E6]">{"Behavior Report"}</span>
       </div>
       <div className="grid items-center sm:grid-cols-3 grid-rows-1 gap-3">
-      <SelectInputValue
+        <SelectInputValue
           placeholder={"Company Name"}
           value={selectTwo}
           data={dataSelectTwo}
@@ -219,65 +218,95 @@ const DigiPointsBehavior = () => {
           name={"business"}
         />
         <div className="sm:col-span-1 col-span-2 flex items-center">
-        <BtnFilter
-          text={t("Reportes.limpiar_filtros")}
-          styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
-          onClick={clearSelects}
-        />
-        <DropDownReport
-          icon={<CloudDownload />}
-          title={t("Reportes.descargar")}
-        >
-          <BtnWithImage
-          text={t("Reportes.descargar")}
-          icon={<CloudDownload />}
-          styles={
-            "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
-          }
-          onClick={() => importFile(filteredUsers)}
-        />
-          <BtnWithImage
-           text={t("Reportes.descargar") + " excel"}
-          icon={<CloudDownload />}
-          styles={
-            "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
-          }
-          onClick={() => importFileExcel(filteredUsers)}
-        />
-        </DropDownReport>
+          <BtnFilter
+            text={t("Reportes.limpiar_filtros")}
+            styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
+            onClick={clearSelects}
+          />
+          <DropDownReport
+            icon={<CloudDownload />}
+            title={t("Reportes.descargar")}
+          >
+            <BtnWithImage
+              text={t("Reportes.descargar")}
+              icon={<CloudDownload />}
+              styles={
+                "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+              }
+              onClick={() => importFile(filteredUsers)}
+            />
+            <BtnWithImage
+              text={t("Reportes.descargar") + " excel"}
+              icon={<CloudDownload />}
+              styles={
+                "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+              }
+              onClick={() => importFileExcel(filteredUsers)}
+            />
+          </DropDownReport>
         </div>
-        
       </div>
       <div className="grid overflow-x-auto w-full">
         {!loading && (
-            <SortedTable
+          <SortedTable
             containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
             tableStyles={"table-zebra !text-sm"}
             colStyles={"p-2"}
             thStyles={"sticky text-white"}
             cols={[
-              { rowStyles:"", symbol:"", identity: "behavior_name", columnName: "Behavior Name" },
-              { symbol:"", sort:true, identity: "behavior_digipoints", columnName: "Behavior DigiPoints" },
-              { symbol:"", sort:true, identity: "user_name", columnName: "User Name" },
-              { symbol:"", identity: "firstname", columnName: "FirstName" },
-              { symbol:"", identity: "lastname", columnName: "LastName" },
-              { symbol:"", identity: "user_role", columnName: "User Role" },
-              { symbol:"", identity: "user_region", columnName: "Region" },
-              { symbol:"", identity: "user_country", columnName: "Country" },
-              { symbol:"", identity: "membership_id", columnName: "Membership ID" },
-              { symbol:"", identity: "company_name", columnName: "Company Name" },
-              { symbol:"", identity: "company_type", columnName: "Company Type" },
-              { symbol:"", identity: "company_level", columnName: "Company Level" },
+              {
+                rowStyles: "",
+                symbol: "",
+                identity: "behavior_name",
+                columnName: "Behavior Name",
+              },
+              {
+                symbol: "",
+                sort: true,
+                identity: "behavior_digipoints",
+                columnName: "Behavior DigiPoints",
+              },
+              {
+                symbol: "",
+                sort: true,
+                identity: "user_name",
+                columnName: "User Name",
+              },
+              { symbol: "", identity: "firstname", columnName: "FirstName" },
+              { symbol: "", identity: "lastname", columnName: "LastName" },
+              { symbol: "", identity: "user_role", columnName: "User Role" },
+              { symbol: "", identity: "user_region", columnName: "Region" },
+              { symbol: "", identity: "user_country", columnName: "Country" },
+              {
+                symbol: "",
+                identity: "membership_id",
+                columnName: "Membership ID",
+              },
+              {
+                symbol: "",
+                identity: "company_name",
+                columnName: "Company Name",
+              },
+              {
+                symbol: "",
+                identity: "company_type",
+                columnName: "Company Type",
+              },
+              {
+                symbol: "",
+                identity: "company_level",
+                columnName: "Company Level",
+              },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
             paginate={true}
             pageCount={pageCount}
             currentItems={currentItems}
             searchByInvoice={searchByInvoice}
-            fieldSearchByInvoice={'email'}
+            fieldSearchByInvoice={"email"}
             handlePageClick={handlePageClick}
           />
-          )}
+        )}
       </div>
     </div>
   );

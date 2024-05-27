@@ -7,29 +7,29 @@ import {
   SearchInput,
   TitleWithIcon,
   DropDownReport,
-} from "../../../components";
+} from "../../../../components";
 import { saveAs } from "file-saver";
 import jsonexport from "jsonexport";
 import {
   ArrowDown,
   CloudDownload,
   SearchIcon,
-} from "../../../components/icons";
+} from "../../../../components/icons";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { getDigiPointsByPromotions } from "../../../store/reducers/sales.reducer";
+import { getDigiPointsByPromotions } from "../../../../store/reducers/sales.reducer";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
-import SortedTable from "../../../components/table/SortedTable";
+import SortedTable from "../../../../components/table/SortedTable";
 import {
   digiPointsByPromotionsCsv,
   digiPointsByPromotionsExel,
   importCsvFunction,
   importExcelFunction,
-} from "../../../components/functions/reports";
-import Promotion from "../../../components/icons/Reportes/Promotion";
+} from "../../../../components/functions/reports";
+import Promotion from "../../../../components/icons/Reportes/Promotion";
 
 const DigiPointsPromotions = () => {
   const dispatch = useDispatch();
