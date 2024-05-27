@@ -853,6 +853,7 @@ const LayoutEtla = ({ children }) => {
 
             if (userRedux.roleId === 5) {
               return [
+                "/etla/dashboardEtla",
                 "/etla/digipointsall",
                 "/etla/digipoints/mydigipoints",
                 "/etla/reportes/dashboards/InvoiceReportUser",
@@ -908,48 +909,44 @@ const LayoutEtla = ({ children }) => {
           return t("user.ajustesdeperfil");
         }
 
-        if (location === "/catalogo") {
+        if (location === "/etla/catalogo") {
           return t("menu.catalogo");
         }
 
-        if (location === "/shoppingCar") {
+        if (location === "/etla/shoppingCar") {
           return t("shoopingcar.carrito");
         }
 
-        if (location === "/estadoProducto") {
+        if (location === "/etla/estadoProducto") {
           return t("estadoProducto.estado");
         }
 
-        if (location === "/howtowin") {
+        if (location === "/etla/howtowin") {
           return t("dashboard.htw");
         }
 
         if (
           [
-            "/reportes/dashboards/SalesPerformance",
-            "/reportes/dashboards/DigiPointsPerformance",
-            "/reportes/dashboards/UserPerformance",
-            "/reportes/dashboards/PartnerTyc",
-            "/reportes/dashboards/InvoiceReport",
-            "/reportes/dashboards/DigiPointsRedemption",
-            "/reportes/dashboards/DigiPointsPromotions",
-            "/reportes/dashboards/DigiPointsBehavior",
-            "/reportes/dashboards/GoogleAnalytic",
-            "/reportes/dashboards/CustomCare",
-            "/reportes/dashboards/SoImportReport",
-            "/reportes/dashboards/RegistrationPerformance",
-            "/reportes/dashboards/FollowUp",
-            "/reportes/dashboards/Summary",
+            "/etla/reportes/dashboards/SalesPerformance",
+            "/etla/reportes/dashboards/DigiPointsPerformance",
+            "/etla/reportes/dashboards/UserPerformance",
+            "/etla/reportes/dashboards/PartnerTyc",
+            "/etla/reportes/dashboards/InvoiceReport",
+            "/etla/reportes/dashboards/DigiPointsRedemption",
+            "/etla/reportes/dashboards/DigiPointsPromotions",
+            "/etla/reportes/dashboards/DigiPointsBehavior",
+            "/etla/reportes/dashboards/GoogleAnalytic",
+            "/etla/reportes/dashboards/CustomCare",
+            "/etla/reportes/dashboards/SoImportReport",
+            "/etla/reportes/dashboards/RegistrationPerformance",
+            "/etla/reportes/dashboards/FollowUp",
+            "/etla/reportes/dashboards/Summary",
           ].includes(location)
         ) {
           return t("Reportes.reportes");
         }
-        if (location === "/reportes/dashboards/InvoiceReportUser") {
-          return "Invoice Report";
-        }
-
-        if (location.includes("comunicado")) {
-          return t("menu.comunicados");
+        if (location === "/etla/reportes/dashboards/InvoiceReportUser") {
+          return "Enterprise DR Report";
         }
 
         if (location.includes("organizacion")) {

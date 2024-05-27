@@ -128,32 +128,6 @@ const reportesDashboard = () => {
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
-          titleCard={"Promo Report"}
-          onClick={() => {
-            router.push("/reportes/dashboards/DigiPointsPromotions");
-          }}
-          extra={<ArrowRight />}
-        >
-          <Promotion
-            width={screen < 639 ? 45 : 70}
-            height={screen < 639 ? 45 : 70}
-          />
-        </CardReportes>
-        <CardReportes
-          styles="hover:bg-red-600 hover:text-white"
-          titleCard={"Behavior Report"}
-          onClick={() => {
-            router.push("/reportes/dashboards/DigiPointsBehavior");
-          }}
-          extra={<ArrowRight />}
-        >
-          <Promotion
-            width={screen < 639 ? 45 : 70}
-            height={screen < 639 ? 45 : 70}
-          />
-        </CardReportes>
-        <CardReportes
-          styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.google_analytic")}
           onClick={() => {
             router.push("/reportes/dashboards/GoogleAnalytic");
@@ -161,19 +135,6 @@ const reportesDashboard = () => {
           extra={<ArrowRight />}
         >
           <IncentivePoints
-            width={screen < 639 ? 45 : 70}
-            height={screen < 639 ? 45 : 70}
-          />
-        </CardReportes>
-        <CardReportes
-          styles="hover:bg-red-600 hover:text-white"
-          titleCard={t("Reportes.custom_care")}
-          onClick={() => {
-            router.push("/reportes/dashboards/CustomCare");
-          }}
-          extra={<ArrowRight />}
-        >
-          <CustomIcon
             width={screen < 639 ? 45 : 70}
             height={screen < 639 ? 45 : 70}
           />
