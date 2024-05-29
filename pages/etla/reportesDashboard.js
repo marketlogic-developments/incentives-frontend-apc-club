@@ -13,11 +13,11 @@ import {
   UserPerformance,
   Medal,
   ArrowRight,
-} from "../components/icons";
+} from "../../components/icons";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import dynamic from "next/dynamic";
-import Promotion from "../components/icons/Reportes/Promotion";
+import Promotion from "../../components/icons/Reportes/Promotion";
 
 const reportesDashboard = () => {
   const router = useRouter();
@@ -38,7 +38,7 @@ const reportesDashboard = () => {
   });
 
   const SharePoint = dynamic(() =>
-    import("../components/embedreports/sharePoint").then(
+    import("../../components/embedreports/sharePoint").then(
       (powerBi) => powerBi.default
     )
   );

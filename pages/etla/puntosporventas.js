@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import ContainerContent from "../components/containerContent";
+import ContainerContent from "../../components/containerContent";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import * as XLSX from "xlsx";
@@ -10,7 +10,7 @@ import {
   getSalesAll,
   getSalesAllByChannel,
   getSalesAllByDist,
-} from "../store/reducers/sales.reducer";
+} from "../../store/reducers/sales.reducer";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -19,9 +19,9 @@ import {
   importExcelFunction,
   digiPointsxVentasColumnsExcelCsv,
   digiPointsxVentasColumnsExcel,
-} from "../components/functions/reports";
-import { BtnWithImage, DropDownReport } from "../components";
-import { CloudDownload, UserPerformance as User } from "../components/icons";
+} from "../../components/functions/reports";
+import { BtnWithImage, DropDownReport } from "../../components";
+import { CloudDownload, UserPerformance as User } from "../../components/icons";
 
 const puntosporventas = () => {
   const [t, i18n] = useTranslation("global");
