@@ -45,15 +45,6 @@ const catalogo = () => {
     "1471126",
   ];
 
-  if (
-    user?.distributionChannelId !== null ||
-    whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
-    userBlockCatalogo.includes(user.email)
-  ) {
-    route.push("/dashboard");
-    return <></>;
-  }
-
   useEffect(() => {
     if (token && arrayAwards.length === 0) {
       dispatch(getDataAwards(token, user));
