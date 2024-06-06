@@ -28,7 +28,6 @@ const Table2Htw = ({ user }) => {
     SDL: ["24", "12"],
     SLP: ["-", "12", "24", "-"],
   };
-  s;
 
   const htwDist = {
     AcrobatPro: ["10", "10"],
