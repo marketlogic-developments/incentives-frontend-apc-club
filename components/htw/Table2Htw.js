@@ -11,7 +11,7 @@ const Table2Htw = ({ user }) => {
     AcrobatSign: ["30", "20"],
     ForTeam: ["40", "30"],
     SDL: ["30", "25"],
-    SLP: ["30", "25", "30", "25"],
+    SLP: ["30", "25"],
   };
 
   const htwDist = {
@@ -19,7 +19,7 @@ const Table2Htw = ({ user }) => {
     AcrobatSign: ["15", "10"],
     ForTeam: ["15", "10"],
     SDL: ["15", "10"],
-    SLP: ["15", "10", "15", "10"],
+    SLP: ["15", "10"],
   };
 
   const htwData = user.companyId !== null ? htwRes : htwDist;
@@ -205,13 +205,12 @@ const Table2Htw = ({ user }) => {
             <hr />
             <div className="col-span-full grid grid-cols-6">
               <div className="col-span-2 flex flex-col justify-center gap-3">
-                <p className="text-center">+ 25 {t("htw.licences")}</p>
-                <p className="text-center">+ 100 {t("htw.licences")}</p>
+                <p className="text-center py-5">+ 100 {t("htw.licences")}</p>
               </div>
               <div className="col-span-4 grid grid-cols-2 gap-2">
                 {htwData.SLP.map((text, idx) => (
                   <div
-                    className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 h-fit border-l-4 ${
+                    className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 h-full border-l-4 ${
                       idx % 2 === 0
                         ? "border-primary"
                         : idx % 2 === 1
