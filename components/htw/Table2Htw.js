@@ -56,6 +56,10 @@ const Table2Htw = ({ user }) => {
         })}
         onChange={(data) => setDataHTW(data)}
         name={"dateHTW"}
+        classNames={{
+          input:
+            "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
+        }}
       />
       <div className="w-full grid grid-cols-4 lg:gap-0 gap-6">
         <div className="flex col-span-3 lg:col-span-2 lg:gap-2 xl:gap-6">
