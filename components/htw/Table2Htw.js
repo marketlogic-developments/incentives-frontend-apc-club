@@ -5,36 +5,21 @@ import { useTranslation } from "react-i18next";
 const Table2Htw = ({ user }) => {
   const [t, i18n] = useTranslation("global");
   const typeSegment = [t("htw.renovaciones"), t("htw.nuevosn")];
-  // const htwRes = {
-  //   AcrobatPro: ["30", "20"],
-  //   AcrobatSign: ["30", "20"],
-  //   ForTeam: ["40", "40"],
-  //   SDL: ["30", "25"],
-  //   SLP: ["-", "25", "30", "25"],
-  // };
-
-  // const htwDist = {
-  //   AcrobatPro: ["15", "10"],
-  //   AcrobatSign: ["15", "10"],
-  //   ForTeam: ["15", "10"],
-  //   SDL: ["15", "10"],
-  //   SLP: ["-", "10", "15", "10"],
-  // };
 
   const htwRes = {
-    AcrobatPro: ["24", "12"],
-    AcrobatSign: ["24", "12"],
-    ForTeam: ["24", "12"],
-    SDL: ["24", "12"],
-    SLP: ["-", "12", "24", "-"],
+    AcrobatPro: ["30", "20"],
+    AcrobatSign: ["30", "20"],
+    ForTeam: ["40", "30"],
+    SDL: ["30", "25"],
+    SLP: ["30", "25", "30", "25"],
   };
 
   const htwDist = {
-    AcrobatPro: ["10", "10"],
-    AcrobatSign: ["10", "10"],
-    ForTeam: ["10", "10"],
-    SDL: ["10", "10"],
-    SLP: ["-", "10", "10", "-"],
+    AcrobatPro: ["15", "10"],
+    AcrobatSign: ["15", "10"],
+    ForTeam: ["15", "10"],
+    SDL: ["15", "10"],
+    SLP: ["15", "10", "15", "10"],
   };
 
   const htwData = user.companyId !== null ? htwRes : htwDist;
