@@ -138,7 +138,7 @@ const Table2Htw = ({ user }) => {
                 </p>
               </div>
               <div className="col-span-4 grid grid-cols-2 gap-2">
-                {htwData.AcrobatPro.map((text, idx) => (
+                {htwData.AcrobatSign.map((text, idx) => (
                   <div
                     className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 h-full border-l-4 ${
                       idx % 2 === 0
@@ -162,7 +162,7 @@ const Table2Htw = ({ user }) => {
                 <p className="text-center py-5">+ 10 {t("htw.licences")}</p>
               </div>
               <div className="col-span-4 grid grid-cols-2 gap-2">
-                {htwData.AcrobatPro.map((text, idx) => (
+                {htwData.ForTeam.map((text, idx) => (
                   <div
                     className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 h-full border-l-4 ${
                       idx % 2 === 0
@@ -185,7 +185,7 @@ const Table2Htw = ({ user }) => {
                 <p className="text-center py-5">+ 50 {t("htw.licences")}</p>
               </div>
               <div className="col-span-4 grid grid-cols-2 gap-2">
-                {htwData.AcrobatPro.map((text, idx) => (
+                {htwData.SDL.map((text, idx) => (
                   <div
                     className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 h-full border-l-4 ${
                       idx % 2 === 0
