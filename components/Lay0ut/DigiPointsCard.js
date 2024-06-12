@@ -5,20 +5,15 @@ import { useSelector } from "react-redux";
 import { userBlockCatalogo } from "../../block/UsersBlockCatalogo";
 
 const DigiPointsCard = ({ digipoints }) => {
+  const path = typeof window !== "undefined" ? window.location.pathname : "";
   const user = useSelector((state) => state.user.user);
   const [t, i18n] = useTranslation("global");
   const router = useRouter();
-  const whiteListDist = [
-    "1472188",
-    "1654070",
-    "13595",
-    "901502",
-    "19472",
-    "1454183",
-    "1471126",
-  ];
-
-  console.log(user);
+  const whiteListDist = [];
+  const validations =
+    user?.distributionChannelId === null ||
+    whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
+    !userBlockCatalogo.includes(user.email);
 
   return (
     <div className="flex px-3 py-3.5 bg-base-100 border-[1px] border-[#E0E0E0] rounded-[10px] w-full">
@@ -59,18 +54,18 @@ const DigiPointsCard = ({ digipoints }) => {
             </p>
           </div>
         </div>
-        {user?.distributionChannelId === null ||
-          whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
-          (!userBlockCatalogo.includes(user.email) && (
-            <button
-              className="btn btn-info !btn-outline w-full whitespace-nowrap min-h-[2.563rem] h-[2.563rem]"
-              onClick={() => {
-                router.push("/catalogo");
-              }}
-            >
-              {t("menu.vercatalogo")}
-            </button>
-          ))}
+        {validations && (
+          <button
+            className="btn btn-info !btn-outline w-full whitespace-nowrap min-h-[2.563rem] h-[2.563rem]"
+            onClick={() => {
+              router.push(
+                path.includes("etla") ? "/etla/catalogo" : "/catalogo"
+              );
+            }}
+          >
+            {t("menu.vercatalogo")}
+          </button>
+        )}
       </div>
     </div>
   );

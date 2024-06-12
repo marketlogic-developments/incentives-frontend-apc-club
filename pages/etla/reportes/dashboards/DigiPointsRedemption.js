@@ -7,7 +7,7 @@ import {
   SearchInput,
   TitleWithIcon,
   DropDownReport,
-} from "../../../components";
+} from "../../../../components";
 import { saveAs } from "file-saver";
 import jsonexport from "jsonexport";
 import {
@@ -15,18 +15,21 @@ import {
   CloudDownload,
   Request,
   SearchIcon,
-} from "../../../components/icons";
+} from "../../../../components/icons";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getOrdersAll
-} from "../../../store/reducers/orders.reducer";
+import { getOrdersAll } from "../../../../store/reducers/orders.reducer";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
-import SortedTable from "../../../components/table/SortedTable";
-import { digipointRedemtionColumnsCsv, digipointRedemtionColumnsExcel, importCsvFunction, importExcelFunction } from "../../../components/functions/reports";
+import SortedTable from "../../../../components/table/SortedTable";
+import {
+  digipointRedemtionColumnsCsv,
+  digipointRedemtionColumnsExcel,
+  importCsvFunction,
+  importExcelFunction,
+} from "../../../../components/functions/reports";
 
 const DigiPointsRedemption = () => {
   const dispatch = useDispatch();
@@ -42,7 +45,7 @@ const DigiPointsRedemption = () => {
   const [t, i18n] = useTranslation("global");
   const token = useSelector((state) => state.user.token);
   const router = useRouter();
-  
+
   const numberToMoney = (quantity = 0) => {
     return `$ ${Number(quantity)
       .toFixed(0)
@@ -97,18 +100,13 @@ const DigiPointsRedemption = () => {
   const filteredUsers = data.filter((user) => {
     if (
       selectTwo &&
-      !user.ordernumber
-        .toLowerCase()
-        .includes(selectTwo.toLowerCase())
+      !user.ordernumber.toLowerCase().includes(selectTwo.toLowerCase())
     ) {
       return false;
     }
     if (
       selectOne &&
-      !user.email
-        .toString()
-        .toLowerCase()
-        .includes(selectOne.toLowerCase())
+      !user.email.toString().toLowerCase().includes(selectOne.toLowerCase())
     ) {
       return false;
     }
@@ -183,22 +181,28 @@ const DigiPointsRedemption = () => {
         />
       </div>
       <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
-        <AiOutlineHome className="cursor-pointer"
+        <AiOutlineHome
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/dashboard");
-          }}/>
-        <span><AiOutlineRight /></span>
-        <span className="cursor-pointer"
+            router.push("/dashboard");
+          }}
+        />
+        <span>
+          <AiOutlineRight />
+        </span>
+        <span
+          className="cursor-pointer"
           onClick={() => {
-          router.push("/reportesDashboard");
+            router.push("/reportesDashboard");
           }}
         >
-        My Reports
+          My Reports
         </span>
-        <span><AiOutlineRight /></span>
-        <span className="font-bold text-[#1473E6]"
-        >
-        {t("Reportes.digiPoints_redemption_request")}
+        <span>
+          <AiOutlineRight />
+        </span>
+        <span className="font-bold text-[#1473E6]">
+          {t("Reportes.digiPoints_redemption_request")}
         </span>
       </div>
       <div className="grid items-center sm:grid-cols-4 grid-rows-1 gap-3">
@@ -221,70 +225,111 @@ const DigiPointsRedemption = () => {
           searchable={true}
         />
         <div className="sm:flex grid sm:grid-cols-3 grid-cols-2 items-center">
-        <BtnFilter
-          text={t("Reportes.limpiar_filtros")}
-          styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
-          onClick={clearSelects}
-        />
-        <DropDownReport
-          icon={<CloudDownload />}
-          title={t("Reportes.descargar")}
-        >
-          <BtnWithImage
-          text={t("Reportes.descargar")}
-          icon={<CloudDownload />}
-          styles={
-            "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
-          }
-          onClick={() => importFile(filteredUsers)}
-        />
-          <BtnWithImage
-           text={t("Reportes.descargar") + " excel"}
-          icon={<CloudDownload />}
-          styles={
-            "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
-          }
-          onClick={() => importFileExcel(filteredUsers)}
-        />
-        </DropDownReport>
+          <BtnFilter
+            text={t("Reportes.limpiar_filtros")}
+            styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
+            onClick={clearSelects}
+          />
+          <DropDownReport
+            icon={<CloudDownload />}
+            title={t("Reportes.descargar")}
+          >
+            <BtnWithImage
+              text={t("Reportes.descargar")}
+              icon={<CloudDownload />}
+              styles={
+                "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+              }
+              onClick={() => importFile(filteredUsers)}
+            />
+            <BtnWithImage
+              text={t("Reportes.descargar") + " excel"}
+              icon={<CloudDownload />}
+              styles={
+                "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
+              }
+              onClick={() => importFileExcel(filteredUsers)}
+            />
+          </DropDownReport>
         </div>
-        
       </div>
       <div className="grid overflow-x-auto w-full">
         {!loading && (
-            <SortedTable
+          <SortedTable
             containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
             tableStyles={"table-zebra !text-sm"}
             colStyles={"p-2"}
             thStyles={"sticky text-white"}
             cols={[
-              { rowStyles:"", sort:true, symbol:"", identity: "email", columnName: "User Email" },
-              { symbol:"", identity: "name", columnName: "First Name" },
-              { symbol:"", identity: "last_name", columnName: "Last Name" },
-              { symbol:"", identity: "role_name", columnName: "User Role" },
-              { symbol:"", identity: "region", columnName: "Region" },
-              { symbol:"", identity: "country", columnName: "Country" },
-              { symbol:"", identity: "company_id", columnName: "Company ID" },
-              { symbol:"", identity: "company_name", columnName: "Company Name" },
-              { symbol:"", identity: "company_level", columnName: "Company Level" },
-              { symbol:"", identity: "pp_email", columnName: "Partner Principal User Email" },
-              { symbol:"", identity: "pp_tos", columnName: "Partner Principal Accepted ToS" },
-              { symbol:"", identity: "ordernumber", columnName: "Request ID" },
-              { symbol:"", identity: "digipoint_substract", columnName: "Redeemed DigiPoints" },
-              { symbol:"", identity: "total_quantity", columnName: "Quantity" },
-              { symbol:"", identity: "total_price", columnName: "Amount (USD)" },
-              { symbol:"DATE", identity: "created_at", columnName: "Redeemed On" },
-              { symbol:"", identity: "status_name", columnName: "Reward Status" },
+              {
+                rowStyles: "",
+                sort: true,
+                symbol: "",
+                identity: "email",
+                columnName: "User Email",
+              },
+              { symbol: "", identity: "name", columnName: "First Name" },
+              { symbol: "", identity: "last_name", columnName: "Last Name" },
+              { symbol: "", identity: "role_name", columnName: "User Role" },
+              { symbol: "", identity: "region", columnName: "Region" },
+              { symbol: "", identity: "country", columnName: "Country" },
+              { symbol: "", identity: "company_id", columnName: "Company ID" },
+              {
+                symbol: "",
+                identity: "company_name",
+                columnName: "Company Name",
+              },
+              {
+                symbol: "",
+                identity: "company_level",
+                columnName: "Company Level",
+              },
+              {
+                symbol: "",
+                identity: "pp_email",
+                columnName: "Partner Principal User Email",
+              },
+              {
+                symbol: "",
+                identity: "pp_tos",
+                columnName: "Partner Principal Accepted ToS",
+              },
+              { symbol: "", identity: "ordernumber", columnName: "Request ID" },
+              {
+                symbol: "",
+                identity: "digipoint_substract",
+                columnName: "Redeemed DigiPoints",
+              },
+              {
+                symbol: "",
+                identity: "total_quantity",
+                columnName: "Quantity",
+              },
+              {
+                symbol: "",
+                identity: "total_price",
+                columnName: "Amount (USD)",
+              },
+              {
+                symbol: "DATE",
+                identity: "created_at",
+                columnName: "Redeemed On",
+              },
+              {
+                symbol: "",
+                identity: "status_name",
+                columnName: "Reward Status",
+              },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
             paginate={true}
             pageCount={pageCount}
             currentItems={currentItems}
             searchByInvoice={searchByInvoice}
-            fieldSearchByInvoice={'email'}
+            fieldSearchByInvoice={"email"}
             handlePageClick={handlePageClick}
           />
-          )}
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import TargetMyDigiPoints from "../../components/digipoints/MyDigiPoints/TargetMyDigiPoints";
+import TargetMyDigiPoints from "../../../components/digipoints/MyDigiPoints/TargetMyDigiPoints";
 
 const mydigipoints = () => {
   const digipoints = useSelector((state) => state.user.digipoints);

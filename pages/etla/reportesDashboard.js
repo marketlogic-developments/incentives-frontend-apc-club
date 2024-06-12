@@ -57,7 +57,7 @@ const reportesDashboard = () => {
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.sales_performance")}
           onClick={() => {
-            router.push("/reportes/dashboards/SalesPerformance");
+            router.push("/etla/reportes/dashboards/SalesPerformance");
           }}
           extra={<ArrowRight />}
         >
@@ -70,7 +70,7 @@ const reportesDashboard = () => {
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.user_performance")}
           onClick={() => {
-            router.push("/reportes/dashboards/UserPerformance");
+            router.push("/etla/reportes/dashboards/UserPerformance");
           }}
           extra={<ArrowRight />}
         >
@@ -83,7 +83,7 @@ const reportesDashboard = () => {
           styles="hover:bg-red-600 hover:text-white"
           titleCard={"Partner T&C"}
           onClick={() => {
-            router.push("/reportes/dashboards/PartnerTyc");
+            router.push("/etla/reportes/dashboards/PartnerTyc");
           }}
           extra={<ArrowRight />}
         >
@@ -96,7 +96,7 @@ const reportesDashboard = () => {
           styles="hover:bg-red-600 hover:text-white"
           titleCard={"DigiPoints Performance"}
           onClick={() => {
-            router.push("/reportes/dashboards/DigiPointsPerformance");
+            router.push("/etla/reportes/dashboards/DigiPointsPerformance");
           }}
           extra={<ArrowRight />}
         >
@@ -109,7 +109,7 @@ const reportesDashboard = () => {
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.invoice_report")}
           onClick={() => {
-            router.push("/reportes/dashboards/InvoiceReport");
+            router.push("/etla/reportes/dashboards/InvoiceReport");
           }}
           extra={<ArrowRight />}
         >
@@ -122,7 +122,7 @@ const reportesDashboard = () => {
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.digiPoints_redemption_request")}
           onClick={() => {
-            router.push("/reportes/dashboards/DigiPointsRedemption");
+            router.push("/etla/reportes/dashboards/DigiPointsRedemption");
           }}
           extra={<ArrowRight />}
         >
@@ -133,35 +133,9 @@ const reportesDashboard = () => {
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
-          titleCard={"Promo Report"}
-          onClick={() => {
-            router.push("/reportes/dashboards/DigiPointsPromotions");
-          }}
-          extra={<ArrowRight />}
-        >
-          <Promotion
-            width={screen < 639 ? 45 : 70}
-            height={screen < 639 ? 45 : 70}
-          />
-        </CardReportes>
-        <CardReportes
-          styles="hover:bg-red-600 hover:text-white"
-          titleCard={"Behavior Report"}
-          onClick={() => {
-            router.push("/reportes/dashboards/DigiPointsBehavior");
-          }}
-          extra={<ArrowRight />}
-        >
-          <Promotion
-            width={screen < 639 ? 45 : 70}
-            height={screen < 639 ? 45 : 70}
-          />
-        </CardReportes>
-        <CardReportes
-          styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.google_analytic")}
           onClick={() => {
-            router.push("/reportes/dashboards/GoogleAnalytic");
+            router.push("/etla/reportes/dashboards/GoogleAnalytic");
           }}
           extra={<ArrowRight />}
         >
@@ -172,22 +146,9 @@ const reportesDashboard = () => {
         </CardReportes>
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
-          titleCard={t("Reportes.custom_care")}
-          onClick={() => {
-            router.push("/reportes/dashboards/CustomCare");
-          }}
-          extra={<ArrowRight />}
-        >
-          <CustomIcon
-            width={screen < 639 ? 45 : 70}
-            height={screen < 639 ? 45 : 70}
-          />
-        </CardReportes>
-        <CardReportes
-          styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.summary")}
           onClick={() => {
-            router.push("/reportes/dashboards/Summary");
+            router.push("/etla/reportes/dashboards/Summary");
           }}
           extra={<ArrowRight />}
         >
@@ -200,7 +161,7 @@ const reportesDashboard = () => {
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.so_import")}
           onClick={() => {
-            router.push("/reportes/dashboards/SoImportReport");
+            router.push("/etla/reportes/dashboards/SoImportReport");
           }}
         >
           <RegistrationPerformance />
@@ -209,7 +170,7 @@ const reportesDashboard = () => {
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.registration_performance")}
           onClick={() => {
-            router.push("/reportes/dashboards/RegistrationPerformance");
+            router.push("/etla/reportes/dashboards/RegistrationPerformance");
           }}
         >
           <Thunderbolt />
@@ -218,7 +179,7 @@ const reportesDashboard = () => {
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.follow_up")}
           onClick={() => {
-            router.push("/reportes/dashboards/FollowUp");
+            router.push("/etla/reportes/dashboards/FollowUp");
           }}
         >
           <TermsConditions />

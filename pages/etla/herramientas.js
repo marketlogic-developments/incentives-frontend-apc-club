@@ -1,7 +1,4 @@
-import { Modal } from "@mantine/core";
-import axios from "axios";
 import React, { useMemo } from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";

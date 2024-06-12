@@ -4,10 +4,10 @@ import {
   CloudDownload,
   SearchIcon,
   UserPerformance,
-} from "../../../components/icons";
+} from "../../../../components/icons";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { getInvoiceReportByUser } from "../../../store/reducers/sales.reducer";
+import { getInvoiceReportByUser } from "../../../../store/reducers/sales.reducer";
 import {
   BtnFilter,
   BtnWithImage,
@@ -16,7 +16,7 @@ import {
   SearchInput,
   TitleWithIcon,
   DropDownReport,
-} from "../../../components";
+} from "../../../../components";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import jsonexport from "jsonexport";
@@ -28,7 +28,7 @@ import {
   importExcelFunction,
   invoiceColumnsCsv,
   invoiceColumnsExcel,
-} from "../../../components/functions/reports";
+} from "../../../../components/functions/reports";
 
 const InvoiceReport = () => {
   const itemsPerPage = 10;

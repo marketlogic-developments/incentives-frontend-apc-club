@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getSalesvsGoalsUsePerformance,
   getUserSalePerformance,
-} from "../../../store/reducers/sales.reducer";
+} from "../../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
   SearchIcon,
   UserPerformance as User,
-} from "../../../components/icons";
+} from "../../../../components/icons";
 import { useTranslation } from "react-i18next";
 import {
   BarChar,
@@ -22,7 +22,7 @@ import {
   SelectInputValue,
   Table,
   TitleWithIcon,
-} from "../../../components";
+} from "../../../../components";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import ReactPaginate from "react-paginate";
@@ -34,8 +34,8 @@ import {
   importExcelFunction,
   userPerformanceColumnsCsv,
   userPerformanceColumnsExcel,
-} from "../../../components/functions/reports";
-import PieChart from "../../../components/dashboard/GraphSales/PieChart";
+} from "../../../../components/functions/reports";
+import PieChart from "../../../../components/dashboard/GraphSales/PieChart";
 import axios from "axios";
 import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
 
@@ -116,13 +116,16 @@ const SalesPerformance = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getcompanypolicy`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/getcompanypolicy`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then(({ data }) => {
         setDataCompanyPolicy(data);
       });
@@ -156,49 +159,47 @@ const SalesPerformance = () => {
 
   /* Download */
   const importFile = async (data) => {
-
     // Crear un nuevo array donde almacenaremos los registros con el campo tyc_user actualizado
-    const updatedData = data.map(record => {
-        // Verificar el valor de tyc_user en cada registro
-        if (record.tyc_user) {
-            // Si es true, asignar "yes"
-            return { ...record, tyc_user: "YES" };
-        } else {
-            // Si es false, asignar "no"
-            return { ...record, tyc_user: "NOT" };
-        }
+    const updatedData = data.map((record) => {
+      // Verificar el valor de tyc_user en cada registro
+      if (record.tyc_user) {
+        // Si es true, asignar "yes"
+        return { ...record, tyc_user: "YES" };
+      } else {
+        // Si es false, asignar "no"
+        return { ...record, tyc_user: "NOT" };
+      }
     });
     console.log(updatedData);
     const csvConfig = {
-        data: updatedData,
-        columns: userPerformanceColumnsCsv(updatedData),
-        downloadTitle: "User Performance",
+      data: updatedData,
+      columns: userPerformanceColumnsCsv(updatedData),
+      downloadTitle: "User Performance",
     };
     await importCsvFunction(csvConfig);
-};
+  };
 
-const importFileExcel = async (data) => {
-
-  // Crear un nuevo array donde almacenaremos los registros con el campo tyc_user actualizado
-  const updatedData = data.map(record => {
+  const importFileExcel = async (data) => {
+    // Crear un nuevo array donde almacenaremos los registros con el campo tyc_user actualizado
+    const updatedData = data.map((record) => {
       // Verificar el valor de tyc_user en cada registro
       if (record.tyc_user) {
-          // Si es true, asignar "yes"
-          return { ...record, tyc_user: "YES" };
+        // Si es true, asignar "yes"
+        return { ...record, tyc_user: "YES" };
       } else {
-          // Si es false, asignar "no"
-          return { ...record, tyc_user: "NOT" };
+        // Si es false, asignar "no"
+        return { ...record, tyc_user: "NOT" };
       }
-  });
+    });
 
-  const excelConfig = {
+    const excelConfig = {
       data: updatedData,
       columns: userPerformanceColumnsExcel,
       downloadTitle: "User Performance",
-  };
+    };
 
-  await importExcelFunction(excelConfig);
-};
+    await importExcelFunction(excelConfig);
+  };
 
   /* Selects */
   const handleSelectOneChange = (name, value) => {
@@ -234,7 +235,7 @@ const importFileExcel = async (data) => {
     if (!dateString) {
       return ""; // Devuelve una cadena vacía si la fecha es falsy (por ejemplo, si es undefined o una cadena vacía)
     }
-  
+
     const options = {
       year: "numeric",
       month: "numeric",
@@ -246,7 +247,6 @@ const importFileExcel = async (data) => {
     const date = new Date(dateString);
     return date.toLocaleString("es-GT", options);
   };
-  
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -299,29 +299,48 @@ const importFileExcel = async (data) => {
       <div className="grid w-full gap-2 grid-cols-2 h-full">
         <div className="h-full">
           <CardChart title={"T&C Report"} paragraph="" hfull="h-full">
-            <br/>
+            <br />
             <div className="flex justify-around my-auto">
-              
               <PieChart
-                sales={dataCompanyPolicy.length > 0 ? dataCompanyPolicy[0]?.total_aceptados : 0}
-                percentageTotal={
+                sales={
                   dataCompanyPolicy.length > 0
-                    ? (dataCompanyPolicy[0]?.total_aceptados / dataCompanyPolicy[0]?.total_empresas) * 100
+                    ? dataCompanyPolicy[0]?.total_aceptados
                     : 0
                 }
-                goal={dataCompanyPolicy.length > 0 ? dataCompanyPolicy[0]?.total_empresas : 0}
+                percentageTotal={
+                  dataCompanyPolicy.length > 0
+                    ? (dataCompanyPolicy[0]?.total_aceptados /
+                        dataCompanyPolicy[0]?.total_empresas) *
+                      100
+                    : 0
+                }
+                goal={
+                  dataCompanyPolicy.length > 0
+                    ? dataCompanyPolicy[0]?.total_empresas
+                    : 0
+                }
                 goalsim={false}
                 color={"#21A5A2"}
                 type={"Partners"}
               />
               <PieChart
-                sales={dataUserPolicy.length > 0 ? dataUserPolicy[0]?.total_aceptados : 0}
-                percentageTotal={
+                sales={
                   dataUserPolicy.length > 0
-                    ? (dataUserPolicy[0]?.total_aceptados / dataUserPolicy[0]?.total_usuarios) * 100
+                    ? dataUserPolicy[0]?.total_aceptados
                     : 0
                 }
-                goal={dataUserPolicy.length > 0 ? dataUserPolicy[0]?.total_usuarios : 0}
+                percentageTotal={
+                  dataUserPolicy.length > 0
+                    ? (dataUserPolicy[0]?.total_aceptados /
+                        dataUserPolicy[0]?.total_usuarios) *
+                      100
+                    : 0
+                }
+                goal={
+                  dataUserPolicy.length > 0
+                    ? dataUserPolicy[0]?.total_usuarios
+                    : 0
+                }
                 goalsim={false}
                 color={"#232B2F"}
                 type={"Users"}
@@ -495,11 +514,13 @@ const importFileExcel = async (data) => {
                       <th className="text-left py-3 px-2 mx-4">
                         {data.dcname}
                       </th>
-                      <th className="text-left py-3 px-2 mx-4">
-                        {data.rtype}
-                      </th>
+                      <th className="text-left py-3 px-2 mx-4">{data.rtype}</th>
                       <td className="text-start mx-2 py-4 px-2">
-                        {data.tyc_user ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                        {data.tyc_user ? (
+                          <ImCheckboxChecked />
+                        ) : (
+                          <ImCheckboxUnchecked />
+                        )}
                       </td>
                       <th className="text-left py-3 px-2 mx-4">
                         {formatDate(data.tyc_date)}

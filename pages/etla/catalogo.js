@@ -1,27 +1,16 @@
 "use client";
 
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ContainerContent from "../components/containerContent";
-import CardMarket from "../components/market/card";
-import {
-  awardsDelete,
-  getDataAwards,
-  globalCounterReset,
-  productsPush,
-} from "../store/reducers/awards.reducer";
-import BnEsp from "../components/bannermarket/es";
-import BnPor from "../components/bannermarket/br";
+import CardMarket from "../../components/market/card";
+import { getDataAwards } from "../../store/reducers/awards.reducer";
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { changeLoadingData } from "../store/reducers/loading.reducer";
-import { Modal } from "@mantine/core";
 import { AiOutlineSearch } from "react-icons/ai";
-import { userBlockCatalogo } from "../block/UsersBlockCatalogo";
+import { userBlockCatalogo } from "../../block/UsersBlockCatalogo";
 
 const catalogo = () => {
   const [globalAwards, setGlobalAwards] = useState([]);
@@ -36,15 +25,6 @@ const catalogo = () => {
   const [filter, setFilter] = useState("");
   const [searchByName, setSearchByName] = useState("");
   const whiteListDist = [];
-
-  if (
-    user?.distributionChannelId !== null ||
-    whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
-    userBlockCatalogo.includes(user.email)
-  ) {
-    route.push("/dashboard");
-    return <></>;
-  }
 
   useEffect(() => {
     if (token && arrayAwards.length === 0) {

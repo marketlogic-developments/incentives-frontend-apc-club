@@ -1,5 +1,5 @@
 import React from "react";
-import DigipointsDistribution from "../../components/digipoints/DigipointsDistribution";
+import DigipointsDistribution from "../../../components/digipoints/DigipointsDistribution";
 
 const digipointdistribution = () => {
   return <DigipointsDistribution />;

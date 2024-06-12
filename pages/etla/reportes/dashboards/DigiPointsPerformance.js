@@ -1,27 +1,28 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDigiPointsPerformance } from "../../../store/reducers/sales.reducer";
+import { getDigiPointsPerformance } from "../../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
   RocketIcon,
-} from "../../../components/icons";
+} from "../../../../components/icons";
 import { useTranslation } from "react-i18next";
 import {
   BtnWithImage,
   DropDownReport,
   TitleWithIcon,
   SelectInputValue,
-} from "../../../components";
+} from "../../../../components";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
-import SortedTable from "../../../components/table/SortedTable";
+import SortedTable from "../../../../components/table/SortedTable";
 import {
   importCsvFunction,
   importExcelFunction,
   digiPointsPerformanceColumnsCsv,
   digiPointsPerformanceColumnsExcel,
-} from "../../../components/functions/reports";
+} from "../../../../components/functions/reports";
+
 const DigiPointsPerformance = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
@@ -347,64 +348,64 @@ const DigiPointsPerformance = () => {
           </div>
         </div>
       </div>
-        {loading && <div className="lds-dual-ring"></div>}
-        {!loading && (
-          <SortedTable
-            containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
-            tableStyles={"table-zebra !text-sm"}
-            colStyles={"p-2"}
-            thStyles={"sticky text-white"}
-            cols={[
-              {
-                rowStyles: "",
-                sort: true,
-                symbol: "",
-                identity: "company_name",
-                columnName: "Company Name",
-              },
-              { symbol: "", identity: "region", columnName: "Region" },
-              {
-                symbol: "",
-                identity: "company_level",
-                columnName: "Company Level",
-              },
-              {
-                symbol: "",
-                identity: "company_active_users",
-                columnName: "Company Active Users",
-              },
-              {
-                symbol: "",
-                sort: true,
-                identity: "digipoints_uploaded",
-                columnName: "Total DigiPoints Uploaded",
-              },
-              {
-                symbol: "",
-                sort: true,
-                identity: "digipoints_assigned",
-                columnName: "Total Digipoints Assigned",
-              },
-              {
-                symbol: "",
-                sort: true,
-                identity: "digipoints_redeemed",
-                columnName: "Total DigiPoints Redeemed",
-              },
-              {
-                symbol: "AVG",
-                sort: true,
-                identity: "total_avg_assigned",
-                columnName: "% Assigned",
-              },
-            ]}
-            generalRowStyles={"text-left py-3 mx-7"}
-            paginate={true}
-            pageCount={pageCount}
-            currentItems={currentItems}
-            handlePageClick={handlePageClick}
-          />
-        )}
+      {loading && <div className="lds-dual-ring"></div>}
+      {!loading && (
+        <SortedTable
+          containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
+          tableStyles={"table-zebra !text-sm"}
+          colStyles={"p-2"}
+          thStyles={"sticky text-white"}
+          cols={[
+            {
+              rowStyles: "",
+              sort: true,
+              symbol: "",
+              identity: "company_name",
+              columnName: "Company Name",
+            },
+            { symbol: "", identity: "region", columnName: "Region" },
+            {
+              symbol: "",
+              identity: "company_level",
+              columnName: "Company Level",
+            },
+            {
+              symbol: "",
+              identity: "company_active_users",
+              columnName: "Company Active Users",
+            },
+            {
+              symbol: "",
+              sort: true,
+              identity: "digipoints_uploaded",
+              columnName: "Total DigiPoints Uploaded",
+            },
+            {
+              symbol: "",
+              sort: true,
+              identity: "digipoints_assigned",
+              columnName: "Total Digipoints Assigned",
+            },
+            {
+              symbol: "",
+              sort: true,
+              identity: "digipoints_redeemed",
+              columnName: "Total DigiPoints Redeemed",
+            },
+            {
+              symbol: "AVG",
+              sort: true,
+              identity: "total_avg_assigned",
+              columnName: "% Assigned",
+            },
+          ]}
+          generalRowStyles={"text-left py-3 mx-7"}
+          paginate={true}
+          pageCount={pageCount}
+          currentItems={currentItems}
+          handlePageClick={handlePageClick}
+        />
+      )}
     </div>
   );
 };

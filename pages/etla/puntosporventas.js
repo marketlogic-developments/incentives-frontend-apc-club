@@ -2,8 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import ContainerContent from "../../components/containerContent";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import * as XLSX from "xlsx";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {

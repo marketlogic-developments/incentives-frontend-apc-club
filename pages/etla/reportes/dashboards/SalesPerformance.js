@@ -4,13 +4,13 @@ import {
   getDigipointsPermonth,
   getSalesPerformance,
   getSalesvGoals,
-} from "../../../store/reducers/sales.reducer";
+} from "../../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
   RocketIcon,
   SearchIcon,
-} from "../../../components/icons";
+} from "../../../../components/icons";
 import { useTranslation } from "react-i18next";
 import {
   BarChar,
@@ -24,22 +24,16 @@ import {
   Table,
   TitleWithIcon,
   SelectInputValue,
-} from "../../../components";
-import { Menu, Button } from "@mantine/core";
-import * as XLSX from "xlsx";
-import jsonexport from "jsonexport";
-import { saveAs } from "file-saver";
-import ReactPaginate from "react-paginate";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+} from "../../../../components";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
-import SortedTable from "../../../components/table/SortedTable";
+import SortedTable from "../../../../components/table/SortedTable";
 import {
   importCsvFunction,
   importExcelFunction,
   salesPerformanceColumnsCsv,
   salesPerformanceColumnsExcel,
-} from "../../../components/functions/reports";
+} from "../../../../components/functions/reports";
 const SalesPerformance = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
@@ -49,7 +43,7 @@ const SalesPerformance = () => {
     level: "",
     region: "",
   });
-  const [defaultYear, setDefaultYear] = useState(['2023', '2024']);
+  const [defaultYear, setDefaultYear] = useState(["2023", "2024"]);
   const [selectOne, setSelectOne] = useState("");
   const [searchByInvoice, setSearchByInvoice] = useState("");
   const [itemOffset, setItemOffset] = useState(0);
@@ -187,7 +181,12 @@ const SalesPerformance = () => {
   /* Selects */
   const handleFilters = (name, value) => {
     if (name === "company") {
-      return setFilters({ year: "2024", level: "", region: "", company: value });
+      return setFilters({
+        year: "2024",
+        level: "",
+        region: "",
+        company: value,
+      });
     }
 
     return setFilters({ ...filters, [name]: value });
@@ -382,7 +381,7 @@ const SalesPerformance = () => {
       <div className="grid sm:grid-cols-2 mt-5">
         <div className="grid grid-cols-3 sm:justify-items-start justify-items-center mt-3 gap-3 ">
           <div className="sm:w-[90%] w-auto">
-              <SelectInputValue
+            <SelectInputValue
               placeholder={"Year"}
               value={filters.year}
               data={defaultYear.map((year) => ({
