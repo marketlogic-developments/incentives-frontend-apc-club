@@ -73,6 +73,8 @@ const MarketplaceSection = ({
                   ""
                 )}
               </div>
+              <br />
+              <p>*VIP: Applies only to Government and Education</p>
             </>
           )}
         </CardChart>

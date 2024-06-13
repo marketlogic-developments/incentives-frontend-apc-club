@@ -75,7 +75,9 @@
     "redenciones": "Resgates",
     "reglas": "Regras",
     "formCustomerCare": "Envia teus comentários",
-    "logout": "Fechar Sessão"
+    "logout": "Fechar Sessão",
+    "preguntas": "Preguntas Frecuentes",
+    "preguntasLink": "/mkt/Preguntas_POR.pdf"
   },
 
   "perfil": {
