@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import CardChart from "../../../cardReportes/CardChart";
 import BarChar from "../../../cardReportes/BarChar";
 import BarCircleChart from "../../../charts/BarCircleChart";
+import PieChart from "../../../charts/PieChart";
 
 const MarketplaceSection = ({
   dataLoaded,
   barCircleChart,
   xValuesLine,
   marketplaceVip,
+  sales,
 }) => {
   const formatValue = (value) => {
     return value >= 1000000
@@ -21,9 +23,14 @@ const MarketplaceSection = ({
     setlegend(selectedLegends);
   };
 
+  const salesVMP = { name: "Marketplace", value: marketplaceVip?.totalVmp };
+  const salesVIP = { name: "VIP", value: marketplaceVip?.totalVip };
+
+  console.log(marketplaceVip);
+
   return (
     <div className="flex flex-col">
-      <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
+      <div className="grid sm:grid-cols-3 grid-cols-1 gap-6">
         {!dataLoaded && <div className="lds-dual-ring"></div>}
         {barCircleChart && <BarCircleChart datas={barCircleChart} />}
         <CardChart title={"Marketplace & VIP"} paragraph="">
@@ -76,6 +83,17 @@ const MarketplaceSection = ({
               <br />
               <p>*VIP: Applies only to Government and Education</p>
             </>
+          )}
+        </CardChart>
+        <CardChart title={"Marketplace & VIP YTD"} paragraph="">
+          {dataLoaded ? (
+            <PieChart
+              datas={[salesVIP, salesVMP]}
+              colors={["#000000", "#1473E6"]}
+              formatter=""
+            />
+          ) : (
+            <div className="lds-dual-ring"></div>
           )}
         </CardChart>
       </div>

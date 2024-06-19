@@ -11,7 +11,7 @@ import MarketplaceSection from "./MarketplaceSection";
 import TableSection from "./TableSection";
 
 const SalesYtd = () => {
-  const [defaultYear, setDefaultYear] = useState(['2023', '2024']);
+  const [defaultYear, setDefaultYear] = useState(["2023", "2024"]);
   /* Variable and const */
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -187,8 +187,6 @@ const SalesYtd = () => {
     DISTRIBUTOR: "#21A5A2",
     CERTIFIED: "#21A5A2",
   };
-
-  console.log(filters);
 
   /* SET DATA */
   const calculateSegmentTotals = (data) => {
@@ -524,7 +522,6 @@ const SalesYtd = () => {
 
   /* TOTAL DE CREATIVE CLOUD Y DOCUMENT CLOUD  */
   const calculateCreativeDocumentSum = (data) => {
-    console.log(data)
     const filteredItems = data.filter((item) => {
       const resDist =
         filters.level === "DISTRIBUTOR" ||
@@ -642,6 +639,8 @@ const SalesYtd = () => {
     });
   }, []);
 
+  console.log(sales);
+
   return (
     <div className="m-5">
       <FilterSection
@@ -690,6 +689,7 @@ const SalesYtd = () => {
           barCircleChart={levelSale}
           xValuesLine={xValuesLine}
           marketplaceVip={marketplaceVip}
+          salesVIPVMP={sales}
         />
       )}
       <div className="justify-items-center pt-5">
