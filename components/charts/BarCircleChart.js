@@ -14,7 +14,7 @@ const BarCircleChart = ({ datas }) => {
   return (
     <div className="flex flex-col w-full p-4 gap-4 targetDashboard">
       <div className="flex justify-between">
-        <h3 className="font-bold xl:!text-3xl lg:!text-sm">
+        <h3 className="font-bold xl:!text-xl lg:!text-sm">
           {t("Reportes.level_goal")}
         </h3>
       </div>
@@ -27,9 +27,9 @@ const BarCircleChart = ({ datas }) => {
                   {data.level}
                 </p>
                 <p className="!text-sm">
-                  {`$ ${formatValue(data.total_revenue)} / $ ${
-                    formatValue(data.total_expected_revenue)
-                  }`}
+                  {`$ ${formatValue(data.total_revenue)} / $ ${formatValue(
+                    data.total_expected_revenue
+                  )}`}
                 </p>
               </div>
               <Tooltip

@@ -29,10 +29,12 @@ const MarketplaceSection = ({
   console.log(marketplaceVip);
 
   return (
-    <div className="flex flex-col">
-      <div className="grid sm:grid-cols-3 grid-cols-1 gap-6">
+    <div className="flex flex-col gap-6">
+      <div className="grid sm:grid-cols-1 grid-cols-1 gap-6">
         {!dataLoaded && <div className="lds-dual-ring"></div>}
         {barCircleChart && <BarCircleChart datas={barCircleChart} />}
+      </div>
+      <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
         <CardChart title={"Marketplace & VIP"} paragraph="">
           {marketplaceVip && (
             <>
@@ -80,18 +82,19 @@ const MarketplaceSection = ({
                   ""
                 )}
               </div>
-              <br />
-              <p>*VIP: Applies only to Government and Education</p>
             </>
           )}
         </CardChart>
         <CardChart title={"Marketplace & VIP YTD"} paragraph="">
           {dataLoaded ? (
-            <PieChart
-              datas={[salesVIP, salesVMP]}
-              colors={["#000000", "#1473E6"]}
-              formatter=""
-            />
+            <>
+              <PieChart
+                datas={[salesVIP, salesVMP]}
+                colors={["#000000", "#1473E6"]}
+                formatter=""
+              />
+              <p>*VIP: Applies only to Government and Education</p>
+            </>
           ) : (
             <div className="lds-dual-ring"></div>
           )}
