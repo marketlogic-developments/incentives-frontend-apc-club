@@ -37,14 +37,14 @@ const catalogo = () => {
   const [searchByName, setSearchByName] = useState("");
   const whiteListDist = [];
 
-  if (
-    user?.distributionChannelId !== null ||
-    whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
-    userBlockCatalogo.includes(user.email)
-  ) {
-    route.push("/dashboard");
-    return <></>;
-  }
+  // if (
+  //   user?.distributionChannelId !== null ||
+  //   whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
+  //   userBlockCatalogo.includes(user.email)
+  // ) {
+  //   route.push("/dashboard");
+  //   return <></>;
+  // }
 
   useEffect(() => {
     if (token && arrayAwards.length === 0) {

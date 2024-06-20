@@ -260,6 +260,13 @@ const UserOptions = ({
           >
             {t("menu.logout")}
           </p>
+          <a
+            className="!text-xs mt-6 font-bold cursor-pointer"
+            href={t("menu.preguntasLink")}
+            target="_blank"
+          >
+            {t("menu.preguntas")}
+          </a>
         </div>
       </div>
       <input

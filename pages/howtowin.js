@@ -77,10 +77,10 @@ const howtowin = ({ htws }) => {
             className="2xl:!text-3xl font-bold xl:!text-2xl lg:!text-xl text-center"
             dangerouslySetInnerHTML={{ __html: t("htw.secondTitle") }}
           ></h3>
-          <p
+          {/* <p
             className="!text-xs text-center"
             dangerouslySetInnerHTML={{ __html: t("htw.phraseSecondTitle") }}
-          ></p>
+          ></p> */}
         </div>
         <div className="flex flex-col gap-6 shadow-xl rounded-lg lg:p-6 p-3">
           <div className="w-full grid grid-cols-4 lg:gap-0 gap-6">
