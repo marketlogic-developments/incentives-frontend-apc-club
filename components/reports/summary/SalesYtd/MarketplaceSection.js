@@ -51,33 +51,33 @@ const MarketplaceSection = ({
               <div className="grid grid-cols-2 justify-between">
                 {legend.length === 2 ? (
                   <>
-                    <div className="flex justify-start">
+                    <p className="flex justify-start !text-sm">
                       Marketplace:{" "}
                       {`$ ${formatValue(marketplaceVip.totalVmp)}, ${
                         marketplaceVip.percentageVmp
                       }%`}
-                    </div>
-                    <div className="flex justify-end">
+                    </p>
+                    <p className="flex justify-end !text-sm">
                       VIP:{" "}
                       {`$ ${formatValue(marketplaceVip.totalVip)}, ${
                         marketplaceVip.percentageVip
                       }%`}
-                    </div>
+                    </p>
                   </>
                 ) : legend.includes("VIP") ? (
-                  <div className="flex justify-end">
+                  <p className="flex justify-end !text-sm">
                     VIP:{" "}
                     {`$ ${formatValue(marketplaceVip.totalVip)}, ${
                       marketplaceVip.percentageVip
                     }%`}
-                  </div>
+                  </p>
                 ) : legend.includes("Marketplace") ? (
-                  <div className="flex justify-start">
+                  <p className="flex justify-start !text-sm">
                     Marketplace:{" "}
                     {`$ ${formatValue(marketplaceVip.totalVmp)}, ${
                       marketplaceVip.percentageVmp
                     }%`}
-                  </div>
+                  </p>
                 ) : (
                   ""
                 )}
@@ -93,7 +93,9 @@ const MarketplaceSection = ({
                 colors={["#000000", "#1473E6"]}
                 formatter=""
               />
-              <p>*VIP: Applies only to Government and Education</p>
+              <p className="!text-sm">
+                *VIP: Applies only to Government and Education
+              </p>
             </>
           ) : (
             <div className="lds-dual-ring"></div>
