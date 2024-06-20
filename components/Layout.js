@@ -1276,12 +1276,12 @@ const Layout = ({ children }) => {
                     {screen > 639 && (
                       <div className="sm:visible invisible notifications grid grid-cols-6 content-center gap-5">
                         {/* adobe etla */}
-                        <div
+                        {/* <div
                           onClick={() => router.push("/etla/dashboardEtla")}
                           className="w-full cursor-pointer"
                         >
                           <ETLA />
-                        </div>
+                        </div> */}
 
                         {/* 1 */}
                         <div className="w-auto">
