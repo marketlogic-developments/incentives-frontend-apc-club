@@ -208,16 +208,20 @@ const SalesYtd = () => {
         (totals["Government"] || 0) + parseFloat(item.sales_government);
       totals["Education"] =
         (totals["Education"] || 0) + parseFloat(item.sales_education);
+      totals["Behavior"] =
+        (totals["Behavior"] || 0);
       return totals;
     }, {});
 
-    const pointsTotals = resellerData.reduce((totals, item) => {
+    const pointsTotals = data.reduce((totals, item) => {
       totals["Commercial"] =
         (totals["Commercial"] || 0) + parseInt(item.puntos_commercial);
       totals["Government"] =
         (totals["Government"] || 0) + parseInt(item.puntos_government);
       totals["Education"] =
         (totals["Education"] || 0) + parseInt(item.puntos_education);
+      totals["Behavior"] =
+        (totals["Behavior"] || 0) + parseInt(item.puntos_behavior);
       return totals;
     }, {});
 

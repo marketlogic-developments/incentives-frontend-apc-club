@@ -3,6 +3,7 @@ import React from "react";
 const MiniTarget = ({ cardInfo }) => {
   const backgroundColorCard = () => {
     const colorbg = {
+      50: "#E63888",
       60: "#EB1000",
       100: "#1473E6",
       150: "#009C3B",

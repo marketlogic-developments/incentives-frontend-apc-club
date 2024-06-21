@@ -16,7 +16,7 @@ const CardChart = ({
         <div className="flex justify-center ">
           <div className="w-full">
             <div className="grid grid-cols-2">
-              <h1>{title}</h1>
+              <h1 className="xl:!text-xl lg:!text-sm">{title}</h1>
               {content}
             </div>
             {children}

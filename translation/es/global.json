@@ -615,5 +615,15 @@
     "ONLYPAY": "Con la tarjeta digital recargable Visa, podrás hacer compras por Internet (comercio electrónico).|La fecha de expiración de la tarjeta es de 24 meses.|La tarjeta no es válida para transferencias entre Tarjetas OnlyPay o cuentas bancarias, pago de facturas y recargas del teléfono celular.|Una vez que sea auditada y aprobada tu solicitud de premio, recibirás un correo electrónico para que realices el trámite de registro y desbloquees tu Tarjeta Virtual. De esta manera podrás verificar el saldo de la tarjeta y revisar el extracto de tu cuenta. El valor de recarga o transferencia será pagado en la moneda local y dependerá de la variación del tipo de cambio del Dólar una vez que sea auditada y aprobada tu solicitud de premio. Para más información, por favor revisa los Términos y Condiciones del programa.",
     "BANCOLOMBIA": "Con la tarjeta de incentivos Visa podrás hacer retiros en cajeros Bancolombia, otros bancos y cajeros internacionales. Además, puedes hacer compras en establecimientos físicos y electrónicos, incluyendo compras en línea.|La tarjeta tiene una vigencia de 5 años.|La tarjeta no tiene costo de reexpedición en caso de pérdida o robo.|Cuando solicites la emisión por primera vez o remisión de una tarjeta a través de nuestra plataforma, esta será enviada a la dirección principal de la oficina de tu compañía y deberá llegar en un plazo máximo de 20 días hábiles. La recarga será realizada posterior al recibimiento del plástico. La tarjeta funciona como una tarjeta de crédito en compras por Internet y te permite consultar el saldo disponible en todo momento. El valor de recarga o transferencia será pagado en la moneda local y dependerá de la variación del tipo de cambio del Dólar una vez que sea auditada y aprobada tu solicitud de premio. Para más información, por favor revisa los Términos y Condiciones del programa correspondiente a este incentivo.",
     "TREMENDOUS": "Con tu tarjeta Visa Tremendous podrás realizar compras en establecimientos con convenio de franquicia Visa, además tendrás la libertad de comprar en línea.|La tarjeta tiene una vigencia de 36 meses, una vez activadas.| |Tu tarjeta virtual Visa internacional será recargada en Dólares posterior a ello recibirás un correo electrónico para que realices el trámite de registro y actives tu Tarjeta. De esta manera podrás verificar el saldo y revisar el extracto de tu cuenta. Para más información, por favor revisa los Términos y Condiciones del programa."
+  },
+  "ETLA": {
+    "menu": {
+      "updateSales": "Carga de Ventas Enterprise",
+      "rules": "Reglas Enterprise",
+      "DigipointsSales": "Digipoints por ventas Enterprise",
+      "assignInvoices": "Asignación de negocios Enterprise",
+      "invoiceReport": "Enterprise DR Report",
+      "myReports": "My Reports Enterprise"
+    }
   }
 }
