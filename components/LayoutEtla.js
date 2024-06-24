@@ -48,6 +48,7 @@ import { VerifyTC } from "../functions/VerifyTC";
 import ModalTCPa from "./Lay0ut/Modals/ModalTCPa";
 import ModalInfoAPC from "./Lay0ut/ModalInfoAPC";
 import ETLA from "../public/assets/Icons/ETLA";
+import CanalesIcon from "../public/assets/Icons/CanalesIcon";
 import UserOptionsEtla from "./ETLA/Layout/UserOptionsEtla";
 
 const LayoutEtla = ({ children }) => {
@@ -1063,7 +1064,7 @@ const LayoutEtla = ({ children }) => {
                   >
                     <figure className="flex">
                       <img
-                        src="/assets/dashboard/logoapc.webp"
+                        src="/assets/dashboard/logoEnterprise.webp"
                         alt="apc_canales"
                       ></img>
                     </figure>
@@ -1134,10 +1135,10 @@ const LayoutEtla = ({ children }) => {
                       <div className="sm:visible invisible notifications grid grid-cols-6 content-center gap-5">
                         {/* adobe etla */}
                         <div
-                          onClick={() => router.push("/etla/dashboardEtla")}
+                          onClick={() => router.push("/dashboard")}
                           className="w-full cursor-pointer"
                         >
-                          <ETLA />
+                          <CanalesIcon />
                         </div>
 
                         {/* 1 */}

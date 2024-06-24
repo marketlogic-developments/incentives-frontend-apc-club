@@ -1,30 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import HTW24 from "../../public/assets/htw/htw-24";
 import { useTranslation } from "react-i18next";
+import { Select } from "@mantine/core";
 
 const Table2Htw = ({ user }) => {
   const [t, i18n] = useTranslation("global");
   const typeSegment = [t("htw.renovaciones"), t("htw.nuevosn")];
-  const htwRes = {
-    AcrobatPro: ["24", "12"],
-    AcrobatSign: ["24", "12"],
-    ForTeam: ["24", "12"],
-    SDL: ["24", "12"],
-    SLP: ["-", "12", "24", "-"],
-  };
+  const [dataHTW, setDataHTW] = useState("Q3-Q4");
 
-  const htwDist = {
-    AcrobatPro: ["10", "10"],
-    AcrobatSign: ["10", "10"],
-    ForTeam: ["10", "10"],
-    SDL: ["10", "10"],
-    SLP: ["-", "10", "10", "-"],
-  };
+  const htwRes =
+    dataHTW === "Q3-Q4"
+      ? {
+          AcrobatPro: ["30", "20"],
+          AcrobatSign: ["30", "20"],
+          ForTeam: ["40", "30"],
+          SDL: ["30", "25"],
+          SLP: ["30", "25"],
+        }
+      : {
+          AcrobatPro: ["24", "12"],
+          AcrobatSign: ["24", "12"],
+          ForTeam: ["24", "12"],
+          SDL: ["24", "12"],
+          SLP: ["-", "12", "24", "-"],
+        };
+
+  const htwDist =
+    dataHTW === "Q3-Q4"
+      ? {
+          AcrobatPro: ["15", "10"],
+          AcrobatSign: ["15", "10"],
+          ForTeam: ["15", "10"],
+          SDL: ["15", "10"],
+          SLP: ["15", "10"],
+        }
+      : {
+          AcrobatPro: ["10", "10"],
+          AcrobatSign: ["10", "10"],
+          ForTeam: ["10", "10"],
+          SDL: ["10", "10"],
+          SLP: ["-", "10", "10", "-"],
+        };
 
   const htwData = user.companyId !== null ? htwRes : htwDist;
 
   return (
     <div className="flex flex-col gap-6 shadow-xl rounded-lg lg:p-6 p-3">
+      <Select
+        value={dataHTW}
+        data={["Q1-Q2", "Q3-Q4"].map((data) => {
+          return {
+            value: data,
+            label: data,
+          };
+        })}
+        onChange={(data) => setDataHTW(data)}
+        name={"dateHTW"}
+        classNames={{
+          input:
+            "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
+        }}
+      />
       <div className="w-full grid grid-cols-4 lg:gap-0 gap-6">
         <div className="flex col-span-3 lg:col-span-2 lg:gap-2 xl:gap-6">
           <div className="lg:px-2 xl:px-6">
@@ -137,7 +173,7 @@ const Table2Htw = ({ user }) => {
                 </p>
               </div>
               <div className="col-span-4 grid grid-cols-2 gap-2">
-                {htwData.AcrobatPro.map((text, idx) => (
+                {htwData.AcrobatSign.map((text, idx) => (
                   <div
                     className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 h-full border-l-4 ${
                       idx % 2 === 0
@@ -161,7 +197,7 @@ const Table2Htw = ({ user }) => {
                 <p className="text-center py-5">+ 10 {t("htw.licences")}</p>
               </div>
               <div className="col-span-4 grid grid-cols-2 gap-2">
-                {htwData.AcrobatPro.map((text, idx) => (
+                {htwData.ForTeam.map((text, idx) => (
                   <div
                     className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 h-full border-l-4 ${
                       idx % 2 === 0
@@ -184,7 +220,7 @@ const Table2Htw = ({ user }) => {
                 <p className="text-center py-5">+ 50 {t("htw.licences")}</p>
               </div>
               <div className="col-span-4 grid grid-cols-2 gap-2">
-                {htwData.AcrobatPro.map((text, idx) => (
+                {htwData.SDL.map((text, idx) => (
                   <div
                     className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 h-full border-l-4 ${
                       idx % 2 === 0
@@ -204,13 +240,19 @@ const Table2Htw = ({ user }) => {
             <hr />
             <div className="col-span-full grid grid-cols-6">
               <div className="col-span-2 flex flex-col justify-center gap-3">
-                <p className="text-center">+ 25 {t("htw.licences")}</p>
-                <p className="text-center">+ 100 {t("htw.licences")}</p>
+                {dataHTW === "Q1-Q2" && (
+                  <p className="text-center">+ 25 {t("htw.licences")}</p>
+                )}
+                <p className={`text-center ${dataHTW === "Q3-Q4" && "py-5"}`}>
+                  + 100 {t("htw.licences")}
+                </p>
               </div>
               <div className="col-span-4 grid grid-cols-2 gap-2">
                 {htwData.SLP.map((text, idx) => (
                   <div
-                    className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 h-fit border-l-4 ${
+                    className={`flex flex-col lg:flex-row w-full bg-[#F4F4F4] rounded-lg items-center justify-center gap-3 lg:py-0 py-3 ${
+                      dataHTW === "Q1-Q2" ? "h-fit" : "h-full"
+                    }  border-l-4 ${
                       idx % 2 === 0
                         ? "border-primary"
                         : idx % 2 === 1

@@ -37,6 +37,11 @@ const reportesDashboard = () => {
     };
   });
 
+  const SharePoint = dynamic(() =>
+    import("../../components/embedreports/sharePoint").then(
+      (powerBi) => powerBi.default
+    )
+  );
   return (
     <div className="mt-8">
       {/* <InputReporte

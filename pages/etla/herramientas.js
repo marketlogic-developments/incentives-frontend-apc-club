@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import ContainerContent from "../../components/containerContent";
 import AllParticipants from "../../components/herramientas/AllParticipants";
 import AllRedenciones from "../../components/herramientas/AllRedenciones";
