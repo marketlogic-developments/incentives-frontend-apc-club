@@ -62,7 +62,7 @@ const LayoutEtla = ({ children }) => {
   const location =
     typeof window !== "undefined" ? window.location.pathname : "";
   const router = useRouter();
-  const sections = ["/", "/terminosycondiciones", "/registro"];
+  const sections = ["/", "/etla/terminosycondiciones", "/registro"];
   const [t, i18n] = useTranslation("global");
   const [modal, setModal] = useState(0);
   const [modalCustomer, setModalCustomer] = useState(false);
