@@ -1,18 +1,18 @@
 import { useRouter } from "next/router";
-import { Modal } from "@mantine/core";
 import React, { useState, useMemo, useRef } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   policyAndPassword,
   userUpdate,
-} from "../../store/reducers/users.reducer";
+} from "../../../store/reducers/users.reducer";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
-import InformativeSections from "./UserOptions/InformativeSections";
-import { useEffect } from "react";
 
-const UserOptions = ({
+import { useEffect } from "react";
+import InformativeSectionsEtla from "./InformativeSectionsEtla";
+
+const UserOptionsEtla = ({
   user,
   token,
   logout,
@@ -237,7 +237,7 @@ const UserOptions = ({
             <button
               className="btn newbtn !btn-outline btn-info w-3/4  "
               onClick={() => {
-                route.push(`/user/${user.name}`);
+                route.push(`/etla/user/${user.name}`);
                 setMenuUser(!menuUser);
               }}
             >
@@ -245,7 +245,7 @@ const UserOptions = ({
             </button>
           </div>
         </div>
-        <InformativeSections
+        <InformativeSectionsEtla
           actionCustomerCare={actionCustomerCare}
           setMenuUser={setMenuUser}
           opened={opened}
@@ -260,13 +260,6 @@ const UserOptions = ({
           >
             {t("menu.logout")}
           </p>
-          <a
-            className="!text-xs mt-6 font-bold cursor-pointer"
-            href={t("menu.preguntasLink")}
-            target="_blank"
-          >
-            {t("menu.preguntas")}
-          </a>
         </div>
       </div>
       <input
@@ -279,4 +272,4 @@ const UserOptions = ({
   );
 };
 
-export default UserOptions;
+export default UserOptionsEtla;

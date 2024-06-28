@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { userBlockCatalogo } from "../../block/UsersBlockCatalogo";
 
 const DigiPointsCard = ({ digipoints }) => {
+  const path = typeof window !== "undefined" ? window.location.pathname : "";
   const user = useSelector((state) => state.user.user);
   const [t, i18n] = useTranslation("global");
   const router = useRouter();
@@ -13,12 +14,6 @@ const DigiPointsCard = ({ digipoints }) => {
     user?.distributionChannelId === null ||
     whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
     !userBlockCatalogo.includes(user.email);
-
-  console.log(
-    user?.distributionChannelId !== null,
-    !whiteListDist.includes(user?.distributionChannel?.soldToParty),
-    userBlockCatalogo.includes(user.email)
-  );
 
   return (
     <div className="flex px-3 py-3.5 bg-base-100 border-[1px] border-[#E0E0E0] rounded-[10px] w-full">
@@ -63,7 +58,9 @@ const DigiPointsCard = ({ digipoints }) => {
           <button
             className="btn btn-info !btn-outline w-full whitespace-nowrap min-h-[2.563rem] h-[2.563rem]"
             onClick={() => {
-              router.push("/catalogo");
+              router.push(
+                path.includes("etla") ? "/etla/catalogo" : "/catalogo"
+              );
             }}
           >
             {t("menu.vercatalogo")}

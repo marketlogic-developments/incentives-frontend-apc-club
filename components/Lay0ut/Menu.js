@@ -92,7 +92,7 @@ const MenuAPC = ({
                 }}
               >
                 {!collapse && icon}
-                <p className="whitespace-nowrap">{text}</p>
+                <p className="whitespace-nowrap !text-[12px]">{text}</p>
               </div>
             </div>
           ))}

@@ -11,6 +11,10 @@ const PieChart = ({
   colors = [],
   formatter = "",
 }) => {
+  const total = datas
+    .map(({ value }) => parseInt(value))
+    .reduce((prev, curr) => prev + curr, 0);
+
   const data = datas.map((item) => ({
     value: item.value,
     name: item.name,
@@ -20,11 +24,13 @@ const PieChart = ({
     tooltip: {
       trigger: "item",
       formatter: function (params) {
-        return params.value >= 1000000
-          ? formatter + (params.value / 1000000).toFixed(0) + "M"
-          : params.value >= 1000
-          ? formatter + (params.value / 1000).toFixed(0) + "K"
-          : formatter + params.value;
+        const result =
+          params.value >= 1000000
+            ? formatter + (params.value / 1000000).toFixed(0) + "M"
+            : params.value >= 1000
+            ? formatter + (params.value / 1000).toFixed(0) + "K"
+            : formatter + params.value;
+        return `${result} / ${parseInt((params.value * 100) / total)}%`;
       },
     },
     legend: {
@@ -49,11 +55,11 @@ const PieChart = ({
           formatter: function (params) {
             const formattedValue =
               params.value >= 1000000
-                ? formatter + (params.value / 1000000).toFixed(0) + "M"
+                ? formatter + (params.value / 1000000).toFixed(2) + "M"
                 : params.value >= 1000
                 ? formatter + (params.value / 1000).toFixed(0) + "K"
                 : formatter + params.value;
-            return `${params.name}: ${formattedValue}.00`;
+            return `${params.name}: ${formattedValue}`;
           },
         },
         emphasis: {
@@ -71,6 +77,8 @@ const PieChart = ({
       },
     ],
   };
+
+  console.log(total);
 
   return (
     <div className="w-full">
