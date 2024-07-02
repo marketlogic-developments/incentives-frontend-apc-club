@@ -125,10 +125,7 @@ const Layout = ({ children }) => {
       setOpened(true);
     }
 
-    if (
-      userRedux.inprogram === "adobeetla" ||
-      Boolean(userRedux.policyetla) === false
-    ) {
+    if (userRedux.inprogram === "adobeetla" && !userRedux.policyetla) {
       setModal(5);
       setOpened(true);
     }
@@ -902,7 +899,8 @@ const Layout = ({ children }) => {
     const userCanales = [null, "adobe", "adobeetla"].includes(data.inprogram);
     const userEtla = data.inprogram === "etla";
 
-    if (userEtla && data.policyetla) {
+    if (userEtla && !data.policyetla) {
+      console.log("redirtigiendo a tc");
       return router.push("/etla/terminosycondiciones");
     }
 
@@ -1154,7 +1152,7 @@ const Layout = ({ children }) => {
         opened={opened}
         withCloseButton={[0, 5].includes(modal) ? true : false}
         onClose={
-          [0].includes(modal)
+          [0, 5].includes(modal)
             ? closeModal
             : [3].includes(modal)
             ? () => logout()
@@ -1299,12 +1297,14 @@ const Layout = ({ children }) => {
                     {screen > 639 && (
                       <div className="sm:visible invisible notifications grid grid-cols-6 content-center gap-5">
                         {/* adobe etla */}
-                        {/* <div
-                          onClick={() => router.push("/etla/dashboardEtla")}
-                          className="w-full cursor-pointer"
-                        >
-                          <ETLA />
-                        </div> */}
+                        {userRedux.inprogram === "adobeetla" && (
+                          <div
+                            onClick={() => router.push("/etla/dashboardEtla")}
+                            className="w-full cursor-pointer"
+                          >
+                            <ETLA />
+                          </div>
+                        )}
 
                         {/* 1 */}
                         <div className="w-auto">
