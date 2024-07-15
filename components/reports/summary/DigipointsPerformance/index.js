@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DigiPointsTotal from "./DigiPointsTotal";
 
 const DigipoinstPerformance = () => {
-  const [defaultYear, setDefaultYear] = useState(['2023', '2024']);
+  const [defaultYear, setDefaultYear] = useState(["2023", "2024"]);
   /* Variables and const */
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();

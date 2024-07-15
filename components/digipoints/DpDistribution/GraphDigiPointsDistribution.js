@@ -18,7 +18,7 @@ const GraphDigiPointsDistribution = ({ data = [] }) => {
         <div className="flex gap-3">
           <Upload />
           <div className="flex flex-col h-full justify-center gap-2">
-            <p>DigiPoints Uploaded</p>
+            <p>Sales DigiPoints Uploaded</p>
             <p className="font-bold text-xl">{uploadDigiPoints}</p>
           </div>
         </div>
