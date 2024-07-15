@@ -3,10 +3,9 @@ import HTW24 from "../../public/assets/htw/htw-24";
 import { useTranslation } from "react-i18next";
 import { Select } from "@mantine/core";
 
-const Table2Htw = ({ user }) => {
+const Table2Htw = ({ user, dataHTW }) => {
   const [t, i18n] = useTranslation("global");
   const typeSegment = [t("htw.renovaciones"), t("htw.nuevosn")];
-  const [dataHTW, setDataHTW] = useState("Q3-Q4");
 
   const htwRes =
     dataHTW === "Q3-Q4"
