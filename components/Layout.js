@@ -911,6 +911,7 @@ const Layout = ({ children }) => {
     if (location === "/etla/terminosycondiciones") {
       return router.push("/etla/dashboardEtla");
     }
+
     if (location === "/terminosycondiciones") {
       return router.push("/dashboard");
     }
@@ -1137,6 +1138,8 @@ const Layout = ({ children }) => {
     setModal(0);
     setOpened(true);
   };
+
+  console.log(userRedux.inprogram);
 
   return (
     <>

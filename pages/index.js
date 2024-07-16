@@ -207,7 +207,11 @@ export default function Home({ maintenance }) {
       .finally(() => {
         console.log(userData);
 
-        if ([null, "adobe", "adobeetla"].includes(userData.user.inprogram)) {
+        if (
+          [null, "adobe", "adobeetla", undefined].includes(
+            userData.user.inprogram
+          )
+        ) {
           if (userData.user.policy) {
             const params = new URLSearchParams(window.location.search);
 
