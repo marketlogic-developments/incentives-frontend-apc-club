@@ -51,6 +51,7 @@ import { VerifyTC } from "../functions/VerifyTC";
 import ModalTCPa from "./Lay0ut/Modals/ModalTCPa";
 import ModalInfoAPC from "./Lay0ut/ModalInfoAPC";
 import ETLA from "../public/assets/Icons/ETLA";
+import ModalTCETLA from "./ETLA/Modals/ModalTCETLA";
 
 const Layout = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
@@ -121,6 +122,11 @@ const Layout = ({ children }) => {
       userRedux.user_update_data === false
     ) {
       setModal(2);
+      setOpened(true);
+    }
+
+    if (userRedux.inprogram === "adobeetla" && !userRedux.policyetla) {
+      setModal(5);
       setOpened(true);
     }
 
@@ -231,13 +237,13 @@ const Layout = ({ children }) => {
               dispatch(userLogin(userInfo.data));
               dispatch(userToken(userGetData.token));
               language(userInfo.data.languageId);
-              redirection(userInfo.data.policy);
+              redirection(userInfo.data.policy, userInfo.data);
               dispatch(loadingUser(true));
             });
         });
     } else {
       if (userRedux !== 0) {
-        redirection(userRedux.policy);
+        redirection(userRedux.policy, userRedux);
         language(userRedux?.languageId);
       } else {
         dispatch(loadingUser(true));
@@ -889,11 +895,22 @@ const Layout = ({ children }) => {
     },
   ];
 
-  const redirection = (tyc) => {
-    if (!tyc) {
+  const redirection = (tyc, data) => {
+    const userCanales = [null, "adobe", "adobeetla"].includes(data.inprogram);
+    const userEtla = data.inprogram === "etla";
+
+    if (userEtla && !data.policyetla) {
+      console.log("redirtigiendo a tc");
+      return router.push("/etla/terminosycondiciones");
+    }
+
+    if (!tyc && userCanales) {
       return router.push("/terminosycondiciones");
     }
 
+    if (location === "/etla/terminosycondiciones") {
+      return router.push("/etla/dashboardEtla");
+    }
     if (location === "/terminosycondiciones") {
       return router.push("/dashboard");
     }
@@ -936,6 +953,10 @@ const Layout = ({ children }) => {
 
     if (modal === 4) {
       return <ModalInfoAPC onClose={setOpened} />;
+    }
+
+    if (modal === 5) {
+      return <ModalTCETLA onClose={setOpened} />;
     }
   }, [modal, opened]);
 
@@ -1129,9 +1150,9 @@ const Layout = ({ children }) => {
       )}
       <Modal
         opened={opened}
-        withCloseButton={[0].includes(modal) ? true : false}
+        withCloseButton={[0, 5].includes(modal) ? true : false}
         onClose={
-          [0].includes(modal)
+          [0, 5].includes(modal)
             ? closeModal
             : [3].includes(modal)
             ? () => logout()
@@ -1276,12 +1297,14 @@ const Layout = ({ children }) => {
                     {screen > 639 && (
                       <div className="sm:visible invisible notifications grid grid-cols-6 content-center gap-5">
                         {/* adobe etla */}
-                        {/* <div
-                          onClick={() => router.push("/etla/dashboardEtla")}
-                          className="w-full cursor-pointer"
-                        >
-                          <ETLA />
-                        </div> */}
+                        {userRedux.inprogram === "adobeetla" && (
+                          <div
+                            onClick={() => router.push("/etla/dashboardEtla")}
+                            className="w-full cursor-pointer"
+                          >
+                            <ETLA />
+                          </div>
+                        )}
 
                         {/* 1 */}
                         <div className="w-auto">

@@ -205,14 +205,30 @@ export default function Home({ maintenance }) {
         }
       })
       .finally(() => {
-        if (userData.user.policy) {
-          const params = new URLSearchParams(window.location.search);
+        console.log(userData);
 
-          params.get("redirect")
-            ? route.push(`/${params.get("redirect")}`)
-            : route.push("/dashboard");
-        } else {
-          route.push("/terminosycondiciones");
+        if ([null, "adobe", "adobeetla"].includes(userData.user.inprogram)) {
+          if (userData.user.policy) {
+            const params = new URLSearchParams(window.location.search);
+
+            return params.get("redirect")
+              ? route.push(`/${params.get("redirect")}`)
+              : route.push("/dashboard");
+          } else {
+            return route.push("/terminosycondiciones");
+          }
+        }
+
+        if (userData.user.inprogram === "etla") {
+          if (userData.user.policyetla) {
+            const params = new URLSearchParams(window.location.search);
+
+            return params.get("redirect")
+              ? route.push(`/${params.get("redirect")}`)
+              : route.push("/etla/dashboardEtla");
+          } else {
+            return route.push("/etla/terminosycondiciones");
+          }
         }
 
         dispatch(changeLoadingData(false));

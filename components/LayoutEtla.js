@@ -62,7 +62,7 @@ const LayoutEtla = ({ children }) => {
   const location =
     typeof window !== "undefined" ? window.location.pathname : "";
   const router = useRouter();
-  const sections = ["/", "/terminosycondiciones", "/registro"];
+  const sections = ["/", "/etla/terminosycondiciones", "/registro"];
   const [t, i18n] = useTranslation("global");
   const [modal, setModal] = useState(0);
   const [modalCustomer, setModalCustomer] = useState(false);
@@ -1134,12 +1134,14 @@ const LayoutEtla = ({ children }) => {
                     {screen > 639 && (
                       <div className="sm:visible invisible notifications grid grid-cols-6 content-center gap-5">
                         {/* adobe etla */}
-                        <div
-                          onClick={() => router.push("/dashboard")}
-                          className="w-full cursor-pointer"
-                        >
-                          <CanalesIcon />
-                        </div>
+                        {userRedux.inprogram === "adobeetla" && (
+                          <div
+                            onClick={() => router.push("/dashboard")}
+                            className="w-full cursor-pointer"
+                          >
+                            <CanalesIcon />
+                          </div>
+                        )}
 
                         {/* 1 */}
                         <div className="w-auto">

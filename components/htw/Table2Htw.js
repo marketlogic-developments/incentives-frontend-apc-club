@@ -3,10 +3,9 @@ import HTW24 from "../../public/assets/htw/htw-24";
 import { useTranslation } from "react-i18next";
 import { Select } from "@mantine/core";
 
-const Table2Htw = ({ user }) => {
+const Table2Htw = ({ user, dataHTW }) => {
   const [t, i18n] = useTranslation("global");
   const typeSegment = [t("htw.renovaciones"), t("htw.nuevosn")];
-  const [dataHTW, setDataHTW] = useState("Q3-Q4");
 
   const htwRes =
     dataHTW === "Q3-Q4"
@@ -46,21 +45,6 @@ const Table2Htw = ({ user }) => {
 
   return (
     <div className="flex flex-col gap-6 shadow-xl rounded-lg lg:p-6 p-3">
-      <Select
-        value={dataHTW}
-        data={["Q1-Q2", "Q3-Q4"].map((data) => {
-          return {
-            value: data,
-            label: data,
-          };
-        })}
-        onChange={(data) => setDataHTW(data)}
-        name={"dateHTW"}
-        classNames={{
-          input:
-            "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
-        }}
-      />
       <div className="w-full grid grid-cols-4 lg:gap-0 gap-6">
         <div className="flex col-span-3 lg:col-span-2 lg:gap-2 xl:gap-6">
           <div className="lg:px-2 xl:px-6">
