@@ -998,6 +998,9 @@ const Layout = ({ children }) => {
             }
           }
           if (n === 2) {
+            if (userRedux.email === "bea24468@adobe.com") {
+              return;
+            }
             if (userRedux.roleId === 1) {
               return [
                 "/herramientas",
