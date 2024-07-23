@@ -405,7 +405,7 @@ const dashboard = ({ entries, banners, infoApc }) => {
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
             <GraphSales />
-            {user.roleId === 9 && <SectionDigipointsPA user={user} />}
+            {user.roleId === 3 && <SectionDigipointsPA user={user} />}
 
             <TableTopsRanking
               containerStyles={
