@@ -896,7 +896,9 @@ const Layout = ({ children }) => {
   ];
 
   const redirection = (tyc, data) => {
-    const userCanales = [null, "adobe", "adobeetla"].includes(data.inprogram);
+    const userCanales = [null, "adobe", "adobeetla", undefined].includes(
+      data.inprogram
+    );
     const userEtla = data.inprogram === "etla";
 
     if (userEtla && !data.policyetla) {
