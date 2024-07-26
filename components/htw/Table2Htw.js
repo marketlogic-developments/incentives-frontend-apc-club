@@ -116,7 +116,7 @@ const Table2Htw = ({ user, dataHTW }) => {
                   For Teams
                 </p>
                 <p className="py-6 flex justify-center items-center font-semibold shadow rounded-md text-sm bg-[#F4F4F4]">
-                  SDL/Named/Device
+                  SDL/Named
                 </p>
                 <p className="py-6 flex justify-center items-center font-semibold shadow rounded-md text-sm bg-[#F4F4F4]">
                   SLP
