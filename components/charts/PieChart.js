@@ -26,9 +26,9 @@ const PieChart = ({
       formatter: function (params) {
         const result =
           params.value >= 1000000
-            ? formatter + (params.value / 1000000).toFixed(0) + "M"
+            ? formatter + (params.value / 1000000).toFixed(2) + "M"
             : params.value >= 1000
-            ? formatter + (params.value / 1000).toFixed(0) + "K"
+            ? formatter + (params.value / 1000).toFixed(2) + "K"
             : formatter + params.value;
         return `${result} / ${parseInt((params.value * 100) / total)}%`;
       },
@@ -57,7 +57,7 @@ const PieChart = ({
               params.value >= 1000000
                 ? formatter + (params.value / 1000000).toFixed(2) + "M"
                 : params.value >= 1000
-                ? formatter + (params.value / 1000).toFixed(0) + "K"
+                ? formatter + (params.value / 1000).toFixed(2) + "K"
                 : formatter + params.value;
             return `${params.name}: ${formattedValue}`;
           },
