@@ -28,6 +28,7 @@ import { SearchIcon } from "../components/icons";
 import client from "../contentful";
 import { getVideos } from "../store/reducers/contentful.reducer";
 import { getLicenciesByMonth } from "../store/reducers/sales.reducer";
+import SectionDigipointsPA from "../components/dashboard/SectionDigipointsPA";
 
 const dashboard = ({ entries, banners, infoApc }) => {
   const token = useSelector((state) => state.user.token);
@@ -404,35 +405,8 @@ const dashboard = ({ entries, banners, infoApc }) => {
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
             <GraphSales />
-            {/* <div className="sm:w-full w-[355px]">
-              <CardChart title={"Licencias"} paragraph="">
-                <LicenseChart
-                  dataLeyend={[
-                    "Teams",
-                    "Enterprise",
-                    "Education",
-                    "Acrobat Pro",
-                    "DC Enterprise",
-                    "DC Education",
-                  ]}
-                  dataX={salesData.numberData}
-                  dataOne={salesData.creativeCloud.teams}
-                  dataTwo={salesData.creativeCloud.enterprise}
-                  dataThree={salesData.creativeCloud.education}
-                  dataFour={salesData.documentCloud.teams}
-                  dataFive={salesData.documentCloud.enterprise}
-                  dataSix={salesData.documentCloud.education}
-                  colorsLine={[
-                    "black",
-                    "blue",
-                    "green",
-                    "red",
-                    "orange",
-                    "pink",
-                  ]}
-                />
-              </CardChart>
-            </div> */}
+            {user.roleId === 9 && <SectionDigipointsPA user={user} />}
+
             <TableTopsRanking
               containerStyles={
                 "mt-4 !rounded-tl-lg !rounded-tr-lg !overflow-x-auto max-h-[300px]"

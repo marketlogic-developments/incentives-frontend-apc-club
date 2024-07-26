@@ -27,22 +27,41 @@ const howtowin = ({ htws }) => {
     user.companyId !== null
       ? dataHTW.pointsResellers.quantity
       : dataHTW.pointsDist.quantity;
+  const [dataHTW2, setDataHTW2] = useState("Q3-Q4");
 
-  const htwRes = {
-    AcrobatPro: ["15", "10", "-", "30", "20", "20"],
-    AcrobatSign: ["15", "10", "-", "30", "20", "20"],
-    ForTeam: ["20", "10", "-", "40", "20", "30"],
-    SDL: ["15", "10", "-", "30", "20", "25"],
-    SLP: ["15", "10", "-", "30", "20", "25"],
-  };
+  const htwRes =
+    dataHTW2 === "Q3-Q4"
+      ? {
+          AcrobatPro: ["15", "10", "5", "30", "20", "20"],
+          AcrobatSign: ["15", "10", "5", "30", "20", "20"],
+          ForTeam: ["20", "10", "8", "40", "20", "30"],
+          SDL: ["15", "10", "8", "30", "20", "25"],
+          SLP: ["15", "10", "8", "30", "20", "25"],
+        }
+      : {
+          AcrobatPro: ["15", "10", "-", "30", "20", "20"],
+          AcrobatSign: ["15", "10", "-", "30", "20", "20"],
+          ForTeam: ["20", "10", "-", "40", "20", "30"],
+          SDL: ["15", "10", "-", "30", "20", "25"],
+          SLP: ["15", "10", "-", "30", "20", "25"],
+        };
 
-  const htwDist = {
-    AcrobatPro: ["10", "5", "-", "15", "10", "5"],
-    AcrobatSign: ["10", "5", "-", "15", "10", "5"],
-    ForTeam: ["10", "5", "-", "15", "10", "5"],
-    SDL: ["10", "5", "-", "15", "10", "5"],
-    SLP: ["10", "5", "-", "15", "10", "5"],
-  };
+  const htwDist =
+    dataHTW2 === "Q3-Q4"
+      ? {
+          AcrobatPro: ["10", "5", "3", "15", "10", "5"],
+          AcrobatSign: ["10", "5", "3", "15", "10", "5"],
+          ForTeam: ["10", "5", "3", "15", "10", "5"],
+          SDL: ["10", "5", "3", "15", "10", "5"],
+          SLP: ["10", "5", "3", "15", "10", "5"],
+        }
+      : {
+          AcrobatPro: ["10", "5", "-", "15", "10", "5"],
+          AcrobatSign: ["10", "5", "-", "15", "10", "5"],
+          ForTeam: ["10", "5", "-", "15", "10", "5"],
+          SDL: ["10", "5", "-", "15", "10", "5"],
+          SLP: ["10", "5", "-", "15", "10", "5"],
+        };
 
   const htwData = user.companyId !== null ? htwRes : htwDist;
 
@@ -83,6 +102,21 @@ const howtowin = ({ htws }) => {
           ></p> */}
         </div>
         <div className="flex flex-col gap-6 shadow-xl rounded-lg lg:p-6 p-3">
+          <Select
+            value={dataHTW2}
+            data={["Q1-Q2", "Q3-Q4"].map((data) => {
+              return {
+                value: data,
+                label: data,
+              };
+            })}
+            onChange={(data) => setDataHTW2(data)}
+            name={"dateHTW"}
+            classNames={{
+              input:
+                "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
+            }}
+          />
           <div className="w-full grid grid-cols-4 lg:gap-0 gap-6">
             <div className="flex col-span-3 lg:col-span-2 lg:gap-2 xl:gap-6">
               <div className="lg:px-2 xl:px-6">
@@ -309,7 +343,7 @@ const howtowin = ({ htws }) => {
             </div>
           </div>
         </div>
-        <Table2Htw user={user} />
+        <Table2Htw user={user} dataHTW={dataHTW2} />
       </div>
     </ContainerContent>
   );

@@ -11,6 +11,8 @@ const BarCircleChart = ({ datas }) => {
       ? (value / 1000).toFixed(2) + "K"
       : value;
   };
+
+  console.log(datas, "aaaaaaaaaaaaaaaaaaaaaa");
   return (
     <div className="flex flex-col w-full p-4 gap-4 targetDashboard">
       <div className="flex justify-between">
@@ -20,7 +22,7 @@ const BarCircleChart = ({ datas }) => {
       </div>
       <div className="grid grid-flow-row h-full gap-3">
         {datas.map((data, index) =>
-          data.level !== "CERTIFIED" ? (
+          !["CERTIFIED", "DISTRIBUTOR"].includes(data.level) ? (
             <div className="flex flex-col gap-2" key={index}>
               <div className="flex w-full justify-between">
                 <p className="lg:!text-xs xl:!text-sm font-bold">
