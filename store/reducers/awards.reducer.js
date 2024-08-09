@@ -96,6 +96,10 @@ export const getDataAwards = (token, user) => async (dispatch) => {
                 );
               }
 
+              if (user.countryId === "Brazil") {
+                return e.description === "BRASIL";
+              }
+
               if (user.countryId === "Nothing") {
                 return;
               }
