@@ -551,7 +551,7 @@ export default function Home({ maintenance }) {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      {maintenance[0].maintenance && closePt ? (
+      {true ? (
         <ClosePlataform data={maintenance[0]} />
       ) : (
         <main className="mainIndex !bg-[#2C2C2C] flex flex-col-reverse justify-center lg:flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden min-h-dvh">
