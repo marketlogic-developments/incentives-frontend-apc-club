@@ -1010,7 +1010,7 @@ const Layout = ({ children }) => {
             }
 
             if (userRedux.roleId === 3) {
-              return ["/ManagmentDigipoints", "/puntosporventas"].includes(
+              return ["/ManagmentDigipoints" /*"/puntosporventas"*/].includes(
                 page
               );
             }
