@@ -145,7 +145,7 @@ const Distribuidores = () => {
                       >
                         <td className="py-4 px-6">{item.nameDist}</td>
                         <td className="py-4 px-6">{item.soldToParty}</td>
-                        <td className="py-4 px-6">DISTRIBUITOR</td>
+                        <td className="py-4 px-6">DISTRIBUTOR</td>
                       </tr>
                     );
                   })}
