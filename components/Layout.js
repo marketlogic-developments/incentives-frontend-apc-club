@@ -283,7 +283,7 @@ const Layout = ({ children }) => {
         if (document.visibilityState === "hidden") {
           timeoutId = setTimeout(function () {
             logout();
-          }, 300000);
+          }, 1800000);
         } else {
           // Si el usuario vuelve antes de que se ejecute el setTimeout, cancelarlo
           clearTimeout(timeoutId);
