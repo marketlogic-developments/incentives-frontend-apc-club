@@ -283,7 +283,7 @@ const Layout = ({ children }) => {
         if (document.visibilityState === "hidden") {
           timeoutId = setTimeout(function () {
             logout();
-          }, 300000);
+          }, 1800000);
         } else {
           // Si el usuario vuelve antes de que se ejecute el setTimeout, cancelarlo
           clearTimeout(timeoutId);
@@ -896,7 +896,9 @@ const Layout = ({ children }) => {
   ];
 
   const redirection = (tyc, data) => {
-    const userCanales = [null, "adobe", "adobeetla"].includes(data.inprogram);
+    const userCanales = [null, "adobe", "adobeetla", undefined].includes(
+      data.inprogram
+    );
     const userEtla = data.inprogram === "etla";
 
     if (userEtla && !data.policyetla) {
@@ -911,6 +913,7 @@ const Layout = ({ children }) => {
     if (location === "/etla/terminosycondiciones") {
       return router.push("/etla/dashboardEtla");
     }
+
     if (location === "/terminosycondiciones") {
       return router.push("/dashboard");
     }
@@ -1010,7 +1013,7 @@ const Layout = ({ children }) => {
             }
 
             if (userRedux.roleId === 3) {
-              return ["/ManagmentDigipoints", "/puntosporventas"].includes(
+              return ["/ManagmentDigipoints" /*"/puntosporventas"*/].includes(
                 page
               );
             }
@@ -1140,6 +1143,8 @@ const Layout = ({ children }) => {
     setModal(0);
     setOpened(true);
   };
+
+  console.log(userRedux.inprogram);
 
   return (
     <>
