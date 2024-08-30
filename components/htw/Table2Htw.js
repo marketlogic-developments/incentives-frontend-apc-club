@@ -228,7 +228,7 @@ const Table2Htw = ({ user, dataHTW }) => {
                   <p className="text-center">+ 25 {t("htw.licences")}</p>
                 )}
                 <p className={`text-center ${dataHTW === "Q3-Q4" && "py-5"}`}>
-                  + 100 {t("htw.licences")}
+                  + 25 {t("htw.licences")}
                 </p>
               </div>
               <div className="col-span-4 grid grid-cols-2 gap-2">

@@ -186,8 +186,14 @@ const DigipointsDistribution = () => {
     });
 
     const data = filteredData.map((item) => {
-      const { invoiceDetails, invoices_included, is_gold, status, ...info } =
-        item;
+      const {
+        invoiceDetails,
+        invoices_included,
+        is_gold,
+        status,
+        sku,
+        ...info
+      } = item;
       return info;
     });
 

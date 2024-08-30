@@ -33,13 +33,13 @@ import Image from "next/image";
 
 export default function Home({ maintenance }) {
   const [t, i18n] = useTranslation("global");
-
   const dispatch = useDispatch();
-
+  const adacc =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6ImFkbWluTUwyMDI0KiJ9.5Edke0NA4KCOqxqgekyqHLjmXnHLqWIUYDD37g00J38";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const route = useRouter();
-
+  const { query } = route;
   const [opened, setOpened] = useState(false);
   const [register, setRegister] = useState(null);
 
@@ -207,7 +207,11 @@ export default function Home({ maintenance }) {
       .finally(() => {
         console.log(userData);
 
-        if ([null, "adobe", "adobeetla"].includes(userData.user.inprogram)) {
+        if (
+          [null, "adobe", "adobeetla", undefined].includes(
+            userData.user.inprogram
+          )
+        ) {
           if (userData.user.policy) {
             const params = new URLSearchParams(window.location.search);
 
@@ -547,8 +551,8 @@ export default function Home({ maintenance }) {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      {maintenance[0].maintenance && closePt ? (
-        <ClosePlataform data={maintenance[0]} />
+      {maintenance.maintenance && ![adacc].includes(query?.adminaccess) ? (
+        <ClosePlataform data={maintenance} />
       ) : (
         <main className="mainIndex !bg-[#2C2C2C] flex flex-col-reverse justify-center lg:flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden min-h-dvh">
           <Recovery opened={opened} setOpened={setOpened} t={t} />
@@ -608,7 +612,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      maintenance: maintenance.items.map(({ fields }) => fields),
+      maintenance: maintenance.items.map(({ fields }) => fields)[0],
     },
   };
 }
