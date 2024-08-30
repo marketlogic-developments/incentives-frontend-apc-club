@@ -105,9 +105,10 @@ const SectionDigipointsPA = ({ user }) => {
       setIsReady(true);
     });
   }, [user, filters]);
+
   return (
     <div className="w-full flex gap-6">
-      <div className="w-1/2 card bg-base-100 shadow-md">
+      <div className="w-1/2 card bg-base-100 shadow-md ">
         <DigiPointsTotalD
           dataLoaded={true}
           totalSaleGoal={{
@@ -135,6 +136,7 @@ const SectionDigipointsPA = ({ user }) => {
                   fontSize: 12, // Tamaño de la fuente para la leyenda
                 },
               }}
+              center={["40%", "60%"]}
             />
           ) : (
             <div className="lds-dual-ring my-auto"></div>

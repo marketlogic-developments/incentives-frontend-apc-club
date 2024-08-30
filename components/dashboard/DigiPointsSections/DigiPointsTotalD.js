@@ -22,6 +22,7 @@ const DigiPointsTotalD = ({ dataLoaded, totalSaleGoal }) => {
     // Unir los grupos con comas y retornar el resultado
     return grupos.join(",");
   };
+
   return (
     <div className="flex flex-col w-full card-body">
       <div className="p-3">
@@ -30,13 +31,13 @@ const DigiPointsTotalD = ({ dataLoaded, totalSaleGoal }) => {
       <div className="flex h-full justiy-center w-full items-center">
         <div className="grid sm:grid-cols-2 grid-rows-1 gap-6 w-full h-[90%">
           {!dataLoaded && <div className="lds-dual-ring"></div>}
-          <div className="flex sm:justify-center justify-start gap-3 row-span-2 items-center">
+          <div className="flex sm:justify-center justify-start gap-3 row-span-2 items-center border-r-2">
             <Upload />
             <div className="grid">
               <h3 className="text-gray-400 font-bold">Uploaded</h3>
-              <h1 className="text-black font-bold">
+              <p className="text-black font-bold !text-xl">
                 {formattedNumber(totalSaleGoal.expected)}
-              </h1>
+              </p>
             </div>
           </div>
           <div className="flex sm:justify-center justify-start gap-3 items-center h-[150px]">
@@ -52,7 +53,7 @@ const DigiPointsTotalD = ({ dataLoaded, totalSaleGoal }) => {
                   : 0}
                 %
               </h3>
-              <p className="text-black font-bold text-xl">
+              <p className="text-black font-bold !text-xl">
                 {formattedNumber(totalSaleGoal.reached)}
               </p>
             </div>
@@ -70,7 +71,7 @@ const DigiPointsTotalD = ({ dataLoaded, totalSaleGoal }) => {
                   : 0}
                 %
               </h3>
-              <p className="text-black font-bold text-xl">
+              <p className="text-black font-bold !text-xl">
                 {formattedNumber(totalSaleGoal.progress)}
               </p>
             </div>

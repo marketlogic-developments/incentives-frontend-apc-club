@@ -14,6 +14,7 @@ const PieChart = ({
     top: "0%",
     left: "center",
   },
+  center = ["50%", "60%"],
 }) => {
   const total = datas
     .map(({ value }) => parseInt(value))
@@ -43,7 +44,7 @@ const PieChart = ({
         name: "",
         type: "pie",
         radius: ["50%", "65%"],
-        center: ["50%", "60%"],
+        center: center,
         avoidLabelOverlap: false,
         itemStyle: {
           borderRadius: 5,
