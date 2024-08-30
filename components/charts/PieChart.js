@@ -10,6 +10,10 @@ const PieChart = ({
   ],
   colors = [],
   formatter = "",
+  legend = {
+    top: "0%",
+    left: "center",
+  },
 }) => {
   const total = datas
     .map(({ value }) => parseInt(value))
@@ -33,10 +37,7 @@ const PieChart = ({
         return `${result} / ${parseInt((params.value * 100) / total)}%`;
       },
     },
-    legend: {
-      top: "0%",
-      left: "center",
-    },
+    legend: legend,
     series: [
       {
         name: "",

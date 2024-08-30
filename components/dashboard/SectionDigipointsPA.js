@@ -31,8 +31,6 @@ const SectionDigipointsPA = ({ user }) => {
   const [assignedValue, setAssignedValue] = useState(0);
   const [redeemedValue, setRedeemedValue] = useState(0);
 
-  console.log(user);
-
   useEffect(() => {
     setIsReady(false);
     dispatch(getDigiPointPerformance(token, filters, user)).then((res) => {
@@ -120,16 +118,26 @@ const SectionDigipointsPA = ({ user }) => {
         />
       </div>
 
-      <div className="w-1/2">
+      <div className="w-1/2 h-auto flex">
         <CardChart title={"DigiPoints Uploaded YTD"} paragraph="">
           {isDataReady ? (
             <PieChart
               datas={digipointUploaded}
               colors={["#21A5A2", "#009C3B", "#1473E6"]}
               formatter=""
+              legend={{
+                top: "center",
+                left: "70%", // Mueve la leyenda un poco más hacia el centro
+                orient: "vertical",
+                itemWidth: 14, // Ajusta el ancho del cuadrado de color de la leyenda
+                itemHeight: 14, // Ajusta la altura del cuadrado de color de la leyenda
+                textStyle: {
+                  fontSize: 12, // Tamaño de la fuente para la leyenda
+                },
+              }}
             />
           ) : (
-            <div className="lds-dual-ring"></div>
+            <div className="lds-dual-ring my-auto"></div>
           )}
         </CardChart>
       </div>
