@@ -1144,8 +1144,6 @@ const Layout = ({ children }) => {
     setOpened(true);
   };
 
-  console.log(userRedux.inprogram);
-
   return (
     <>
       {loadingData && (
