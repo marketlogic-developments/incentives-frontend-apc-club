@@ -13,21 +13,25 @@ const importExcelFunction = async (excelConfig) => {
   const { data, columns, downloadTitle } = excelConfig;
 
   // Convertir los datos en un formato adecuado para el archivo Excel
+  const isNumericString = (str) => {
+    return /^-?\d+(\.\d+)?$/.test(str);
+  };
+
   const dataRows = data.map((row) => {
     return Object.keys(columns).map((key) => {
       const value = row[key];
+      console.log(key, value);
+
       if (typeof value === "number") {
         return value; // Mantén los números como números
-      } else if (
-        !isNaN(parseFloat(value)) &&
-        value.split("").filter((i) => i === "-").length !== 2
-      ) {
+      } else if (isNumericString(value)) {
         return parseFloat(value); // Intenta convertir valores numéricos
       } else if (isValidDate(value) && value !== null) {
         return formatDate(value); // Formatear fechas
       } else {
         return value; // Deja los otros valores como están
       }
+      // return value;
     });
   });
   const allData = [Object.values(columns), ...dataRows];
