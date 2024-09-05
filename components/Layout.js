@@ -1001,6 +1001,9 @@ const Layout = ({ children }) => {
             }
           }
           if (n === 2) {
+            if (userRedux.email === "bea24468@adobe.com") {
+              return;
+            }
             if (userRedux.roleId === 1) {
               return [
                 "/herramientas",
@@ -1140,8 +1143,6 @@ const Layout = ({ children }) => {
     setModal(0);
     setOpened(true);
   };
-
-  console.log(userRedux.inprogram);
 
   return (
     <>

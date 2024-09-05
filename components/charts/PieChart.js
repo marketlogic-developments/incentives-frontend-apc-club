@@ -10,6 +10,11 @@ const PieChart = ({
   ],
   colors = [],
   formatter = "",
+  legend = {
+    top: "0%",
+    left: "center",
+  },
+  center = ["50%", "60%"],
 }) => {
   const total = datas
     .map(({ value }) => parseInt(value))
@@ -26,23 +31,20 @@ const PieChart = ({
       formatter: function (params) {
         const result =
           params.value >= 1000000
-            ? formatter + (params.value / 1000000).toFixed(0) + "M"
+            ? formatter + (params.value / 1000000).toFixed(2) + "M"
             : params.value >= 1000
-            ? formatter + (params.value / 1000).toFixed(0) + "K"
+            ? formatter + (params.value / 1000).toFixed(2) + "K"
             : formatter + params.value;
         return `${result} / ${parseInt((params.value * 100) / total)}%`;
       },
     },
-    legend: {
-      top: "0%",
-      left: "center",
-    },
+    legend: legend,
     series: [
       {
         name: "",
         type: "pie",
         radius: ["50%", "65%"],
-        center: ["50%", "60%"],
+        center: center,
         avoidLabelOverlap: false,
         itemStyle: {
           borderRadius: 5,
@@ -57,7 +59,7 @@ const PieChart = ({
               params.value >= 1000000
                 ? formatter + (params.value / 1000000).toFixed(2) + "M"
                 : params.value >= 1000
-                ? formatter + (params.value / 1000).toFixed(0) + "K"
+                ? formatter + (params.value / 1000).toFixed(2) + "K"
                 : formatter + params.value;
             return `${params.name}: ${formattedValue}`;
           },

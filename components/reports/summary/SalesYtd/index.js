@@ -194,8 +194,8 @@ const SalesYtd = () => {
       const resDist =
         filters.level === "DISTRIBUTOR" ||
         (filters.company_name.length !== 0 &&
-          item.company_type === "DISTRIBUITOR")
-          ? "DISTRIBUITOR"
+          item.company_type === "DISTRIBUTOR")
+          ? "DISTRIBUTOR"
           : "RESELLER";
 
       return item.company_type === resDist;
@@ -274,8 +274,8 @@ const SalesYtd = () => {
       const resDist =
         filters.level === "DISTRIBUTOR" ||
         (filters.company_name.length !== 0 &&
-          item.company_type === "DISTRIBUITOR")
-          ? "DISTRIBUITOR"
+          item.company_type === "DISTRIBUTOR")
+          ? "DISTRIBUTOR"
           : "RESELLER";
 
       return item.company_type === resDist;
@@ -341,8 +341,8 @@ const SalesYtd = () => {
       const resDist =
         filters.level === "DISTRIBUTOR" ||
         (filters.company_name.length !== 0 &&
-          obj.company_type === "DISTRIBUITOR")
-          ? "DISTRIBUITOR"
+          obj.company_type === "DISTRIBUTOR")
+          ? "DISTRIBUTOR"
           : "RESELLER";
 
       if (obj.company_type === resDist) {
@@ -472,8 +472,8 @@ const SalesYtd = () => {
       const resDist =
         filters.level === "DISTRIBUTOR" ||
         (filters.company_name.length !== 0 &&
-          item.company_type === "DISTRIBUITOR")
-          ? "DISTRIBUITOR"
+          item.company_type === "DISTRIBUTOR")
+          ? "DISTRIBUTOR"
           : "RESELLER";
 
       return item.company_type === resDist;
@@ -530,8 +530,8 @@ const SalesYtd = () => {
       const resDist =
         filters.level === "DISTRIBUTOR" ||
         (filters.company_name.length !== 0 &&
-          item.company_type === "DISTRIBUITOR")
-          ? "DISTRIBUITOR"
+          item.company_type === "DISTRIBUTOR")
+          ? "DISTRIBUTOR"
           : "RESELLER";
 
       return item.company_type === resDist;
