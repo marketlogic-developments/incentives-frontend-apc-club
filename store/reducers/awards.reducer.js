@@ -96,7 +96,7 @@ export const getDataAwards = (token, user) => async (dispatch) => {
                 );
               }
 
-              if (user.countryId === "Brazil") {
+              if (["Brasil", "Brazil"].includes(user.countryId)) {
                 return e.description === "BRASIL";
               }
 
