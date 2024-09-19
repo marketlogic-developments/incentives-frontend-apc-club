@@ -208,7 +208,7 @@ const DigipointsDistribution = () => {
     });
   };
 
-  console.log(data);
+  console.log(dataToTable.sort((a, b) => a.status - b.status));
 
   return (
     <>
@@ -226,7 +226,7 @@ const DigipointsDistribution = () => {
         />
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
-        {data.length !== 0 && <GraphDigiPointsDistribution data={data} />}
+        {/* {data.length !== 0 && <GraphDigiPointsDistribution data={data} />} */}
         <div className="w-full flex lg:flex-row flex-col lg:gap-1 gap-3 mb-4 justify-between">
           <div className="lg:w-full xl:w-2/3 flex lg:flex-row flex-col gap-3 items-center">
             <div className="relative flex w-full">
@@ -327,6 +327,7 @@ const DigipointsDistribution = () => {
 
                       return true;
                     })
+                    .sort((a, b) => a.status - b.status)
                     .map((obj, i) => {
                       const index =
                         searchByInvoice !== ""
