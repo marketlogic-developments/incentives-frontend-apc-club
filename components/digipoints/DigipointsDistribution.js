@@ -44,19 +44,8 @@ const DigipointsDistribution = () => {
   }, [token]);
 
   const filters = useMemo(() => {
-    setDataToTable([...data].filter(() => {}));
     setDataToTable(
       [...data]
-        .sort((prev, curr) => {
-          const datePrev = new Date(prev.date);
-          const dateCurr = new Date(curr.date);
-
-          if (filtersTable.date === "downUp") {
-            return datePrev - dateCurr;
-          }
-
-          return dateCurr - datePrev;
-        })
         .filter((invoice) => {
           if (
             filtersTable.marketSegment !== "" &&
@@ -87,6 +76,16 @@ const DigipointsDistribution = () => {
           }
 
           return invoice;
+        })
+        .sort((prev, curr) => {
+          const datePrev = new Date(prev.date);
+          const dateCurr = new Date(curr.date);
+
+          if (filtersTable.date === "downUp") {
+            return datePrev - dateCurr;
+          }
+
+          return dateCurr - datePrev;
         })
     );
   }, [data, filtersTable]);
@@ -208,7 +207,7 @@ const DigipointsDistribution = () => {
     });
   };
 
-  console.log(dataToTable.sort((a, b) => a.status - b.status));
+  console.log(searchByInvoice);
 
   return (
     <>
@@ -320,12 +319,10 @@ const DigipointsDistribution = () => {
                   {dataToTable
                     .filter((item) => {
                       if (searchByInvoice !== "") {
-                        return item.invoices_included.startsWith(
-                          searchByInvoice.toLowerCase()
-                        );
+                        return item.invoices_included.includes(searchByInvoice);
                       }
 
-                      return true;
+                      return item;
                     })
                     .sort((a, b) => a.status - b.status)
                     .map((obj, i) => {
@@ -341,7 +338,7 @@ const DigipointsDistribution = () => {
                       return (
                         <tr
                           className={i % 2 !== 0 ? "bg-[#F5F5F5]" : "bg-white"}
-                          key={obj?.invoices_included}
+                          key={obj?.invoices_included + i}
                         >
                           <td className="py-4 px-6">
                             {obj?.invoices_included}
