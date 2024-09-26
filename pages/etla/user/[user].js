@@ -44,9 +44,12 @@ const user = () => {
 
   useEffect(() => {
     setFormData({
-      name: user?.name,
-      names: user?.names,
-      lastname: user?.last_name,
+      first_name: user?.first_name,
+      middle_name: user?.middle_name,
+      last_name: user?.last_name,
+      secondlastname: user?.secondlastname,
+      documenttype: user?.documenttype,
+      documentinfo: user?.documentinfo,
       email: user?.email,
       role: user?.roleId,
       position: user?.position,
@@ -56,33 +59,7 @@ const user = () => {
       phone: user?.phoneNumber.includes("+") ? user?.phoneNumber : "",
       languageId: user?.languageId,
     });
-
-    const num = Object.values({
-      name: user.name,
-      names: user.names,
-      lastname: user.last_name,
-      imgProfile: user.profilePhotoPath,
-      birthDate: user.birthDate,
-      phone: user.phoneNumber,
-      languageId: user.languageId,
-    }).filter((e) => e !== "" && e !== null).length;
-
-    setNInputs(parseInt((num * 100) / 5));
   }, [user]);
-
-  const handleChangeInputs = () => {
-    const num = Object.values({
-      name: formData.name,
-      names: formData.names,
-      lastname: formData.lastname,
-      imgProfile: formData.imgProfile,
-      birthDate: formData.birthDate,
-      phone: formData.phone,
-      languageId: user.languageId,
-    }).filter((e) => e !== "" && e !== null).length;
-
-    setNInputs(parseInt((num * 100) / 5));
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -108,9 +85,6 @@ const user = () => {
     });
   };
 
-  function formatDate(date) {
-    return dayjs(date).format("DD/MM/YYYY");
-  }
   function isValidDate(dateString) {
     const date = new Date(dateString);
     return date instanceof Date && !isNaN(date);
@@ -172,6 +146,8 @@ const user = () => {
         });
       });
   };
+
+  console.log(formData);
 
   return (
     <>
@@ -337,8 +313,8 @@ const user = () => {
                               type="text"
                               placeholder={t("user.escriba")}
                               className="input input-ghost w-full bg-[#F4F4F4]"
-                              name="names"
-                              value={formData.names}
+                              name="first_name"
+                              value={formData.first_name}
                               onChange={handleChange}
                               required
                             />
@@ -347,13 +323,13 @@ const user = () => {
                               type="text"
                               placeholder={t("user.escriba")}
                               className="input input-ghost w-full flex items-center"
-                              name="names"
-                              value={formData.names}
+                              name="first_name"
+                              value={formData.first_name}
                               onChange={handleChange}
                               onBlur={handleChangeInputs}
                               required
                             >
-                              {formData.names}
+                              {formData.first_name}
                             </span>
                           )}
                         </div>

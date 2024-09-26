@@ -230,7 +230,7 @@ const UserOptions = ({
             {/* END */}
             <div className="text-center">
               <p className="lg:!text-sm xl:!text-base">
-                {user.name} {user.lastName}
+                {user?.first_name} {user?.last_name}
               </p>
               <p className="xl:!text-xs">{user.email}</p>
             </div>

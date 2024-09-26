@@ -29,9 +29,12 @@ const user = () => {
   const [editInfo, setEditInfo] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: "",
-    names: "",
-    lastname: "",
+    first_name: "",
+    middlename: "",
+    last_name: "",
+    secondlastname: "",
+    documenttype: "",
+    documentinfo: "",
     email: "",
     role: "",
     position: "",
@@ -44,9 +47,12 @@ const user = () => {
 
   useEffect(() => {
     setFormData({
-      name: user?.name,
-      names: user?.names,
-      lastname: user?.last_name,
+      first_name: user?.first_name,
+      middlename: user?.middlename,
+      last_name: user?.last_name,
+      secondlastname: user?.secondlastname,
+      documenttype: user?.documenttype,
+      documentinfo: user?.documentinfo,
       email: user?.email,
       role: user?.roleId,
       position: user?.position,
@@ -56,33 +62,7 @@ const user = () => {
       phone: user?.phoneNumber.includes("+") ? user?.phoneNumber : "",
       languageId: user?.languageId,
     });
-
-    const num = Object.values({
-      name: user.name,
-      names: user.names,
-      lastname: user.last_name,
-      imgProfile: user.profilePhotoPath,
-      birthDate: user.birthDate,
-      phone: user.phoneNumber,
-      languageId: user.languageId,
-    }).filter((e) => e !== "" && e !== null).length;
-
-    setNInputs(parseInt((num * 100) / 5));
   }, [user]);
-
-  const handleChangeInputs = () => {
-    const num = Object.values({
-      name: formData.name,
-      names: formData.names,
-      lastname: formData.lastname,
-      imgProfile: formData.imgProfile,
-      birthDate: formData.birthDate,
-      phone: formData.phone,
-      languageId: user.languageId,
-    }).filter((e) => e !== "" && e !== null).length;
-
-    setNInputs(parseInt((num * 100) / 5));
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -108,9 +88,6 @@ const user = () => {
     });
   };
 
-  function formatDate(date) {
-    return dayjs(date).format("DD/MM/YYYY");
-  }
   function isValidDate(dateString) {
     const date = new Date(dateString);
     return date instanceof Date && !isNaN(date);
@@ -124,9 +101,14 @@ const user = () => {
     const jsonData = () => {
       phone;
       return {
-        name: formData.name,
-        names: formData.names,
-        last_name: formData.lastname,
+        name: formData?.first_name,
+        names: `${formData?.first_name} ${formData?.middlename} ${formData?.last_name} ${formData?.secondlastname}`,
+        first_name: formData?.first_name,
+        middlename: formData?.middlename,
+        last_name: formData?.last_name,
+        secondlastname: formData?.secondlastname,
+        documenttype: formData?.documenttype,
+        documentinfo: formData?.documentinfo,
         birthDate: formData.birthDate,
         phoneNumber: formData.phone,
         region: formData.region,
@@ -173,6 +155,8 @@ const user = () => {
       });
   };
 
+  console.log(formData);
+
   return (
     <>
       <ContainerContent pageTitle={"Ajustes de perfil"}>
@@ -181,7 +165,7 @@ const user = () => {
             <UserPhoto formData={formData} />
             <div className="flex flex-col description gap-3 justify-center">
               <h1 className="font-bold text-3xl">
-                {formData.names} {formData.lastname}
+                {formData.first_name} {formData.last_name}
               </h1>
               <h2 className="font-bold">
                 {formData.role === 1
@@ -326,67 +310,158 @@ const user = () => {
                   <div className="w-full flex justify-between">
                     <div className="lg:w-4/6 w-full flex items-center">
                       <div className="w-full h-fit">
-                        <div className="form-control w-full">
-                          <label className="label">
-                            <span className="label-text">
-                              {t("user.nombre")}
-                            </span>
-                          </label>
-                          {editInfo ? (
-                            <input
-                              type="text"
-                              placeholder={t("user.escriba")}
-                              className="input input-ghost w-full bg-[#F4F4F4]"
-                              name="names"
-                              value={formData.names}
-                              onChange={handleChange}
-                              required
-                            />
-                          ) : (
-                            <span
-                              type="text"
-                              placeholder={t("user.escriba")}
-                              className="input input-ghost w-full flex items-center"
-                              name="names"
-                              value={formData.names}
-                              onChange={handleChange}
-                              onBlur={handleChangeInputs}
-                              required
-                            >
-                              {formData.names}
-                            </span>
-                          )}
+                        <div className="form-control flex-row flex w-full gap-3">
+                          <div className="w-1/2">
+                            <label className="label">
+                              <span className="label-text">
+                                {t("modalUpdate.firstName")}
+                              </span>
+                            </label>
+                            {editInfo ? (
+                              <input
+                                type="text"
+                                placeholder={t("user.escriba")}
+                                className="input input-ghost w-full bg-[#F4F4F4]"
+                                name="first_name"
+                                value={formData.first_name}
+                                onChange={handleChange}
+                                required
+                              />
+                            ) : (
+                              <span className="input input-ghost w-full flex items-center">
+                                {formData.first_name}
+                              </span>
+                            )}
+                          </div>
+                          <div className="w-1/2">
+                            <label className="label">
+                              <span className="label-text">
+                                {t("modalUpdate.middleName")}
+                              </span>
+                            </label>
+                            {editInfo ? (
+                              <input
+                                type="text"
+                                placeholder={t("user.escriba")}
+                                className="input input-ghost w-full bg-[#F4F4F4]"
+                                name="middlename"
+                                value={formData.middlename}
+                                onChange={handleChange}
+                                required
+                              />
+                            ) : (
+                              <span className="input input-ghost w-full flex items-center">
+                                {formData.middlename}
+                              </span>
+                            )}
+                          </div>
                         </div>
-                        <div className="form-control w-full">
-                          <label className="label">
-                            <span className="label-text">
-                              {t("user.apellido")}
+                        <div className="form-control flex-row flex w-full gap-3">
+                          <div className="w-1/2">
+                            <label className="label">
+                              <span className="label-text">
+                                {t("modalUpdate.lastName")}
+                              </span>
+                            </label>
+                            {editInfo ? (
+                              <input
+                                type="text"
+                                name="last_name"
+                                placeholder={t("user.escriba")}
+                                className="input input-ghost w-full bg-[#F4F4F4]"
+                                value={formData.last_name}
+                                onChange={handleChange}
+                                required
+                              />
+                            ) : (
+                              <span className="input input-ghost w-full flex items-center">
+                                {formData.last_name}
+                              </span>
+                            )}
+                          </div>
+                          <div className="w-1/2">
+                            <label className="label">
+                              <span className="label-text">
+                                {t("modalUpdate.secondLastName")}
+                              </span>
+                            </label>
+                            {editInfo ? (
+                              <input
+                                type="text"
+                                name="secondlastname"
+                                placeholder={t("user.escriba")}
+                                className="input input-ghost w-full bg-[#F4F4F4]"
+                                value={formData.secondlastname}
+                                onChange={handleChange}
+                                required
+                              />
+                            ) : (
+                              <span className="input input-ghost w-full flex items-center">
+                                {formData.secondlastname}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div class="form-control w-full">
+                          <label class="label">
+                            <span class="label-text">
+                              {t("modalUpdate.document")}
                             </span>
                           </label>
                           {editInfo ? (
-                            <input
-                              type="text"
-                              name="lastname"
-                              placeholder={t("user.escriba")}
-                              className="input input-ghost w-full bg-[#F4F4F4]"
-                              value={formData.lastname}
-                              onChange={handleChange}
-                              required
-                              onBlur={handleChangeInputs}
-                            />
+                            <div className="flex gap-3">
+                              <select
+                                className="input input-ghost w-fit bg-[#F4F4F4]"
+                                name="documenttype"
+                                id="Tipo de Documento"
+                                value={formData.documenttype}
+                                onChange={handleChange}
+                              >
+                                <option
+                                  value=""
+                                  selected
+                                  disabled
+                                  hidden
+                                ></option>
+                                <option value={"CC"}>CC</option>
+                                <option value={"CEDULA"}>CÉDULA</option>
+                                <option value={"CEX"}>CEX</option>
+                                <option value={"CI"}>CI</option>
+                                <option value={"CIC"}>CIC</option>
+                                <option value={"CPF"}>CPF</option>
+                                <option value={"CURP"}>CURP</option>
+                                <option value={"DNI"}>DNI</option>
+                                <option value={"DNIC"}>DNIC</option>
+                                <option value={"DPI"}>DPI</option>
+                                <option value={"DI"}>DI</option>
+                                <option value={"DUI"}>DUI</option>
+                                <option value={"INE"}>INE</option>
+                                <option value={"RG"}>RG</option>
+                                <option value={"RFC"}>RFC</option>
+                                <option value={"RUT"}>RUT</option>
+                                <option value={"RUN"}>RUN</option>
+                                <option value={"StateID"}>State ID</option>
+                              </select>
+                              <input
+                                type="text"
+                                placeholder={t("user.escriba")}
+                                className="input input-ghost w-[88.5%] bg-[#F4F4F4]"
+                                name="documentinfo"
+                                minLength={6}
+                                id="Número de Documento"
+                                value={formData.documentinfo}
+                                onChange={handleChange}
+                              />
+                            </div>
                           ) : (
-                            <span
-                              type="text"
-                              name="lastname"
-                              placeholder={t("user.escriba")}
-                              className="input input-ghost w-full flex items-center"
-                              value={formData.lastname}
-                              onChange={handleChange}
-                              required
-                              onBlur={handleChangeInputs}
-                            >
-                              {formData.lastname}
-                            </span>
+                            <div className="flex gap-3">
+                              <span className="input input-ghost w-fit flex items-center">
+                                {formData.documenttype}
+                              </span>
+                              <span className="input input-ghost w-[88.5%] flex items-center">
+                                {formData.documentinfo}
+                              </span>
+                            </div>
                           )}
                         </div>
                         <div className="form-control w-full">
@@ -404,7 +479,6 @@ const user = () => {
                               inputProps={{
                                 placeholder: t("user.escriba"),
                                 name: "phone",
-                                onBlur: handleChangeInputs,
                               }}
                               countrySelectorStyleProps={{
                                 className:
@@ -414,16 +488,7 @@ const user = () => {
                               }}
                             />
                           ) : (
-                            <span
-                              type="text"
-                              placeholder={t("user.escriba")}
-                              className="input input-ghost w-full flex items-center"
-                              value={formData.phone}
-                              onChange={handleChange}
-                              name="phone"
-                              required
-                              onBlur={handleChangeInputs}
-                            >
+                            <span className="input input-ghost w-full flex items-center">
                               {formData.phone}
                             </span>
                           )}
@@ -439,7 +504,6 @@ const user = () => {
                               name="birthDate"
                               valueFormat="MM/DD/YYYY"
                               onChange={handleChangeDate}
-                              onBlur={handleChangeInputs}
                               value={
                                 isValidDate(formData.birthDate)
                                   ? new Date(formData.birthDate)

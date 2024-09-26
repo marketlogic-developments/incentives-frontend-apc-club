@@ -197,6 +197,17 @@ const InvoiceReport = () => {
     setItemOffset(newOffset);
   };
 
+  console.log(
+    currentItems &&
+      [...currentItems].filter((item) => {
+        if (searchByInvoice !== "") {
+          return item.invoice.startsWith(searchByInvoice);
+        }
+
+        return item;
+      })
+  );
+
   return (
     <div className="mt-8">
       <div className="grid grid-rows-1">

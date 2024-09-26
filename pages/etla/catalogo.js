@@ -92,7 +92,7 @@ const catalogo = () => {
       <div className="flex lg:flex-row flex-col justify-between gap-6">
         <div className="flex flex-col gap-6">
           <h2 className="font-bold lg:!text-xl xl:!text-2xl 2xl:!text-3xl">
-            {t("dashboard.Hola")}, {user.name}
+            {t("dashboard.Hola")}, {user?.first_name}
           </h2>
           <p className="lg:!text-sm xl:!text-base 2xl:!text-lg">
             {t("adobeMarket.gana")}

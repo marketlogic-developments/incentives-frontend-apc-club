@@ -59,8 +59,6 @@ const ModalUpdateData = ({ onClose }) => {
 
     delete objPush[""];
 
-    console.log(objPush);
-
     if (arrInputsEmpty.length !== 0) {
       return Toast.fire({
         icon: "error",
