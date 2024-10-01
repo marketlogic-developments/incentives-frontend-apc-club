@@ -23,7 +23,9 @@ const SectionDigipointsPA = ({ user }) => {
   const [filters, setFilters] = useState({
     year: "2024",
     company_name:
-      user?.company?.name !== "MarketLogic" ? user?.company?.name : "",
+      user?.company?.name !== "MarketLogic"
+        ? encodeURIComponent(user?.company?.name)
+        : "",
     region: "",
     country: "",
   });
