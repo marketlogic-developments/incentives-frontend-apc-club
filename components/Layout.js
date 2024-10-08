@@ -1391,7 +1391,7 @@ const Layout = ({ children }) => {
                             >
                               {profileImage}
                               <div className="username">
-                                <p className="lg:!text-sm xl:!text-base">
+                                <p className="lg:text-sm xl:text-base w-[150px] truncate">
                                   {userRedux?.first_name} {userRedux?.last_name}
                                 </p>
                               </div>
