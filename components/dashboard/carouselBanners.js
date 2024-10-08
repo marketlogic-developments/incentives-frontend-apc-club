@@ -70,6 +70,24 @@ const CarouselBanners = ({ banners }) => {
         },
       }}
     >
+      {user.region === "BRAZIL" && (
+        <Carousel.Slide>
+          <a
+            className="w-full flex justify-center cursor-pointer p-[1px]"
+            href={
+              "https://assets.ctfassets.net/3rdahgbju2vz/3u0VZTq91V7q1V75TH6bZz/1b5d6d47ea7a4504c3b8008f4640221e/CO_Adobe_mail_carnaval_T-05639.pdf"
+            }
+            target="_blank"
+          >
+            <figure className="w-full">
+              <img
+                src="https://images.ctfassets.net/3rdahgbju2vz/bZqtp9xZNQ6wbWfM19LVg/e7aed6ba4f74142e24cd659b15230103/CO_Adobe_banner_carnaval_T-05639.jpg"
+                className="bannersImg"
+              />
+            </figure>
+          </a>
+        </Carousel.Slide>
+      )}
       {[...banners]
         .sort((a, b) => a.order - b.order)
         .map((data) => {
