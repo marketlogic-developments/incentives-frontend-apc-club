@@ -980,7 +980,7 @@ const Layout = ({ children }) => {
               return [
                 "/dashboard",
                 "/digipoints/mydigipoints",
-                "/reportes/dashboards/InvoiceReportUser",
+                // "/reportes/dashboards/InvoiceReportUser",
                 "/comunicado",
               ].includes(page);
             }
