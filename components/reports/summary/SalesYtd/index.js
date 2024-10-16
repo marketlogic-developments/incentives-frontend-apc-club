@@ -208,8 +208,7 @@ const SalesYtd = () => {
         (totals["Government"] || 0) + parseFloat(item.sales_government);
       totals["Education"] =
         (totals["Education"] || 0) + parseFloat(item.sales_education);
-      totals["Behavior"] =
-        (totals["Behavior"] || 0);
+      totals["Behavior"] = totals["Behavior"] || 0;
       return totals;
     }, {});
 
@@ -643,7 +642,7 @@ const SalesYtd = () => {
     });
   }, []);
 
-  console.log(sales);
+  console.log(multiFilter, filterAux, filters);
 
   return (
     <div className="m-5">
