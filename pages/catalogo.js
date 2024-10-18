@@ -133,6 +133,11 @@ const catalogo = () => {
           </div>
         </div>
       </div>
+      <div className="border-2 border-[#eb1000] p-6 rounded-lg">
+        <b className="text-xl">{t("avisos.catalogtitle")}</b>
+        <br />
+        <p>{t("avisos.catalogdesc")}</p>
+      </div>
       <div className="flex flex-col lg:flex-row justify-between lg:gap-0 gap-6">
         <div className="flex gap-6 items-center lg:justify-start justify-center">
           <p className="font-bold lg:!text-base xl:!text-lg 2xl!text-xl">
