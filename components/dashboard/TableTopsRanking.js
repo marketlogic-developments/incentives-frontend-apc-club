@@ -36,6 +36,7 @@ const TableTopsRanking = ({
 
   useEffect(() => {
     if (user.roleId !== 1) {
+      console.log("User object:", user);
       const comp =
         user.companyId === null
           ? "/digipoints-redeem-status-all-distri"
@@ -45,8 +46,8 @@ const TableTopsRanking = ({
         .get(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters${comp}/${
             comp.includes("distri")
-              ? user.distributionChannelId
-              : user.companyId
+              ? user.distributionChannel.soldToParty
+              : user.company.resellerMasterId
           }`,
           {
             headers: {

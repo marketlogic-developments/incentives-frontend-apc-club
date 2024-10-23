@@ -133,12 +133,10 @@ const catalogo = () => {
           </div>
         </div>
       </div>
-      <div className="p-6 border-2 border-[#eb1000] rounded-lg">
-        <b className="text-lg">Información Importante</b>
-        <p>
-          A partir del <b>1ro de noviembre</b>, el período de entrega de premios
-          se ajustará de <b>60 a 90 días</b>.
-        </p>
+      <div className="border-2 border-[#eb1000] p-6 rounded-lg">
+        <b className="text-xl">{t("avisos.catalogtitle")}</b>
+        <br />
+        <p>{t("avisos.catalogdesc")}</p>
       </div>
       <div className="flex flex-col lg:flex-row justify-between lg:gap-0 gap-6">
         <div className="flex gap-6 items-center lg:justify-start justify-center">
