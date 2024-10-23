@@ -16,6 +16,22 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
   const [content, setContent] = useState("Todos");
   const user = useSelector((state) => state.user.user);
 
+  const filters = (item) => {
+    if (item?.exceptions) {
+      const org =
+        user.companyId !== null ? user.company : user.distributionChannel;
+
+      if (
+        item?.exceptions?.countrys.includes(org.country) ||
+        item?.exceptions?.region.includes(org.region)
+      ) {
+        return item;
+      } else return false;
+    }
+
+    return item;
+  };
+
   const data = dataContentful.filter((data) => {
     if (data.role === "PA" && [0, 1, 2, 3].includes(user.roleId)) {
       return data.role === "PA";
@@ -46,8 +62,6 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
       return [...new Set(categorysEn)];
     }
   };
-
-  console.log(categorys());
 
   return (
     <div>
@@ -112,6 +126,8 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
               if (content === "Todos") {
                 return data;
               }
+
+              filters(data);
 
               return data.category.includes(content);
             })

@@ -13,6 +13,22 @@ const CarouselBanners = ({ banners }) => {
   const [counter, setCounter] = useState(0);
   const autoplay = useRef(Autoplay({ delay: 5000 }));
 
+  const filters = (banner) => {
+    if (banner?.exceptions) {
+      const org =
+        user.companyId !== null ? user.company : user.distributionChannel;
+      console.log(banner?.exceptions?.countrys.includes(org.country));
+      if (
+        banner?.exceptions?.countrys.includes(org.country) ||
+        banner?.exceptions?.region.includes(org.region)
+      ) {
+        return banner;
+      } else return false;
+    }
+
+    return banner;
+  };
+
   const href = (compOrDist, data) => {
     if (compOrDist) {
       const type = data
@@ -90,6 +106,7 @@ const CarouselBanners = ({ banners }) => {
       )}
       {[...banners]
         .sort((a, b) => a.order - b.order)
+        .filter(filters)
         .map((data) => {
           return (
             <Carousel.Slide>
