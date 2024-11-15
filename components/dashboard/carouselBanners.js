@@ -16,11 +16,11 @@ const CarouselBanners = ({ banners }) => {
   const filters = (banner) => {
     if (banner?.exceptions) {
       const org =
-        user.companyId !== null ? user.company : user.distributionChannel;
-      console.log(banner?.exceptions?.countrys.includes(org.country));
+        user.companyId !== null ? user?.company : user?.distributionChannel;
+      console.log(banner?.exceptions?.countrys.includes(org?.country));
       if (
-        banner?.exceptions?.countrys.includes(org.country) ||
-        banner?.exceptions?.region.includes(org.region)
+        banner?.exceptions?.countrys.includes(org?.country) ||
+        banner?.exceptions?.region.includes(org?.region)
       ) {
         return banner;
       } else return false;
