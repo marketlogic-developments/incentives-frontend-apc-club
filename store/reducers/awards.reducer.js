@@ -79,15 +79,12 @@ export const getDataAwards = (token, user) => async (dispatch) => {
       .then((res) => {
         let obj = res.data
           .filter((e) => {
-            const countryCompany =
-              user.companyId !== null
-                ? user.company.country
-                : user.distributionChannel.country;
-
+            // Primero se verifica el rol, ya que es una condición universal.
             if (user.roleId === 1) {
               return e;
             }
 
+            // Verificar `user.countryId` si está definido.
             if (user.countryId) {
               if (user.countryId === "CHILE") {
                 return (
@@ -101,13 +98,17 @@ export const getDataAwards = (token, user) => async (dispatch) => {
               }
 
               if (user.countryId === "Nothing") {
-                return;
+                return false; // No cumple, no lo incluimos.
               }
 
-              if (e.description === user.countryId) {
-                return e.description === user.countryId;
-              }
+              return e.description === user.countryId;
             }
+
+            // Si no hay `countryId`, verificamos `countryCompany`.
+            const countryCompany =
+              user.companyId !== null
+                ? user.company.country
+                : user.distributionChannel.country;
 
             if (
               ["Ecuador", "Paraguay", "Peru", "Argentina"].includes(
@@ -132,13 +133,17 @@ export const getDataAwards = (token, user) => async (dispatch) => {
               return e.name.split(" ")[0] === "Nothing";
             }
 
-            if (user.region === "BRAZIL" || user.region === "Brazil") {
+            // Verificar región si no se categoriza por país.
+            if (["BRAZIL", "Brazil"].includes(user.region)) {
               return e.description === "BRASIL";
             }
 
             if (["SOLA", "NOLA", "MEXICO"].includes(user.region)) {
               return e.description === "NOLA - SOLA - MEX";
             }
+
+            // Si no cumple ninguna condición, no incluir el elemento.
+            return false;
           })
           .sort(function (a, b) {
             // Comparar por nombre
