@@ -104,8 +104,9 @@ export const getDataAwards = (token, user) => async (dispatch) => {
                 return;
               }
 
-              if (e.description === user.countryId)
-                e.description === user.countryId;
+              if (e.description === user.countryId) {
+                return e.description === user.countryId;
+              }
             }
 
             if (
