@@ -101,7 +101,9 @@ export const getDataAwards = (token, user) => async (dispatch) => {
                 return false; // No cumple, no lo incluimos.
               }
 
-              return e.description === user.countryId;
+              if (e.description === user.countryId) {
+                return e.description === user.countryId;
+              }
             }
 
             // Si no hay `countryId`, verificamos `countryCompany`.
