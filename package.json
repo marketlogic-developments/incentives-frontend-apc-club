@@ -16,7 +16,7 @@
     "@mantine/next": "^6.0.8",
     "@react-pdf-viewer/core": "^3.10.0",
     "@reduxjs/toolkit": "^1.9.1",
-    "axios": "^1.2.2",
+    "axios": "^1.7.8",
     "chart.js": "^4.3.0",
     "cloudinary-react": "^1.8.1",
     "contentful": "^10.3.0",
@@ -54,15 +54,18 @@
     "react-redux": "^8.0.5",
     "react-responsive-carousel": "^3.2.23",
     "recharts": "^2.1.16",
-    "sweetalert2": "^11.4.8",
+    "sweetalert2": "^11.14.5",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
+    "@types/node": "^22.9.4",
+    "@types/react": "^18.3.12",
     "autoprefixer": "^10.4.17",
     "html-loader": "^4.2.0",
     "postcss": "^8.4.35",
     "sass": "^1.56.1",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.7.2"
   }
 }

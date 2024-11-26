@@ -6,7 +6,7 @@ import { MantineProvider } from "@mantine/core";
 import { UserContext } from "../components/user";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { store } from "../store/store";
+import { store } from "../store/store.ts";
 import { Provider } from "react-redux";
 import Footer from "../components/Footer";
 import { I18nextProvider } from "react-i18next";

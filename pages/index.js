@@ -34,16 +34,17 @@ import Image from "next/image";
 export default function Home({ maintenance }) {
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
+  const route = useRouter();
   const adacc =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6ImFkbWluTUwyMDI0KiJ9.5Edke0NA4KCOqxqgekyqHLjmXnHLqWIUYDD37g00J38";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const route = useRouter();
+  
   const { query } = route;
   const [opened, setOpened] = useState(false);
   const [register, setRegister] = useState(null);
 
-  const listRedirect = ["bcrservicos.com.br", "bcrcx.com"];
+
   const [open, setOpen] = useState("");
   const [view, setView] = useState("password");
   const [viewLogin, setViewLogin] = useState("password");
@@ -78,7 +79,6 @@ export default function Home({ maintenance }) {
     }
   }, []);
 
-  console.log(closePt, maintenance);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
