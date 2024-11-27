@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { NotiSwal } from "notifications/notifications";
-import React, { useRef, useState } from "react";
+import { ModalStructure } from "pages";
+import React, { Dispatch, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useDispatch } from "react-redux";
@@ -8,15 +9,14 @@ import { GenericalPromise } from "services/generical.service";
 import { LoginFunc, ResponseLogin } from "services/Login/login.service";
 import { setTokenSessionStorage } from "services/multifuncionToken.service";
 import { changeLoadingData } from "store/reducers/loading.reducer";
-import { userToken } from "store/reducers/users.reducer";
 import Swal from "sweetalert2";
 
 interface Props {
   setRegister: React.SetStateAction<any>;
-  setOpen: React.SetStateAction<any>;
+  setOpen: Dispatch<React.SetStateAction<ModalStructure>>;
 }
 
-const LoginTarget = ({ setRegister, setOpen }: Props) => {
+const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
   const [t, i18n] = useTranslation<string>("global");
   const listRedirect = ["bcrservicos.com.br", "bcrcx.com"];
   const route = useRouter();
@@ -139,7 +139,7 @@ const LoginTarget = ({ setRegister, setOpen }: Props) => {
             <div className="flex flex-col py-2">
               <p
                 className="text-info font-bold w-full text-center decoration-solid cursor-pointer lg:!text-xs xl:!text-sm"
-                onClick={() => setOpen(true)}
+                onClick={() => setOpen((prev)=>({...prev, open:true}))}
               >
                 {t("login.¿Has_olvidado_la_contraseña?")}
               </p>

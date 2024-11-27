@@ -7,7 +7,6 @@ const ClosePlataform = ({ data }) => {
     i18n.resolvedLanguage === "por"
       ? data.descriptionPor.content[0].content[0].value.split("|")
       : data.description.content[0].content[0].value.split("|");
-  console.log(data, description);
 
   return (
     <main className="flex flex-col w-full h-screen justify-center items-center">

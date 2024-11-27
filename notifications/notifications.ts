@@ -39,7 +39,7 @@ export const NotiSwal = ({
 
   // Llama al método `fire` de la instancia personalizada
   Toast.fire({
-    icon: props.icon || "info", // Valor por defecto
+    icon: props.icon || "success", // Valor por defecto
     text: props.text || "Notificación", // Valor por defecto
   });
 };
