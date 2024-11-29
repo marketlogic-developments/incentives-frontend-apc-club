@@ -4,11 +4,21 @@ export interface GenericalPromise<T> {
   result: T;
 }
 
-export interface ErrorPromise{
-    code: number,
-    detail:string
+export interface ErrorPromise {
+  code: number;
+  detail: string;
 }
 
-export const HandleError=()=>{
-    
+export interface MultipleElements<T> {
+  page_number: number;
+  page_size: number;
+  total_pages: number;
+  total_record: number;
+  content: T;
 }
+
+export const HandleError = (err: any) => {
+  const { code, message } = err?.response.detail;
+
+  return null;
+};

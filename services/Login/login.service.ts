@@ -1,5 +1,5 @@
 import { API } from "services/connectapi.service";
-import { GenericalPromise } from "services/generical.service";
+import { GenericalPromise, HandleError } from "services/generical.service";
 
 interface UserLogIn {
   email: string;
@@ -33,13 +33,14 @@ export const LoginFunc = async (
     return response.data; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
     console.error("Error en la autenticación:", err);
-    const { code, message } = err?.response.detail;
-
-    return null; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    const error = HandleError(err);
+    return error; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
   }
 };
 
-export const ResetPasswordService = async (newPassword: ResetPassword): Promise<GenericalPromise<any> | null> => {
+export const ResetPasswordService = async (
+  newPassword: ResetPassword
+): Promise<GenericalPromise<any> | null> => {
   try {
     const response = await API.post<GenericalPromise<any>>(
       "/auth/change-password",
@@ -54,7 +55,9 @@ export const ResetPasswordService = async (newPassword: ResetPassword): Promise<
   }
 };
 
-export const RequestNewPasswordService = async (postData: RequestPassword): Promise<GenericalPromise<any> | null>  => {
+export const RequestNewPasswordService = async (
+  postData: RequestPassword
+): Promise<GenericalPromise<any> | null> => {
   try {
     const response = await API.post<GenericalPromise<any>>(
       "auth/recovery",
@@ -62,9 +65,9 @@ export const RequestNewPasswordService = async (postData: RequestPassword): Prom
     );
     return response.data;
   } catch (err: any) {
-    console.error("Error al solicitar el reinicio:", err);
-    const { code, message } = err?.response.detail;
+    console.error("Error en la autenticación:", err);
 
-    return null; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    const error = HandleError(err);
+    return error;
   }
 };
