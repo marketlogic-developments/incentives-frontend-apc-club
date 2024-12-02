@@ -39,6 +39,8 @@ export default function Home({ maintenance }: Props) {
       setOpen(() => ({ modal: 1, open: true }));
     }
 
+    console.log(tokenSession)
+
     if (tokenSession) {
       route.push("/dashboard");
     }

@@ -1,13 +1,14 @@
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { NotiSwal } from "notifications/notifications";
 import { ModalStructure } from "pages";
-import React, { Dispatch, useRef, useState } from "react";
+import React, { Dispatch, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { GenericalPromise } from "services/generical.service";
 import { LoginFunc, ResponseLogin } from "services/Login/login.service";
 import { setTokenSessionStorage } from "services/multifuncionToken.service";
+import { getCurrentUser } from "services/User/user.service";
 import { changeLoadingData } from "store/reducers/loading.reducer";
 import Swal from "sweetalert2";
 
@@ -28,6 +29,7 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
   //Form Inputs Login
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
 
   const handleSubmit = (
     e: React.FormEvent
@@ -64,6 +66,8 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
       } else {
         throw new Error("Token no encontrado en la respuesta"); // Manejo explícito de errores
       }
+
+      setDataUser()
     } catch (error) {
       NotiSwal({ icon: "error", text: "Error al iniciar sesión" }); // Notificar el error
     } finally {
@@ -71,9 +75,24 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
     }
   };
 
-  // const dispatchEvents=(userData,token,)=>{
-  //   dispatch(userToken())
-  // }
+  const setDataUser= async ():Promise<boolean | null>=>{
+    const res= await getCurrentUser()
+    try{
+      
+    if (res) {  
+      console.log(res.result)
+      return route.push("/dashboard")
+    } else {
+      throw new Error("Token no encontrado en la respuesta"); // Manejo explícito de errores
+    }
+
+
+    }catch(err:any){
+      console.error(err)
+      return null
+    }
+
+  }
 
   return (
     <div

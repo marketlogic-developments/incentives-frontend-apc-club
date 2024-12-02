@@ -5,7 +5,7 @@ const createInstance = (): AxiosInstance => {
         baseURL: 'https://incentives-backend-production.up.railway.app/api/',
         headers: { 
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*", 
+            "Access-Control-Allow-Origin": "*",  
         }
     });
 
@@ -13,7 +13,7 @@ const createInstance = (): AxiosInstance => {
     api.interceptors.request.use(
         (config) => {
             if (typeof window !== "undefined") {
-                const token = window.sessionStorage.getItem("infoDt"); // Leer el token en cada solicitud
+                const token = window.sessionStorage.getItem("token"); // Leer el token en cada solicitud
                 if (token) {
                     config.headers.Authorization = `Bearer ${token}`;
                 }
