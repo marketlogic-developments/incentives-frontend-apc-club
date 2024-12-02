@@ -30,7 +30,6 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-
   const handleSubmit = (
     e: React.FormEvent
   ): GenericalPromise<ResponseLogin> | void | Promise<boolean> => {
@@ -67,7 +66,7 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
         throw new Error("Token no encontrado en la respuesta"); // Manejo explícito de errores
       }
 
-      setDataUser()
+      setDataUser();
     } catch (error) {
       NotiSwal({ icon: "error", text: "Error al iniciar sesión" }); // Notificar el error
     } finally {
@@ -75,24 +74,20 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
     }
   };
 
-  const setDataUser= async ():Promise<boolean | null>=>{
-    const res= await getCurrentUser()
-    try{
-      
-    if (res) {  
-      console.log(res.result)
-      return route.push("/dashboard")
-    } else {
-      throw new Error("Token no encontrado en la respuesta"); // Manejo explícito de errores
+  const setDataUser = async (): Promise<boolean | null> => {
+    const res = await getCurrentUser();
+    try {
+      if (res) {
+        console.log(res.result);
+        return route.push("/dashboard");
+      } else {
+        throw new Error("Token no encontrado en la respuesta"); // Manejo explícito de errores
+      }
+    } catch (err: any) {
+      console.error(err);
+      return null;
     }
-
-
-    }catch(err:any){
-      console.error(err)
-      return null
-    }
-
-  }
+  };
 
   return (
     <div
@@ -158,7 +153,7 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
             <div className="flex flex-col py-2">
               <p
                 className="text-info font-bold w-full text-center decoration-solid cursor-pointer lg:!text-xs xl:!text-sm"
-                onClick={() => setOpen((prev)=>({...prev, open:true}))}
+                onClick={() => setOpen((prev) => ({ ...prev, open: true }))}
               >
                 {t("login.¿Has_olvidado_la_contraseña?")}
               </p>
