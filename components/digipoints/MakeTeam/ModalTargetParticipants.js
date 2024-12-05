@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setCompanyUsers } from "../../../store/reducers/users.reducer";
+import { setCompanyUsers } from "../../../store/reducers/currentUser.reducer";
 import UserItemListTeams from "./UserItemListTeams";
 import { useTranslation } from "react-i18next";
 

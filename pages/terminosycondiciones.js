@@ -6,7 +6,7 @@ import React, { useEffect, useMemo, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { userLogin } from "../store/reducers/users.reducer";
+import { userLogin } from "../store/reducers/currentUser.reducer";
 
 const terminosycondiciones = () => {
   const route = useRouter();

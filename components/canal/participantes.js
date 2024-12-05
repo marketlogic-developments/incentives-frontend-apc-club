@@ -7,7 +7,10 @@ import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Modal } from "@mantine/core";
 import axios from "axios";
-import { getRolesData, getUsersData } from "../../store/reducers/users.reducer";
+import {
+  getRolesData,
+  getUsersData,
+} from "../../store/reducers/currentUser.reducer";
 import AgregarParticipante from "../participantes/AgregarParticipante";
 
 const Participantes = () => {

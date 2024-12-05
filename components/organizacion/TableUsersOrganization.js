@@ -10,7 +10,7 @@ import axios from "axios";
 import ReactPaginate from "react-paginate";
 import { useMemo } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { userActions } from "../../store/reducers/users.reducer";
+import { userActions } from "../../store/reducers/currentUser.reducer";
 import Swal from "sweetalert2";
 
 const TableUsersOrganization = () => {

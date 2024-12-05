@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { alert } from "../../alert/Alert";
 import { useEffect } from "react";
-import { userUpdate } from "../../../store/reducers/users.reducer";
+import { userUpdate } from "../../../store/reducers/currentUser.reducer";
 
 const FormTC = ({ opened, setContent, setModal }) => {
   const user = useSelector((state) => state.user.user);

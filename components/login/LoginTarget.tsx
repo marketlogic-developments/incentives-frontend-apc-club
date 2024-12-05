@@ -5,11 +5,12 @@ import React, { Dispatch, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { GenericalPromise } from "services/generical.service";
+import { GenericalPromise, HandleError } from "services/generical.service";
 import { LoginFunc, ResponseLogin } from "services/Login/login.service";
 import { setTokenSessionStorage } from "services/multifuncionToken.service";
-import { getCurrentUser } from "services/User/user.service";
+import { CurrentUser, getCurrentUser } from "services/User/user.service";
 import { changeLoadingData } from "store/reducers/loading.reducer";
+import { userLogin } from "store/reducers/currentUser.reducer";
 import Swal from "sweetalert2";
 
 interface Props {
@@ -68,7 +69,7 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
 
       setDataUser();
     } catch (error) {
-      NotiSwal({ icon: "error", text: "Error al iniciar sesión" }); // Notificar el error
+      console.log(error);
     } finally {
       dispatch(changeLoadingData(false)); // Siempre desactivar el estado de carga
     }
@@ -77,16 +78,31 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
   const setDataUser = async (): Promise<boolean | null> => {
     const res = await getCurrentUser();
     try {
-      if (res) {
-        console.log(res.result);
-        return route.push("/dashboard");
-      } else {
-        throw new Error("Token no encontrado en la respuesta"); // Manejo explícito de errores
+      if (!res) {
+        throw new Error("Failed Login, try again");
       }
+
+      const tyCStatus = res.result.status.find(
+        ({ name }) => name === "POLICIES"
+      );
+
+      return RedirectionTC(!tyCStatus?.status);
     } catch (err: any) {
       console.error(err);
       return null;
     }
+  };
+
+  const RedirectionTC = (status: boolean) => {
+    if (status) {
+      return route.push("/terminosycondiciones");
+    }
+
+    return route.push("/dashboard");
+  };
+
+  const actionsDispatch = (dataUser: CurrentUser): void => {
+    dispatch(userLogin());
   };
 
   return (

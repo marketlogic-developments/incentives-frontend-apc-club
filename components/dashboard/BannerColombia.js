@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { userUpdate } from "../../store/reducers/users.reducer";
+import { userUpdate } from "../../store/reducers/currentUser.reducer";
 import { useRouter } from "next/router";
 
 const BannerColombia = ({ user, token }) => {

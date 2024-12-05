@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPartnerTycData } from "../../../../store/reducers/users.reducer";
+import { getPartnerTycData } from "../../../../store/reducers/currentUser.reducer";
 import {
   ArrowDown,
   CloudDownload,

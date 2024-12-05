@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { PhoneInput } from "react-international-phone";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { policyAndPassword } from "../../../store/reducers/users.reducer";
+import { policyAndPassword } from "../../../store/reducers/currentUser.reducer";
 
 const ModalUpdateData = ({ onClose }) => {
   const [t, i18n] = useTranslation("global");

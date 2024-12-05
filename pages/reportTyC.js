@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import * as XLSX from "xlsx";
 import ContainerContent from "../components/containerContent";
 import TableTyc from "../components/terminosycondiciones/Reportería/tableTyc";
-import { getUsersData } from "../store/reducers/users.reducer";
+import { getUsersData } from "../store/reducers/currentUser.reducer";
 
 const reportTyC = () => {
   const [jsonData2, setJsonData2] = useState(null);

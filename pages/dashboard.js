@@ -6,7 +6,7 @@ import axios from "axios";
 import {
   policyAndPassword,
   getPointsData,
-} from "../store/reducers/users.reducer";
+} from "../store/reducers/currentUser.reducer";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import GraphSales from "../components/dashboard/graphSales";

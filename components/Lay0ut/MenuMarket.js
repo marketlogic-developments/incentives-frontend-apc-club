@@ -6,7 +6,7 @@ import {
 } from "../../store/reducers/awards.reducer";
 import CardMenuMarket from "./MenuMarket/CardMenuMarket";
 import { useMemo } from "react";
-import { setDigipoints } from "../../store/reducers/users.reducer";
+import { setDigipoints } from "../../store/reducers/currentUser.reducer";
 import axios from "axios";
 import { ordersPush } from "../../store/reducers/orders.reducer";
 import { Modal } from "@mantine/core";

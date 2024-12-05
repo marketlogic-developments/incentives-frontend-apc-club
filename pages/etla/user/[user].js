@@ -8,7 +8,7 @@ import ContainerContent from "../../../components/containerContent";
 import {
   policyAndPassword,
   userUpdate,
-} from "../../../store/reducers/users.reducer";
+} from "../../../store/reducers/currentUser.reducer";
 import ModalPassword from "../../../components/user/modalPassword";
 import Swal from "sweetalert2";
 import { DateInput } from "@mantine/dates";

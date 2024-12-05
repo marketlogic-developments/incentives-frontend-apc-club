@@ -9,7 +9,7 @@ import axios from "axios";
 import {
   getDigiPoints,
   setDigipoints,
-} from "../../store/reducers/users.reducer";
+} from "../../store/reducers/currentUser.reducer";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 

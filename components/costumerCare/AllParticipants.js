@@ -2,7 +2,10 @@ import Head from "next/head";
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ContainerContent from "../containerContent";
-import { getUsersData, getRolesData } from "../../store/reducers/users.reducer";
+import {
+  getUsersData,
+  getRolesData,
+} from "../../store/reducers/currentUser.reducer";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import ReactPaginate from "react-paginate";

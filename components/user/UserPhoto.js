@@ -3,7 +3,7 @@ import React from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { userUpdate } from "../../store/reducers/users.reducer";
+import { userUpdate } from "../../store/reducers/currentUser.reducer";
 import { useTranslation } from "react-i18next";
 
 const UserPhoto = ({ formData }) => {

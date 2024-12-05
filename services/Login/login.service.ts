@@ -24,7 +24,7 @@ interface RequestPassword {
 
 export const LoginFunc = async (
   postData: UserLogIn
-): Promise<GenericalPromise<ResponseLogin> | null> => {
+): Promise<GenericalPromise<ResponseLogin> | void> => {
   try {
     const response = await API.post<GenericalPromise<ResponseLogin>>(
       "authentication/login",
@@ -32,15 +32,13 @@ export const LoginFunc = async (
     );
     return response.data; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
-    console.error("Error en la autenticación:", err);
-    const error = HandleError(err);
-    return error; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    return HandleError(err); // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
   }
 };
 
 export const ResetPasswordService = async (
   newPassword: ResetPassword
-): Promise<GenericalPromise<any> | null> => {
+): Promise<GenericalPromise<any> | void> => {
   try {
     const response = await API.post<GenericalPromise<any>>(
       "/auth/change-password",
@@ -48,16 +46,13 @@ export const ResetPasswordService = async (
     );
     return response.data;
   } catch (err: any) {
-    console.error("Error al cambiar la contraseña:", err);
-    const { code, message } = err?.response.detail;
-
-    return null; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    return HandleError(err); // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
   }
 };
 
 export const RequestNewPasswordService = async (
   postData: RequestPassword
-): Promise<GenericalPromise<any> | null> => {
+): Promise<GenericalPromise<any> | void> => {
   try {
     const response = await API.post<GenericalPromise<any>>(
       "auth/recovery",
@@ -65,9 +60,6 @@ export const RequestNewPasswordService = async (
     );
     return response.data;
   } catch (err: any) {
-    console.error("Error en la autenticación:", err);
-
-    const error = HandleError(err);
-    return error;
+    return HandleError(err);
   }
 };

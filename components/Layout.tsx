@@ -13,7 +13,7 @@ import {
   setInitialStateUser,
   userLogin,
   userToken,
-} from "../store/reducers/users.reducer";
+} from "../store/reducers/currentUser.reducer";
 import MobileMenu from "./MobileMenu";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
@@ -53,7 +53,11 @@ import ModalInfoAPC from "./Lay0ut/ModalInfoAPC";
 import ETLA from "../public/assets/Icons/ETLA";
 import ModalTCETLA from "./ETLA/Modals/ModalTCETLA";
 
-const Layout = ({ children }) => {
+interface MyComponentProps {
+  children: React.ReactNode;
+}
+
+const Layout: React.FC<MyComponentProps> = ({ children }) => {
   const digipoints = useSelector((state) => state.user.digipoints);
   const userRedux = useSelector((state) => state.user.user);
   const video = useSelector((state) => state.contentful.videos[0]);
@@ -125,11 +129,6 @@ const Layout = ({ children }) => {
       setOpened(true);
     }
 
-    if (userRedux.inprogram === "adobeetla" && !userRedux.policyetla) {
-      setModal(5);
-      setOpened(true);
-    }
-
     if (verifytcResult) {
       setModal(3);
       setOpened(true);
@@ -137,7 +136,7 @@ const Layout = ({ children }) => {
   }, [userRedux, verifytcResult, video]);
 
   useEffect(() => {
-    if (window.sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
+    if (sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
       const userGetData = JSON.parse(window.sessionStorage.getItem("infoDt"));
       dispatch(setDataSession(userGetData));
 

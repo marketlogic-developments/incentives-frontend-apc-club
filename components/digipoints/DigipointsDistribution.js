@@ -9,7 +9,7 @@ import axios from "axios";
 import {
   getDigiPoints,
   setDigipoints,
-} from "../../store/reducers/users.reducer";
+} from "../../store/reducers/currentUser.reducer";
 import ModalDistribution from "./DpDistribution/ModalDistribution";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";

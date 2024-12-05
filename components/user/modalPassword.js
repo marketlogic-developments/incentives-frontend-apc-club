@@ -11,7 +11,7 @@ import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
 } from "react-icons/ai";
-import { policyAndPassword } from "../../store/reducers/users.reducer";
+import { policyAndPassword } from "../../store/reducers/currentUser.reducer";
 
 const ModalPassword = ({ setOpened }) => {
   const token = useSelector((state) => state.user.token);

@@ -11,7 +11,7 @@ import {
   getUsers,
   getUsersData,
   setCompanyUsers,
-} from "../store/reducers/users.reducer";
+} from "../store/reducers/currentUser.reducer";
 
 const digipoints = () => {
   const [t, i18n] = useTranslation("global");

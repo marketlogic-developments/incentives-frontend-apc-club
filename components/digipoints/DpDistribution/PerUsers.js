@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { setCompanyUsers } from "../../../store/reducers/users.reducer";
+import { setCompanyUsers } from "../../../store/reducers/currentUser.reducer";
 import axios from "axios";
 import { Triangle } from "react-loader-spinner";
 

@@ -13,7 +13,7 @@ import {
   shoopingCarPush,
 } from "../store/reducers/awards.reducer";
 import { ordersPush } from "../store/reducers/orders.reducer";
-import { setDigipoints } from "../store/reducers/users.reducer";
+import { setDigipoints } from "../store/reducers/currentUser.reducer";
 
 const shoppingCar = () => {
   const user = useSelector((state) => state.user.user);

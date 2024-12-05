@@ -13,7 +13,7 @@ import {
   teamsPush,
   teamsUpdate,
 } from "../../store/reducers/teams.reducer";
-import { getUsersData } from "../../store/reducers/users.reducer";
+import { getUsersData } from "../../store/reducers/currentUser.reducer";
 import ModalTargetParticipants from "./MakeTeam/ModalTargetParticipants";
 import ModalCreateTeam from "./MakeTeam/ModalCreateTeam";
 import jsonexport from "jsonexport";

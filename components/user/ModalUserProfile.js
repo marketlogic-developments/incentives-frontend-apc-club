@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import { alert } from "../alert/Alert";
 import axios from "axios";
-import { userUpdate } from "../../store/reducers/users.reducer";
+import { userUpdate } from "../../store/reducers/currentUser.reducer";
 import { useDispatch } from "react-redux";
 
 const ModalUserProfile = ({ user, closeModal, token }) => {

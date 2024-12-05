@@ -1,6 +1,6 @@
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
-import { userUpdate } from "../../store/reducers/users.reducer";
+import { userUpdate } from "../../store/reducers/currentUser.reducer";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { Video } from "cloudinary-react";
