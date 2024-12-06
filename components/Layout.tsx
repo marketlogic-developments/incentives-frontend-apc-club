@@ -1,15 +1,12 @@
-import { useMemo } from "react";
+import { FC, useMemo } from "react";
 import { Menu, Modal } from "@mantine/core";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  InitialStateUserReducer,
   loadingUser,
-  setCompany,
-  setDataSession,
-  setDigipoints,
-  setDistribuitor,
   setInitialStateUser,
   userLogin,
   userToken,
@@ -27,10 +24,8 @@ import { setInitialStateOrders } from "../store/reducers/orders.reducer";
 import { setInitialStateSales } from "../store/reducers/sales.reducer";
 import { setInitialStateTeams } from "../store/reducers/teams.reducer";
 import { useState } from "react";
-import ModalFormCustomer from "./Lay0ut/ModalFormCustomer";
 import DigiPointsCard from "./Lay0ut/DigiPointsCard";
 import MenuAPC from "./Lay0ut/Menu";
-import Logo10 from "./Lay0ut/Logo10";
 import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
 import UserOptions from "./Lay0ut/UserOptions";
 import ContainerContent from "./containerContent";
@@ -38,11 +33,8 @@ import MenuMarket from "./Lay0ut/MenuMarket";
 import ModalCustomerCare from "./costumerCare/modal/ModalCustomerCare";
 import {
   CloseCircle,
-  Bell,
-  Whatsapp,
   Menu as MenuLines,
   ShoppingCard,
-  Megaphone,
 } from "./icons";
 import ModalPersonalize from "./Lay0ut/ModalPersonalize";
 import EyeObserver from "./Lay0ut/SwitchUser/EyeObserver";
@@ -52,34 +44,36 @@ import ModalTCPa from "./Lay0ut/Modals/ModalTCPa";
 import ModalInfoAPC from "./Lay0ut/ModalInfoAPC";
 import ETLA from "../public/assets/Icons/ETLA";
 import ModalTCETLA from "./ETLA/Modals/ModalTCETLA";
+import { RootState } from "store/store";
+import { getTokenSessionStorage } from "services/multifuncionToken.service";
+import { getCurrentUser } from "services/User/user.service";
 
 interface MyComponentProps {
   children: React.ReactNode;
 }
 
 const Layout: React.FC<MyComponentProps> = ({ children }) => {
-  const digipoints = useSelector((state) => state.user.digipoints);
-  const userRedux = useSelector((state) => state.user.user);
-  const video = useSelector((state) => state.contentful.videos[0]);
-  const token = useSelector((state) => state.user.token);
-  const loading = useSelector((state) => state.user.loading);
-  const loadingData = useSelector((state) => state.loadingData.loadingData);
+  const {user,userSwitch,token,digipoints,loading,organization,status} = useSelector((state:RootState) => state.currentUser);
+  const video = useSelector((state:RootState) => state.contentful.videos[0]);
+  const loadingData = useSelector((state:RootState) => state.loadingData.loadingData);
   const dispatch = useDispatch();
   const location =
     typeof window !== "undefined" ? window.location.pathname : "";
   const router = useRouter();
-  const sections = ["/", "/terminosycondiciones", "/registro"];
+  const sections = ["/", "/terminosycondiciones"];
   const [t, i18n] = useTranslation("global");
   const [modal, setModal] = useState(0);
-  const [modalCustomer, setModalCustomer] = useState(false);
   const [opened, setOpened] = useState(false);
   const [collapse, setCollapse] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [menuUser, setMenuUser] = useState(false);
-  const menuMarket = useSelector((state) => state.awards.menuMarket);
-  const [screen, setScreen] = useState();
-  const dataSession = useSelector((state) => state.user.userSwitch);
+  const menuMarket = useSelector((state:RootState) => state.awards.menuMarket);
+  const [screen, setScreen] = useState<number>();
   const [verifytcResult, setVerifytcResult] = useState(false);
+
+  const tyCStatus = user?.status.find(
+    ({ name }) => name === "POLICIES"
+  );
 
   useEffect(() => {
     setScreen(window.innerWidth);
@@ -96,24 +90,24 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
 
   const verifytc = useMemo(
     () =>
-      userRedux !== 0 &&
+      user &&
       VerifyTC(
         token,
-        userRedux.companyId !== null
-          ? userRedux.companyId
-          : userRedux.distributionChannelId,
-        userRedux.companyId !== null ? "companies" : "distribution-channel"
+        organization
       ).then((res) => setVerifytcResult(res)),
-    [userRedux]
+    [user]
   );
 
   useEffect(() => {
+    const VideoKey = user?.status.find(
+      ({ name }) => name === video?.key
+    );
+
     if (
-      userRedux.cpf !== video?.key &&
-      video?.key !== undefined &&
-      userRedux !== 0 &&
-      location === "/dashboard" &&
-      dataSession.prevData === undefined
+      VideoKey?.name &&
+      user &&
+      location === "/dashboard" 
+      // userSwitch.prevData === undefined
     ) {
       setModal(4);
       setTimeout(() => {
@@ -122,8 +116,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     }
 
     if (
-      userRedux.user_update_data === null ||
-      userRedux.user_update_data === false
+      tyCStatus?.status === false
     ) {
       setModal(2);
       setOpened(true);
@@ -133,121 +126,11 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
       setModal(3);
       setOpened(true);
     }
-  }, [userRedux, verifytcResult, video]);
+  }, [user, verifytcResult, video]);
+
 
   useEffect(() => {
-    if (sessionStorage.getItem("infoDt") !== null && userRedux === 0) {
-      const userGetData = JSON.parse(window.sessionStorage.getItem("infoDt"));
-      dispatch(setDataSession(userGetData));
-
-      axios
-        .get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${userGetData?.id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              Authorization: `Bearer ${userGetData?.token}`,
-            },
-          }
-        )
-        .then((userInfo) => {
-          //Get user digiPoints
-          axios
-            .get(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/digipoints-redeem-status/${userGetData?.id}`,
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  "Access-Control-Allow-Origin": "*",
-                  Authorization: `Bearer ${userGetData?.token}`,
-                },
-              }
-            )
-            .then((dpInfo) => {
-              const [digipoints] = dpInfo.data;
-              if (dpInfo.data.length === 0) {
-                dispatch(
-                  setDigipoints({
-                    assigned_points: 0,
-                    cart_points: 0,
-                  })
-                );
-              } else {
-                dispatch(setDigipoints(digipoints));
-              }
-            });
-
-          //Verify if user is associate with a company or Distribuitor
-
-          const compOrDist =
-            userInfo.data.companyId !== null &&
-            userInfo.data.distributionChannelId === null
-              ? {
-                  endpoint: "companies",
-                  byId: userInfo.data.companyId,
-                }
-              : {
-                  endpoint: "distribution-channel",
-                  byId: userInfo.data.distributionChannelId,
-                };
-
-          axios
-            .get(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}/${compOrDist.endpoint}/${compOrDist.byId}`,
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                  "Access-Control-Allow-Origin": "*",
-                  Authorization: `Bearer ${userGetData.token}`,
-                },
-              }
-            )
-            .then(({ data }) => {
-              if (compOrDist.endpoint === "distribution-channel") {
-                dispatch(setDistribuitor(data));
-              } else {
-                dispatch(setCompany(data));
-              }
-            })
-            .catch((err) => {
-              if (err.message === "Request failed with status code 404") {
-                dispatch(
-                  setCompany({
-                    CreatedAt: 0,
-                    id: 0,
-                    name: "Sin canal / distribuidor",
-                    representativeId: 0,
-                    phoneNumber: "000000",
-                    operationStatusId: 0,
-                    distChannelsId: "No",
-                    maxDayAssign: 0,
-                    resellerMasterId: "",
-                    goalsPerQuarter: "",
-                    goalsPerYear: "",
-                    partnerAdmin: {
-                      name: "No",
-                    },
-                  })
-                );
-              }
-            })
-            .finally(() => {
-              dispatch(userLogin(userInfo.data));
-              dispatch(userToken(userGetData.token));
-              language(userInfo.data.languageId);
-              redirection(userInfo.data.policy, userInfo.data);
-              dispatch(loadingUser(true));
-            });
-        });
-    } else {
-      if (userRedux !== 0) {
-        redirection(userRedux.policy, userRedux);
-        language(userRedux?.languageId);
-      } else {
-        dispatch(loadingUser(true));
-      }
-    }
+    
   }, [location]);
 
   useEffect(() => {
@@ -258,15 +141,13 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
 
   const profileImage = (
     <div className="bg-[#1473E6] rounded-full btn btn-circle btn-sm border-none hover:bg-[#1473E6]">
-      {userRedux.profilePhotoPath === null ||
-      userRedux.profilePhotoPath === "" ||
-      userRedux.profilePhotoPath === "noImage" ? (
+      {!user?.profile.photoProfile ? (
         <p className="text-white text-center flex w-full h-full items-center justify-center">
-          {userRedux?.names[0]}
+          {user?.profile.first_name}
         </p>
       ) : (
         <img
-          src={userRedux.profilePhotoPath}
+          src={user?.profile.photoProfile}
           className="w-full h-full rounded-full"
           alt="Avatar"
         />
@@ -275,9 +156,9 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   );
 
   useEffect(() => {
-    let timeoutId;
+    let timeoutId:NodeJS.Timeout;
 
-    if (userRedux !== 0) {
+    if (user) {
       const handleVisibilityChange = () => {
         if (document.visibilityState === "hidden") {
           timeoutId = setTimeout(function () {
@@ -304,22 +185,14 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     if (location === "/") {
       dispatch(loadingUser(true));
     }
-  }, [userRedux]);
+  }, [user]);
 
   const closeModal = () => {
     setOpened(!opened);
   };
 
-  const language = (rolNum) => {
-    if (rolNum === 1) {
-      return i18n.changeLanguage("por");
-    }
-    if (rolNum === 2) {
-      return i18n.changeLanguage("es");
-    }
-    if (rolNum === 3) {
-      return i18n.changeLanguage("en");
-    }
+  const language = (leng: "es" | "en" | "por" | string) => {
+    i18n.changeLanguage(leng);
   };
 
   const locations = [
@@ -894,31 +767,18 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     },
   ];
 
-  const redirection = (tyc, data) => {
-    const userCanales = [null, "adobe", "adobeetla", undefined].includes(
-      data.inprogram
-    );
-    const userEtla = data.inprogram === "etla";
-
-    if (userEtla && !data.policyetla) {
-      console.log("redirtigiendo a tc");
-      return router.push("/etla/terminosycondiciones");
-    }
-
-    if (!tyc && userCanales) {
+  const redirection = (tyc:boolean) => {
+    if (!tyc) {
       return router.push("/terminosycondiciones");
     }
 
-    if (location === "/etla/terminosycondiciones") {
-      return router.push("/etla/dashboardEtla");
-    }
 
-    if (location === "/terminosycondiciones") {
+    if (location === "/terminosycondiciones" && tyc) {
       return router.push("/dashboard");
     }
   };
 
-  const href = (page) => {
+  const href = (page:string) => {
     if (showMenu) {
       setShowMenu(false);
     }
@@ -927,16 +787,15 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   };
 
   const logout = () => {
+    router.push("/");
     dispatch(setInitialStateAwards());
     dispatch(setInitialStateCompany());
     dispatch(setInitialStateOrders());
     dispatch(setInitialStateTeams());
     dispatch(setInitialStateSales());
     dispatch(setInitialStateUser());
-    window.sessionStorage.removeItem("infoDt");
-    Cookies.remove("dp");
+    sessionStorage.removeItem("infoDt");
     dispatch(loadingUser(true));
-    router.push("/");
   };
 
   const typeModal = useMemo(() => {
@@ -962,12 +821,12 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     }
   }, [modal, opened]);
 
-  const menu = (n) => {
-    if (userRedux !== 0) {
+  const menu = (n:number):React.ReactNode => {
+    if (user) {
       return locations
         .filter(({ page }) => {
           if (n === 1) {
-            if (userRedux.roleId === 1) {
+            if (user.roles === 1) {
               return [
                 "/dashboard",
                 "/digipointsall",
@@ -975,7 +834,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                 "/comunicado",
               ].includes(page);
             }
-            if (userRedux.roleId === 3) {
+            if (user.roles === 3) {
               return [
                 "/dashboard",
                 "/digipoints/mydigipoints",
@@ -984,13 +843,13 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
               ].includes(page);
             }
 
-            if (userRedux.roleId === 2) {
+            if (user.roles === 2) {
               return ["/dashboard", "/puntosporventas", "/comunicado"].includes(
                 page
               );
             }
 
-            if (userRedux.roleId === 5) {
+            if (user.roles === 5) {
               return [
                 "/dashboard",
                 "/digipoints/mydigipoints",
@@ -1000,10 +859,10 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             }
           }
           if (n === 2) {
-            if (userRedux.email === "bea24468@adobe.com") {
+            if (user.email === "bea24468@adobe.com") {
               return;
             }
-            if (userRedux.roleId === 1) {
+            if (user.roles === 1) {
               return [
                 "/herramientas",
                 "/puntosporventas",
@@ -1011,7 +870,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
               ].includes(page);
             }
 
-            if (userRedux.roleId === 3) {
+            if (user.roles === 3) {
               return ["/ManagmentDigipoints" /*"/puntosporventas"*/].includes(
                 page
               );
@@ -1028,7 +887,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             href={href}
             location={location}
             collapse={collapse}
-            dataUserSwitch={dataSession}
+            dataUserSwitch={userSwitch}
           />
         ));
     }
@@ -1044,7 +903,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
 
       const subsectionText = locationsWithSubsections
         .flat()
-        .find((item) => item.page === location);
+        .find((item) => item?.page === location);
 
       if (subsectionText === undefined) {
         if (location.includes("user")) {
@@ -1167,8 +1026,8 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
         centered
         size={"auto"}
         overlayProps={{
-          backgroundOpacity: [0, 3].includes(modal) ? 1 : 0.55,
           blur: 5,
+          opacity:[0, 3].includes(modal) ? 1 : 0.55,
         }}
         transitionProps={{ transition: "rotate-left" }}
         closeButtonProps={{
@@ -1186,9 +1045,9 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             <div
               className={`containerLayout`}
               style={{
-                "--wmenu": collapse ? "5.56%" : "18.3%",
-                "--wminmenu": collapse ? "82px" : "256px",
-                "--showmenu": showMenu ? "flex" : "none",
+                ["--wmenu" as any]: collapse ? "5.56%" : "18.3%",
+                ["--wminmenu" as any]: collapse ? "82px" : "256px",
+                ["--showmenu" as any]: showMenu ? "flex" : "none",
               }}
             >
               <div className="flex flex-col py-6 gap-6 h-full">
@@ -1207,7 +1066,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                   <div
                     className="logoAdobe cursor-pointer"
                     style={{
-                      "--wlogo": collapse ? "100%" : "60%",
+                      ["--wlogo" as any]: collapse ? "100%" : "60%",
                     }}
                     onClick={() => router.push("/dashboard")}
                   >
@@ -1227,7 +1086,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                 </div>
                 <div className="flex flex-col gap-6 overflow-y-scroll scrollMenu w-full">
                   <div className="containerRedirections gap-2">{menu(1)}</div>
-                  {userRedux.roleId !== 5 && (
+                  {user.roleId !== 5 && (
                     <>
                       <hr className="mx-6" />
                       <div className="containerRedirections gap-2">

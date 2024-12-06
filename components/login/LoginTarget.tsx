@@ -86,6 +86,8 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
         ({ name }) => name === "POLICIES"
       );
 
+      console.log(tyCStatus)
+
       return RedirectionTC(!tyCStatus?.status);
     } catch (err: any) {
       console.error(err);
@@ -102,7 +104,7 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
   };
 
   const actionsDispatch = (dataUser: CurrentUser): void => {
-    dispatch(userLogin());
+    dispatch(userLogin({ ...dataUser, token: "a" }));
   };
 
   return (

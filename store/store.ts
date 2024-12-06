@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import awardsAction from "./reducers/awards.reducer";
 import ordersAction from "./reducers/orders.reducer";
+import currentUserActions from "./reducers/currentUser.reducer";
 import userActions from "./reducers/currentUser.reducer";
 import saleActions from "./reducers/sales.reducer";
 import teamsAction from "./reducers/teams.reducer";
@@ -11,6 +12,7 @@ import contentfulAction from "./reducers/contentful.reducer";
 
 export const store = configureStore({
   reducer: {
+    currentUser: currentUserActions,
     user: userActions,
     awards: awardsAction,
     orders: ordersAction,
@@ -22,3 +24,7 @@ export const store = configureStore({
     contentful: contentfulAction,
   },
 });
+
+// Tipo RootState
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

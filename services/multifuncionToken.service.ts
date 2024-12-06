@@ -6,7 +6,7 @@ export const getTokenSessionStorage = (): string | null => {
   const tk = sessionStorage.getItem("token");
 
   if (!tk) {
-console.error("Error to catch token");
+    console.error("Error to catch token");
     return null
   }
 

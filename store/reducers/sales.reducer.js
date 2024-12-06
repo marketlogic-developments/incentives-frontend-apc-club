@@ -114,7 +114,7 @@ export const saleActions = createSlice({
       state.getsalesvsgoalsuseper = action.payload;
     },
 
-    setInitialStateSales: (state, action) => {
+    setInitialStateSales: () => {
       return initialState;
     },
   },

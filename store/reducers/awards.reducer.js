@@ -31,7 +31,7 @@ export const awardsAction = createSlice({
       state.menuMarket = action.payload;
     },
 
-    setInitialStateAwards: (state, action) => {
+    setInitialStateAwards: () => {
       return initialState;
     },
   },

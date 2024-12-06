@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+interface Is{
+  videos: any[],
+  comunicates:any[]
+}
+
+const initialState:Is = {
   comunicates: [],
   videos: [],
 };
@@ -16,7 +21,7 @@ export const contentfulAction = createSlice({
       state.videos = action.payload;
     },
 
-    setInitialStateCompany: (state, action) => {
+    setInitialStateCompany: () => {
       return initialState;
     },
   },

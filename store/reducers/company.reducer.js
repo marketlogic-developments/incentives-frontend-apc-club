@@ -25,7 +25,7 @@ export const companyAction = createSlice({
       state.usersCompany = action.payload;
     },
 
-    setInitialStateCompany: (state, action) => {
+    setInitialStateCompany: () => {
       return initialState;
     },
   },

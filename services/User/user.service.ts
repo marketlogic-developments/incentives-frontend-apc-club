@@ -4,7 +4,7 @@ import { Group } from "services/Groups/groups.service";
 import { Roles } from "services/Roles/roles.service";
 
 export interface CurrentUser {
-  email: "user@example.com";
+  email: string;
   is_active: true;
   is_superuser: true;
   profile: Profile;
@@ -14,10 +14,12 @@ export interface CurrentUser {
 }
 
 export interface Profile {
-  first_name: "string";
-  last_name: "string";
-  document: "string";
-  birth_date: "2019-08-24";
+  first_name: string;
+  last_name: string;
+  document: string;
+  birth_date: Date;
+  photoProfile: string;
+  languaje: string;
 }
 
 export interface StatusUser {

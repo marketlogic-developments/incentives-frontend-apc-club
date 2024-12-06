@@ -15,7 +15,7 @@ export const ordersAction = createSlice({
     getAllOrders: (state, action) => {
       state.orders = action.payload;
     },
-    setInitialStateOrders: (state, action) => {
+    setInitialStateOrders: () => {
       return initialState;
     },
   },

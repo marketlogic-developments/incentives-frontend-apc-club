@@ -15,7 +15,7 @@ export const promosAction = createSlice({
     getAllPromos: (state, action) => {
       state.promos = action.payload;
     },
-    setInitialStatePromos: (state, action) => {
+    setInitialStatePromos: () => {
       return initialState;
     },
   },

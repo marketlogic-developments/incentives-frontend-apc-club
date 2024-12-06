@@ -17,7 +17,6 @@ import global_en from "../translation/en/global.json";
 import { Html } from "next/document";
 import Head from "next/head";
 import Script from "next/script";
-import LayoutEtla from "../components/LayoutEtla";
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -102,35 +101,7 @@ export default function MyApp({ Component, pageProps }) {
       <I18nextProvider i18n={i18next}>
         <Provider store={store}>
           <MantineProvider withGlobalStyles withNormalizeCSS>
-            {location.includes("/etla") ? (
-              <LayoutEtla>
-                <Component {...pageProps} />
-                <Head>
-                  {/* Global Site Tag (gtag.js) - Google Analytics */}
-                  <script
-                    async
-                    src={`https://www.googletagmanager.com/gtag/js?id=G-V1T7B23T0N`}
-                  />
-                  <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-                  />
-                  <script
-                    dangerouslySetInnerHTML={{
-                      __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-V1T7B23T0N', {
-              page_path: window.location.pathname,
-            });
-          `,
-                    }}
-                  />
-                </Head>
-              </LayoutEtla>
-            ) : (
-              <Layout>
+          <Layout>
                 <Component {...pageProps} />
                 <Head>
                   {/* Global Site Tag (gtag.js) - Google Analytics */}
@@ -170,7 +141,6 @@ export default function MyApp({ Component, pageProps }) {
                   }}
                 />
               </Layout>
-            )}
           </MantineProvider>
         </Provider>
       </I18nextProvider>

@@ -1,42 +1,46 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import organizacion from "pages/organizacion";
 import { CurrentUser, StatusUser } from "services/User/user.service";
 
-interface InitialStateUserReducer {
+export interface InitialStateUserReducer {
   user: CurrentUser | null;
   token: string | null;
   loading: boolean;
   error: null;
-  users: CurrentUser[];
-  organization: {};
-  digipoints: {};
+  organization: any;
+  digipoints: any;
   status: StatusUser[];
-  ranking: [];
   userSwitch: CurrentUser | null;
-  companyUsers: [];
 }
 
-const initialState = {
+interface addTokenCurrentUser extends CurrentUser{
+  token: string
+}
+
+const initialState: InitialStateUserReducer = {
   user: null,
   token: null,
   loading: false,
   error: null,
   organization: null,
   digipoints: null,
-  userSwitch: {},
+  userSwitch: null,
+  status:[]
 };
+
 
 export const currentUserActions = createSlice({
   name: "currentUser",
   initialState,
   reducers: {
-    userLogin: ({ user, organization, digipoints, token }, action) => {
+    userLogin: ({ user, organization, digipoints, token }, action:PayloadAction<addTokenCurrentUser>) => {
       user = action.payload;
       token = action.payload.token;
       organization = action.payload;
+      digipoints = action.payload
     },
     userToken: ({ token }, action) => {
       token = action.payload;
@@ -60,7 +64,7 @@ export const currentUserActions = createSlice({
       digipoints = action.payload;
     },
 
-    setInitialStateUser: (state, action) => {
+    setInitialStateUser: () => {
       return initialState;
     },
   },

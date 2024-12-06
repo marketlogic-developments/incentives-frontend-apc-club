@@ -11,7 +11,6 @@ const MenuAPC = ({
   href,
   location,
   collapse,
-  setFloatMenu,
   dataUserSwitch,
 }) => {
   const [drop, setDrop] = useState(false);
