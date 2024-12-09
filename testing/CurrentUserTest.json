@@ -1,0 +1,47 @@
+{
+    "id": "824c2f06-b400-45ec-9dc5-66d45c006ed6",
+    "email": "user@example.com",
+    "is_active": true,
+    "is_superuser": true,
+    "profile": {
+      "id": "660137d2-3df4-4530-9352-0685ac88a7f3",
+      "first_name": "Usuario",
+      "last_name": "Test",
+      "document": "0000000",
+      "birth_date": "2024-11-01",
+	  "photoProfile":"",
+	  "language":"es",
+      "organization": {
+		
+	  },
+      "digipoints": {
+        "historical": 10000,
+        "redeemed": 5000,
+        "current": 5000
+      }
+    },
+    "status": [
+      {
+        "name": "POLICIES",
+        "status": false
+      },
+      {
+        "name": "RESET_PASSWORD",
+        "status": false
+      },
+      {
+        "name": "UPDATE_INFORMATION",
+        "status": false
+      },
+      {
+        "name": "POLICIES_AWARDS",
+        "status": false
+      }
+    ],
+    "roles": {
+      "id": "75fe996d-dce4-40e1-a8f7-410c8709f509",
+      "name": "sales_rep",
+      "description": "sales_rep",
+      "status": true
+    }
+}

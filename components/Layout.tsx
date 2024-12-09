@@ -42,11 +42,8 @@ import ModalUpdateData from "./Lay0ut/Modals/ModalUpdateData";
 import { VerifyTC } from "../functions/VerifyTC";
 import ModalTCPa from "./Lay0ut/Modals/ModalTCPa";
 import ModalInfoAPC from "./Lay0ut/ModalInfoAPC";
-import ETLA from "../public/assets/Icons/ETLA";
 import ModalTCETLA from "./ETLA/Modals/ModalTCETLA";
 import { RootState } from "store/store";
-import { getTokenSessionStorage } from "services/multifuncionToken.service";
-import { getCurrentUser } from "services/User/user.service";
 
 interface MyComponentProps {
   children: React.ReactNode;
@@ -68,7 +65,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [menuUser, setMenuUser] = useState(false);
   const menuMarket = useSelector((state:RootState) => state.awards.menuMarket);
-  const [screen, setScreen] = useState<number>();
+  const [screen, setScreen] = useState<number>(0);
   const [verifytcResult, setVerifytcResult] = useState(false);
 
   const tyCStatus = user?.status.find(
@@ -139,7 +136,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     }
   }, [location]);
 
-  const profileImage = (
+  const profileImage:React.ReactNode = (
     <div className="bg-[#1473E6] rounded-full btn btn-circle btn-sm border-none hover:bg-[#1473E6]">
       {!user?.profile.photoProfile ? (
         <p className="text-white text-center flex w-full h-full items-center justify-center">
@@ -281,7 +278,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     },
     {
       page:
-        userRedux.roleId === 1 ? "/digipointsall" : "/digipoints/mydigipoints",
+      user?.roles.name === "admin" ? "/digipointsall" : "/digipoints/mydigipoints",
       icon: (
         <svg
           width="20"
@@ -350,7 +347,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
       ),
       text: t("menu.DDigipoints"),
       subsections:
-        userRedux.roleId === 3
+        user?.roles.name === "partner_admin"
           ? [
               {
                 page: "/digipoints/createteam",
@@ -787,14 +784,14 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   };
 
   const logout = () => {
-    router.push("/");
+    // router.push("/")
     dispatch(setInitialStateAwards());
     dispatch(setInitialStateCompany());
     dispatch(setInitialStateOrders());
     dispatch(setInitialStateTeams());
     dispatch(setInitialStateSales());
     dispatch(setInitialStateUser());
-    sessionStorage.removeItem("infoDt");
+    sessionStorage.removeItem("token");
     dispatch(loadingUser(true));
   };
 
@@ -826,7 +823,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
       return locations
         .filter(({ page }) => {
           if (n === 1) {
-            if (user.roles === 1) {
+            if (user?.roles.name === "admin") {
               return [
                 "/dashboard",
                 "/digipointsall",
@@ -834,7 +831,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                 "/comunicado",
               ].includes(page);
             }
-            if (user.roles === 3) {
+            if (user?.roles.name === "partner_admin") {
               return [
                 "/dashboard",
                 "/digipoints/mydigipoints",
@@ -843,13 +840,13 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
               ].includes(page);
             }
 
-            if (user.roles === 2) {
+            if (user?.roles.name === "partner_principal") {
               return ["/dashboard", "/puntosporventas", "/comunicado"].includes(
                 page
               );
             }
 
-            if (user.roles === 5) {
+            if (user?.roles.name === "sales_rep") {
               return [
                 "/dashboard",
                 "/digipoints/mydigipoints",
@@ -862,7 +859,8 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             if (user.email === "bea24468@adobe.com") {
               return;
             }
-            if (user.roles === 1) {
+            //Admin
+            if (user?.roles.name === "admin") {
               return [
                 "/herramientas",
                 "/puntosporventas",
@@ -870,7 +868,8 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
               ].includes(page);
             }
 
-            if (user.roles === 3) {
+            //Sales Rep
+            if (user?.roles.name === "sales_rep") {
               return ["/ManagmentDigipoints" /*"/puntosporventas"*/].includes(
                 page
               );
@@ -963,7 +962,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
         }
 
         dispatch(changeLoadingData(true));
-        router.push("/dashboard");
+        // router.push("/dashboard");
         return "Redirect";
       }
 
@@ -1057,7 +1056,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                       setShowMenu(!showMenu);
                     }}
                     switchUser={
-                      typeof dataSession.prevData === "object" && true
+                      userSwitch
                     }
                     styles={showMenu ? "h-[50px]" : "hidden"}
                   />
@@ -1086,7 +1085,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                 </div>
                 <div className="flex flex-col gap-6 overflow-y-scroll scrollMenu w-full">
                   <div className="containerRedirections gap-2">{menu(1)}</div>
-                  {user.roleId !== 5 && (
+                  {user?.roles.name !== "sales_rep" && (
                     <>
                       <hr className="mx-6" />
                       <div className="containerRedirections gap-2">
@@ -1117,14 +1116,14 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             <div className="w-full relative">
               <div
                 className={`w-full ${
-                  typeof dataSession.prevData === "object"
+                  userSwitch
                     ? "pt-0 px-0"
                     : "pt-1 px-6"
                 }`}
               >
                 <div
                   className={`containerNavbar ${
-                    typeof dataSession.prevData === "object"
+                    userSwitch
                       ? "!bg-[#232B2F] py-2"
                       : "!bg-[#ffff] py-2"
                   }`}
@@ -1134,7 +1133,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                       <MenuLines
                         onClick={() => setShowMenu(!showMenu)}
                         switchUser={
-                          typeof dataSession.prevData === "object" && true
+                          userSwitch
                         }
                       />
                     </div>
@@ -1142,7 +1141,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                       <MenuLines
                         onClick={() => setCollapse(!collapse)}
                         switchUser={
-                          typeof dataSession.prevData === "object" && true
+                          userSwitch
                         }
                       />
                     </div>
@@ -1151,7 +1150,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                     <div className="w-auto">
                       <p
                         className={`sm:!text-3xl md:!text-3xl !text-sm font-bold ${
-                          typeof dataSession.prevData === "object" &&
+                          userSwitch &&
                           "text-white"
                         }`}
                       >
@@ -1161,14 +1160,6 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                     {screen > 639 && (
                       <div className="sm:visible invisible notifications grid grid-cols-6 content-center gap-5">
                         {/* adobe etla */}
-                        {userRedux.inprogram === "adobeetla" && (
-                          <div
-                            onClick={() => router.push("/etla/dashboardEtla")}
-                            className="w-full cursor-pointer"
-                          >
-                            <ETLA />
-                          </div>
-                        )}
 
                         {/* 1 */}
                         <div className="w-auto">
@@ -1186,7 +1177,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                               <path
                                 d="M10.0938 25.2301C10.6005 25.2301 11.0114 24.8193 11.0114 24.3125C11.0114 23.8057 10.6005 23.3949 10.0938 23.3949C9.58698 23.3949 9.17615 23.8057 9.17615 24.3125C9.17615 24.8193 9.58698 25.2301 10.0938 25.2301Z"
                                 stroke={
-                                  typeof dataSession.prevData === "object"
+                                  userSwitch
                                     ? "white"
                                     : "black"
                                 }
@@ -1197,7 +1188,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                               <path
                                 d="M22.9403 25.2301C23.4471 25.2301 23.858 24.8193 23.858 24.3125C23.858 23.8057 23.4471 23.3949 22.9403 23.3949C22.4336 23.3949 22.0227 23.8057 22.0227 24.3125C22.0227 24.8193 22.4336 25.2301 22.9403 25.2301Z"
                                 stroke={
-                                  typeof dataSession.prevData === "object"
+                                  userSwitch
                                     ? "white"
                                     : "black"
                                 }
@@ -1208,7 +1199,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                               <path
                                 d="M2.75284 5.0426H6.42329L9.17613 20.642H23.858"
                                 stroke={
-                                  typeof dataSession.prevData === "object"
+                                  userSwitch
                                     ? "white"
                                     : "black"
                                 }
@@ -1219,7 +1210,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                               <path
                                 d="M9.17614 16.9716H23.4817C23.5878 16.9717 23.6907 16.9349 23.7728 16.8677C23.8549 16.8005 23.9111 16.7069 23.9319 16.6028L25.5836 8.34429C25.597 8.2777 25.5953 8.20897 25.5789 8.14308C25.5624 8.07719 25.5316 8.01578 25.4885 7.96327C25.4454 7.91076 25.3912 7.86847 25.3298 7.83945C25.2684 7.81042 25.2014 7.79539 25.1334 7.79544H7.34091"
                                 stroke={
-                                  typeof dataSession.prevData === "object"
+                                  userSwitch
                                     ? "white"
                                     : "black"
                                 }
@@ -1231,7 +1222,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                           </div>
                         </div>
                         {/* 2 */}
-                        {typeof dataSession.prevData === "object" && (
+                        {userSwitch && (
                           <EyeObserver />
                         )}
                         {/* 3 */}
@@ -1239,7 +1230,6 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                           <div className="relative">
                             <div className="menumobile hidden">
                               <MobileMenu
-                                className="bannerMob"
                                 locations={locations}
                               />
                             </div>
@@ -1250,33 +1240,34 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                               {profileImage}
                               <div className="username">
                                 <p className="lg:text-sm xl:text-base w-[150px] truncate">
-                                  {userRedux?.first_name} {userRedux?.last_name}
+                                  {user?.profile.first_name} {user?.profile.last_name}
                                 </p>
                               </div>
                             </div>
                           </div>
                           {menuUser && (
                             <UserOptions
-                              user={userRedux}
+                              user={user}
                               token={token}
                               logout={logout}
                               menuUser={menuUser}
                               setMenuUser={setMenuUser}
                               actionCustomerCare={actionCustomerCare}
+                              size={screen}
                             />
                           )}
                         </div>
                       </div>
                     )}
                     {screen < 639 &&
-                      typeof dataSession.prevData === "object" && (
+                      userSwitch && (
                         <EyeObserver />
                       )}
                   </div>
                 </div>
                 <div
                   className={`pt-1 overflow-hidden lg:overflow-visible ${
-                    typeof dataSession.prevData === "object" ? "px-6" : "px-0"
+                    userSwitch ? "px-6" : "px-0"
                   }`}
                 >
                   {children}
@@ -1301,7 +1292,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
               {menuMarket && <MenuMarket />}
               {screen < 767 && menuUser && (
                 <UserOptions
-                  user={userRedux}
+                  user={user}
                   token={token}
                   logout={logout}
                   menuUser={menuUser}

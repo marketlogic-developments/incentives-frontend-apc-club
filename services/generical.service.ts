@@ -20,17 +20,6 @@ export interface MultipleElements<T> {
   content: T;
 }
 
-const TypeError = (code: number): SweetAlertIcon => {
-  switch (code) {
-    case 400:
-      return "error";
-    case 500:
-      return "warning";
-    default:
-      return "error";
-  }
-};
-
 export const HandleError = (err: any): void => {
   if (err.response) {
     const dataError = err?.response.data.detail;
@@ -49,8 +38,11 @@ export const HandleError = (err: any): void => {
 
     console.log(mess);
 
-    NotiSwal({ icon: TypeError(code), text: mess });
+    NotiSwal({ icon: "error", text: mess });
   }
 
-  console.log(err);
+  if(err.code === "ERR_NETWORK"){
+    NotiSwal({ icon: "warning", text: "Server error. Try again later." });
+  }
+  
 };

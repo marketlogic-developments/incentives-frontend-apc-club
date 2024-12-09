@@ -17,36 +17,6 @@ const terminosycondiciones = () => {
   const [opened, setOpened] = useState(false);
   const iframeRef = useRef(null);
 
-  const handleSubmit = () => {
-    Swal.fire({
-      title: t("terminosycondiciones.deseas"),
-      showCancelButton: true,
-      cancelButtonText: "Cancelar",
-      confirmButtonText: t("terminosycondiciones.aceptarBtn"),
-      confirmButtonColor: "#eb1000",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .patch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user?.id}`,
-            {
-              cpf: "active colTC",
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then(() => {
-            dispatch(userLogin({ ...user, cpf: "active" }));
-            return setOpened(true);
-          });
-      }
-    });
-  };
-
   const isMobile = window.innerWidth <= 768;
 
   const modalSize = isMobile

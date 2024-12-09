@@ -4,11 +4,15 @@ import { useRouter } from "next/router";
 import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+// interface Props{
+//   locations:,
+//   locationsVendedor:,
+//   locationsPP:,
+//   locationsPA:,
+// }
+
 function MobileMenu({
   locations,
-  locationsVendedor,
-  locationsPP,
-  locationsPA,
 }) {
   const [user, setUser] = useState({});
   const location =

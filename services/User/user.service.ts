@@ -1,15 +1,14 @@
 import { API } from "services/connectapi.service";
 import { GenericalPromise, HandleError } from "services/generical.service";
-import { Group } from "services/Groups/groups.service";
 import { Roles } from "services/Roles/roles.service";
 
 export interface CurrentUser {
+  id:string
   email: string;
-  is_active: true;
-  is_superuser: true;
+  is_active: boolean;
+  is_superuser: boolean;
   profile: Profile;
-  roles: Roles[];
-  groups: Group[];
+  roles: Roles;
   status: StatusUser[];
 }
 
@@ -17,14 +16,22 @@ export interface Profile {
   first_name: string;
   last_name: string;
   document: string;
-  birth_date: Date;
+  birth_date: string;
   photoProfile: string;
-  languaje: string;
+  language: string;
+  organization:any
+  digipoints: DigipointsUser
 }
 
 export interface StatusUser {
   name: string;
   status: boolean;
+}
+
+export interface DigipointsUser{
+  historical:number,
+  current:number,
+  redeemed:number
 }
 
 export const getCurrentUser =

@@ -13,6 +13,9 @@ import { changeLoadingData } from "store/reducers/loading.reducer";
 import { userLogin } from "store/reducers/currentUser.reducer";
 import Swal from "sweetalert2";
 
+// Testing User Information
+import CurrentUserTest from "../../testing/CurrentUserTest.json";
+
 interface Props {
   setRegister: React.SetStateAction<any>;
   setOpen: Dispatch<React.SetStateAction<ModalStructure>>;
@@ -86,8 +89,7 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
         ({ name }) => name === "POLICIES"
       );
 
-      console.log(tyCStatus)
-
+      actionsDispatch(res.result)
       return RedirectionTC(!tyCStatus?.status);
     } catch (err: any) {
       console.error(err);
@@ -95,8 +97,10 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
     }
   };
 
-  const RedirectionTC = (status: boolean) => {
+  const RedirectionTC = (status: boolean):Promise<boolean> => {
+    console.log("aaaaaaaaaaaaaa", status)
     if (status) {
+      debugger
       return route.push("/terminosycondiciones");
     }
 
@@ -104,7 +108,10 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
   };
 
   const actionsDispatch = (dataUser: CurrentUser): void => {
-    dispatch(userLogin({ ...dataUser, token: "a" }));
+    const user = CurrentUserTest;
+    // dataUser
+
+    dispatch(userLogin({ ...user, token: "a" }));
   };
 
   return (

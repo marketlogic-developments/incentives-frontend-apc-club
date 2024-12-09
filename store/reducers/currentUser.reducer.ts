@@ -16,7 +16,7 @@ export interface InitialStateUserReducer {
   userSwitch: CurrentUser | null;
 }
 
-interface addTokenCurrentUser extends CurrentUser{
+interface CurrentUserToken extends CurrentUser{
   token: string
 }
 
@@ -36,8 +36,14 @@ export const currentUserActions = createSlice({
   name: "currentUser",
   initialState,
   reducers: {
-    userLogin: ({ user, organization, digipoints, token }, action:PayloadAction<addTokenCurrentUser>) => {
+    userLogin: ({ user, organization, digipoints, token }, action:PayloadAction<CurrentUserToken>) => {
       user = action.payload;
+      token = action.payload.token;
+      organization = action.payload;
+      digipoints = action.payload
+    },
+    userSwitch: ({ userSwitch, organization, digipoints, token }, action:PayloadAction<CurrentUserToken>) => {
+      userSwitch = action.payload;
       token = action.payload.token;
       organization = action.payload;
       digipoints = action.payload

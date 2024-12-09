@@ -19,7 +19,7 @@ interface Reseller {
 
 const getOneCompany = async (
   id: number
-): Promise<GenericalPromise<Reseller> | null> => {
+): Promise<GenericalPromise<Reseller> | void> => {
   try {
     const response = await API.get("");
     return response.data;

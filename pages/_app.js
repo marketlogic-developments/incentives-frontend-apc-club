@@ -44,14 +44,14 @@ export default function MyApp({ Component, pageProps }) {
 
   async function init() {
     setLoading(true);
-    if (window.sessionStorage.getItem("infoDt") !== null) {
+    if (sessionStorage.getItem("infoDt")) {
       const roll =
         JSON.parse(window.sessionStorage.getItem("infoDt")) || undefined;
       if (location.pathname === "/") {
         if (roll !== null) {
           setUser(roll?.roleId);
           setLoading(false);
-          return router.push("/dashboard");
+          // return router.push("/dashboard");
         }
       }
 
@@ -69,7 +69,7 @@ export default function MyApp({ Component, pageProps }) {
         pageProps.userTypes &&
         pageProps.userTypes.indexOf(roll?.roleId) === -1
       ) {
-        router.push("/dashboard");
+        // router.push("/dashboard");
         setLoading(false);
         return setRender(
           <div className="pageDontAccess">
