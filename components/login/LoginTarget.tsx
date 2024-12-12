@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 
 // Testing User Information
 import CurrentUserTest from "../../testing/CurrentUserTest.json";
+import { useDataUser } from "functions/SetDataUser";
 
 interface Props {
   setRegister: React.SetStateAction<any>;
@@ -26,6 +27,7 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
   const listRedirect = ["bcrservicos.com.br", "bcrcx.com"];
   const route = useRouter();
   const dispatch = useDispatch();
+  const { setDataUser } = useDataUser();
 
   //useState
   const [showpassword, setShowPassword] = useState<boolean>(false);
@@ -70,48 +72,12 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
         throw new Error("Token no encontrado en la respuesta"); // Manejo explícito de errores
       }
 
-      setDataUser();
+      return setDataUser();
     } catch (error) {
       console.log(error);
     } finally {
       dispatch(changeLoadingData(false)); // Siempre desactivar el estado de carga
     }
-  };
-
-  const setDataUser = async (): Promise<boolean | null> => {
-    const res = await getCurrentUser();
-    try {
-      if (!res) {
-        throw new Error("Failed Login, try again");
-      }
-
-      const tyCStatus = res.result.status.find(
-        ({ name }) => name === "POLICIES"
-      );
-
-      actionsDispatch(res.result)
-      return RedirectionTC(!tyCStatus?.status);
-    } catch (err: any) {
-      console.error(err);
-      return null;
-    }
-  };
-
-  const RedirectionTC = (status: boolean):Promise<boolean> => {
-    console.log("aaaaaaaaaaaaaa", status)
-    if (status) {
-      debugger
-      return route.push("/terminosycondiciones");
-    }
-
-    return route.push("/dashboard");
-  };
-
-  const actionsDispatch = (dataUser: CurrentUser): void => {
-    const user = CurrentUserTest;
-    // dataUser
-
-    dispatch(userLogin({ ...user, token: "a" }));
   };
 
   return (

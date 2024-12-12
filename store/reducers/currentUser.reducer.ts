@@ -3,7 +3,11 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import organizacion from "pages/organizacion";
-import { CurrentUser, StatusUser } from "services/User/user.service";
+import {
+  CurrentUser,
+  DigipointsUser,
+  StatusUser,
+} from "services/User/user.service";
 
 export interface InitialStateUserReducer {
   user: CurrentUser | null;
@@ -11,13 +15,13 @@ export interface InitialStateUserReducer {
   loading: boolean;
   error: null;
   organization: any;
-  digipoints: any;
+  digipoints: DigipointsUser | null;
   status: StatusUser[];
   userSwitch: CurrentUser | null;
 }
 
-interface CurrentUserToken extends CurrentUser{
-  token: string
+interface CurrentUserToken extends CurrentUser {
+  token: string;
 }
 
 const initialState: InitialStateUserReducer = {
@@ -28,28 +32,27 @@ const initialState: InitialStateUserReducer = {
   organization: null,
   digipoints: null,
   userSwitch: null,
-  status:[]
+  status: [],
 };
-
 
 export const currentUserActions = createSlice({
   name: "currentUser",
   initialState,
   reducers: {
-    userLogin: ({ user, organization, digipoints, token }, action:PayloadAction<CurrentUserToken>) => {
-      user = action.payload;
-      token = action.payload.token;
-      organization = action.payload;
-      digipoints = action.payload
+    userLogin: (state, action: PayloadAction<CurrentUserToken>) => {
+      state.user = action.payload;
+      state.token = action.payload.token;
+      state.organization = action.payload.profile.organization;
+      state.digipoints = action.payload.profile.digipoints;
     },
-    userSwitch: ({ userSwitch, organization, digipoints, token }, action:PayloadAction<CurrentUserToken>) => {
-      userSwitch = action.payload;
-      token = action.payload.token;
-      organization = action.payload;
-      digipoints = action.payload
+    userSwitch: (state, action: PayloadAction<CurrentUserToken>) => {
+      state.userSwitch = action.payload;
+      state.token = action.payload.token;
+      state.organization = action.payload;
+      state.digipoints = action.payload.profile.digipoints;
     },
-    userToken: ({ token }, action) => {
-      token = action.payload;
+    userToken: (state, action) => {
+      state.token = action.payload;
     },
 
     userUpdate: ({ user }: { user: CurrentUser | null }, action) => {
@@ -62,12 +65,12 @@ export const currentUserActions = createSlice({
       state.loading = action.payload;
     },
 
-    setDigipoints: ({ digipoints }, action) => {
-      digipoints = action.payload;
+    setDigipoints: (state, action) => {
+      state.digipoints = action.payload;
     },
 
-    udpateDigipoints: ({ digipoints }, action) => {
-      digipoints = action.payload;
+    udpateDigipoints: (state, action) => {
+      state.digipoints = action.payload;
     },
 
     setInitialStateUser: () => {

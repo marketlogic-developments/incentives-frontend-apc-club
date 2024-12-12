@@ -1,23 +1,27 @@
 import { Carousel } from "@mantine/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useRouter } from "next/router";
-import React, { useMemo, useRef } from "react";
+import React, { FC, useMemo, useRef } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { RootState } from "store/store";
 
-const CarouselBanners = ({ banners }) => {
+interface Props {
+  banners: any;
+}
+
+const CarouselBanners: FC<Props> = ({ banners }) => {
   const [t, i18n] = useTranslation("global");
   const route = useRouter();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state: RootState) => state.user.user);
   const [counter, setCounter] = useState(0);
   const autoplay = useRef(Autoplay({ delay: 5000 }));
 
-  const filters = (banner) => {
+  const filters = (banner: any) => {
     if (banner?.exceptions) {
-      const org =
-        user.companyId !== null ? user?.company : user?.distributionChannel;
-      console.log(banner?.exceptions?.countrys.includes(org?.country));
+      const org = user?.profile.organization;
+
       if (
         banner?.exceptions?.countrys.includes(org?.country) ||
         banner?.exceptions?.region.includes(org?.region)
@@ -29,35 +33,45 @@ const CarouselBanners = ({ banners }) => {
     return banner;
   };
 
-  const href = (compOrDist, data) => {
+  const href = (compOrDist: any, data: any) => {
     if (compOrDist) {
       const type = data
-        .filter(({ fields }) =>
-          user.companyId !== null
+        .filter(({ fields }: { fields: any }) =>
+          user?.profile.organization
             ? fields.description.includes("Canales")
             : fields.description.includes("Distribuidores")
         )
-        .map(({ fields }) => fields);
+        .map(({ fields }: { fields: any }) => fields);
 
       const pdf =
         i18n.resolvedLanguage === "por"
           ? type[
-              type.findIndex((element) => element.description.includes("POR"))
+              type.findIndex((element: any) =>
+                element.description.includes("POR")
+              )
             ]
           : type[
-              type.findIndex((element) => !element.description.includes("POR"))
+              type.findIndex(
+                (element: any) => !element.description.includes("POR")
+              )
             ];
 
       return pdf?.file?.url;
     }
 
-    const type = data.map(({ fields }) => fields);
+    const type = data.map(({ fields }: { fields: any }) => fields);
 
     const pdf =
       i18n.resolvedLanguage === "por"
-        ? type[type.findIndex((element) => element.description.includes("POR"))]
+        ? type[
+            type.findIndex((element: any) =>
+              element.description.includes("POR")
+            )
+          ]
         : type[
-            type.findIndex((element) => !element.description.includes("POR"))
+            type.findIndex(
+              (element: any) => !element.description.includes("POR")
+            )
           ];
 
     return pdf?.file?.url;
@@ -86,24 +100,6 @@ const CarouselBanners = ({ banners }) => {
         },
       }}
     >
-      {user.region === "BRAZIL" && (
-        <Carousel.Slide>
-          <a
-            className="w-full flex justify-center cursor-pointer p-[1px]"
-            href={
-              "https://assets.ctfassets.net/3rdahgbju2vz/3u0VZTq91V7q1V75TH6bZz/1b5d6d47ea7a4504c3b8008f4640221e/CO_Adobe_mail_carnaval_T-05639.pdf"
-            }
-            target="_blank"
-          >
-            <figure className="w-full">
-              <img
-                src="https://images.ctfassets.net/3rdahgbju2vz/bZqtp9xZNQ6wbWfM19LVg/e7aed6ba4f74142e24cd659b15230103/CO_Adobe_banner_carnaval_T-05639.jpg"
-                className="bannersImg"
-              />
-            </figure>
-          </a>
-        </Carousel.Slide>
-      )}
       {[...banners]
         .sort((a, b) => a.order - b.order)
         .filter(filters)

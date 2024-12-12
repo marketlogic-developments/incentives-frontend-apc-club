@@ -1,27 +1,13 @@
-import { Modal } from "@mantine/core";
-import axios, { Axios } from "axios";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import React, { useEffect, useMemo, useState, useRef } from "react";
+import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import { userLogin } from "../store/reducers/currentUser.reducer";
+import { useSelector } from "react-redux";
+import { RootState } from "store/store";
 
 const terminosycondiciones = () => {
-  const route = useRouter();
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
-  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user.user);
   const [t, i18n] = useTranslation("global");
-  const [opened, setOpened] = useState(false);
   const iframeRef = useRef(null);
-
-  const isMobile = window.innerWidth <= 768;
-
-  const modalSize = isMobile
-    ? { initialWidth: "90%", initialHeight: "auto" }
-    : { initialWidth: "40%", initialHeight: "auto" };
 
   return (
     <>
@@ -42,7 +28,7 @@ const terminosycondiciones = () => {
             </div>
           </div> */}
 
-          {user?.languageId === 1 ? (
+          {user?.profile.language === "por" ? (
             <iframe
               ref={iframeRef}
               title="TermsAndContidionsAdobeSign"

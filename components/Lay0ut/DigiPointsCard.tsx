@@ -3,17 +3,16 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { userBlockCatalogo } from "../../block/UsersBlockCatalogo";
+import { DigipointsUser } from "services/User/user.service";
+import { RootState } from "store/store";
 
-const DigiPointsCard = ({ digipoints }) => {
-  const path = typeof window !== "undefined" ? window.location.pathname : "";
-  const user = useSelector((state) => state.user.user);
+interface Props {
+  digipoints: DigipointsUser | null;
+}
+
+const DigiPointsCard: React.FC<Props> = ({ digipoints }) => {
   const [t, i18n] = useTranslation("global");
   const router = useRouter();
-  const whiteListDist = [];
-  const validations =
-    user?.distributionChannelId === null ||
-    whiteListDist.includes(user?.distributionChannel?.soldToParty) ||
-    !userBlockCatalogo.includes(user.email);
 
   return (
     <div className="flex px-3 py-3.5 bg-base-100 border-[1px] border-[#E0E0E0] rounded-[10px] w-full">
@@ -41,31 +40,20 @@ const DigiPointsCard = ({ digipoints }) => {
             />
           </svg>
           <div>
-            <p className="!text-xl font-bold">
-              {typeof digipoints?.assigned_points !== "undefined" &&
-              typeof digipoints?.cart_points !== "undefined"
-                ? digipoints?.assigned_points - digipoints?.cart_points
-                : typeof digipoints?.assigned_points !== "undefined"
-                ? digipoints?.assigned_points
-                : 0}
-            </p>
+            <p className="!text-xl font-bold">{digipoints?.current ?? 0}</p>
             <p className="text-[9.5px] 2xl:text-xs whitespace-nowrap">
               {t("dashboard.dpObtenidos")}
             </p>
           </div>
         </div>
-        {validations && (
-          <button
-            className="btn btn-info !btn-outline w-full whitespace-nowrap min-h-[2.563rem] h-[2.563rem]"
-            onClick={() => {
-              router.push(
-                path.includes("etla") ? "/etla/catalogo" : "/catalogo"
-              );
-            }}
-          >
-            {t("menu.vercatalogo")}
-          </button>
-        )}
+        <button
+          className="btn btn-info !btn-outline w-full whitespace-nowrap min-h-[2.563rem] h-[2.563rem]"
+          onClick={() => {
+            router.push("/catalogo");
+          }}
+        >
+          {t("menu.vercatalogo")}
+        </button>
       </div>
     </div>
   );
