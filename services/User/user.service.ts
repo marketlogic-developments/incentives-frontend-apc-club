@@ -3,7 +3,7 @@ import { GenericalPromise, HandleError } from "services/generical.service";
 import { Roles } from "services/Roles/roles.service";
 
 export interface CurrentUser {
-  id:string
+  id: string;
   email: string;
   is_active: boolean;
   is_superuser: boolean;
@@ -14,13 +14,15 @@ export interface CurrentUser {
 
 export interface Profile {
   first_name: string;
+  middle_name: string;
   last_name: string;
+  second_last_name: string;
   document: string;
   birth_date: string;
   photoProfile: string;
   language: string;
-  organization:any
-  digipoints: DigipointsUser
+  organization: any;
+  digipoints: DigipointsUser;
 }
 
 export interface StatusUser {
@@ -28,10 +30,10 @@ export interface StatusUser {
   status: boolean;
 }
 
-export interface DigipointsUser{
-  historical:number,
-  current:number,
-  redeemed:number
+export interface DigipointsUser {
+  historical: number;
+  current: number;
+  redeemed: number;
 }
 
 export const getCurrentUser =

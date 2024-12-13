@@ -6,7 +6,9 @@
   "profile": {
     "id": "660137d2-3df4-4530-9352-0685ac88a7f3",
     "first_name": "Usuario",
+    "middle_name":"APC",
     "last_name": "Test",
+    "second_last_name":"ML",
     "document": "0000000",
     "birth_date": "2024-11-01",
     "photoProfile": "",
@@ -29,7 +31,7 @@
     },
     {
       "name": "UPDATE_INFORMATION",
-      "status": false
+      "status": true
     },
     {
       "name": "POLICIES_AWARDS",

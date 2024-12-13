@@ -20,8 +20,6 @@ import { setInitialStateSales } from "../store/reducers/sales.reducer";
 import { setInitialStateTeams } from "../store/reducers/teams.reducer";
 import { useState } from "react";
 import MenuAPC from "./Lay0ut/Menu";
-import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
-import UserOptions from "./Lay0ut/UserOptions";
 import ContainerContent from "./containerContent";
 import MenuMarket from "./Lay0ut/MenuMarket";
 import ModalCustomerCare from "./costumerCare/modal/ModalCustomerCare";
@@ -34,13 +32,16 @@ import ModalTCPa from "./Lay0ut/Modals/ModalTCPa";
 import ModalInfoAPC from "./Lay0ut/ModalInfoAPC";
 import { RootState } from "store/store";
 import { useLocation } from "functions/Locations";
-import DigiPointsCard from "./Lay0ut/DigiPointsCard";
 import {
   IconShoppingCar,
   IconWhatsapp,
 } from "public/assets/Icons/Menu/MenuIcons";
 import { useRouter } from "next/router";
 import { useDataUser } from "functions/SetDataUser";
+import DigiPointsCard from "./Lay0ut/DigiPointsCard";
+import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
+import UserOptions from "./Lay0ut/UserOptions";
+import { StatusUser } from "services/User/user.service";
 
 interface MyComponentProps {
   children: React.ReactNode;
@@ -59,18 +60,18 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   const sections = ["/", "/terminosycondiciones"];
   const [t, i18n] = useTranslation("global");
   const [modal, setModal] = useState(0);
-  const [opened, setOpened] = useState(false);
-  const [collapse, setCollapse] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
-  const [menuUser, setMenuUser] = useState(false);
+  const [opened, setOpened] = useState<boolean>(false);
+  const [collapse, setCollapse] = useState<boolean>(false);
+  const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [menuUser, setMenuUser] = useState<boolean>(false);
   const menuMarket = useSelector((state: RootState) => state.awards.menuMarket);
   const [screen, setScreen] = useState<number>(0);
-  const [verifytcResult, setVerifytcResult] = useState(false);
+  const [verifytcResult, setVerifytcResult] = useState<boolean>(false);
 
   const { setDataUser } = useDataUser();
   const { Locations, textLocation } = useLocation();
 
-  const tyCStatus = user?.status.find(({ name }) => name === "POLICIES");
+  const statusUserOptions = (statusName:string):StatusUser|undefined => user?.status.find(({ name }) => name === statusName);
 
   useEffect(() => {
     setScreen(window.innerWidth);
@@ -94,6 +95,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
 
   useEffect(() => {
     const VideoKey = user?.status.find(({ name }) => name === video?.key);
+    const updateData = statusUserOptions("UPDATE_INFORMATION")
 
     if (
       VideoKey?.name &&
@@ -107,7 +109,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
       }, 2000);
     }
 
-    if (tyCStatus?.status === false) {
+    if (!updateData?.status) {
       setModal(2);
       setOpened(true);
     }
@@ -118,10 +120,17 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     }
   }, [user, verifytcResult, video]);
 
+
+  //Get Data User
   useEffect(() => {
-    if (!user && sessionStorage.getItem("token")) {
+    const token=sessionStorage.getItem("token")
+
+    if (!user && token) {
       setDataUser();
+    } else if(!token){
+      route.push("/")
     }
+
   }, [location]);
 
   useEffect(() => {
@@ -134,7 +143,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     <div className="bg-[#1473E6] rounded-full btn btn-circle btn-sm border-none hover:bg-[#1473E6]">
       {!user?.profile.photoProfile ? (
         <p className="text-white text-center flex w-full h-full items-center justify-center">
-          {user?.profile.first_name}
+          {user?.profile.first_name[0]}
         </p>
       ) : (
         <img
@@ -203,22 +212,24 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   };
 
   const typeModal = useMemo(() => {
-    if (modal === 0) {
-      return <ModalCustomerCare closeModal={closeModal} />;
-    }
-    if (modal === 1) {
-      return <ModalPersonalize onClose={setOpened} />;
-    }
-    if (modal === 2) {
-      return <ModalUpdateData onClose={setOpened} />;
-    }
-    if (modal === 3) {
-      return <ModalTCPa />;
+
+    switch(modal){
+      case 0:
+        return <ModalCustomerCare closeModal={closeModal} />
+      case 1:
+        return <ModalPersonalize onClose={setOpened} />;
+      case 2:
+        return <ModalUpdateData onClose={setOpened} />;
+      case 3:
+        return <ModalUpdateData onClose={setOpened} />;    
+      case 4:
+        return  <ModalTCPa />;
+      case 5:
+        return <ModalInfoAPC onClose={setOpened} />;
+      default:
+       return <></>
     }
 
-    if (modal === 4) {
-      return <ModalInfoAPC onClose={setOpened} />;
-    }
   }, [modal, opened]);
 
   const menu = (n: number): React.ReactNode => {
@@ -289,7 +300,6 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             href={href}
             location={location}
             collapse={collapse}
-            dataUserSwitch={userSwitch}
           />
         ));
     }
@@ -324,7 +334,6 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     );
   }
 
-  console.log(user);
 
   return (
     <>
@@ -401,9 +410,9 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                   </div>
 
                   {collapse ? (
-                    <DigiPointsCollapse digipoints={digipoints} />
+                    <DigiPointsCollapse />
                   ) : (
-                    <DigiPointsCard digipoints={digipoints} />
+                    <DigiPointsCard  />
                   )}
                 </div>
                 <div className="flex flex-col gap-6 overflow-y-scroll scrollMenu w-full">
@@ -495,8 +504,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                               {profileImage}
                               <div className="username">
                                 <p className="lg:text-sm xl:text-base w-[150px] truncate">
-                                  {user?.profile.first_name}{" "}
-                                  {user?.profile.last_name}
+                                  {user?.profile.first_name}
                                 </p>
                               </div>
                             </div>

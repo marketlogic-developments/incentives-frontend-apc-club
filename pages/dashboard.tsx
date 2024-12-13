@@ -68,18 +68,8 @@ const dashboard: FC<Props> = ({ entries, banners, infoApc }) => {
     // }
   }, [user, token]);
 
-  const redirection = () => {
-    setModalType(0);
-    return setOpened(true);
-  };
 
-  const typeModal = useMemo(() => {
-    if (modalType === 0) {
-      return <ResetPassword />;
-    }
-  }, [modalType]);
-
-  const logout = () => {
+const logout = () => {
     window.sessionStorage.removeItem("token");
     Cookies.remove("dp");
     route.push("/");
@@ -87,17 +77,7 @@ const dashboard: FC<Props> = ({ entries, banners, infoApc }) => {
 
   return (
     <>
-      <Modal
-        opened={opened}
-        centered
-        size={"80%"}
-        onClose={() => (modalType ? setOpened(true) : setOpened(false))}
-        draggable={false}
-        className={modalType ? "modalChangePassword" : undefined}
-      >
-        {typeModal}
-      </Modal>
-      <Modal
+      {/* <Modal
         opened={opened2}
         centered
         size={"90%"}
@@ -106,7 +86,9 @@ const dashboard: FC<Props> = ({ entries, banners, infoApc }) => {
           // setOpened2(false);
         }}
         className={"modalCloseDashboard"}
-      ></Modal>
+      >
+
+      </Modal> */}
       <ContainerContent pageTitle={"Dashboard"}>
         <div className="m-6 flex flex-col gap-10 ">
           <CarouselBanners banners={banners} />

@@ -16,7 +16,7 @@ import { DatePicker } from "@mantine/dates";
 import dayjs from "dayjs";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
-import UserPhoto from "../../components/user/UserPhoto";
+import UserPhoto from "components/user/UserPhoto";
 
 const user = () => {
   const user = useSelector((state) => state.user.user);
@@ -47,10 +47,10 @@ const user = () => {
 
   useEffect(() => {
     setFormData({
-      first_name: user?.first_name,
-      middlename: user?.middlename,
-      last_name: user?.last_name,
-      secondlastname: user?.secondlastname,
+      first_name: user?.profile.first_name,
+      middlename: user?.profile.middle_name,
+      last_name: user?.profile.last_name,
+      secondlastname: user?.profile.second_last_name,
       documenttype: user?.documenttype,
       documentinfo: user?.documentinfo,
       email: user?.email,
@@ -155,7 +155,6 @@ const user = () => {
       });
   };
 
-  console.log(formData);
 
   return (
     <>

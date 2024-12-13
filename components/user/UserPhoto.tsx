@@ -1,20 +1,24 @@
 import axios from "axios";
-import React from "react";
+import React, { FC } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { userUpdate } from "../../store/reducers/currentUser.reducer";
 import { useTranslation } from "react-i18next";
+import { RootState } from "store/store";
 
-const UserPhoto = ({ formData }) => {
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
+interface Props{
+  formData:any
+}
+
+const UserPhoto:FC<Props> = ({ formData }) => {
+  const {user} = useSelector((state:RootState) => state.user);
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const openFileInput = () => {
-    fileInputRef.current.click();
+    fileInputRef?.current?.click();
   };
 
   const Toast = Swal.mixin({
@@ -30,67 +34,11 @@ const UserPhoto = ({ formData }) => {
   });
 
   const deleteProfileImage = () => {
-    axios
-      .patch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
-        {
-          profilePhotoPath: "noImage",
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then(() => {
-        dispatch(userUpdate({ profilePhotoPath: "noImage" }));
-        return Toast.fire({
-          icon: "success",
-          title: t("user.fotoDelete"),
-          background: "#000000",
-          color: "#fff",
-        });
-      });
+
   };
 
-  const handleImgProfile = (e) => {
-    const file = e.target.files[0];
+  const handleImgProfile = () => {
 
-    const form = new FormData();
-    form.append("file", file);
-    form.append("upload_preset", "ADOBEAPC");
-
-    axios
-      .post(
-        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
-        form
-      )
-      .then((res) => {
-        axios
-          .patch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
-            { profilePhotoPath: res.data.url },
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then((res2) => {
-            dispatch(userUpdate({ profilePhotoPath: res.data.url }));
-            fileInputRef.current.value = "";
-            return Toast.fire({
-              icon: "success",
-              title: t("user.fotoUpdate"),
-              background: "#000000",
-              color: "#fff",
-            });
-          })
-          .catch((error) => console.log(error));
-      })
-      .catch((error) => console.log(error));
   };
 
   return (
@@ -99,7 +47,7 @@ const UserPhoto = ({ formData }) => {
       formData.imgProfile === "" ||
       formData.imgProfile === "noImage" ? (
         <>
-          <div class="absolute h-full lg:w-full w-1/2 flex justify-end items-end">
+          <div className="absolute h-full lg:w-full w-1/2 flex justify-end items-end">
             <label
               className="btn btn-circle btn-sm bg-gray-300	border-none hover:bg-gray-400 drop-shadow-lg text-black"
               onClick={openFileInput}
@@ -139,7 +87,7 @@ const UserPhoto = ({ formData }) => {
           </div>
           <div className="h-full lg:w-full w-1/2 bg-info rounded-full aspect-square">
             <div className="w-full h-full justify-center items-center flex font-bold !text-xl text-white">
-              <p className="!text-5xl lg:!text-2xl">{user.name[0]}</p>
+              <p className="!text-5xl lg:!text-2xl">{user?.profile?.first_name[0]}</p>
             </div>
           </div>
         </>

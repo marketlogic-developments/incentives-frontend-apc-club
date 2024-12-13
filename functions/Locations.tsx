@@ -23,7 +23,7 @@ interface Props {
   icon: JSX.Element;
   iconactive?: string;
   text: string;
-  subsections?: Props[];
+  subsections?: any;
 }
 
 export const useLocation = () => {

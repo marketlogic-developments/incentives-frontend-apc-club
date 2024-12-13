@@ -1,8 +1,21 @@
-import React from "react";
+import { DefaultTFuncReturn } from "i18next";
+import { useRouter } from "next/router";
+import React, { FC } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const MenuAPC = ({
+interface Props{
+  icon:JSX.Element,
+  page:string,
+  text: DefaultTFuncReturn
+  index:number
+  subsections?:Props[];
+  href:Function;
+  location:string;
+  collapse:boolean;
+}
+
+const MenuAPC:FC<Props> = ({
   icon,
   page,
   text,
@@ -11,9 +24,10 @@ const MenuAPC = ({
   href,
   location,
   collapse,
-  dataUserSwitch,
 }) => {
   const [drop, setDrop] = useState(false);
+  const route=useRouter()
+  const thislocation=route.pathname
 
   useEffect(() => {
     if (!collapse) {
@@ -32,15 +46,15 @@ const MenuAPC = ({
   }, [location]);
 
   return (
-    <div className={collapse && "flex"}>
+    <div className={collapse ? "flex" : undefined}>
       <div
         className="containerItemLayout px-6 w-full"
         key={index}
-        style={{ "--wicons": collapse ? "100%" : "10.4%" }}
+        style={{ ["--wicons" as string]: collapse ? "100%" : "10.4%" }}
       >
         <div
           className={`${
-            window.location.pathname === page && subsections === undefined
+            thislocation === page && subsections === undefined
               ? "itemLayoutSelect"
               : "itemLayout"
           } ${collapse && "justify-center"}`}
@@ -77,7 +91,7 @@ const MenuAPC = ({
             <div className="containerItemLayout" key={index}>
               <div
                 className={
-                  window.location.pathname === page
+                  thislocation === page
                     ? "itemLayoutSelect"
                     : "itemLayout"
                 }

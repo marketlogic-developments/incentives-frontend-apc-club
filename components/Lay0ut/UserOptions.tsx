@@ -1,18 +1,28 @@
 import { useRouter } from "next/router";
 import { Modal } from "@mantine/core";
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, FC } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  policyAndPassword,
   userUpdate,
 } from "../../store/reducers/currentUser.reducer";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 import InformativeSections from "./UserOptions/InformativeSections";
 import { useEffect } from "react";
+import { CurrentUser } from "services/User/user.service";
 
-const UserOptions = ({
+interface Props {
+  user: CurrentUser | null;
+  token: string | null;
+  logout: Function;
+  menuUser: boolean;
+  setMenuUser: React.Dispatch<React.SetStateAction<boolean>>;
+  actionCustomerCare: Function;
+  size: number;
+}
+
+const UserOptions: FC<Props> = ({
   user,
   token,
   logout,
@@ -24,23 +34,24 @@ const UserOptions = ({
   const route = useRouter();
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
-  const componenteRef = useRef(null);
+  const componenteRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState({});
   const [viewimage, setviewImage] = useState("");
   const [opened, setOpened] = useState(false);
 
-  useEffect(() => {
-    const handleClickFuera = (event) => {
-      if (
-        componenteRef.current &&
-        !componenteRef.current.contains(event.target) &&
-        opened === false
-      ) {
+  const handleClickFuera = (event: MouseEvent) => {
+    const Refcurrent = componenteRef?.current;
+
+    if (Refcurrent) {
+      if (!Refcurrent.contains(event.target as Node) && !opened) {
         // El clic se hizo fuera del componente
         setMenuUser(false);
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickFuera);
 
     return () => {
@@ -48,11 +59,10 @@ const UserOptions = ({
     };
   }, [opened]);
 
-  const fileInputRef = useRef(null);
-
-  const openFileInput = (event) => {
+  const openFileInput = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
-    fileInputRef.current.click();
+
+    fileInputRef?.current?.click();
   };
 
   const Toast = Swal.mixin({
@@ -67,75 +77,35 @@ const UserOptions = ({
     },
   });
 
-  const deleteProfileImage = () => {
-    return axios
-      .patch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
-        {
-          profilePhotoPath: "noImage",
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then(() => {
-        dispatch(userUpdate({ profilePhotoPath: "noImage" }));
-        return Toast.fire({
-          icon: "success",
-          title: t("user.fotoDelete"),
-          background: "#000000",
-          color: "#fff",
-        });
-      });
+  const deleteProfileImage = ():void => {
+    // return axios
+    //   .patch(
+    //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
+    //     {
+    //       profilePhotoPath: "noImage",
+    //     },
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     }
+    //   )
+    //   .then(() => {
+    //     dispatch(userUpdate({ profilePhotoPath: "noImage" }));
+    //     return Toast.fire({
+    //       icon: "success",
+    //       title: t("user.fotoDelete"),
+    //       background: "#000000",
+    //       color: "#fff",
+    //     });
+    //   });
+
+    console.log("deleteImage")
   };
 
-  const handleImgProfile = (e) => {
-    const reader = new FileReader();
-    const file = e.target.files[0];
-
-    reader.onload = (e) => {
-      const dataURL = e.target.result;
-      setviewImage({ path: dataURL });
-    };
-
-    reader.readAsDataURL(file);
-    setImage(file);
-
-    const form = new FormData();
-    form.append("file", file);
-    form.append("upload_preset", "ADOBEAPC");
-
-    axios
-      .post(
-        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
-        form
-      )
-      .then((res) => {
-        axios
-          .patch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
-            { profilePhotoPath: res.data.url },
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then((res2) => {
-            dispatch(userUpdate({ profilePhotoPath: res.data.url }));
-            return Toast.fire({
-              icon: "success",
-              title: t("user.fotoUpdate"),
-              background: "#000000",
-              color: "#fff",
-            });
-          });
-      })
-      .catch((error) => console.log(error));
+  const handleImgProfile = () => {
+  
   };
 
   return (
@@ -160,25 +130,21 @@ const UserOptions = ({
           <div className="w-3/4 justify-center flex flex-col items-center gap-3">
             {/* START */}
             <div className="photoProfile relative bg-[#1473E6] rounded-full xl:w-[80px] xl:h-[80px] lg:w-[60px] lg:h-[60px] flex items-center justify-center">
-              {user.profilePhotoPath === null ||
-              user.profilePhotoPath === "" ||
-              user.profilePhotoPath === "noImage" ? (
+              {!user?.profile.photoProfile ? (
                 <p className="text-white absolute !text-base">
-                  {user.names.split("")[0]}
+                  {user?.profile.first_name[0]}
                 </p>
               ) : (
                 <img
-                  src={user.profilePhotoPath}
+                  src={user.profile.photoProfile}
                   className="w-full h-full rounded-full"
                   alt="Avatar"
                 />
               )}
-              <div class="relative h-full w-full">
-                {user.profilePhotoPath === null ||
-                user.profilePhotoPath === "" ||
-                user.profilePhotoPath === "noImage" ? (
+              <div className="relative h-full w-full">
+                {!user?.profile.photoProfile ? (
                   <div
-                    class="absolute h-full w-full xl:left-14 lg:left-10 -top-0 "
+                    className="absolute h-full w-full xl:left-14 lg:left-10 -top-0 "
                     onClick={openFileInput}
                   >
                     <label className="btn btn-circle btn-sm bg-gray-300	border-none hover:bg-gray-400 drop-shadow-lg text-black">
@@ -216,7 +182,7 @@ const UserOptions = ({
                     </label>
                   </div>
                 ) : (
-                  <div class="absolute h-full w-full -left-5 -top-1 ">
+                  <div className="absolute h-full w-full -left-5 -top-1 ">
                     <button
                       className="btn btn-circle btn-sm bg-gray-300	border-none hover:bg-gray-400 drop-shadow-lg !text-black"
                       onClick={deleteProfileImage}
@@ -230,14 +196,14 @@ const UserOptions = ({
             {/* END */}
             <div className="text-center">
               <p className="lg:!text-sm xl:!text-base">
-                {user?.first_name} {user?.last_name}
+                {user?.profile.first_name} {user?.profile.last_name}
               </p>
-              <p className="xl:!text-xs">{user.email}</p>
+              <p className="xl:!text-xs">{user?.email}</p>
             </div>
             <button
               className="btn newbtn !btn-outline btn-info w-3/4  "
               onClick={() => {
-                route.push(`/user/${user.name}`);
+                route.push(`/user/${user?.profile.first_name}`);
                 setMenuUser(!menuUser);
               }}
             >
@@ -256,13 +222,13 @@ const UserOptions = ({
           <hr className="w-full" />
           <p
             className="!text-xs mt-6 font-bold cursor-pointer"
-            onClick={logout}
+            onClick={()=>logout()}
           >
             {t("menu.logout")}
           </p>
           <a
             className="!text-xs mt-6 font-bold cursor-pointer"
-            href={t("menu.preguntasLink")}
+            href={String(t("menu.preguntasLink"))}
             target="_blank"
           >
             {t("menu.preguntas")}

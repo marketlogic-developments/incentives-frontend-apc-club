@@ -15,7 +15,6 @@ export const useDataUser = () => {
         ({ name }) => name === "POLICIES"
       );
 
-      console.log(res.result);
 
       dispatchUserLogin(res.result);
       await redirectBasedOnStatus(tyCStatus?.status ?? false);

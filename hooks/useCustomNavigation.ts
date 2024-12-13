@@ -21,9 +21,15 @@ export const useCustomNavigation = (): Props => {
         return router.push("/dashboard");
       }
 
-      return status
-        ? router.push("/dashboard")
-        : router.push("/terminosycondiciones");
+      if (location === "/" && status) {
+        return router.push("/dashboard");
+      }
+
+      if(!status){
+        return router.push("/terminosycondiciones");
+      }
+
+      return Promise.reject(true)
     } catch (error) {
       console.error("Navigation error:", error);
       return Promise.reject(error);
