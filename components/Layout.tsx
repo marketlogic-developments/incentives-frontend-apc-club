@@ -71,8 +71,21 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   const { setDataUser } = useDataUser();
   const { Locations, textLocation } = useLocation();
 
-  const statusUserOptions = (statusName:string):StatusUser|undefined => user?.status.find(({ name }) => name === statusName);
+  const statusUserOptions = (statusName: string): StatusUser | undefined =>
+    user?.status.find(({ name }) => name === statusName);
 
+  //Get Data User
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+
+    if (!user && token) {
+      setDataUser();
+    } else if (!token) {
+      route.push("/");
+    }
+  }, [location]);
+
+  //Logout for Inactivity
   useEffect(() => {
     setScreen(window.innerWidth);
     const handleWindowResize = () => {
@@ -86,6 +99,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     };
   });
 
+  //Verify TC PA and PP
   const verifytc = useMemo(
     () =>
       user &&
@@ -93,51 +107,34 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     [user]
   );
 
+  //Show Modals
   useEffect(() => {
     const VideoKey = user?.status.find(({ name }) => name === video?.key);
-    const updateData = statusUserOptions("UPDATE_INFORMATION")
+    const updateData = statusUserOptions("UPDATE_INFORMATION");
 
-    if (
-      VideoKey?.name &&
-      user &&
-      location === "/dashboard"
-      // userSwitch.prevData === undefined
-    ) {
-      setModal(4);
-      setTimeout(() => {
+    if (user) {
+      if (
+        VideoKey?.name &&
+        location === "/dashboard"
+        // userSwitch.prevData === undefined
+      ) {
+        setModal(4);
+        setTimeout(() => {
+          setOpened(true);
+        }, 2000);
+      }
+
+      if (!updateData?.status) {
+        setModal(2);
         setOpened(true);
-      }, 2000);
-    }
+      }
 
-    if (!updateData?.status) {
-      setModal(2);
-      setOpened(true);
-    }
-
-    if (verifytcResult) {
-      setModal(3);
-      setOpened(true);
+      if (verifytcResult) {
+        setModal(3);
+        setOpened(true);
+      }
     }
   }, [user, verifytcResult, video]);
-
-
-  //Get Data User
-  useEffect(() => {
-    const token=sessionStorage.getItem("token")
-
-    if (!user && token) {
-      setDataUser();
-    } else if(!token){
-      route.push("/")
-    }
-
-  }, [location]);
-
-  useEffect(() => {
-    if (loadingData) {
-      dispatch(changeLoadingData(false));
-    }
-  }, [location]);
 
   const profileImage: React.ReactNode = (
     <div className="bg-[#1473E6] rounded-full btn btn-circle btn-sm border-none hover:bg-[#1473E6]">
@@ -212,24 +209,20 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   };
 
   const typeModal = useMemo(() => {
-
-    switch(modal){
+    switch (modal) {
       case 0:
-        return <ModalCustomerCare closeModal={closeModal} />
+        return <ModalCustomerCare closeModal={closeModal} />;
       case 1:
         return <ModalPersonalize onClose={setOpened} />;
       case 2:
         return <ModalUpdateData onClose={setOpened} />;
       case 3:
-        return <ModalUpdateData onClose={setOpened} />;    
+        return <ModalTCPa />;
       case 4:
-        return  <ModalTCPa />;
-      case 5:
         return <ModalInfoAPC onClose={setOpened} />;
       default:
-       return <></>
+        return <></>;
     }
-
   }, [modal, opened]);
 
   const menu = (n: number): React.ReactNode => {
@@ -334,7 +327,6 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     );
   }
 
-
   return (
     <>
       {loadingData && (
@@ -409,11 +401,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                     </figure>
                   </div>
 
-                  {collapse ? (
-                    <DigiPointsCollapse />
-                  ) : (
-                    <DigiPointsCard  />
-                  )}
+                  {collapse ? <DigiPointsCollapse /> : <DigiPointsCard />}
                 </div>
                 <div className="flex flex-col gap-6 overflow-y-scroll scrollMenu w-full">
                   <div className="containerRedirections gap-2">{menu(1)}</div>
