@@ -1,8 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { PaginatedElements } from "services/generical.service";
+import { CurrentUser } from "services/User/user.service";
 
-const initialState = {
-  companyUsers: [],
-  allUsers: [],
+
+interface Props{
+  allUsers:PaginatedElements<CurrentUser> | null
+}
+
+const initialState:Props = {
+  allUsers: null,
 };
 
 export const Users = createSlice({
@@ -10,16 +16,13 @@ export const Users = createSlice({
   initialState,
   reducers: {
     createUser: ({ allUsers }, action) => {
-      allUsers = action.payload;
+      allUsers = [...allUsers, action.payload];
     },
     getUsers: ({ allUsers }, action) => {
       allUsers = action.payload;
     },
     deleteUser: ({ allUsers }, action) => {
       allUsers = action.payload;
-    },
-    setCompanyUsers: ({ companyUsers }, action) => {
-      companyUsers = action.payload;
     },
   },
 });

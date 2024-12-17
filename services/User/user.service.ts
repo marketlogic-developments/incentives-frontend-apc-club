@@ -1,5 +1,9 @@
 import { API } from "services/connectapi.service";
-import { GenericalPromise, HandleError } from "services/generical.service";
+import {
+  GenericalPromise,
+  HandleError,
+  PaginatedElements,
+} from "services/generical.service";
 import { Roles } from "services/Roles/roles.service";
 
 export interface CurrentUser {
@@ -10,6 +14,7 @@ export interface CurrentUser {
   profile: Profile;
   roles: Roles;
   status: StatusUser[];
+  region: Region;
 }
 
 export interface Profile {
@@ -21,6 +26,7 @@ export interface Profile {
   birth_date: string;
   photoProfile: string;
   language: string;
+  phone_number: string;
   organization: any;
   digipoints: DigipointsUser;
 }
@@ -36,6 +42,11 @@ export interface DigipointsUser {
   redeemed: number;
 }
 
+export interface Region {
+  id: string;
+  name: string;
+}
+
 export const getCurrentUser =
   async (): Promise<GenericalPromise<CurrentUser> | void> => {
     try {
@@ -49,3 +60,18 @@ export const getCurrentUser =
       return error;
     }
   };
+
+export const listUsers =
+  async (): Promise<PaginatedElements<CurrentUser> | void> => {
+    try {
+      const response = await API.get("administration/users");
+      return response.data;
+    } catch (err) {
+      console.log("Error to list users");
+      const error = HandleError(err);
+      return error;
+    }
+  };
+
+export const updateUser =
+  async (): Promise<GenericalPromise<CurrentUser> | void> => {};

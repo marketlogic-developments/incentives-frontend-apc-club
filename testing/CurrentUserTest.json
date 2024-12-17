@@ -13,6 +13,7 @@
     "birth_date": "2024-11-01",
     "photoProfile": "",
     "language": "es",
+    "phone_number":"+57322802205",
     "organization": {},
     "digipoints": {
       "historical": 10000,
@@ -40,8 +41,12 @@
   ],
   "roles": {
     "id": "75fe996d-dce4-40e1-a8f7-410c8709f509",
-    "name": "sales_rep",
+    "name": "partner_admin",
     "description": "sales_rep",
     "status": true
+  },
+  "region":{
+    "id":"dqwd",
+    "name":"SOLA"
   }
 }

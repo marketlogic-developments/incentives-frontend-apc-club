@@ -205,7 +205,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     dispatch(setInitialStateSales());
     dispatch(setInitialStateUser());
     sessionStorage.removeItem("token");
-    dispatch(loadingUser(true));
+    // dispatch(loadingUser(true));
   };
 
   const typeModal = useMemo(() => {
@@ -275,8 +275,8 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
               ].includes(page);
             }
 
-            //Sales Rep
-            if (user?.roles.name === "sales_rep") {
+            //Partner Admin
+            if (user?.roles.name === "partner_admin") {
               return ["/ManagmentDigipoints" /*"/puntosporventas"*/].includes(
                 page
               );

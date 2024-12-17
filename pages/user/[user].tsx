@@ -1,39 +1,50 @@
 import { Modal } from "@mantine/core";
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { ChangeEvent, DetailedHTMLProps, FormEvent, FormEventHandler, FormHTMLAttributes, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import ContainerContent from "../../components/containerContent";
 import {
   policyAndPassword,
-  userUpdate,
 } from "../../store/reducers/currentUser.reducer";
 import ModalPassword from "../../components/user/modalPassword";
 import Swal from "sweetalert2";
 import { DateInput } from "@mantine/dates";
-import { DatePicker } from "@mantine/dates";
-import dayjs from "dayjs";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import UserPhoto from "components/user/UserPhoto";
+import { RootState } from "store/store";
+
+interface PropsDataUser{
+  first_name: string | undefined,
+    middlename: string | undefined,
+    last_name: string | undefined,
+    secondlastname: string | undefined,
+    documentinfo: string | undefined,
+    email: string | undefined,
+    role: string | undefined,
+    position: string | undefined, 
+    region: string | undefined,
+    imgProfile: string | undefined,
+    birthDate: string | Date | undefined,
+    phone: string | undefined,
+    language: string | undefined,
+}
 
 const user = () => {
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
+  const {token,user}= useSelector((state:RootState) => state.user);
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
   const [nInputs, setNInputs] = useState(0);
   const [t, i18n] = useTranslation("global");
   const [menu, setMenu] = useState(false);
   const [editInfo, setEditInfo] = useState(false);
-
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<PropsDataUser>({
     first_name: "",
     middlename: "",
     last_name: "",
     secondlastname: "",
-    documenttype: "",
     documentinfo: "",
     email: "",
     role: "",
@@ -42,7 +53,7 @@ const user = () => {
     imgProfile: "",
     birthDate: "",
     phone: "",
-    languageId: "",
+    language: "",
   });
 
   useEffect(() => {
@@ -51,28 +62,25 @@ const user = () => {
       middlename: user?.profile.middle_name,
       last_name: user?.profile.last_name,
       secondlastname: user?.profile.second_last_name,
-      documenttype: user?.documenttype,
-      documentinfo: user?.documentinfo,
+      documentinfo: user?.profile.document,
       email: user?.email,
-      role: user?.roleId,
-      position: user?.position,
-      region: user?.region,
-      imgProfile: user?.profilePhotoPath,
-      birthDate: user?.birthDate,
-      phone: user?.phoneNumber.includes("+") ? user?.phoneNumber : "",
-      languageId: user?.languageId,
+      role: user?.roles.name,
+      position: user?.roles.description,
+      region: user?.region.name,
+      imgProfile: user?.profile.photoProfile,
+      birthDate: user?.profile.birth_date,
+      phone: user?.profile.phone_number,
+      language: user?.profile.language,
     });
   }, [user]);
 
-  const handleChange = (e) => {
+  const handleChange = (e:ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
 
-    if (name === "languageId") {
-      const languageValue =
-        value === "es" ? 2 : value === "por" ? 1 : value === "en" ? 3 : null;
+    if (name === "language") {
       setFormData({
         ...formData,
-        [name]: languageValue,
+        [name]: value,
       });
     } else {
       setFormData({
@@ -81,21 +89,25 @@ const user = () => {
       });
     }
   };
-  const handleChangeDate = (value) => {
+
+  const handleChangeDate = (value:Date) => {
     setFormData({
       ...formData,
       birthDate: value.toISOString(), // Asegúrate de convertir el valor en un formato válido para la API
     });
   };
 
-  function isValidDate(dateString) {
-    const date = new Date(dateString);
-    return date instanceof Date && !isNaN(date);
+  function isValidDate(dateObject: Pick<PropsDataUser, "birthDate">): boolean {
+    const dateString = dateObject.birthDate; // Extraer la propiedad birthDate
+    const date = new Date(dateString as string);
+  
+    // Verificar que sea una fecha válida
+    return !isNaN(date.getTime());
   }
 
-  const [phone, setPhone] = useState();
+  const [phone, setPhone] = useState<string>();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     formData.phone = phone !== "" ? phone : formData.phone;
     const jsonData = () => {
@@ -107,12 +119,11 @@ const user = () => {
         middlename: formData?.middlename,
         last_name: formData?.last_name,
         secondlastname: formData?.secondlastname,
-        documenttype: formData?.documenttype,
         documentinfo: formData?.documentinfo,
         birthDate: formData.birthDate,
         phoneNumber: formData.phone,
         region: formData.region,
-        languageId: formData?.languageId,
+        language: formData?.language,
       };
     };
 
@@ -167,13 +178,13 @@ const user = () => {
                 {formData.first_name} {formData.last_name}
               </h1>
               <h2 className="font-bold">
-                {formData.role === 1
+                {formData.role === "admin"
                   ? "Administrador"
-                  : formData.role === 2
+                  : formData.role === "partner_principal"
                   ? "Partner Principal"
-                  : formData.role === 3
+                  : formData.role === "partner_admin"
                   ? "Partner Admin"
-                  : formData.role === 5
+                  : formData.role === "sales_rep"
                   ? "Sales Rep"
                   : ""}
               </h2>
@@ -316,21 +327,9 @@ const user = () => {
                                 {t("modalUpdate.firstName")}
                               </span>
                             </label>
-                            {editInfo ? (
-                              <input
-                                type="text"
-                                placeholder={t("user.escriba")}
-                                className="input input-ghost w-full bg-[#F4F4F4]"
-                                name="first_name"
-                                value={formData.first_name}
-                                onChange={handleChange}
-                                required
-                              />
-                            ) : (
-                              <span className="input input-ghost w-full flex items-center">
+                            <span className="input input-ghost w-full flex items-center">
                                 {formData.first_name}
                               </span>
-                            )}
                           </div>
                           <div className="w-1/2">
                             <label className="label">
@@ -338,21 +337,9 @@ const user = () => {
                                 {t("modalUpdate.middleName")}
                               </span>
                             </label>
-                            {editInfo ? (
-                              <input
-                                type="text"
-                                placeholder={t("user.escriba")}
-                                className="input input-ghost w-full bg-[#F4F4F4]"
-                                name="middlename"
-                                value={formData.middlename}
-                                onChange={handleChange}
-                                required
-                              />
-                            ) : (
-                              <span className="input input-ghost w-full flex items-center">
+                            <span className="input input-ghost w-full flex items-center">
                                 {formData.middlename}
                               </span>
-                            )}
                           </div>
                         </div>
                         <div className="form-control flex-row flex w-full gap-3">
@@ -362,21 +349,9 @@ const user = () => {
                                 {t("modalUpdate.lastName")}
                               </span>
                             </label>
-                            {editInfo ? (
-                              <input
-                                type="text"
-                                name="last_name"
-                                placeholder={t("user.escriba")}
-                                className="input input-ghost w-full bg-[#F4F4F4]"
-                                value={formData.last_name}
-                                onChange={handleChange}
-                                required
-                              />
-                            ) : (
-                              <span className="input input-ghost w-full flex items-center">
+                            <span className="input input-ghost w-full flex items-center">
                                 {formData.last_name}
                               </span>
-                            )}
                           </div>
                           <div className="w-1/2">
                             <label className="label">
@@ -384,84 +359,10 @@ const user = () => {
                                 {t("modalUpdate.secondLastName")}
                               </span>
                             </label>
-                            {editInfo ? (
-                              <input
-                                type="text"
-                                name="secondlastname"
-                                placeholder={t("user.escriba")}
-                                className="input input-ghost w-full bg-[#F4F4F4]"
-                                value={formData.secondlastname}
-                                onChange={handleChange}
-                                required
-                              />
-                            ) : (
-                              <span className="input input-ghost w-full flex items-center">
+                            <span className="input input-ghost w-full flex items-center">
                                 {formData.secondlastname}
                               </span>
-                            )}
                           </div>
-                        </div>
-                        <div class="form-control w-full">
-                          <label class="label">
-                            <span class="label-text">
-                              {t("modalUpdate.document")}
-                            </span>
-                          </label>
-                          {editInfo ? (
-                            <div className="flex gap-3">
-                              <select
-                                className="input input-ghost w-fit bg-[#F4F4F4]"
-                                name="documenttype"
-                                id="Tipo de Documento"
-                                value={formData.documenttype}
-                                onChange={handleChange}
-                              >
-                                <option
-                                  value=""
-                                  selected
-                                  disabled
-                                  hidden
-                                ></option>
-                                <option value={"CC"}>CC</option>
-                                <option value={"CEDULA"}>CÉDULA</option>
-                                <option value={"CEX"}>CEX</option>
-                                <option value={"CI"}>CI</option>
-                                <option value={"CIC"}>CIC</option>
-                                <option value={"CPF"}>CPF</option>
-                                <option value={"CURP"}>CURP</option>
-                                <option value={"DNI"}>DNI</option>
-                                <option value={"DNIC"}>DNIC</option>
-                                <option value={"DPI"}>DPI</option>
-                                <option value={"DI"}>DI</option>
-                                <option value={"DUI"}>DUI</option>
-                                <option value={"INE"}>INE</option>
-                                <option value={"RG"}>RG</option>
-                                <option value={"RFC"}>RFC</option>
-                                <option value={"RUT"}>RUT</option>
-                                <option value={"RUN"}>RUN</option>
-                                <option value={"StateID"}>State ID</option>
-                              </select>
-                              <input
-                                type="text"
-                                placeholder={t("user.escriba")}
-                                className="input input-ghost w-[88.5%] bg-[#F4F4F4]"
-                                name="documentinfo"
-                                minLength={6}
-                                id="Número de Documento"
-                                value={formData.documentinfo}
-                                onChange={handleChange}
-                              />
-                            </div>
-                          ) : (
-                            <div className="flex gap-3">
-                              <span className="input input-ghost w-fit flex items-center">
-                                {formData.documenttype}
-                              </span>
-                              <span className="input input-ghost w-[88.5%] flex items-center">
-                                {formData.documentinfo}
-                              </span>
-                            </div>
-                          )}
                         </div>
                         <div className="form-control w-full">
                           <label className="label">
@@ -476,7 +377,7 @@ const user = () => {
                               }}
                               inputClassName="!ml-1 !input !input-ghost !w-full !rounded-r-lg !bg-[#F4F4F4]"
                               inputProps={{
-                                placeholder: t("user.escriba"),
+                                placeholder: t("user.escriba") as string,
                                 name: "phone",
                               }}
                               countrySelectorStyleProps={{
@@ -504,8 +405,8 @@ const user = () => {
                               valueFormat="MM/DD/YYYY"
                               onChange={handleChangeDate}
                               value={
-                                isValidDate(formData.birthDate)
-                                  ? new Date(formData.birthDate)
+                                isValidDate(formData)
+                                  ? new Date(formData.birthDate as string)
                                   : ""
                               }
                               variant="datepickerInput"
@@ -514,7 +415,7 @@ const user = () => {
                           ) : (
                             formData.birthDate && (
                               <span className="input input-ghost w-full flex items-center">
-                                {isValidDate(formData.birthDate)
+                                {isValidDate(formData)
                                   ? new Date(
                                       formData.birthDate
                                     ).toLocaleDateString("en-US")
@@ -547,11 +448,11 @@ const user = () => {
                             </select>
                           ) : (
                             <span className="input input-ghost w-full flex items-center">
-                              {formData.languageId === 1
+                              {formData.language === "por"
                                 ? "Portugués"
-                                : formData.languageId === 2
+                                : formData.language === "es"
                                 ? "Español"
-                                : formData.languageId === 3 && "English"}
+                                : formData.language === "en" && "English"}
                             </span>
                           )}
                         </div>

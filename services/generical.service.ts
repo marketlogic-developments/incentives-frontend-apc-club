@@ -17,8 +17,10 @@ export interface MultipleElements<T> {
   page_size: number;
   total_pages: number;
   total_record: number;
-  content: T;
+  content: T[];
 }
+
+export interface PaginatedElements<T> extends GenericalPromise<MultipleElements<T>> {}
 
 export const HandleError = (err: any): void => {
   if (err.response) {

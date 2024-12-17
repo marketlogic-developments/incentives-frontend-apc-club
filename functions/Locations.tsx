@@ -218,9 +218,7 @@ export const useLocation = () => {
           return t("menu.Productos");
         }
 
-        dispatch(changeLoadingData(true));
-        router.push("/dashboard");
-        return "Redirect";
+        return "APC Club"
       }
 
       return subsectionText.text;

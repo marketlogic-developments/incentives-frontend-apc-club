@@ -78,7 +78,7 @@ const MenuAPC:FC<Props> = ({
           }}
         >
           {icon}
-          {!collapse && <p className={`whitespace-nowrap`}>{text}</p>}
+          {!collapse && <p className={`whitespace-nowrap ml-6`}>{text}</p>}
         </div>
       </div>
       {subsections !== undefined && drop && (
