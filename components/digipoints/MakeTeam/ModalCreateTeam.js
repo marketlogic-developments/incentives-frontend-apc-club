@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import ModalTargetParticipants from "./ModalTargetParticipants";
+import ModalTargetParticipants from "./ModalTargetParticipants.tsx";
 import ModalTableParticipants from "./ModalTableParticipants";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,9 @@ import axios from "axios";
 import { changeLoadingData } from "../../../store/reducers/loading.reducer";
 import { teamsPush, teamsUpdate } from "../../../store/reducers/teams.reducer";
 import { useMemo } from "react";
+import { ListUser } from "functions/User/ListUser";
+import { TeamsFunction } from "functions/Teams/TeamsFunction.ts";
+import { EditTeam } from "services/Teams/team.service.ts";
 
 const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
   const [t, i18n] = useTranslation("global");
@@ -22,6 +25,8 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
   const [modifiedValues, setModifiedValues] = useState([]);
   const componenteRef = useRef(null);
   const dispatch = useDispatch();
+  const { ListAllUsers } = ListUser();
+  const { postTeam, putTeam } = TeamsFunction();
   const Toast = Swal.mixin({
     toast: true,
     position: "top",
@@ -35,16 +40,20 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
   });
 
   useEffect(() => {
+    ListAllUsers("limit=50");
+  }, []);
+
+  useEffect(() => {
     if (infoModal?.id !== undefined) {
       setModifiedValues(
-        infoModal.PartnerAdminGroupD.map(({ memberId, percentage }) => ({
-          memberId,
+        infoModal.users_teams.map(({ user, percentage }) => ({
+          user_id: user.id,
           percentage,
         }))
       );
       setCheckboxes(
-        infoModal.PartnerAdminGroupD.map(({ member, percentage }) => ({
-          ...member,
+        infoModal.users_teams.map(({ user, percentage }) => ({
+          ...user,
           percentage,
         }))
       );
@@ -78,17 +87,15 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
 
   function handleInputChange(e, id) {
     const { value } = e.target;
-    const existingIndex = modifiedValues.findIndex(
-      (obj) => obj.memberId === id
-    );
+    const existingIndex = modifiedValues.findIndex((obj) => obj.user_id === id);
     if (existingIndex !== -1) {
       const newValues = [...modifiedValues];
-      newValues[existingIndex] = { memberId: id, percentage: Number(value) };
+      newValues[existingIndex] = { user_id: id, percentage: Number(value) };
       setModifiedValues(newValues);
     } else {
       setModifiedValues((prevState) => [
         ...prevState,
-        { memberId: id, percentage: Number(value) },
+        { user_id: id, percentage: Number(value) },
       ]);
     }
   }
@@ -100,47 +107,16 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
 
     if (infoModal?.id !== undefined) {
       const teamUpdate = {
-        nameGroup: infoModal.nameGroup,
+        id: infoModal.id,
+        name: infoModal.name,
         description: infoModal.description,
-        partnerAdminId: user.id,
-        PartnerAdminGroupD: {
-          members: modifiedValues,
-        },
+        users_teams: modifiedValues,
       };
 
-      axios
-        .patch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/partner-admin-group-headers/${infoModal.id}`,
-          teamUpdate,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then(({ data }) => {
-          const update = teams.filter(({ id }) => id !== infoModal?.id);
-
-          dispatch(
-            teamsUpdate([
-              ...update,
-              {
-                id: infoModal.id,
-                name_group: infoModal.nameGroup,
-                description: infoModal.description,
-                partner_admin_id: user.id,
-                created_at: infoModal.CreatedAt,
-                total_users: modifiedValues.length,
-              },
-            ])
-          );
-
-          setModifiedValues([]);
-          setInfoModal({});
-          return setOpened(false);
-        });
+      putTeam(teamUpdate).finally(() => {
+        dispatch(changeLoadingData(false));
+        setOpened(false);
+      });
     }
 
     //Function makes a team if the team doesn't have an id
@@ -148,51 +124,16 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
     if (infoModal?.id === undefined) {
       dispatch(changeLoadingData(true));
 
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/partner-admin-group-headers`,
-          {
-            nameGroup: event.target[0].value,
-            description: event.target[1].value,
-            partnerAdminId: user.id,
-            PartnerAdminGroupD: {
-              members: modifiedValues,
-            },
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then(({ data }) => {
-          dispatch(
-            teamsPush({
-              ...data,
-              total_users: data.PartnerAdminGroupD.length,
-              name_group: data.nameGroup,
-              created_at: data.CreatedAt,
-            })
-          );
-          Toast.fire({
-            icon: "success",
-            title: t("modalEquipos.teamCre"),
-            background: "#000000",
-            color: "#fff",
-          });
-          return setOpened(false);
-        })
-        .catch((e) =>
-          Toast.fire({
-            icon: "error",
-            title: e,
-            background: "#000000",
-            color: "#fff",
-          })
-        )
-        .finally(() => dispatch(changeLoadingData(false)));
+      const newTeam = {
+        name: event.target[0].value,
+        description: event.target[1].value,
+        users_teams: modifiedValues,
+      };
+
+      postTeam(newTeam).finally(() => {
+        dispatch(changeLoadingData(false));
+        setOpened(false);
+      });
     }
   }
 
@@ -222,7 +163,7 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
             <p className="!text-xs text-[#333333]">
               {t("modalEquipos.nequipo")}
             </p>
-            {infoModal?.nameGroup === undefined ? (
+            {infoModal?.name === undefined ? (
               <input
                 className="input rounded-md bg-gray-100 focus:border-gray-500 focus:bg-white 
                 focus:ring-0 text-xs text-[#828282]"
@@ -240,7 +181,7 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
                 placeholder={t("modalEquipos.nequipo")}
                 required
                 name="nameGroup"
-                value={infoModal?.nameGroup}
+                value={infoModal?.name}
                 onChange={handleChange}
                 minLength={5}
               />

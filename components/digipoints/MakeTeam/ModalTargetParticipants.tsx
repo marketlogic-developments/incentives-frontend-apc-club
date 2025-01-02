@@ -1,49 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, FC, SetStateAction, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { setCompanyUsers } from "../../../store/reducers/currentUser.reducer";
-import UserItemListTeams from "./UserItemListTeams";
+import { useSelector } from "react-redux";
+import UserItemListTeams from "./UserItemListTeams.tsx";
 import { useTranslation } from "react-i18next";
+import { RootState } from "store/store";
+import { CurrentUser } from "services/User/user.service.js";
 
-const ModalTargetParticipants = ({
+interface Props {
+  checkboxes: CurrentUser[];
+  setCheckboxes: Dispatch<SetStateAction<any[]>>;
+  modifiedValues: any;
+  setModifiedValues: Dispatch<SetStateAction<any[]>>;
+}
+
+const ModalTargetParticipants: FC<Props> = ({
   checkboxes,
   setCheckboxes,
   setModifiedValues,
   modifiedValues,
 }) => {
-  const token = useSelector((state) => state.user.token);
   const [t, i18n] = useTranslation("global");
-  const usersCompany = useSelector((state) => state.user.companyUsers);
-  const user = useSelector((state) => state.user.user);
-  const dispatch = useDispatch();
-
+  const usersCompany = useSelector((state: RootState) => state.user.allUsers);
   const [searchByEmail, setSearchByEmail] = useState("");
-
-  useEffect(() => {
-    const compOrDist =
-      user.company === null
-        ? {
-            endpoint: "distri-all-users-by-id",
-            byId: user.distributionChannelId,
-          }
-        : { endpoint: "company-all-users-by-id", byId: user.companyId };
-
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then(({ data }) => {
-        dispatch(setCompanyUsers(data));
-      });
-  }, [token]);
 
   return (
     <div className="w-full p-6 flex flex-col gap-6">
@@ -54,7 +32,7 @@ const ModalTargetParticipants = ({
         <div className="relative flex w-1/2">
           <input
             className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full bg-[]"
-            placeholder={t("tabla.buscar")}
+            placeholder={String(t("tabla.buscar"))}
             type="text"
             value={searchByEmail}
             onChange={(e) => setSearchByEmail(e.target.value)}
@@ -69,23 +47,20 @@ const ModalTargetParticipants = ({
           className="font-bold text-[#1473E6] cursor-pointer w-fit"
           onClick={() =>
             checkboxes.length === 0
-              ? setCheckboxes(usersCompany)
+              ? setCheckboxes(usersCompany?.content)
               : setCheckboxes([])
           }
         >
           {t("modalEquipos.select")} todos
         </p>
         <div className="flex flex-col gap-4 items-start groupUserTeams">
-          {usersCompany
+          {usersCompany?.content
             .filter((item) => {
               if (searchByEmail !== "") {
-                return (
-                  item.email.startsWith(searchByEmail.toLocaleLowerCase()) &&
-                  item.role_id === 5
-                );
+                return item.email.startsWith(searchByEmail.toLocaleLowerCase());
               }
 
-              return item && item.role_id === 5;
+              return item;
             })
             .map((data) => (
               <UserItemListTeams

@@ -4,18 +4,18 @@ import React, { FC } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-interface Props{
-  icon:JSX.Element,
-  page:string,
-  text: DefaultTFuncReturn
-  index:number
-  subsections?:Props[];
-  href:Function;
-  location:string;
-  collapse:boolean;
+interface Props {
+  icon: JSX.Element;
+  page: string;
+  text: DefaultTFuncReturn;
+  index: number;
+  subsections?: Props[];
+  href: Function;
+  location: string;
+  collapse: boolean;
 }
 
-const MenuAPC:FC<Props> = ({
+const MenuAPC: FC<Props> = ({
   icon,
   page,
   text,
@@ -26,8 +26,8 @@ const MenuAPC:FC<Props> = ({
   collapse,
 }) => {
   const [drop, setDrop] = useState(false);
-  const route=useRouter()
-  const thislocation=route.pathname
+  const route = useRouter();
+  const thislocation = route.pathname;
 
   useEffect(() => {
     if (!collapse) {
@@ -78,7 +78,7 @@ const MenuAPC:FC<Props> = ({
           }}
         >
           {icon}
-          {!collapse && <p className={`whitespace-nowrap ml-6`}>{text}</p>}
+          {!collapse && <p className={`whitespace-nowrap`}>{text}</p>}
         </div>
       </div>
       {subsections !== undefined && drop && (
@@ -91,9 +91,7 @@ const MenuAPC:FC<Props> = ({
             <div className="containerItemLayout" key={index}>
               <div
                 className={
-                  thislocation === page
-                    ? "itemLayoutSelect"
-                    : "itemLayout"
+                  thislocation === page ? "itemLayoutSelect" : "itemLayout"
                 }
                 key={index}
                 onClick={() => {
@@ -105,7 +103,7 @@ const MenuAPC:FC<Props> = ({
                 }}
               >
                 {!collapse && icon}
-                <p className="whitespace-nowrap !text-[12px]">{text}</p>
+                <p className="whitespace-nowrap ml-10 !text-[12px]">{text}</p>
               </div>
             </div>
           ))}

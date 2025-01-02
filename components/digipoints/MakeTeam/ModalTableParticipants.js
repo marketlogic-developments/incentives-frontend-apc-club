@@ -41,7 +41,7 @@ const ModalTableParticipants = ({ dataUsers, handleInputChange }) => {
             <tbody className="min-h-[15rem]">
               {dataUsers.map((item, index) => (
                 <tr className={index % 2 !== 0 ? "bg-[#F5F5F5]" : "bg-white"}>
-                  <td className="py-3">{item.name}</td>
+                  <td className="py-3">{item.profile.first_name}</td>
                   <td className="py-3">{item.email}</td>
                   <td className="py-3">
                     <input

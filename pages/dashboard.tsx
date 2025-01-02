@@ -35,7 +35,7 @@ interface Props {
 
 const dashboard: FC<Props> = ({ entries, banners, infoApc }) => {
   const { user, token, userSwitch } = useSelector(
-    (state: RootState) => state.user
+    (state: RootState) => state.currentUser
   );
   const [opened, setOpened] = useState(false);
   const [opened2, setOpened2] = useState(false);
@@ -68,8 +68,7 @@ const dashboard: FC<Props> = ({ entries, banners, infoApc }) => {
     // }
   }, [user, token]);
 
-
-const logout = () => {
+  const logout = () => {
     window.sessionStorage.removeItem("token");
     Cookies.remove("dp");
     route.push("/");

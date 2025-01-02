@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import awardsAction from "./reducers/awards.reducer";
 import ordersAction from "./reducers/orders.reducer";
 import currentUserActions from "./reducers/currentUser.reducer";
-import userActions from "./reducers/currentUser.reducer";
+import userActions from "./reducers/users.reducer";
 import saleActions from "./reducers/sales.reducer";
 import teamsAction from "./reducers/teams.reducer";
 import loadingData from "./reducers/loading.reducer";

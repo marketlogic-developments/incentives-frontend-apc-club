@@ -14,7 +14,7 @@ interface Props {
 const CarouselBanners: FC<Props> = ({ banners }) => {
   const [t, i18n] = useTranslation("global");
   const route = useRouter();
-  const user = useSelector((state: RootState) => state.user.user);
+  const { user } = useSelector((state: RootState) => state.currentUser);
   const [counter, setCounter] = useState(0);
   const autoplay = useRef(Autoplay({ delay: 5000 }));
 

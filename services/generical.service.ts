@@ -2,8 +2,8 @@ import { NotiSwal } from "notifications/notifications";
 import Swal, { SweetAlertIcon } from "sweetalert2";
 
 export interface GenericalPromise<T> {
-  status: number;
-  detail: string;
+  status?: number;
+  detail?: string;
   result: T;
 }
 
@@ -13,14 +13,15 @@ export interface ErrorPromise {
 }
 
 export interface MultipleElements<T> {
-  page_number: number;
-  page_size: number;
-  total_pages: number;
-  total_record: number;
+  page_number?: number;
+  page_size?: number;
+  total_pages?: number;
+  total_record?: number;
   content: T[];
 }
 
-export interface PaginatedElements<T> extends GenericalPromise<MultipleElements<T>> {}
+export interface PaginatedElements<T>
+  extends GenericalPromise<MultipleElements<T>> {}
 
 export const HandleError = (err: any): void => {
   if (err.response) {
@@ -43,8 +44,7 @@ export const HandleError = (err: any): void => {
     NotiSwal({ icon: "error", text: mess });
   }
 
-  if(err.code === "ERR_NETWORK"){
+  if (err.code === "ERR_NETWORK") {
     NotiSwal({ icon: "warning", text: "Server error. Try again later." });
   }
-  
 };

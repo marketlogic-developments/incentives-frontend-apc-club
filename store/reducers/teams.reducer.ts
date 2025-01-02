@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { MultipleElements } from "services/generical.service";
+import { Team } from "services/Teams/team.service";
 
-const initialState = {
+const initialState: { teams: MultipleElements<Team> | null } = {
   teams: null,
 };
 
@@ -10,7 +12,10 @@ export const teamsAction = createSlice({
   initialState,
   reducers: {
     teamsPush: (state, action) => {
-      state.teams = [...state.teams, action.payload];
+      state.teams = {
+        ...state.teams,
+        content: [...state.teams?.content, action.payload],
+      };
     },
     teamsUpdate: (state, action) => {
       state.teams = action.payload;

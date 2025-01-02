@@ -61,17 +61,17 @@ export const getCurrentUser =
     }
   };
 
-export const listUsers =
-  async (): Promise<PaginatedElements<CurrentUser> | void> => {
-    try {
-      const response = await API.get("administration/users");
-      return response.data;
-    } catch (err) {
-      console.log("Error to list users");
-      const error = HandleError(err);
-      return error;
-    }
-  };
+export const listUsers = async (
+  params: string = ""
+): Promise<PaginatedElements<CurrentUser> | void> => {
+  try {
+    const response = await API.get(`administration/users?${params}`);
+    return response.data;
+  } catch (err) {
+    const error = HandleError(err);
+    return error;
+  }
+};
 
 export const updateUser =
   async (): Promise<GenericalPromise<CurrentUser> | void> => {};

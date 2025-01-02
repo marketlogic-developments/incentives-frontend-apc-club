@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "store/store";
 
 const terminosycondiciones = () => {
-  const user = useSelector((state: RootState) => state.user.user);
+  const { user } = useSelector((state: RootState) => state.currentUser);
   const [t, i18n] = useTranslation("global");
   const iframeRef = useRef(null);
 
@@ -63,7 +63,7 @@ const terminosycondiciones = () => {
             </div>
             <p
               dangerouslySetInnerHTML={{
-                __html: t("terminosycondiciones.deseas"),
+                __html: String(t("terminosycondiciones.deseas")),
               }}
             />
           </div>
@@ -73,7 +73,7 @@ const terminosycondiciones = () => {
             </div>
             <p
               dangerouslySetInnerHTML={{
-                __html: t("terminosycondiciones.paso4"),
+                __html: String(t("terminosycondiciones.paso4")),
               }}
             />
           </div>
