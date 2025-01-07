@@ -39,7 +39,6 @@ const DigipointsDistribution = () => {
   const data = useSelector(
     (state: RootState) => state.invoices.invoicesDistribution
   );
-  const [dataToTable, setDataToTable] = useState<AssingInvoice[]>([]);
   const [filtersTable, setFiltersTable] = useState({
     date: "",
     marketSegment: "",
@@ -89,7 +88,6 @@ const DigipointsDistribution = () => {
       status: true,
     };
 
-    setDataToTable(newData);
     dispatch(getDigiPa(dataRedux));
     dispatch(getDigiPoints(token, iduser));
 
@@ -249,7 +247,7 @@ const DigipointsDistribution = () => {
               <tbody>
                 {data ? (
                   <>
-                    {dataToTable
+                    {data.content
                       // .filter((item) => {
                       //   if (searchByInvoice !== "") {
                       //     return item.invoices_included.includes(
