@@ -13,7 +13,7 @@ export interface CurrentUser {
   is_superuser: boolean;
   profile: Profile;
   roles: Roles;
-  status: StatusUser[];
+  status: StatusUser;
   region: Region;
 }
 
@@ -32,8 +32,7 @@ export interface Profile {
 }
 
 export interface StatusUser {
-  name: string;
-  status: boolean;
+  [key: string]: any;
 }
 
 export interface DigipointsUser {

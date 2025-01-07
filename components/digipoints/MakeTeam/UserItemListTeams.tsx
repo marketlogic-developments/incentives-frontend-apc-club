@@ -50,11 +50,11 @@ const UserItemListTeams: FC<Props> = ({
         />
         <div className="user bg-[#1473E6] rounded-full w-[25px] h-[25px] max-w-[25px] max-h-[25px] min-w-[25px] min-h-[25px] flex items-center justify-center">
           <p className="text-white text-xs font-normal text-center">
-            {data.profile.first_name[0]}
+            {data?.profile?.first_name[0]}
           </p>
         </div>
         <div>
-          <p className="text-xs">{data.profile.first_name}</p>
+          <p className="text-xs">{data?.profile?.first_name}</p>
         </div>
       </div>
 

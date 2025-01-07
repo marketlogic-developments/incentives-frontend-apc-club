@@ -21,24 +21,7 @@
       "current": 5000
     }
   },
-  "status": [
-    {
-      "name": "POLICIES",
-      "status": true
-    },
-    {
-      "name": "RESET_PASSWORD",
-      "status": false
-    },
-    {
-      "name": "UPDATE_INFORMATION",
-      "status": true
-    },
-    {
-      "name": "POLICIES_AWARDS",
-      "status": false
-    }
-  ],
+  "status": {"POLICIES": true, "RESET_PASSWORD": false, "POLICIES_AWARDS": false, "UPDATE_INFORMATION": true},
   "roles": {
     "id": "75fe996d-dce4-40e1-a8f7-410c8709f509",
     "name": "partner_admin",

@@ -72,7 +72,9 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   const { Locations, textLocation } = useLocation();
 
   const statusUserOptions = (statusName: string): StatusUser | undefined =>
-    user?.status.find(({ name }) => name === statusName);
+   user?.status 
+  ? Object.entries(user.status).find(([key]) => key === statusName) 
+  : undefined;
 
   //Get Data User
   useEffect(() => {
@@ -109,12 +111,14 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
 
   //Show Modals
   useEffect(() => {
-    const VideoKey = user?.status.find(({ name }) => name === video?.key);
+    const VideoKey = user?.status 
+    ? Object.entries(user.status).find(([key]) => key === video?.key) 
+    : undefined;
     const updateData = statusUserOptions("UPDATE_INFORMATION");
 
     if (user) {
       if (
-        VideoKey?.name &&
+        VideoKey &&
         location === "/dashboard"
         // userSwitch.prevData === undefined
       ) {
@@ -124,7 +128,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
         }, 2000);
       }
 
-      if (!updateData?.status) {
+      if (!updateData) {
         setModal(2);
         setOpened(true);
       }

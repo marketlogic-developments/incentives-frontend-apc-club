@@ -1,5 +1,11 @@
 import { Modal, Skeleton } from "@mantine/core";
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  ChangeEvent,
+  EventHandler,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -17,89 +23,51 @@ import { AiOutlineSearch } from "react-icons/ai";
 import GraphDigiPointsDistribution from "../../components/digipoints/DpDistribution/GraphDigiPointsDistribution";
 import { RootState } from "store/store";
 import DataNotFound from "components/Module/404/DataNotFound";
+import { InvoicesFunction } from "functions/Invoices/InvoicesFunction";
+import { MultipleElements } from "services/generical.service";
+import { AssingInvoice } from "services/Invoices/invoices.service";
+import ReactPaginate from "react-paginate";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const DigipointsDistribution = () => {
   const [opened, setOpened] = useState(false);
   const [t, i18n] = useTranslation("global");
-  const { user, token } = useSelector((state: RootState) => state.currentUser);
-  const [numModal, setNumModal] = useState(0);
+  const { token } = useSelector((state: RootState) => state.currentUser);
   const [searchByInvoice, setSearchByInvoice] = useState("");
   const [invoiceData, setInvoiceData] = useState({});
   const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.sales.digipa);
-  const [dataToTable, setDataToTable] = useState([]);
+  const data = useSelector(
+    (state: RootState) => state.invoices.invoicesDistribution
+  );
+  const [dataToTable, setDataToTable] = useState<AssingInvoice[]>([]);
   const [filtersTable, setFiltersTable] = useState({
     date: "",
     marketSegment: "",
     invoiceattributed: "",
   });
-  const [loading, setLoading] = useState(false);
+  const { ListInvoices } = InvoicesFunction();
+  const [params, setParams] = useState({
+    page: 1,
+    limit: 10,
+    search: "",
+  });
 
   useEffect(() => {
-    setLoading(true);
-    if (token && data.length === 0) {
-      getDigipointsPa(token, user?.id);
-    }
+    const { limit, page, search } = params;
+    ListInvoices(`page=${page}&limit=${limit}&search=${search}`);
+  }, [params]);
 
-    setLoading(false);
-  }, [token]);
-
-  const filters = useMemo(() => {
-    setDataToTable(
-      [...data]
-        .filter((invoice) => {
-          if (
-            filtersTable.marketSegment !== "" &&
-            filtersTable.invoiceattributed !== ""
-          ) {
-            const assigned =
-              filtersTable.invoiceattributed === "unassigned"
-                ? invoice.status === true
-                : filtersTable.invoiceattributed === "attributed"
-                ? invoice.status === false
-                : invoice.status === true || invoice.status === false;
-
-            return (
-              invoice.marketSegment === filtersTable.marketSegment && assigned
-            );
-          }
-
-          if (filtersTable.marketSegment !== "") {
-            return invoice.marketSegment === filtersTable.marketSegment;
-          }
-
-          if (filtersTable.invoiceattributed !== "") {
-            return filtersTable.invoiceattributed === "unassigned"
-              ? invoice.status === true
-              : filtersTable.invoiceattributed === "attributed"
-              ? invoice.status === false
-              : invoice.status === true || invoice.status === false;
-          }
-
-          return invoice;
-        })
-        .sort((prev, curr) => {
-          const datePrev = new Date(prev.date);
-          const dateCurr = new Date(curr.date);
-
-          if (filtersTable.date === "downUp") {
-            return datePrev - dateCurr;
-          }
-
-          return dateCurr - datePrev;
-        })
-    );
-  }, [data, filtersTable]);
-
-  const uniqueData = (data) => {
+  const uniqueData = (data:string[] | undefined) => {
     const thisData = new Set(data);
 
-    return [...thisData].map((item) => {
+    return [...thisData].map((item:any) => {
       return <option value={item}>{item}</option>;
     });
   };
 
-  const handleFilters = (e) => {
+  const handleFilters = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     return setFiltersTable({
       ...filtersTable,
       [e.target.name]: [e.target.value][0],
@@ -130,19 +98,19 @@ const DigipointsDistribution = () => {
 
   const dowloadInvoices = () => {
     const filteredData = dataToTable.filter((item) => {
-      return item.digipoints > 0;
+      return item.points > 0;
     });
 
     const data = filteredData.map((item) => {
-      const {
-        invoiceDetails,
-        invoices_included,
-        is_gold,
-        status,
-        sku,
-        ...info
-      } = item;
-      return info;
+      // const {
+      //   invoiceDetails,
+      //   invoices_included,
+      //   is_gold,
+      //   status,
+      //   sku,
+      //   ...info
+      // } = item;
+      return item;
     });
 
     jsonexport(data, (error, csv) => {
@@ -156,12 +124,16 @@ const DigipointsDistribution = () => {
     });
   };
 
+  const handlePageClick = (e: { selected: number }) => {
+    setParams((prev)=>({...prev, page: e.selected + 1}))
+  };
+
   return (
     <>
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        size={numModal === 0 ? "100%" : "100%"}
+        size={"100%"}
         centered
         className="modal100"
       >
@@ -175,14 +147,26 @@ const DigipointsDistribution = () => {
         {/* {data.length !== 0 && <GraphDigiPointsDistribution data={data} />} */}
         <div className="w-full flex lg:flex-row flex-col lg:gap-1 gap-3 mb-4 justify-between">
           <div className="lg:w-full xl:w-2/3 flex lg:flex-row flex-col gap-3 items-center">
-            <div className="relative flex w-full">
+            <div className="relative flex w-full gap-3">
               <input
                 className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
                 placeholder={String(t("tabla.buscar"))}
                 type="text"
-                value={searchByInvoice}
-                onChange={(e) => setSearchByInvoice(e.target.value)}
+                onBlur={(e) => 
+                  setParams((prev)=>({...prev, search: e.target.value}))
+                }
               />
+              <select
+                onChange={(e) => 
+                  setParams((prev)=>({...prev, limit: Number(e.target.value)}))
+                }
+                className="select lg:select-xs xl:select-sm lg:!text-xs 2xl:!text-sm bg-gray-100"
+              >
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
               <div className="absolute h-full items-center flex ml-2">
                 <AiOutlineSearch color="#eb1000" />
               </div>
@@ -205,7 +189,11 @@ const DigipointsDistribution = () => {
                 className="select lg:select-xs xl:select-sm lg:!text-xs 2xl:!text-sm bg-gray-100"
               >
                 <option value="">Segmento de Mercado</option>
-                {uniqueData(data.map(({ marketSegment }) => marketSegment))}
+                {uniqueData(
+                  data?.content.map(
+                    ({ invoices }) => invoices.sale.market_segment
+                  )
+                )}
               </select>
               <select
                 name="invoiceattributed"
@@ -242,7 +230,7 @@ const DigipointsDistribution = () => {
                     {t("tabla.nfactura")}
                   </th>
                   <th scope="col" className="py-5 px-6">
-                    {t("tabla.fecha")}
+                    Assigned{t("tabla.fecha")}
                   </th>
                   <th scope="col" className="py-5 px-6">
                     Cliente
@@ -260,24 +248,25 @@ const DigipointsDistribution = () => {
               </thead>
               <tbody>
                 {data ? (
-                  <Skeleton visible={false} height={8}>
+                  <>
                     {dataToTable
-                      .filter((item) => {
-                        if (searchByInvoice !== "") {
-                          return item.invoices_included.includes(
-                            searchByInvoice
-                          );
-                        }
+                      // .filter((item) => {
+                      //   if (searchByInvoice !== "") {
+                      //     return item.invoices_included.includes(
+                      //       searchByInvoice
+                      //     );
+                      //   }
 
-                        return item;
-                      })
-                      .sort((a, b) => a.status - b.status)
+                      //   return item;
+                      // })
+                      // .sort((a, b) => a.status - b.status)
                       .map((obj, i) => {
                         const index =
                           searchByInvoice !== ""
-                            ? dataToTable.findIndex(({ invoices_included }) => {
+                            ? dataToTable.findIndex(({ invoices }) => {
                                 return (
-                                  obj.invoices_included === invoices_included
+                                  obj.invoices.sale.sales_order ===
+                                  invoices.sale.sales_order
                                 );
                               })
                             : i;
@@ -287,19 +276,23 @@ const DigipointsDistribution = () => {
                             className={
                               i % 2 !== 0 ? "bg-[#F5F5F5]" : "bg-white"
                             }
-                            key={obj?.invoices_included + i}
+                            key={obj?.invoices.sale.sales_order + i}
                           >
                             <td className="py-4 px-6">
-                              {obj?.invoices_included}
+                              {obj?.invoices.sale.sales_order}
                             </td>
                             <td className="py-4 px-6 min-w-[130px]">
-                              {obj?.date}
+                              {obj?.invoices.sale.billing_date}
                             </td>
-                            <td className="py-4 px-6">{obj?.client}</td>
-                            <td className="py-4 px-6">{obj?.marketSegment}</td>
-                            <td className="py-4 px-6">{obj?.digipoints}</td>
                             <td className="py-4 px-6">
-                              {obj.status === false ? (
+                              {obj?.invoices.sale.end_user_name1}
+                            </td>
+                            <td className="py-4 px-6">
+                              {obj?.invoices.sale.market_segment}
+                            </td>
+                            <td className="py-4 px-6">{obj?.points}</td>
+                            <td className="py-4 px-6">
+                              {obj.invoices.assigned_type === "UNASSIGNED" ? (
                                 <div
                                   className="flex items-center h-full gap-1"
                                   onClick={() => {
@@ -318,10 +311,6 @@ const DigipointsDistribution = () => {
                               ) : (
                                 <div
                                   className="flex items-center h-full gap-1"
-                                  onClick={() => {
-                                    console.log("");
-                                    // return handleUnassign({ ...obj, index: index });
-                                  }}
                                 >
                                   <svg
                                     width="17"
@@ -345,7 +334,7 @@ const DigipointsDistribution = () => {
                           </tr>
                         );
                       })}
-                  </Skeleton>
+                  </>
                 ) : (
                   <tr>
                     <td colSpan={4} className="text-center py-10 text-gray-500">
@@ -355,6 +344,30 @@ const DigipointsDistribution = () => {
                 )}
               </tbody>
             </table>
+            {data ? (
+              <ReactPaginate
+                pageCount={data.total_pages ?? 0}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                nextClassName={"item next "}
+                previousClassName={"item previous"}
+                activeClassName={"item active "}
+                breakClassName={"item break-me "}
+                breakLabel={"..."}
+                disabledClassName={"disabled-page"}
+                pageClassName={"item pagination-page "}
+                nextLabel={
+                  <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
+                }
+                previousLabel={
+                  <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
+                }
+              />
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>

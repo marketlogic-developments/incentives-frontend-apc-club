@@ -39,7 +39,7 @@ const MakeTeam = () => {
 
   useEffect(() => {
     ListAllTeams();
-  }, []);
+  }, [opened]);
 
   const EditTeam = (data: Team) => {
     setInfoModal(data);

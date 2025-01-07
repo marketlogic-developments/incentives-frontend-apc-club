@@ -4,6 +4,7 @@ import ordersAction from "./reducers/orders.reducer";
 import currentUserActions from "./reducers/currentUser.reducer";
 import userActions from "./reducers/users.reducer";
 import saleActions from "./reducers/sales.reducer";
+import InvoicesAction from "./reducers/invoices.reducer";
 import teamsAction from "./reducers/teams.reducer";
 import loadingData from "./reducers/loading.reducer";
 import companyAction from "./reducers/company.reducer";
@@ -17,6 +18,7 @@ export const store = configureStore({
     awards: awardsAction,
     orders: ordersAction,
     sales: saleActions,
+    invoices: InvoicesAction,
     teams: teamsAction,
     loadingData: loadingData,
     company: companyAction,

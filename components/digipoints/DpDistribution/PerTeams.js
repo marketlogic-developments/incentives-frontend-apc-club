@@ -29,21 +29,8 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/all-users-by-groupname-where-id/${user.id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then(({ data }) => {
-        if (data.length !== 0) dispatch(getAllTeams(data));
-      });
-  }, [token]);
+    ListAllTeams();
+  },[]);
 
   const handleAssign = () => {
     if (!thisTeam.id) {
@@ -154,10 +141,10 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
                               onChange={() => setThisTeam(item)}
                             ></input>
 
-                            {item.name_group}
+                            {item.name}
                           </div>
                         </td>
-                        <td className="py-3">{item.total_users}</td>
+                        <td className="py-3">{item.users_teams.length}</td>
                       </tr>
                     ))}
                 </tbody>
