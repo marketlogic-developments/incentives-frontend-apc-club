@@ -20,9 +20,7 @@
       "phone_number": "+55 (11) 999521147",
       "address": "-",
       "status": true,
-      "validations": [
-        "El Partner Admin y el Partner Principal deben aceptar los términos y condiciones."
-      ]
+      "validations": []
     },
     "digipoints": {
       "historical": 10000,

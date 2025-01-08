@@ -89,8 +89,6 @@ const DigipointsDistribution = () => {
     setParams((prev) => ({ ...prev, page: e.selected + 1 }));
   };
 
-  console.log(data);
-
   return (
     <>
       <Modal
@@ -301,8 +299,15 @@ const DigipointsDistribution = () => {
                   </>
                 ) : (
                   <tr>
-                    <td colSpan={4} className="text-center py-10 text-gray-500">
-                      <DataNotFound action={() => console.log("a")} />
+                    <td colSpan={6} className="text-center py-10 text-gray-500">
+                      <DataNotFound
+                        action={() => {
+                          const { limit, page, search } = params;
+                          ListInvoices(
+                            `page=${page}&limit=${limit}&search=${search}`
+                          );
+                        }}
+                      />
                     </td>
                   </tr>
                 )}
