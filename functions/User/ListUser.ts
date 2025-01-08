@@ -14,6 +14,7 @@ export const ListUser = () => {
       dispatch(getUsers(res.result));
     } catch (err) {
       console.error(err);
+      throw err;
     }
   };
 

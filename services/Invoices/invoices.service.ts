@@ -1,5 +1,9 @@
 import { API } from "services/connectapi.service";
-import { HandleError, PaginatedElements } from "services/generical.service";
+import {
+  GenericalPromise,
+  HandleError,
+  PaginatedElements,
+} from "services/generical.service";
 
 export interface AssingInvoice {
   id: string;
@@ -8,9 +12,9 @@ export interface AssingInvoice {
   rule_type: string;
   invoices: {
     assigned_type: "UNASSIGNED" | "ASSIGNED";
-    sale:Sale
-    product:Product
-    reseller:Reseller
+    sale: Sale;
+    product: Product;
+    reseller: Reseller;
   };
 
   rule: Rule;
@@ -59,45 +63,68 @@ interface Product {
 }
 
 interface Rule {
-    id: string; // UUID en formato de cadena
-    name: string;
-    points: number;
-    rule_type: "PER_RULE" | string; // Enum o cadena personalizada
-    point_type: "RESELLERS" | string; // Enum o cadena personalizada
-    status: boolean;
-    rules: Record<string, any>; // Claves dinámicas para `rules`
-  }
+  id: string; // UUID en formato de cadena
+  name: string;
+  points: number;
+  rule_type: "PER_RULE" | string; // Enum o cadena personalizada
+  point_type: "RESELLERS" | string; // Enum o cadena personalizada
+  status: boolean;
+  rules: Record<string, any>; // Claves dinámicas para `rules`
+}
 
-  interface Reseller {
-    sales_region: string;
-    state_province: string;
-    country: string;
-    city: string;
-    account_name: string;
-    account_level: string;
-    membership_id: string;
-    status: string;
-    account_id: string;
-    main_contact_type: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-    phone: string;
-    anniversary_date: string; // Fecha en formato ISO 8601
-    account_owner: string;
-    partner_program_type: string;
-    vmi_id_desktop: string;
-    extended_attributes: Record<string, any>; // Claves dinámicas para `extended_attributes`
-  }
+interface Reseller {
+  sales_region: string;
+  state_province: string;
+  country: string;
+  city: string;
+  account_name: string;
+  account_level: string;
+  membership_id: string;
+  status: string;
+  account_id: string;
+  main_contact_type: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  anniversary_date: string; // Fecha en formato ISO 8601
+  account_owner: string;
+  partner_program_type: string;
+  vmi_id_desktop: string;
+  extended_attributes: Record<string, any>; // Claves dinámicas para `extended_attributes`
+}
+
+export interface PostAssignInvoice {
+  assignment_type: "INDIVIDUAL" | "TEAM";
+  invoice_point_id: string;
+  user_id?: string;
+  team_id?: string;
+}
 
 export const listInvoices = async (
   params: string = ""
 ): Promise<PaginatedElements<AssingInvoice> | void> => {
   try {
-    const response = await API.get(`organizations/adobe/partnet/connection/club/invoices/assignments/invoices_points?${params}`);
+    const response = await API.get(
+      `organizations/adobe/partnet/connection/club/invoices/assignments/invoices_points?${params}`
+    );
     return response.data;
   } catch (err) {
-    const error = HandleError(err);
-    return error;
+    HandleError(err);
+    throw err;
+  }
+};
+export const postInvoices = async (
+  data: PostAssignInvoice
+): Promise<GenericalPromise<AssingInvoice> | void> => {
+  try {
+    const response = await API.post(
+      `organizations/adobe/partnet/connection/club/invoices/assignments/invoices`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    HandleError(err);
+    throw err;
   }
 };

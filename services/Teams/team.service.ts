@@ -25,7 +25,8 @@ export const listTeams = async (params: string) => {
     );
     return response.data; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
-    return HandleError(err); // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    HandleError(err);
+    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
   }
 };
 
@@ -37,7 +38,8 @@ export const CreateTeam = async (teamData: Team) => {
     );
     return response.data; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
-    return HandleError(err); // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    HandleError(err);
+    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
   }
 };
 export const EditTeam = async (teamData: Team) => {
@@ -50,16 +52,18 @@ export const EditTeam = async (teamData: Team) => {
     );
     return response.data; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
-    return HandleError(err); // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    HandleError(err);
+    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
   }
 };
 export const DeleteTeam = async (teamDataId: string) => {
   try {
     const response = await API.delete<GenericalPromise<Team>>(
-      `organizations/adobe/partnet/connection/club/teams?uuid=${teamDataId}`
+      `organizations/adobe/partnet/connection/club/teams?id=${teamDataId}`
     );
     return response.data; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
-    return HandleError(err); // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    HandleError(err);
+    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
   }
 };

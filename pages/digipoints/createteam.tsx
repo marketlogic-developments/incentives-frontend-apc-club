@@ -58,23 +58,15 @@ const MakeTeam = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteTeam(data.id)
-          .then(() => {
-            return Toast.fire({
-              icon: "success",
-              title: String(t("digipoints.teamDeleteNoti")),
-              background: "#000000",
-              color: "#fff",
-            });
-          })
-          .catch(() => {
-            Toast.fire({
-              icon: "error",
-              title: String(t("digipoints.errorNotiTeams")),
-              background: "#000000",
-              color: "#fff",
-            });
+        deleteTeam(data.id).then(() => {
+          setOpened(false);
+          return Toast.fire({
+            icon: "success",
+            title: String(t("digipoints.teamDeleteNoti")),
+            background: "#000000",
+            color: "#fff",
           });
+        });
       }
     });
   };
@@ -85,7 +77,7 @@ const MakeTeam = () => {
       return info;
     });
 
-    jsonexport(data, (error, csv) => {
+    jsonexport(data as object, (error, csv) => {
       if (error) {
         console.error(error);
         return;

@@ -24,7 +24,7 @@ const getOneCompany = async (
     const response = await API.get("");
     return response.data;
   } catch (err: any) {
-    const error = HandleError(err);
-    return error;
+    HandleError(err);
+    throw err;
   }
 };

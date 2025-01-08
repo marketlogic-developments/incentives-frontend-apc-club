@@ -55,8 +55,8 @@ export const getCurrentUser =
       return response.data;
     } catch (err: any) {
       console.log("Error to get user info");
-      const error = HandleError(err);
-      return error;
+      HandleError(err);
+      throw err;
     }
   };
 
@@ -67,8 +67,8 @@ export const listUsers = async (
     const response = await API.get(`administration/users?${params}`);
     return response.data;
   } catch (err) {
-    const error = HandleError(err);
-    return error;
+    HandleError(err);
+    throw err;
   }
 };
 

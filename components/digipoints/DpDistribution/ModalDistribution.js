@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import TargetInvoice from "./TargetInvoice";
-import PerUsers from "./PerUsers";
-import PerTeams from "./PerTeams";
+import TargetInvoice from "./TargetInvoice.tsx";
+import PerUsers from "./PerUsers.tsx";
+import PerTeams from "./PerTeams.tsx";
 
-const ModalDistribution = ({ setOpened, invoiceData, handleSubmit }) => {
+const ModalDistribution = ({ setOpened, invoiceData }) => {
   const [t, i18n] = useTranslation("global");
   const [salesOption, setSalesOption] = useState("");
 
@@ -41,23 +41,11 @@ const ModalDistribution = ({ setOpened, invoiceData, handleSubmit }) => {
     }
 
     if (salesOption === "team") {
-      return (
-        <PerTeams
-          invoiceData={invoiceData}
-          handleSubmit={handleSubmit}
-          setOpened={setOpened}
-        />
-      );
+      return <PerTeams invoiceData={invoiceData} setOpened={setOpened} />;
     }
 
     if (salesOption === "salesRep") {
-      return (
-        <PerUsers
-          invoiceData={invoiceData}
-          handleSubmit={handleSubmit}
-          setOpened={setOpened}
-        />
-      );
+      return <PerUsers invoiceData={invoiceData} setOpened={setOpened} />;
     }
   }, [salesOption]);
 

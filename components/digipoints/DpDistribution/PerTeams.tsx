@@ -1,20 +1,38 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
+import { getAllTeams } from "../../../store/reducers/teams.reducer";
 import Swal from "sweetalert2";
-import { setCompanyUsers } from "../../../store/reducers/currentUser.reducer";
-import axios from "axios";
 import { Triangle } from "react-loader-spinner";
+import { TeamsFunction } from "functions/Teams/TeamsFunction";
+import DataNotFound from "components/Module/404/DataNotFound";
+import { Team } from "services/Teams/team.service";
+import { RootState } from "store/store";
+import { InvoicesFunction } from "functions/Invoices/InvoicesFunction";
+import { AssingInvoice } from "services/Invoices/invoices.service";
 
-const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
-  const [searchByEmail, setSearchByEmail] = useState("");
-  const token = useSelector((state) => state.user.token);
-  const user = useSelector((state) => state.user.user);
-  const usersCompany = useSelector((state) => state.user.companyUsers);
+interface Props {
+  invoiceData: AssingInvoice;
+  setOpened: Dispatch<SetStateAction<boolean>>;
+}
+
+const PerTeams: FC<Props> = ({ invoiceData, setOpened }) => {
+  const { user, token } = useSelector((state: RootState) => state.currentUser);
+  const teams = useSelector((state: RootState) => state.teams.teams);
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
-  const [thisUser, setThisUser] = useState("");
+  const [searchByName, setSearchByName] = useState<string>("");
+  const [thisTeam, setThisTeam] = useState<Team | null>(null);
+  const { ListAllTeams } = TeamsFunction();
+  const { AssignInvoice } = InvoicesFunction();
   const Toast = Swal.mixin({
     toast: true,
     position: "top",
@@ -29,73 +47,29 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const compOrDist =
-      user.company === null
-        ? {
-            endpoint: "distri-all-users-by-id",
-            byId: user.distributionChannelId,
-          }
-        : { endpoint: "company-all-users-by-id", byId: user.companyId };
-
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/${compOrDist.endpoint}/${compOrDist.byId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then(({ data }) => {
-        dispatch(setCompanyUsers(data));
-      });
-  }, [token]);
+    ListAllTeams();
+  }, []);
 
   const handleAssign = () => {
     setLoading(true);
-
-    if (!thisUser.id) {
+    if (!thisTeam?.id) {
       return Toast.fire({
         icon: "error",
-        title: t("digipoints.errorNoTeam"),
+        title: String(t("digipoints.errorNoTeam")),
       });
     }
 
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/employee-poits-collects/assign-points/`,
-        {
-          partnerAdminId: user.id,
-          assignType: "amount",
-          isGold: user.companyId === null ? true : false,
-          assignValues: [
-            {
-              invoiceId: invoiceData.invoices_included.toString(),
-              vendorId: thisUser.id,
-            },
-          ],
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        handleSubmit(invoiceData);
+    AssignInvoice({
+      assignment_type: "TEAM",
+      invoice_point_id: invoiceData.id,
+      team_id: thisTeam.id,
+    })
+      .then(() => {
+        setOpened(false);
+
         return Toast.fire({
           icon: "success",
-          title: t("digipoints.successFact"),
-        });
-      })
-      .catch((e) => {
-        return Toast.fire({
-          icon: "error",
-          title: "An error has occurred",
+          title: String(t("digipoints.successFact")),
         });
       })
       .finally(() => setLoading(false));
@@ -106,21 +80,21 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
       <div className="flex flex-col gap-6">
         <div className="grid grid-cols-2 gap-6">
           <p className="font-bold !text-base self-center">
-            {t("digipoints.represV")} ({usersCompany.length})
+            {t("digipoints.teamV")} ({teams?.content.length ?? 0})
           </p>
           <div className="relative flex w-full">
             <input
-              className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
-              placeholder={t("tabla.buscar")}
+              className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full bg-[]"
+              placeholder={String(t("tabla.buscar"))}
               type="text"
-              value={searchByEmail}
-              onChange={(e) => setSearchByEmail(e.target.value)}
+              value={searchByName}
+              onChange={(e) => setSearchByName(e.target.value)}
             />
             <div className="absolute h-full items-center flex ml-2">
               <AiOutlineSearch color="#eb1000" />
             </div>
           </div>
-          <p className="col-span-2">{t("digipoints.selectUser")}</p>
+          <p className="col-span-2">{t("digipoints.selectTeam")}</p>
         </div>
         <div className="w-full">
           <div className="overflow-x-auto">
@@ -136,19 +110,17 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
                   {t("tabla.nParticipantes")}
                 </th>
               </thead>
-              {usersCompany.length !== 0 && (
+              {teams ? (
                 <tbody className="min-h-[15rem]">
-                  {usersCompany
+                  {teams.content
                     .filter((item) => {
-                      if (searchByEmail !== "") {
-                        return (
-                          item.email.startsWith(
-                            searchByEmail.toLocaleLowerCase()
-                          ) && item.role_id === 5
+                      if (searchByName !== "") {
+                        return item.name.startsWith(
+                          searchByName.toLocaleLowerCase()
                         );
                       }
 
-                      return item && item.role_id === 5;
+                      return item;
                     })
                     .map((item, index) => (
                       <tr
@@ -161,18 +133,23 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
                             <input
                               className="radio radio-xs checked:bg-blue-500"
                               type="radio"
-                              value={item}
                               name="salesTeam"
-                              onChange={() => setThisUser(item)}
+                              onChange={() => setThisTeam(item)}
                             ></input>
 
                             {item.name}
                           </div>
                         </td>
-                        <td className="py-3">{item.email}</td>
+                        <td className="py-3">{item.users_teams.length}</td>
                       </tr>
                     ))}
                 </tbody>
+              ) : (
+                <tr>
+                  <td colSpan={2} className="text-center py-10 text-gray-500">
+                    <DataNotFound action={() => console.log("a")} />
+                  </td>
+                </tr>
               )}
             </table>
           </div>
@@ -180,7 +157,7 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
       </div>
       <div className="relative w-full flex lg:flex-row flex-col-reverse justify-center justify-around mt-auto mb-6 gap-4 lg:gap-0">
         <button
-          type="cancel"
+          type="reset"
           className="btn btn-cancel lg:w-48 w-full"
           onClick={() => {
             setOpened(false);
@@ -200,7 +177,6 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
               color="#ffff"
               ariaLabel="triangle-loading"
               wrapperStyle={{}}
-              wrapperClassName=""
               visible={true}
             />
           ) : (
@@ -212,4 +188,4 @@ const PerUsers = ({ invoiceData, handleSubmit, setOpened }) => {
   );
 };
 
-export default PerUsers;
+export default PerTeams;

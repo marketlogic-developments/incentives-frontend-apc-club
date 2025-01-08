@@ -1,20 +1,36 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineSearch } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllTeams } from "../../../store/reducers/teams.reducer";
+import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Triangle } from "react-loader-spinner";
+import { CurrentUser } from "services/User/user.service";
+import { InvoicesFunction } from "functions/Invoices/InvoicesFunction";
+import { RootState } from "store/store";
+import { AssingInvoice } from "services/Invoices/invoices.service";
+import { ListUser } from "functions/User/ListUser";
+import DataNotFound from "components/Module/404/DataNotFound";
 
-const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
-  const token = useSelector((state) => state.user.token);
-  const user = useSelector((state) => state.user.user);
-  const teams = useSelector((state) => state.teams.teams);
+interface Props {
+  invoiceData: AssingInvoice;
+  setOpened: Dispatch<SetStateAction<boolean>>;
+}
+
+const PerUsers: FC<Props> = ({ invoiceData, setOpened }) => {
+  const [searchByEmail, setSearchByEmail] = useState("");
+  const { token, user } = useSelector((state: RootState) => state.currentUser);
+  const usersCompany = useSelector((state: RootState) => state.user.allUsers);
   const [t, i18n] = useTranslation("global");
-  const dispatch = useDispatch();
-  const [searchByName, setSearchByName] = useState("");
-  const [thisTeam, setThisTeam] = useState("");
+  const [thisUser, setThisUser] = useState<CurrentUser | null>(null);
+  const { AssignInvoice } = InvoicesFunction();
+  const { ListAllUsers } = ListUser();
   const Toast = Swal.mixin({
     toast: true,
     position: "top",
@@ -29,53 +45,33 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    ListAllTeams();
-  },[]);
+    ListAllUsers("limit=50");
+  }, []);
 
   const handleAssign = () => {
-    if (!thisTeam.id) {
+    setLoading(true);
+
+    if (!thisUser?.id) {
       return Toast.fire({
         icon: "error",
-        title: t("digipoints.errorNoTeam"),
+        title: String(t("digipoints.errorNoTeam")),
       });
     }
 
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/employee-poits-collects/assign-points/`,
-        {
-          partnerAdminId: user.id,
-          assignType: "group",
-          isGold: user.companyId === null ? true : false,
-          assignValues: [
-            {
-              invoiceId: invoiceData.invoices_included.toString(),
-              groupId: thisTeam.id,
-            },
-          ],
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+    AssignInvoice({
+      assignment_type: "INDIVIDUAL",
+      invoice_point_id: invoiceData.id,
+      team_id: thisUser.id,
+    })
       .then(() => {
-        handleSubmit(invoiceData);
+        setOpened(false);
+        setLoading(false);
         return Toast.fire({
           icon: "success",
-          title: t("digipoints.successFact"),
+          title: String(t("digipoints.successFact")),
         });
       })
-      .catch((err) => {
-        console.log(err);
-        return Toast.fire({
-          icon: "error",
-          title: "An error has occurred",
-        });
-      });
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -83,21 +79,21 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
       <div className="flex flex-col gap-6">
         <div className="grid grid-cols-2 gap-6">
           <p className="font-bold !text-base self-center">
-            {t("digipoints.teamV")} ({teams.length})
+            {t("digipoints.represV")} ({usersCompany?.content.length})
           </p>
           <div className="relative flex w-full">
             <input
-              className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full bg-[]"
-              placeholder={t("tabla.buscar")}
+              className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
+              placeholder={String(t("tabla.buscar"))}
               type="text"
-              value={searchByName}
-              onChange={(e) => setSearchByName(e.target.value)}
+              value={searchByEmail}
+              onChange={(e) => setSearchByEmail(e.target.value)}
             />
             <div className="absolute h-full items-center flex ml-2">
               <AiOutlineSearch color="#eb1000" />
             </div>
           </div>
-          <p className="col-span-2">{t("digipoints.selectTeam")}</p>
+          <p className="col-span-2">{t("digipoints.selectUser")}</p>
         </div>
         <div className="w-full">
           <div className="overflow-x-auto">
@@ -113,15 +109,19 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
                   {t("tabla.nParticipantes")}
                 </th>
               </thead>
-              {teams.length !== 0 && (
+              {usersCompany ? (
                 <tbody className="min-h-[15rem]">
-                  {teams
+                  {usersCompany?.content
                     .filter((item) => {
-                      if (searchByName !== "") {
-                        return item.name_group.startsWith(
-                          searchByName.toLocaleLowerCase()
+                      if (searchByEmail !== "") {
+                        return item.email.startsWith(
+                          searchByEmail.toLocaleLowerCase()
                         );
+                        // &&
+                        // item.roles.name === "sales_rep"
                       }
+
+                      // return item && item.roles.name === "sales_rep";
 
                       return item;
                     })
@@ -136,18 +136,22 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
                             <input
                               className="radio radio-xs checked:bg-blue-500"
                               type="radio"
-                              value={item}
                               name="salesTeam"
-                              onChange={() => setThisTeam(item)}
+                              onChange={() => setThisUser(item)}
                             ></input>
-
-                            {item.name}
+                            {item?.profile?.first_name}
                           </div>
                         </td>
-                        <td className="py-3">{item.users_teams.length}</td>
+                        <td className="py-3">{item.email}</td>
                       </tr>
                     ))}
                 </tbody>
+              ) : (
+                <tr>
+                  <td colSpan={2} className="text-center py-10 text-gray-500">
+                    <DataNotFound action={() => console.log("a")} />
+                  </td>
+                </tr>
               )}
             </table>
           </div>
@@ -155,7 +159,7 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
       </div>
       <div className="relative w-full flex lg:flex-row flex-col-reverse justify-center justify-around mt-auto mb-6 gap-4 lg:gap-0">
         <button
-          type="cancel"
+          type="reset"
           className="btn btn-cancel lg:w-48 w-full"
           onClick={() => {
             setOpened(false);
@@ -175,7 +179,6 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
               color="#ffff"
               ariaLabel="triangle-loading"
               wrapperStyle={{}}
-              wrapperClassName=""
               visible={true}
             />
           ) : (
@@ -187,4 +190,4 @@ const PerTeams = ({ invoiceData, handleSubmit, setOpened }) => {
   );
 };
 
-export default PerTeams;
+export default PerUsers;

@@ -32,7 +32,8 @@ export const LoginFunc = async (
     );
     return response.data; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
-    return HandleError(err); // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    HandleError(err);
+    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
   }
 };
 
@@ -46,7 +47,8 @@ export const ResetPasswordService = async (
     );
     return response.data;
   } catch (err: any) {
-    return HandleError(err); // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    HandleError(err);
+    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
   }
 };
 
@@ -60,6 +62,7 @@ export const RequestNewPasswordService = async (
     );
     return response.data;
   } catch (err: any) {
-    return HandleError(err);
+    HandleError(err);
+    throw err;
   }
 };

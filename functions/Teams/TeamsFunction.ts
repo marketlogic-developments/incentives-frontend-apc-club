@@ -19,6 +19,7 @@ export const TeamsFunction = () => {
       dispatch(getAllTeams(res.result));
     } catch (err) {
       console.error(err);
+      throw err;
     }
   };
 
@@ -30,6 +31,7 @@ export const TeamsFunction = () => {
       ListAllTeams();
     } catch (err) {
       console.error(err);
+      throw err;
     }
   };
   const putTeam = async (teamData: Team): Promise<void> => {
@@ -40,6 +42,7 @@ export const TeamsFunction = () => {
       ListAllTeams();
     } catch (err) {
       console.error(err);
+      throw err;
     }
   };
 
@@ -51,6 +54,8 @@ export const TeamsFunction = () => {
       ListAllTeams();
     } catch (err) {
       console.error(err);
+
+      throw err;
     }
   };
 

@@ -1,41 +1,25 @@
 import { Modal, Skeleton } from "@mantine/core";
-import React, {
-  ChangeEvent,
-  EventHandler,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
 import { getDigiPa, getDigipointsPa } from "../../store/reducers/sales.reducer";
-import Cookies from "js-cookie";
-import axios from "axios";
-import {
-  getDigiPoints,
-  setDigipoints,
-} from "../../store/reducers/currentUser.reducer";
+import { setDigipoints } from "../../store/reducers/currentUser.reducer";
 import ModalDistribution from "../../components/digipoints/DpDistribution/ModalDistribution";
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 import { AiOutlineSearch } from "react-icons/ai";
-import GraphDigiPointsDistribution from "../../components/digipoints/DpDistribution/GraphDigiPointsDistribution";
 import { RootState } from "store/store";
 import DataNotFound from "components/Module/404/DataNotFound";
 import { InvoicesFunction } from "functions/Invoices/InvoicesFunction";
-import { MultipleElements } from "services/generical.service";
-import { AssingInvoice } from "services/Invoices/invoices.service";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { AssingInvoice } from "services/Invoices/invoices.service";
 
 const DigipointsDistribution = () => {
   const [opened, setOpened] = useState(false);
   const [t, i18n] = useTranslation("global");
-  const { token } = useSelector((state: RootState) => state.currentUser);
   const [searchByInvoice, setSearchByInvoice] = useState("");
   const [invoiceData, setInvoiceData] = useState({});
-  const dispatch = useDispatch();
   const data = useSelector(
     (state: RootState) => state.invoices.invoicesDistribution
   );
@@ -54,12 +38,12 @@ const DigipointsDistribution = () => {
   useEffect(() => {
     const { limit, page, search } = params;
     ListInvoices(`page=${page}&limit=${limit}&search=${search}`);
-  }, [params]);
+  }, [params, opened]);
 
-  const uniqueData = (data:string[] | undefined) => {
+  const uniqueData = (data: string[] | undefined) => {
     const thisData = new Set(data);
 
-    return [...thisData].map((item:any) => {
+    return [...thisData].map((item: any) => {
       return <option value={item}>{item}</option>;
     });
   };
@@ -73,33 +57,12 @@ const DigipointsDistribution = () => {
     });
   };
 
-  const handleSubmit = (invoice) => {
-    let newData = [...dataToTable];
-    let dataRedux = [...data];
-
-    newData[invoice.index] = { ...newData[invoice.index], status: true };
-
-    const indexOfDataRedux = dataRedux.findIndex(
-      ({ salesOrder }) => invoice.salesOrder === salesOrder
-    );
-
-    dataRedux[indexOfDataRedux] = {
-      ...dataRedux[indexOfDataRedux],
-      status: true,
-    };
-
-    dispatch(getDigiPa(dataRedux));
-    dispatch(getDigiPoints(token, iduser));
-
-    setOpened(false);
-  };
-
   const dowloadInvoices = () => {
-    const filteredData = dataToTable.filter((item) => {
+    const filteredData = data?.content.filter((item) => {
       return item.points > 0;
     });
 
-    const data = filteredData.map((item) => {
+    const dataCSV = filteredData?.map((item) => {
       // const {
       //   invoiceDetails,
       //   invoices_included,
@@ -111,7 +74,7 @@ const DigipointsDistribution = () => {
       return item;
     });
 
-    jsonexport(data, (error, csv) => {
+    jsonexport(dataCSV as object, (error, csv) => {
       if (error) {
         console.error(error);
         return;
@@ -123,8 +86,10 @@ const DigipointsDistribution = () => {
   };
 
   const handlePageClick = (e: { selected: number }) => {
-    setParams((prev)=>({...prev, page: e.selected + 1}))
+    setParams((prev) => ({ ...prev, page: e.selected + 1 }));
   };
+
+  console.log(data);
 
   return (
     <>
@@ -135,11 +100,7 @@ const DigipointsDistribution = () => {
         centered
         className="modal100"
       >
-        <ModalDistribution
-          setOpened={setOpened}
-          invoiceData={invoiceData}
-          handleSubmit={handleSubmit}
-        />
+        <ModalDistribution setOpened={setOpened} invoiceData={invoiceData} />
       </Modal>
       <div className="w-full md:w-2/2 shadow-xl p-5 rounded-lg bg-white">
         {/* {data.length !== 0 && <GraphDigiPointsDistribution data={data} />} */}
@@ -150,13 +111,16 @@ const DigipointsDistribution = () => {
                 className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
                 placeholder={String(t("tabla.buscar"))}
                 type="text"
-                onBlur={(e) => 
-                  setParams((prev)=>({...prev, search: e.target.value}))
+                onBlur={(e) =>
+                  setParams((prev) => ({ ...prev, search: e.target.value }))
                 }
               />
               <select
-                onChange={(e) => 
-                  setParams((prev)=>({...prev, limit: Number(e.target.value)}))
+                onChange={(e) =>
+                  setParams((prev) => ({
+                    ...prev,
+                    limit: Number(e.target.value),
+                  }))
                 }
                 className="select lg:select-xs xl:select-sm lg:!text-xs 2xl:!text-sm bg-gray-100"
               >
@@ -187,10 +151,14 @@ const DigipointsDistribution = () => {
                 className="select lg:select-xs xl:select-sm lg:!text-xs 2xl:!text-sm bg-gray-100"
               >
                 <option value="">Segmento de Mercado</option>
-                {uniqueData(
-                  data?.content.map(
-                    ({ invoices }) => invoices.sale.market_segment
+                {data ? (
+                  uniqueData(
+                    data?.content.map(
+                      ({ invoices }) => invoices.sale.market_segment
+                    )
                   )
+                ) : (
+                  <></>
                 )}
               </select>
               <select
@@ -261,7 +229,7 @@ const DigipointsDistribution = () => {
                       .map((obj, i) => {
                         const index =
                           searchByInvoice !== ""
-                            ? dataToTable.findIndex(({ invoices }) => {
+                            ? data.content.findIndex(({ invoices }) => {
                                 return (
                                   obj.invoices.sale.sales_order ===
                                   invoices.sale.sales_order
@@ -307,9 +275,7 @@ const DigipointsDistribution = () => {
                                   </p>
                                 </div>
                               ) : (
-                                <div
-                                  className="flex items-center h-full gap-1"
-                                >
+                                <div className="flex items-center h-full gap-1">
                                   <svg
                                     width="17"
                                     height="17"
