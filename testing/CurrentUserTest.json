@@ -13,23 +13,37 @@
     "birth_date": "2024-11-01",
     "photoProfile": "",
     "language": "es",
-    "phone_number":"+57322802205",
-    "organization": {},
+    "phone_number": "+57322802205",
+    "organization": {
+      "id": "10a0fb6a-f901-42e9-9aeb-ade86f8b2a55",
+      "name": "Brasoftware",
+      "phone_number": "+55 (11) 999521147",
+      "address": "-",
+      "status": true,
+      "validations": [
+        "El Partner Admin y el Partner Principal deben aceptar los términos y condiciones."
+      ]
+    },
     "digipoints": {
       "historical": 10000,
       "redeemed": 5000,
       "current": 5000
     }
   },
-  "status": {"POLICIES": true, "RESET_PASSWORD": false, "POLICIES_AWARDS": false, "UPDATE_INFORMATION": true},
+  "status": {
+    "POLICIES": true,
+    "RESET_PASSWORD": false,
+    "POLICIES_AWARDS": false,
+    "UPDATE_INFORMATION": true
+  },
   "roles": {
     "id": "75fe996d-dce4-40e1-a8f7-410c8709f509",
     "name": "partner_admin",
     "description": "sales_rep",
     "status": true
   },
-  "region":{
-    "id":"dqwd",
-    "name":"SOLA"
+  "region": {
+    "id": "dqwd",
+    "name": "SOLA"
   }
 }

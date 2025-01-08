@@ -12,8 +12,10 @@ const ModalTCPa = () => {
         Agradecemos tu comprensión y paciencia durante este proceso.
       </p>
       <p>
-        Si tienes alguna pregunta o duda, no dudes en contactarnos en
-        info@adobepcclub.com
+        Si tienes alguna pregunta o duda, no dudes en contactarnos en{" "}
+        <a href="mailto:info@adobepcclub.com" className="text-primary">
+          info@adobepcclub.com
+        </a>
       </p>
     </div>
   );

@@ -27,7 +27,7 @@ export interface Profile {
   photoProfile: string;
   language: string;
   phone_number: string;
-  organization: any;
+  organization: Organization;
   digipoints: DigipointsUser;
 }
 
@@ -44,6 +44,14 @@ export interface DigipointsUser {
 export interface Region {
   id: string;
   name: string;
+}
+export interface Organization {
+  id: string;
+  name: string;
+  phone_number: string;
+  address: string;
+  status: boolean;
+  validations: string[];
 }
 
 export const getCurrentUser =

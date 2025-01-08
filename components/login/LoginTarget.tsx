@@ -8,13 +8,9 @@ import { useDispatch } from "react-redux";
 import { GenericalPromise, HandleError } from "services/generical.service";
 import { LoginFunc, ResponseLogin } from "services/Login/login.service";
 import { setTokenSessionStorage } from "services/multifuncionToken.service";
-import { CurrentUser, getCurrentUser } from "services/User/user.service";
 import { changeLoadingData } from "store/reducers/loading.reducer";
-import { userLogin } from "store/reducers/currentUser.reducer";
-import Swal from "sweetalert2";
 
 // Testing User Information
-import CurrentUserTest from "../../testing/CurrentUserTest.json";
 import { useDataUser } from "functions/SetDataUser";
 
 interface Props {

@@ -27,8 +27,7 @@ import { CloseCircle, Menu as MenuLines, ShoppingCard } from "./icons";
 import ModalPersonalize from "./Lay0ut/ModalPersonalize";
 import EyeObserver from "./Lay0ut/SwitchUser/EyeObserver";
 import ModalUpdateData from "./Lay0ut/Modals/ModalUpdateData";
-import { VerifyTC } from "../functions/VerifyTC";
-import ModalTCPa from "./Lay0ut/Modals/ModalTCPa";
+import ModalTCPa from "./Lay0ut/Modals/ModalTCPa.tsx";
 import ModalInfoAPC from "./Lay0ut/ModalInfoAPC";
 import { RootState } from "store/store";
 import { useLocation } from "functions/Locations";
@@ -66,15 +65,14 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   const [menuUser, setMenuUser] = useState<boolean>(false);
   const menuMarket = useSelector((state: RootState) => state.awards.menuMarket);
   const [screen, setScreen] = useState<number>(0);
-  const [verifytcResult, setVerifytcResult] = useState<boolean>(false);
 
   const { setDataUser } = useDataUser();
   const { Locations, textLocation } = useLocation();
 
   const statusUserOptions = (statusName: string): StatusUser | undefined =>
-   user?.status 
-  ? Object.entries(user.status).find(([key]) => key === statusName) 
-  : undefined;
+    user?.status
+      ? Object.entries(user.status).find(([key]) => key === statusName)
+      : undefined;
 
   //Get Data User
   useEffect(() => {
@@ -101,19 +99,11 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     };
   });
 
-  //Verify TC PA and PP
-  const verifytc = useMemo(
-    () =>
-      user &&
-      VerifyTC(token, organization).then((res) => setVerifytcResult(res)),
-    [user]
-  );
-
   //Show Modals
   useEffect(() => {
-    const VideoKey = user?.status 
-    ? Object.entries(user.status).find(([key]) => key === video?.key) 
-    : undefined;
+    const VideoKey = user?.status
+      ? Object.entries(user.status).find(([key]) => key === video?.key)
+      : undefined;
     const updateData = statusUserOptions("UPDATE_INFORMATION");
 
     if (user) {
@@ -133,12 +123,12 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
         setOpened(true);
       }
 
-      if (verifytcResult) {
+      if (user.profile.organization.validations.length !== 0) {
         setModal(3);
         setOpened(true);
       }
     }
-  }, [user, verifytcResult, video]);
+  }, [user, video]);
 
   const profileImage: React.ReactNode = (
     <div className="bg-[#1473E6] rounded-full btn btn-circle btn-sm border-none hover:bg-[#1473E6]">
@@ -186,10 +176,6 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
 
   const closeModal = () => {
     setOpened(!opened);
-  };
-
-  const language = (leng: "es" | "en" | "por" | string) => {
-    i18n.changeLanguage(leng);
   };
 
   const href = (page: string) => {
