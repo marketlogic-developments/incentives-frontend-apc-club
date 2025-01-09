@@ -8,26 +8,20 @@ import Puntos from "../components/canal/puntos";
 import Redenciones from "../components/canal/redenciones";
 import ContainerContent from "../components/containerContent";
 import TableUsersOrganization from "../components/organizacion/TableUsersOrganization";
+import { RootState } from "store/store";
 
 const organizacion = () => {
   const [oneSection, setOneSection] = useState(0);
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state: RootState) => state.currentUser);
   const [t, i18n] = useTranslation("global");
-  const company =
-    user.company === null ? user.distributionChannel : user.company;
-
-    console.log(user);
+  const company = user?.profile.organization;
 
   const niveles = {
     "1": "GOLD",
     "2": "PLATINUM",
     "3": "DISTRIBUTOR",
-    "4": "CERTIFIED"
+    "4": "CERTIFIED",
   };
-
-  const userDistributionChannelId = user?.distributionChannel?.distChannelsId;
-  const userCompanyId = user?.company?.distChannelsId;
-    
 
   const objects = [
     {
@@ -60,7 +54,7 @@ const organizacion = () => {
           />
         </svg>
       ),
-      text: user.phoneNumber,
+      text: user?.profile.phone_number,
     },
     {
       svg: (
@@ -84,7 +78,7 @@ const organizacion = () => {
           />
         </svg>
       ),
-      text: user.company === null ? niveles[user?.distributionChannel?.distChannelsId] : niveles[user?.company?.distChannelsId],
+      text: niveles[1],
     },
     {
       svg: (
@@ -114,13 +108,13 @@ const organizacion = () => {
           />
         </svg>
       ),
-      text: company.soldToParty || company.resellerMasterId,
+      text: company?.id,
     },
   ];
 
   return (
     <>
-      <ContainerContent pageTitle={t("menu.Participantes")} style>
+      <ContainerContent pageTitle={String(t("menu.Participantes"))}>
         <div className="flex flex-col mx-6">
           <div className="shadow-xl w-full px-6 py-10 flex flex-col lg:flex-row gap-6 rounded-lg">
             <div className="flex w-full justify-center lg:w-auto">
@@ -148,13 +142,13 @@ const organizacion = () => {
             <div className="flex flex-col gap-2 justify-around">
               <div>
                 <p className="2xl:!text-3xl font-bold !text-base">
-                  {company.name || company.nameDist}
+                  {company?.name}
                 </p>
-                <p className="!text-base">{user.position}</p>
+                <p className="!text-base">{user?.roles.name}</p>
               </div>
               <div className="flex gap-6 flex-wrap justify-center">
                 {objects
-                  .filter(({ text }) => text !== null && text.length !== 0)
+                  .filter(({ text }) => text !== null && text?.length !== 0)
                   .map(({ svg, text }) => (
                     <div className="flex items-center gap-1">
                       {svg}
@@ -164,20 +158,11 @@ const organizacion = () => {
               </div>
             </div>
           </div>
-          <TableUsersOrganization />
+          {/* <TableUsersOrganization /> */}
         </div>
       </ContainerContent>
     </>
   );
 };
-
-export async function getStaticProps(context) {
-  return {
-    props: {
-      protected: true,
-      userTypes: [1, 2, 3],
-    },
-  };
-}
 
 export default organizacion;
