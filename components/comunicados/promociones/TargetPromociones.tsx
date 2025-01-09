@@ -32,16 +32,18 @@ const TargetPromociones = ({ data }) => {
     12: t("meses.diciembre"),
   };
 
-  const pdfs =
-    data.resAndDist && user.distributionChannelId !== null
-      ? data?.pdfdelete?.filter(({ fields }) => fields.description === "Dist")
-      : data?.pdfdelete?.filter(({ fields }) => fields.description !== "Dist");
+  const pdfs = data?.pdfdelete?.filter(
+    ({ fields }) => fields.description !== "Dist"
+  );
+  // data.resAndDist && user.distributionChannelId !== null
+  //   ? data?.pdfdelete?.filter(({ fields }) => fields.description === "Dist")
+  //   : data?.pdfdelete?.filter(({ fields }) => fields.description !== "Dist");
 
   const link = () => {
     if (pdfs) {
       return i18n.resolvedLanguage === "por"
-        ? pdfs[1]?.fields.file.url
-        : pdfs[0]?.fields.file.url;
+        ? pdfs[1]?.fields?.file.url
+        : pdfs[0]?.fields?.file.url;
     }
 
     return data.dynamicDirection;

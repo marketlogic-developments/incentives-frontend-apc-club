@@ -34,6 +34,9 @@ const comunicado = ({ entries, videos }) => {
   const [content, setContent] = useState(0);
   const [contentFul, setContentFul] = useState([]);
   const router = useRouter();
+  const { query } = router;
+
+  console.log(query);
 
   useEffect(() => {
     setContentFul(entries);
@@ -50,7 +53,7 @@ const comunicado = ({ entries, videos }) => {
   const [t, i18n] = useTranslation("global");
 
   const contentPage = useMemo(() => {
-    if (content === 0 && location.search === "") {
+    if (content === 0 && query) {
       return (
         <Promociones
           selectData={dataSelectOne}
@@ -59,7 +62,8 @@ const comunicado = ({ entries, videos }) => {
         />
       );
     }
-    if (content === 1 || location.search === "?videos") {
+    // === "?videos"
+    if (content === 1 || query) {
       return <Videos10 dataContentfulVideos={videos} />;
     }
     // if (content === t("comunicado.marketPlace")) {
@@ -77,7 +81,7 @@ const comunicado = ({ entries, videos }) => {
     <div className="grid w-full">
       <div className="gap-2 my-3 flex justify-start">
         <ButtonBgOut
-          title={t("menu.comunicados")}
+          title={String(t("menu.comunicados"))}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
           onClick={() => {
             setContent(0);
@@ -85,7 +89,7 @@ const comunicado = ({ entries, videos }) => {
           }}
         />
         <ButtonBgOut
-          title={t("comunicado.videosTestimonios")}
+          title={String(t("comunicado.videosTestimonios"))}
           styles={"hover:bg-red-100 hover:!text-red-500 hover:!text-sm"}
           onClick={() => setContent(1)}
         />

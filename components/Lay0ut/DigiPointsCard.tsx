@@ -7,17 +7,16 @@ import { DigipointsUser } from "services/User/user.service";
 import { RootState } from "store/store";
 import { IconCurrentDigiPoints } from "public/assets/Icons/Digipoints/DigipointsIcons";
 
-
-const DigiPointsCard= () => {
+const DigiPointsCard = () => {
   const [t, i18n] = useTranslation("global");
   const router = useRouter();
-  const { digipoints } = useSelector((state:RootState)=>state.user)
+  const { digipoints } = useSelector((state: RootState) => state.currentUser);
 
   return (
     <div className="flex px-3 py-3.5 bg-base-100 border-[1px] border-[#E0E0E0] rounded-[10px] w-full">
       <div className="flex flex-col w-full gap-6">
         <div className="flex gap-3 items-center">
-          <IconCurrentDigiPoints w={43} h={43}/>
+          <IconCurrentDigiPoints w={43} h={43} />
           <div>
             <p className="!text-xl font-bold">{digipoints?.current ?? 0}</p>
             <p className="text-[9.5px] 2xl:text-xs whitespace-nowrap">

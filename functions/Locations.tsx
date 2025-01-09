@@ -24,6 +24,7 @@ interface Props {
   iconactive?: string;
   text: string;
   subsections?: any;
+  link?: string;
 }
 
 export const useLocation = () => {
@@ -106,32 +107,7 @@ export const useLocation = () => {
         icon: <IconSettings />,
         iconactive: "",
         text: t("menu.admin"),
-        subsections: [
-          {
-            page: "/premios",
-            icon: <></>,
-            iconactive: "",
-            text: t("menu.Premios"),
-          },
-          {
-            page: "/allredeem",
-            icon: <></>,
-            iconactive: "",
-            text: t("menu.redenciones"),
-          },
-          {
-            page: "/cargaventas",
-            icon: <></>,
-            iconactive: "",
-            text: t("menu.Carga_de_Ventas"),
-          },
-          {
-            page: "/reglas",
-            icon: <></>,
-            iconactive: "",
-            text: t("menu.reglas"),
-          },
-        ],
+        link: "https://incentives-frontend-production.up.railway.app/authentication/login",
       },
       {
         page: "/customercare",
@@ -218,7 +194,7 @@ export const useLocation = () => {
           return t("menu.Productos");
         }
 
-        return "APC Club"
+        return "APC Club";
       }
 
       return subsectionText.text;

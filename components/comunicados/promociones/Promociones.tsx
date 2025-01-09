@@ -5,16 +5,17 @@ import { SearchIcon, Star } from "../../icons";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import TargetPromociones from "./TargetPromociones";
+import TargetPromociones from "./TargetPromociones.tsx";
 import { Select } from "@mantine/core";
 import ButtonBgOut from "../../buttons/ButtonBgOut";
 import { useSelector } from "react-redux";
+import { RootState } from "store/store";
 
 const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
   const [t, i18n] = useTranslation("global");
   const [filter, setFilter] = useState("");
   const [content, setContent] = useState("Todos");
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state: RootState) => state.currentUser);
 
   const filters = (item) => {
     if (item?.exceptions) {
@@ -33,10 +34,10 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
   };
 
   const data = dataContentful.filter((data) => {
-    if (data.role === "PA" && [0, 1, 2, 3].includes(user.roleId)) {
+    if (data.role === "PA" && user?.roles.name !== "sales_rep") {
       return data.role === "PA";
     }
-    if (data.role === "SR" && [5].includes(user.roleId)) {
+    if (data.role === "SR" && user?.roles.name === "sales_rep") {
       return data.role === "SR";
     }
 

@@ -13,6 +13,7 @@ interface Props {
   href: Function;
   location: string;
   collapse: boolean;
+  link: string;
 }
 
 const MenuAPC: FC<Props> = ({
@@ -24,6 +25,7 @@ const MenuAPC: FC<Props> = ({
   href,
   location,
   collapse,
+  link,
 }) => {
   const [drop, setDrop] = useState(false);
   const route = useRouter();
@@ -44,6 +46,26 @@ const MenuAPC: FC<Props> = ({
       }
     }
   }, [location]);
+
+  if (link) {
+    return (
+      <div className={collapse ? "flex" : undefined}>
+        <div
+          className="containerItemLayout px-6 w-full"
+          key={index}
+          style={{ ["--wicons" as string]: collapse ? "100%" : "10.4%" }}
+        >
+          <a
+            href={link}
+            className={`itemLayout ${collapse && "justify-center"}`}
+          >
+            {icon}
+            {!collapse && <p className={`whitespace-nowrap`}>{text}</p>}
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={collapse ? "flex" : undefined}>

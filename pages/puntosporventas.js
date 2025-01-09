@@ -26,8 +26,7 @@ import { CloudDownload, UserPerformance as User } from "../components/icons";
 const puntosporventas = () => {
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
-  const user = useSelector((state) => state.user.user);
+  const { user, token } = useSelector((state) => state.currentUser);
   const [isLoaded, setIsLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const data = useSelector((state) => state.sales.salesall);
@@ -138,7 +137,7 @@ const puntosporventas = () => {
               <th scope="col" className="py-2 px-2">
                 Quarter
               </th>
-              {user.roleId === 1 && (
+              {user?.roles.name === "admin" && (
                 <th scope="col" className="py-2 px-2">
                   DigiPoints
                 </th>

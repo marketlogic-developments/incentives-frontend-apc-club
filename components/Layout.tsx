@@ -258,11 +258,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             }
             //Admin
             if (user?.roles.name === "admin") {
-              return [
-                "/herramientas",
-                "/puntosporventas",
-                "/customercare",
-              ].includes(page);
+              return ["/herramientas", "/puntosporventas"].includes(page);
             }
 
             //Partner Admin
@@ -273,7 +269,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             }
           }
         })
-        .map(({ icon, page, text, subsections }, index) => (
+        .map(({ icon, page, text, subsections, link }, index) => (
           <MenuAPC
             icon={icon}
             page={page}
@@ -283,6 +279,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             href={href}
             location={location}
             collapse={collapse}
+            link={link}
           />
         ));
     }
