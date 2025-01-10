@@ -34,12 +34,14 @@
     "POLICIES_AWARDS": false,
     "UPDATE_INFORMATION": true
   },
-  "roles": {
+  "roles": [
+    {
     "id": "75fe996d-dce4-40e1-a8f7-410c8709f509",
     "name": "admin",
     "description": "sales_rep",
     "status": true
-  },
+  }
+],
   "region": {
     "id": "dqwd",
     "name": "SOLA"

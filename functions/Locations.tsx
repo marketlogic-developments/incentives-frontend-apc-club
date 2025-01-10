@@ -14,9 +14,10 @@ import {
   InvoiceReportUser,
 } from "public/assets/Icons/Menu/MenuIcons";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CurrentUser } from "services/User/user.service";
 import { changeLoadingData } from "store/reducers/loading.reducer";
+import { RootState } from "store/store";
 
 interface Props {
   page: string;
@@ -29,6 +30,9 @@ interface Props {
 
 export const useLocation = () => {
   const [t, i18n] = useTranslation("global");
+  const {token}=useSelector((state:RootState)=>state.currentUser)
+
+  console.log(token)
 
   const Locations = (user: CurrentUser | null): Props[] => {
     const locations = [
@@ -52,7 +56,7 @@ export const useLocation = () => {
       },
       {
         page:
-          user?.roles.name === "admin"
+          user?.roles[0].name === "admin"
             ? "/digipointsall"
             : "/digipoints/mydigipoints",
         icon: <IconDigipoints />,
@@ -63,7 +67,7 @@ export const useLocation = () => {
         icon: <IconManagmentDigipoints />,
         text: t("menu.DDigipoints"),
         subsections:
-          user?.roles.name === "partner_admin"
+          user?.roles[0].name === "partner_admin"
             ? [
                 {
                   page: "/digipoints/createteam",
@@ -107,7 +111,7 @@ export const useLocation = () => {
         icon: <IconSettings />,
         iconactive: "",
         text: t("menu.admin"),
-        link: "https://incentives-frontend-production.up.railway.app/authentication/login",
+        link: `http://localhost:3000/authentication/login?token=${token}`,
       },
       {
         page: "/customercare",

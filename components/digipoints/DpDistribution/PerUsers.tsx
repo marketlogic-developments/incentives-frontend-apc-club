@@ -118,10 +118,10 @@ const PerUsers: FC<Props> = ({ invoiceData, setOpened }) => {
                           searchByEmail.toLocaleLowerCase()
                         );
                         // &&
-                        // item.roles.name === "sales_rep"
+                        // item.roles[0].name === "sales_rep"
                       }
 
-                      // return item && item.roles.name === "sales_rep";
+                      // return item && item.roles[0].name === "sales_rep";
 
                       return item;
                     })

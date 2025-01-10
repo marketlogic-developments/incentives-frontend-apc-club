@@ -27,7 +27,7 @@ import { CloseCircle, Menu as MenuLines, ShoppingCard } from "./icons";
 import ModalPersonalize from "./Lay0ut/ModalPersonalize";
 import EyeObserver from "./Lay0ut/SwitchUser/EyeObserver";
 import ModalUpdateData from "./Lay0ut/Modals/ModalUpdateData";
-import ModalTCPa from "./Lay0ut/Modals/ModalTCPa.tsx";
+import ModalTCPa from "./Lay0ut/Modals/ModalTCPa";
 import ModalInfoAPC from "./Lay0ut/ModalInfoAPC";
 import { RootState } from "store/store";
 import { useLocation } from "functions/Locations";
@@ -220,7 +220,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
       return Locations(user)
         .filter(({ page }) => {
           if (n === 1) {
-            if (user?.roles.name === "admin") {
+            if (user?.roles[0].name === "admin") {
               return [
                 "/dashboard",
                 "/digipointsall",
@@ -228,7 +228,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                 "/comunicado",
               ].includes(page);
             }
-            if (user?.roles.name === "partner_admin") {
+            if (user?.roles[0].name === "partner_admin") {
               return [
                 "/dashboard",
                 "/digipoints/mydigipoints",
@@ -237,13 +237,13 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
               ].includes(page);
             }
 
-            if (user?.roles.name === "partner_principal") {
+            if (user?.roles[0].name === "partner_principal") {
               return ["/dashboard", "/puntosporventas", "/comunicado"].includes(
                 page
               );
             }
 
-            if (user?.roles.name === "sales_rep") {
+            if (user?.roles[0].name === "sales_rep") {
               return [
                 "/dashboard",
                 "/digipoints/mydigipoints",
@@ -257,12 +257,12 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
               return;
             }
             //Admin
-            if (user?.roles.name === "admin") {
+            if (user?.roles[0].name === "admin") {
               return ["/herramientas", "/puntosporventas"].includes(page);
             }
 
             //Partner Admin
-            if (user?.roles.name === "partner_admin") {
+            if (user?.roles[0].name === "partner_admin") {
               return ["/ManagmentDigipoints" /*"/puntosporventas"*/].includes(
                 page
               );
@@ -279,7 +279,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             href={href}
             location={location}
             collapse={collapse}
-            link={link}
+            link={link as string}
           />
         ));
     }
@@ -392,7 +392,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                 </div>
                 <div className="flex flex-col gap-6 overflow-y-scroll scrollMenu w-full">
                   <div className="containerRedirections gap-2">{menu(1)}</div>
-                  {user?.roles.name !== "sales_rep" && (
+                  {user?.roles[0].name !== "sales_rep" && (
                     <>
                       <hr className="mx-6" />
                       <div className="containerRedirections gap-2">

@@ -144,7 +144,7 @@ const organizacion = () => {
                 <p className="2xl:!text-3xl font-bold !text-base">
                   {company?.name}
                 </p>
-                <p className="!text-base">{user?.roles.name}</p>
+                <p className="!text-base">{user?.roles[0].name}</p>
               </div>
               <div className="flex gap-6 flex-wrap justify-center">
                 {objects

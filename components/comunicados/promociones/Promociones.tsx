@@ -34,10 +34,10 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
   };
 
   const data = dataContentful.filter((data) => {
-    if (data.role === "PA" && user?.roles.name !== "sales_rep") {
+    if (data.role === "PA" && user?.roles[0].name !== "sales_rep") {
       return data.role === "PA";
     }
-    if (data.role === "SR" && user?.roles.name === "sales_rep") {
+    if (data.role === "SR" && user?.roles[0].name === "sales_rep") {
       return data.role === "SR";
     }
 

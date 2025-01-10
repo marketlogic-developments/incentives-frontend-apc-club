@@ -38,9 +38,12 @@ export const useCustomNavigation = (): Props => {
 
   // Dispatch para iniciar sesión
   const dispatchUserLogin = (userData: CurrentUser): void => {
-    console.log(userData);
-    const token = "a"; // Reemplazar con token dinámico si aplica
-    dispatch(userLogin({ ...userData, token }));
+    if (typeof window !== "undefined") {
+      const token = window.sessionStorage.getItem("token");
+      dispatch(userLogin({ ...userData, token: token as string }));
+    }
+
+   
   };
 
   return {

@@ -58,6 +58,7 @@ const MenuAPC: FC<Props> = ({
           <a
             href={link}
             className={`itemLayout ${collapse && "justify-center"}`}
+            target="_blank"
           >
             {icon}
             {!collapse && <p className={`whitespace-nowrap`}>{text}</p>}

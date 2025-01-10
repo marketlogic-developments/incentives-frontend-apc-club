@@ -12,7 +12,7 @@ export interface CurrentUser {
   is_active: boolean;
   is_superuser: boolean;
   profile: Profile;
-  roles: Roles;
+  roles: Roles[];
   status: StatusUser;
   region: Region;
 }
