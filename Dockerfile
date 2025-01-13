@@ -30,7 +30,6 @@ COPY --from=builder /app/package.json ./package.json
 
 # Exponer el puerto en el contenedor
 EXPOSE 8050
-EXPOSE 8080
 
 # Deshabilitar advertencias y configurar el entorno
 ENV NODE_ENV=production
