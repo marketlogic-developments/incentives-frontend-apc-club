@@ -18,11 +18,10 @@ const CarouselBanners: FC<Props> = ({ banners }) => {
   const [counter, setCounter] = useState(0);
   const autoplay = useRef(Autoplay({ delay: 5000 }));
 
-  console.log(user)
 
   const filters = (banner: any) => {
     if (banner?.exceptions) {
-      const org = user?.profile.organization;
+      const org = user?.profile.organizations;
 
       if (
         banner?.exceptions?.countrys.includes(org?.name) ||
@@ -39,7 +38,7 @@ const CarouselBanners: FC<Props> = ({ banners }) => {
     if (compOrDist) {
       const type = data
         .filter(({ fields }: { fields: any }) =>
-          user?.profile.organization
+          user?.profile.organizations
             ? fields.description.includes("Canales")
             : fields.description.includes("Distribuidores")
         )

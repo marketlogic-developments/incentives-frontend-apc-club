@@ -27,7 +27,7 @@ export interface Profile {
   photoProfile: string;
   language: string;
   phone_number: string;
-  organization: Organization;
+  organizations: Organization;
   digipoints: DigipointsUser;
 }
 
@@ -54,11 +54,12 @@ export interface Organization {
   validations: string[];
 }
 
+
 export const getCurrentUser =
   async (): Promise<GenericalPromise<CurrentUser> | void> => {
     try {
       const response = await API.get<GenericalPromise<CurrentUser>>(
-        "administration/users/get_current_user"
+        `administration/users/get_current_user`
       );
       return response.data;
     } catch (err: any) {
@@ -67,6 +68,21 @@ export const getCurrentUser =
       throw err;
     }
   };
+
+export const getOneUser =
+  async (id:string): Promise<GenericalPromise<CurrentUser> | void> => {
+    try {
+      const response = await API.get<GenericalPromise<CurrentUser>>(
+        `administration/users?id=${id}`
+      );
+      return response.data;
+    } catch (err: any) {
+      console.log("Error to get user info");
+      HandleError(err);
+      throw err;
+    }
+  };
+
 
 export const listUsers = async (
   params: string = ""
