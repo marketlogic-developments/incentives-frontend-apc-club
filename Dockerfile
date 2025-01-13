@@ -1,4 +1,3 @@
-# Etapa 1: Construcción
 FROM node:18-alpine AS builder
 
 # Establecer directorio de trabajo
@@ -17,7 +16,7 @@ COPY . .
 RUN echo "module.exports = { typescript: { ignoreBuildErrors: true }, eslint: { ignoreDuringBuilds: true } };" > next.config.js
 
 # Intentar construir la aplicación, pero continuar si falla
-RUN next build
+RUN npx next build
 
 # Etapa 2: Servir la aplicación
 FROM node:18-alpine AS runner
