@@ -4,13 +4,13 @@ FROM node:18-alpine AS builder
 # Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar los archivos necesarios
+# Copiar archivos necesarios para instalar dependencias
 COPY package.json package-lock.json ./
 
-# Instalar las dependencias
-RUN npm install --omit=dev
+# Instalar solo las dependencias de producción
+RUN npm ci --omit=dev
 
-# Copiar el resto del código
+# Copiar el resto del código fuente
 COPY . .
 
 # Construir la aplicación
@@ -28,8 +28,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
 # Exponer el puerto en el contenedor
-EXPOSE 8080
 EXPOSE 8050
 
-# Iniciar la aplicación en modo producción
+# Ejecutar la aplicación
 CMD ["npm", "start"]

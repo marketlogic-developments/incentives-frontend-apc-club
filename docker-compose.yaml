@@ -1,17 +1,13 @@
-version: '3.8'
-
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
       - "8050:8050"
     environment:
       NODE_ENV: production
     volumes:
-      - .:/app
       - /app/node_modules
     command: >
-      sh -c "npm install --omit=dev && npm start" # Asegura dependencias en cada inicio
+      npm start
