@@ -32,8 +32,6 @@ export const useLocation = () => {
   const [t, i18n] = useTranslation("global");
   const {token}=useSelector((state:RootState)=>state.currentUser)
 
-  console.log(token)
-
   const Locations = (user: CurrentUser | null): Props[] => {
     const locations = [
       {

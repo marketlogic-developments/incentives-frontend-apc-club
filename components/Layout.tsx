@@ -118,12 +118,10 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
         }, 2000);
       }
 
-      if (!updateData) {
-        setModal(2);
-        setOpened(true);
-      }
-
-      console.log(user?.profile?.organizations)
+      // if (updateData ? !updateData[1] : false) {
+      //   setModal(2);
+      //   setOpened(true);
+      // }
 
       if (user?.profile?.organizations?.validations?.length) {
         setModal(3);
