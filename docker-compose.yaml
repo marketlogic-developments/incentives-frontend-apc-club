@@ -5,10 +5,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8050:8050"
+      - "8080:8080"
     environment:
       NODE_ENV: production
+      NODE_OPTIONS: --no-warnings
       NEXT_PUBLIC_IGNORE_WARNINGS: true
     volumes:
+      - .:/app
       - /app/node_modules
     command: >
-      npm start
+      sh -c "npm start || true"
