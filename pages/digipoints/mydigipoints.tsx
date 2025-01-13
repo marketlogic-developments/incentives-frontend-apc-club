@@ -6,7 +6,7 @@ import { RootState } from "store/store";
 import { IconCurrentDigiPoints, IconHistoricDigipoints, IconRedeemedDigiPoints } from "public/assets/Icons/Digipoints/DigipointsIcons";
 
 const mydigipoints = () => {
-  const digipoints = useSelector((state:RootState) => state.user.digipoints);
+  const digipoints = useSelector((state:RootState) => state.currentUser.digipoints);
   const [t, i18n] = useTranslation("global");
   const mydigipointsobject = [
     {
