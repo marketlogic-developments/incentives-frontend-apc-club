@@ -12,9 +12,10 @@ export const teamsAction = createSlice({
   initialState,
   reducers: {
     teamsPush: (state, action) => {
+      // Asegúrate de que state.teams.content sea siempre un array
       state.teams = {
         ...state.teams,
-        content: [...state.teams?.content, action.payload],
+        content: [...(state.teams?.content || []), action.payload], // Si es undefined, usa un array vacío
       };
     },
     teamsUpdate: (state, action) => {
