@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import TargetInvoice from "./TargetInvoice.tsx";
-import PerUsers from "./PerUsers.tsx";
-import PerTeams from "./PerTeams.tsx";
+import TargetInvoice from "./TargetInvoice";
+import PerUsers from "./PerUsers";
+import PerTeams from "./PerTeams";
 
 const ModalDistribution = ({ setOpened, invoiceData }) => {
   const [t, i18n] = useTranslation("global");

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import ModalTargetParticipants from "./ModalTargetParticipants.tsx";
+import ModalTargetParticipants from "./ModalTargetParticipants";
 import ModalTableParticipants from "./ModalTableParticipants";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,8 +9,8 @@ import { changeLoadingData } from "../../../store/reducers/loading.reducer";
 import { teamsPush, teamsUpdate } from "../../../store/reducers/teams.reducer";
 import { useMemo } from "react";
 import { ListUser } from "functions/User/ListUser";
-import { TeamsFunction } from "functions/Teams/TeamsFunction.ts";
-import { EditTeam } from "services/Teams/team.service.ts";
+import { TeamsFunction } from "functions/Teams/TeamsFunction";
+import { EditTeam } from "services/Teams/team.service";
 
 const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
   const [t, i18n] = useTranslation("global");

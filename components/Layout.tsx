@@ -123,7 +123,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
         setOpened(true);
       }
 
-      if (user.profile.organization.validations.length !== 0) {
+      if (user?.profile?.organization?.validations.length !== 0) {
         setModal(3);
         setOpened(true);
       }

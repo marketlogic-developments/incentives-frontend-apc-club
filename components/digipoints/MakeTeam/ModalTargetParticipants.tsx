@@ -1,7 +1,7 @@
 import React, { Dispatch, FC, SetStateAction, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import UserItemListTeams from "./UserItemListTeams.tsx";
+import UserItemListTeams from "./UserItemListTeams";
 import { useTranslation } from "react-i18next";
 import { RootState } from "store/store";
 import { CurrentUser } from "services/User/user.service.js";

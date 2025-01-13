@@ -5,7 +5,7 @@ import { SearchIcon, Star } from "../../icons";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import TargetPromociones from "./TargetPromociones.tsx";
+import TargetPromociones from "./TargetPromociones";
 import { Select } from "@mantine/core";
 import ButtonBgOut from "../../buttons/ButtonBgOut";
 import { useSelector } from "react-redux";

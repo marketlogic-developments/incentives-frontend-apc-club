@@ -7,8 +7,8 @@ export const useDataUser = () => {
 
   const setDataUser = async (): Promise<void> => {
     try {
-      // const res = await getCurrentUser(); // O CurrentUserTest para pruebas
-      const res = { result: CurrentUserTest }; // O CurrentUserTest para pruebas
+      const res = await getCurrentUser(); // O CurrentUserTest para pruebas
+      // const res = { result: CurrentUserTest }; // O CurrentUserTest para pruebas
       if (!res) throw new Error("Failed Login, try again");
 
       const tyCStatus = res.result.status["POLICIES"];
