@@ -13,4 +13,4 @@ services:
       - .:/app
       - /app/node_modules
     command: >
-      sh -c "if [ -d .next ]; then npm start; else next dev -p 8050; fi"
+      sh -c "if [ -d .next ]; then npm start; else next dev -p 8050; fi" 
