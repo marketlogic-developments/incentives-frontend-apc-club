@@ -12,7 +12,7 @@ interface Props{
 }
 
 const UserPhoto:FC<Props> = ({ formData }) => {
-  const {user} = useSelector((state:RootState) => state.user);
+  const {user} = useSelector((state:RootState) => state.currentUser);
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
   const fileInputRef = useRef<HTMLInputElement>(null);

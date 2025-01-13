@@ -5,12 +5,9 @@ import React, { ChangeEvent, DetailedHTMLProps, FormEvent, FormEventHandler, For
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import ContainerContent from "../../components/containerContent";
-import {
-  policyAndPassword,
-} from "../../store/reducers/currentUser.reducer";
 import ModalPassword from "../../components/user/modalPassword";
 import Swal from "sweetalert2";
-import { DateInput } from "@mantine/dates";
+import { DateInput, DateValue } from "@mantine/dates";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import UserPhoto from "components/user/UserPhoto";
@@ -33,7 +30,7 @@ interface PropsDataUser{
 }
 
 const user = () => {
-  const {token,user}= useSelector((state:RootState) => state.user);
+  const {token,user}= useSelector((state:RootState) => state.currentUser);
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
   const [nInputs, setNInputs] = useState(0);
@@ -129,7 +126,7 @@ const user = () => {
 
     axios
       .patch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user?.id}`,
         jsonData(),
         {
           headers: {
@@ -139,7 +136,7 @@ const user = () => {
         }
       )
       .then((res) => {
-        dispatch(policyAndPassword(res.data));
+        // dispatch(policyAndPass(res.data));
         setEditInfo(!editInfo);
 
         const Toast = Swal.mixin({
@@ -156,11 +153,11 @@ const user = () => {
 
         return Toast.fire({
           icon: "success",
-          title: t("user.updateData"),
+          title: String(t("user.updateData")),
           background: "#000000",
           color: "#fff",
           customClass: {
-            content: "sw2Custom",
+            popup: "sw2Custom", // Usa 'popup' en lugar de 'content'
           },
         });
       });
@@ -407,7 +404,7 @@ const user = () => {
                               value={
                                 isValidDate(formData)
                                   ? new Date(formData.birthDate as string)
-                                  : ""
+                                  : undefined
                               }
                               variant="datepickerInput"
                               className="datepickerInput"
