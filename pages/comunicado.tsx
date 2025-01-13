@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import ButtonBgOut from "../components/buttons/ButtonBgOut";
 import {
   Evento,
@@ -30,7 +30,7 @@ export async function getServerSideProps() {
   };
 }
 
-const comunicado = ({ entries, videos }) => {
+const comunicado: FC<{entries:any, videos:any}> = ({ entries, videos }) => {
   const [content, setContent] = useState(0);
   const [contentFul, setContentFul] = useState([]);
   const router = useRouter();
