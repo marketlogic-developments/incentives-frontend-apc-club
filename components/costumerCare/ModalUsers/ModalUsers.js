@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../../store/reducers/currentUser.reducer";
+// import { getUsers } from "../../../store/reducers/currentUser.reducer";
 import Swal from "sweetalert2";
 
 const ModalUsers = ({ userDataToModal, token }) => {

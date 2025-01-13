@@ -2,10 +2,10 @@ import { useRouter } from "next/router";
 import React, { useState, useMemo, useRef } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  policyAndPassword,
-  userUpdate,
-} from "../../../store/reducers/currentUser.reducer";
+// import {
+//   policyAndPassword,
+//   userUpdate,
+// } from "../../../store/reducers/currentUser.reducer";
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 
