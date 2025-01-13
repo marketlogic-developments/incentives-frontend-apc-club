@@ -17,7 +17,7 @@ COPY . .
 RUN echo "module.exports = { typescript: { ignoreBuildErrors: true }, eslint: { ignoreDuringBuilds: true } };" > next.config.js
 
 # Intentar construir la aplicación, pero continuar si falla
-RUN npm run build || true
+RUN next build
 
 # Etapa 2: Servir la aplicación
 FROM node:18-alpine AS runner
