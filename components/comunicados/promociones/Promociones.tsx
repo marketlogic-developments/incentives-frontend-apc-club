@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { SearchInput, SelectInput } from "../../inputs";
 import TitleWithIcon from "../../titles/TitleWithIcon";
 import { SearchIcon, Star } from "../../icons";
@@ -11,29 +11,29 @@ import ButtonBgOut from "../../buttons/ButtonBgOut";
 import { useSelector } from "react-redux";
 import { RootState } from "store/store";
 
-const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
+const Promociones: FC<{selectData: any, datas:any, dataContentful:any}>= ({ selectData = [], datas = [], dataContentful }) => {
   const [t, i18n] = useTranslation("global");
   const [filter, setFilter] = useState("");
   const [content, setContent] = useState("Todos");
   const { user } = useSelector((state: RootState) => state.currentUser);
 
-  const filters = (item) => {
-    if (item?.exceptions) {
-      const org =
-        user.companyId !== null ? user.company : user.distributionChannel;
+  // const filters = (item:any) => {
+  //   if (item?.exceptions) {
+  //     const org =
+  //       user.companyId !== null ? user.company : user.distributionChannel;
 
-      if (
-        item?.exceptions?.countrys.includes(org.country) ||
-        item?.exceptions?.region.includes(org.region)
-      ) {
-        return item;
-      } else return false;
-    }
+  //     if (
+  //       item?.exceptions?.countrys.includes(org.country) ||
+  //       item?.exceptions?.region.includes(org.region)
+  //     ) {
+  //       return item;
+  //     } else return false;
+  //   }
 
-    return item;
-  };
+  //   return item;
+  // };
 
-  const data = dataContentful.filter((data) => {
+  const data = dataContentful.filter((data:any) => {
     if (data.role === "PA" && user?.roles[0].name !== "sales_rep") {
       return data.role === "PA";
     }
@@ -45,13 +45,13 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
   });
 
   const categorys = () => {
-    const arraysCategorys = dataContentful.map(({ category }) =>
+    const arraysCategorys = dataContentful.map(({ category }:{category:any}) =>
       category.split(",")
     );
 
-    const categorysEsp = arraysCategorys.map((data) => data[0]);
-    const categorysPor = arraysCategorys.map((data) => data[1]);
-    const categorysEn = arraysCategorys.map((data) => data[2]);
+    const categorysEsp = arraysCategorys.map((data:any) => data[0]);
+    const categorysPor = arraysCategorys.map((data:any) => data[1]);
+    const categorysEn = arraysCategorys.map((data:any) => data[2]);
 
     if (i18n.language === "por") {
       return [...new Set(categorysPor)];
@@ -81,7 +81,7 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
         </div>
       </div>
       <div className="flex gap-6 justify-center mt-6">
-        {["Todos", ...categorys()].map((data) => (
+        {["Todos", ...categorys() as any].map((data) => (
           <ButtonBgOut
             title={data}
             styles={`hover:bg-red-100 hover:!text-red-500 hover:!text-sm ${
@@ -95,17 +95,17 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
         <div className="grid grid-cols-2 gap-3">
           <TitleWithIcon
             icon={<Star width={40} height={40} />}
-            title={t("comunicado.novedad")}
+            title={String(t("comunicado.novedad"))}
           />
           <div className="grid justify-items-end items-center">
             <Select
-              placeholder={t("comunicado.mostrar")}
+              placeholder={String(t("comunicado.mostrar"))}
               size={"sm"}
               data={[
-                { label: t("tabla.recienteA"), value: "des" },
-                { label: t("tabla.antiguoR"), value: "asc" },
+                { label: String(t("tabla.recienteA")), value: "des" },
+                { label: String(t("tabla.antiguoR")), value: "asc" },
               ]}
-              onChange={(data) => setFilter(data)}
+              onChange={(data) => setFilter(data as string)}
             />
           </div>
         </div>
@@ -123,22 +123,23 @@ const Promociones = ({ selectData = [], datas = [], dataContentful }) => {
       <div className="flex justify-center items-center pt-10 pb-10">
         <div className="grid grid-cols-3 gap-3 gap-y-6">
           {data
-            .filter((data) => {
+            .filter((data:any) => {
               if (content === "Todos") {
                 return data;
               }
 
-              filters(data);
+              // filters(data);
 
               return data.category.includes(content);
             })
-            .sort((a, b) => {
-              const dateA = new Date(a.thisDate);
-              const dateB = new Date(b.thisDate);
-
-              return filter === "des" ? dateA - dateB : dateB - dateA;
+            .sort((a: any, b: any) => {
+              const dateA = new Date(a.thisDate); // Date explícito
+              const dateB = new Date(b.thisDate); // Date explícito
+            
+              // Ahora puedes hacer la comparación sin el cast 'unknown'
+              return filter === "des" ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
             })
-            .map((data, index) => (
+            .map((data:any, index:number) => (
               <TargetPromociones data={data} key={index} />
             ))}
         </div>

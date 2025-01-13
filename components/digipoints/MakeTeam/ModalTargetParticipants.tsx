@@ -8,7 +8,7 @@ import { CurrentUser } from "services/User/user.service.js";
 
 interface Props {
   checkboxes: CurrentUser[];
-  setCheckboxes: Dispatch<SetStateAction<any[]>>;
+  setCheckboxes: Dispatch<SetStateAction<CurrentUser[]>>;
   modifiedValues: any;
   setModifiedValues: Dispatch<SetStateAction<any[]>>;
 }
@@ -47,7 +47,7 @@ const ModalTargetParticipants: FC<Props> = ({
           className="font-bold text-[#1473E6] cursor-pointer w-fit"
           onClick={() =>
             checkboxes.length === 0
-              ? setCheckboxes(usersCompany?.content)
+              ? setCheckboxes(usersCompany?.content || [])
               : setCheckboxes([])
           }
         >
