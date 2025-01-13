@@ -17,19 +17,19 @@ const UserItemListTeams: FC<Props> = ({
   setModifiedValues,
 }) => {
   function handleCheckboxChange(data: CurrentUser) {
-    setCheckboxes((prevCheckboxes) => {
-      if (prevCheckboxes.map(({ id }) => id).includes(data.id)) {
+    setCheckboxes((prevCheckboxes:any) => {
+      if (prevCheckboxes.map(({ id }:{id:any}) => id).includes(data.id)) {
         // Si el checkbox ya estaba seleccionado, se remueve del estado
-        return prevCheckboxes.filter((checkbox) => checkbox.id !== data.id);
+        return prevCheckboxes.filter((checkbox:any) => checkbox.id !== data.id);
       } else {
         // Si el checkbox no estaba seleccionado, se agrega al estado
         return [...prevCheckboxes, { ...data, percentage: 0 }];
       }
     });
-    setModifiedValues((prevModifiedValues) => {
-      if (prevModifiedValues.map(({ user_id }) => user_id).includes(data.id)) {
+    setModifiedValues((prevModifiedValues:any) => {
+      if (prevModifiedValues.map(({ user_id }:{user_id:any}) => user_id).includes(data.id)) {
         // Si el checkbox ya estaba seleccionado, se remueve del estado
-        return prevModifiedValues.filter(({ user_id }) => user_id !== data.id);
+        return prevModifiedValues.filter(({ user_id }:{user_id:any}) => user_id !== data.id);
       } else {
         // Si el checkbox no estaba seleccionado, se agrega al estado
         return [...prevModifiedValues, { user_id: data.id, percentage: 0 }];

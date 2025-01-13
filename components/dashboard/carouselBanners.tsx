@@ -18,13 +18,15 @@ const CarouselBanners: FC<Props> = ({ banners }) => {
   const [counter, setCounter] = useState(0);
   const autoplay = useRef(Autoplay({ delay: 5000 }));
 
+  console.log(user)
+
   const filters = (banner: any) => {
     if (banner?.exceptions) {
       const org = user?.profile.organization;
 
       if (
-        banner?.exceptions?.countrys.includes(org?.country) ||
-        banner?.exceptions?.region.includes(org?.region)
+        banner?.exceptions?.countrys.includes(org?.name) ||
+        banner?.exceptions?.region.includes(org?.name)
       ) {
         return banner;
       } else return false;

@@ -3,10 +3,11 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { RootState } from "store/store";
 
-const TargetPromociones = ({ data }) => {
+const TargetPromociones = ({ data }:{data:any}) => {
   const router = useRouter();
-  const user = useSelector((state) => state.user.user);
+  const {user} = useSelector((state:RootState) => state.currentUser);
   const [t, i18n] = useTranslation("global");
 
   const date = {
@@ -17,23 +18,23 @@ const TargetPromociones = ({ data }) => {
 
   const hour = data.thisDate.split("T")[1].split("-")[0];
 
-  const months = {
-    "01": t("meses.enero"),
-    "02": t("meses.febrero"),
-    "03": t("meses.marzo"),
-    "04": t("meses.abril"),
-    "05": t("meses.mayo"),
-    "06": t("meses.junio"),
-    "07": t("meses.julio"),
-    "08": t("meses.agosto"),
-    "09": t("meses.septiembre"),
-    10: t("meses.octubre"),
-    11: t("meses.noviembre"),
-    12: t("meses.diciembre"),
+  const months: { [key: string]: string } = {
+    "01": "Enero",
+    "02": "Febrero",
+    "03": "Marzo",
+    "04": "Abril",
+    "05": "Mayo",
+    "06": "Junio",
+    "07": "Julio",
+    "08": "Agosto",
+    "09": "Septiembre",
+    "10": "Octubre",
+    "11": "Noviembre",
+    "12": "Diciembre"
   };
 
   const pdfs = data?.pdfdelete?.filter(
-    ({ fields }) => fields.description !== "Dist"
+    ({ fields }:{fields:any}) => fields.description !== "Dist"
   );
   // data.resAndDist && user.distributionChannelId !== null
   //   ? data?.pdfdelete?.filter(({ fields }) => fields.description === "Dist")
