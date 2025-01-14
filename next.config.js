@@ -27,6 +27,7 @@ module.exports = {
   eslint: {
     ignoreDuringBuilds: true, // Ignorar errores de ESLint
   },
+  skipTrailingSlashRedirect: true,
   swcMinify: false,
   reactStrictMode: false,
 };
