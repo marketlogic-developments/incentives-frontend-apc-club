@@ -30,7 +30,7 @@ interface Props {
 
 export const useLocation = () => {
   const [t, i18n] = useTranslation("global");
-  const {token}=useSelector((state:RootState)=>state.currentUser)
+  const { token } = useSelector((state: RootState) => state.currentUser);
 
   const Locations = (user: CurrentUser | null): Props[] => {
     const locations = [
@@ -97,12 +97,6 @@ export const useLocation = () => {
         icon: <IconPuntosPorVentas />,
         iconactive: "",
         text: t("menu.Puntos_por_ventas"),
-      },
-      {
-        page: "/reportTyC",
-        icon: <IconReportTyC />,
-        iconactive: "",
-        text: "Reporte T&C",
       },
       {
         page: "/herramientas",
