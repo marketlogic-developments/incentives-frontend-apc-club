@@ -4,9 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8050:8050" # Para producción
-    volumes:
-      - .:/app
-      - /app/node_modules
+      - "8050:8050"
     environment:
       - NODE_ENV=production
+      - PORT=8050

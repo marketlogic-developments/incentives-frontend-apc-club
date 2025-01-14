@@ -1,0 +1,13 @@
+{
+    "build": {
+        "env": {
+            "NODE_ENV": "production"
+        }
+    },
+    "run": {
+        "cmd": "npm run start",
+        "env": {
+            "PORT": "8050"
+        }
+    }
+}
