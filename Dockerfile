@@ -1,39 +1,20 @@
-FROM node:18-alpine AS builder
+# Usa una imagen base oficial de Node.js
+FROM node:20
 
-# Establecer directorio de trabajo
+# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copiar archivos necesarios
+# Copia los archivos de configuración necesarios
 COPY package.json package-lock.json ./
 
-# Instalar dependencias
-RUN npm install --omit=dev
+# Instala las dependencias del proyecto
+RUN npm install
 
-# Copiar el resto del código fuente
+# Copia el resto de los archivos al contenedor
 COPY . .
 
-# Configurar el build para ignorar errores
-RUN echo "module.exports = { typescript: { ignoreBuildErrors: true }, eslint: { ignoreDuringBuilds: true } };" > next.config.js
-
-# Intentar construir la aplicación, pero continuar si falla
-RUN npx next build
-
-# Etapa 2: Servir la aplicación
-FROM node:18-alpine AS runner
-
-# Establecer directorio de trabajo
-WORKDIR /app
-
-# Copiar archivos necesarios desde la etapa de construcción
-COPY --from=builder /app /app
-
-# Exponer puertos
+# Expone el puerto que usa el script de inicio (8050)
 EXPOSE 8050
 
-# Establecer variables de entorno para ignorar advertencias
-ENV NODE_ENV=production
-ENV NODE_OPTIONS=--no-warnings
-ENV NEXT_PUBLIC_IGNORE_WARNINGS=true
-
-# Verificar si existe el build, y decidir el comando a ejecutar
-CMD ["/bin/sh", "-c", "if [ -d .next ]; then npm start; else next dev -p 8050; fi"]
+# Comando para ejecutar Next.js en producción
+CMD ["npm", "run", "start"]

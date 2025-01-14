@@ -1,16 +1,12 @@
 services:
-  app:
+  nextjs-app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8050:8050"
-    environment:
-      NODE_ENV: production
-      NODE_OPTIONS: --no-warnings
-      NEXT_PUBLIC_IGNORE_WARNINGS: true
+      - "8050:8050" # Para producción
     volumes:
       - .:/app
       - /app/node_modules
-    command: >
-      sh -c "if [ -d .next ]; then npm start; else next dev -p 8050; fi"
+    environment:
+      - NODE_ENV=production
