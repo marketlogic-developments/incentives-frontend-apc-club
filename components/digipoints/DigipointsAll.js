@@ -6,13 +6,8 @@ import Swal from "sweetalert2";
 import { getDigipointsAll } from "../../store/reducers/sales.reducer";
 import Cookies from "js-cookie";
 import axios from "axios";
-import {
-  getDigiPoints,
-  setDigipoints,
-} from "../../store/reducers/currentUser.reducer";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
 import jsonexport from "jsonexport";
 import { saveAs } from "file-saver";
 
@@ -36,7 +31,7 @@ const DigipointsAll = () => {
 
   useEffect(() => {
     if (token && data.length === 0) {
-      dispatch(getDigipointsAll(token));
+      // dispatch(getDigipointsAll(token));
     }
   }, [token]);
 
@@ -142,7 +137,7 @@ const DigipointsAll = () => {
     newData[invoice.index] = { ...newData[invoice.index], status: true };
 
     dispatch(getDigiPa(newData));
-    dispatch(getDigiPoints(token, iduser));
+    // dispatch(getDigiPoints(token, iduser));
 
     setSalesOption("salesRep");
     setNumModal(0);
@@ -266,7 +261,7 @@ const DigipointsAll = () => {
               status: false,
             };
 
-            dispatch(getDigiPoints(token, iduser));
+            // dispatch(getDigiPoints(token, iduser));
             dispatch(getDigiPa(newData));
           });
       }

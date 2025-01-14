@@ -48,7 +48,7 @@ const RegistrationPerformance = () => {
   useEffect(() => {
     if (token && data.length === 0) {
       setLoading(true);
-      if (user.roleId === 1) {
+      if (user?.roles[0].name === "name") {
         dispatch(getSalesAll(token)).then((response) => {
           setLoading(false);
         });
@@ -213,7 +213,7 @@ const RegistrationPerformance = () => {
                 colStyles={"p-2"}
                 thStyles={"sticky text-white"}
                 cols={
-                  user.roleId === 1
+                  user?.roles[0].name === "name"
                     ? [
                         "Invoice",
                         "Disti Partner Rollup",
@@ -259,7 +259,7 @@ const RegistrationPerformance = () => {
                         <td className="text-start p-4">{data.business_type}</td>
                         <td className="text-start p-4">{data.materia_sku}</td>
                         <td className="text-start p-4">{data.quarter}</td>
-                        {user.roleId === 1 && (
+                        {user?.roles[0].name === "name" && (
                           <td className="text-start p-4">
                             {data.max_digipoints_allocate}
                           </td>

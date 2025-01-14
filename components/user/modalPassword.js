@@ -11,7 +11,7 @@ import {
   AiOutlineCheckCircle,
   AiOutlineCloseCircle,
 } from "react-icons/ai";
-import { policyAndPassword } from "../../store/reducers/currentUser.reducer";
+// import { policyAndPassword } from "../../store/reducers/currentUser.reducer";
 
 const ModalPassword = ({ setOpened }) => {
   const token = useSelector((state) => state.user.token);
@@ -103,7 +103,7 @@ const ModalPassword = ({ setOpened }) => {
         }
       )
       .then((res) => {
-        dispatch(policyAndPassword(res.data));
+        // dispatch(policyAndPassword(res.data));
         setOpened(false);
         const Toast = Swal.mixin({
           toast: true,
