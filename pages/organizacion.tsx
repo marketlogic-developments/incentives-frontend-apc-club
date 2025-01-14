@@ -14,7 +14,7 @@ const organizacion = () => {
   const [oneSection, setOneSection] = useState(0);
   const { user } = useSelector((state: RootState) => state.currentUser);
   const [t, i18n] = useTranslation("global");
-  const company = user?.profile.organization;
+  const company = user?.profile.organizations;
 
   const niveles = {
     "1": "GOLD",
