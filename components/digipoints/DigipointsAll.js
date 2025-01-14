@@ -14,9 +14,9 @@ import { saveAs } from "file-saver";
 const DigipointsAll = () => {
   const [opened, setOpened] = useState(false);
   const [t, i18n] = useTranslation("global");
-  const iduser = useSelector((state) => state.user.user.id);
+  const iduser = useSelector((state) => state.currentUser.user?.id);
   const teams = useSelector((state) => state.teams.teams);
-  const users = useSelector((state) => state.user.companyUsers);
+  const users = useSelector((state) => state.user.allUsers);
   const [salesOption, setSalesOption] = useState("salesRep");
   const [numModal, setNumModal] = useState(0);
   const [teamInfo, setTeamInfo] = useState({});
@@ -25,7 +25,7 @@ const DigipointsAll = () => {
   const [hover, setHover] = useState(false);
   const [dataModal, setDataModal] = useState([]);
   const [invoiceData, setInvoiceData] = useState({});
-  const token = useSelector((state) => state.user.token);
+  const { token } = useSelector((state) => state.currentUser);
   const dispatch = useDispatch();
   const data = useSelector((state) => state.sales.digipa);
 

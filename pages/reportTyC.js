@@ -14,7 +14,7 @@ const reportTyC = () => {
   const [users, setUsers] = useState([]);
   const [content, setContent] = useState(0);
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
+  const { token } = useSelector((state) => state.currentUser);
 
   const Toast = Swal.mixin({
     toast: true,

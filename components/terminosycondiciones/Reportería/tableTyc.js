@@ -4,12 +4,14 @@ import { useCallback } from "react";
 import { useMemo } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import * as XLSX from "xlsx";
 
 const TableTyc = () => {
   const users = useSelector((state) => state.user.users);
   const token = useSelector((state) => state.user.token);
+  const [t, i18n] = useTranslation("global");
   const [data, setData] = useState([]);
   const [dataTyc, setDataTyc] = useState([]);
   const [typeFilter, setTypeFilter] = useState(0);
