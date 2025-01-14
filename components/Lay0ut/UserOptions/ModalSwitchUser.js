@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersData } from "../../../store/reducers/currentUser.reducer";
+// import { getUsersData } from "../../../store/reducers/currentUser.reducer";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useMemo } from "react";
 import Swal from "sweetalert2";

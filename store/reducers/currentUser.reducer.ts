@@ -42,7 +42,7 @@ export const currentUserActions = createSlice({
     userLogin: (state, action: PayloadAction<CurrentUserToken>) => {
       state.user = action.payload;
       state.token = action.payload.token;
-      state.organization = action.payload.profile.organization;
+      state.organization = action.payload.profile.organizations;
       state.digipoints = action.payload.profile.digipoints;
     },
     userSwitch: (state, action: PayloadAction<CurrentUserToken>) => {
