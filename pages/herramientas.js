@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import ContainerContent from "../components/containerContent";
-import AllParticipants from "../components/herramientas/AllParticipants";
+// import AllParticipants from "../components/herramientas/AllParticipants";
 import AllRedenciones from "../components/herramientas/AllRedenciones";
 import Canales from "../components/herramientas/Canales";
 import Distribuidores from "../components/herramientas/Distribuidores";
