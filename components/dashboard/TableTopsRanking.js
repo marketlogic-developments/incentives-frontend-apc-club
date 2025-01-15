@@ -19,12 +19,12 @@ const TableTopsRanking = ({
   tableStyles = "",
   thStyles = "",
   cols = [],
-  children,
 }) => {
   const [ranking, setRanking] = useState([]);
-  const user = useSelector((state) => state.user.user);
-  const rankGlobal = useSelector((state) => state.user.ranking);
-  const token = useSelector((state) => state.user.token);
+  const { user, token } = useSelector((state) => state.currentUser);
+  const rankGlobal = useSelector(
+    (state) => state.dashboardReport.userRaking.global
+  );
   const [allCompanies, setAllCompanies] = useState([]);
   const [regions, setRegions] = useState([]);
   const [level, setLevel] = useState([]);
@@ -35,7 +35,7 @@ const TableTopsRanking = ({
   });
 
   useEffect(() => {
-    if (user.roleId !== 1) {
+    if (user?.roles[0].name === "admin") {
       console.log("User object:", user);
       const comp =
         user.companyId === null
@@ -151,17 +151,19 @@ const TableTopsRanking = ({
     );
 
     Promise.allSettled([companies, distribution]).then((res) => {
-      const arrMap1 = res[0]?.value?.data?.map(({ name }) => ({ name: name }));
-      const arrMap2 = res[1]?.value?.data?.map(({ nameDist }) => ({
-        nameDist: nameDist,
-      }));
+      const arrMap1 =
+        res[0]?.value?.data?.map(({ name }) => ({ name: name })) || [];
+      const arrMap2 =
+        res[1]?.value?.data?.map(({ nameDist }) => ({
+          nameDist: nameDist,
+        })) || [];
 
       setAllCompanies([...arrMap1, ...arrMap2].sort());
     });
   }, []);
 
   const funRegions = useMemo(() => {
-    const regions = [...new Set(ranking.map(({ region }) => region))];
+    const regions = [...new Set(ranking?.map(({ region }) => region) || [])];
 
     setRegions(regions);
   }, [ranking]);
@@ -178,7 +180,7 @@ const TableTopsRanking = ({
         <div>
           <h2 className="!text-xl font-bold">{t("dashboard.topUsuarios")}</h2>
         </div>
-        {user.roleId === 1 && (
+        {user?.roles[0].name === "admin" && (
           <div className="cursor-pointer flex lg:flex-row flex-col gap-3 items-center">
             <div className="w-[90%] lg:w-[60%]">
               <SelectInputValue
@@ -211,7 +213,7 @@ const TableTopsRanking = ({
           </div>
         )}
 
-        {user.roleId === 1 && (
+        {user?.roles[0].name === "admin" && (
           <div className="w-full lg:w-[60%]">
             <DropDownReport
               icon={<CloudDownload />}
@@ -239,7 +241,7 @@ const TableTopsRanking = ({
                   "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2 justify-start"
                 }
                 onClick={() => {
-                  const newRank = ranking.map((data) => {
+                  const newRank = ranking?.map((data) => {
                     const { employ_id, ...info } = data;
 
                     return info;
@@ -261,8 +263,8 @@ const TableTopsRanking = ({
             </tr>
           </thead>
           <tbody>
-            {ranking.length !== 0 &&
-              [...ranking]
+            {ranking?.length !== 0 &&
+              [...(ranking || [])]
                 .filter((i) => {
                   if (filters.region?.length > 0) {
                     return (
@@ -305,7 +307,7 @@ const TableTopsRanking = ({
                 ))}
           </tbody>
         </table>
-        <div className="mb-6">{ranking.length === 0 && <NoDataRanking />}</div>
+        <div className="mb-6">{<NoDataRanking />}</div>
       </div>
     </div>
   );

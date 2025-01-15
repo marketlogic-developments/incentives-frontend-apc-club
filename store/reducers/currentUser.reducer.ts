@@ -16,7 +16,7 @@ export interface InitialStateUserReducer {
   error: null;
   organization: any;
   digipoints: DigipointsUser | null;
-  status: StatusUser[];
+  status: StatusUser | null;
   userSwitch: CurrentUser | null;
 }
 
@@ -32,7 +32,7 @@ const initialState: InitialStateUserReducer = {
   organization: null,
   digipoints: null,
   userSwitch: null,
-  status: [],
+  status: null,
 };
 
 export const currentUserActions = createSlice({
@@ -44,6 +44,7 @@ export const currentUserActions = createSlice({
       state.token = action.payload.token;
       state.organization = action.payload.profile.organizations;
       state.digipoints = action.payload.profile.digipoints;
+      state.status = action.payload.status;
     },
     userSwitch: (state, action: PayloadAction<CurrentUserToken>) => {
       state.userSwitch = action.payload;
@@ -55,10 +56,10 @@ export const currentUserActions = createSlice({
       state.token = action.payload;
     },
 
-    userUpdate: ({ user }: { user: CurrentUser | null }, action) => {
+    userUpdate: (state, action) => {
       const actionPay = action.payload;
 
-      user = { ...user, ...actionPay };
+      state.user = actionPay;
     },
 
     loadingUser: (state, action) => {
@@ -71,6 +72,19 @@ export const currentUserActions = createSlice({
 
     udpateDigipoints: (state, action) => {
       state.digipoints = action.payload;
+    },
+
+    setUserStatus: (state, action) => {
+      if (!state.user?.id) {
+        throw new Error("User ID is required");
+      }
+
+      const data = action.payload;
+
+      state.user = {
+        ...state.user,
+        status: { ...(state.user?.status || []), ...data },
+      };
     },
 
     setInitialStateUser: () => {
@@ -86,6 +100,7 @@ export const {
   userToken,
   setInitialStateUser,
   userUpdate,
+  setUserStatus,
 } = currentUserActions.actions;
 
 export default currentUserActions.reducer;

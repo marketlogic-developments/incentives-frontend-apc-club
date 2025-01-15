@@ -41,6 +41,7 @@ import DigiPointsCard from "./Lay0ut/DigiPointsCard";
 import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
 import UserOptions from "./Lay0ut/UserOptions";
 import { StatusUser } from "services/User/user.service";
+import ResetPassword from "./Module/Modales/Login/ResetPassword";
 
 interface MyComponentProps {
   children: React.ReactNode;
@@ -68,6 +69,8 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
 
   const { setDataUser } = useDataUser();
   const { Locations, textLocation } = useLocation();
+
+  console.log(user);
 
   const statusUserOptions = (statusName: string): StatusUser | undefined =>
     user?.status
@@ -105,8 +108,24 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
       ? Object.entries(user.status).find(([key]) => key === video?.key)
       : undefined;
     const updateData = statusUserOptions("UPDATE_INFORMATION");
+    const resetPassword = statusUserOptions("RESET_PASSWORD");
 
     if (user) {
+      // if (user?.profile?.organizations[0]?.validations?.length) {
+      //   setModal(3);
+      //   return setOpened(true);
+      // }
+
+      if (resetPassword ? !resetPassword[1] : false) {
+        setModal(5);
+        return setOpened(true);
+      }
+
+      if (updateData ? !updateData[1] : false) {
+        setModal(2);
+        return setOpened(true);
+      }
+
       if (
         VideoKey &&
         location === "/dashboard"
@@ -117,18 +136,8 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
           setOpened(true);
         }, 2000);
       }
-
-      // if (updateData ? !updateData[1] : false) {
-      //   setModal(2);
-      //   setOpened(true);
-      // }
-
-      if (user?.profile?.organizations?.validations?.length) {
-        setModal(3);
-        setOpened(true);
-      }
     }
-  }, [user, video]);
+  }, [user, video, opened]);
 
   const profileImage: React.ReactNode = (
     <div className="bg-[#1473E6] rounded-full btn btn-circle btn-sm border-none hover:bg-[#1473E6]">
@@ -210,6 +219,8 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
         return <ModalTCPa />;
       case 4:
         return <ModalInfoAPC onClose={setOpened} />;
+      case 5:
+        return <ResetPassword setOpened={setOpened} />;
       default:
         return <></>;
     }
@@ -326,9 +337,9 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
       )}
       <Modal
         opened={opened}
-        withCloseButton={[0, 5].includes(modal) ? true : false}
+        withCloseButton={[0].includes(modal) ? true : false}
         onClose={
-          [0, 5].includes(modal)
+          [0].includes(modal)
             ? closeModal
             : [3].includes(modal)
             ? () => logout()

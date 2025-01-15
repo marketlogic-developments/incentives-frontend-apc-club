@@ -7,10 +7,10 @@ import { useTranslation } from "react-i18next";
 import DigiPointsTotalD from "./DigiPointsSections/DigiPointsTotalD";
 import PieChart from "../charts/PieChart";
 
-const SectionDigipointsPA = ({ user }) => {
+const SectionDigipointsPA = () => {
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
-  const token = useSelector((state) => state.user.token);
+  const { token, user } = useSelector((state) => state.currentUser);
   const [digipointUploaded, setDigipointUploaded] = useState([]);
   const [digipointSR, setDigipointSR] = useState({
     datas: {},
@@ -19,7 +19,7 @@ const SectionDigipointsPA = ({ user }) => {
   const [digipointsRA, setDigipointRA] = useState({
     datas: [],
   });
-  const [isDataReady, setIsReady] = useState(false);
+  const [isDataReady, setIsReady] = useState(true);
   const [filters, setFilters] = useState({
     year: "2024",
     company_name:
@@ -34,78 +34,7 @@ const SectionDigipointsPA = ({ user }) => {
   const [redeemedValue, setRedeemedValue] = useState(0);
 
   useEffect(() => {
-    setIsReady(false);
-    dispatch(getDigiPointPerformance(token, filters, user)).then((res) => {
-      /* DIGIPOINTS UPLOADED */
-      setDigipointUploaded(res.payload.digipointsUploaded);
-      /* const total = digipointUploaded.reduce((acc, item) => acc + parseInt(item.value, 10), 0);
-      setTtotalUpload(total); */
-
-      /* DIGIPOINTS BY STATUS AND REGION PENDING*/
-      // setDigipointSR({
-      //   datas: transformDataWithColors2(
-      //     res.payload.digipointsByStatusAndRegion.series,
-      //     {
-      //       MEXICO: "#1C2226",
-      //       NOLA: "#2799F6",
-      //       SOLA: "#1473E6",
-      //       BRAZIL: "#21A5A2",
-      //     }
-      //   ),
-      //   yNames: filterArray(
-      //     res.payload.digipointsByStatusAndRegion.yAxis.data,
-      //     "Expected"
-      //   ),
-      // });
-
-      // /* DIGIPOINTS BY STATUS */
-      // const filerDigipintsStatus = filterObject(
-      //   res.payload.digipointsByStatus,
-      //   "Expected"
-      // );
-      // setDigipointStatus(mapColorsToData(filerDigipintsStatus, colorsData));
-
-      const digipointsByStatusALL = res.payload.digipointsByStatus;
-
-      // Busca el objeto con name igual a "Assigned"
-      const totalItem = digipointsByStatusALL.find(
-        (item) => item.name === "Digipoints"
-      );
-      if (totalItem) {
-        setTtotalUpload(totalItem.value);
-      }
-
-      // Busca el objeto con name igual a "Assigned"
-      const assignedItem = digipointsByStatusALL.find(
-        (item) => item.name === "Assigned"
-      );
-      if (assignedItem) {
-        setAssignedValue(assignedItem.value);
-      }
-
-      // Busca el objeto con name igual a "Redeemed"
-      const redeemedItem = digipointsByStatusALL.find(
-        (item) => item.name === "Redeemed"
-      );
-      if (redeemedItem) {
-        setRedeemedValue(redeemedItem.value);
-      }
-
-      // /* DIGIPOINTS BY REGION AND AMOUND */
-      // setDigipointRA({
-      //   datas: transformDataWithColors(
-      //     res.payload.redempionsByRegionAndAmount.yAxis.allData,
-      //     {
-      //       MEXICO: "#1C2226",
-      //       NOLA: "#2799F6",
-      //       SOLA: "#1473E6",
-      //       BRAZIL: "#21A5A2",
-      //     }
-      //   ),
-      // });
-
-      setIsReady(true);
-    });
+    //get data Digipoints
   }, [user, filters]);
 
   return (
@@ -114,9 +43,9 @@ const SectionDigipointsPA = ({ user }) => {
         <DigiPointsTotalD
           dataLoaded={true}
           totalSaleGoal={{
-            expected: totalUpload,
-            reached: assignedValue,
-            progress: redeemedValue,
+            expected: totalUpload || 0,
+            reached: assignedValue || 0,
+            progress: redeemedValue || 0,
           }}
         />
       </div>

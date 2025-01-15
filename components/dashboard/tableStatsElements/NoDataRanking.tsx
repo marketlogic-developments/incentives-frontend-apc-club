@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { RootState } from "store/store";
 
 const NoDataRanking = () => {
   const [t, i18n] = useTranslation("global");
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state: RootState) => state.currentUser);
   return (
     <div className="flex flex-col justify-center items-center h-full gap-3 w-full">
       <svg
@@ -135,10 +136,9 @@ const NoDataRanking = () => {
       </svg>
       <p className="font-bold text-center">{t("dashboard.rankingsininfo")}</p>
       <p className="text-center">
-        {user.roleId !== 5
+        {user?.roles[0].name !== "sales_rep"
           ? t("dashboard.motivarankingsininfo")
-          : t("dashboard.motivalargorankingsininfo")
-          }
+          : t("dashboard.motivalargorankingsininfo")}
       </p>
     </div>
   );

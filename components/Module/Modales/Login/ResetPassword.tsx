@@ -1,7 +1,8 @@
 import { Modal } from "@mantine/core";
+import { useDataUser } from "functions/SetDataUser";
 import { useQueryParam } from "hooks/useQueryParam";
 import { NotiSwal } from "notifications/notifications";
-import React, { SetStateAction, useRef, useState } from "react";
+import React, { Dispatch, FC, SetStateAction, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   AiOutlineCheckCircle,
@@ -11,7 +12,9 @@ import {
 } from "react-icons/ai";
 import { ResetPasswordService } from "services/Login/login.service";
 
-interface Props {}
+interface Props {
+  setOpened?: Dispatch<SetStateAction<boolean>>;
+}
 
 interface Checks {
   lenght: boolean;
@@ -22,7 +25,7 @@ interface Checks {
   allValid: boolean;
 }
 
-const ResetPassword = ({}: Props) => {
+const ResetPassword: FC<Props> = ({ setOpened }) => {
   const [t, i18n] = useTranslation<string>("global"); //Traducción
   //useState
   const [showpassword, setShowPassword] = useState<boolean>(false);
@@ -34,7 +37,8 @@ const ResetPassword = ({}: Props) => {
     uppercase: false,
     allValid: false,
   });
-  const queryToken=useQueryParam("token")
+  const queryToken = useQueryParam("token");
+  const { resetPassword } = useDataUser();
 
   //inputs
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -45,37 +49,39 @@ const ResetPassword = ({}: Props) => {
       lowercase: /[a-z]/.test(password),
       uppercase: /[A-Z]/.test(password),
       specialChar: /[@$!%*?&]/.test(password),
+      number: /\d/.test(password),
     };
 
     // Actualiza el estado con los checks individuales
     return setChecks((prev) => ({
       ...prev,
+      ...validations,
       allValid: Object.values(validations).every(Boolean),
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const password = passwordRef?.current?.value;
 
-      if (!password) {
-        throw new Error("Password no valid");
-      }
+    const password = passwordRef?.current?.value;
 
-      ResetPasswordService({
-        newPassword: password,
-        token: queryToken,
-      });
-
-      NotiSwal({ text: String(t("login.donechangepass")) });
-    } catch (err: any) {
-      NotiSwal({ text: String(t("login.errorchangepass")) });
+    if (!password) {
+      throw new Error("Password no valid");
     }
+
+    resetPassword({
+      newPassword: password,
+      token: queryToken as string,
+    })
+      .then(() => {
+        setOpened?.(false);
+        NotiSwal({ text: String(t("login.donechangepass")) });
+      })
+      .catch(() => NotiSwal({ text: String(t("login.errorchangepass")) }));
   };
 
   return (
-    <div className="flex flex-col w-full items-center text-center gap-10">
+    <div className="flex flex-col w-full items-center text-center gap-10 p-6">
       <p className="text-3xl text-primary">{t("dashboard.bienvenido")}</p>
       <p className="text-xl">{t("dashboard.continuar")}</p>
 
@@ -112,52 +118,48 @@ const ResetPassword = ({}: Props) => {
                 checks.uppercase ? "#047857" : "#000"
               }]`}
             />
-            <p className="checkitem">{t("dashboard.contieneUL")}</p>
+            <p className={checks.uppercase ? "checkitem" : ""}>
+              {t("dashboard.contieneUL")}
+            </p>
           </div>
-          {/* {containsLL ? (
-            <div className="item-icon">
-              <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
-              <p className="checkitem">{t("dashboard.contieneLL")}</p>
-            </div>
-          ) : (
-            <div className="item-icon">
-              <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
-              <p>{t("dashboard.contieneLL")}</p>
-            </div>
-          )}
-          {containsN ? (
-            <div className="item-icon">
-              <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
-              <p className="checkitem">{t("dashboard.contieneN")}</p>
-            </div>
-          ) : (
-            <div className="item-icon">
-              <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
-              <p>{t("dashboard.contieneN")}</p>
-            </div>
-          )}
-          {containsSC ? (
-            <div className="item-icon">
-              <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
-              <p className="checkitem">{t("dashboard.contieneSC")}</p>
-            </div>
-          ) : (
-            <div className="item-icon">
-              <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
-              <p>{t("dashboard.contieneSC")}</p>
-            </div>
-          )}
-          {contains8C ? (
-            <div className="item-icon">
-              <AiOutlineCheckCircle className="h-5 w-5 fill-[#047857]" />
-              <p className="checkitem">{t("dashboard.contiene8C")}</p>
-            </div>
-          ) : (
-            <div className="item-icon">
-              <AiOutlineCloseCircle className="h-5 w-5 fill-[#000]" />
-              <p>{t("dashboard.contiene8C")}</p>
-            </div>
-          )} */}
+          <div className="item-icon">
+            <AiOutlineCheckCircle
+              className={`h-5 w-5 fill-[${
+                checks.lowercase ? "#047857" : "#000"
+              }]`}
+            />
+            <p className={checks.lowercase ? "checkitem" : ""}>
+              {t("dashboard.contieneLL")}
+            </p>
+          </div>
+          <div className="item-icon">
+            <AiOutlineCheckCircle
+              className={`h-5 w-5 fill-[${checks.number ? "#047857" : "#000"}]`}
+            />
+            <p className={checks.number ? "checkitem" : ""}>
+              {t("dashboard.contieneN")}
+            </p>
+          </div>
+          <div className="item-icon">
+            <AiOutlineCheckCircle
+              className={`h-5 w-5 fill-[${
+                checks.specialChar ? "#047857" : "#000"
+              }]`}
+            />
+            <p className={checks.specialChar ? "checkitem" : ""}>
+              {t("dashboard.contieneSC")}
+            </p>
+          </div>
+          <div className="item-icon">
+            <AiOutlineCheckCircle
+              className={`h-5 w-5 fill-[${
+                checks.allValid ? "#047857" : "#000"
+              }]`}
+            />
+            <p className={checks.allValid ? "checkitem" : ""}>
+              {t("dashboard.contiene8C")}
+            </p>
+          </div>
         </div>
         <button
           className={`btn ${

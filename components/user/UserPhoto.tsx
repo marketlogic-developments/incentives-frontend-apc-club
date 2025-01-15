@@ -7,12 +7,12 @@ import { userUpdate } from "../../store/reducers/currentUser.reducer";
 import { useTranslation } from "react-i18next";
 import { RootState } from "store/store";
 
-interface Props{
-  formData:any
+interface Props {
+  formData: any;
 }
 
-const UserPhoto:FC<Props> = ({ formData }) => {
-  const {user} = useSelector((state:RootState) => state.currentUser);
+const UserPhoto: FC<Props> = ({ formData }) => {
+  const { user } = useSelector((state: RootState) => state.currentUser);
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -33,19 +33,13 @@ const UserPhoto:FC<Props> = ({ formData }) => {
     },
   });
 
-  const deleteProfileImage = () => {
+  const deleteProfileImage = () => {};
 
-  };
-
-  const handleImgProfile = () => {
-
-  };
+  const handleImgProfile = () => {};
 
   return (
     <div className="photo relative min-w-[110px] flex justify-center">
-      {formData.imgProfile === null ||
-      formData.imgProfile === "" ||
-      formData.imgProfile === "noImage" ? (
+      {!formData.imgProfile ? (
         <>
           <div className="absolute h-full lg:w-full w-1/2 flex justify-end items-end">
             <label
@@ -87,7 +81,9 @@ const UserPhoto:FC<Props> = ({ formData }) => {
           </div>
           <div className="h-full lg:w-full w-1/2 bg-info rounded-full aspect-square">
             <div className="w-full h-full justify-center items-center flex font-bold !text-xl text-white">
-              <p className="!text-5xl lg:!text-2xl">{user?.profile?.first_name[0]}</p>
+              <p className="!text-5xl lg:!text-2xl">
+                {user?.profile?.first_name[0]}
+              </p>
             </div>
           </div>
         </>

@@ -19,15 +19,17 @@ export interface CurrentUser {
 
 export interface Profile {
   first_name: string;
-  middle_name: string;
   last_name: string;
-  second_last_name: string;
+  extended_attributes: {
+    middle_name: string;
+    second_last_name: string;
+  };
   document: string;
   birth_date: string;
   photoProfile: string;
   language: string;
   phone_number: string;
-  organizations: Organization;
+  organizations: Organization[];
   digipoints: DigipointsUser;
 }
 
@@ -54,7 +56,6 @@ export interface Organization {
   validations: string[];
 }
 
-
 export const getCurrentUser =
   async (): Promise<GenericalPromise<CurrentUser> | void> => {
     try {
@@ -69,20 +70,20 @@ export const getCurrentUser =
     }
   };
 
-export const getOneUser =
-  async (id:string): Promise<GenericalPromise<CurrentUser> | void> => {
-    try {
-      const response = await API.get<GenericalPromise<CurrentUser>>(
-        `administration/users?id=${id}`
-      );
-      return response.data;
-    } catch (err: any) {
-      console.log("Error to get user info");
-      HandleError(err);
-      throw err;
-    }
-  };
-
+export const getOneUser = async (
+  id: string
+): Promise<GenericalPromise<CurrentUser> | void> => {
+  try {
+    const response = await API.get<GenericalPromise<CurrentUser>>(
+      `administration/users?id=${id}`
+    );
+    return response.data;
+  } catch (err: any) {
+    console.log("Error to get user info");
+    HandleError(err);
+    throw err;
+  }
+};
 
 export const listUsers = async (
   params: string = ""

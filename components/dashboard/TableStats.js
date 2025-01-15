@@ -24,7 +24,7 @@ const TableStats = () => {
   const [goal, setGoal] = useState(0);
   const [loading, setLoading] = useState(0);
   const dataFromAxios = useSelector((state) => state.sales.salesgement);
-  const golprogram = useSelector((state) => state.user.company.goalsPerYear);
+  const golprogram = useSelector((state) => state.currentUser.organizations);
   const [wait, setWait] = useState(false);
 
   useEffect(() => {
@@ -181,19 +181,20 @@ const TableStats = () => {
     setpercentageDC(arrayPercentageDC);
   };
 
-  if (loading) {
-    return <div className="lds-dual-ring"></div>;
-  }
+  // if (loading) {
+  //   return <div className="lds-dual-ring"></div>;
+  // }
+
   function formatNumber(number) {
     if (number >= 1000000) {
       const millionValue = (number / 1000000).toString();
-      return millionValue.includes('.')
-        ? millionValue.slice(0, millionValue.indexOf('.') + 3) + "M"
+      return millionValue.includes(".")
+        ? millionValue.slice(0, millionValue.indexOf(".") + 3) + "M"
         : millionValue + "M";
     } else if (number >= 1000) {
       const thousandValue = (number / 1000).toString();
-      return thousandValue.includes('.')
-        ? thousandValue.slice(0, thousandValue.indexOf('.') + 3) + "K"
+      return thousandValue.includes(".")
+        ? thousandValue.slice(0, thousandValue.indexOf(".") + 3) + "K"
         : thousandValue + "K";
     } else {
       return number.toLocaleString("en-US");

@@ -8,7 +8,7 @@ const ModalTCPa = () => {
       </h2>
       <p>
         Necesitamos que el Partner Principal y el Partner Admin de tu
-        organización acepten los Términos y Condiciones del APC Club FY2024.
+        organización acepten los Términos y Condiciones del APC Club FY2025.
         Agradecemos tu comprensión y paciencia durante este proceso.
       </p>
       <p>

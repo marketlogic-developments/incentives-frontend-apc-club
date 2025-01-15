@@ -120,7 +120,6 @@ export const useLocation = () => {
     const dataMenu = Locations(user);
     const router = useRouter();
     const location = router.pathname;
-    const dispatch = useDispatch();
 
     const item = dataMenu.find((i) => i.page === location);
 
@@ -140,10 +139,6 @@ export const useLocation = () => {
 
         if (location === "/catalogo") {
           return t("menu.catalogo");
-        }
-
-        if (location === "/shoppingCar") {
-          return t("shoopingcar.carrito");
         }
 
         if (location === "/estadoProducto") {

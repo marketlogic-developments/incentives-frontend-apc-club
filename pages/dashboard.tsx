@@ -68,34 +68,16 @@ const dashboard: FC<Props> = ({ entries, banners, infoApc }) => {
     // }
   }, [user, token]);
 
-  const logout = () => {
-    window.sessionStorage.removeItem("token");
-    Cookies.remove("dp");
-    route.push("/");
-  };
-
   return (
     <>
-      {/* <Modal
-        opened={opened2}
-        centered
-        size={"90%"}
-        onClose={() => {
-          logout();
-          // setOpened2(false);
-        }}
-        className={"modalCloseDashboard"}
-      >
-
-      </Modal> */}
       <ContainerContent pageTitle={"Dashboard"}>
         <div className="m-6 flex flex-col gap-10 ">
           <CarouselBanners banners={banners} />
           <hr color="red" />
-          {/* <div className="gap-10 flex flex-col h-full items-center">
+          <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
             <GraphSales />
-            {user.roleId === 3 && <SectionDigipointsPA user={user} />}
+            {user?.roles[0].name === "partner_admin" && <SectionDigipointsPA />}
 
             <TableTopsRanking
               containerStyles={
@@ -112,7 +94,7 @@ const dashboard: FC<Props> = ({ entries, banners, infoApc }) => {
                 t("tabla.region"),
               ]}
             />
-          </div> */}
+          </div>
         </div>
       </ContainerContent>
     </>

@@ -1,18 +1,15 @@
 import React from "react";
-import UserRanking from "./userRanking";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useState } from "react";
-// import { setRanking } from "../../../store/reducers/currentUser.reducer";
 import NoDataRanking from "./NoDataRanking";
+import { RootState } from "store/store";
 
 const RankingTable = () => {
   const [t, i18n] = useTranslation("global");
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
-  const ranking = useSelector((state) => state.user.ranking);
+  const ranking = useSelector(
+    (state: RootState) => state.dashboardReport.userRaking.global
+  );
   const dispatch = useDispatch();
   const month = new Date().getMonth();
   const year = new Date().getFullYear();
@@ -33,18 +30,8 @@ const RankingTable = () => {
   ];
 
   useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/ranking-global`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(({ data }) => {
-        dispatch(setRanking(data));
-      });
-  }, [token]);
+    //Peticion Ranking
+  }, []);
 
   return (
     <div className="flex flex-col w-full p-6 gap-6 targetDashboard">
@@ -53,13 +40,14 @@ const RankingTable = () => {
         <p className="!text-xs">{`${Months[month]} ${year}`}</p>
       </div>
       <div className="flex flex-col gap-6 h-full">
-        {ranking.length === 0 ? (
+        {/* {ranking.length === 0 ? (
           <NoDataRanking />
         ) : (
           [...ranking]
             .slice(0, 3)
             .map((data, index) => <UserRanking data={data} index={index + 1} />)
-        )}
+        )} */}
+        <NoDataRanking />
       </div>
     </div>
   );

@@ -1,9 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 
 const BarBySegment = ({ percentageCC, percentageDC, formatNumber }) => {
-  const ranking = useSelector((state) => state.user.ranking);
   const [t, i18n] = useTranslation("global");
 
   return (

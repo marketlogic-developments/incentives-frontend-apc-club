@@ -15,8 +15,7 @@ import TargetSales from "./GraphSales/TargetSales";
 import PerformaceSales from "./GraphSales/PerformaceSales";
 
 const GraphSales = () => {
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
+  const { user, token } = useSelector((state) => state.currentUser);
   const sales = useSelector((state) => state.sales.salesbType);
   const goals = useSelector((state) => state.sales.goals);
   const dispatch = useDispatch();
@@ -27,23 +26,23 @@ const GraphSales = () => {
   const [t, i18n] = useTranslation("global");
 
   useEffect(() => {
-    console.log(goals);
-    if (token && sales.length === 0) {
-      if (user.roleId === 1) {
-        dispatch(getSalesByTypeAll(token));
-        dispatch(getAllGoals(token));
-      } else if (user.company === null) {
-        dispatch(
-          getGoalsByDistri(token, user?.distributionChannel?.soldToParty)
-        );
-        dispatch(
-          getSalesByTypeDist(token, user?.distributionChannel?.soldToParty)
-        );
-      } else {
-        dispatch(getGoalsByChannel(token, user.company.resellerMasterId));
-        dispatch(getSalesByTypeComp(token, user.company.resellerMasterId));
-      }
-    }
+    // console.log(goals);
+    // if (token && sales.length === 0) {
+    //   if (user?.roles[0].name === "admin") {
+    //     dispatch(getSalesByTypeAll(token));
+    //     dispatch(getAllGoals(token));
+    //   } else if (user.company === null) {
+    //     dispatch(
+    //       getGoalsByDistri(token, user?.distributionChannel?.soldToParty)
+    //     );
+    //     dispatch(
+    //       getSalesByTypeDist(token, user?.distributionChannel?.soldToParty)
+    //     );
+    //   } else {
+    //     dispatch(getGoalsByChannel(token, user.company.resellerMasterId));
+    //     dispatch(getSalesByTypeComp(token, user.company.resellerMasterId));
+    //   }
+    // }
   }, [token]);
 
   useEffect(() => {
@@ -66,7 +65,7 @@ const GraphSales = () => {
     <div className="flex flex-col w-full gap-6">
       <div>
         <h2 className="text-xl font-bold">
-          {user.roleId === 5
+          {user?.roles[0].name === "sales_rep"
             ? t("dashboard.misVentas")
             : t("dashboard.ventasOrg")}
         </h2>

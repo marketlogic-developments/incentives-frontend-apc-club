@@ -1,7 +1,16 @@
 import { Modal } from "@mantine/core";
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { ChangeEvent, DetailedHTMLProps, FormEvent, FormEventHandler, FormHTMLAttributes, useEffect, useMemo, useState } from "react";
+import React, {
+  ChangeEvent,
+  DetailedHTMLProps,
+  FormEvent,
+  FormEventHandler,
+  FormHTMLAttributes,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import ContainerContent from "../../components/containerContent";
@@ -13,24 +22,24 @@ import "react-international-phone/style.css";
 import UserPhoto from "components/user/UserPhoto";
 import { RootState } from "store/store";
 
-interface PropsDataUser{
-  first_name: string | undefined,
-    middlename: string | undefined,
-    last_name: string | undefined,
-    secondlastname: string | undefined,
-    documentinfo: string | undefined,
-    email: string | undefined,
-    role: string | undefined,
-    position: string | undefined, 
-    region: string | undefined,
-    imgProfile: string | undefined,
-    birthDate: string | Date | undefined,
-    phone: string | undefined,
-    language: string | undefined,
+interface PropsDataUser {
+  first_name: string | undefined;
+  middlename: string | undefined;
+  last_name: string | undefined;
+  secondlastname: string | undefined;
+  documentinfo: string | undefined;
+  email: string | undefined;
+  role: string | undefined;
+  position: string | undefined;
+  region: string | undefined;
+  imgProfile: string | undefined;
+  birthDate: string | Date | undefined;
+  phone: string | undefined;
+  language: string | undefined;
 }
 
 const user = () => {
-  const {token,user}= useSelector((state:RootState) => state.currentUser);
+  const { token, user } = useSelector((state: RootState) => state.currentUser);
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
   const [nInputs, setNInputs] = useState(0);
@@ -56,14 +65,14 @@ const user = () => {
   useEffect(() => {
     setFormData({
       first_name: user?.profile.first_name,
-      middlename: user?.profile.middle_name,
+      middlename: user?.profile.extended_attributes.middle_name,
       last_name: user?.profile.last_name,
-      secondlastname: user?.profile.second_last_name,
+      secondlastname: user?.profile.extended_attributes.second_last_name,
       documentinfo: user?.profile.document,
       email: user?.email,
       role: user?.roles[0].name,
       position: user?.roles[0].description,
-      region: user?.region.name,
+      region: user?.region?.name || "No region",
       imgProfile: user?.profile.photoProfile,
       birthDate: user?.profile.birth_date,
       phone: user?.profile.phone_number,
@@ -71,7 +80,9 @@ const user = () => {
     });
   }, [user]);
 
-  const handleChange = (e:ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
 
     if (name === "language") {
@@ -87,7 +98,7 @@ const user = () => {
     }
   };
 
-  const handleChangeDate = (value:Date) => {
+  const handleChangeDate = (value: Date) => {
     setFormData({
       ...formData,
       birthDate: value.toISOString(), // Asegúrate de convertir el valor en un formato válido para la API
@@ -97,14 +108,14 @@ const user = () => {
   function isValidDate(dateObject: Pick<PropsDataUser, "birthDate">): boolean {
     const dateString = dateObject.birthDate; // Extraer la propiedad birthDate
     const date = new Date(dateString as string);
-  
+
     // Verificar que sea una fecha válida
     return !isNaN(date.getTime());
   }
 
   const [phone, setPhone] = useState<string>();
 
-  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     formData.phone = phone !== "" ? phone : formData.phone;
     const jsonData = () => {
@@ -162,7 +173,6 @@ const user = () => {
         });
       });
   };
-
 
   return (
     <>
@@ -280,7 +290,7 @@ const user = () => {
               <div className="w-full flex description">
                 <div className="w-full flex justify-between">
                   <h2 className="font-bold">{t("user.informacionpersonal")}</h2>
-                  <div
+                  {/* <div
                     className="text-sky-500 cursor-pointer flex"
                     onClick={() => {
                       setEditInfo(!editInfo);
@@ -306,7 +316,7 @@ const user = () => {
                       />
                     </svg>
                     {t("user.edit")}
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="w-full">
@@ -325,8 +335,8 @@ const user = () => {
                               </span>
                             </label>
                             <span className="input input-ghost w-full flex items-center">
-                                {formData.first_name}
-                              </span>
+                              {formData.first_name}
+                            </span>
                           </div>
                           <div className="w-1/2">
                             <label className="label">
@@ -335,8 +345,8 @@ const user = () => {
                               </span>
                             </label>
                             <span className="input input-ghost w-full flex items-center">
-                                {formData.middlename}
-                              </span>
+                              {formData.middlename}
+                            </span>
                           </div>
                         </div>
                         <div className="form-control flex-row flex w-full gap-3">
@@ -347,8 +357,8 @@ const user = () => {
                               </span>
                             </label>
                             <span className="input input-ghost w-full flex items-center">
-                                {formData.last_name}
-                              </span>
+                              {formData.last_name}
+                            </span>
                           </div>
                           <div className="w-1/2">
                             <label className="label">
@@ -357,8 +367,8 @@ const user = () => {
                               </span>
                             </label>
                             <span className="input input-ghost w-full flex items-center">
-                                {formData.secondlastname}
-                              </span>
+                              {formData.secondlastname}
+                            </span>
                           </div>
                         </div>
                         <div className="form-control w-full">

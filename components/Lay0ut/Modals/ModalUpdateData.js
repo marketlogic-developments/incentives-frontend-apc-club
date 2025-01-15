@@ -1,5 +1,6 @@
 import { DateInput } from "@mantine/dates";
 import axios from "axios";
+import { useDataUser } from "functions/SetDataUser";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { PhoneInput } from "react-international-phone";
@@ -9,9 +10,9 @@ import Swal from "sweetalert2";
 
 const ModalUpdateData = ({ onClose }) => {
   const [t, i18n] = useTranslation("global");
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
+  const { user, token } = useSelector((state) => state.currentUser);
   const dispatch = useDispatch();
+  const { updateUser } = useDataUser();
   const inputsRequired = [
     "birthDate",
     "documentinfo",
@@ -40,7 +41,7 @@ const ModalUpdateData = ({ onClose }) => {
 
     const data = Object.values(e.target);
 
-    const objPush = { user_update_data: true };
+    const objPush = {};
 
     const arrInputsEmpty = [];
 
@@ -70,31 +71,8 @@ const ModalUpdateData = ({ onClose }) => {
         },
       });
     } else {
-      axios
-        .patch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/${user.id}`,
-          objPush,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          dispatch(policyAndPassword(res.data));
-          onClose(false);
-          return Toast.fire({
-            icon: "success",
-            title: t("user.updateData"),
-            background: "#000000",
-            color: "#fff",
-            customClass: {
-              content: "sw2Custom",
-            },
-          });
-        })
-        .catch((e) => console.log(e));
+      onClose(false);
+      updateUser(objPush);
     }
   };
 

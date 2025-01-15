@@ -10,6 +10,7 @@ import loadingData from "./reducers/loading.reducer";
 import companyAction from "./reducers/company.reducer";
 import promosAction from "./reducers/promos.reducer";
 import contentfulAction from "./reducers/contentful.reducer";
+import dashboardReportAction from "./reducers/dashboardreport.reducer";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     company: companyAction,
     promos: promosAction,
     contentful: contentfulAction,
+    dashboardReport: dashboardReportAction,
   },
 });
 
