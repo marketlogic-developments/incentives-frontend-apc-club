@@ -1,30 +1,15 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import ContainerContent from "../components/containerContent";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal } from "@mantine/core";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import GraphSales from "../components/dashboard/graphSales";
-import Swal from "sweetalert2";
-import Cookies from "js-cookie";
-import {
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-  AiOutlineCheckCircle,
-  AiOutlineCloseCircle,
-} from "react-icons/ai";
 import TableStats from "../components/dashboard/TableStats";
-import BannerColombia from "../components/dashboard/BannerColombia";
 import CarouselBanners from "../components/dashboard/carouselBanners";
 import TableTopsRanking from "../components/dashboard/TableTopsRanking";
-import LicenseChart from "../components/dashboard/LicenseChart";
-import { CardChart, InputReporte } from "../components";
-import { SearchIcon } from "../components/icons";
 import client from "../contentful";
 import { getVideos } from "../store/reducers/contentful.reducer";
-import { getLicenciesByMonth } from "../store/reducers/sales.reducer";
 import SectionDigipointsPA from "../components/dashboard/SectionDigipointsPA";
-import ResetPassword from "components/Module/Modales/Login/ResetPassword";
 import { RootState } from "store/store";
 
 interface Props {
@@ -34,28 +19,9 @@ interface Props {
 }
 
 const dashboard: FC<Props> = ({ entries, banners, infoApc }) => {
-  const { user, token, userSwitch } = useSelector(
-    (state: RootState) => state.currentUser
-  );
-  const [opened, setOpened] = useState(false);
-  const [opened2, setOpened2] = useState(false);
-  const [view, setView] = useState("password");
+  const { user, token } = useSelector((state: RootState) => state.currentUser);
   const dispatch = useDispatch();
-  const route = useRouter();
   const [t, i18n] = useTranslation("global");
-  const [modalType, setModalType] = useState<number>(0);
-  const [data, setData] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [salesData, setSalesData] = useState({
-    documentCloud: { teams: [], enterprise: [], education: [] },
-    creativeCloud: { teams: [], enterprise: [], education: [] },
-    numberData: [],
-  });
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
 
   useEffect(() => {
     dispatch(getVideos(infoApc));

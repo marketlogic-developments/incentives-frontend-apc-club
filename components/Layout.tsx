@@ -111,10 +111,10 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     const resetPassword = statusUserOptions("RESET_PASSWORD");
 
     if (user) {
-      // if (user?.profile?.organizations[0]?.validations?.length) {
-      //   setModal(3);
-      //   return setOpened(true);
-      // }
+      if (user?.profile?.organizations[0]?.validations?.length) {
+        setModal(3);
+        return setOpened(true);
+      }
 
       if (resetPassword ? !resetPassword[1] : false) {
         setModal(5);
