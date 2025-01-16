@@ -67,11 +67,12 @@ const terminosycondiciones = () => {
               }}
             />
           </div>
-          <div className="flex gap-5 items-center">
+          <div className="flex gap-5 items-center pb-6">
             <div className="rounded-full bg-primary p-2 w-[30px] h-[30px] flex justify-center items-center">
               <p className="text-white">4</p>
             </div>
             <p
+              className="text-primary font-bold"
               dangerouslySetInnerHTML={{
                 __html: String(t("terminosycondiciones.paso4")),
               }}

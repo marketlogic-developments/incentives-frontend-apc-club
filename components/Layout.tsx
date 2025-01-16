@@ -350,7 +350,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
         size={"auto"}
         overlayProps={{
           blur: 5,
-          opacity: [0, 3].includes(modal) ? 1 : 0.55,
+          opacity: [0, 3].includes(modal) ? 0.85 : 0.55,
         }}
         transitionProps={{ transition: "rotate-left" }}
         closeButtonProps={{

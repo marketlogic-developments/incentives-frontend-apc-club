@@ -1,18 +1,19 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const ModalTCPa = () => {
+  const [t,i18n]=useTranslation("global")
   return (
     <div className="w-full p-6 flex flex-col items-center gap-6 justify-center p-14">
       <h2 className="text-2xl font-bold text-center">
-        Solo falta un paso más para acceder a la plataforma
+        {t("terminosycondiciones.warningpp.title")}
       </h2>
-      <p>
-        Necesitamos que el Partner Principal y el Partner Admin de tu
-        organización acepten los Términos y Condiciones del APC Club FY2025.
-        Agradecemos tu comprensión y paciencia durante este proceso.
+      <p className="text-center">
+      {t("terminosycondiciones.warningpp.one")} <br/>
+      {t("terminosycondiciones.warningpp.two")}
       </p>
       <p>
-        Si tienes alguna pregunta o duda, no dudes en contactarnos en{" "}
+      {t("terminosycondiciones.warningpp.contactus")}{" "}
         <a href="mailto:info@adobepcclub.com" className="text-primary">
           info@adobepcclub.com
         </a>
