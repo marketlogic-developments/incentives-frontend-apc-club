@@ -17,11 +17,47 @@ interface Reseller {
   status: boolean;
 }
 
-const getOneCompany = async (
-  id: number
-): Promise<GenericalPromise<Reseller> | void> => {
+export interface CompleteOrganization{
+  id: string,
+  name: string,
+  phone_number: string,
+  representative_email: string,
+  representative_first_name: string,
+  representative_last_name: string,
+  address: string,
+  fiscal_period_year: string,
+  status: true,
+  goals: [],
+  distribution_channel: {
+    id: string,
+    name: string
+  },
+  organization_codes: [
+    {
+      id: string,
+      code: string,
+      status: true
+    }
+  ]
+}
+
+export const GetOneOrganization = async (
+  id: string
+): Promise<GenericalPromise<CompleteOrganization> | void> => {
   try {
-    const response = await API.get("");
+    const response = await API.get(`administration/organizations?id=${id}`);
+    return response.data;
+  } catch (err: any) {
+    HandleError(err);
+    throw err;
+  }
+};
+
+export const GetOrganizations = async (
+  id: number
+): Promise<MultipleElements<Reseller> | void> => {
+  try {
+    const response = await API.get("administration/organizations");
     return response.data;
   } catch (err: any) {
     HandleError(err);

@@ -1,6 +1,7 @@
 import { DateInput } from "@mantine/dates";
 import axios from "axios";
 import { useDataUser } from "functions/SetDataUser";
+import { NotiSwal } from "notifications/notifications";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { PhoneInput } from "react-international-phone";
@@ -71,10 +72,22 @@ const ModalUpdateData = ({ onClose }) => {
         },
       });
     } else {
-      onClose(false);
-      updateUser(objPush);
+      updateUser(objPush)
+        .then(() => {
+          onClose?.(false);
+          NotiSwal({ text: String(t("user.updateData")) });
+        })
+        .catch(() => NotiSwal({ text: String(t("tabla.notiError")) }));
     }
   };
+
+  const today = new Date();
+  const minAdultAge = new Date(
+    today.getFullYear() - 18,
+    today.getMonth(),
+    today.getDate()
+  );
+  const maxDate = minAdultAge.toISOString().split("T")[0]; // Formato YYYY-MM-DD
 
   return (
     <div className="w-full p-6 flex flex-col items-center gap-6 justify-center lg:h-screen">
@@ -96,6 +109,7 @@ const ModalUpdateData = ({ onClose }) => {
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="first_name"
               autoCapitalize
+              minLength={3}
               id={t("modalUpdate.firstName")}
             />
           </div>
@@ -109,6 +123,7 @@ const ModalUpdateData = ({ onClose }) => {
               className="input input-ghost w-full bg-[#F4F4F4]"
               name="middlename"
               autoCapitalize
+              minLength={3}
             />
           </div>
           <div class="form-control w-full">
@@ -122,6 +137,7 @@ const ModalUpdateData = ({ onClose }) => {
               name="last_name"
               autoCapitalize
               id={t("modalUpdate.lastName")}
+              minLength={3}
             />
           </div>
           <div class="form-control w-full">
@@ -137,6 +153,7 @@ const ModalUpdateData = ({ onClose }) => {
               name="secondlastname"
               autoCapitalize
               id={t("modalUpdate.secondLastName")}
+              minLength={3}
             />
           </div>
         </div>
@@ -193,6 +210,7 @@ const ModalUpdateData = ({ onClose }) => {
               onBlur: console.log("aaa"),
               id: t("user.cel"),
               required: true,
+              minLength: 7,
             }}
             countrySelectorStyleProps={{
               className:
@@ -211,6 +229,7 @@ const ModalUpdateData = ({ onClose }) => {
             className="!ml-1 !input !input-ghost !w-full !rounded-r-lg !bg-[#F4F4F4]"
             name="birthDate"
             id={t("user.FechaNacimiento")}
+            max={maxDate}
           ></input>
           {/* <DateInput
             name="birthDate"
@@ -234,14 +253,22 @@ const ModalUpdateData = ({ onClose }) => {
           <select
             className="select w-full bg-[#F4F4F4]"
             onChange={(e) => {
-              i18n.changeLanguage(e.target.value);
+              i18n.changeLanguage(
+                e.target.value === "6109b0bf-cb67-4b99-833f-8d9a485d580e"
+                  ? "por"
+                  : "es"
+              );
             }}
             defaultValue={i18n.resolvedLanguage}
             name="languageId"
             id={t("modalUpdate.lenguaje")}
           >
-            <option value="es">Español</option>
-            <option value="por">Português</option>
+            <option value="d179ffc3-5b95-4b2b-bbd6-6c994c601da5">
+              Español
+            </option>
+            <option value="6109b0bf-cb67-4b99-833f-8d9a485d580e">
+              Português
+            </option>
             {/* <option value="en">Ingles</option> */}
           </select>
         </div>

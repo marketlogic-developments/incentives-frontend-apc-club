@@ -10,7 +10,7 @@ import {
 } from "services/User/user.service";
 
 export interface InitialStateUserReducer {
-  user: CurrentUser | null;
+  user: CurrentUserToken | null;
   token: string | null;
   loading: boolean;
   error: null;
@@ -57,9 +57,8 @@ export const currentUserActions = createSlice({
     },
 
     userUpdate: (state, action) => {
-      const actionPay = action.payload;
 
-      state.user = actionPay;
+      state.user = {...state.user,...action.payload};
     },
 
     loadingUser: (state, action) => {

@@ -13,8 +13,8 @@ export interface ResponseLogin {
 }
 
 interface ResetPassword {
-  token: string | null;
-  newPassword: string;
+  password: string,
+  password_repeat: string
 }
 
 interface RequestPassword {
@@ -41,8 +41,8 @@ export const ResetPasswordService = async (
   newPassword: ResetPassword
 ): Promise<GenericalPromise<any> | void> => {
   try {
-    const response = await API.post<GenericalPromise<any>>(
-      "/auth/change-password",
+    const response = await API.put<GenericalPromise<any>>(
+      "administration/users/change/password",
       newPassword
     );
     return response.data;

@@ -69,10 +69,7 @@ const ResetPassword: FC<Props> = ({ setOpened }) => {
       throw new Error("Password no valid");
     }
 
-    resetPassword({
-      newPassword: password,
-      token: queryToken as string,
-    })
+    resetPassword(password)
       .then(() => {
         setOpened?.(false);
         NotiSwal({ text: String(t("login.donechangepass")) });

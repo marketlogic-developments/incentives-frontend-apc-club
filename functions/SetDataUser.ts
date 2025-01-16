@@ -3,6 +3,7 @@ import {
   CurrentUser,
   getCurrentUser,
   getOneUser,
+  UpdateUser,
 } from "services/User/user.service";
 import CurrentUserTest from "../testing/CurrentUserTest.json";
 import { ResetPasswordService } from "services/Login/login.service";
@@ -29,13 +30,15 @@ export const useDataUser = () => {
 
   const setDataUser = async (): Promise<void> => {
     try {
-      const res1 = await getCurrentUser(); // O CurrentUserTest para pruebas
+      const res = await getCurrentUser(); // O CurrentUserTest para pruebas
       // const res = { result: CurrentUserTest }; // O CurrentUserTest para pruebas
-      if (!res1) throw new Error("Failed Login, try again");
-
-      const res = await getOneUser(res1.result.id);
-
       if (!res) throw new Error("Failed Login, try again");
+
+      // const res = await getOneUser(res1.result.id);
+
+      // if (!res) throw new Error("Failed Login, try again");
+
+      
 
       const tyCStatus = res.result.status["POLICIES"];
 
@@ -47,14 +50,16 @@ export const useDataUser = () => {
     }
   };
 
-  const resetPassword = async (data: {
-    newPassword: string;
-    token: string;
-  }): Promise<void> => {
+  const resetPassword = async (password:string): Promise<void> => {
     try {
-      // const res = await ResetPasswordService(data);
+      const passwordSend={
+        password: password,
+        password_repeat: password,
+      }
 
-      // if (!res) throw new Error("Failed to Reset Password");
+      const res = await ResetPasswordService(passwordSend);
+
+      if (!res) throw new Error("Failed to Reset Password");
 
       dispatch(setUserStatus({ RESET_PASSWORD: true }));
     } catch (err) {
@@ -65,14 +70,16 @@ export const useDataUser = () => {
 
   const updateUser = async (data: FormUpdateProps): Promise<void> => {
     try {
-      // const res = await ResetPasswordService(data);
+      if (!user) throw new Error("Failed to updateUser");
 
-      // if (!res) throw new Error("Failed to Reset Password");
-
+      const {roles, token,...userModified}= user
       const dataUserUpdate = {
-        ...user,
+        ...userModified,
+        status:{
+        ...userModified.status,
+        UPDATE_INFORMATION: true
+        },
         profile: {
-          ...user?.profile,
           first_name: data.first_name,
           last_name: data.last_name,
           extended_attributes: {
@@ -82,10 +89,18 @@ export const useDataUser = () => {
           document: `${data.documenttype} - ${data.documentinfo}`,
           birth_date: data.birthDate,
           phone_number: data.phoneNumber,
+          languaje_id: data.languageId
         },
       };
 
-      dispatch(userUpdate(dataUserUpdate));
+      const res = await UpdateUser(dataUserUpdate, user?.id as string);
+
+      if (!res) throw new Error("Failed to updateUser");
+
+      
+
+      // dispatch(userUpdate(dataUserUpdate));
+      setDataUser()
       dispatch(setUserStatus({ UPDATE_INFORMATION: true }));
     } catch (err) {
       console.error(err);

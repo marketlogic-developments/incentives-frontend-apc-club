@@ -1,20 +1,26 @@
-import { useState } from "react";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import Información from "../components/canal/información";
-import Participantes from "../components/canal/participantes";
-import Puntos from "../components/canal/puntos";
-import Redenciones from "../components/canal/redenciones";
 import ContainerContent from "../components/containerContent";
 import TableUsersOrganization from "../components/organizacion/TableUsersOrganization";
 import { RootState } from "store/store";
+import { OrganizationsFunction } from "functions/Organizations/Organizations";
 
 const organizacion = () => {
-  const [oneSection, setOneSection] = useState(0);
   const { user } = useSelector((state: RootState) => state.currentUser);
+  const { organization } = useSelector(
+    (state: RootState) => state.organization
+  );
   const [t, i18n] = useTranslation("global");
-  const company = user?.profile.organizations;
+  const { getOneOrganization } = OrganizationsFunction();
+
+  useEffect(() => {
+    if(user){
+      console.log(user?.profile?.organizations[0].id);
+    getOneOrganization(user?.profile?.organizations[0].id as string);
+    }
+    
+  }, [user]);
 
   const niveles = {
     "1": "GOLD",
@@ -108,7 +114,7 @@ const organizacion = () => {
           />
         </svg>
       ),
-      text: company?.id,
+      text: organization?.organization_codes[0].code,
     },
   ];
 
@@ -142,9 +148,9 @@ const organizacion = () => {
             <div className="flex flex-col gap-2 justify-around">
               <div>
                 <p className="2xl:!text-3xl font-bold !text-base">
-                  {company?.name}
+                  {organization?.name}
                 </p>
-                <p className="!text-base">{user?.roles[0].name}</p>
+                <p className="!text-base">{user?.roles[0].description}</p>
               </div>
               <div className="flex gap-6 flex-wrap justify-center">
                 {objects
@@ -158,7 +164,7 @@ const organizacion = () => {
               </div>
             </div>
           </div>
-          {/* <TableUsersOrganization /> */}
+          <TableUsersOrganization />
         </div>
       </ContainerContent>
     </>

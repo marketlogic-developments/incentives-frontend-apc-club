@@ -97,5 +97,13 @@ export const listUsers = async (
   }
 };
 
-export const updateUser =
-  async (): Promise<GenericalPromise<CurrentUser> | void> => {};
+export const UpdateUser =
+  async (data:any,id:string): Promise<GenericalPromise<CurrentUser> | void> => {
+    try {
+      const response = await API.put(`administration/users?id=${id}`,data);
+      return response.data;
+    } catch (err) {
+      HandleError(err);
+      throw err;
+    }
+  };

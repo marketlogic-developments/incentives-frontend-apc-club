@@ -4,10 +4,12 @@ import { CurrentUser } from "services/User/user.service";
 
 interface Props {
   allUsers: MultipleElements<CurrentUser> | null;
+  loading:boolean
 }
 
 const initialState: Props = {
   allUsers: null,
+  loading:false
 };
 
 export const Users = createSlice({
@@ -26,9 +28,12 @@ export const Users = createSlice({
     deleteUser: (state, action) => {
       state.allUsers = action.payload;
     },
+    setLoading:(state,action)=>{
+      state.loading=action.payload
+  }
   },
 });
 
-export const { createUser, deleteUser, getUsers } = Users.actions;
+export const { createUser, deleteUser, getUsers, setLoading } = Users.actions;
 
 export default Users.reducer;

@@ -11,6 +11,7 @@ import companyAction from "./reducers/company.reducer";
 import promosAction from "./reducers/promos.reducer";
 import contentfulAction from "./reducers/contentful.reducer";
 import dashboardReportAction from "./reducers/dashboardreport.reducer";
+import  OrganizationAction  from "./reducers/organization.reducer";
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export const store = configureStore({
     teams: teamsAction,
     loadingData: loadingData,
     company: companyAction,
+    organization: OrganizationAction,
     promos: promosAction,
     contentful: contentfulAction,
     dashboardReport: dashboardReportAction,
