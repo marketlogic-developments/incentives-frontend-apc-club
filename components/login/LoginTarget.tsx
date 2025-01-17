@@ -9,6 +9,7 @@ import { GenericalPromise, HandleError } from "services/generical.service";
 import { LoginFunc, ResponseLogin } from "services/Login/login.service";
 import { setTokenSessionStorage } from "services/multifuncionToken.service";
 import { changeLoadingData } from "store/reducers/loading.reducer";
+import adobeConcept from "../../styles/CreativeConceptAdobe.json"
 
 // Testing User Information
 import { useDataUser } from "functions/SetDataUser";
@@ -78,21 +79,21 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
 
   return (
     <div
-      className="flex flex-col justify-center place-items-center sm:w-2/6 w-full bg-white h-full m-4 rounded-xl shadow-lg py-6"
+      className="flex flex-col justify-center place-items-center sm:w-2/6 w-full bg-white h-full rounded-r-xl shadow-lg p-14 py-6"
       id="cardLogin"
     >
-      <div className="flex flex-col justify-center items-center m-2">
+      <div className="flex flex-col justify-center items-center m-2 w-full">
         <div className="sm:my-4 my-2 lg:hidden">
           <figure className="w-full flex justify-center" id="apcLogo">
             <img
-              src="/assets/login/apcLogo.webp"
+              src={"/assets/login/apcLogo.webp"}
               className="xl:w-32 lg:w-20 md:w-10 w-[60%]"
               alt="logoAPC"
             />
           </figure>
         </div>
-        <div className="sm:my-4 my-2">
-          <h1 className="2xl:text-3xl lg:text-xl text-2xl text-black font-bold text-center w-auto">
+        <div className="sm:my-4 my-2 w-full px-6">
+          <h1 className="2xl:text-4xl lg:text-xl text-2xl text-black font-bold !text-left w-full">
             {t("login.Iniciar_Sesión")}
           </h1>
         </div>

@@ -42,6 +42,7 @@ import DigiPointsCollapse from "./Lay0ut/DigiPointsCollapse";
 import UserOptions from "./Lay0ut/UserOptions";
 import { StatusUser } from "services/User/user.service";
 import ResetPassword from "./Module/Modales/Login/ResetPassword";
+import adobeConcept from "../styles/CreativeConceptAdobe.json"
 
 interface MyComponentProps {
   children: React.ReactNode;
@@ -387,13 +388,13 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                   <div
                     className="logoAdobe cursor-pointer"
                     style={{
-                      ["--wlogo" as any]: collapse ? "100%" : "60%",
+                      ["--wlogo" as any]: collapse ? "100%" : "40%",
                     }}
                     onClick={() => route.push("/dashboard")}
                   >
                     <figure className="flex">
                       <img
-                        src="/assets/dashboard/logoapc.webp"
+                        src={adobeConcept.A}
                         alt="apc_canales"
                       ></img>
                     </figure>
@@ -414,7 +415,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                 </div>
                 <div className="flex justify-center w-full mt-auto">
                   {collapse ? (
-                    <figure className="flex w-[36px]">
+                    <figure className="flex w-[35px]">
                       <img
                         src="/assets/dashboard/Logo11.png"
                         alt="apc_canales"
@@ -423,7 +424,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                   ) : (
                     <figure className="flex">
                       <img
-                        src="/assets/dashboard/years.webp"
+                        src={adobeConcept.yearsLogoGrey}
                         alt="apc_canales"
                       ></img>
                     </figure>

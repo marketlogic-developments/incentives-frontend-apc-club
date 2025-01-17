@@ -14,8 +14,12 @@
 
 .mainIndex {
   // background-image: url(../../public/assets/login/bbapc.webp);
-  background-color: #eb1000;
-  background-repeat: round;
+  background: rgb(231, 117, 109);
+  background: linear-gradient(
+    135deg,
+    rgba(231, 117, 109, 1) 0%,
+    rgba(228, 78, 64, 1) 100%
+  );
   max-width: 100%;
 
   /* Pantalla móvil */
