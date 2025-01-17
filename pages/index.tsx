@@ -94,7 +94,7 @@ export default function Home({ maintenance }: Props) {
               alt="APC"
             />
           </figure> */}
-          <div className="bg-[#E5E5E5] h-full max-h-[734px] rounded-l-xl relative flex justify-end overflow-hidden" style={{width:"calc(50% - 75px)"}}>
+          <div className="bg-[#E5E5E5] h-full max-h-[734px] max-w-[885px] rounded-l-xl relative flex justify-end overflow-hidden" style={{width:"calc(50% - 75px)"}}>
             <video autoPlay muted loop className="h-full">
               <source src={adobeConcept.loginConcept} type="video/mp4"/>
             </video>
