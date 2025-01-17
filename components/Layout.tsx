@@ -234,7 +234,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
           if (n === 1) {
             
 
-            if (user?.roles[0].name === "administrador" || user.is_superuser) {
+            if (user?.roles[0].name === "administrador" || user?.is_superuser) {
               return [
                 "/dashboard",
                 "/digipointsall",
@@ -267,7 +267,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             }
           }
           if (n === 2) {
-            if(user.is_superuser){
+            if(user?.is_superuser){
               return ["/herramientas", "/puntosporventas"].includes(page);
             }
 

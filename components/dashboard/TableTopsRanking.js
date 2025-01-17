@@ -35,34 +35,34 @@ const TableTopsRanking = ({
   });
 
   useEffect(() => {
-    if (user?.roles[0].name === "administrador" || user.is_superuser) {
-      console.log("User object:", user);
-      const comp =
-        user.companyId === null
-          ? "/digipoints-redeem-status-all-distri"
-          : "/digipoints-redeem-status-all-compa";
+    // if (user?.roles[0].name === "administrador" || user?.is_superuser) {
+    //   console.log("User object:", user);
+    //   const comp =
+    //     user.companyId === null
+    //       ? "/digipoints-redeem-status-all-distri"
+    //       : "/digipoints-redeem-status-all-compa";
 
-      axios
-        .get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters${comp}/${
-            comp.includes("distri")
-              ? user.distributionChannel.soldToParty
-              : user.company.resellerMasterId
-          }`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then(({ data }) => {
-          setRanking(data);
-        });
-    }
+    //   axios
+    //     .get(
+    //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters${comp}/${
+    //         comp.includes("distri")
+    //           ? user.distributionChannel.soldToParty
+    //           : user.company.resellerMasterId
+    //       }`,
+    //       {
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           "Access-Control-Allow-Origin": "*",
+    //           Authorization: `Bearer ${token}`,
+    //         },
+    //       }
+    //     )
+    //     .then(({ data }) => {
+    //       setRanking(data);
+    //     });
+    // }
 
-    return setRanking(rankGlobal);
+    // return setRanking(rankGlobal);
   }, [token, rankGlobal]);
 
   /* Download */
@@ -180,7 +180,7 @@ const TableTopsRanking = ({
         <div>
           <h2 className="!text-xl font-bold">{t("dashboard.topUsuarios")}</h2>
         </div>
-        {user?.roles[0].name === "administrador" || user.is_superuser && (
+        {user?.roles[0].name === "administrador" || user?.is_superuser && (
           <div className="cursor-pointer flex lg:flex-row flex-col gap-3 items-center">
             <div className="w-[90%] lg:w-[60%]">
               <SelectInputValue
@@ -213,7 +213,7 @@ const TableTopsRanking = ({
           </div>
         )}
 
-        {user?.roles[0].name === "administrador" || user.is_superuser && (
+        {user?.roles[0].name === "administrador" || user?.is_superuser && (
           <div className="w-full lg:w-[60%]">
             <DropDownReport
               icon={<CloudDownload />}
