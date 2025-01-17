@@ -79,7 +79,7 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
 
   return (
     <div
-      className="flex flex-col justify-center place-items-center sm:w-2/6 w-full bg-white h-full rounded-r-xl shadow-lg p-14 py-6"
+      className="flex flex-col justify-center place-items-center sm:w-2/6 w-full bg-white h-full rounded-r-xl shadow-lg p-14 py-6 max-h-[734px]"
       id="cardLogin"
     >
       <div className="flex flex-col justify-center items-center m-2 w-full">
