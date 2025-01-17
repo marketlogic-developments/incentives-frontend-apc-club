@@ -276,7 +276,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             }
             //Admin
             if (user?.roles[0].name === "administrador" ) {
-              return ["/herramientas", "/puntosporventas"].includes(page);
+              return ["/puntosporventas"].includes(page);
             }
 
             //Partner Admin
