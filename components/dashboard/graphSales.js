@@ -28,7 +28,7 @@ const GraphSales = () => {
   useEffect(() => {
     // console.log(goals);
     // if (token && sales.length === 0) {
-    //   if (user?.roles[0].name === "admin") {
+    //   if (user?.roles[0].name === "administrador") {
     //     dispatch(getSalesByTypeAll(token));
     //     dispatch(getAllGoals(token));
     //   } else if (user.company === null) {

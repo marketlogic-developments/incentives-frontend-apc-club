@@ -185,7 +185,7 @@ const user = () => {
                 {formData.first_name} {formData.last_name}
               </h1>
               <h2 className="font-bold">
-                {formData.role === "admin"
+                {formData.role === "administrador"
                   ? "Administrador"
                   : formData.role === "partner_principal"
                   ? "Partner Principal"

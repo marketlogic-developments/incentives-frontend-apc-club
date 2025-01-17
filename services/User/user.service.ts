@@ -97,13 +97,31 @@ export const listUsers = async (
   }
 };
 
-export const UpdateUser =
-  async (data:any,id:string): Promise<GenericalPromise<CurrentUser> | void> => {
-    try {
-      const response = await API.put(`administration/users?id=${id}`,data);
-      return response.data;
-    } catch (err) {
-      HandleError(err);
-      throw err;
-    }
-  };
+export const UpdateUser = async (
+  data: any,
+  id: string
+): Promise<GenericalPromise<CurrentUser> | void> => {
+  try {
+    const response = await API.put(`administration/users?id=${id}`, data);
+    return response.data;
+  } catch (err) {
+    HandleError(err);
+    throw err;
+  }
+};
+
+export const SwitchUser = async (
+  email: string
+): Promise<GenericalPromise<CurrentUser> | void> => {
+  try {
+    const response = await API.post<GenericalPromise<CurrentUser>>(
+      `authentication/impersonate`,
+      { email: email }
+    );
+    return response.data;
+  } catch (err: any) {
+    console.log("Error to get user info");
+    HandleError(err);
+    throw err;
+  }
+};

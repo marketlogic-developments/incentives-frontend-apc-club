@@ -54,7 +54,7 @@ export const useLocation = () => {
       },
       {
         page:
-          user?.roles[0].name === "admin"
+          user?.roles[0].name === "administrador" || user?.is_superuser
             ? "/digipointsall"
             : "/digipoints/mydigipoints",
         icon: <IconDigipoints />,
@@ -103,7 +103,7 @@ export const useLocation = () => {
         icon: <IconSettings />,
         iconactive: "",
         text: t("menu.admin"),
-        link: `http://localhost:3000/authentication/login?token=${token}`,
+        link: `https://incentives-frontend-production.up.railway.app/authentication/login?token=${token}`,
       },
       {
         page: "/customercare",

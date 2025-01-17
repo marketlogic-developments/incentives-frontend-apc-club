@@ -35,7 +35,7 @@ const TableTopsRanking = ({
   });
 
   useEffect(() => {
-    if (user?.roles[0].name === "admin") {
+    if (user?.roles[0].name === "administrador" || user.is_superuser) {
       console.log("User object:", user);
       const comp =
         user.companyId === null
@@ -180,7 +180,7 @@ const TableTopsRanking = ({
         <div>
           <h2 className="!text-xl font-bold">{t("dashboard.topUsuarios")}</h2>
         </div>
-        {user?.roles[0].name === "admin" && (
+        {user?.roles[0].name === "administrador" || user.is_superuser && (
           <div className="cursor-pointer flex lg:flex-row flex-col gap-3 items-center">
             <div className="w-[90%] lg:w-[60%]">
               <SelectInputValue
@@ -213,7 +213,7 @@ const TableTopsRanking = ({
           </div>
         )}
 
-        {user?.roles[0].name === "admin" && (
+        {user?.roles[0].name === "administrador" || user.is_superuser && (
           <div className="w-full lg:w-[60%]">
             <DropDownReport
               icon={<CloudDownload />}

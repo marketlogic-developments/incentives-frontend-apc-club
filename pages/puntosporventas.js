@@ -137,7 +137,7 @@ const puntosporventas = () => {
               <th scope="col" className="py-2 px-2">
                 Quarter
               </th>
-              {user?.roles[0].name === "admin" && (
+              {user?.roles[0].name === "administrador" || user.is_superuser && (
                 <th scope="col" className="py-2 px-2">
                   DigiPoints
                 </th>

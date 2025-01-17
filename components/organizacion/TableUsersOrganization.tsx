@@ -148,13 +148,15 @@ const TableUsersOrganization = () => {
         )} */}
         <td className="py-3 px-6">{item?.email}</td>
         <td className="py-3 !pl-10 pr-6">
-          {item?.roles[0]?.name === "partner_principal"
+          {item?.roles[0]?.name === "administrador"
+            ? "Super Admin" :
+          item?.roles[0]?.name === "partner_principal"
             ? "Partner Principal"
             : item?.roles[0]?.name === "partner_admin"
             ? "Partner Admin"
             : item?.roles[0]?.name === "sales_rep"
             ? "Sales Rep"
-            : "Super Admin"}
+            : undefined}
         </td>
         <td className="py-3 px-6">{item?.is_active ? "Activo" : "Inactivo"}</td>
         <td>

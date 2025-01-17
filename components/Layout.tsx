@@ -232,7 +232,9 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
       return Locations(user)
         .filter(({ page }) => {
           if (n === 1) {
-            if (user?.roles[0].name === "admin") {
+            
+
+            if (user?.roles[0].name === "administrador" || user.is_superuser) {
               return [
                 "/dashboard",
                 "/digipointsall",
@@ -265,11 +267,15 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             }
           }
           if (n === 2) {
-            if (user.email === "bea24468@adobe.com") {
+            if(user.is_superuser){
+              return ["/herramientas", "/puntosporventas"].includes(page);
+            }
+
+            if (user.email === "bea24468@adobe.com" || user?.roles[0].name === "sales_rep") {
               return;
             }
             //Admin
-            if (user?.roles[0].name === "admin") {
+            if (user?.roles[0].name === "administrador" ) {
               return ["/herramientas", "/puntosporventas"].includes(page);
             }
 
@@ -404,14 +410,14 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                 </div>
                 <div className="flex flex-col gap-6 overflow-y-scroll scrollMenu w-full">
                   <div className="containerRedirections gap-2">{menu(1)}</div>
-                  {user?.roles[0].name !== "sales_rep" && (
-                    <>
+                 
+                   
                       <hr className="mx-6" />
                       <div className="containerRedirections gap-2">
                         {menu(2)}
                       </div>
-                    </>
-                  )}
+                  
+               
                 </div>
                 <div className="flex justify-center w-full mt-auto">
                   {collapse ? (

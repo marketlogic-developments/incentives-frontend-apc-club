@@ -3,6 +3,7 @@ import {
   CurrentUser,
   getCurrentUser,
   getOneUser,
+  SwitchUser,
   UpdateUser,
 } from "services/User/user.service";
 import CurrentUserTest from "../testing/CurrentUserTest.json";
@@ -108,5 +109,21 @@ export const useDataUser = () => {
     }
   };
 
-  return { setDataUser, resetPassword, updateUser };
+  const switchUser= async (email:string): Promise<void> =>{
+    try{
+      const res = await SwitchUser(email); // O CurrentUserTest para pruebas
+      // const res = { result: CurrentUserTest }; // O CurrentUserTest para pruebas
+      if (!res) throw new Error("Failed Login, try again");
+
+      // const res = await getOneUser(res1.result.id);
+
+      // if (!res) throw new Error("Failed Login, try again");
+      console.log(res)
+    }catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
+
+  return { setDataUser, resetPassword, updateUser,switchUser };
 };

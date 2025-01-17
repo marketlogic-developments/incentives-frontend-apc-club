@@ -170,7 +170,7 @@ const InformativeSections = ({
             <p className="text-xs font-bold">{text}</p>
           </div>
         ))}
-        {user?.roles[0].name === "admin" && (
+        {user?.is_superuser && (
           <ModalSwitchUser opened={opened} setOpened={setOpened} />
         )}
       </div>
