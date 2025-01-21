@@ -11,6 +11,7 @@ import { ResetPasswordService } from "services/Login/login.service";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserStatus, userUpdate } from "store/reducers/currentUser.reducer";
 import { RootState } from "store/store";
+import Cookies from "js-cookie";
 
 interface FormUpdateProps {
   birthDate: string;
@@ -28,23 +29,20 @@ export const useDataUser = () => {
   const { redirectBasedOnStatus, dispatchUserLogin } = useCustomNavigation();
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.currentUser);
+  
 
   const setDataUser = async (): Promise<void> => {
     try {
+      const prevSession=Cookies.get("prevSession")
       const res = await getCurrentUser(); // O CurrentUserTest para pruebas
       // const res = { result: CurrentUserTest }; // O CurrentUserTest para pruebas
       if (!res) throw new Error("Failed Login, try again");
 
-      // const res = await getOneUser(res1.result.id);
-
-      // if (!res) throw new Error("Failed Login, try again");
-
-      
-
       const tyCStatus = res.result.status["POLICIES"];
 
       dispatchUserLogin(res.result);
-      await redirectBasedOnStatus(tyCStatus ?? false);
+      await redirectBasedOnStatus(prevSession ? true : tyCStatus ?? false);
+     
     } catch (err) {
       console.error(err);
       throw err;
@@ -118,7 +116,9 @@ export const useDataUser = () => {
       // const res = await getOneUser(res1.result.id);
 
       // if (!res) throw new Error("Failed Login, try again");
-      console.log(res)
+      Cookies.set("prevSession",user?.token as string)
+      sessionStorage.removeItem("token")
+      sessionStorage.setItem("token", res.result.token)
     }catch (err) {
       console.error(err);
       throw err;

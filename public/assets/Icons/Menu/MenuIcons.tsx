@@ -301,7 +301,7 @@ export const IconCustomerCare = () => (
 export const IconShoppingCar = ({
   userSwitch,
 }: {
-  userSwitch: CurrentUser | null;
+  userSwitch: string | undefined;
 }) => (
   <svg
     width="35"

@@ -47,37 +47,23 @@ const ModalSwitchUser:FC<Props> = ({ opened, setOpened }) => {
 
 
   const handleSubmit = (dataUserSwitch:CurrentUser) => {
-    // window.sessionStorage.setItem(
-    //   "infoDt",
-    //   JSON.stringify({
-    //     token: token,
-    //     id: dataUserSwitch.id,
-    //     roleId: dataUserSwitch.roleId,
-    //     prevData: {
-    //       id: user.id,
-    //       roleId: user.roleId,
-    //     },
-    //   })
-    // );
-
     switchUser(dataUserSwitch.email).then((res)=>{
-      console.log(res)
-      // let timerInterval;
-      // Swal.fire({
-      //   title: `You will be redirected to the user ${dataUserSwitch.email} `,
-      //   timer: 2000,
-      //   timerProgressBar: true,
-      //   didOpen: () => {
-      //     Swal.showLoading();
-      //   },
-      //   willClose: () => {
-      //     clearInterval(timerInterval);
-      //   },
-      // }).then((result) => {
-      //   if (result.dismiss === Swal.DismissReason.timer) {
-      //     return window.location.replace("/dashboard");
-      //   }
-      // });
+      let timerInterval;
+      Swal.fire({
+        title: `You will be redirected to the user ${dataUserSwitch.email} `,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+        },
+      }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+          return window.location.replace("/dashboard");
+        }
+      });
     }).catch(()=>{
       NotiSwal({text:"Error to Switch User, try again later"})
     })

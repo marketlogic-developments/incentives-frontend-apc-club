@@ -17,6 +17,7 @@ import global_en from "../translation/en/global.json";
 import { Html } from "next/document";
 import Head from "next/head";
 import Script from "next/script";
+import Cookies from "js-cookie";
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -40,12 +41,6 @@ interface Props {
 }
 
 export default function MyApp({ Component, pageProps }: Props) {
-  const [useradqw, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [render, setRender] = useState("");
-  const router = useRouter();
-  const location =
-    typeof window !== "undefined" ? window.location.pathname : "";
 
   return (
     <>

@@ -43,13 +43,14 @@ import UserOptions from "./Lay0ut/UserOptions";
 import { StatusUser } from "services/User/user.service";
 import ResetPassword from "./Module/Modales/Login/ResetPassword";
 import adobeConcept from "../styles/CreativeConceptAdobe.json"
+import Cookies from "js-cookie";
 
 interface MyComponentProps {
   children: React.ReactNode;
 }
 
 const Layout: React.FC<MyComponentProps> = ({ children }) => {
-  const { user, userSwitch, token, digipoints, loading, organization, status } =
+  const { user, token, digipoints, loading, organization, status } =
     useSelector((state: RootState) => state.currentUser);
   const video = useSelector((state: RootState) => state.contentful.videos[0]);
   const loadingData = useSelector(
@@ -67,11 +68,12 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   const [menuUser, setMenuUser] = useState<boolean>(false);
   const menuMarket = useSelector((state: RootState) => state.awards.menuMarket);
   const [screen, setScreen] = useState<number>(0);
+  const prevSession=Cookies.get("prevSession")
 
   const { setDataUser } = useDataUser();
   const { Locations, textLocation } = useLocation();
 
-  console.log(user);
+
 
   const statusUserOptions = (statusName: string): StatusUser | undefined =>
     user?.status
@@ -105,13 +107,10 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
 
   //Show Modals
   useEffect(() => {
-    const VideoKey = user?.status
-      ? Object.entries(user.status).find(([key]) => key === video?.key)
-      : undefined;
     const updateData = statusUserOptions("UPDATE_INFORMATION");
     const resetPassword = statusUserOptions("RESET_PASSWORD");
 
-    if (user) {
+    if (user && !prevSession) {
       if (user?.profile?.organizations[0]?.validations?.length) {
         setModal(3);
         return setOpened(true);
@@ -125,17 +124,6 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
       if (updateData ? !updateData[1] : false) {
         setModal(2);
         return setOpened(true);
-      }
-
-      if (
-        VideoKey &&
-        location === "/dashboard"
-        // userSwitch.prevData === undefined
-      ) {
-        setModal(4);
-        setTimeout(() => {
-          setOpened(true);
-        }, 2000);
       }
     }
   }, [user, video, opened]);
@@ -386,7 +374,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                     onClick={() => {
                       setShowMenu(!showMenu);
                     }}
-                    switchUser={userSwitch}
+                    switchUser={prevSession}
                     styles={showMenu ? "h-[50px]" : "hidden"}
                   />
                 }
@@ -440,24 +428,24 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
             </div>
             <div className="w-full relative">
               <div
-                className={`w-full ${userSwitch ? "pt-0 px-0" : "pt-1 px-6"}`}
+                className={`w-full ${prevSession ? "pt-0 px-0" : "pt-1 px-6"}`}
               >
                 <div
                   className={`containerNavbar ${
-                    userSwitch ? "!bg-[#232B2F] py-2" : "!bg-[#ffff] py-2"
+                    prevSession ? "!bg-[#232B2F] py-2" : "!bg-[#ffff] py-2"
                   }`}
                 >
                   <div className="sticky grid justify-items-center items-center">
                     <div className="md:hidden flex">
                       <MenuLines
                         onClick={() => setShowMenu(!showMenu)}
-                        switchUser={userSwitch}
+                        switchUser={prevSession}
                       />
                     </div>
                     <div className="md:flex hidden">
                       <MenuLines
                         onClick={() => setCollapse(!collapse)}
-                        switchUser={userSwitch}
+                        switchUser={prevSession}
                       />
                     </div>
                   </div>
@@ -465,7 +453,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                     <div className="w-auto">
                       <p
                         className={`sm:!text-3xl md:!text-3xl !text-sm font-bold ${
-                          userSwitch && "text-white"
+                          prevSession && "text-white"
                         }`}
                       >
                         {textLocation(user)}
@@ -479,11 +467,11 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                             className="shoopingMarket cursor-pointer"
                             onClick={() => dispatch(setMenuMarket(!menuMarket))}
                           >
-                            <IconShoppingCar userSwitch={userSwitch} />
+                            <IconShoppingCar userSwitch={prevSession} />
                           </div>
                         </div>
                         {/* 2 */}
-                        {userSwitch && <EyeObserver />}
+                        {prevSession && <EyeObserver />}
                         {/* 3 */}
                         <div className="w-full col-span-2 sm:mr-0 md:mr-0 lg:mr-0 mr-3">
                           <div className="relative">
@@ -516,12 +504,12 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
                         </div>
                       </div>
                     )}
-                    {screen < 639 && userSwitch && <EyeObserver />}
+                    {screen < 639 && prevSession && <EyeObserver />}
                   </div>
                 </div>
                 <div
                   className={`pt-1 overflow-hidden lg:overflow-visible ${
-                    userSwitch ? "px-6" : "px-0"
+                    prevSession ? "px-6" : "px-0"
                   }`}
                 >
                   {children}

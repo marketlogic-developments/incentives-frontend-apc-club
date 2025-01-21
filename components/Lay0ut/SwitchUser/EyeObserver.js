@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -10,14 +11,10 @@ const EyeObserver = () => {
   const token = useSelector((state) => state.user.token);
 
   const handleSubmit = () => {
-    window.sessionStorage.setItem(
-      "infoDt",
-      JSON.stringify({
-        token: token,
-        id: dataUserSwitch.prevData.id,
-        roleId: dataUserSwitch.prevData.roleId,
-      })
-    );
+    const tokenAdmin=Cookies.get("prevSession")
+    sessionStorage.removeItem("token")
+    sessionStorage.setItem("token",tokenAdmin)
+    Cookies.remove("prevSession")
 
     let timerInterval;
     Swal.fire({

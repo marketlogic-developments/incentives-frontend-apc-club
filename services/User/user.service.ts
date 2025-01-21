@@ -56,6 +56,12 @@ export interface Organization {
   validations: string[];
 }
 
+export interface tokenRefresh{
+  refresh_token:string
+  token:string
+  type:string
+}
+
 export const getCurrentUser =
   async (): Promise<GenericalPromise<CurrentUser> | void> => {
     try {
@@ -112,9 +118,9 @@ export const UpdateUser = async (
 
 export const SwitchUser = async (
   email: string
-): Promise<GenericalPromise<CurrentUser> | void> => {
+): Promise<GenericalPromise<tokenRefresh> | void> => {
   try {
-    const response = await API.post<GenericalPromise<CurrentUser>>(
+    const response = await API.post<GenericalPromise<tokenRefresh>>(
       `authentication/impersonate`,
       { email: email }
     );

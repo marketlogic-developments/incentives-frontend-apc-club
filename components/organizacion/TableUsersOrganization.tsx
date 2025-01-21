@@ -44,7 +44,7 @@ const TableUsersOrganization = () => {
   useEffect(() => {
     const { limit, page, search } = params;
     dispatch(setLoading(true));
-    ListAllUsers(`page=${page}&limit=${limit}&search=${search}&search_fields=["email"]`).finally(() =>
+    ListAllUsers(`page=${page}&limit=${limit}&search=${search}&search_fields=email`).finally(() =>
       dispatch(setLoading(false))
     );
   }, [params]);
