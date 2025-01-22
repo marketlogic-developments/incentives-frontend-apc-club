@@ -5,7 +5,6 @@ import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import { useRouter } from "next/router";
 import ButtonBgOut from "../../../components/buttons/ButtonBgOut";
 import { SalesYtd, DigipoinstPerformance } from "../../../components/reports";
-import { SideBar } from "../../../components/menu";
 
 const Summary = () => {
   /* Variables and conts */

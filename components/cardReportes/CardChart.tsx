@@ -1,6 +1,14 @@
-import React from "react";
+import React, { FC, ReactElement } from "react";
 
-const CardChart = ({
+interface Props{
+  title: string,
+  paragraph?: string,
+  content?: ReactElement,
+  children: ReactElement
+  hfull?: string,
+}
+
+const CardChart: FC<Props> = ({
   title = "",
   paragraph = "",
   content,

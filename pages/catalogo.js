@@ -12,8 +12,6 @@ import {
   globalCounterReset,
   productsPush,
 } from "../store/reducers/awards.reducer";
-import BnEsp from "../components/bannermarket/es";
-import BnPor from "../components/bannermarket/br";
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
 import ReactPaginate from "react-paginate";
