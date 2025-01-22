@@ -18,7 +18,7 @@ import {
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
-import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
+import { AiOutlineHome, AiOutlineRight, AiOutlineSearch } from "react-icons/ai";
 import {
   importCsvFunction,
   importExcelFunction,
@@ -33,7 +33,6 @@ import { GenericalPromise, MultipleElements } from "services/generical.service";
 import { CompaReportTyCPerChannelPPPAPropsny } from "services/Reports/tycreports.service";
 
 const PartnerTyc = () => {
-  const [searchByInvoice, setSearchByInvoice] = useState("");
   const [data, setData] =
     useState<MultipleElements<CompaReportTyCPerChannelPPPAPropsny> | null>(
       null
@@ -48,16 +47,21 @@ const PartnerTyc = () => {
     search: "",
   });
 
-  useEffect(() => {
+  const getDataReportTC=()=>{
     setLoading(true);
     const { limit, page, search } = params;
     ReportTyC(
-      `page=${page}&limit=${limit}&search=${search}&search_fields=email`
+      `page=${page}&limit=${limit}&search=${search}&search_fields=name`
     )
       .then((res) => {
         setData(res);
       })
       .finally(() => setLoading(false));
+  }
+
+
+  useEffect(() => {
+    getDataReportTC()
   }, [params]);
 
   /* Download */
@@ -145,27 +149,10 @@ const PartnerTyc = () => {
       downloadTitle: "Partner T&C",
     };
 
-    // await importExcelFunction(excelConfig);
+    await importExcelFunction(excelConfig);
   };
 
   const RenderTable = useMemo(() => {
-    if (!data) {
-      return (
-        <tr>
-          <td colSpan={6} className="text-center py-10 text-gray-500">
-            <DataNotFound
-              action={() => {
-                const { limit, page, search } = params;
-                ReportTyC(
-                  `page=${page}&limit=${limit}&search=${search}&search_fields=email`
-                );
-              }}
-            />
-          </td>
-        </tr>
-      );
-    }
-
     if (loading) {
       return (
         <tr>
@@ -176,15 +163,29 @@ const PartnerTyc = () => {
       );
     }
 
+    if (!data) {
+      return (
+        <tr>
+          <td colSpan={6} className="text-center py-10 text-gray-500">
+            <DataNotFound
+              action={getDataReportTC}
+            />
+          </td>
+        </tr>
+      );
+    }
+
     return (
       <Table
         containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
-        tableStyles={"table-zebra !text-sm"}
+        tableStyles={"table-zebra !text-sm !table-fixed"}
         colStyles={"p-2"}
         thStyles={"sticky text-white"}
         cols={
           [
             "Partner Name",
+            "Region",
+            "Country",
             "Partner Level",
             "Status T&C PA",
             "Status T&C PP",
@@ -195,6 +196,10 @@ const PartnerTyc = () => {
         {data.content.map((data, index: number) => (
           <tr key={index}>
             <th className="text-left py-3 px-2 mx-4">{data.name}</th>
+            <th className="text-left py-3 px-2 mx-4">
+              {data.country.region.name}
+            </th>
+            <th className="text-left py-3 px-2 mx-4">{data.country.name}</th>
             <th className="text-left py-3 px-2 mx-4">
               {data.distribution_channel.name}
             </th>
@@ -259,6 +264,20 @@ const PartnerTyc = () => {
         <span className="font-bold text-[#1473E6]">{"Partner T&C"}</span>
       </div>
       <div className="pt-2 grid items-center sm:grid-cols-5 grid-cols-2 gap-3">
+      <div className="relative flex w-full">
+      <input
+          className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
+          placeholder={String(t("tabla.buscar"))}
+          type="text"
+          onBlur={(e) =>
+            setParams((prev) => ({ ...prev, search: e.target.value,page:1 }))
+          }
+        />
+        <div className="absolute h-full items-center flex ml-2">
+              <AiOutlineSearch color="#eb1000" />
+            </div>
+          </div>
+        
         {/* <SelectInputValue
           placeholder={"Partner ID"}
           value={selectOne}

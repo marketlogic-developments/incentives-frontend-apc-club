@@ -5,7 +5,7 @@ import { addTitleToHeader, getColumnWidths } from "./consts/Headers";
  * Importa datos y crea un archivo Excel (.xlsx) con contenido ajustado automáticamente al ancho de las columnas.
  * @param {Object} excelConfig - Configuración para la creación del archivo Excel.
  * @param {Array} excelConfig.data - Los datos que se agregarán al archivo Excel.
- * @param {Array} excelConfig.columns - Los nombres de las columnas.
+ * @param {Object} excelConfig.columns - Los nombres de las columnas.
  * @param {string} excelConfig.downloadTitle - El título del archivo descargado.
  * @returns {Object} - Un objeto con el archivo blob que puede ser descargado.
  */

@@ -41,7 +41,7 @@ export const useDataUser = () => {
       const tyCStatus = res.result.status["POLICIES"];
 
       dispatchUserLogin(res.result);
-      await redirectBasedOnStatus(prevSession ? true : tyCStatus ?? false);
+      await redirectBasedOnStatus(prevSession || !user?.is_superuser ? true : tyCStatus ?? false);
      
     } catch (err) {
       console.error(err);

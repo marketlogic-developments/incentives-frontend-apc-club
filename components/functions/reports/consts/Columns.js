@@ -30,7 +30,7 @@ const parseData = (data, columns, customHeader) => {
   return csvContent;
 };
 
-export const partnertycColumnsExcel = {
+export const  partnertycColumnsExcel = {
   idpartners :"Partner ID",
   partnername :"Partner Name",
   region :"Region",
