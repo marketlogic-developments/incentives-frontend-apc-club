@@ -85,7 +85,8 @@ export const useDataUser = () => {
             middle_name: data.middlename,
             second_last_name: data.secondlastname,
           },
-          document: `${data.documenttype} - ${data.documentinfo}`,
+          document_type:data.documenttype,
+          document: data.documentinfo,
           birth_date: data.birthDate,
           phone_number: data.phoneNumber,
           languaje_id: data.languageId

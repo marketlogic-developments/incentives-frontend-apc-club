@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import ReactEcharts from "echarts-for-react";
 
-const totalDatass=[
+const totalDatas=[
     {
     total:400,
     totalColor:"#eb1000",
@@ -28,16 +28,21 @@ const totalDatass=[
 },
 ]
 
-const StackedBarChart = ({
+interface Props{
+  totalDatas: {total:number,expected:number, totalColor: string, expectedColor: string}[] | any[]
+  yNames: string[] | null
+}
+
+const StackedBarChart:FC<Props> = ({
   totalDatas = [{ total: 0, expected: 0, totalColor: "", expectedColor: "" }],
-  yNames = ["NOLA","SOLA","MEXICO","BRAZIL"],
+  yNames = ["NOLA","SOLA","Brazil, Mexico"]
 }) => {
-  const totalData = totalDatass.map((item) => ({
+  const totalData = totalDatas?.map((item) => ({
     value: item.total,
     itemStyle: { color: item.totalColor },
   }));
 
-  const expectedData = totalDatass.map((item) => ({
+  const expectedData = totalDatas?.map((item) => ({
     value:
       Number(item.total) > Number(item.expected)
         ? 0

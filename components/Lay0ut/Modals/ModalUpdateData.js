@@ -168,25 +168,39 @@ const ModalUpdateData = ({ onClose }) => {
               name="documenttype"
               id="Tipo de Documento"
             >
-              <option value="" selected disabled hidden></option>
-              <option value={"CC"}>CC</option>
-              <option value={"CEDULA"}>CÉDULA</option>
-              <option value={"CEX"}>CEX</option>
-              <option value={"CI"}>CI</option>
-              <option value={"CIC"}>CIC</option>
-              <option value={"CPF"}>CPF</option>
-              <option value={"CURP"}>CURP</option>
-              <option value={"DNI"}>DNI</option>
-              <option value={"DNIC"}>DNIC</option>
-              <option value={"DPI"}>DPI</option>
-              <option value={"DI"}>DI</option>
-              <option value={"DUI"}>DUI</option>
-              <option value={"INE"}>INE</option>
-              <option value={"RG"}>RG</option>
-              <option value={"RFC"}>RFC</option>
-              <option value={"RUT"}>RUT</option>
-              <option value={"RUN"}>RUN</option>
-              <option value={"StateID"}>State ID</option>
+              <option value="" disabled hidden>
+                Selecciona un documento
+              </option>
+              <option value="DNI">DNI</option>
+              <option value="CEDULA_DE_IDENTIDAD">Cédula</option>
+              <option value="PASAPORTE">Pasaporte</option>
+              <option value="LICENCIA_DE_CONDUCIR">Licencia</option>
+              <option value="TARJETA_DE_RESIDENCIA">Residencia</option>
+              <option value="CERTIFICADO_DE_NACIMIENTO">Cert. Nac.</option>
+              <option value="IDENTIFICACION_MILITAR">ID Militar</option>
+              <option value="CARNET_ELECTORAL">Carnet Elec.</option>
+              <option value="TARJETA_DE_IDENTIDAD_PARA_MENORES">
+                ID Menor
+              </option>
+              <option value="NUMERO_DE_SEGURO_SOCIAL">NSS</option>
+              <option value="CURP">CURP</option>
+              <option value="CPF">CPF</option>
+              <option value="RUT">RUT</option>
+              <option value="CEDULA_DE_EXTRANJERIA">Cédula Ext.</option>
+              <option value="TARJETA_SANITARIA_EUROPEA">Tarj. Sanit.</option>
+              <option value="NIE">NIE</option>
+              <option value="CARNET_DE_FAMILIA_NUMEROSA">Carnet Fam.</option>
+              <option value="AADHAAR">Aadhaar</option>
+              <option value="MYKAD">MyKad</option>
+              <option value="MEDICARE_CARD">Medicare</option>
+              <option value="SOUTH_AFRICAN_ID">SA ID</option>
+              <option value="CEDULA_DE_IDENTIDAD_ANGOLA">Cédula Ang.</option>
+              <option value="PERMISO_DE_REFUGIADO">Perm. Ref.</option>
+              <option value="CARNET_PROVISIONAL_DE_ESTANCIA">
+                Carnet Prov.
+              </option>
+              <option value="CERTIFICADO_DE_IDENTIDAD">Cert. ID</option>
+              <option value="VISA_O_PERMISO_DE_ENTRADA">Visa/Entrada</option>
             </select>
             <input
               type="text"
