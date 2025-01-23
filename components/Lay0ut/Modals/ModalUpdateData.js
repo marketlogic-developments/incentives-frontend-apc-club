@@ -168,7 +168,7 @@ const ModalUpdateData = ({ onClose }) => {
               name="documenttype"
               id="Tipo de Documento"
             >
-              <option value="" disabled hidden>
+              <option value="" hidden>
                 Selecciona un documento
               </option>
               <option value="DNI">DNI</option>
