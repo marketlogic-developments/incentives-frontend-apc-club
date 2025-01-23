@@ -6,7 +6,6 @@ import {
   Novedad,
   Promociones,
 } from "../components/comunicados";
-import { exampleDataPromociones as data } from "../components/example/dataComunicado";
 import { useTranslation } from "react-i18next";
 import client from "../contentful";
 import { useEffect } from "react";
@@ -42,7 +41,6 @@ const comunicado: FC<{entries:any, videos:any}> = ({ entries, videos }) => {
     setContentFul(entries);
   }, [entries]);
 
-  const exampleDataPromociones = data;
 
   const dataSelectOne = [
     { image: "", value: "promo1", label: "Promoción 1" },
@@ -57,7 +55,7 @@ const comunicado: FC<{entries:any, videos:any}> = ({ entries, videos }) => {
       return (
         <Promociones
           selectData={dataSelectOne}
-          datas={exampleDataPromociones}
+
           dataContentful={contentFul}
         />
       );

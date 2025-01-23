@@ -11,7 +11,7 @@ import ButtonBgOut from "../../buttons/ButtonBgOut";
 import { useSelector } from "react-redux";
 import { RootState } from "store/store";
 
-const Promociones: FC<{selectData: any, datas:any, dataContentful:any}>= ({ selectData = [], datas = [], dataContentful }) => {
+const Promociones: FC<{selectData: any, dataContentful:any}>= ({ selectData = [], dataContentful }) => {
   const [t, i18n] = useTranslation("global");
   const [filter, setFilter] = useState("");
   const [content, setContent] = useState("Todos");
