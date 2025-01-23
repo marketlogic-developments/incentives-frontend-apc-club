@@ -110,8 +110,6 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
     const updateData = statusUserOptions("UPDATE_INFORMATION");
     const resetPassword = statusUserOptions("RESET_PASSWORD");
 
-    setModal(2);
-    setOpened(true);
 
     if (user && !prevSession && !user.is_superuser) {
       if (user?.profile?.organizations[0]?.validations?.length) {
