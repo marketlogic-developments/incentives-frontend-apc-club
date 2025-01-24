@@ -3,6 +3,7 @@ import {
   GenericalPromise,
   HandleError,
   MultipleElements,
+  PaginatedElements,
 } from "services/generical.service";
 
 interface OrganizationCodeReport {
@@ -72,8 +73,8 @@ export interface MedalTYCReport {
 export const ReportTyCPerChannelPPPA = async (params: string) => {
   try {
     const response = await API.get<
-      GenericalPromise<MultipleElements<CompaReportTyCPerChannelPPPAPropsny>>
-    >(
+      PaginatedElements<CompaReportTyCPerChannelPPPAPropsny>>
+     (
       `organizations/adobe/partnet/connection/club/reports/terms_conditions?${params}`
     );
     return response.data.result; // Devuelve la respuesta de la API si todo está bien

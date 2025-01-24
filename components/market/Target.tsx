@@ -1,8 +1,9 @@
 import React from "react";
+import { Award } from "services/Awards/awards.service";
 
-const Target = ({ cardInfo }) => {
+const Target = ({ cardInfo }:{cardInfo:Award}) => {
   const backgroundColorCard = () => {
-    const colorbg = {
+    const colorbg: any = {
       50: "#E63888",
       60: "#EB1000",
       100: "#1473E6",
@@ -33,7 +34,7 @@ const Target = ({ cardInfo }) => {
           </div>
           <figure className="flex items-center">
             <img
-              src={cardInfo.imagePath}
+              src={cardInfo.image}
               alt="apc_canales"
               className="w-[40%] ml-auto"
             />

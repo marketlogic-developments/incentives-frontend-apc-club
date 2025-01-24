@@ -3,6 +3,7 @@ import {
   GenericalPromise,
   HandleError,
   MultipleElements,
+  PaginatedElements,
 } from "services/generical.service";
 import { CurrentUser } from "services/User/user.service";
 
@@ -20,7 +21,7 @@ interface userTeams {
 
 export const listTeams = async (params: string) => {
   try {
-    const response = await API.get<GenericalPromise<MultipleElements<Team>>>(
+    const response = await API.get<PaginatedElements<Team>>(
       `organizations/adobe/partnet/connection/club/teams?${params}`
     );
     return response.data; // Devuelve la respuesta de la API si todo está bien

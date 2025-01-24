@@ -2,12 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMenuMarket } from "../../store/reducers/awards.reducer";
 import { useTranslation } from "react-i18next";
+import { RootState } from "store/store";
 
-const ModalTargetInfo = ({ info, addItem, setCounter, setOpened }) => {
+const ModalTargetInfo = ({ info, addItem, setCounter, setOpened }:any) => {
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const description = t(`awardsDescription.${info.provider}`);
+  const {user} = useSelector((state:RootState) => state.currentUser);
+  const description = t(`awardsDescription.${info.supplier.code}`);
   const arrayDescription = description.split("|");
 
   const handleAdd = () => {
@@ -153,7 +154,7 @@ const ModalTargetInfo = ({ info, addItem, setCounter, setOpened }) => {
           } p-3 rounded-lg`}
         >
           <img
-            src={info.imagePath}
+            src={info.image}
             alt={`logo_${info.name}`}
             className="w-full"
           />
@@ -165,7 +166,7 @@ const ModalTargetInfo = ({ info, addItem, setCounter, setOpened }) => {
         </p>
       </div>
       <div className="flex flex-col gap-6 svgInfoCard">
-        {items.map(({ svg, text }) => (
+        {items.map(({ svg, text }:any) => (
           <div className="gap-6 flex px-12 items-center">
             {svg}
             <p className="!text-xs">{text}</p>

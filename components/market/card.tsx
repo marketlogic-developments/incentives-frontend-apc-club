@@ -2,7 +2,6 @@ import { Modal } from "@mantine/core";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  modalCardState,
   productsPush,
 } from "../../store/reducers/awards.reducer";
 import { useTranslation } from "react-i18next";
@@ -14,13 +13,15 @@ import ModalTargetInfo from "./ModalTargetInfo";
 import { data } from "autoprefixer";
 import ModalTyC from "./ModalsT&C/ModalTyC";
 import ModalTyCProccess from "./ModalsT&C/ModalTyCProccess";
+import { Award } from "services/Awards/awards.service";
+import { RootState } from "store/store";
 
-const CardMarket = ({ info }) => {
+const CardMarket = ({ info }:{info: Award}) => {
   const [counter, setCounter] = useState(0);
   const [opened, setOpened] = useState(false);
-  const user = useSelector((state) => state.user.user);
+  const {user }= useSelector((state:RootState) => state.currentUser);
   const dispatch = useDispatch();
-  const itemsCar = useSelector((state) => state.awards.shoopingCar);
+  const itemsCar = useSelector((state:RootState) => state.awards.shoopingCar);
   const [t, i18n] = useTranslation("global");
   const Toast = Swal.mixin({
     toast: true,
@@ -33,7 +34,7 @@ const CardMarket = ({ info }) => {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-  const [screen, setScreen] = useState();
+  const [screen, setScreen] = useState<number>();
 
   useEffect(() => {
     setScreen(window.innerWidth);
@@ -51,48 +52,40 @@ const CardMarket = ({ info }) => {
   //Delete This after T&C has been accepted
   const [modal, setModal] = useState(0);
 
-  const country =
-    user.distributionChannel === null
-      ? user.company.country
-      : user.distributionChannel.country;
-
   //--------------
 
   const setGlobalStateAwards = () => {
     const awardFilter = itemsCar.filter(({ id }) => id !== info.id);
     const thisItem = itemsCar.find(({ id }) => id === info.id);
 
-    if (thisItem === undefined) {
-      return dispatch(
-        productsPush([
-          { ...info, quantity: counter === 0 ? 1 : counter },
-          ...awardFilter,
-        ])
-      );
-    }
+    // if (thisItem === undefined) {
+    //   return dispatch(
+    //     productsPush([
+    //       { ...info, quantity: counter === 0 ? 1 : counter },
+    //       ...awardFilter,
+    //     ])
+    //   );
+    // }
 
-    if (counter === 0) {
-      return dispatch(
-        productsPush([
-          { ...info, quantity: thisItem.quantity + 1 },
-          ...awardFilter,
-        ])
-      );
-    }
+    // if (counter === 0) {
+    //   return dispatch(
+    //     productsPush([
+    //       { ...info, quantity: thisItem.quantity + 1 },
+    //       ...awardFilter,
+    //     ])
+    //   );
+    // }
 
-    return dispatch(
-      productsPush([
-        { ...info, quantity: thisItem.quantity + counter },
-        ...awardFilter,
-      ])
-    );
+    // return dispatch(
+    //   productsPush([
+    //     { ...info, quantity: thisItem.quantity + counter },
+    //     ...awardFilter,
+    //   ])
+    // );
   };
 
   //Delete This After T&C has been accepted
   const modalTyC = useMemo(() => {
-    if (user.policy_awards && user.cedula === null) {
-      setModal(1);
-    }
 
     if (modal === 0) {
       return <ModalTyC setModal={setModal} />;
@@ -109,25 +102,20 @@ const CardMarket = ({ info }) => {
   return (
     <>
       <Modal
-        size={screen < 768 ? "100%" : modal === 1 ? "auto" : "50%"}
+        size={screen as number < 768 ? "100%" : modal === 1 ? "auto" : "50%"}
         centered
         opened={opened}
         onClose={() => modal !== 1 && setOpened(false)}
         withCloseButton={modal == 1 ? false : true}
-        padding={modal === 1 && 0}
-        fullScreen={screen < 768}
+        padding={modal === 1 ? Number(0) : undefined}
+        fullScreen={screen as number < 768}
       >
-        {(info.description === "COLOMBIA" && user.policy_awards !== true) ||
-        (info.description === "COLOMBIA" && user.cedula === null) ? (
-          modalTyC
-        ) : (
-          <ModalTargetInfo
+        <ModalTargetInfo
             info={info}
             addItem={setGlobalStateAwards}
             setCounter={setCounter}
             setOpened={setOpened}
           />
-        )}
       </Modal>
       <div className="w-full">
         <div className="w-full justify-center border rounded-md pb-3">
@@ -156,7 +144,7 @@ const CardMarket = ({ info }) => {
                       />
                     </svg>
                     <p className="font-thin xl:!text-sm lg:!text-xs !text-sm">
-                      {info.digipoints} DigiPoints
+                      {info.price} DigiPoints
                     </p>
                   </div>
                 </div>
