@@ -21,8 +21,8 @@
             "channels_levels": "RESELLERS",
             "total_organizations": 5,
             "total_users": 20,
-            "accept_policies_users": 15,
-            "active_organizations": 4
+            "accept_policies_users": 100,
+            "active_organizations": 100
         },
         {
             "region_name": "SOLA",

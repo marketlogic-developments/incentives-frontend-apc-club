@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import ReactEcharts from "echarts-for-react";
+import * as echarts from "echarts";
 
 interface Props {
   totalDatas:
@@ -19,7 +20,12 @@ const StackedVerticalBarChart: FC<Props> = ({
 }) => {
   const totalData = totalDatas?.map((item) => ({
     value: item.total,
-    itemStyle: { color: item.totalColor },
+     itemStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: item.totalColor.split("-")[0] },
+            { offset: 1, color: item.totalColor.split("-")[1] },
+          ])
+        },
   }));
 
   const expectedData = totalDatas?.map((item) => ({

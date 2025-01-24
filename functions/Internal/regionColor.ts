@@ -2,14 +2,14 @@ import React from "react";
 
 const regionColor = (region: string) => {
   switch (region) {
-    case "BRAZIL":
-      return "#21A5A2";
     case "SOLA":
-      return "#EB1000";
+      return "#30A7FE-#10CFA9";
     case "NOLA":
-      return "#1473E6";
+      return "#30A7FE-#ff4885";
     case "MEXICO":
-      return "#FFA213";
+      return "#30A7FE-#7155fa";
+    case "BRAZIL":
+      return "#30A7FE-#6ece2a";
 
     default:
       return "#EB1000";
@@ -21,12 +21,12 @@ export default regionColor;
 export const rolColor = (rol: String) => {
   switch (rol) {
     case "partner_admin":
-      return "#EB1000";
+      return "#EB1000-#ffde2c";
     case "partner_principal":
-      return "#FFA213";
+      return "#EB1000-#FFA213";
     case "sales_rep":
-      return "#1473E6";
+      return "#EB1000-#FFA213";
     default:
-      return "#5DB41F";
+      return "#EB1000-#FFA213";
   }
 };
