@@ -57,6 +57,18 @@ export interface RegionDataCompanyUsersTC {
   active_organizations: number; // Total de organizaciones activas
 }
 
+export interface RolTYCReport {
+  rol: string;
+  total_users: number;
+  users_sign: number;
+}
+
+export interface MedalTYCReport {
+  active_organizations: number;
+  distribution_channel_name: string;
+  total_channels: number;
+}
+
 export const ReportTyCPerChannelPPPA = async (params: string) => {
   try {
     const response = await API.get<
@@ -77,6 +89,31 @@ export const ReportTyCSummaryCompanyUsers = async (params: string) => {
     >(
       `organizations/adobe/partnet/connection/club/reports/terms_conditions/summary?${params}`
     );
+    return response.data.result; // Devuelve la respuesta de la API si todo está bien
+  } catch (err: any) {
+    HandleError(err);
+    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+  }
+};
+
+export const ReportTyCSummaryRol = async (params: string) => {
+  try {
+    const response = await API.get<GenericalPromise<RolTYCReport[]>>(
+      `organizations/adobe/partnet/connection/club/reports/terms_conditions/summary/users_roles?${params}`
+    );
+    console.log(response);
+    return response.data.result; // Devuelve la respuesta de la API si todo está bien
+  } catch (err: any) {
+    HandleError(err);
+    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+  }
+};
+export const ReportTyCSummaryMedal = async (params: string) => {
+  try {
+    const response = await API.get<GenericalPromise<MedalTYCReport[]>>(
+      `organizations/adobe/partnet/connection/club/reports/terms_conditions/summary/distributions_channels?${params}`
+    );
+    console.log(response);
     return response.data.result; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
     HandleError(err);

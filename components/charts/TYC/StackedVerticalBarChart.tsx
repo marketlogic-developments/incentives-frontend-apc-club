@@ -15,7 +15,7 @@ interface Props {
 
 const StackedVerticalBarChart: FC<Props> = ({
   totalDatas = [{ total: 0, expected: 0, totalColor: "", expectedColor: "" }],
-  yNames = ["NOLA", "SOLA", "Brazil, Mexico"],
+  yNames = ["PA", "PP", "SR", "Total"],
 }) => {
   const totalData = totalDatas?.map((item) => ({
     value: item.total,
@@ -40,7 +40,7 @@ const StackedVerticalBarChart: FC<Props> = ({
       formatter: function (params: any) {
         const totalValue = params[0].data.value;
         const expectedValue = params[1].data.aux;
-        return `Reached: ${formatValue(totalValue)} / Expected: ${formatValue(
+        return `Signed: ${formatValue(totalValue)} / Expected: ${formatValue(
           expectedValue
         )} - Progress: ${Number((totalValue / expectedValue) * 100).toFixed(
           2

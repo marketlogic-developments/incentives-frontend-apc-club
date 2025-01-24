@@ -1,0 +1,68 @@
+{
+    "Report1":[
+        {
+            "region_name": "BRAZIL",
+            "channels_levels": "DISTRIBUTORS",
+            "total_organizations": 10,
+            "total_users": 50,
+            "accept_policies_users": 30,
+            "active_organizations": 8
+        },
+        {
+            "region_name": "MEXICO",
+            "channels_levels": "DISTRIBUTORS",
+            "total_organizations": 15,
+            "total_users": 200,
+            "accept_policies_users": 150,
+            "active_organizations": 12
+        },
+        {
+            "region_name": "NOLA",
+            "channels_levels": "RESELLERS",
+            "total_organizations": 5,
+            "total_users": 20,
+            "accept_policies_users": 15,
+            "active_organizations": 4
+        },
+        {
+            "region_name": "SOLA",
+            "channels_levels": "DISTRIBUTORS",
+            "total_organizations": 150,
+            "total_users": 1000,
+            "accept_policies_users": 800,
+            "active_organizations": 120
+        },
+        {
+            "region_name": "SOLA",
+            "channels_levels": "RESELLERS",
+            "total_organizations": 80,
+            "total_users": 900,
+            "accept_policies_users": 700,
+            "active_organizations": 60
+        }
+    ],
+    "Report2":[
+        {
+          "rol": "partner_admin",
+          "total_users": 151,
+          "users_sign": 50
+        },
+        {
+          "rol": "partner_principal",
+          "total_users": 45,
+          "users_sign": 30
+        },
+        {
+          "rol": "sales_rep",
+          "total_users": 973,
+          "users_sign": 200
+        },
+        {
+          "rol": "Total",
+          "total_users": 1169,
+          "users_sign": 280
+        }
+      ],
+
+      "report3":[]
+}

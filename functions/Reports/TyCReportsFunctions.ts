@@ -1,5 +1,10 @@
 import { GenericalPromise, MultipleElements } from "services/generical.service";
-import { CompaReportTyCPerChannelPPPAPropsny, RegionDataCompanyUsersTC, ReportTyCPerChannelPPPA, ReportTyCSummaryCompanyUsers } from "services/Reports/tycreports.service";
+import { CompaReportTyCPerChannelPPPAPropsny, MedalTYCReport, RegionDataCompanyUsersTC, ReportTyCPerChannelPPPA, ReportTyCSummaryCompanyUsers, ReportTyCSummaryMedal, ReportTyCSummaryRol, RolTYCReport } from "services/Reports/tycreports.service";
+
+export interface PromiseMedalRol{
+    users:RolTYCReport[]
+    medal:MedalTYCReport[]
+}
 
 export const TyCReportsFunctions=()=>{
 
@@ -25,5 +30,21 @@ export const TyCReportsFunctions=()=>{
           }
     }
 
-    return {ReportTyC, ReportTyCCompanyUsers}
+    const ReportTyCMedalRol = async(params:string): Promise<PromiseMedalRol>=>{
+        try{
+            const users= await ReportTyCSummaryRol(params)
+            const medal= await ReportTyCSummaryMedal(params)
+
+            const res= {users,medal}
+
+            console.log(res)
+
+            return res
+        }catch (err) {
+            console.error(err);
+            throw err;
+          }
+    }
+
+    return {ReportTyC, ReportTyCCompanyUsers, ReportTyCMedalRol}
 }

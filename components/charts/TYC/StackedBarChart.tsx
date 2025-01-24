@@ -67,7 +67,7 @@ const StackedBarChart: FC<Props> = ({
       formatter: function (params: any) {
         const totalValue = params[0].data.value;
         const expectedValue = params[1].data.aux;
-        return `Reached: ${formatValue(totalValue)} / Expected: ${formatValue(
+        return `Signed: ${formatValue(totalValue)} / Expected: ${formatValue(
           expectedValue
         )} - Progress: ${Number((totalValue / expectedValue) * 100).toFixed(
           2
