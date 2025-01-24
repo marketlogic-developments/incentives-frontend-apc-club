@@ -1,33 +1,6 @@
 import React, { FC } from "react";
 import ReactEcharts from "echarts-for-react";
 
-const totalDatas = [
-  {
-    total: 400,
-    totalColor: "#eb1000",
-    expected: 600,
-    expectedColor: "#828282",
-  },
-  {
-    total: 300,
-    totalColor: "#eb1000",
-    expected: 600,
-    expectedColor: "#828282",
-  },
-  {
-    total: 350,
-    totalColor: "#eb1000",
-    expected: 600,
-    expectedColor: "#828282",
-  },
-  {
-    total: 250,
-    totalColor: "#eb1000",
-    expected: 600,
-    expectedColor: "#828282",
-  },
-];
-
 interface Props {
   totalDatas:
     | {
@@ -40,7 +13,7 @@ interface Props {
   yNames: string[] | null;
 }
 
-const StackedBarChart: FC<Props> = ({
+const StackedVerticalBarChart: FC<Props> = ({
   totalDatas = [{ total: 0, expected: 0, totalColor: "", expectedColor: "" }],
   yNames = ["NOLA", "SOLA", "Brazil, Mexico"],
 }) => {
@@ -82,7 +55,12 @@ const StackedBarChart: FC<Props> = ({
       containLabel: true,
     },
     xAxis: {
+      type: "category",
+      data: yNames,
+    },
+    yAxis: {
       type: "value",
+
       axisLabel: {
         formatter: function (value: any) {
           if (value >= 1000000) {
@@ -94,10 +72,6 @@ const StackedBarChart: FC<Props> = ({
           }
         },
       },
-    },
-    yAxis: {
-      type: "category",
-      data: yNames,
     },
     series: [
       {
@@ -140,4 +114,4 @@ const StackedBarChart: FC<Props> = ({
   );
 };
 
-export default StackedBarChart;
+export default StackedVerticalBarChart;

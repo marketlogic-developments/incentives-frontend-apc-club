@@ -91,13 +91,16 @@ const PartnerTyCRU = () => {
     }, [loading.GraphReport]);
 
   return (
-    <div className="flex gap-6">
-      <CardChart title="Per Company" hfull="!w-1/2">
-        {RenderGraphCompanyUsersRegion(report.Company)}
-      </CardChart>
-      <CardChart title="Per Users" hfull="!w-1/2">
-        {RenderGraphCompanyUsersRegion(report.Users)}
-      </CardChart>
+    <div className="flex flex-col">
+      <div className="flex gap-6">
+        <CardChart title="Per Company" hfull="!w-1/2">
+          {RenderGraphCompanyUsersRegion(report.Company)}
+        </CardChart>
+        <CardChart title="Per Users" hfull="!w-1/2">
+          {RenderGraphCompanyUsersRegion(report.Users)}
+        </CardChart>
+      </div>
+      <div></div>
     </div>
   );
 };
