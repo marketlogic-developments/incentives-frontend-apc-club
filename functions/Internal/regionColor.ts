@@ -5,11 +5,14 @@ const regionColor = (region: string) => {
     case "BRAZIL":
       return "#21A5A2";
     case "SOLA":
-      return "#eb1000";
+      return "#EB1000";
     case "NOLA":
       return "#1473E6";
     case "MEXICO":
       return "#FFA213";
+
+    default:
+      return "#EB1000";
   }
 };
 

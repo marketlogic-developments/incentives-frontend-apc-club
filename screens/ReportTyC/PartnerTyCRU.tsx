@@ -173,7 +173,7 @@ const PartnerTyCRU = () => {
       }
 
       if(isPie){
-        return <PieChart datas={report}/>
+        return <PieChart datas={report} colors={["#FFC15E", "#4B75FF"]}/>
       }
  
       return <StackedVerticalBarChart totalDatas={report} yNames={reportMedalUser?.users.xAxis} />;
