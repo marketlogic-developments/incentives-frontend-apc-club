@@ -214,7 +214,7 @@ const PartnerTyCRU = () => {
         </CardChart>
       </div>
       <div className="flex gap-6">
-        <CardChart title="By User Rol" hfull="!w-1/2">
+        <CardChart title="By User Role" hfull="!w-1/2">
           {RenderGraphMedalRol(reportMedalUser.users.Users, false)}
         </CardChart>
         <CardChart title="By Level" hfull="!w-1/2">
