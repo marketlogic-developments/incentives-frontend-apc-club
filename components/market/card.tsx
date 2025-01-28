@@ -1,9 +1,7 @@
 import { Modal } from "@mantine/core";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  productsPush,
-} from "../../store/reducers/awards.reducer";
+import { productsPush } from "../../store/reducers/awards.reducer";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 import Target from "./Target";
@@ -16,12 +14,12 @@ import ModalTyCProccess from "./ModalsT&C/ModalTyCProccess";
 import { Award } from "services/Awards/awards.service";
 import { RootState } from "store/store";
 
-const CardMarket = ({ info }:{info: Award}) => {
+const CardMarket = ({ info }: { info: Award }) => {
   const [counter, setCounter] = useState(0);
   const [opened, setOpened] = useState(false);
-  const {user }= useSelector((state:RootState) => state.currentUser);
+  const { user } = useSelector((state: RootState) => state.currentUser);
   const dispatch = useDispatch();
-  const itemsCar = useSelector((state:RootState) => state.awards.shoopingCar);
+  const itemsCar = useSelector((state: RootState) => state.awards.shoopingCar);
   const [t, i18n] = useTranslation("global");
   const Toast = Swal.mixin({
     toast: true,
@@ -58,14 +56,16 @@ const CardMarket = ({ info }:{info: Award}) => {
     const awardFilter = itemsCar.filter(({ id }) => id !== info.id);
     const thisItem = itemsCar.find(({ id }) => id === info.id);
 
-    // if (thisItem === undefined) {
-    //   return dispatch(
-    //     productsPush([
-    //       { ...info, quantity: counter === 0 ? 1 : counter },
-    //       ...awardFilter,
-    //     ])
-    //   );
-    // }
+    console.log(itemsCar);
+
+    if (thisItem === undefined) {
+      return dispatch(
+        productsPush([
+          { ...info, quantity: counter === 0 ? 1 : counter },
+          ...awardFilter,
+        ])
+      );
+    }
 
     // if (counter === 0) {
     //   return dispatch(
@@ -86,7 +86,6 @@ const CardMarket = ({ info }:{info: Award}) => {
 
   //Delete This After T&C has been accepted
   const modalTyC = useMemo(() => {
-
     if (modal === 0) {
       return <ModalTyC setModal={setModal} />;
     }
@@ -102,20 +101,20 @@ const CardMarket = ({ info }:{info: Award}) => {
   return (
     <>
       <Modal
-        size={screen as number < 768 ? "100%" : modal === 1 ? "auto" : "50%"}
+        size={(screen as number) < 768 ? "100%" : modal === 1 ? "auto" : "50%"}
         centered
         opened={opened}
         onClose={() => modal !== 1 && setOpened(false)}
         withCloseButton={modal == 1 ? false : true}
         padding={modal === 1 ? Number(0) : undefined}
-        fullScreen={screen as number < 768}
+        fullScreen={(screen as number) < 768}
       >
         <ModalTargetInfo
-            info={info}
-            addItem={setGlobalStateAwards}
-            setCounter={setCounter}
-            setOpened={setOpened}
-          />
+          info={info}
+          addItem={setGlobalStateAwards}
+          setCounter={setCounter}
+          setOpened={setOpened}
+        />
       </Modal>
       <div className="w-full">
         <div className="w-full justify-center border rounded-md pb-3">

@@ -4,13 +4,19 @@ import StackedBarChart from "components/charts/TYC/StackedBarChart";
 import StackedVerticalBarChart from "components/charts/TYC/StackedVerticalBarChart";
 import DataNotFound from "components/Module/404/DataNotFound";
 import regionColor, { rolColor } from "functions/Internal/regionColor";
-import { PromiseMedalRol, TyCReportsFunctions } from "functions/Reports/TyCReportsFunctions";
+import {
+  PromiseMedalRol,
+  TyCReportsFunctions,
+} from "functions/Reports/TyCReportsFunctions";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GenericalPromise } from "services/generical.service";
-import { RegionDataCompanyUsersTC, RolTYCReport } from "services/Reports/tycreports.service";
-import TestReport from "testing/TestingReportBarTY.json"
+import {
+  RegionDataCompanyUsersTC,
+  RolTYCReport,
+} from "services/Reports/tycreports.service";
+import TestReport from "testing/TestingReportBarTY.json";
 
 interface StateReport {
   yAxis: string[] | null;
@@ -19,39 +25,41 @@ interface StateReport {
 }
 
 interface StateReportMedalUser {
-  users:{
-    xAxis:string[] | null,
-    Users:any
-  }
-  medal:{
-    valuePie:any,
-    values:any
-  }
+  users: {
+    xAxis: string[] | null;
+    Users: any;
+  };
+  medal: {
+    valuePie: any;
+    values: any;
+  };
 }
 
 const PartnerTyCRU = () => {
   const [data, setData] = useState<RegionDataCompanyUsersTC[] | null>(null);
-  const [dataMedalRol, setDataMedalRol] = useState<PromiseMedalRol | null>(null);
+  const [dataMedalRol, setDataMedalRol] = useState<PromiseMedalRol | null>(
+    null
+  );
   const [report, setReport] = useState<StateReport>({
     yAxis: null,
     Users: null,
     Company: null,
   });
   const [reportMedalUser, setReportMedalUser] = useState<StateReportMedalUser>({
-    users:{
-      xAxis:null,
-      Users:null
+    users: {
+      xAxis: null,
+      Users: null,
     },
-    medal:{
-      valuePie:null,
-      values:null
-    }
+    medal: {
+      valuePie: null,
+      values: null,
+    },
   });
   const [loading, setLoading] = useState({
     GraphReport: false,
-    MedalRol: false
+    MedalRol: false,
   });
-  const { ReportTyCCompanyUsers, ReportTyCMedalRol } = TyCReportsFunctions(); 
+  const { ReportTyCCompanyUsers, ReportTyCMedalRol } = TyCReportsFunctions();
   const [params, setParams] = useState({
     page: 1,
     limit: 10,
@@ -71,14 +79,13 @@ const PartnerTyCRU = () => {
       .finally(() => setLoading((prev) => ({ ...prev, GraphReport: false })));
   };
 
-  const getDataReportMedalRol= () => {
+  const getDataReportMedalRol = () => {
     setLoading((prev) => ({ ...prev, MedalRol: true }));
     const { limit, page, search } = params;
     ReportTyCMedalRol(
       `page=${page}&limit=${limit}&search=${search}&search_fields=name`
     )
       .then((res) => {
-
         setDataMedalRol(res);
         ConfigReportMedalRol(res);
       })
@@ -87,7 +94,7 @@ const PartnerTyCRU = () => {
 
   useEffect(() => {
     getDataReportRegionTC();
-    getDataReportMedalRol()
+    getDataReportMedalRol();
   }, [params]);
 
   const ConfigReport = (data: RegionDataCompanyUsersTC[]) => {
@@ -95,7 +102,7 @@ const PartnerTyCRU = () => {
 
     // const yAxis=[...new Set(arrY)]
 
-    const testDesign= TestReport.Report1
+    const testDesign = TestReport.Report1;
 
     const BarDataCompany = testDesign.map(
       ({ total_organizations, active_organizations, region_name }) => ({
@@ -118,36 +125,48 @@ const PartnerTyCRU = () => {
     setReport({ yAxis: arrY, Users: BarDataUser, Company: BarDataCompany });
   };
 
-  const ConfigReportMedalRol=(data: PromiseMedalRol)=>{
-
+  const ConfigReportMedalRol = (data: PromiseMedalRol) => {
     // Configuración para usuarios
     const arrX = data.users.map(({ rol }) => rol);
 
-    const testDesign=TestReport.Report2
+    const testDesign = TestReport.Report2;
 
     // data.users
-    const BarDataUser= testDesign?.map(({total_users, users_sign,rol})=>({
+    const BarDataUser = testDesign?.map(({ total_users, users_sign, rol }) => ({
       total: users_sign,
       totalColor: rolColor(rol),
       expected: total_users,
       expectedColor: "#e6e6e6",
-    }))
+    }));
 
-    setReportMedalUser( prev =>({...prev, users:{ Users: BarDataUser,xAxis:arrX }}));
+    setReportMedalUser((prev) => ({
+      ...prev,
+      users: { Users: BarDataUser, xAxis: arrX },
+    }));
 
     //Configuración para roles
 
-    const valuesPieChart = data.medal.map(({distribution_channel_name})=> distribution_channel_name)
+    const valuesPieChart = data.medal.map(
+      ({ distribution_channel_name }) => distribution_channel_name
+    );
 
-    const PieDataMedal= data.medal.map(({distribution_channel_name,active_organizations,total_channels})=>({
-      total:total_channels,
-      value: active_organizations,
-      name: distribution_channel_name,
-    }))
+    const PieDataMedal = data.medal.map(
+      ({
+        distribution_channel_name,
+        active_organizations,
+        total_channels,
+      }) => ({
+        total: total_channels,
+        value: active_organizations,
+        name: distribution_channel_name,
+      })
+    );
 
-    setReportMedalUser( prev =>({...prev, medal:{ valuePie: PieDataMedal,values:valuesPieChart }}));
-
-  }
+    setReportMedalUser((prev) => ({
+      ...prev,
+      medal: { valuePie: PieDataMedal, values: valuesPieChart },
+    }));
+  };
 
   const RenderGraphCompanyUsersRegion = (typeReport: any) =>
     useMemo(() => {
@@ -162,7 +181,7 @@ const PartnerTyCRU = () => {
       return <StackedBarChart totalDatas={typeReport} yNames={report?.yAxis} />;
     }, [loading.GraphReport]);
 
-  const RenderGraphMedalRol = (report:any,isPie:boolean) =>
+  const RenderGraphMedalRol = (report: any, isPie: boolean) =>
     useMemo(() => {
       if (loading.MedalRol) {
         return <div className="lds-dual-ring"></div>;
@@ -172,14 +191,16 @@ const PartnerTyCRU = () => {
         return <DataNotFound action={getDataReportMedalRol} />;
       }
 
-      if(isPie){
-        return <PieChart datas={report} colors={["#FFC15E", "#4B75FF"]}/>
+      if (isPie) {
+        return <PieChart datas={report} colors={["#FFC15E", "#4B75FF"]} />;
       }
- 
-      return <StackedVerticalBarChart totalDatas={report} yNames={reportMedalUser?.users.xAxis} />;
 
-     
-      
+      return (
+        <StackedVerticalBarChart
+          totalDatas={report}
+          yNames={reportMedalUser?.users.xAxis}
+        />
+      );
     }, [loading.MedalRol]);
 
   return (
@@ -193,11 +214,11 @@ const PartnerTyCRU = () => {
         </CardChart>
       </div>
       <div className="flex gap-6">
-      <CardChart title="By Rol User" hfull="!w-1/2">
-          {RenderGraphMedalRol(reportMedalUser.users.Users,false)}
+        <CardChart title="By User Rol" hfull="!w-1/2">
+          {RenderGraphMedalRol(reportMedalUser.users.Users, false)}
         </CardChart>
-      <CardChart title="By Channel Medal" hfull="!w-1/2">
-          {RenderGraphMedalRol(reportMedalUser.medal.valuePie,true)}
+        <CardChart title="By Level" hfull="!w-1/2">
+          {RenderGraphMedalRol(reportMedalUser.medal.valuePie, true)}
         </CardChart>
       </div>
     </div>
