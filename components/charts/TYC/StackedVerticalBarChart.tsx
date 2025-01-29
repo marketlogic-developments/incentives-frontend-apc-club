@@ -21,10 +21,7 @@ const StackedVerticalBarChart: FC<Props> = ({
   const totalData = totalDatas?.map((item) => ({
     value: item.total,
      itemStyle: {
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: item.totalColor.split("-")[0] },
-            { offset: 1, color: item.totalColor.split("-")[1] },
-          ])
+          color: item.totalColor
         },
   }));
 

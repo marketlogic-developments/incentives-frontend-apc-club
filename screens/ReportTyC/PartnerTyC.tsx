@@ -182,13 +182,13 @@ const PartnerTycReport = () => {
       >
         {data.content.map((data, index: number) => (
           <tr key={index}>
-            <th className="text-left py-3 px-2 mx-4">{data.name}</th>
+            <th className="text-left py-3 px-2 mx-4">{data?.name}</th>
             <th className="text-left py-3 px-2 mx-4">
-              {data.country.region.name}
+              {data?.country?.region?.name}
             </th>
-            <th className="text-left py-3 px-2 mx-4">{data.country.name}</th>
+            <th className="text-left py-3 px-2 mx-4">{data?.country?.name}</th>
             <th className="text-left py-3 px-2 mx-4">
-              {data.distribution_channel.name}
+              {data?.distribution_channel?.name}
             </th>
             <td className="text-start mx-2 py-4 px-2">
               {data.has_partner_admin_policies ? (
@@ -206,7 +206,7 @@ const PartnerTycReport = () => {
             </td>
 
             <td className="text-start mx-2 py-4 px-2">
-              {data.is_fully_accepted ? (
+              {data?.is_fully_accepted ? (
                 <ImCheckboxChecked />
               ) : (
                 <ImCheckboxUnchecked />

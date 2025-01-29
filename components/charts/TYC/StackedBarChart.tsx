@@ -18,13 +18,12 @@ const StackedBarChart: FC<Props> = ({
   totalDatas = [{ total: 0, expected: 0, totalColor: "", expectedColor: "" }],
   yNames = ["NOLA", "SOLA", "Brazil, Mexico"],
 }) => {
+  console.log(totalDatas)
+
   const totalData = totalDatas?.map((item) => ({
     value: item.total,
     itemStyle: {
-      color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [
-        { offset: 0, color: item.totalColor.split("-")[0] },
-        { offset: 1, color: item.totalColor.split("-")[1] },
-      ])
+      color: item.totalColor
     },
   }));
 
@@ -46,9 +45,10 @@ const StackedBarChart: FC<Props> = ({
       formatter: function (params: any) {
         const totalValue = params[0].data.value;
         const expectedValue = params[1].data.aux;
-        return `Signed: ${formatValue(totalValue)} / Expected: ${formatValue(
+        console.log(params)
+        return `Signed: ${totalValue} / Expected: ${
           expectedValue
-        )} - Progress: ${Number((totalValue / expectedValue) * 100).toFixed(
+        } - Progress: ${Number((totalValue / expectedValue) * 100).toFixed(
           2
         )}%`;
       },
@@ -79,6 +79,7 @@ const StackedBarChart: FC<Props> = ({
       data: yNames,
     },
     series: [
+      
       {
         name: "",
         type: "bar",
@@ -105,13 +106,7 @@ const StackedBarChart: FC<Props> = ({
       },
     ],
   };
-  const formatValue = (value: any) => {
-    return value >= 1000000
-      ? (value / 1000000).toFixed(2) + "M"
-      : value >= 1000
-      ? (value / 1000).toFixed(2) + "K"
-      : value;
-  };
+
   return (
     <div className="w-full">
       <ReactEcharts option={option} className="w-auto h-auto" />

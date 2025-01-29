@@ -58,14 +58,16 @@ const CardMarket = ({ info }:{info: Award}) => {
     const awardFilter = itemsCar.filter(({ id }) => id !== info.id);
     const thisItem = itemsCar.find(({ id }) => id === info.id);
 
-    // if (thisItem === undefined) {
-    //   return dispatch(
-    //     productsPush([
-    //       { ...info, quantity: counter === 0 ? 1 : counter },
-    //       ...awardFilter,
-    //     ])
-    //   );
-    // }
+    if (thisItem === undefined) {
+      
+
+      return dispatch(
+        productsPush([
+          { ...info, quantity: counter === 0 ? 1 : counter },
+          ...awardFilter,
+        ])
+      );
+    }
 
     // if (counter === 0) {
     //   return dispatch(

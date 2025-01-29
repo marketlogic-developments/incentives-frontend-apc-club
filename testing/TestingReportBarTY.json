@@ -26,14 +26,6 @@
         },
         {
             "region_name": "SOLA",
-            "channels_levels": "DISTRIBUTORS",
-            "total_organizations": 150,
-            "total_users": 1000,
-            "accept_policies_users": 800,
-            "active_organizations": 120
-        },
-        {
-            "region_name": "SOLA",
             "channels_levels": "RESELLERS",
             "total_organizations": 80,
             "total_users": 900,
