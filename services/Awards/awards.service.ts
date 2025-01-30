@@ -1,5 +1,5 @@
 import { API } from "services/connectapi.service";
-import { HandleError, PaginatedElements } from "services/generical.service";
+import { GenericalPromise, HandleError, PaginatedElements } from "services/generical.service";
 
 interface Region {
   id: string;
@@ -32,12 +32,23 @@ export interface Award {
   status: boolean;
   category: Category;
   supplier: Supplier;
+  value:number
+}
+
+export interface ShoppingCarProduct extends Award{
+  quantity:number
+  product_id:string
+}
+
+export interface ShoppingCar{
+  order_id: string,
+  products: ShoppingCarProduct[]
 }
 
 export interface ProductSend {
-  product_id: "0d012afa-f885-4e65-aeca-37e27701e2d1";
+  product_id: string;
   operation?: "SUM" | "REDUCE";
-  quantity?: 1;
+  quantity?: number;
 }
 
 export const listAwards = async (params: string) => {
@@ -54,20 +65,22 @@ export const listAwards = async (params: string) => {
 
 export const postProduct = async (data: ProductSend) => {
   try {
-    const response = await API.post<PaginatedElements<Award>>(
-      `marketplace/products`,
+    const response = await API.post<GenericalPromise<ProductSend>>(
+      `marketplace/orders/add_products`,
       data
     );
+    console.log(response)
     return response.data.result; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
     HandleError(err);
     throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
   }
 };
-export const deleteProduct = async (params: string) => {
+
+export const deleteProduct = async (product_id:string) => {
   try {
-    const response = await API.delete<PaginatedElements<Award>>(
-      `marketplace/products?${params}`
+    const response = await API.delete<GenericalPromise<Award>>(
+      `marketplace/orders/remove_products?product_id=${product_id}`
     );
     return response.data.result; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
@@ -76,10 +89,10 @@ export const deleteProduct = async (params: string) => {
   }
 };
 
-export const sendOrder = async (params: string) => {
+export const sendOrder = async (order_id: string) => {
   try {
-    const response = await API.post<PaginatedElements<Award>>(
-      `marketplace/products?${params}`
+    const response = await API.post<GenericalPromise<any>>(
+      `marketplace/orders/orders_advance?order_id=${order_id}`
     );
     return response.data.result; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
@@ -87,3 +100,16 @@ export const sendOrder = async (params: string) => {
     throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
   }
 };
+
+export const getShoppingCar= async () => {
+  try {
+    const response = await API.get<GenericalPromise<ShoppingCar>>(
+      `marketplace/orders/products`
+    );
+    return response.data.result; // Devuelve la respuesta de la API si todo está bien
+  } catch (err: any) {
+    HandleError(err);
+    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+  }
+};
+

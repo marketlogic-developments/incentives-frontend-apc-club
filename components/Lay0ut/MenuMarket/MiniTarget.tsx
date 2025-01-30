@@ -1,8 +1,9 @@
 import React from "react";
+import { ShoppingCarProduct } from "services/Awards/awards.service";
 
-const MiniTarget = ({ cardInfo }) => {
+const MiniTarget = ({ cardInfo }:{cardInfo:ShoppingCarProduct}) => {
   const backgroundColorCard = () => {
-    const colorbg = {
+    const colorbg:any = {
       50: "#E63888",
       60: "#EB1000",
       100: "#1473E6",
@@ -13,7 +14,7 @@ const MiniTarget = ({ cardInfo }) => {
       500: "#6349E0",
     };
 
-    return colorbg[cardInfo?.price];
+    return colorbg[Math.trunc(Number(cardInfo.price))];
   };
 
   return (
@@ -34,7 +35,7 @@ const MiniTarget = ({ cardInfo }) => {
           </div>
           <figure className="flex items-center">
             <img
-              src={cardInfo?.imagePath}
+              src={cardInfo?.image}
               alt="apc_canales"
               className="w-[60%] ml-auto"
             />

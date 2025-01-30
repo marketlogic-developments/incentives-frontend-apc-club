@@ -15,6 +15,7 @@ export interface CurrentUser {
   roles: Roles[];
   status: StatusUser;
   region: Region;
+  points: DigipointsUser
 }
 
 export interface Profile {
@@ -30,7 +31,6 @@ export interface Profile {
   language: string;
   phone_number: string;
   organizations: Organization[];
-  digipoints: DigipointsUser;
 }
 
 export interface StatusUser {
@@ -38,9 +38,9 @@ export interface StatusUser {
 }
 
 export interface DigipointsUser {
-  historical: number;
-  current: number;
-  redeemed: number;
+  history_points: number;
+  current_points: number;
+  redeemed_points: number;
 }
 
 export interface Region {

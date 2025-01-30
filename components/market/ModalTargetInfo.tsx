@@ -13,9 +13,6 @@ const ModalTargetInfo = ({ info, addItem, setCounter, setOpened }:any) => {
 
   const handleAdd = () => {
     addItem();
-    setCounter(0);
-    dispatch(setMenuMarket(true));
-    setOpened(false);
   };
 
   const items = [

@@ -2,56 +2,83 @@ import { useState } from "react";
 import MiniTarget from "./MiniTarget";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { productsPush } from "../../../store/reducers/awards.reducer";
+import { productsCarPush, productsPush } from "../../../store/reducers/awards.reducer";
+import { RootState } from "store/store";
+import { ShoppingCarProduct } from "services/Awards/awards.service";
+import AwardsFunction from "functions/Awards/AwardsFunction";
 
-const CardMenuMarket = ({ cardData, index }) => {
-  const [counter, setCounter] = useState(0);
-  const car = useSelector((state) => state.awards.shoopingCar);
+const CardMenuMarket = ({
+  cardData,
+  index,
+}: {
+  cardData: ShoppingCarProduct;
+  index: number;
+}) => {
+  const [counter, setCounter] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+  const car = useSelector((state: RootState) => state.awards.shoopingCar);
+  const { AddProduct, DeleteProduct } = AwardsFunction();
   const dispatch = useDispatch();
 
   useEffect(() => setCounter(cardData.quantity), [cardData]);
 
-  const buttonsFunctionAdd = () => {
+
+  const product = (operation: "SUM" | "REDUCE") => ({
+    product_id: cardData.product_id,
+    operation: operation,
+    quantity: 1,
+  });
+
+  const buttonsFunctionAdd = async () => {
     setCounter(counter + 1);
 
-    const copyCar = [...car];
+    await AddProduct(product("SUM")).then((res) => {
+      const copyCar = [...car.products];
 
-    copyCar[index] = { ...cardData, quantity: counter + 1 };
+      copyCar[index] = { ...cardData, quantity: counter + 1 };
 
-    dispatch(productsPush(copyCar));
+      dispatch(productsCarPush(copyCar));
+    });
   };
-  const buttonsFunctionMinus = () => {
-    const copyCar = [...car];
+
+  const buttonsFunctionMinus = async () => {
+    const copyCar = [...car.products];
 
     if (counter !== 0) {
       setCounter(counter - 1);
 
-      if (counter - 1 === 0) {
-        return deleteItem();
-      }
-
-      copyCar[index] = { ...cardData, quantity: counter - 1 };
-      dispatch(productsPush(copyCar));
+      await AddProduct(product("REDUCE")).then((res) =>{
+        if (counter - 1 === 0) {
+          return deleteItem();
+        }
+  
+        copyCar[index] = { ...cardData, quantity: counter - 1 };
+        dispatch(productsCarPush(copyCar));
+      });
     }
   };
 
-  const deleteItem = () => {
-    const newCar = car.filter((item) => cardData.id !== item.id);
+  const deleteItem = async () => {
+    setLoading(true)
+    await DeleteProduct(cardData.product_id).then(()=>{
+      const newCar = car.products.filter((item) => cardData.product_id !== item.product_id);
 
-    return dispatch(productsPush(newCar));
+
+      dispatch(productsCarPush(newCar));
+      return setLoading(false)
+    })
+    
   };
 
   return (
-    <div className="flex justify-between">
+    <div className={`flex justify-between ${loading && "opacity-[0.6]"}`}>
       <div className="flex gap-2">
         <div>
           <MiniTarget cardInfo={cardData} />
         </div>
 
         <div className="flex flex-col lg:gap-0 gap-3">
-          <p className="xl:!text-lg font-bold">
-            {cardData.name.split(" ")[0]} ${cardData.price}
-          </p>
+          <p className="xl:!text-lg font-bold">{cardData.name}</p>
           <div className="flex lg:gap-1 gap-4">
             <svg
               width="17"
@@ -69,7 +96,7 @@ const CardMenuMarket = ({ cardData, index }) => {
                 stroke-linejoin="round"
               />
             </svg>
-            <p className="!text-xs">{cardData.digipoints} DigiPoints</p>
+            <p className="!text-xs">{cardData.price} DigiPoints</p>
           </div>
         </div>
       </div>

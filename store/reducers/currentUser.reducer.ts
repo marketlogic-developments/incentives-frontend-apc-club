@@ -15,7 +15,7 @@ export interface InitialStateUserReducer {
   loading: boolean;
   error: null;
   organization: any;
-  digipoints: DigipointsUser | null;
+  digipoints: DigipointsUser;
   status: StatusUser | null;
   userSwitch: CurrentUser | null;
 }
@@ -30,7 +30,11 @@ const initialState: InitialStateUserReducer = {
   loading: false,
   error: null,
   organization: null,
-  digipoints: null,
+  digipoints: {
+    current_points:0,
+    history_points:0,
+    redeemed_points:0
+  },
   userSwitch: null,
   status: null,
 };
@@ -43,14 +47,14 @@ export const currentUserActions = createSlice({
       state.user = action.payload;
       state.token = action.payload.token;
       state.organization = action.payload.profile.organizations;
-      state.digipoints = action.payload.profile.digipoints;
+      state.digipoints = action.payload.points;
       state.status = action.payload.status;
     },
     userSwitch: (state, action: PayloadAction<CurrentUserToken>) => {
       state.userSwitch = action.payload;
       state.token = action.payload.token;
       state.organization = action.payload;
-      state.digipoints = action.payload.profile.digipoints;
+      state.digipoints = action.payload.points;
     },
     userToken: (state, action) => {
       state.token = action.payload;

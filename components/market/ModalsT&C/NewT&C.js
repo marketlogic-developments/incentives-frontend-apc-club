@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import TYC from "../../../public/mkt/TCCol.html";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Triangle } from "react-loader-spinner";

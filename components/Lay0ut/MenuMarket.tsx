@@ -3,12 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   productsPush,
   setMenuMarket,
+  setProductsInitalState,
 } from "../../store/reducers/awards.reducer";
 import CardMenuMarket from "./MenuMarket/CardMenuMarket";
 import { useMemo } from "react";
-import { setDigipoints } from "../../store/reducers/currentUser.reducer";
-import axios from "axios";
-import { ordersPush } from "../../store/reducers/orders.reducer";
 import { Modal } from "@mantine/core";
 import ModalTY from "./MenuMarket/ModalTY";
 import { useRouter } from "next/router";
@@ -16,92 +14,44 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Triangle } from "react-loader-spinner";
+import {
+  IconExitMP,
+  IconMP,
+} from "public/assets/Icons/MarketplaceIcons/MarketplaceIcons";
+import { RootState } from "store/store";
+import AwardsFunction from "functions/Awards/AwardsFunction";
+import {
+  ShoppingCar,
+  ShoppingCarProduct,
+} from "services/Awards/awards.service";
+import { setDigipoints } from "store/reducers/currentUser.reducer";
 
 const MenuMarket = () => {
   const dispatch = useDispatch();
-  const digipoints = useSelector((state) => state.user.digipoints);
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
-  const car = useSelector((state) => state.awards.shoopingCar);
-  const [opened, setOpened] = useState(false);
+  const { digipoints } = useSelector((state: RootState) => state.currentUser);
+  const car = useSelector((state: RootState) => state.awards.shoopingCar);
+  const { menuMarket } = useSelector((state: RootState) => state.awards);
+  const [opened, setOpened] = useState<boolean>(false);
   const router = useRouter();
-  const componenteRef = useRef(null);
+  const componenteRef = useRef<HTMLDivElement>(null);
   const [t, i18n] = useTranslation("global");
   const [loading, setLoading] = useState(false);
-  const [screen, setScreen] = useState();
+  const [screen, setScreen] = useState<number>();
+  const { ShoppingCar, CreateOrder } = AwardsFunction();
 
-  useEffect(() => {
-    setScreen(window.innerWidth);
-    const handleWindowResize = () => {
-      setScreen(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  });
-
-  const digipointsTotal = useMemo(
-    () =>
-      car
-        .map((e) => Number(e.digipoints) * e.quantity)
-        .reduce((prev, current) => prev + current, 0),
-    [car]
-  );
-
-  const myDigipoints = useMemo(
-    () =>
-      typeof digipoints?.assigned_points !== "undefined" &&
-      typeof digipoints?.cart_points !== "undefined"
-        ? digipoints?.assigned_points - digipoints?.cart_points
-        : typeof digipoints?.assigned_points !== "undefined"
-        ? digipoints?.assigned_points
-        : 0,
-    [digipoints]
-  );
-
-  const handleOrder = () => {
+  const getShoppingCar = async () => {
     setLoading(true);
-
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/order-carts`,
-        {
-          employeeId: user.id,
-          productsObject: car,
-          digipointSubstract: digipointsTotal,
-        },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        dispatch(productsPush([]));
-        dispatch(ordersPush(res.data));
-        dispatch(
-          setDigipoints({
-            ...digipoints,
-            cart_points:
-              Number(digipoints.cart_points) + Number(digipointsTotal),
-          })
-        );
-        setLoading(false);
-        setOpened(true);
-      })
-      .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
+    await ShoppingCar().then((res: ShoppingCar) => {
+      dispatch(productsPush(res));
+      setLoading(false);
+    });
   };
 
   useEffect(() => {
-    const handleClickFuera = (event) => {
+    const handleClickFuera = (event: MouseEvent) => {
       if (
         componenteRef.current &&
-        !componenteRef.current.contains(event.target)
+        !componenteRef.current.contains(event.target as Node)
       ) {
         if (opened) {
           null;
@@ -119,10 +69,55 @@ const MenuMarket = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setScreen(window.innerWidth);
+    const handleWindowResize = () => {
+      setScreen(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  });
+
+  useEffect(() => {
+    getShoppingCar();
+  }, [menuMarket]);
+
+  const digipointsTotal = useMemo(
+    () =>
+      car.products
+        .map((e) => Number(e.price) * e.quantity)
+        .reduce((prev, current) => prev + current, 0),
+    [car]
+  );
+
+  const handleOrder = async () => {
+    setLoading(true);
+    await CreateOrder(car.order_id)
+      .then(() => {
+        dispatch(setProductsInitalState())
+        dispatch(
+          setDigipoints({
+            ...digipoints,
+            current_digipoints:
+              Number(digipoints.current_points) - Number(digipointsTotal),
+            redeemed_points:
+              Number(digipoints.redeemed_points) + Number(digipointsTotal),
+          })
+        );
+        setLoading(false);
+        setOpened(true);
+      })
+      .finally(() => setLoading(false));
+  };
+
   return (
     <>
       <Modal
-        size={screen < 768 ? "100%" : "35%"}
+        size={(screen as number) < 768 ? "100%" : "35%"}
         centered
         opened={opened}
         onClose={() => {
@@ -132,7 +127,7 @@ const MenuMarket = () => {
         }}
         withCloseButton={false}
       >
-        <ModalTY setOpened={setOpened} ref={componenteRef} />
+        <ModalTY setOpened={setOpened} />
       </Modal>
       <div
         className="w-[31.7%] bg-[#ffff] border right-0 h-screen fixed top-0 p-6 flex flex-col gap-6 z-[2] menuShoppingCar"
@@ -140,54 +135,31 @@ const MenuMarket = () => {
       >
         <div className="flex justify-between items-center">
           <div className="flex gap-5 items-center">
-            <svg
-              width="37"
-              height="36"
-              viewBox="0 0 37 36"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="18.2401" cy="18" r="18" fill="#FFEEED" />
-              <path
-                d="M13.8366 26.1C14.5822 26.1 15.1866 25.4956 15.1866 24.75C15.1866 24.0044 14.5822 23.4 13.8366 23.4C13.091 23.4 12.4866 24.0044 12.4866 24.75C12.4866 25.4956 13.091 26.1 13.8366 26.1Z"
-                fill="#FFC8C5"
-              />
-              <path
-                d="M23.2865 26.1C24.0321 26.1 24.6365 25.4956 24.6365 24.75C24.6365 24.0044 24.0321 23.4 23.2865 23.4C22.5409 23.4 21.9365 24.0044 21.9365 24.75C21.9365 25.4956 22.5409 26.1 23.2865 26.1Z"
-                fill="#FFC8C5"
-              />
-              <path
-                d="M25.6828 12.2954C25.588 12.1794 25.4685 12.086 25.3331 12.0219C25.1977 11.9578 25.0497 11.9247 24.8998 11.925H12.0601L11.8015 10.4577C11.7739 10.3014 11.6921 10.1598 11.5705 10.0578C11.4489 9.95585 11.2953 9.89996 11.1366 9.89999H8.4366C8.25758 9.89999 8.08589 9.97111 7.9593 10.0977C7.83271 10.2243 7.7616 10.396 7.7616 10.575C7.7616 10.754 7.83271 10.9257 7.9593 11.0523C8.08589 11.1789 8.25758 11.25 8.4366 11.25H10.5704L12.4967 22.1673C12.5243 22.3236 12.6061 22.4651 12.7277 22.5671C12.8492 22.6691 13.0029 22.725 13.1616 22.725H23.9616C24.1406 22.725 24.3123 22.6539 24.4389 22.5273C24.5655 22.4007 24.6366 22.229 24.6366 22.05C24.6366 21.871 24.5655 21.6993 24.4389 21.5727C24.3123 21.4461 24.1406 21.375 23.9616 21.375H13.7278L13.4898 20.025H23.6848C23.9189 20.0247 24.1457 19.9435 24.3269 19.7952C24.508 19.6469 24.6323 19.4406 24.6788 19.2112L25.8938 13.1362C25.9231 12.9892 25.9193 12.8375 25.8828 12.6921C25.8464 12.5467 25.7781 12.4112 25.6828 12.2954Z"
-                fill="#EB1000"
-              />
-            </svg>
+            <IconMP />
             <p className="xl:!text-xl font-bold">{t("adobeMarket.micar")}</p>
           </div>
           <div
             className="cursor-pointer"
             onClick={() => dispatch(setMenuMarket(false))}
           >
-            <svg
-              width="19"
-              height="19"
-              viewBox="0 0 19 19"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11.6294 9.88042L17.9824 3.52746C18.2839 3.22648 18.4535 2.81805 18.4539 2.39203C18.4543 1.96601 18.2854 1.55728 17.9844 1.25577C17.6834 0.954261 17.275 0.784663 16.849 0.784286C16.423 0.78391 16.0142 0.952786 15.7127 1.25376L9.35976 7.60673L3.0068 1.25376C2.70529 0.952254 2.29635 0.782867 1.86995 0.782867C1.44355 0.782867 1.03461 0.952254 0.733104 1.25376C0.431594 1.55528 0.262207 1.96421 0.262207 2.39061C0.262207 2.81701 0.431594 3.22595 0.733104 3.52746L7.08607 9.88042L0.733104 16.2334C0.431594 16.5349 0.262207 16.9438 0.262207 17.3702C0.262207 17.7966 0.431594 18.2056 0.733104 18.5071C1.03461 18.8086 1.44355 18.978 1.86995 18.978C2.29635 18.978 2.70529 18.8086 3.0068 18.5071L9.35976 12.1541L15.7127 18.5071C16.0142 18.8086 16.4232 18.978 16.8496 18.978C17.276 18.978 17.6849 18.8086 17.9864 18.5071C18.2879 18.2056 18.4573 17.7966 18.4573 17.3702C18.4573 16.9438 18.2879 16.5349 17.9864 16.2334L11.6294 9.88042Z"
-                fill="#BABABA"
-              />
-            </svg>
+            <IconExitMP />
           </div>
         </div>
         <div className="flex flex-col gap-6">
-          <p className="2xl:!text-base font-bold">{car.length} Gift Cards</p>
-          <div className="flex flex-col gap-6">
-            {car.map((item, index) => (
-              <CardMenuMarket cardData={item} index={index} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="lds-dual-ring"></div>
+          ) : (
+            <>
+              <p className="2xl:!text-base font-bold">
+                {car.products.length} Gift Cards
+              </p>
+              <div className="flex flex-col gap-6">
+                {car.products.map((item: ShoppingCarProduct, index: number) => (
+                  <CardMenuMarket cardData={item} index={index} />
+                ))}
+              </div>
+            </>
+          )}
         </div>
         <div className="mt-auto flex flex-col gap-6">
           <div className="flex justify-between">
@@ -215,7 +187,7 @@ const MenuMarket = () => {
               </svg>
               <div className="flex flex-col h-full justify-between">
                 <p className="font-bold lg:!text-sm 2xl:!text-xl">
-                  {myDigipoints}
+                  {digipoints?.current_points}
                 </p>
                 <p className="!text-xs">{t("adobeMarket.tuSaldo")}</p>
               </div>
@@ -223,7 +195,8 @@ const MenuMarket = () => {
             <div className="flex flex-col h-full justify-between">
               <p
                 className={`font-bold lg:!text-sm 2xl:!text-xl text-end ${
-                  digipointsTotal > myDigipoints && "digipointsExpensive"
+                  digipointsTotal > digipoints?.current_points &&
+                  "digipointsExpensive"
                 }`}
               >
                 {digipointsTotal}
@@ -231,14 +204,16 @@ const MenuMarket = () => {
               <p className="!text-xs">Total DigiPoints</p>
             </div>
           </div>
-          {digipointsTotal > myDigipoints && (
+          {digipointsTotal > digipoints?.current_points && (
             <p className="text-primary !text-xs">{t("adobeMarket.noDP")}</p>
           )}
           <div>
             <button
               className="btn btn-primary w-full"
               disabled={
-                digipointsTotal > myDigipoints || car.length === 0 || loading
+                digipointsTotal > digipoints?.current_points ||
+                car.products.length === 0 ||
+                loading
                   ? true
                   : false
               }
@@ -251,7 +226,6 @@ const MenuMarket = () => {
                   color="#ffff"
                   ariaLabel="triangle-loading"
                   wrapperStyle={{}}
-                  wrapperClassName=""
                   visible={true}
                 />
               ) : (

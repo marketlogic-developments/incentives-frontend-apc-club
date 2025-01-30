@@ -1,7 +1,7 @@
 import { Modal } from "@mantine/core";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { productsPush } from "../../store/reducers/awards.reducer";
+import { productsPush, setMenuMarket } from "../../store/reducers/awards.reducer";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
 import Target from "./Target";
@@ -13,6 +13,7 @@ import ModalTyC from "./ModalsT&C/ModalTyC";
 import ModalTyCProccess from "./ModalsT&C/ModalTyCProccess";
 import { Award } from "services/Awards/awards.service";
 import { RootState } from "store/store";
+import AwardsFunction from "functions/Awards/AwardsFunction";
 
 const CardMarket = ({ info }: { info: Award }) => {
   const [counter, setCounter] = useState(0);
@@ -21,6 +22,7 @@ const CardMarket = ({ info }: { info: Award }) => {
   const dispatch = useDispatch();
   const itemsCar = useSelector((state: RootState) => state.awards.shoopingCar);
   const [t, i18n] = useTranslation("global");
+  const { AddProduct } = AwardsFunction();
   const Toast = Swal.mixin({
     toast: true,
     position: "top",
@@ -33,6 +35,7 @@ const CardMarket = ({ info }: { info: Award }) => {
     },
   });
   const [screen, setScreen] = useState<number>();
+
 
   useEffect(() => {
     setScreen(window.innerWidth);
@@ -52,36 +55,19 @@ const CardMarket = ({ info }: { info: Award }) => {
 
   //--------------
 
-  const setGlobalStateAwards = () => {
-    const awardFilter = itemsCar.filter(({ id }) => id !== info.id);
-    const thisItem = itemsCar.find(({ id }) => id === info.id);
+  const setGlobalStateAwards = async () => {
+    const product = {
+      product_id: info.id,
+      operation: "SUM" as const, 
+      quantity: counter === 0 ? 1 : counter,
+    };
 
-    if (thisItem === undefined) {
-      
 
-      return dispatch(
-        productsPush([
-          { ...info, quantity: counter === 0 ? 1 : counter },
-          ...awardFilter,
-        ])
-      );
-    }
-
-    // if (counter === 0) {
-    //   return dispatch(
-    //     productsPush([
-    //       { ...info, quantity: thisItem.quantity + 1 },
-    //       ...awardFilter,
-    //     ])
-    //   );
-    // }
-
-    // return dispatch(
-    //   productsPush([
-    //     { ...info, quantity: thisItem.quantity + counter },
-    //     ...awardFilter,
-    //   ])
-    // );
+    await AddProduct(product).then((res)=>{
+      setCounter(0);
+      dispatch(setMenuMarket(true));
+      setOpened(false)
+    })
   };
 
   //Delete This After T&C has been accepted
@@ -112,8 +98,6 @@ const CardMarket = ({ info }: { info: Award }) => {
         <ModalTargetInfo
           info={info}
           addItem={setGlobalStateAwards}
-          setCounter={setCounter}
-          setOpened={setOpened}
         />
       </Modal>
       <div className="w-full">
