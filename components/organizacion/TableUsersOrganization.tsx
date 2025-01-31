@@ -15,18 +15,20 @@ import { ListUser } from "functions/User/ListUser";
 import { CurrentUser } from "services/User/user.service";
 import DataNotFound from "components/Module/404/DataNotFound";
 import { setLoading } from "store/reducers/users.reducer";
+import { useDataUser } from "functions/SetDataUser";
 
-const TableUsersOrganization = () => {
+const TableUsersOrganization = ({users, loading}:{users:CurrentUser[],loading:boolean}) => {
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
   const { user, token } = useSelector((state: RootState) => state.currentUser);
-  const { allUsers, loading } = useSelector((state: RootState) => state.user);
+  const { allUsers /*,loading*/ } = useSelector((state: RootState) => state.user);
   const { ListAllUsers } = ListUser();
-  const [params, setParams] = useState({
-    page: 1,
-    limit: 10,
-    search: "",
-  });
+  const { setDataUser } = useDataUser();
+  // const [params, setParams] = useState({
+  //   page: 1,
+  //   limit: 10,
+  //   search: "",
+  // });
   const Toast = Swal.mixin({
     toast: true,
     position: "top",
@@ -41,17 +43,17 @@ const TableUsersOrganization = () => {
 
   //Llama a un endpoint diferente si el usuario que hace el get pertenece a un distribuidor o a un canal
 
-  useEffect(() => {
-    const { limit, page, search } = params;
-    dispatch(setLoading(true));
-    ListAllUsers(`page=${page}&limit=${limit}&search=${search}&search_fields=email`).finally(() =>
-      dispatch(setLoading(false))
-    );
-  }, [params]);
+  // useEffect(() => {
+  //   const { limit, page, search } = params;
+  //   dispatch(setLoading(true));
+  //   ListAllUsers(`page=${page}&limit=${limit}&search=${search}&search_fields=email`).finally(() =>
+  //     dispatch(setLoading(false))
+  //   );
+  // }, [params]);
 
-  const handlePageClick = (e: { selected: number }) => {
-    setParams((prev) => ({ ...prev, page: e.selected + 1 }));
-  };
+  // const handlePageClick = (e: { selected: number }) => {
+  //   setParams((prev) => ({ ...prev, page: e.selected + 1 }));
+  // };
 
   const actionsUsers = (action: number, id: any) => {
     if (action === 1) {
@@ -108,15 +110,17 @@ const TableUsersOrganization = () => {
     }
   };
 
+  console.log(users)
+
   const RenderTable = useMemo(() => {
-    if (!allUsers) {
+    if (!users) {
       return (
         <tr>
           <td colSpan={6} className="text-center py-10 text-gray-500">
             <DataNotFound
               action={() => {
-                const { limit, page, search } = params;
-                ListAllUsers(`page=${page}&limit=${limit}&search=${search}`);
+                // const { limit, page, search } = params;
+                // ListAllUsers(`page=${page}&limit=${limit}&search=${search}`);
               }}
             />
           </td>
@@ -134,15 +138,16 @@ const TableUsersOrganization = () => {
       );
     }
 
-    return allUsers?.content?.map((item: CurrentUser, index: number) => (
+    return users?.map((item: any, index: number) => (
       <tr
         className={`${(index + 1) % 2 === 0 && "bg-[#F5F5F5]"} w-full`}
         key={item.id}
       >
-        <td className="py-3 px-6">{`${item?.profile?.first_name || "No Name"} ${
+        {/* <td className="py-3 px-6">{`${item?.profile?.first_name || "No Name"} ${
           item?.profile?.last_name
-        }`}</td>
-        <td className="py-3 px-6">{item?.region?.name || "NONE"}</td>
+        }`}</td> */}
+        <td className="py-3 px-6">{`${item?.username || "No Name"}`}</td>
+        {/* <td className="py-3 px-6">{item?.region?.name || "NONE"}</td> */}
         {/* {company?.country && (
           <td className="py-3 px-6">{company.country}</td>
         )} */}
@@ -201,43 +206,6 @@ const TableUsersOrganization = () => {
                   <p className="text-[#eb1000]">Desactivar</p>
                 </div>
               </Menu.Item>
-              {/* <Menu.Item onClick={() => console.log("a")}>
-                <div className="flex gap-6">
-                  <svg
-                    width="18"
-                    height="19"
-                    viewBox="0 0 18 19"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g clip-path="url(#clip0_157_770)">
-                      <path
-                        d="M6.14705 6.5C6.29526 6.5 6.4374 6.55888 6.5422 6.66368C6.647 6.76848 6.70587 6.91061 6.70587 7.05882V13.7647C6.70587 13.9129 6.647 14.0551 6.5422 14.1599C6.4374 14.2647 6.29526 14.3235 6.14705 14.3235C5.99884 14.3235 5.8567 14.2647 5.7519 14.1599C5.6471 14.0551 5.58823 13.9129 5.58823 13.7647V7.05882C5.58823 6.91061 5.6471 6.76848 5.7519 6.66368C5.8567 6.55888 5.99884 6.5 6.14705 6.5ZM8.94117 6.5C9.08938 6.5 9.23152 6.55888 9.33632 6.66368C9.44112 6.76848 9.49999 6.91061 9.49999 7.05882V13.7647C9.49999 13.9129 9.44112 14.0551 9.33632 14.1599C9.23152 14.2647 9.08938 14.3235 8.94117 14.3235C8.79296 14.3235 8.65082 14.2647 8.54602 14.1599C8.44122 14.0551 8.38234 13.9129 8.38234 13.7647V7.05882C8.38234 6.91061 8.44122 6.76848 8.54602 6.66368C8.65082 6.55888 8.79296 6.5 8.94117 6.5ZM12.2941 7.05882C12.2941 6.91061 12.2352 6.76848 12.1304 6.66368C12.0256 6.55888 11.8835 6.5 11.7353 6.5C11.5871 6.5 11.4449 6.55888 11.3401 6.66368C11.2353 6.76848 11.1765 6.91061 11.1765 7.05882V13.7647C11.1765 13.9129 11.2353 14.0551 11.3401 14.1599C11.4449 14.2647 11.5871 14.3235 11.7353 14.3235C11.8835 14.3235 12.0256 14.2647 12.1304 14.1599C12.2352 14.0551 12.2941 13.9129 12.2941 13.7647V7.05882Z"
-                        fill="#3D4D5A"
-                      />
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M16.2059 3.70588C16.2059 4.0023 16.0881 4.28657 15.8785 4.49617C15.6689 4.70577 15.3847 4.82352 15.0882 4.82352H14.5294V14.8823C14.5294 15.4752 14.2939 16.0437 13.8747 16.4629C13.4555 16.8821 12.887 17.1176 12.2941 17.1176H5.58825C4.99541 17.1176 4.42686 16.8821 4.00766 16.4629C3.58846 16.0437 3.35295 15.4752 3.35295 14.8823V4.82352H2.79413C2.49771 4.82352 2.21343 4.70577 2.00383 4.49617C1.79423 4.28657 1.67648 4.0023 1.67648 3.70588V2.58823C1.67648 2.29181 1.79423 2.00753 2.00383 1.79793C2.21343 1.58833 2.49771 1.47058 2.79413 1.47058H6.70589C6.70589 1.17416 6.82365 0.889886 7.03325 0.680287C7.24285 0.470688 7.52712 0.352936 7.82354 0.352936L10.0588 0.352936C10.3553 0.352936 10.6395 0.470688 10.8491 0.680287C11.0587 0.889886 11.1765 1.17416 11.1765 1.47058H15.0882C15.3847 1.47058 15.6689 1.58833 15.8785 1.79793C16.0881 2.00753 16.2059 2.29181 16.2059 2.58823V3.70588ZM4.60248 4.82352L4.4706 4.88947V14.8823C4.4706 15.1788 4.58835 15.463 4.79795 15.6726C5.00755 15.8822 5.29183 16 5.58825 16H12.2941C12.5905 16 12.8748 15.8822 13.0844 15.6726C13.294 15.463 13.4118 15.1788 13.4118 14.8823V4.88947L13.2799 4.82352H4.60248ZM2.79413 3.70588V2.58823H15.0882V3.70588H2.79413Z"
-                        fill="#3D4D5A"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_157_770">
-                        <rect
-                          width="17.8824"
-                          height="17.8824"
-                          fill="white"
-                          transform="translate(0 0.352905)"
-                        />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                  <p className="text-black">
-                    {t("digipoints.delete")}
-                  </p>
-                </div>
-              </Menu.Item> */}
             </Menu.Dropdown>
           </Menu>
         </td>
@@ -253,14 +221,14 @@ const TableUsersOrganization = () => {
         </div>
         <div className="flex gap-6 lg:w-2/4 w-full">
           <div className="relative flex w-full">
-            <input
+            {/* <input
               className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full bg-[]"
               placeholder={String(t("tabla.buscar"))}
               type="text"
               onChange={(e) =>
                 setParams((prev) => ({ ...prev, search: e.target.value }))
               }
-            />
+            /> */}
             <div className="absolute h-full items-center flex ml-2">
               <AiOutlineSearch color="#eb1000" />
             </div>
@@ -275,9 +243,9 @@ const TableUsersOrganization = () => {
               <th scope="col" className="py-5 px-6">
                 {t("tabla.nombre")}
               </th>
-              <th scope="col" className="py-5 px-6">
+              {/* <th scope="col" className="py-5 px-6">
                 {t("tabla.region")}
-              </th>
+              </th> */}
               {/* {company?.country && (
                 <th scope="col" className="py-5 px-6">
                   País
@@ -298,7 +266,7 @@ const TableUsersOrganization = () => {
           </table>
         </div>
       </div>
-      <ReactPaginate
+      {/* <ReactPaginate
         pageCount={allUsers?.total_pages ?? 0}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
@@ -315,7 +283,7 @@ const TableUsersOrganization = () => {
         previousLabel={
           <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
         }
-      />
+      /> */}
     </div>
   );
 };

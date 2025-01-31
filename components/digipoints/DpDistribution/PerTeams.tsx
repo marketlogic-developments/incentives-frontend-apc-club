@@ -18,6 +18,7 @@ import { Team } from "services/Teams/team.service";
 import { RootState } from "store/store";
 import { InvoicesFunction } from "functions/Invoices/InvoicesFunction";
 import { AssingInvoice } from "services/Invoices/invoices.service";
+import { setDigipoints } from "store/reducers/currentUser.reducer";
 
 interface Props {
   invoiceData: AssingInvoice;
@@ -25,7 +26,7 @@ interface Props {
 }
 
 const PerTeams: FC<Props> = ({ invoiceData, setOpened }) => {
-  const { user, token } = useSelector((state: RootState) => state.currentUser);
+  const { digipoints } = useSelector((state: RootState) => state.currentUser);
   const teams = useSelector((state: RootState) => state.teams.teams);
   const [t, i18n] = useTranslation("global");
   const dispatch = useDispatch();
@@ -65,8 +66,8 @@ const PerTeams: FC<Props> = ({ invoiceData, setOpened }) => {
       team_id: thisTeam.id,
     })
       .then(() => {
+        dispatch(setDigipoints({...digipoints, current_points: digipoints.current_points + calculatePorcentage()}))
         setOpened(false);
-
         return Toast.fire({
           icon: "success",
           title: String(t("digipoints.successFact")),
@@ -74,6 +75,12 @@ const PerTeams: FC<Props> = ({ invoiceData, setOpened }) => {
       })
       .finally(() => setLoading(false));
   };
+
+  const calculatePorcentage=():number=>{
+    const value= Math.floor(invoiceData.points * 0.1)
+
+    return value
+  }
 
   return (
     <>

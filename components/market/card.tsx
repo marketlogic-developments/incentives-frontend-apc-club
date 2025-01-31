@@ -1,14 +1,11 @@
 import { Modal } from "@mantine/core";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { productsPush, setMenuMarket } from "../../store/reducers/awards.reducer";
+import {  setMenuMarket } from "../../store/reducers/awards.reducer";
 import { useTranslation } from "react-i18next";
-import Swal from "sweetalert2";
 import Target from "./Target";
 import { useMemo, useEffect } from "react";
 import ModalTargetInfo from "./ModalTargetInfo";
-
-import { data } from "autoprefixer";
 import ModalTyC from "./ModalsT&C/ModalTyC";
 import ModalTyCProccess from "./ModalsT&C/ModalTyCProccess";
 import { Award } from "services/Awards/awards.service";
@@ -20,20 +17,8 @@ const CardMarket = ({ info }: { info: Award }) => {
   const [opened, setOpened] = useState(false);
   const { user } = useSelector((state: RootState) => state.currentUser);
   const dispatch = useDispatch();
-  const itemsCar = useSelector((state: RootState) => state.awards.shoopingCar);
   const [t, i18n] = useTranslation("global");
   const { AddProduct } = AwardsFunction();
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
   const [screen, setScreen] = useState<number>();
 
 

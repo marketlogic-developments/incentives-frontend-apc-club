@@ -27,12 +27,12 @@ interface Category {
 export interface Award {
   id: string;
   name: string;
-  price: number;
+  price: string;
   image: string;
   status: boolean;
   category: Category;
   supplier: Supplier;
-  value:number
+  value:string
 }
 
 export interface ShoppingCarProduct extends Award{

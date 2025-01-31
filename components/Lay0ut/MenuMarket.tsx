@@ -98,11 +98,11 @@ const MenuMarket = () => {
     setLoading(true);
     await CreateOrder(car.order_id)
       .then(() => {
-        dispatch(setProductsInitalState())
+        dispatch(setProductsInitalState());
         dispatch(
           setDigipoints({
             ...digipoints,
-            current_digipoints:
+            current_points:
               Number(digipoints.current_points) - Number(digipointsTotal),
             redeemed_points:
               Number(digipoints.redeemed_points) + Number(digipointsTotal),
@@ -127,7 +127,9 @@ const MenuMarket = () => {
         }}
         withCloseButton={false}
       >
-        <ModalTY setOpened={setOpened} />
+        <div ref={componenteRef}>
+          <ModalTY setOpened={setOpened} />
+        </div>
       </Modal>
       <div
         className="w-[31.7%] bg-[#ffff] border right-0 h-screen fixed top-0 p-6 flex flex-col gap-6 z-[2] menuShoppingCar"

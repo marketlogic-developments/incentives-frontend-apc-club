@@ -8,6 +8,7 @@ import { OrganizationsFunction } from "functions/Organizations/Organizations";
 
 const organizacion = () => {
   const { user } = useSelector((state: RootState) => state.currentUser);
+  const [loading,setLoading]=useState<boolean>(false)
   const { organization } = useSelector(
     (state: RootState) => state.organization
   );
@@ -16,8 +17,8 @@ const organizacion = () => {
 
   useEffect(() => {
     if(user){
-      console.log(user?.profile?.organizations[0].id);
-    getOneOrganization(user?.profile?.organizations[0].id as string);
+      setLoading(true)
+      getOneOrganization(user?.profile?.organizations[0].id as string).finally(()=>setLoading(false));
     }
     
   }, [user]);
@@ -164,7 +165,8 @@ const organizacion = () => {
               </div>
             </div>
           </div>
-          <TableUsersOrganization />
+           <TableUsersOrganization users={organization ? organization.users_organizations : []} loading={loading}/> 
+          
         </div>
       </ContainerContent>
     </>

@@ -50,10 +50,12 @@ export default function Home({ maintenance }: Props) {
     }
   };
 
+  console.log(maintenance)
+
   return (
     <>
       <Modal
-        opened={open.open}
+        opened={open.open}  
         onClose={() => setOpen((prev) => ({ ...prev, open: false }))}
         centered
         size={"50%"}
@@ -64,7 +66,7 @@ export default function Home({ maintenance }: Props) {
         <title title="true">Adobe APC Club</title>
         <link rel="icon" href="/favicon.png"></link>
       </Head>
-      {maintenance.maintenance && adacc === query?.adminaccess ? (
+      {/*maintenance.maintenance*/false && adacc !== query?.adminaccess ? (
       <ClosePlataform data={maintenance} />) : (
       <main className="mainIndex flex flex-col-reverse justify-center lg:flex-col w-full z-40 relative overflow-x-hidden overflow-y-hidden min-h-dvh">
         <Registro close={setRegister} register={register} />

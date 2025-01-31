@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineSearch } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Triangle } from "react-loader-spinner";
 import { CurrentUser } from "services/User/user.service";
@@ -17,6 +17,7 @@ import { RootState } from "store/store";
 import { AssingInvoice } from "services/Invoices/invoices.service";
 import { ListUser } from "functions/User/ListUser";
 import DataNotFound from "components/Module/404/DataNotFound";
+import { setDigipoints } from "store/reducers/currentUser.reducer";
 
 interface Props {
   invoiceData: AssingInvoice;
@@ -25,10 +26,11 @@ interface Props {
 
 const PerUsers: FC<Props> = ({ invoiceData, setOpened }) => {
   const [searchByEmail, setSearchByEmail] = useState("");
-  const { token, user } = useSelector((state: RootState) => state.currentUser);
+  const { digipoints } = useSelector((state: RootState) => state.currentUser);
   const usersCompany = useSelector((state: RootState) => state.user.allUsers);
   const [t, i18n] = useTranslation("global");
   const [thisUser, setThisUser] = useState<CurrentUser | null>(null);
+  const dispatch=useDispatch()
   const { AssignInvoice } = InvoicesFunction();
   const { ListAllUsers } = ListUser();
   const Toast = Swal.mixin({
@@ -43,6 +45,7 @@ const PerUsers: FC<Props> = ({ invoiceData, setOpened }) => {
     },
   });
   const [loading, setLoading] = useState(false);
+  console.log(usersCompany)
 
   useEffect(() => {
     ListAllUsers("limit=50");
@@ -64,6 +67,7 @@ const PerUsers: FC<Props> = ({ invoiceData, setOpened }) => {
       user_id: thisUser.id,
     })
       .then(() => {
+        dispatch(setDigipoints({...digipoints, current_points: digipoints.current_points + calculatePorcentage()}))
         setOpened(false);
         setLoading(false);
         return Toast.fire({
@@ -73,6 +77,12 @@ const PerUsers: FC<Props> = ({ invoiceData, setOpened }) => {
       })
       .finally(() => setLoading(false));
   };
+
+  const calculatePorcentage=():number=>{
+    const value= Math.floor(invoiceData.points * 0.1)
+
+    return value
+  }
 
   return (
     <>

@@ -18,7 +18,7 @@ const DigiPointsCard = () => {
         <div className="flex gap-3 items-center">
           <IconCurrentDigiPoints w={43} h={43} />
           <div>
-            <p className="!text-xl font-bold">{digipoints?.current ?? 0}</p>
+            <p className="!text-xl font-bold">{digipoints?.current_points ?? 0}</p>
             <p className="text-[9.5px] 2xl:text-xs whitespace-nowrap">
               {t("dashboard.dpObtenidos")}
             </p>

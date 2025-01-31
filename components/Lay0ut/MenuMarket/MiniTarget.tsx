@@ -4,17 +4,17 @@ import { ShoppingCarProduct } from "services/Awards/awards.service";
 const MiniTarget = ({ cardInfo }:{cardInfo:ShoppingCarProduct}) => {
   const backgroundColorCard = () => {
     const colorbg:any = {
-      50: "#E63888",
-      60: "#EB1000",
-      100: "#1473E6",
-      150: "#009C3B",
-      200: "#000000",
-      300: "#21A5A2",
-      400: "#E9740A",
-      500: "#6349E0",
+      "50": "#E63888",
+      "60": "#EB1000",
+      "100": "#1473E6",
+      "150": "#009C3B",
+      "200": "#000000",
+      "300": "#21A5A2",
+      "400": "#E9740A",
+      "500": "#6349E0",
     };
 
-    return colorbg[Math.trunc(Number(cardInfo.price))];
+    return colorbg[cardInfo.value];
   };
 
   return (
@@ -25,7 +25,7 @@ const MiniTarget = ({ cardInfo }:{cardInfo:ShoppingCarProduct}) => {
       <div>
         <div className="flex justify-between">
           <div className="text-white flex flex-col">
-            <p className="!text-base font-bold">${cardInfo?.price}</p>
+            <p className="!text-base font-bold">${cardInfo?.value}</p>
             <p
               className="!text-[5px] font-light px-1"
               style={{ whiteSpace: "nowrap" }}

@@ -3,18 +3,18 @@ import { Award } from "services/Awards/awards.service";
 
 const Target = ({ cardInfo }:{cardInfo:Award}) => {
   const backgroundColorCard = () => {
-    const colorbg: any = {
-      50: "#E63888",
-      60: "#EB1000",
-      100: "#1473E6",
-      150: "#009C3B",
-      200: "#000000",
-      300: "#21A5A2",
-      400: "#E9740A",
-      500: "#6349E0",
+    const colorbg:any = {
+      "50": "#E63888",
+      "60": "#EB1000",
+      "100": "#1473E6",
+      "150": "#009C3B",
+      "200": "#000000",
+      "300": "#21A5A2",
+      "400": "#E9740A",
+      "500": "#6349E0",
     };
 
-    return colorbg[cardInfo.price];
+    return colorbg[cardInfo.value];
   };
 
   return (
@@ -26,7 +26,7 @@ const Target = ({ cardInfo }:{cardInfo:Award}) => {
         <div className="flex justify-between">
           <div className="text-white flex flex-col gap-3">
             <p className="2xl:!text-7xl lg:!text-5xl xl:!text-6xl !text-3xl font-bold text-white">
-              ${cardInfo.price}
+              ${cardInfo.value}
             </p>
             <p className="2xl:!text-xl xl:!text-lg lg:!text-base !text-sm font-light px-1 text-white">
               Gift Card

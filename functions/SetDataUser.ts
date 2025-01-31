@@ -108,6 +108,47 @@ export const useDataUser = () => {
     }
   };
 
+  const CustomUpdateUser = async (data: any): Promise<void> => {
+    try {
+      if (!user) throw new Error("Failed to updateUser");
+
+      const {roles, token,...userModified}= user
+      const dataUserUpdate = {
+        ...userModified,
+        status:{
+        ...userModified.status,
+        UPDATE_INFORMATION: true
+        },
+        profile: {
+          first_name: data.first_name,
+          last_name: data.last_name,
+          extended_attributes: {
+            middle_name: data.middlename,
+            second_last_name: data.secondlastname,
+          },
+          document_type:data.documenttype,
+          document: data.documentinfo,
+          birth_date: data.birthDate,
+          phone_number: data.phoneNumber,
+          languaje_id: data.languageId
+        },
+      };
+
+      const res = await UpdateUser(dataUserUpdate, user?.id as string);
+
+      if (!res) throw new Error("Failed to updateUser");
+
+      
+
+      // dispatch(userUpdate(dataUserUpdate));
+      setDataUser()
+      dispatch(setUserStatus({ UPDATE_INFORMATION: true }));
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
+
   const switchUser= async (email:string): Promise<void> =>{
     try{
       const res = await SwitchUser(email); // O CurrentUserTest para pruebas

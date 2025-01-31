@@ -4,6 +4,7 @@ import {
   HandleError,
   MultipleElements,
 } from "services/generical.service";
+import { CurrentUser } from "services/User/user.service";
 
 interface Reseller {
   id: string;
@@ -39,6 +40,7 @@ export interface CompleteOrganization{
       status: true
     }
   ]
+  users_organizations: CurrentUser[]
 }
 
 export const GetOneOrganization = async (

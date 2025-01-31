@@ -12,7 +12,6 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { RootState } from "store/store";
 import { Award } from "services/Awards/awards.service";
 import DataNotFound from "components/Module/404/DataNotFound";
-import { getDataAwards } from "store/reducers/awards.reducer";
 import { MultipleElements } from "services/generical.service";
 import AwardsFunction from "functions/Awards/AwardsFunction";
 
@@ -54,7 +53,7 @@ const catalogo = () => {
       }
 
       if (!globalAwards) {
-        return <DataNotFound action={getDataAwards} />;
+        return <DataNotFound action={getAwards} />;
       }
 
       return (
@@ -62,7 +61,7 @@ const catalogo = () => {
           <div className="w-full grid lg:grid-cols-3 place-items-center gap-6">
             {globalAwards.content.map((info:any) => (
               <CardMarket
-                key={info.id}
+                key={info}
                 info={info}
               />
             ))}
