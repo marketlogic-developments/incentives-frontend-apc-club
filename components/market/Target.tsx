@@ -3,64 +3,64 @@ import { Award } from "services/Awards/awards.service";
 
 const Target = ({ cardInfo }:{cardInfo:Award}) => {
   const backgroundColorCard = () => {
-    const colorbg:any = {
-      "50": "#E63888",
-      "60": "#EB1000",
-      "100": "#1473E6",
-      "150": "#009C3B",
-      "200": "#000000",
-      "300": "#21A5A2",
-      "400": "#E9740A",
-      "500": "#6349E0",
+    const colorbg: any = {
+      "50": "#FF709F-#FF4885",
+      "60": "#E44E40-#F0382A",
+      "100": "#A65CE7-#8925E0",
+      "150": "#30A7FE-#3B62FB",
+      "200": "#27CAD8-#0FB1C0",
+      "300": "#10CFA9-#0DB595",
+      "400": "#6ECE2A-#4BAD05",
+      "500": "#FFC15E-#FF9B00",
     };
-
-    return colorbg[cardInfo.value];
+  
+    // Verifica si cardInfo.value existe en el objeto colorbg
+    if (cardInfo.value && colorbg[cardInfo.value]) {
+      const [color1, color2] = colorbg[cardInfo.value].split("-");
+      return `linear-gradient(77deg, ${color1} 0%, ${color2} 100%)`;
+    }
+  
+    // Si no existe, devuelve un gradiente por defecto o un color sólido
+    return "linear-gradient(77deg, #FFFFFF 0%, #CCCCCC 100%)"; // Gradiente por defecto
   };
-
+  
   return (
     <div
-      className={`w-full rounded-lg px-4 pt-6 h-full`}
-      style={{ backgroundColor: backgroundColorCard() }}
+      className={`flex flex-col w-full rounded-lg px-8 py-8 h-full gap-6`}
+      style={{ backgroundImage: backgroundColorCard() }}
     >
       <div>
         <div className="flex justify-between">
           <div className="text-white flex flex-col gap-3">
-            <p className="2xl:!text-7xl lg:!text-5xl xl:!text-6xl !text-3xl font-bold text-white">
+            <p className="2xl:!text-5xl lg:!text-4xl xl:!text-5xl !text-2xl font-thin text-white">
               ${cardInfo.value}
             </p>
-            <p className="2xl:!text-xl xl:!text-lg lg:!text-base !text-sm font-light px-1 text-white">
+            <p className="2xl:!text-xl xl:!text-lg lg:!text-base !text-sm font-light px-1 text-white whitespace-nowrap">
               Gift Card
             </p>
           </div>
-          <figure className="flex items-center">
+          <figure className="flex items-start">
             <img
               src={cardInfo.image}
               alt="apc_canales"
-              className="w-[40%] ml-auto"
+              className="w-[22%] ml-auto min-h-[34px] object-contain"
             />
           </figure>
         </div>
       </div>
-      <div className="grid grid-cols-3 place-items-center">
-        <figure className="p-6">
+      <div className="flex justify-between">
+        <figure>
           <img
             src="/assets/login/adobe.webp"
             alt="apc_canales"
-            className="w-full"
+            className="w-1/3"
           />
         </figure>
-        <figure className="p-2">
+        <figure>
           <img
             src="/assets/login/pcc.webp"
             alt="apc_canales"
             className="w-full"
-          />
-        </figure>
-        <figure className="flex p-2">
-          <img
-            src="/assets/dashboard/logoapc.webp"
-            alt="apc_canales"
-            className="w-[30%]"
           />
         </figure>
       </div>

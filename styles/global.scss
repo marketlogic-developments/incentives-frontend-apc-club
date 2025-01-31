@@ -32,10 +32,13 @@
 
 @import "react-international-phone/style.css";
 
+//fonts
+@import "Fonts/fonts.scss";
+
 * {
   margin: 0;
   box-sizing: border-box;
-  font-family: Ubuntu, sans-serif;
+  // font-family: "AdobeRegular", sans-serif;
 
   ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);

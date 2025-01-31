@@ -7,16 +7,19 @@ import TrackingProduct from "../components/market/TrackingProduct";
 import ModalProducts from "../components/ModalStateProducts/ModalProducts";
 import { getOrders, ordersPush } from "../store/reducers/orders.reducer";
 import Gift from "../components/market/iconsEstadoProductos/Gift";
+import { RootState } from "store/store";
+import OrdersFunction from "functions/Orders/OrdersFunction";
 
 const estadoProducto = () => {
-  const [opened, setOpened] = useState(false);
+  const [opened, setOpened] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [modalData, setModalData] = useState([]);
-  const orders = useSelector((state) => state.orders.orders);
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
+  const [orders,setOrders]=useState<Array<any>>([])
+  const { user }= useSelector((state:RootState) => state.currentUser);
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
-  const [screen, setScreen] = useState();
+  const [screen, setScreen] = useState<number>();
+  const {getAllOrder} = OrdersFunction()
 
   useEffect(() => {
     setScreen(window.innerWidth);
@@ -31,13 +34,17 @@ const estadoProducto = () => {
     };
   });
 
+  const getOrder= async() =>{
+    await getAllOrder("")
+  }
+
   useEffect(() => {
     if (user) {
-      dispatch(getOrders(token, user?.id));
+      getOrder()
     }
   }, [user]);
 
-  const orderStatusNumber = (num) => {
+  const orderStatusNumber = (num:number) => {
     if (num === 13) {
       return num === 13 && t("estadoProducto.status1");
     }
@@ -52,7 +59,7 @@ const estadoProducto = () => {
     }
   };
 
-  const backgroundColor = (num) => {
+  const backgroundColor = (num:number) => {
     if (num === 13) {
       return "bg-[#BEEEED] text-[#21A5A2]";
     }
@@ -72,9 +79,9 @@ const estadoProducto = () => {
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}
-        size={screen < 768 ? "100%" : "70%"}
+        size={screen as number < 768 ? "100%" : "70%"}
         title={t("estadoProducto.detalleOrden")}
-        className={`modalStatusProducts ${screen < 768 && "modal100"}`}
+        className={`modalStatusProducts ${screen as number < 768 && "modal100"}`}
       >
         <ModalProducts data={modalData} />
       </Modal>
@@ -86,7 +93,7 @@ const estadoProducto = () => {
               <h2
                 className="font-bold !text-2xl"
                 dangerouslySetInnerHTML={{
-                  __html: t("estadoProducto.titleEstadoPremios"),
+                  __html: String(t("estadoProducto.titleEstadoPremios")),
                 }}
               />
             </div>
@@ -255,8 +262,8 @@ const estadoProducto = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.length > 0 &&
-                orders.map((data, index) => (
+              {orders?.length > 0 &&
+                orders?.map((data, index) => (
                   <tr
                     className={`${
                       (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
@@ -275,9 +282,9 @@ const estadoProducto = () => {
                     </td>
                     <td className="py-4 px-6">
                       {data.productsObject
-                        .map((e) => Number(e.quantity))
+                        .map((e:any) => Number(e.quantity))
                         .reduce(
-                          (initialValue, current) => initialValue + current
+                          (initialValue:number, current:number) => initialValue + current
                         )}
                     </td>
                     <td className="py-4 px-6">{data.digipointSubstract}</td>
@@ -299,14 +306,5 @@ const estadoProducto = () => {
     </>
   );
 };
-
-export async function getStaticProps(context) {
-  return {
-    props: {
-      protected: true,
-      userTypes: [1, 3, 5],
-    },
-  };
-}
 
 export default estadoProducto;
