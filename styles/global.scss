@@ -466,8 +466,13 @@
 }
 .mantine-UnstyledButton-root {
   color: #fff !important;
-  background-color: $primaryColorRed;
+  // background-color: $primaryColorRed;
 }
+
+.mantine-CloseButton-root{
+background-color: #1473e6
+}
+
 .datepickerInput {
   input {
     @apply input input-ghost w-full bg-[#F4F4F4];

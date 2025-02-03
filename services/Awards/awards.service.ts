@@ -1,5 +1,9 @@
 import { API } from "services/connectapi.service";
-import { GenericalPromise, HandleError, PaginatedElements } from "services/generical.service";
+import {
+  GenericalPromise,
+  HandleError,
+  PaginatedElements,
+} from "services/generical.service";
 
 interface Region {
   id: string;
@@ -32,17 +36,22 @@ export interface Award {
   status: boolean;
   category: Category;
   supplier: Supplier;
-  value:string
+  value: string;
 }
 
-export interface ShoppingCarProduct extends Award{
-  quantity:number
-  product_id:string
+export interface ShoppingCarProduct extends Award {
+  quantity: number;
+  product_id: string;
 }
 
-export interface ShoppingCar{
-  order_id: string,
-  products: ShoppingCarProduct[]
+export interface OrderListProduct extends ShoppingCarProduct {
+  supplier_name: string;
+  supplier_id: string;
+}
+
+export interface ShoppingCar {
+  order_id: string;
+  products: ShoppingCarProduct[];
 }
 
 export interface ProductSend {
@@ -69,7 +78,7 @@ export const postProduct = async (data: ProductSend) => {
       `marketplace/orders/add_products`,
       data
     );
-    console.log(response)
+    console.log(response);
     return response.data.result; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
     HandleError(err);
@@ -77,7 +86,7 @@ export const postProduct = async (data: ProductSend) => {
   }
 };
 
-export const deleteProduct = async (product_id:string) => {
+export const deleteProduct = async (product_id: string) => {
   try {
     const response = await API.delete<GenericalPromise<Award>>(
       `marketplace/orders/remove_products?product_id=${product_id}`
@@ -101,15 +110,19 @@ export const sendOrder = async (order_id: string) => {
   }
 };
 
-export const getShoppingCar= async () => {
+export const getShoppingCar = async () => {
   try {
     const response = await API.get<GenericalPromise<ShoppingCar>>(
       `marketplace/orders/products`
     );
     return response.data.result; // Devuelve la respuesta de la API si todo está bien
   } catch (err: any) {
-    HandleError(err);
+    if (err.response.data.detail.code === 404) {
+      
+    } else {
+      HandleError(err);
+    }
+
     throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
   }
 };
-

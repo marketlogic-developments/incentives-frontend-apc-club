@@ -26,7 +26,7 @@ export interface PaginatedElements<T>
 export const HandleError = (err: any): void => {
   if (err.response) {
     const dataError = err?.response.data.detail;
-    const code = err.status;
+
     let mess: string = "Error";
 
     if (Array.isArray(dataError)) {
@@ -38,8 +38,6 @@ export const HandleError = (err: any): void => {
 
       mess = message;
     }
-
-    console.log(mess);
 
     NotiSwal({ icon: "error", text: mess });
   }

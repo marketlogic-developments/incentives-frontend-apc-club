@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import CardConditions from "./CardConditions";
+import { OrderListProduct, ShoppingCarProduct } from "services/Awards/awards.service";
+import AwardsFunction from "functions/Awards/AwardsFunction";
 
-const ContditionsProviders = ({ data }) => {
+const ContditionsProviders = ({ data }:{data: OrderListProduct[]}) => {
   const [t, i18n] = useTranslation("global");
   const [target, setTarget] = useState(0);
-  const [dataProvider, setDataProvider] = useState(data[0]);
+  const [dataProvider, setDataProvider] = useState(data[0].supplier_name);
 
-  const colorbg = (name) => {
+
+
+  const colorbg = (name:string) => {
     return name.split(" ")[0] === "Visa"
       ? "bgVisa"
       : name.split(" ")[0] === "MasterCard"
@@ -34,11 +38,11 @@ const ContditionsProviders = ({ data }) => {
               }`}
               onClick={() => {
                 setTarget(index);
-                setDataProvider(data);
+                setDataProvider(data.supplier_name);
               }}
             >
               <img
-                src={data.imagePath}
+                src={data.image}
                 className={`w-12 ${index !== target && "brightness-50"}`}
               />
             </div>
@@ -47,7 +51,7 @@ const ContditionsProviders = ({ data }) => {
       </div>
       <div className="w-full bg-[#F5F5F5] rounded-md">
         <CardConditions
-          description={t(`awardsDescription.${dataProvider.provider}`)}
+          description={t(`awardsDescription.${dataProvider.toLocaleUpperCase()}`)}
         />
       </div>
     </div>

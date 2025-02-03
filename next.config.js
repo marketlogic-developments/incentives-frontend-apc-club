@@ -7,7 +7,7 @@ module.exports = {
   },
 
   images: {
-    domains: ["images.ctfassets.net"],
+    domains: ["images.ctfassets.net","res.cloudinary.com"],
   },
 
   webpack: (config, options) => {

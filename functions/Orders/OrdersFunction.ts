@@ -6,7 +6,7 @@ const OrdersFunction = () => {
     const getAllOrder= async (params:string):Promise<MultipleElements<Order>>=>{
         try{
             const res= await GetAllOrders(params)
-
+            
             return res.result
         }catch (err) {
             console.error(err);

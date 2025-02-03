@@ -41,10 +41,11 @@ const MenuMarket = () => {
 
   const getShoppingCar = async () => {
     setLoading(true);
-    await ShoppingCar().then((res: ShoppingCar) => {
-      dispatch(productsPush(res));
-      setLoading(false);
-    });
+    await ShoppingCar()
+      .then((res: ShoppingCar) => {
+        dispatch(productsPush(res));
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
