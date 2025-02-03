@@ -3,21 +3,16 @@
 import "../styles/global.scss";
 import Layout from "../components/Layout";
 import { MantineProvider } from "@mantine/core";
-import { UserContext } from "../components/user";
 import { ElementType, useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { store } from "../store/store";
 import { Provider } from "react-redux";
-import Footer from "../components/Footer";
 import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
 import global_es from "../translation/es/global.json";
 import global_por from "../translation/por/global.json";
 import global_en from "../translation/en/global.json";
-import { Html } from "next/document";
 import Head from "next/head";
 import Script from "next/script";
-import Cookies from "js-cookie";
 
 i18next.init({
   interpolation: { escapeValue: false },

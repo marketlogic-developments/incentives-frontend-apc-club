@@ -119,6 +119,19 @@ const organizacion = () => {
     },
   ];
 
+  const typeRol=(rol:string)=>{
+    switch (rol) {
+      case "sales_rep":
+        return "Sales Rep";
+      case "partner_admin":
+        return "Partner Admin";
+      case "partner_principal":
+        return "Partner Principal";
+      case "Total":
+        return "Total";
+    }
+  }
+
   return (
     <>
       <ContainerContent pageTitle={String(t("menu.Participantes"))}>
@@ -151,7 +164,7 @@ const organizacion = () => {
                 <p className="2xl:!text-3xl font-bold !text-base">
                   {organization?.name}
                 </p>
-                <p className="!text-base">{user?.roles[0].description}</p>
+                <p className="!text-base">{typeRol(user?.roles[0].description as string)}</p>
               </div>
               <div className="flex gap-6 flex-wrap justify-center">
                 {objects

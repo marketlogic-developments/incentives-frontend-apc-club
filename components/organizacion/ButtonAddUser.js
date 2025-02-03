@@ -160,10 +160,11 @@ const ButtonAddUser = () => {
         className="modal100"
         onClose={() => setOpened(false)}
         opened={opened}
-        size={"100%"}
+        centered
+        size={"50%"}
       >
         <div className="w-full flex justify-center">
-          <div className="flex flex-col gap-6 h-[90vh] w-full">
+          <div className="flex flex-col gap-6 w-full">
             <div className="flex flex-col gap-6 items-center">
               <p className="!text-2xl font-bold">
                 {t("tabla.solicitudCreación")}
@@ -172,7 +173,7 @@ const ButtonAddUser = () => {
             </div>
             <div>
               <div className="flex lg:flex-row flex-col gap-6">
-                <div className="flex flex-col">
+                <div className="flex flex-col w-1/2">
                   <label className="label">
                     <span className="label-text">{t("user.nombre")}</span>
                   </label>
@@ -184,7 +185,7 @@ const ButtonAddUser = () => {
                     required
                   />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col w-1/2">
                   <label className="label">
                     <span className="label-text">{t("user.apellido")}</span>
                   </label>
@@ -197,40 +198,22 @@ const ButtonAddUser = () => {
                   />
                 </div>
               </div>
-              <div className="flex flex-col">
-                <label className="label">
-                  <span className="label-text">{t("login.email")}</span>
-                </label>
-                <input
-                  className="input input-bordered"
-                  type="email"
-                  onChange={handleChange}
-                  name="email"
-                  autocomplete="off"
-                  required
-                />
-              </div>
+
               <div className="flex lg:flex-row flex-col gap-6">
-                <div className="flex flex-col">
+                <div className="flex flex-col w-1/2">
                   <label className="label">
-                    <span className="label-text">{t("user.region")}</span>
+                    <span className="label-text">{t("login.email")}</span>
                   </label>
-                  <select
-                    className="select select-bordered"
+                  <input
+                    className="input input-bordered"
+                    type="email"
                     onChange={handleChange}
-                    name="region"
+                    name="email"
+                    autocomplete="off"
                     required
-                  >
-                    <option disabled selected>
-                      {t("tabla.selectRegion")}
-                    </option>
-                    <option value="NOLA">NOLA</option>
-                    <option value="SOLA">SOLA</option>
-                    <option value="BRAZIL">BRAZIL</option>
-                    <option value="MEXICO">MEXICO</option>
-                  </select>
+                  />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col w-1/2">
                   <label className="label">
                     <span className="label-text">País</span>
                   </label>
@@ -262,7 +245,8 @@ const ButtonAddUser = () => {
                   <option disabled selected>
                     {t("user.seleccionarRol")}
                   </option>
-                  <option value="5">Sales Rep</option>
+                  <option value="sales_rep">Sales Rep</option>
+                  <option value="partner_principal">Partner Principal</option>
                 </select>
               </div>
               <div className="flex flex-col">
