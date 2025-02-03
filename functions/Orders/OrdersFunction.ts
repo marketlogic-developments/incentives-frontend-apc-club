@@ -1,15 +1,17 @@
 import React from 'react';
-import { GetAllOrders } from 'services/Orders/orders.service';
+import { MultipleElements } from 'services/generical.service';
+import { GetAllOrders, Order } from 'services/Orders/orders.service';
 
 const OrdersFunction = () => {
-    const getAllOrder= async (params:string):Promise<any>=>{
+    const getAllOrder= async (params:string):Promise<MultipleElements<Order>>=>{
         try{
+            const res= await GetAllOrders(params)
 
+            return res.result
         }catch (err) {
             console.error(err);
             throw err;
           }
-        const res= await GetAllOrders(params)
     }
 
     return {getAllOrder}

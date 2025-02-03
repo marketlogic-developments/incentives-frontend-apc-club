@@ -9,17 +9,24 @@ import { getOrders, ordersPush } from "../store/reducers/orders.reducer";
 import Gift from "../components/market/iconsEstadoProductos/Gift";
 import { RootState } from "store/store";
 import OrdersFunction from "functions/Orders/OrdersFunction";
+import { Order } from "services/Orders/orders.service";
+import { MultipleElements } from "services/generical.service";
 
 const estadoProducto = () => {
   const [opened, setOpened] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [modalData, setModalData] = useState([]);
-  const [orders,setOrders]=useState<Array<any>>([])
+  const [modalData, setModalData] = useState<Order | null>(null);
+  const [orders,setOrders]=useState<MultipleElements<Order>>()
   const { user }= useSelector((state:RootState) => state.currentUser);
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
   const [screen, setScreen] = useState<number>();
   const {getAllOrder} = OrdersFunction()
+    const [params, setParams] = useState({
+      page: 1,
+      limit: 6,
+      search: "",
+    });
 
   useEffect(() => {
     setScreen(window.innerWidth);
@@ -35,7 +42,8 @@ const estadoProducto = () => {
   });
 
   const getOrder= async() =>{
-    await getAllOrder("")
+    const { limit, page, search } = params;
+    await getAllOrder(`page=${page}&limit=${limit}&search=${search}&search_fields=name`).then((res)=> setOrders(res)).finally(() => setLoading(false));
   }
 
   useEffect(() => {
@@ -261,9 +269,9 @@ const estadoProducto = () => {
                 </th>
               </tr>
             </thead>
-            <tbody>
-              {orders?.length > 0 &&
-                orders?.map((data, index) => (
+            {/* <tbody>
+              {orders &&
+                orders?.content.map((data, index) => (
                   <tr
                     className={`${
                       (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
@@ -299,7 +307,7 @@ const estadoProducto = () => {
                     </td>
                   </tr>
                 ))}
-            </tbody>
+            </tbody> */}
           </table>
         </div>
       </ContainerContent>
