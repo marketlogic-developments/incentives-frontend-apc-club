@@ -63,7 +63,7 @@ const PerTeams: FC<Props> = ({ invoiceData, setOpened }) => {
     AssignInvoice({
       assignment_type: "TEAM",
       invoice_point_id: invoiceData.id,
-      team_id: thisTeam.id,
+      user_or_team_id: thisTeam.id,
     })
       .then(() => {
         dispatch(setDigipoints({...digipoints, current_points: digipoints.current_points + calculatePorcentage()}))

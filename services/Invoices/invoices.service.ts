@@ -97,8 +97,7 @@ interface Reseller {
 export interface PostAssignInvoice {
   assignment_type: "INDIVIDUAL" | "TEAM";
   invoice_point_id: string;
-  user_id?: string;
-  team_id?: string;
+  user_or_team_id:string
 }
 
 export const listInvoices = async (
