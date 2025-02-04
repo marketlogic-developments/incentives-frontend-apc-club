@@ -1,15 +1,20 @@
 import { Modal } from "@mantine/core";
 import axios from "axios";
+import { NotiSwal } from "notifications/notifications";
 import React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { RootState } from "store/store";
 import Swal from "sweetalert2";
 
 const ButtonAddUser = () => {
   const [opened, setOpened] = useState(false);
-  const user = useSelector((state) => state.user.user);
+  const {user} = useSelector((state:RootState) => state.currentUser);
   const [t, i18n] = useTranslation("global");
+  const { organization } = useSelector(
+    (state: RootState) => state.organization
+  );
   const [form, setForm] = useState({
     name: "",
     lastName: "",
@@ -68,7 +73,9 @@ const ButtonAddUser = () => {
     "Venezuela",
   ];
 
-  const handleSubmit = (e) => {
+  console.log(user)
+
+  const handleSubmit = (e:any) => {
     e.preventDefault();
 
     const confirmationForm = Object.values(form);
@@ -82,7 +89,7 @@ const ButtonAddUser = () => {
       });
     }
 
-    function objectToFormData(obj) {
+    function objectToFormData(obj:any) {
       const formData = new FormData();
       for (let key in obj) {
         if (obj.hasOwnProperty(key)) {
@@ -92,18 +99,12 @@ const ButtonAddUser = () => {
       return formData;
     }
 
-    const sendObj =
-      user.companyId === null
-        ? {
-            ...form,
-            distributionChannelId: user.distributionChannel.soldToParty,
-            companyId: null,
-          }
-        : {
-            ...form,
-            companyId: user.company.resellerMasterId,
-            distributionChannelId: null,
-          };
+ 
+
+    const sendObj = {
+      ...form,
+      companyId: organization?.name
+    }
 
     axios
       .post(
@@ -127,7 +128,6 @@ const ButtonAddUser = () => {
               email: "",
               password: "",
               role: "",
-              region: "",
               country: "",
             });
             setOpened(false);
@@ -135,18 +135,13 @@ const ButtonAddUser = () => {
         });
       })
       .catch((err) => {
-        return Toast.fire({
-          icon: "error",
-          title: t("tabla.notiError"),
-          background: "#000000",
-          color: "#fff",
-        });
+        return NotiSwal({text:String(t("tabla.notiError"))})
       });
 
     return;
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     return setForm({
       ...form,
       [e.target.name]: e.target.value,
@@ -208,7 +203,7 @@ const ButtonAddUser = () => {
                     type="email"
                     onChange={handleChange}
                     name="email"
-                    autocomplete="off"
+      
                     required
                   />
                 </div>
@@ -257,7 +252,6 @@ const ButtonAddUser = () => {
                   type="password"
                   onChange={handleChange}
                   name="password"
-                  autocomplete="off"
                   required
                 />
               </div>

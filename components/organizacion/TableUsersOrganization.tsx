@@ -110,7 +110,6 @@ const TableUsersOrganization = ({users, loading}:{users:CurrentUser[],loading:bo
     }
   };
 
-  console.log(users)
 
   const RenderTable = useMemo(() => {
     if (!users) {
