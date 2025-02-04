@@ -15,7 +15,7 @@ export interface CurrentUser {
   roles: Roles[];
   status: StatusUser;
   region: Region;
-  points: DigipointsUser
+  points: DigipointsUser;
 }
 
 export interface Profile {
@@ -28,9 +28,16 @@ export interface Profile {
   document: string;
   birth_date: string;
   photoProfile: string;
-  language: string;
+  language: Language;
   phone_number: string;
   organizations: Organization[];
+}
+
+export interface Language {
+  code: string;
+  id: string;
+  name: string;
+  status: boolean;
 }
 
 export interface StatusUser {
@@ -56,10 +63,10 @@ export interface Organization {
   validations: string[];
 }
 
-export interface tokenRefresh{
-  refresh_token:string
-  token:string
-  type:string
+export interface tokenRefresh {
+  refresh_token: string;
+  token: string;
+  type: string;
 }
 
 export const getCurrentUser =

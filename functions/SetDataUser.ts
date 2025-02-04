@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserStatus, userUpdate } from "store/reducers/currentUser.reducer";
 import { RootState } from "store/store";
 import Cookies from "js-cookie";
+import { useTranslation } from "react-i18next";
 
 interface FormUpdateProps {
   birthDate: string;
@@ -29,6 +30,7 @@ export const useDataUser = () => {
   const { redirectBasedOnStatus, dispatchUserLogin } = useCustomNavigation();
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.currentUser);
+  const [t,i18]=useTranslation()
   
 
   const setDataUser = async (): Promise<void> => {
@@ -37,6 +39,10 @@ export const useDataUser = () => {
       const res = await getCurrentUser(); // O CurrentUserTest para pruebas
       // const res = { result: CurrentUserTest }; // O CurrentUserTest para pruebas
       if (!res) throw new Error("Failed Login, try again");
+
+      const language=res.result.profile.language.code
+
+      i18.changeLanguage(language === "ES" ? "es" : language === "PT" ? "por" : "es")
 
       const tyCStatus = res.result.status["POLICIES"];
 
