@@ -16,7 +16,6 @@ const ButtonAddUser = () => {
     email: "",
     password: "",
     role: "",
-    region: "",
     country: "",
   });
   const Toast = Swal.mixin({
