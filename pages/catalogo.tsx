@@ -112,6 +112,10 @@ const catalogo = () => {
             onChange={(e) => console.log(e.target.value)}
           >
             <option value="">{t("adobeMarket.filtrarPro")}</option>
+            <option value="Visa">Visa</option>
+            <option value="Falabella">Falabella</option>
+            <option value="Cencosud">Cencosud</option>
+            <option value="MasterCard">MasterCard</option>
           </select>
         </div>
         <div className="flex gap-3 mr-3 cursor-pointer items-center lg:justify-start justify-center">
