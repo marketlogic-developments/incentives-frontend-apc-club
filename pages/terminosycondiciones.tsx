@@ -28,7 +28,7 @@ const terminosycondiciones = () => {
             </div>
           </div> */}
 
-          {user?.profile.language === "por" ? (
+          {i18n.resolvedLanguage === "por" ? (
             <iframe
               ref={iframeRef}
               title="TermsAndContidionsAdobeSign"
@@ -39,7 +39,7 @@ const terminosycondiciones = () => {
             <iframe
               ref={iframeRef}
               title="TermsAndContidionsAdobeSign"
-              src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhAU08RGkohY8jyUbfBHsm32pi4cGmiZadyYt7xoYhIkhksYrHY6U03K3EdU3kIGHTo*"
+              src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhAsNj43LeigPbJHkl79Pe3I49k3THQJAAxNxodwHF1rfQQfg2DrMFzGloM9sj1Nkv0*"
               className="iframeTandC"
             ></iframe>
           )}
