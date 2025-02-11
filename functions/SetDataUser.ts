@@ -30,37 +30,40 @@ export const useDataUser = () => {
   const { redirectBasedOnStatus, dispatchUserLogin } = useCustomNavigation();
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.currentUser);
-  const [t,i18]=useTranslation()
-  
+  const [t, i18] = useTranslation();
 
   const setDataUser = async (): Promise<void> => {
     try {
-      const prevSession=Cookies.get("prevSession")
+      const prevSession = Cookies.get("prevSession");
       const res = await getCurrentUser(); // O CurrentUserTest para pruebas
       // const res = { result: CurrentUserTest }; // O CurrentUserTest para pruebas
       if (!res) throw new Error("Failed Login, try again");
 
-      const language=res.result.profile.language.code
+      const language = res.result.profile.language.code;
 
-      i18.changeLanguage(language === "ES" ? "es" : language === "PT" ? "por" : "es")
+      i18.changeLanguage(
+        language === "ES" ? "es" : language === "PT" ? "por" : "es"
+      );
 
       const tyCStatus = res.result.status["POLICIES"];
 
       dispatchUserLogin(res.result);
-      await redirectBasedOnStatus(prevSession || !user?.is_superuser ? true : tyCStatus ?? false);
-     
+      console.log(prevSession, !user?.is_superuser);
+      await redirectBasedOnStatus(
+        prevSession || user?.is_superuser ? true : tyCStatus ?? false
+      );
     } catch (err) {
       console.error(err);
       throw err;
     }
   };
 
-  const resetPassword = async (password:string): Promise<void> => {
+  const resetPassword = async (password: string): Promise<void> => {
     try {
-      const passwordSend={
+      const passwordSend = {
         password: password,
         password_repeat: password,
-      }
+      };
 
       const res = await ResetPasswordService(passwordSend);
 
@@ -77,12 +80,12 @@ export const useDataUser = () => {
     try {
       if (!user) throw new Error("Failed to updateUser");
 
-      const {roles, token,...userModified}= user
+      const { roles, token, ...userModified } = user;
       const dataUserUpdate = {
         ...userModified,
-        status:{
-        ...userModified.status,
-        UPDATE_INFORMATION: true
+        status: {
+          ...userModified.status,
+          UPDATE_INFORMATION: true,
         },
         profile: {
           first_name: data.first_name,
@@ -91,11 +94,11 @@ export const useDataUser = () => {
             middle_name: data.middlename,
             second_last_name: data.secondlastname,
           },
-          document_type:data.documenttype,
+          document_type: data.documenttype,
           document: data.documentinfo,
           birth_date: data.birthDate,
           phone_number: data.phoneNumber,
-          languaje_id: data.languageId
+          languaje_id: data.languageId,
         },
       };
 
@@ -103,10 +106,8 @@ export const useDataUser = () => {
 
       if (!res) throw new Error("Failed to updateUser");
 
-      
-
       // dispatch(userUpdate(dataUserUpdate));
-      setDataUser()
+      setDataUser();
       dispatch(setUserStatus({ UPDATE_INFORMATION: true }));
     } catch (err) {
       console.error(err);
@@ -118,12 +119,12 @@ export const useDataUser = () => {
     try {
       if (!user) throw new Error("Failed to updateUser");
 
-      const {roles, token,...userModified}= user
+      const { roles, token, ...userModified } = user;
       const dataUserUpdate = {
         ...userModified,
-        status:{
-        ...userModified.status,
-        UPDATE_INFORMATION: true
+        status: {
+          ...userModified.status,
+          UPDATE_INFORMATION: true,
         },
         profile: {
           first_name: data.first_name,
@@ -132,11 +133,11 @@ export const useDataUser = () => {
             middle_name: data.middlename,
             second_last_name: data.secondlastname,
           },
-          document_type:data.documenttype,
+          document_type: data.documenttype,
           document: data.documentinfo,
           birth_date: data.birthDate,
           phone_number: data.phoneNumber,
-          languaje_id: data.languageId
+          languaje_id: data.languageId,
         },
       };
 
@@ -144,10 +145,8 @@ export const useDataUser = () => {
 
       if (!res) throw new Error("Failed to updateUser");
 
-      
-
       // dispatch(userUpdate(dataUserUpdate));
-      setDataUser()
+      setDataUser();
       dispatch(setUserStatus({ UPDATE_INFORMATION: true }));
     } catch (err) {
       console.error(err);
@@ -155,8 +154,8 @@ export const useDataUser = () => {
     }
   };
 
-  const switchUser= async (email:string): Promise<void> =>{
-    try{
+  const switchUser = async (email: string): Promise<void> => {
+    try {
       const res = await SwitchUser(email); // O CurrentUserTest para pruebas
       // const res = { result: CurrentUserTest }; // O CurrentUserTest para pruebas
       if (!res) throw new Error("Failed Login, try again");
@@ -164,14 +163,14 @@ export const useDataUser = () => {
       // const res = await getOneUser(res1.result.id);
 
       // if (!res) throw new Error("Failed Login, try again");
-      Cookies.set("prevSession",user?.token as string)
-      sessionStorage.removeItem("token")
-      sessionStorage.setItem("token", res.result.token)
-    }catch (err) {
+      Cookies.set("prevSession", user?.token as string);
+      sessionStorage.removeItem("token");
+      sessionStorage.setItem("token", res.result.token);
+    } catch (err) {
       console.error(err);
       throw err;
     }
-  }
+  };
 
-  return { setDataUser, resetPassword, updateUser,switchUser };
+  return { setDataUser, resetPassword, updateUser, switchUser };
 };

@@ -133,11 +133,11 @@
     "deseas": "Confirme seu endereço de e-mail. Enviamos a você um e-mail com o assunto: Confirme sua assinatura no <b>Clube APC - Termos e Condições 2025.<b/> <br/> Clique no texto: Confirmar meu endereço de e-mail",
     "click": "Leia e aceite os Termos e Condições. Clique na etiqueta 'Inicio' e preencha as informações necessárias (e-mail corporativo).",
     "paso4": "Para concluir, verifique o seu e-mail, nós enviamos um e-mail com o assunto: Parabéns, sua conta foi confirmada!",
-    "warningpp":{
-      "title":"Há apenas mais um passo para acessar a plataforma. ",
-      "one":"Precisamos que o Parnet Principal e o Partner Admin da sua organização estejam conforme os Termos e Condições do APC Club FY2025.",
-      "two":"Agradecemos a sua compreensão e paciência durante esse processo. ",
-      "contactus":"Se tiver alguma dúvida ou preocupação, não hesite em entrar em contato conosco"
+    "warningpp": {
+      "title": "Só falta um passo para acessar",
+      "one": "Para começar a usar a plataforma, é necessário que o Partner Principal e o Partner Admin da sua empresa aceitem os Termos e Condições do APC Club FY25.",
+      "two": "Após completar esse passo, você poderá acessar a plataforma e aproveitar todos os benefícios pela venda dos produtos participantes da Adobe.",
+      "contactus": "Tem dúvidas? Escreva para"
     }
   },
   "adobeMarket": {
