@@ -100,9 +100,9 @@ const PartnerTyCRU = () => {
   const ConfigReport = (data: RegionDataCompanyUsersTC[]) => {
     const testDesign = TestReport.Report1;
 
-    const arrY = testDesign.map(({ region_name }) => region_name);
+    const arrY = data.map(({ region_name }) => region_name);
 
-    const BarDataCompany = testDesign.map(
+    const BarDataCompany = data.map(
       ({ total_organizations, active_organizations, region_name }) => ({
         total: active_organizations,
         totalColor: regionColor(region_name),
@@ -111,7 +111,7 @@ const PartnerTyCRU = () => {
       })
     );
 
-    const BarDataUser = testDesign.map(
+    const BarDataUser = data.map(
       ({ total_users, accept_policies_users, region_name }) => ({
         total: accept_policies_users,
         totalColor: regionColor(region_name),
@@ -141,7 +141,7 @@ const PartnerTyCRU = () => {
     const testDesign = TestReport.Report2;
 
     // data.users
-    const BarDataUser = testDesign?.map(({ total_users, users_sign, rol }) => ({
+    const BarDataUser = data?.users.map(({ total_users, users_sign, rol }) => ({
       total: users_sign,
       totalColor: rolColor(rol),
       expected: total_users,
