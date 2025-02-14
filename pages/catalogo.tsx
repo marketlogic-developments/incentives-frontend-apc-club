@@ -93,7 +93,7 @@ const catalogo = () => {
               placeholder={String(t("tabla.buscar"))}
               type="text"
               onChange={(e) =>
-                setParams((prev) => ({ ...prev, search: e.target.value }))
+                setParams((prev) => ({ ...prev, search: e.target.value,page:1 }))
               }
             />
             <div className="absolute h-full items-center flex ml-2">
