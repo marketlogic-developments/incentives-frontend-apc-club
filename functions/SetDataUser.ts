@@ -32,6 +32,19 @@ export const useDataUser = () => {
   const { user } = useSelector((state: RootState) => state.currentUser);
   const [t, i18] = useTranslation();
 
+  const typeLanguage = (lang: string) => {
+    switch (lang) {
+      case "ES":
+        return "es";
+      case "PT":
+        return "por";
+      case "EN":
+        return "en";
+      default:
+        return "en";
+    }
+  };
+
   const setDataUser = async (): Promise<void> => {
     try {
       const prevSession = Cookies.get("prevSession");
@@ -41,9 +54,7 @@ export const useDataUser = () => {
 
       const language = res.result.profile.language.code;
 
-      i18.changeLanguage(
-        language === "ES" ? "es" : language === "PT" ? "por" : "es"
-      );
+      i18.changeLanguage(typeLanguage(language));
 
       const tyCStatus = res.result.status["POLICIES"];
 
