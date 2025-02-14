@@ -110,7 +110,7 @@ const DigipointsDistribution = () => {
                 placeholder={String(t("tabla.buscar"))}
                 type="text"
                 onBlur={(e) =>
-                  setParams((prev) => ({ ...prev, search: e.target.value }))
+                  setParams((prev) => ({ ...prev, search: e.target.value,page:1 }))
                 }
               />
               <select

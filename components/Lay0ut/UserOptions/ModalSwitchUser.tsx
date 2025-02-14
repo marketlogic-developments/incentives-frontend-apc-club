@@ -154,7 +154,7 @@ const ModalSwitchUser:FC<Props> = ({ opened, setOpened }) => {
               <input
                 type="text"
                 onChange={(e) =>
-                  setParams((prev) => ({ ...prev, search: e.target.value }))
+                  setParams((prev) => ({ ...prev, search: e.target.value,page:1 }))
                 }
                 placeholder={String(t("tabla.buscarEmail"))}
                 className="px-8 py-3 w-10/12 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
