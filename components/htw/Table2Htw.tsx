@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import HTW24 from "../../public/assets/htw/htw-24";
 import { useTranslation } from "react-i18next";
 import { Select } from "@mantine/core";
+import { CurrentUser } from "services/User/user.service";
 
-const Table2Htw = ({ user, dataHTW }) => {
+const Table2Htw = ({ user, dataHTW }:{user:CurrentUser; dataHTW:any}) => {
   const [t, i18n] = useTranslation("global");
   const typeSegment = [t("htw.renovaciones"), t("htw.nuevosn")];
 
@@ -41,7 +42,7 @@ const Table2Htw = ({ user, dataHTW }) => {
           SLP: ["-", "10", "10", "-"],
         };
 
-  const htwData = user.companyId !== null ? htwRes : htwDist;
+  const htwData = htwRes
 
   return (
     <div className="flex flex-col gap-6 shadow-xl rounded-lg lg:p-6 p-3">
