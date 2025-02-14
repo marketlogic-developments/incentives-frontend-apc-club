@@ -421,7 +421,7 @@ const howtowin = ({ htws }: { htws: any }) => {
           {dataHTW2 === "New Business" ? (
             <Image
               src={
-                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739562583/ADOBE/HOW_TO_WIN_NEW_BUSINESS_FEBRERO_2025_rq2ehg.webp"
+                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739562998/ADOBE/HOW_TO_WIN_NEW_BUSINESS_FEBRERO_2025_1_gqhswo.webp"
               }
               height={1200}
               width={1245}
