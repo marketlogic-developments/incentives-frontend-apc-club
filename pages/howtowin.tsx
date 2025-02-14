@@ -418,7 +418,29 @@ const howtowin = ({ htws }: { htws: any }) => {
                 "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
             }}
           />
-          {HTwlanguage()}
+          {dataHTW2 === "New Business" ? (
+            <Image
+              src={
+                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739561229/ADOBE/HOW_TO_WIN_NEW_BUSINESS_FEBRERO_2025_1_svy7am.jpg"
+              }
+              height={1200}
+              width={1245}
+              quality={100}
+              style={{ width: "100%", height: "100%" }}
+              className={`img-fluid`}
+            />
+          ) : (
+            <Image
+              src={
+                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739561223/ADOBE/HOW_TO_WIN_AUTORENEWAL_FEBRERO_2025_1_o0udvv.jpg"
+              }
+              height={1200}
+              width={1245}
+              quality={100}
+              style={{ width: "100%", height: "100%" }}
+              className={`img-fluid`}
+            />
+          )}
         </div>
       </div>
     </ContainerContent>
