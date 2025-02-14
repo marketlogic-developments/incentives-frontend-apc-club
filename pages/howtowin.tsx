@@ -328,6 +328,58 @@ const howtowin = ({ htws }: { htws: any }) => {
   //   </ContainerContent>
   // );
 
+  const HTwlanguage=()=>{
+    return i18n.resolvedLanguage === "por" ? <>
+    {dataHTW2 === "New Business" ? (
+            <Image
+              src={
+                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739553126/ADOBE/HOW_TO_WIN_NEW_BUSINESS_FEBRERO_2025_jp44jf.jpg"
+              }
+              height={1200}
+              width={1245}
+              quality={100}
+              style={{ width: "100%", height: "100%" }}
+              className={`img-fluid`}
+            />
+          ) : (
+            <Image
+              src={
+                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739553125/ADOBE/HOW_TO_WIN_AUTORENEWAL_FEBRERO_2025_ojjsiz.jpg"
+              }
+              height={1200}
+              width={1245}
+              quality={100}
+              style={{ width: "100%", height: "100%" }}
+              className={`img-fluid`}
+            />
+          )}
+    </>:<>
+    {dataHTW2 === "New Business" ? (
+            <Image
+              src={
+                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739553126/ADOBE/HOW_TO_WIN_NEW_BUSINESS_FEBRERO_2025_jp44jf.jpg"
+              }
+              height={1200}
+              width={1245}
+              quality={100}
+              style={{ width: "100%", height: "100%" }}
+              className={`img-fluid`}
+            />
+          ) : (
+            <Image
+              src={
+                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739553125/ADOBE/HOW_TO_WIN_AUTORENEWAL_FEBRERO_2025_ojjsiz.jpg"
+              }
+              height={1200}
+              width={1245}
+              quality={100}
+              style={{ width: "100%", height: "100%" }}
+              className={`img-fluid`}
+            />
+          )}
+    </>
+  }
+
   return (
     <ContainerContent pageTitle={t("dashboard.htw")}>
       <div className="flex flex-col gap-10 mb-12 m-6">
@@ -366,29 +418,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                 "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
             }}
           />
-          {dataHTW2 === "New Business" ? (
-            <Image
-              src={
-                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739553126/ADOBE/HOW_TO_WIN_NEW_BUSINESS_FEBRERO_2025_jp44jf.jpg"
-              }
-              height={1200}
-              width={1245}
-              quality={100}
-              style={{ width: "100%", height: "100%" }}
-              className={`img-fluid`}
-            />
-          ) : (
-            <Image
-              src={
-                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739553125/ADOBE/HOW_TO_WIN_AUTORENEWAL_FEBRERO_2025_ojjsiz.jpg"
-              }
-              height={1200}
-              width={1245}
-              quality={100}
-              style={{ width: "100%", height: "100%" }}
-              className={`img-fluid`}
-            />
-          )}
+          {HTwlanguage()}
         </div>
       </div>
     </ContainerContent>
