@@ -41,7 +41,7 @@ export const useDataUser = () => {
       case "EN":
         return "en";
       default:
-        return "en";
+        return "es";
     }
   };
 
