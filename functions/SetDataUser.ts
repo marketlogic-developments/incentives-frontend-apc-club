@@ -39,7 +39,7 @@ export const useDataUser = () => {
       // const res = { result: CurrentUserTest }; // O CurrentUserTest para pruebas
       if (!res) throw new Error("Failed Login, try again");
 
-      const language = res.result.profile.language.code;
+      const language = "ES";
 
       i18.changeLanguage(
         language === "ES" ? "es" : language === "PT" ? "por" : "es"
