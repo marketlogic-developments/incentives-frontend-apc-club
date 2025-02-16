@@ -41,8 +41,6 @@ export const useDataUser = () => {
 
       const language = res.result.profile.language.code;
 
-      console.log("------------------------------- ", language)
-
       i18.changeLanguage(
         language === "ES" ? "es" : language === "PT" ? "por" : "es"
       );
