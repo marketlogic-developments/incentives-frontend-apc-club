@@ -103,7 +103,7 @@ export const useLocation = () => {
         icon: <IconSettings />,
         iconactive: "",
         text: t("menu.admin"),
-        link: `https://incentives-frontend-production.up.railway.app/authentication/login?token=${token}`,
+        link: `https://administration.adobepcclub.com/authentication/login?token=${token}`,
       },
       {
         page: "/customercare",
