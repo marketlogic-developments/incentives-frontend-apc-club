@@ -145,9 +145,9 @@ export const useLocation = () => {
           return t("estadoProducto.estado");
         }
 
-        if (location === "/howtowin") {
-          return t("dashboard.htw");
-        }
+        // if (location === "/howtowin") {
+        //   return t("dashboard.htw");
+        // }
 
         if (
           [
