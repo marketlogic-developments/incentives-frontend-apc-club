@@ -84,6 +84,7 @@ const SalesPerformance = () => {
     const [params, setParams] = useState({
         page: 1,
         limit: 10,
+        additional_filters: "{}",
         search: "",
     });
 
@@ -93,28 +94,46 @@ const SalesPerformance = () => {
 
     const getDataReportTC = () => {
         setLoading(true);
-        const { limit, page, search } = params;
-        const queryParams = `page=${page}&limit=${limit}&additional_filters={}&relation_filters={}`;
-
+    
+        const { limit = 10, page = 1, search = "", additional_filters = "{}" } = params;
+    
+        // Escapar el JSON para que se pase correctamente en la URL
+        const queryParams = `page=${page}&limit=${limit}&additional_filters=${encodeURIComponent(additional_filters)}&relation_filters={}`;
+    
         ReportUserPerfomanceTyC(queryParams)
             .then((res) => {
-                setData2(res)
-                setData(res.content)
+                setData2(res);
+                setData(res.content);
             })
             .catch((error) => {
-                console.error("Error en la petición:", error); // Captura más información del error
+                console.error("Error en la petición:", error);
             })
             .finally(() => setLoading(false));
     };
-
-
+    
     useEffect(() => {
         getDataReportTC();
     }, [params]);
 
     const handlePageClick = (e) => {
         setParams((prev) => ({ ...prev, page: e.selected + 1 }));
-      };
+    };
+
+    const TyCFilter = async (data) => {
+        let filterValue = {};
+    
+        if (data === "true") {
+            filterValue = { policies_status: true };
+        } else if (data === "false") {
+            filterValue = { policies_status: false };
+        }
+    
+        setParams((prev) => ({
+            ...prev,
+            additional_filters: JSON.stringify(filterValue),
+        }));
+    };
+    
 
     // useEffect(() => {
 
@@ -169,29 +188,6 @@ const SalesPerformance = () => {
             .toFixed(0)
             .toString()
             .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
-    };
-
-    /* Download */
-    const importFile = async (data) => {
-
-        // Crear un nuevo array donde almacenaremos los registros con el campo tyc_user actualizado
-        const updatedData = data.map(record => {
-            // Verificar el valor de tyc_user en cada registro
-            if (record.tyc_user) {
-                // Si es true, asignar "yes"
-                return { ...record, tyc_user: "YES" };
-            } else {
-                // Si es false, asignar "no"
-                return { ...record, tyc_user: "NOT" };
-            }
-        });
-        console.log(updatedData);
-        const csvConfig = {
-            data: updatedData,
-            columns: userPerformanceColumnsCsv(updatedData),
-            downloadTitle: "User Performance",
-        };
-        await importCsvFunction(csvConfig);
     };
 
     const importFileExcel = async (data) => {
@@ -383,27 +379,35 @@ const SalesPerformance = () => {
                     styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
                     onClick={clearSelects}
                 /> */}
-                {/* <DropDownReport
-                    icon={<CloudDownload />}
-                    title={t("Reportes.descargar")}
+                <DropDownReport
+                    icon={""}
+                    title={"Filtros terminos y condiciones"}
                 >
                     <BtnWithImage
-                        text={t("Reportes.descargar") + " csv"}
-                        icon={<CloudDownload />}
+                        text={"Mostrar todos"}
+                        icon={""}
                         styles={
                             "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
                         }
-                        onClick={() => importFile(data)}
+                        onClick={() => TyCFilter("all")}
                     />
                     <BtnWithImage
-                        text={t("Reportes.descargar") + " excel"}
-                        icon={<CloudDownload />}
+                        text={"Los que SI aceptaron"}
+                        icon={""}
                         styles={
                             "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
                         }
-                        onClick={() => importFileExcel(data)}
+                        onClick={() => TyCFilter("true")}
                     />
-                </DropDownReport> */}
+                    <BtnWithImage
+                        text={"Los que NO aceptaron"}
+                        icon={""}
+                        styles={
+                            "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
+                        }
+                        onClick={() => TyCFilter("false")}
+                    />
+                </DropDownReport>
             </div>
             <div className="grid sm:grid-cols-2 grid-rows-1">
                 {/* <div className="grid col-span-2 sm:w-[55%] w-[60%]">
