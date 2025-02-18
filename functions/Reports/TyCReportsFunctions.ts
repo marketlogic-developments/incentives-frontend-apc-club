@@ -1,5 +1,5 @@
 import { GenericalPromise, MultipleElements } from "services/generical.service";
-import { CompaReportTyCPerChannelPPPAPropsny, MedalTYCReport, RegionDataCompanyUsersTC, ReportTyCPerChannelPPPA, ReportTyCSummaryCompanyUsers, ReportTyCSummaryMedal, ReportTyCSummaryRol, RolTYCReport } from "services/Reports/tycreports.service";
+import { CompaReportTyCPerChannelPPPAPropsny, MedalTYCReport, RegionDataCompanyUsersTC, ReportsUsersPerfomancesTyC, ReportTyCPerChannelPPPA, ReportTyCSummaryCompanyUsers, ReportTyCSummaryMedal, ReportTyCSummaryRol, RolTYCReport } from "services/Reports/tycreports.service";
 
 export interface PromiseMedalRol{
     users:RolTYCReport[]
@@ -7,6 +7,18 @@ export interface PromiseMedalRol{
 }
 
 export const TyCReportsFunctions=()=>{
+
+    const ReportUserPerfomanceTyC = async(params:string): Promise<MultipleElements<any>>=>{
+        try{
+            const res= await ReportsUsersPerfomancesTyC(params)
+
+            return res
+        }catch (err) {
+            console.error(err);
+            throw err;
+          }
+    }
+
 
     const ReportTyC = async(params:string): Promise<MultipleElements<CompaReportTyCPerChannelPPPAPropsny>>=>{
         try{
@@ -46,5 +58,5 @@ export const TyCReportsFunctions=()=>{
           }
     }
 
-    return {ReportTyC, ReportTyCCompanyUsers, ReportTyCMedalRol}
+    return {ReportTyC, ReportTyCCompanyUsers, ReportTyCMedalRol, ReportUserPerfomanceTyC}
 }

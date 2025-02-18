@@ -1,123 +1,144 @@
 import { API } from "services/connectapi.service";
 import {
-  GenericalPromise,
-  HandleError,
-  MultipleElements,
-  PaginatedElements,
+    GenericalPromise,
+    HandleError,
+    MultipleElements,
+    PaginatedElements,
 } from "services/generical.service";
 
 interface OrganizationCodeReport {
-  id: string;
-  code: string;
-  status: boolean;
+    id: string;
+    code: string;
+    status: boolean;
 }
 
 interface DistributionChannelReport {
-  id: string;
-  name: string;
+    id: string;
+    name: string;
 }
 
 interface Country {
-  id: string;
-  name: string;
-  status: boolean;
-  region: Region;
+    id: string;
+    name: string;
+    status: boolean;
+    region: Region;
 }
 
 interface Region {
-  id: string;
-  name: string;
-  status: boolean;
+    id: string;
+    name: string;
+    status: boolean;
 }
 
 export interface CompaReportTyCPerChannelPPPAPropsny {
-  id: string;
-  name: string;
-  phone_number: string;
-  representative_email: string;
-  representative_first_name: string;
-  representative_last_name: string;
-  address: string;
-  fiscal_period_year: string;
-  status: boolean;
-  goals: any[]; // Se puede ajustar según el tipo de "goals"
-  distribution_channel: DistributionChannelReport;
-  country: Country;
-  organization_codes: OrganizationCodeReport[];
-  has_partner_admin_policies: boolean;
-  has_partner_principal_policies: boolean;
-  is_fully_accepted: boolean;
+    id: string;
+    name: string;
+    phone_number: string;
+    representative_email: string;
+    representative_first_name: string;
+    representative_last_name: string;
+    address: string;
+    fiscal_period_year: string;
+    status: boolean;
+    goals: any[]; // Se puede ajustar según el tipo de "goals"
+    distribution_channel: DistributionChannelReport;
+    country: Country;
+    organization_codes: OrganizationCodeReport[];
+    has_partner_admin_policies: boolean;
+    has_partner_principal_policies: boolean;
+    is_fully_accepted: boolean;
 }
 
 export interface RegionDataCompanyUsersTC {
-  region_name: string; // Nombre de la región
-  channels_levels: string; // Nivel del canal (por ejemplo, DISTRIBUTORS)
-  total_organizations: number; // Total de organizaciones
-  total_users: number; // Total de usuarios
-  accept_policies_users: number; // Usuarios que han aceptado políticas
-  active_organizations: number; // Total de organizaciones activas
+    region_name: string; // Nombre de la región
+    channels_levels: string; // Nivel del canal (por ejemplo, DISTRIBUTORS)
+    total_organizations: number; // Total de organizaciones
+    total_users: number; // Total de usuarios
+    accept_policies_users: number; // Usuarios que han aceptado políticas
+    active_organizations: number; // Total de organizaciones activas
 }
 
 export interface RolTYCReport {
-  rol: string;
-  total_users: number;
-  users_sign: number;
+    rol: string;
+    total_users: number;
+    users_sign: number;
 }
 
 export interface MedalTYCReport {
-  active_organizations: number;
-  distribution_channel_name: string;
-  total_channels: number;
+    active_organizations: number;
+    distribution_channel_name: string;
+    total_channels: number;
 }
 
 export const ReportTyCPerChannelPPPA = async (params: string) => {
-  try {
-    const response = await API.get<
-      PaginatedElements<CompaReportTyCPerChannelPPPAPropsny>>
-     (
-      `organizations/adobe/partnet/connection/club/reports/terms_conditions?${params}`
-    );
-    return response.data.result; // Devuelve la respuesta de la API si todo está bien
-  } catch (err: any) {
-    HandleError(err);
-    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
-  }
-};
-export const ReportTyCSummaryCompanyUsers = async (params: string) => {
-  try {
-    const response = await API.get<
-      GenericalPromise<RegionDataCompanyUsersTC[]>
-    >(
-      `organizations/adobe/partnet/connection/club/reports/terms_conditions/summary?${params}`
-    );
-    return response.data.result; // Devuelve la respuesta de la API si todo está bien
-  } catch (err: any) {
-    HandleError(err);
-    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
-  }
+    try {
+        const response = await API.get<
+            PaginatedElements<CompaReportTyCPerChannelPPPAPropsny>>
+            (
+                `organizations/adobe/partnet/connection/club/reports/terms_conditions?${params}`
+            );
+        return response.data.result; // Devuelve la respuesta de la API si todo está bien
+    } catch (err: any) {
+        HandleError(err);
+        throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    }
 };
 
-export const ReportTyCSummaryRol = async (params: string) => {
-  try {
-    const response = await API.get<GenericalPromise<RolTYCReport[]>>(
-      `organizations/adobe/partnet/connection/club/reports/terms_conditions/summary/users_roles?${params}`
-    );
-    console.log(response);
-    return response.data.result; // Devuelve la respuesta de la API si todo está bien
-  } catch (err: any) {
-    HandleError(err);
-    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
-  }
+
+export const ReportsUsersPerfomancesTyC = async (params: string) => {
+    try {
+        const response = await API.get<
+            PaginatedElements<any>>
+            (
+                `organizations/adobe/partnet/connection/club/reports/users_performances/terms_conditions_users?${params}`
+            );
+        return response.data.result; // Devuelve la respuesta de la API si todo está bien
+    } catch (err: any) {
+        HandleError(err);
+        throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    }
 };
+
+
+
+export const ReportTyCSummaryCompanyUsers = async (params: string) => {
+    try {
+        const response = await API.get<
+            GenericalPromise<RegionDataCompanyUsersTC[]>
+        >(
+            `organizations/adobe/partnet/connection/club/reports/terms_conditions/summary?${params}`
+        );
+        return response.data.result; // Devuelve la respuesta de la API si todo está bien
+    } catch (err: any) {
+        HandleError(err);
+        throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    }
+};
+
+
+export const ReportTyCSummaryRol = async (params: string) => {
+    try {
+        const response = await API.get<GenericalPromise<RolTYCReport[]>>(
+            `organizations/adobe/partnet/connection/club/reports/terms_conditions/summary/users_roles?${params}`
+        );
+        console.log(response);
+        return response.data.result; // Devuelve la respuesta de la API si todo está bien
+    } catch (err: any) {
+        HandleError(err);
+        throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    }
+};
+
+
 export const ReportTyCSummaryMedal = async (params: string) => {
-  try {
-    const response = await API.get<GenericalPromise<MedalTYCReport[]>>(
-      `organizations/adobe/partnet/connection/club/reports/terms_conditions/summary/distributions_channels?${params}`
-    );
-    console.log(response);
-    return response.data.result; // Devuelve la respuesta de la API si todo está bien
-  } catch (err: any) {
-    HandleError(err);
-    throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
-  }
+    try {
+        const response = await API.get<GenericalPromise<MedalTYCReport[]>>(
+            `organizations/adobe/partnet/connection/club/reports/terms_conditions/summary/distributions_channels?${params}`
+        );
+        console.log(response);
+        return response.data.result; // Devuelve la respuesta de la API si todo está bien
+    } catch (err: any) {
+        HandleError(err);
+        throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    }
 };
