@@ -28,7 +28,7 @@ const PartnerTycReport = () => {
     const [data, setData] =
         useState<MultipleElements<CompaReportTyCPerChannelPPPAPropsny> | null>(
             null
-        );
+        )
     const [t, i18n] = useTranslation("global");
     const [loading, setLoading] = useState(false);
     const router = useRouter();
