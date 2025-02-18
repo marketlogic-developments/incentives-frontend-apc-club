@@ -98,13 +98,13 @@ export const useLocation = () => {
         iconactive: "",
         text: t("menu.Puntos_por_ventas"),
       },
-      {
-        page: "/herramientas",
-        icon: <IconSettings />,
-        iconactive: "",
-        text: t("menu.admin"),
-        link: `https://administration.adobepcclub.com/authentication/login?token=${token}`,
-      },
+      // {
+      //   page: "/herramientas",
+      //   icon: <IconSettings />,
+      //   iconactive: "",
+      //   text: t("menu.admin"),
+      //   link: `https://administration.adobepcclub.com/authentication/login?token=${token}`,
+      // },
       {
         page: "/customercare",
         icon: <IconCustomerCare />,
