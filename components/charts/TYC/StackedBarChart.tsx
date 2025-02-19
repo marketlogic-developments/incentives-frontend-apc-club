@@ -1,40 +1,43 @@
-import React, { FC } from "react";
-import ReactEcharts from "echarts-for-react";
-import * as echarts from "echarts";
+"use client"
 
-interface Props {
-  totalDatas:
-    | {
-        total: number;
-        expected: number;
-        totalColor: string;
-        expectedColor: string;
-      }[]
-    | any[];
-  yNames: string[] | null;
+import { type FC, useMemo } from "react"
+import ReactEcharts from "echarts-for-react"
+
+interface TotalData {
+  total: number
+  expected: number
+  totalColor: string
+  expectedColor: string
 }
 
-const StackedBarChart: FC<Props> = ({
-  totalDatas = [{ total: 0, expected: 0, totalColor: "", expectedColor: "" }],
-  yNames = ["NOLA", "SOLA", "Brazil, Mexico"],
-}) => {
-  console.log(totalDatas)
+interface Props {
+  totalDatas: TotalData[]
+  yNames: string[]
+}
 
-  const totalData = totalDatas?.map((item) => ({
-    value: item.total,
-    itemStyle: {
-      color: item.totalColor
-    },
-  }));
+const StackedBarChart: FC<Props> = ({ totalDatas = [], yNames = ["NOLA", "SOLA", "BRAZIL", "MEXICO"] }) => {
+  const { totalData, expectedData, commonTotalColor } = useMemo(() => {
+    if (totalDatas.length === 0) {
+      return { totalData: [], expectedData: [], commonTotalColor: "" }
+    }
 
-  const expectedData = totalDatas?.map((item) => ({
-    value:
-      Number(item.total) > Number(item.expected)
-        ? 0
-        : Number(item.expected - item.total).toFixed(0),
-    itemStyle: { color: item.expectedColor },
-    aux: item.expected,
-  }));
+    const commonTotalColor = totalDatas[0].totalColor
+
+    const totalData = totalDatas.map((item) => ({
+      value: item.total,
+      itemStyle: {
+        color: commonTotalColor,
+      },
+    }))
+
+    const expectedData = totalDatas.map((item) => ({
+      value: Math.max(0, item.expected - item.total),
+      itemStyle: { color: item.expectedColor },
+      aux: item.expected,
+    }))
+
+    return { totalData, expectedData, commonTotalColor }
+  }, [totalDatas])
 
   const option = {
     tooltip: {
@@ -42,15 +45,20 @@ const StackedBarChart: FC<Props> = ({
       axisPointer: {
         type: "shadow",
       },
-      formatter: function (params: any) {
-        const totalValue = params[0].data.value;
-        const expectedValue = params[1].data.aux;
-        console.log(params)
-        return `Signed: ${totalValue} / Expected: ${
-          expectedValue
-        } - Progress: ${Number((totalValue / expectedValue) * 100).toFixed(
-          2
-        )}%`;
+      formatter: (params: any[]) => {
+        if (!Array.isArray(params) || params.length < 2) {
+          return ""
+        }
+
+        const totalValue = params[0]?.data?.value ?? 0
+        const expectedValue = params[1]?.data?.aux ?? 0
+
+        if (expectedValue === 0) {
+          return `Signed: ${totalValue} / Expected: ${expectedValue} - Progress: N/A`
+        }
+
+        const progress = ((totalValue / expectedValue) * 100).toFixed(2)
+        return `Signed: ${totalValue} / Expected: ${expectedValue} - Progress: ${progress}%`
       },
     },
     legend: {},
@@ -63,13 +71,13 @@ const StackedBarChart: FC<Props> = ({
     xAxis: {
       type: "value",
       axisLabel: {
-        formatter: function (value: any) {
+        formatter: (value: number) => {
           if (value >= 1000000) {
-            return (value / 1000000).toFixed(0) + "M";
+            return (value / 1000000).toFixed(0) + "M"
           } else if (value >= 1000) {
-            return (value / 1000).toFixed(0) + "K";
+            return (value / 1000).toFixed(0) + "K"
           } else {
-            return value?.toFixed(0);
+            return value.toFixed(0)
           }
         },
       },
@@ -79,9 +87,8 @@ const StackedBarChart: FC<Props> = ({
       data: yNames,
     },
     series: [
-      
       {
-        name: "",
+        name: "Signed",
         type: "bar",
         stack: "total",
         label: {
@@ -91,9 +98,12 @@ const StackedBarChart: FC<Props> = ({
           focus: "series",
         },
         data: totalData,
+        itemStyle: {
+          color: commonTotalColor,
+        },
       },
       {
-        name: "",
+        name: "Expected",
         type: "bar",
         stack: "total",
         label: {
@@ -105,13 +115,14 @@ const StackedBarChart: FC<Props> = ({
         data: expectedData,
       },
     ],
-  };
+  }
 
   return (
     <div className="w-full">
       <ReactEcharts option={option} className="w-auto h-auto" />
     </div>
-  );
-};
+  )
+}
 
-export default StackedBarChart;
+export default StackedBarChart
+

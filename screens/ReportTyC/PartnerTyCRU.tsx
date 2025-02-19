@@ -187,7 +187,7 @@ const PartnerTyCRU = () => {
         return <DataNotFound action={getDataReportRegionTC} />;
       }
 
-      return <StackedBarChart totalDatas={typeReport} yNames={report?.yAxis} />;
+      return <StackedBarChart totalDatas={typeReport} yNames={report?.yAxis ?? []} />;
     }, [loading.GraphReport]);
 
   const RenderGraphMedalRol = (report: any, isPie: boolean) =>
@@ -223,10 +223,10 @@ const PartnerTyCRU = () => {
         </CardChart>
       </div>
       <div className="flex gap-6">
-        <CardChart title="By Rol User" hfull="!w-1/2">
+        <CardChart title="By User Role" hfull="!w-1/2">
           {RenderGraphMedalRol(reportMedalUser.users.Users, false)}
         </CardChart>
-        <CardChart title="By Channel Medal" hfull="!w-1/2">
+        <CardChart title="By Level" hfull="!w-1/2">
           {RenderGraphMedalRol(reportMedalUser.medal.valuePie, true)}
         </CardChart>
       </div>
