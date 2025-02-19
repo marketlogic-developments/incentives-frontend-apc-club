@@ -67,11 +67,11 @@ export const useLocation = () => {
         subsections:
           user?.roles[0].name === "partner_admin"
             ? [
-                {
-                  page: "/digipoints/createteam",
-                  icon: <></>,
-                  text: t("digipoints.crearEquipos"),
-                },
+                // {
+                //   page: "/digipoints/createteam",
+                //   icon: <></>,
+                //   text: t("digipoints.crearEquipos"),
+                // },
                 {
                   page: "/digipoints/digipointdistribution",
                   icon: <></>,
