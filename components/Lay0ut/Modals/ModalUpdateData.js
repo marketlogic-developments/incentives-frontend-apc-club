@@ -47,12 +47,17 @@ const ModalUpdateData = ({ onClose }) => {
 
         const arrInputsEmpty = [];
 
+        // Recorre los valores del formulario
         const arrayForm = data.slice(0, 11).map((i) => {
+            if (i.name === "accept_whatsapp_contact") {
+                return (objPush[i.name] = i.checked || false); // Asegura que sea booleano
+            }
+
             if (i.value?.length === 0) {
-                // console.log(i.id);
                 inputsRequired.includes(i.name) && arrInputsEmpty.push(i.id);
                 return (objPush[i.name] = null);
             }
+            
             if (i.name === "languageId") {
                 return i.value === "es" ? (objPush[i.name] = 2) : (objPush[i.name] = 1);
             }
@@ -281,9 +286,14 @@ const ModalUpdateData = ({ onClose }) => {
                 </div>
                 <Checkbox
                     className="mt-4 mb-4"
-                    defaultChecked
                     name="accept_whatsapp_contact"
                     label={t("modalUpdate.acceptWhatsAppContact")}
+                    onChange={(event) => {
+                        setData({
+                            ...data,
+                            accept_whatsapp_contact: event.currentTarget.checked,
+                        });
+                    }}
                 />
                 <button class="btn btn-info hover:bg-black w-full">
                     {t("modalUpdate.updateData")}

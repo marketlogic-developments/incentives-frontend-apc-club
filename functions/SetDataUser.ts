@@ -94,7 +94,7 @@ export const useDataUser = () => {
           extended_attributes: {
             middle_name: data.middlename,
             second_last_name: data.secondlastname,
-            accept_whatsapp_contact: ['on', '1', 'true'].includes(String(data.accept_whatsapp_contact).toLowerCase())
+            accept_whatsapp_contact: Boolean(data.accept_whatsapp_contact),
           },
           document_type: data.documenttype,
           document: data.documentinfo,
