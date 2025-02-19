@@ -24,6 +24,7 @@ interface FormUpdateProps {
   middlename: string;
   phoneNumber: string;
   secondlastname: string;
+  accept_whatsapp_contact: boolean;
 }
 
 export const useDataUser = () => {
@@ -93,6 +94,7 @@ export const useDataUser = () => {
           extended_attributes: {
             middle_name: data.middlename,
             second_last_name: data.secondlastname,
+            accept_whatsapp_contact: ['on', '1', 'true'].includes(String(data.accept_whatsapp_contact).toLowerCase())
           },
           document_type: data.documenttype,
           document: data.documentinfo,

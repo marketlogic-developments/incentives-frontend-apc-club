@@ -52,7 +52,8 @@
     "date": "Date of Birth",
     "lenguaje": "Language",
     "updateData": "Update Data",
-    "updateYourData": "Update Your Data"
+    "updateYourData": "Update Your Data",
+    "acceptWhatsAppContact": "I agree to be contacted by WhatsApp"
   },
 
   "menu": {

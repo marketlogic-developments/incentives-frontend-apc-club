@@ -52,7 +52,8 @@
     "date": "Fecha de nacimiento",
     "lenguaje": "Idioma",
     "updateData": "Actualizar Datos",
-    "updateYourData": "Actualiza tus datos"
+    "updateYourData": "Actualiza tus datos",
+    "acceptWhatsAppContact": "Acepto ser contactado por WhatsApp"
   },
 
   "menu": {
