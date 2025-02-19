@@ -137,7 +137,7 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
               </button>
             </div>
           </div>
-          <div className="mb-2">
+          {/* <div className="mb-2">
             <div className="flex flex-col py-2">
               <p
                 className="text-info font-bold w-full text-center decoration-solid cursor-pointer lg:!text-xs xl:!text-sm"
@@ -146,8 +146,8 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
                 {t("login.¿Has_olvidado_la_contraseña?")}
               </p>
             </div>
-          </div>
-          <div className="my-2">
+          </div> */}
+          <div className="my-2 mt-4">
             <button
               className="btn btn-info w-full lg:!button-xs xl:!input-md lg:!text-xs xl:!text-sm"
               type="submit"
