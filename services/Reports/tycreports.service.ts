@@ -101,6 +101,38 @@ export const ReportsUsersPerfomancesTyC = async (params: string) => {
 
 
 
+export const ReportsOrganizationsTyCDownload = async () => {
+    try {
+        const response = await API.get(
+            `organizations/adobe/partnet/connection/club/reports/terms_conditions/organizations/download`,
+            {
+                responseType: "blob",
+            }
+        );
+        // Crear una URL del archivo descargado
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+
+        // Configurar el enlace para descargar el archivo
+        link.href = url;
+        link.setAttribute("download", "organizations_terms_conditions.xlsx"); // Nombre del archivo
+        document.body.appendChild(link);
+        link.click();
+
+        // Limpiar la URL creada
+        link.parentNode?.removeChild(link);
+        window.URL.revokeObjectURL(url);
+
+        return response.data.result;
+
+    } catch (err: any) {
+        HandleError(err);
+        throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    }
+};
+
+
+
 export const ReportsUsersPerfomancesTyCDownload = async () => {
     try {
         const response = await API.get(
