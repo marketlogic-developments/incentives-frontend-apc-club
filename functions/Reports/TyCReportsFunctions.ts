@@ -22,7 +22,7 @@ export const TyCReportsFunctions=()=>{
 
     const ReportUserPerfomanceTyCDownload = async(): Promise<MultipleElements<any>>=>{
         try{
-            const res= await ReportsUsersPerfomancesTyCDownload()
+            const res = await ReportsUsersPerfomancesTyCDownload()
 
             return res
         }catch (err) {
