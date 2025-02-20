@@ -128,11 +128,13 @@ const PartnerTyCRU = () => {
     const arrX = data.users.map(({ rol }): string | undefined => {
       switch (rol) {
         case "sales_rep":
-          return "Sales Rep";
+          return "SR";
+        case "partner_admin,partner_principal":
+          return "PA/PP";
         case "partner_admin":
-          return "Partner Admin";
+          return "PA";
         case "partner_principal":
-          return "Partner Principal";
+          return "PP";
         case "Total":
           return "Total";
       }
