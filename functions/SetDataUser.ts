@@ -40,11 +40,15 @@ export const useDataUser = () => {
       // const res = { result: CurrentUserTest }; // O CurrentUserTest para pruebas
       if (!res) throw new Error("Failed Login, try again");
 
-      const language = res.result.profile.language.code;
-
-      i18.changeLanguage(
-        language === "ES" ? "es" : language === "PT" ? "por" : "es"
-      );
+      const language = res?.result?.profile?.language?.code;
+      
+      if (language) {
+        i18.changeLanguage(
+          language === "ES" ? "es" : language === "PT" ? "por" : "es"
+        );
+      } else {
+        i18.changeLanguage("es")
+      }
 
       const tyCStatus = res.result.status["POLICIES"];
 
