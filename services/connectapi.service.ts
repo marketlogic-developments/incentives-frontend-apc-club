@@ -3,7 +3,7 @@ import '../envConfig'
 
 const createInstance = (): AxiosInstance => {
     const api = axios.create({
-        baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
+        baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
         headers: { 
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*" 
