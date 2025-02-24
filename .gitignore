@@ -3,3 +3,6 @@
 **/.env
 **/.env.local
 .codegpt
+
+.env
+.env.dev
