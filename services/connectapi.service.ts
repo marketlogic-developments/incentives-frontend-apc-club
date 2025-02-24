@@ -5,7 +5,7 @@ const createInstance = (): AxiosInstance => {
         baseURL: 'https://development-api.adobepcclub.com/api/',
         headers: { 
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*" 
+            "Access-Control-Allow-Origin": "*",
         }
     });
 
