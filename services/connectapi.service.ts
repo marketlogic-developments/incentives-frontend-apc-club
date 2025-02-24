@@ -13,7 +13,7 @@ const createInstance = (): AxiosInstance => {
     api.interceptors.request.use(
         (config) => {
             if (typeof window !== "undefined") {
-                const token = window.sessionStorage.getItem("token"); // Leer el token en cada solicitud
+                const token = window.sessionStorage.getItem("token");
                 if (token) {
                     config.headers.Authorization = `Bearer ${token}`;
                 }
