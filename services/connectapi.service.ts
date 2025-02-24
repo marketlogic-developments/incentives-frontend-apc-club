@@ -1,9 +1,8 @@
 import axios, { AxiosInstance } from "axios";
-import '../envConfig'
 
 const createInstance = (): AxiosInstance => {
     const api = axios.create({
-        baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+        baseURL: 'https://development-api.adobepcclub.com/api/',
         headers: { 
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*" 
