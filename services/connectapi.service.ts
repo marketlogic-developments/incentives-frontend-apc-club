@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import '../envConfig'
 
 const createInstance = (): AxiosInstance => {
     const api = axios.create({
