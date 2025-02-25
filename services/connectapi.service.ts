@@ -9,7 +9,8 @@ const createInstance = (): AxiosInstance => {
         }
     });
 
-    // Middleware para agregar el token dinámicamente
+    // Middleware para agregar 
+    // el token dinámicamente
     api.interceptors.request.use(
         (config) => {
             if (typeof window !== "undefined") {
