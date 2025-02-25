@@ -333,7 +333,7 @@ const howtowin = ({ htws }: { htws: any }) => {
     {dataHTW2 === "New Business" ? (
             <Image
               src={
-                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739553126/ADOBE/HOW_TO_WIN_NEW_BUSINESS_FEBRERO_2025_jp44jf.jpg"
+                "https://res.cloudinary.com/dechrcyu3/image/upload/v1740513044/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp.png"
               }
               height={1200}
               width={1245}
@@ -344,7 +344,7 @@ const howtowin = ({ htws }: { htws: any }) => {
           ) : (
             <Image
               src={
-                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739553125/ADOBE/HOW_TO_WIN_AUTORENEWAL_FEBRERO_2025_ojjsiz.jpg"
+                "ttps://res.cloudinary.com/dechrcyu3/image/upload/v1740513245/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii.png"
               }
               height={1200}
               width={1245}
@@ -357,7 +357,7 @@ const howtowin = ({ htws }: { htws: any }) => {
     {dataHTW2 === "New Business" ? (
             <Image
               src={
-                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739553126/ADOBE/HOW_TO_WIN_NEW_BUSINESS_FEBRERO_2025_jp44jf.jpg"
+                "https://res.cloudinary.com/dechrcyu3/image/upload/v1740513044/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp.png"
               }
               height={1200}
               width={1245}
@@ -368,7 +368,7 @@ const howtowin = ({ htws }: { htws: any }) => {
           ) : (
             <Image
               src={
-                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739553125/ADOBE/HOW_TO_WIN_AUTORENEWAL_FEBRERO_2025_ojjsiz.jpg"
+                "https://res.cloudinary.com/dechrcyu3/image/upload/v1740513245/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii.png"
               }
               height={1200}
               width={1245}
@@ -421,7 +421,7 @@ const howtowin = ({ htws }: { htws: any }) => {
           {dataHTW2 === "New Business" ? (
             <Image
               src={
-                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739562998/ADOBE/HOW_TO_WIN_NEW_BUSINESS_FEBRERO_2025_1_gqhswo.webp"
+                "https://res.cloudinary.com/dechrcyu3/image/upload/v1740513044/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp.webp"
               }
               height={1200}
               width={1245}
@@ -432,7 +432,7 @@ const howtowin = ({ htws }: { htws: any }) => {
           ) : (
             <Image
               src={
-                "https://res.cloudinary.com/dechrcyu3/image/upload/v1739562583/ADOBE/HOW_TO_WIN_AUTORENEWAL_FEBRERO_2025_mwl55q.webp"
+                "https://res.cloudinary.com/dechrcyu3/image/upload/v1740513245/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii.webp"
               }
               height={1200}
               width={1245}
