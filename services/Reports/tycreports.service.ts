@@ -85,6 +85,22 @@ export const ReportTyCPerChannelPPPA = async (params: string) => {
 };
 
 
+
+export const ReportsProductsParticipating = async (params: string) => {
+    try {
+        const response = await API.get<
+            PaginatedElements<any>>
+            (
+                `organizations/adobe/partnet/connection/club/reports/participating_products?${params}`
+            );
+        return response.data.result; // Devuelve la respuesta de la API si todo está bien
+    } catch (err: any) {
+        HandleError(err);
+        throw err; // Retorna `null` en caso de error, lo cual puede ser manejado en el componente que llama esta función
+    }
+};
+
+
 export const ReportsUsersPerfomancesTyC = async (params: string) => {
     try {
         const response = await API.get<
