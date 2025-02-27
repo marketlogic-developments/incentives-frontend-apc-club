@@ -23,13 +23,6 @@ const organizacion = () => {
     
   }, [user]);
 
-  const niveles = {
-    "1": "GOLD",
-    "2": "PLATINUM",
-    "3": "DISTRIBUTOR",
-    "4": "CERTIFIED",
-  };
-
   const objects = [
     {
       svg: (
@@ -61,7 +54,7 @@ const organizacion = () => {
           />
         </svg>
       ),
-      text: user?.profile.phone_number,
+      text: user?.profile.phone_number || "-",
     },
     {
       svg: (
@@ -85,7 +78,7 @@ const organizacion = () => {
           />
         </svg>
       ),
-      text: niveles[1],
+      text: organization?.distribution_channel.name,
     },
     {
       svg: (
