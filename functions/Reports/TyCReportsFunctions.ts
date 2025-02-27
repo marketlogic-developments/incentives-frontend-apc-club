@@ -4,6 +4,7 @@ import {
     MedalTYCReport, 
     RegionDataCompanyUsersTC, 
     ReportsOrganizationsTyCDownload, 
+    ReportsProductsParticipating, 
     ReportsUsersPerfomancesTyC, 
     ReportsUsersPerfomancesTyCDownload, 
     ReportTyCPerChannelPPPA, 
@@ -21,6 +22,17 @@ export interface PromiseMedalRol{
 }
 
 export const TyCReportsFunctions=()=>{
+
+    const ReportProductsParticipating = async(params:string): Promise<MultipleElements<any>>=>{
+        try{
+            const res= await ReportsProductsParticipating(params)
+
+            return res
+        }catch (err) {
+            console.error(err);
+            throw err;
+          }
+    }
 
     const ReportUserPerfomanceTyC = async(params:string): Promise<MultipleElements<any>>=>{
         try{
@@ -96,5 +108,13 @@ export const TyCReportsFunctions=()=>{
           }
     }
 
-    return {ReportTyC, ReportTyCCompanyUsers, ReportTyCMedalRol, ReportUserPerfomanceTyC, ReportUserPerfomanceTyCDownload, ReportOrganizationsTyCDownload}
+    return {
+        ReportTyC, 
+        ReportTyCCompanyUsers, 
+        ReportTyCMedalRol, 
+        ReportUserPerfomanceTyC, 
+        ReportUserPerfomanceTyCDownload, 
+        ReportOrganizationsTyCDownload,
+        ReportProductsParticipating
+    }
 }

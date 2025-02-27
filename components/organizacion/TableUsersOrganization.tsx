@@ -145,7 +145,7 @@ const TableUsersOrganization = ({users, loading}:{users:CurrentUser[],loading:bo
         {/* <td className="py-3 px-6">{`${item?.profile?.first_name || "No Name"} ${
           item?.profile?.last_name
         }`}</td> */}
-        <td className="py-3 px-6">{`${item?.username || "No Name"}`}</td>
+        <td className="py-3 px-6">{`${item?.username.split("|")[0] || "No Name"}`}</td>
         {/* <td className="py-3 px-6">{item?.region?.name || "NONE"}</td> */}
         {/* {company?.country && (
           <td className="py-3 px-6">{company.country}</td>

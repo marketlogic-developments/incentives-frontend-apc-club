@@ -3,14 +3,14 @@ import SvgPP from "./SvgPP";
 const InfoBannerPP = () => {
   const segments = [
     {
-      url: "/assets/dashboard/cc.webp",
+      url: "/assets/dashboard/DC.webp",
       text: "Creative Cloud",
-      subtext: "All Renewals  |  Acrobat Pro  |  Acrobat Sign",
+      subtext: "CCT  |  CCT Pro  |  CCE Ed 4 | Adobe Express",
     },
     {
-      url: "/assets/dashboard/DC.webp",
+      url: "/assets/dashboard/cc.webp",
       text: "Document Cloud",
-      subtext: "Complete Versión  |  All Renewals",
+      subtext: "Acrobat Pro  |  Acrobat Sign  |  Acrobat Premium  |  Acrobat AI Assistant",
     },
   ];
 
@@ -30,6 +30,7 @@ const InfoBannerPP = () => {
                   <figure className="w-[50px]">
                     <img src={item.url} />
                   </figure>
+                  
                   <p className="xl:!text-base font-semibold">{item.text}</p>
                 </div>
               </div>
