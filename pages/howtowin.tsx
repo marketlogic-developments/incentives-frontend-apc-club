@@ -15,6 +15,7 @@ import Image from "next/image";
 
 const howtowin = ({ htws }: { htws: any }) => {
     const { user } = useSelector((state: RootState) => state.currentUser);
+    const { organization } = useSelector((state: RootState) => state.organization);
     const [t, i18n] = useTranslation("global");
     const typeSegment = [
         t("htw.autoRenova"),
@@ -417,22 +418,29 @@ const howtowin = ({ htws }: { htws: any }) => {
                         }}
                     />
 
-                    {dataHTW2 !== "Select option" && (
-                        <Image
-                            src={
-                                dataHTW2 === "New Business"
-                                    ? "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760510/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp.png"
-                                    : "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760432/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii.png"
-                            }
-                            height={1200}
-                            width={1245}
-                            quality={100}
-                            style={{ width: "100%", height: "100%" }}
-                            className="img-fluid"
-                        />
+                    {organization?.distribution_channel.name === "GOLD" ||
+                        organization?.distribution_channel.name === undefined ||
+                        organization?.distribution_channel.name === null ||
+                        organization?.distribution_channel.name === "none" ? (
+                        dataHTW2 !== "Select option" && (undefined)
+                    ) : (
+                        dataHTW2 !== "Select option" && (
+                            <Image
+                                src={
+                                    dataHTW2 === "New Business"
+                                        ? "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760510/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp.png"
+                                        : "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760432/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii.png"
+                                }
+                                height={1200}
+                                width={1245}
+                                quality={100}
+                                style={{ width: "100%", height: "100%" }}
+                                className="img-fluid"
+                            />
+                        )
                     )}
-                </div>
 
+                </div>
             </div>
         </ContainerContent>
     );
