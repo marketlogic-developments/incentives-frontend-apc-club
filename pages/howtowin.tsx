@@ -22,7 +22,7 @@ const howtowin = ({ htws }: { htws: any }) => {
         t("htw.reactivation"),
         t("htw.nuevosn"),
     ];
-    const [dataHTW2, setDataHTW2] = useState<string>("Select option");
+    const [dataHTW2, setDataHTW2] = useState<string>((i18n.resolvedLanguage === "por" ? "Selecione opção" : "Seleccione opción"));
 
     const htwRes =
         dataHTW2 === "Q3-Q4"
@@ -59,6 +59,8 @@ const howtowin = ({ htws }: { htws: any }) => {
             };
 
     const htwData = htwRes;
+    const optionsES = ["Seleccione opción", "Nuevo Negocio", "Renovación"];
+    const optionsPOR = ["Selecione opção", "Nova Negócio", "Renovação"];
 
     // return (
     //   <ContainerContent pageTitle={t("dashboard.htw")}>
@@ -404,32 +406,49 @@ const howtowin = ({ htws }: { htws: any }) => {
           ></p> */}
                 </div>
                 <div className="flex flex-col gap-6 shadow-xl rounded-lg lg:p-6 p-3">
-                    <Select
-                        value={dataHTW2}
-                        data={["Select option", "New Business", "Autorenewal"].map((data) => ({
-                            value: data,
-                            label: data,
-                        }))}
-                        onChange={(data) => setDataHTW2(String(data))}
-                        name={"dateHTW"}
-                        classNames={{
-                            input:
-                                "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
-                        }}
-                    />
+                        { i18n.resolvedLanguage === "por" ? 
+                            <Select
+                            value={dataHTW2}
+                            data={optionsPOR.map((data) => ({
+                                value: data,
+                                label: data,
+                            }))}
+                            onChange={(data) => setDataHTW2(String(data))}
+                            name={"dateHTW"}
+                            classNames={{
+                                input:
+                                    "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
+                            }}
+                            />
+                            : 
+                            <Select
+                            value={dataHTW2}
+                            data={optionsES.map((data) => ({
+                                value: data,
+                                label: data,
+                            }))}
+                            onChange={(data) => setDataHTW2(String(data))}
+                            name={"dateHTW"}
+                            classNames={{
+                                input:
+                                    "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
+                            }}
+                            />
+                        }
+                    
                     {(() => {
                         const distributionChannelName = organization?.distribution_channel?.name;
 
-                        if (!distributionChannelName || distributionChannelName === "none") {
-                            return dataHTW2 !== "Select option" ? undefined : null;
-                        }
+                        // if (!distributionChannelName || distributionChannelName === "none") {
+                        //     return dataHTW2 !== "Select option" ? undefined : null;
+                        // }
 
                         if (distributionChannelName === "GOLD") {
-                            if (dataHTW2 !== "Select option") {
+                            if (dataHTW2 !== "Selecione opção" && dataHTW2 !== "Seleccione opción") {
                                 return (
                                     <Image
                                         src={
-                                            dataHTW2 === "New Business"
+                                            (dataHTW2 === "Nuevo Negocio" || dataHTW2 === "Nova Negócio")
                                                 ? "https://res.cloudinary.com/dechrcyu3/image/upload/v1741355515/HOW_TO_WIN_DISTRIS_NEW_BUSINESS_FEBRERO_2026_xbayib.webp"
                                                 : "https://res.cloudinary.com/dechrcyu3/image/upload/v1741355462/HOW_TO_WIN_DISTRIS_AUTORENEWAL_FEBRERO_2026_h1jrlg.webp"
                                         }
@@ -443,11 +462,11 @@ const howtowin = ({ htws }: { htws: any }) => {
                             }
 
                         } else {
-                            if (dataHTW2 !== "Select option") {
+                            if (dataHTW2 !== "Selecione opção" && dataHTW2 !== "Seleccione opción") {
                                 return (
                                     <Image
                                         src={
-                                            dataHTW2 === "New Business"
+                                            (dataHTW2 === "Nuevo Negocio" || dataHTW2 === "Nova Negócio")
                                                 ? "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760510/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp.webp"
                                                 : "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760432/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii.webp"
                                         }
