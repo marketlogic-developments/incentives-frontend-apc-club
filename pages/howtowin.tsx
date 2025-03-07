@@ -417,29 +417,52 @@ const howtowin = ({ htws }: { htws: any }) => {
                                 "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
                         }}
                     />
+                    {(() => {
+                        const distributionChannelName = organization?.distribution_channel?.name;
 
-                    {organization?.distribution_channel.name === "GOLD" ||
-                        organization?.distribution_channel.name === undefined ||
-                        organization?.distribution_channel.name === null ||
-                        organization?.distribution_channel.name === "none" ? (
-                        dataHTW2 !== "Select option" && (undefined)
-                    ) : (
-                        dataHTW2 !== "Select option" && (
-                            <Image
-                                src={
-                                    dataHTW2 === "New Business"
-                                        ? "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760510/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp.png"
-                                        : "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760432/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii.png"
-                                }
-                                height={1200}
-                                width={1245}
-                                quality={100}
-                                style={{ width: "100%", height: "100%" }}
-                                className="img-fluid"
-                            />
-                        )
-                    )}
+                        if (!distributionChannelName || distributionChannelName === "none") {
+                            return dataHTW2 !== "Select option" ? undefined : null;
+                        }
 
+                        if (distributionChannelName === "GOLD") {
+                            if (dataHTW2 !== "Select option") {
+                                return (
+                                    <Image
+                                        src={
+                                            dataHTW2 === "New Business"
+                                                ? "https://res.cloudinary.com/dechrcyu3/image/upload/v1741355515/HOW_TO_WIN_DISTRIS_NEW_BUSINESS_FEBRERO_2026_xbayib.webp"
+                                                : "https://res.cloudinary.com/dechrcyu3/image/upload/v1741355462/HOW_TO_WIN_DISTRIS_AUTORENEWAL_FEBRERO_2026_h1jrlg.webp"
+                                        }
+                                        height={1200}
+                                        width={1245}
+                                        quality={100}
+                                        style={{ width: "100%", height: "100%" }}
+                                        className="img-fluid"
+                                    />
+                                );
+                            }
+
+                        } else {
+                            if (dataHTW2 !== "Select option") {
+                                return (
+                                    <Image
+                                        src={
+                                            dataHTW2 === "New Business"
+                                                ? "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760510/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp.webp"
+                                                : "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760432/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii.webp"
+                                        }
+                                        height={1200}
+                                        width={1245}
+                                        quality={100}
+                                        style={{ width: "100%", height: "100%" }}
+                                        className="img-fluid"
+                                    />
+                                );
+                            }
+                        }
+
+                        return null;
+                    })()}
                 </div>
             </div>
         </ContainerContent>

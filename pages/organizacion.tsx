@@ -108,7 +108,7 @@ const organizacion = () => {
           />
         </svg>
       ),
-      text: organization?.organization_codes[0].code,
+      text: organization?.organization_codes.find(code => code.status === true)?.code || "",
     },
   ];
 
