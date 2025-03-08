@@ -463,7 +463,8 @@
     "autorenovaInput": "Auto-renovación =",
     "reactivationInput": "Reactivación =",
     "autorenovaDes": "Mismo VIP renovación en fecha aniversario",
-    "reactivationDes": "Mismo VIP renovación en fecha aniversario + 30 días"
+    "reactivationDes": "Mismo VIP renovación en fecha aniversario + 30 días",
+    "labelSelect": "Selecciona la opción del How to Win para New Business o Autorenewal"	
   },
   "releases": {
     "vip": "¿Por qué utilizar VIP Marketplace?",

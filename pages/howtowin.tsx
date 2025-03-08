@@ -406,6 +406,11 @@ const howtowin = ({ htws }: { htws: any }) => {
           ></p> */}
                 </div>
                 <div className="flex flex-col gap-6 shadow-xl rounded-lg lg:p-6 p-3">
+                    <p className="text-sm text-left text-blue-400">
+                        {t("htw.labelSelect")}
+                    </p>
+                    <div className="grid grid-cols-3 gap-6">
+                        <div className="col-span-1">
                         { i18n.resolvedLanguage === "por" ? 
                             <Select
                             value={dataHTW2}
@@ -435,6 +440,8 @@ const howtowin = ({ htws }: { htws: any }) => {
                             }}
                             />
                         }
+                        </div>
+                    </div>
                     
                     {(() => {
                         const distributionChannelName = organization?.distribution_channel?.name;
