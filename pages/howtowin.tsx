@@ -439,9 +439,15 @@ const howtowin = ({ htws }: { htws: any }) => {
                     {(() => {
                         const distributionChannelName = organization?.distribution_channel?.name;
 
-                        // if (!distributionChannelName || distributionChannelName === "none") {
-                        //     return dataHTW2 !== "Select option" ? undefined : null;
-                        // }
+                        if (!distributionChannelName || distributionChannelName === "none") {
+                            if (i18n.resolvedLanguage === "por") {
+                                return dataHTW2 !== "Selecione opção" ? undefined : null;
+                            }
+
+                            if (i18n.resolvedLanguage === "es") {
+                                return dataHTW2 !== "Seleccione opción" ? undefined : null;
+                            }
+                        }
 
                         if (distributionChannelName === "GOLD") {
                             if (dataHTW2 !== "Selecione opção" && dataHTW2 !== "Seleccione opción") {
