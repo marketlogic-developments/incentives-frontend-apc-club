@@ -31,6 +31,7 @@ export interface Profile {
   language: Language;
   phone_number: string;
   organizations: Organization[];
+  country: any;
 }
 
 export interface Language {

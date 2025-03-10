@@ -36,6 +36,9 @@ const howtowin = ({ htws }: { htws: any }) => {
     
     }, [user]);
 
+    const BLUR_DATA_URL =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJ0lEQVQYV2Nk+M+ACzAyMA4YP+DAPZgYGBge08E0e/k8SiohoGU4TxpfSgMALwkOWmaSgkNAAAAAElFTkSuQmCC';
+
     const htwRes =
         dataHTW2 === "Q3-Q4"
             ? {
@@ -481,6 +484,8 @@ const howtowin = ({ htws }: { htws: any }) => {
                                         height={1200}
                                         width={1245}
                                         quality={95}
+                                        placeholder="blur"
+                                        blurDataURL={BLUR_DATA_URL}
                                         // style={{ width: "100%", height: "100%" }}
                                         className="img-fluid"
                                     />
@@ -499,6 +504,8 @@ const howtowin = ({ htws }: { htws: any }) => {
                                         height={1200}
                                         width={1245}
                                         quality={95}
+                                        placeholder="blur"
+                                        blurDataURL={BLUR_DATA_URL}
                                         // style={{ width: "100%", height: "100%" }}
                                         className="img-fluid"
                                     />
