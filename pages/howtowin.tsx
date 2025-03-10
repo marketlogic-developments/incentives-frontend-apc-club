@@ -483,7 +483,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                                         }
                                         height={1200}
                                         width={1245}
-                                        quality={85}
+                                        quality={90}
                                         placeholder="blur"
                                         blurDataURL={BLUR_DATA_URL}
                                         // style={{ width: "100%", height: "100%" }}
@@ -503,7 +503,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                                         }
                                         height={1200}
                                         width={1245}
-                                        quality={85}
+                                        quality={90}
                                         placeholder="blur"
                                         blurDataURL={BLUR_DATA_URL}
                                         // style={{ width: "100%", height: "100%" }}
