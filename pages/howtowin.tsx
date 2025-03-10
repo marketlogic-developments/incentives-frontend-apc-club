@@ -26,7 +26,7 @@ const howtowin = ({ htws }: { htws: any }) => {
     ];
 
     const optionsES = ["Nuevo Negocio", "Renovación"];
-    const optionsPOR = ["Nova Negócio", "Renovação"];
+    const optionsPOR = ["Novos negócios", "Renovação"];
 
     const initialValue =
     i18n.resolvedLanguage === "por"
