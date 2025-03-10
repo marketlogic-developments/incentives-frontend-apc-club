@@ -12,6 +12,8 @@ import Table2Htw from "../components/htw/Table2Htw";
 import { RootState } from "store/store";
 import { CurrentUser } from "services/User/user.service";
 import Image from "next/image";
+import { OrganizationsFunction } from "functions/Organizations/Organizations";
+import { setLoading } from "store/reducers/users.reducer";
 
 const howtowin = ({ htws }: { htws: any }) => {
     const { user } = useSelector((state: RootState) => state.currentUser);
@@ -23,6 +25,16 @@ const howtowin = ({ htws }: { htws: any }) => {
         t("htw.nuevosn"),
     ];
     const [dataHTW2, setDataHTW2] = useState<string>((i18n.resolvedLanguage === "por" ? "Selecione opção" : "Seleccione opción"));
+
+    const { getOneOrganization } = OrganizationsFunction();
+    
+    useEffect(() => {
+    if(user){
+        setLoading(true)
+        getOneOrganization(user?.profile?.organizations[0].id as string).finally(()=>setLoading(false));
+    }
+    
+    }, [user]);
 
     const htwRes =
         dataHTW2 === "Q3-Q4"
@@ -445,6 +457,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                     
                     {(() => {
                         const distributionChannelName = organization?.distribution_channel?.name;
+                        
 
                         if (!distributionChannelName || distributionChannelName === "none") {
                             if (i18n.resolvedLanguage === "por") {
@@ -456,19 +469,19 @@ const howtowin = ({ htws }: { htws: any }) => {
                             }
                         }
 
-                        if (distributionChannelName === "GOLD") {
+                        if (distributionChannelName === "DISTRIBUTOR") {
                             if (dataHTW2 !== "Selecione opção" && dataHTW2 !== "Seleccione opción") {
                                 return (
                                     <Image
                                         src={
                                             (dataHTW2 === "Nuevo Negocio" || dataHTW2 === "Nova Negócio")
-                                                ? "https://res.cloudinary.com/dechrcyu3/image/upload/v1741355515/HOW_TO_WIN_DISTRIS_NEW_BUSINESS_FEBRERO_2026_xbayib.webp"
-                                                : "https://res.cloudinary.com/dechrcyu3/image/upload/v1741355462/HOW_TO_WIN_DISTRIS_AUTORENEWAL_FEBRERO_2026_h1jrlg.webp"
+                                                ? "https://res.cloudinary.com/dechrcyu3/image/upload/v1741355515/HOW_TO_WIN_DISTRIS_NEW_BUSINESS_FEBRERO_2026_xbayib"
+                                                : "https://res.cloudinary.com/dechrcyu3/image/upload/v1741355462/HOW_TO_WIN_DISTRIS_AUTORENEWAL_FEBRERO_2026_h1jrlg"
                                         }
                                         height={1200}
                                         width={1245}
-                                        quality={100}
-                                        style={{ width: "100%", height: "100%" }}
+                                        quality={95}
+                                        // style={{ width: "100%", height: "100%" }}
                                         className="img-fluid"
                                     />
                                 );
@@ -480,13 +493,13 @@ const howtowin = ({ htws }: { htws: any }) => {
                                     <Image
                                         src={
                                             (dataHTW2 === "Nuevo Negocio" || dataHTW2 === "Nova Negócio")
-                                                ? "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760510/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp.webp"
-                                                : "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760432/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii.webp"
+                                                ? "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760510/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp"
+                                                : "https://res.cloudinary.com/dechrcyu3/image/upload/v1740760432/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii"
                                         }
                                         height={1200}
                                         width={1245}
-                                        quality={100}
-                                        style={{ width: "100%", height: "100%" }}
+                                        quality={95}
+                                        // style={{ width: "100%", height: "100%" }}
                                         className="img-fluid"
                                     />
                                 );
