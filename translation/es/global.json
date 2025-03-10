@@ -437,7 +437,7 @@
     "pathBanner": "assets/htw/bannerHTWsection.webp",
     "copyTextFooter": "¡Vende, Gana y Redime!",
     "title": "¿Cómo ganar con el <br /> Adobe Partner Connection Club?",
-    "secondTitle": "Acumula más DigiPoints Migrando, <br /> Renovando y Vendiendo a través de Marketplace",
+    "secondTitle": "Enfoca tus ventas en Nuevos Negocios a través <br> del Marketplace y gana más DigiPoints.",
     "phraseSecondTitle": "Ahora todas las ventas de Creative Cloud y Document Cloud, tanto en renovaciones como nuevos negocios, <br /> ganan por igual en Marketplace.",
     "digipoints1000-1": "DigiPoints por cada USD 1,000 FOB",
     "digipoints1000-2": "en ventas en productos participantes",
@@ -463,7 +463,8 @@
     "autorenovaInput": "Auto-renovación =",
     "reactivationInput": "Reactivación =",
     "autorenovaDes": "Mismo VIP renovación en fecha aniversario",
-    "reactivationDes": "Mismo VIP renovación en fecha aniversario + 30 días"
+    "reactivationDes": "Mismo VIP renovación en fecha aniversario + 30 días",
+    "labelSelect": "Selecciona la opción del How to Win para New Business o Autorenewal"	
   },
   "releases": {
     "vip": "¿Por qué utilizar VIP Marketplace?",
