@@ -24,20 +24,29 @@ const howtowin = ({ htws }: { htws: any }) => {
         t("htw.reactivation"),
         t("htw.nuevosn"),
     ];
-    const [dataHTW2, setDataHTW2] = useState<string>((i18n.resolvedLanguage === "por" ? "Selecione opção" : "Seleccione opción"));
+
+    const optionsES = ["Nuevo Negocio", "Renovación"];
+    const optionsPOR = ["Nova Negócio", "Renovação"];
+
+    const initialValue =
+    i18n.resolvedLanguage === "por"
+        ? optionsPOR[0]
+        : optionsES[0]
+
+    const [dataHTW2, setDataHTW2] = useState<string>(initialValue);
 
     const { getOneOrganization } = OrganizationsFunction();
-    
+
     useEffect(() => {
-    if(user){
-        setLoading(true)
-        getOneOrganization(user?.profile?.organizations[0].id as string).finally(()=>setLoading(false));
-    }
-    
+        if (user) {
+            setLoading(true)
+            getOneOrganization(user?.profile?.organizations[0].id as string).finally(() => setLoading(false));
+        }
+
     }, [user]);
 
     const BLUR_DATA_URL =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJ0lEQVQYV2Nk+M+ACzAyMA4YP+DAPZgYGBge08E0e/k8SiohoGU4TxpfSgMALwkOWmaSgkNAAAAAElFTkSuQmCC';
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJ0lEQVQYV2Nk+M+ACzAyMA4YP+DAPZgYGBge08E0e/k8SiohoGU4TxpfSgMALwkOWmaSgkNAAAAAElFTkSuQmCC';
 
     const htwRes =
         dataHTW2 === "Q3-Q4"
@@ -74,8 +83,6 @@ const howtowin = ({ htws }: { htws: any }) => {
             };
 
     const htwData = htwRes;
-    const optionsES = ["Seleccione opción", "Nuevo Negocio", "Renovación"];
-    const optionsPOR = ["Selecione opção", "Nova Negócio", "Renovação"];
 
     // return (
     //   <ContainerContent pageTitle={t("dashboard.htw")}>
@@ -346,58 +353,6 @@ const howtowin = ({ htws }: { htws: any }) => {
     //   </ContainerContent>
     // );
 
-    const HTwlanguage = () => {
-        return i18n.resolvedLanguage === "por" ? <>
-            {dataHTW2 === "New Business" ? (
-                <Image
-                    src={
-                        "https://res.cloudinary.com/dechrcyu3/image/upload/v1740513044/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp.png"
-                    }
-                    height={1200}
-                    width={1245}
-                    quality={100}
-                    style={{ width: "100%", height: "100%" }}
-                    className={`img-fluid`}
-                />
-            ) : (
-                <Image
-                    src={
-                        "ttps://res.cloudinary.com/dechrcyu3/image/upload/v1740513245/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii.png"
-                    }
-                    height={1200}
-                    width={1245}
-                    quality={100}
-                    style={{ width: "100%", height: "100%" }}
-                    className={`img-fluid`}
-                />
-            )}
-        </> : <>
-            {dataHTW2 === "New Business" ? (
-                <Image
-                    src={
-                        "https://res.cloudinary.com/dechrcyu3/image/upload/v1740513044/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp.png"
-                    }
-                    height={1200}
-                    width={1245}
-                    quality={100}
-                    style={{ width: "100%", height: "100%" }}
-                    className={`img-fluid`}
-                />
-            ) : (
-                <Image
-                    src={
-                        "https://res.cloudinary.com/dechrcyu3/image/upload/v1740513245/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii.png"
-                    }
-                    height={1200}
-                    width={1245}
-                    quality={100}
-                    style={{ width: "100%", height: "100%" }}
-                    className={`img-fluid`}
-                />
-            )}
-        </>
-    }
-
     return (
         <ContainerContent pageTitle={t("dashboard.htw")}>
             <div className="flex flex-col gap-10 mb-12 m-6">
@@ -426,91 +381,77 @@ const howtowin = ({ htws }: { htws: any }) => {
                     </p>
                     <div className="grid grid-cols-3 gap-6">
                         <div className="col-span-1">
-                        { i18n.resolvedLanguage === "por" ? 
-                            <Select
-                            value={dataHTW2}
-                            data={optionsPOR.map((data) => ({
-                                value: data,
-                                label: data,
-                            }))}
-                            onChange={(data) => setDataHTW2(String(data))}
-                            name={"dateHTW"}
-                            classNames={{
-                                input:
-                                    "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
-                            }}
-                            />
-                            : 
-                            <Select
-                            value={dataHTW2}
-                            data={optionsES.map((data) => ({
-                                value: data,
-                                label: data,
-                            }))}
-                            onChange={(data) => setDataHTW2(String(data))}
-                            name={"dateHTW"}
-                            classNames={{
-                                input:
-                                    "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
-                            }}
-                            />
-                        }
+                            {i18n.resolvedLanguage === "por" ?
+                                <Select
+                                    value={dataHTW2}
+                                    data={optionsPOR.map((data) => ({
+                                        value: data,
+                                        label: data,
+                                    }))}
+                                    onChange={(data) => setDataHTW2(String(data))}
+                                    name={"dateHTW"}
+                                    classNames={{
+                                        input:
+                                            "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
+                                    }}
+                                />
+                                :
+                                <Select
+                                    value={dataHTW2}
+                                    data={optionsES.map((data) => ({
+                                        value: data,
+                                        label: data,
+                                    }))}
+                                    onChange={(data) => setDataHTW2(String(data))}
+                                    name={"dateHTW"}
+                                    classNames={{
+                                        input:
+                                            "rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white",
+                                    }}
+                                />
+                            }
                         </div>
                     </div>
-                    
+
                     {(() => {
                         const distributionChannelName = organization?.distribution_channel?.name;
-                        
-
-                        if (!distributionChannelName || distributionChannelName === "none") {
-                            if (i18n.resolvedLanguage === "por") {
-                                return dataHTW2 !== "Selecione opção" ? undefined : null;
-                            }
-
-                            if (i18n.resolvedLanguage === "es") {
-                                return dataHTW2 !== "Seleccione opción" ? undefined : null;
-                            }
-                        }
 
                         if (distributionChannelName === "DISTRIBUTOR") {
-                            if (dataHTW2 !== "Selecione opção" && dataHTW2 !== "Seleccione opción") {
-                                return (
-                                    <Image
-                                        src={
-                                            (dataHTW2 === "Nuevo Negocio" || dataHTW2 === "Nova Negócio")
-                                                ? "https://res.cloudinary.com/dechrcyu3/image/upload/w_1000,q_auto/v1741355515/HOW_TO_WIN_DISTRIS_NEW_BUSINESS_FEBRERO_2026_xbayib"
-                                                : "https://res.cloudinary.com/dechrcyu3/image/upload/w_1000,q_auto/v1741355462/HOW_TO_WIN_DISTRIS_AUTORENEWAL_FEBRERO_2026_h1jrlg"
-                                        }
-                                        height={1200}
-                                        width={1245}
-                                        quality={100}
-                                        placeholder="blur"
-                                        blurDataURL={BLUR_DATA_URL}
-                                        // style={{ width: "100%", height: "100%" }}
-                                        className="img-fluid"
-                                    />
-                                );
-                            }
+                            return (
+                                <Image
+                                    src={
+                                        (dataHTW2 === "Renovación" || dataHTW2 === "Renovação")
+                                            ? "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1741355462/HOW_TO_WIN_DISTRIS_AUTORENEWAL_FEBRERO_2026_h1jrlg"
+                                            : "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1741355515/HOW_TO_WIN_DISTRIS_NEW_BUSINESS_FEBRERO_2026_xbayib"
+                                    }
+                                    height={1200}
+                                    width={1245}
+                                    quality={100}
+                                    placeholder="blur"
+                                    blurDataURL={BLUR_DATA_URL}
+                                    // style={{ width: "100%", height: "100%" }}
+                                    className="img-fluid"
+                                />
+                            );
+
 
                         } else {
-                            if (dataHTW2 !== "Selecione opção" && dataHTW2 !== "Seleccione opción") {
-                                return (
-                                    <Image
-                                        src={
-                                            (dataHTW2 === "Nuevo Negocio" || dataHTW2 === "Nova Negócio")
-                                                ? "https://res.cloudinary.com/dechrcyu3/image/upload/w_1000,q_auto/v1740760510/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp"
-                                                : "https://res.cloudinary.com/dechrcyu3/image/upload/w_1000,q_auto/v1740760432/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii"
-                                        }
-                                        height={1200}
-                                        width={1245}
-                                        quality={100}
-                                        placeholder="blur"
-                                        blurDataURL={BLUR_DATA_URL}
-                                        // style={{ width: "100%", height: "100%" }}
-                                        className="img-fluid"
-                                    />
-                                );
-                            }
+                            return (
+                                <Image
+                                    src={
+                                        (dataHTW2 === "Renovación" || dataHTW2 === "Renovação")
+                                            ? "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1740760432/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii"
+                                            : "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1740760510/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp"
+                                    }
+                                    height={1200}
+                                    width={1245}
+                                    quality={100}
+                                    placeholder="blur"
+                                    blurDataURL={BLUR_DATA_URL}
+                                    // style={{ width: "100%", height: "100%" }}
+                                    className="img-fluid"
+                                />
+                            );
                         }
 
                         return null;
