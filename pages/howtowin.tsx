@@ -25,8 +25,8 @@ const howtowin = ({ htws }: { htws: any }) => {
         t("htw.nuevosn"),
     ];
 
-    const optionsES = ["Nuevo Negocio", "Renovación"];
-    const optionsPOR = ["Novos negócios", "Renovação"];
+    const optionsES = ["New Business", "Autorenewal"];
+    const optionsPOR = ["New Business", "Autorenewal"];
 
     const initialValue =
     i18n.resolvedLanguage === "por"
@@ -420,7 +420,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                             return (
                                 <Image
                                     src={
-                                        (dataHTW2 === "Renovación" || dataHTW2 === "Renovação")
+                                        (dataHTW2 === "Autorenewal")
                                             ? "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1741355462/HOW_TO_WIN_DISTRIS_AUTORENEWAL_FEBRERO_2026_h1jrlg"
                                             : "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1741355515/HOW_TO_WIN_DISTRIS_NEW_BUSINESS_FEBRERO_2026_xbayib"
                                     }
@@ -439,7 +439,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                             return (
                                 <Image
                                     src={
-                                        (dataHTW2 === "Renovación" || dataHTW2 === "Renovação")
+                                        (dataHTW2 === "Autorenewal")
                                             ? "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1740760432/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii"
                                             : "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1740760510/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp"
                                     }
