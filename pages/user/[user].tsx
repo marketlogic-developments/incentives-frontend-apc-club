@@ -72,11 +72,11 @@ const user = () => {
       email: user?.email,
       role: user?.roles[0].name,
       position: user?.roles[0].description,
-      region: user?.region?.name || "No region",
+      region: user?.profile.country?.region?.name || "No region",
       imgProfile: user?.profile.photoProfile,
       birthDate: user?.profile.birth_date,
       phone: user?.profile.phone_number,
-      language: user?.profile.language,
+      language: user?.profile.language.name,
     });
   }, [user]);
 

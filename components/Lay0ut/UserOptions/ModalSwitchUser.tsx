@@ -106,7 +106,7 @@ const ModalSwitchUser:FC<Props> = ({ opened, setOpened }) => {
                     >
                       <td className="py-3 px-6">{`${item?.profile?.first_name} ${item?.profile?.last_name}`}</td>
                       <td className="py-3 px-6">{item.email}</td>
-                      <td className="py-3 px-6">{item?.region?.name || "NONE"}</td>
+                      <td className="py-3 px-6">{item?.profile?.country?.region?.name || "NONE"}</td>
                       <td className="py-3 px-6">
                         {item?.roles[0]?.name === "sales_rep"
                           ? "Sales Rep"
