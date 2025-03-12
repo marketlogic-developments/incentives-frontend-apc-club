@@ -88,15 +88,9 @@ const howtowin = ({ htws }: { htws: any }) => {
     const HtwTableNew2025 = () => {
         return (
             <>
-                <style
-                    dangerouslySetInnerHTML={{
-                    __html:
-                        "\n        .gradient-cct {\n            background: rgb(239,191,67);\nbackground: linear-gradient(90deg, rgba(239,191,67,1) 0%, rgba(227,98,46,1) 50%, rgba(218,67,144,1) 100%);\n        }\n\n        .gradient-cct-pro {\n            background: rgb(239,191,67);\nbackground: linear-gradient(90deg, rgba(239,191,67,1) 0%, rgba(227,98,46,1) 50%, rgba(218,67,144,1) 100%);\n        }\n\n        .gradient-cce {\n            background: rgb(239,191,67);\nbackground: linear-gradient(90deg, rgba(239,191,67,1) 0%, rgba(227,98,46,1) 50%, rgba(218,67,144,1) 100%);\n        }\n\n        .cct- {\n            -left: 4px solid #F9A826;\n        }\n\n        .cct-pro- {\n            -left: 4px solid #E74C3C;\n        }\n\n        .cce- {\n            -left: 4px solid #E056FD;\n        }\n\n        .bg-cct {\n            background-color: #F9A826;\n        }\n        .bg-cct-pro {\n            background-color: #E74C3C;\n        }\n        .bg-cce {\n            background-color: #E056FD;\n        }\n        .bg-rojo{\n            background-color: #ec1000;\n        }\n        .bg-azul{\n            background-color: #584ccc;\n        }\n\n    .bg-blacki{\n        background-color: #2c2c2c;\n    \n    }\n        \n        /* Make table responsive */\n        @media (max-width: 768px) {\n            table {\n                display: block;\n                overflow-x: auto;\n            }\n        }\n        \n        /* Ensure equal column widths */\n        .equal-width {\n            width: calc(100% / 6);\n            box-sizing: border-box;\n        }\n        \n        /* Fixed table layout for consistent column widths */\n        .fixed-layout {\n            table-layout: fixed;\n        }\n    "
-                    }}
-                />
-                <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
+                <div className="max-w-6xl mx-auto flex flex-row justify-end items-end w-full h-full">
                     <div className="w-1/12 mb-16">
-                    <img src="public/assets/htw/img/cc.png" alt="" />
+                    <img src="/public/assets/htw/img/cc.png" alt="" />
                     </div>
                     <div className="w-11/12">
                     <div className="text-center p-4 text-blue-500">
@@ -120,7 +114,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <thead>
                             <tr>
                             <th className="p-4 text-center font-bold" rowSpan={2}>
-                                <img src="public/assets/htw/img/acct.png" alt="" srcSet="" />
+                                <img src="/public/assets/htw/img/acct.png" alt="" srcSet="" />
                             </th>
                             <th colSpan={2}>
                                 <div className="gradient-cct text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
@@ -348,7 +342,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                 </div>
                 <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
                     <div>
-                    <img src="public/assets/htw/img/arcoiris.png" alt="" />
+                    <img src="/public/assets/htw/img/arcoiris.png" alt="" />
                     </div>
                     <div className="bg-blacki text-white text-center mx-2 py-2 px-10 w-full rounded-md ">
                     Receive 10 DigiPoints for every Adobe Express license you sell
@@ -356,7 +350,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                 </div>
                 <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
                     <div className="w-1/12 mb-16">
-                    <img src="public/assets/htw/img/apro.png" alt="" />
+                    <img src="/public/assets/htw/img/apro.png" alt="" />
                     </div>
                     <div className="w-11/12">
                     <div className="bg-white rounded-lg overflow-hidden">
@@ -371,7 +365,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <thead>
                             <tr>
                             <th className="p-4 text-center font-bold" rowSpan={2}>
-                                <img src="img/ccc.png" alt="" srcSet="" />
+                                <img src="/public/assets/htw/img/ccc.png" alt="" srcSet="" />
                             </th>
                             <th colSpan={2}>
                                 <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
@@ -800,12 +794,6 @@ const howtowin = ({ htws }: { htws: any }) => {
     const HtwTableAuto2025 = () => {
         return (
         <>
-            <style
-              dangerouslySetInnerHTML={{
-                __html:
-                  "\n        .gradient-cct {\n            background: rgb(239,191,67);\nbackground: linear-gradient(90deg, rgba(239,191,67,1) 0%, rgba(227,98,46,1) 50%, rgba(218,67,144,1) 100%);\n        }\n\n        .gradient-cct-pro {\n            background: rgb(239,191,67);\nbackground: linear-gradient(90deg, rgba(239,191,67,1) 0%, rgba(227,98,46,1) 50%, rgba(218,67,144,1) 100%);\n        }\n\n        .gradient-cce {\n            background: rgb(239,191,67);\nbackground: linear-gradient(90deg, rgba(239,191,67,1) 0%, rgba(227,98,46,1) 50%, rgba(218,67,144,1) 100%);\n        }\n\n        .cct- {\n            -left: 4px solid #F9A826;\n        }\n\n        .cct-pro- {\n            -left: 4px solid #E74C3C;\n        }\n\n        .cce- {\n            -left: 4px solid #E056FD;\n        }\n\n        .bg-cct {\n            background-color: #F9A826;\n        }\n        .bg-cct-pro {\n            background-color: #E74C3C;\n        }\n        .bg-cce {\n            background-color: #E056FD;\n        }\n        .bg-rojo{\n            background-color: #ec1000;\n        }\n        .bg-azul{\n            background-color: #584ccc;\n        }\n\n    .bg-blacki{\n        background-color: #2c2c2c;\n    \n    }\n        \n        /* Make table responsive */\n        @media (max-width: 768px) {\n            table {\n                display: block;\n                overflow-x: auto;\n            }\n        }\n        \n        /* Ensure equal column widths */\n        .equal-width {\n            width: calc(100% / 6);\n            box-sizing: border-box;\n        }\n        \n        /* Fixed table layout for consistent column widths */\n        .fixed-layout {\n            table-layout: fixed;\n        }\n    "
-              }}
-            />
             <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
               <div className="w-1/12 mb-16">
                 <img src="public/assets/htw/img/cc.png" alt="" />
@@ -1165,15 +1153,9 @@ const howtowin = ({ htws }: { htws: any }) => {
     const HtwTableNew2026 = () => {
         return (
         <>
-            <style
-              dangerouslySetInnerHTML={{
-                __html:
-                  "\n        .gradient-cct {\n            background: rgb(239,191,67);\nbackground: linear-gradient(90deg, rgba(239,191,67,1) 0%, rgba(227,98,46,1) 50%, rgba(218,67,144,1) 100%);\n        }\n\n        .gradient-cct-pro {\n            background: rgb(239,191,67);\nbackground: linear-gradient(90deg, rgba(239,191,67,1) 0%, rgba(227,98,46,1) 50%, rgba(218,67,144,1) 100%);\n        }\n\n        .gradient-cce {\n            background: rgb(239,191,67);\nbackground: linear-gradient(90deg, rgba(239,191,67,1) 0%, rgba(227,98,46,1) 50%, rgba(218,67,144,1) 100%);\n        }\n\n        .cct- {\n            -left: 4px solid #F9A826;\n        }\n\n        .cct-pro- {\n            -left: 4px solid #E74C3C;\n        }\n\n        .cce- {\n            -left: 4px solid #E056FD;\n        }\n\n        .bg-cct {\n            background-color: #F9A826;\n        }\n        .bg-cct-pro {\n            background-color: #E74C3C;\n        }\n        .bg-cce {\n            background-color: #E056FD;\n        }\n        .bg-rojo{\n            background-color: #ec1000;\n        }\n        .bg-azul{\n            background-color: #584ccc;\n        }\n\n    .bg-blacki{\n        background-color: #2c2c2c;\n    \n    }\n        \n        /* Make table responsive */\n        @media (max-width: 768px) {\n            table {\n                display: block;\n                overflow-x: auto;\n            }\n        }\n        \n        /* Ensure equal column widths */\n        .equal-width {\n            width: calc(100% / 6);\n            box-sizing: border-box;\n        }\n        \n        /* Fixed table layout for consistent column widths */\n        .fixed-layout {\n            table-layout: fixed;\n        }\n    "
-              }}
-            />
             <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
               <div className="w-1/12 mb-16">
-                <img src="public/assets/htw/img/cc.png" alt="" />
+                <img src="../public/assets/htw/img/cc.png" alt="" />
               </div>
               <div className="w-11/12">
                 <div className="text-center p-4 text-blue-500">
@@ -1197,6 +1179,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                     <thead>
                       <tr>
                         <th className="p-4 text-center font-bold" rowSpan={2}>
+                          {/* <Image src={"/public/assets/htw/img/acct.png"} alt=""  layout="fill"/> */}
                           <img src="public/assets/htw/img/acct.png" alt="" srcSet="" />
                         </th>
                         <th colSpan={2}>
@@ -1877,12 +1860,6 @@ const howtowin = ({ htws }: { htws: any }) => {
     const HtwTableAuto2026 = () => {
         return (
             <>
-                <style
-                    dangerouslySetInnerHTML={{
-                    __html:
-                        "\n        .gradient-cct {\n            background: rgb(239,191,67);\nbackground: linear-gradient(90deg, rgba(239,191,67,1) 0%, rgba(227,98,46,1) 50%, rgba(218,67,144,1) 100%);\n        }\n\n        .gradient-cct-pro {\n            background: rgb(239,191,67);\nbackground: linear-gradient(90deg, rgba(239,191,67,1) 0%, rgba(227,98,46,1) 50%, rgba(218,67,144,1) 100%);\n        }\n\n        .gradient-cce {\n            background: rgb(239,191,67);\nbackground: linear-gradient(90deg, rgba(239,191,67,1) 0%, rgba(227,98,46,1) 50%, rgba(218,67,144,1) 100%);\n        }\n\n        .cct- {\n            -left: 4px solid #F9A826;\n        }\n\n        .cct-pro- {\n            -left: 4px solid #E74C3C;\n        }\n\n        .cce- {\n            -left: 4px solid #E056FD;\n        }\n\n        .bg-cct {\n            background-color: #F9A826;\n        }\n        .bg-cct-pro {\n            background-color: #E74C3C;\n        }\n        .bg-cce {\n            background-color: #E056FD;\n        }\n        .bg-rojo{\n            background-color: #ec1000;\n        }\n        .bg-azul{\n            background-color: #584ccc;\n        }\n\n    .bg-blacki{\n        background-color: #2c2c2c;\n    \n    }\n        \n        /* Make table responsive */\n        @media (max-width: 768px) {\n            table {\n                display: block;\n                overflow-x: auto;\n            }\n        }\n        \n        /* Ensure equal column widths */\n        .equal-width {\n            width: calc(100% / 6);\n            box-sizing: border-box;\n        }\n        \n        /* Fixed table layout for consistent column widths */\n        .fixed-layout {\n            table-layout: fixed;\n        }\n    "
-                    }}
-                />
                 <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
                     <div className="w-1/12 mb-16">
                     <img src="public/assets/htw/img/cc.png" alt="" />
@@ -2586,9 +2563,12 @@ const howtowin = ({ htws }: { htws: any }) => {
                                 //     // style={{ width: "100%", height: "100%" }}
                                 //     className="img-fluid"
                                 // />
-                                (dataHTW2 === "Autorenewal")
-                                    ? <HtwTableAuto2026 />
-                                    : <HtwTableNew2026 />
+                                <div className="w-full"> {
+                                  (dataHTW2 === "Autorenewal")
+                                      ? <HtwTableAuto2026 />
+                                      : <HtwTableNew2026 />
+                                }
+                                </div>
                             );
 
 
@@ -2609,9 +2589,12 @@ const howtowin = ({ htws }: { htws: any }) => {
                             //         className="img-fluid"
                             //     />
                             // );
-                            (dataHTW2 === "Autorenewal") 
-                                ? <HtwTableAuto2025 />
-                                : <HtwTableNew2025 />
+                            <div className="w-full"> {
+                              (dataHTW2 === "Autorenewal") 
+                                  ? <HtwTableAuto2025 />
+                                  : <HtwTableNew2025 />
+                            }
+                            </div>
                         }
 
                         return null;
