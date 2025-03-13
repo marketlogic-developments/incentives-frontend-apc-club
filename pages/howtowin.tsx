@@ -14,6 +14,12 @@ import { CurrentUser } from "services/User/user.service";
 import Image from "next/image";
 import { OrganizationsFunction } from "functions/Organizations/Organizations";
 import { setLoading } from "store/reducers/users.reducer";
+import * as imgCC from "../public/assets/htw/img/cc.png"; 
+import * as imgARC from "../public/assets/htw/img/arcoiris.png"; 
+import * as imgAcct from "../public/assets/htw/img/acct.png"; 
+import * as imgCCE from "../public/assets/htw/img/ccc.png";
+import * as imgAprm from "../public/assets/htw/img/aprm.png";
+import * as imgApro from "../public/assets/htw/img/apro.png";
 
 const howtowin = ({ htws }: { htws: any }) => {
     const { user } = useSelector((state: RootState) => state.currentUser);
@@ -90,7 +96,7 @@ const howtowin = ({ htws }: { htws: any }) => {
             <>
                 <div className="max-w-6xl mx-auto flex flex-row justify-end items-end w-full h-full">
                     <div className="w-1/12 mb-16">
-                    <img src="/public/assets/htw/img/cc.png" alt="" />
+                      <Image src={imgCC} alt="" />
                     </div>
                     <div className="w-11/12">
                     <div className="text-center p-4 text-blue-500">
@@ -114,7 +120,8 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <thead>
                             <tr>
                             <th className="p-4 text-center font-bold" rowSpan={2}>
-                                <img src="/public/assets/htw/img/acct.png" alt="" srcSet="" />
+                                
+                                <Image src={imgAcct} alt="" />
                             </th>
                             <th colSpan={2}>
                                 <div className="gradient-cct text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
@@ -350,7 +357,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                 </div>
                 <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
                     <div className="w-1/12 mb-16">
-                    <img src="/public/assets/htw/img/apro.png" alt="" />
+                      <Image src={imgApro} alt="" />
                     </div>
                     <div className="w-11/12">
                     <div className="bg-white rounded-lg overflow-hidden">
@@ -365,7 +372,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <thead>
                             <tr>
                             <th className="p-4 text-center font-bold" rowSpan={2}>
-                                <img src="/public/assets/htw/img/ccc.png" alt="" srcSet="" />
+                                <Image src={imgCCE} alt="" />
                             </th>
                             <th colSpan={2}>
                                 <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
@@ -533,7 +540,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                 </div>
                 <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
                     <div className="w-1/12 mb-16">
-                    <img src="public/assets/htw/img/aprm.png" alt="" />
+                    <Image src={imgAprm} alt="" />
                     </div>
                     <div className="w-11/12">
                     <div className="bg-white rounded-lg overflow-hidden">
@@ -597,7 +604,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                             <td className="text-center font-semibold">
                                 <div
                                 className="p-2 bg-gray-300 rounded-md"
-                                style={{ lineHeight: 12 }}
+                                
                                 >
                                 3,000 - 15,000 <br />
                                 <span style={{ fontWeight: 300, fontSize: 12 }}>
@@ -659,7 +666,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                             <td className="text-center font-semibold">
                                 <div
                                 className="p-2 bg-gray-300 rounded-md"
-                                style={{ lineHeight: 12 }}
+                                
                                 >
                                 15,001 - 30,000 <br />
                                 <span style={{ fontWeight: 300, fontSize: 12 }}>
@@ -721,7 +728,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                             <td className="text-center font-semibold">
                                 <div
                                 className="p-2 bg-gray-300 rounded-md"
-                                style={{ lineHeight: 12 }}
+                                
                                 >
                                 {" "}
                                 &gt;30,001
@@ -796,7 +803,7 @@ const howtowin = ({ htws }: { htws: any }) => {
         <>
             <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
               <div className="w-1/12 mb-16">
-                <img src="public/assets/htw/img/cc.png" alt="" />
+                <Image src={imgCC} alt="" />
               </div>
               <div className="w-11/12">
                 <div className="text-center p-4 text-blue-500">
@@ -820,7 +827,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                     <thead>
                       <tr>
                         <th className="p-4 text-center font-bold" rowSpan={2}>
-                          <img src="public/assets/htw/img/acct.png" alt="" srcSet="" />
+                          <Image src={imgAcct} alt="" />
                         </th>
                         <th colSpan={2}>
                           <div className="gradient-cct text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
@@ -946,7 +953,7 @@ const howtowin = ({ htws }: { htws: any }) => {
             </div>
             <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
               <div>
-                <img src="public/assets/htw/img/arcoiris.png" alt="" />
+                <Image src={imgARC} alt="" />
               </div>
               <div className="bg-blacki text-white text-center mx-2 py-2 px-10 w-full rounded-md ">
                 Receive 10 DigiPoints for every Adobe Express license you sell
@@ -954,7 +961,7 @@ const howtowin = ({ htws }: { htws: any }) => {
             </div>
             <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
               <div className="w-1/12 mb-16">
-                <img src="public/assets/htw/img/apro.png" alt="" />
+                <Image src={imgApro} alt="" />
               </div>
               <div className="w-11/12">
                 <div className="bg-white rounded-lg overflow-hidden">
@@ -969,7 +976,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                     <thead>
                       <tr>
                         <th className="p-4 text-center font-bold" rowSpan={2}>
-                          <img src="public/assets/htw/img/ccc.png" alt="" srcSet="" />
+                          <Image src={imgCCE} alt="" />
                         </th>
                         <th colSpan={6}>
                           <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
@@ -1041,8 +1048,8 @@ const howtowin = ({ htws }: { htws: any }) => {
               </div>
             </div>
             <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
-              <div className="w-1/12 mb-16">
-                <img src="public/assets/htw/img/aprm.png" alt="" />
+              <div className="w-1/12 mb-16">               
+                <Image src={imgAprm} alt="" />
               </div>
               <div className="w-11/12">
                 <div className="bg-white rounded-lg overflow-hidden">
@@ -1076,7 +1083,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <td className="text-center font-semibold">
                           <div
                             className="p-2 bg-gray-300 rounded-md"
-                            style={{ lineHeight: 12 }}
+                            
                           >
                             3,000 - 15,000 <br />
                             <span style={{ fontWeight: 300, fontSize: 12 }}>
@@ -1098,7 +1105,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <td className="text-center font-semibold">
                           <div
                             className="p-2 bg-gray-300 rounded-md"
-                            style={{ lineHeight: 12 }}
+                            
                           >
                             15,001 - 30,000 <br />
                             <span style={{ fontWeight: 300, fontSize: 12 }}>
@@ -1120,7 +1127,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <td className="text-center font-semibold">
                           <div
                             className="p-2 bg-gray-300 rounded-md"
-                            style={{ lineHeight: 12 }}
+                            
                           >
                             {" "}
                             &gt;30,001
@@ -1155,7 +1162,7 @@ const howtowin = ({ htws }: { htws: any }) => {
         <>
             <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
               <div className="w-1/12 mb-16">
-                <img src="../public/assets/htw/img/cc.png" alt="" />
+                <Image src={imgCC} alt="" />
               </div>
               <div className="w-11/12">
                 <div className="text-center p-4 text-blue-500">
@@ -1180,7 +1187,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                       <tr>
                         <th className="p-4 text-center font-bold" rowSpan={2}>
                           {/* <Image src={"/public/assets/htw/img/acct.png"} alt=""  layout="fill"/> */}
-                          <img src="public/assets/htw/img/acct.png" alt="" srcSet="" />
+                          <Image src={imgAcct} alt="" />
                         </th>
                         <th colSpan={2}>
                           <div className="gradient-cct text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
@@ -1408,7 +1415,7 @@ const howtowin = ({ htws }: { htws: any }) => {
             </div>
             <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
               <div>
-                <img src="public/assets/htw/img/arcoiris.png" alt="" />
+                <Image src={imgARC} alt="" />
               </div>
               <div className="bg-blacki text-white text-center mx-2 py-2 px-10 w-full rounded-md ">
                 Receive 10 DigiPoints for every Adobe Express license you sell
@@ -1416,7 +1423,7 @@ const howtowin = ({ htws }: { htws: any }) => {
             </div>
             <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
               <div className="w-1/12 mb-16">
-                <img src="public/assets/htw/img/apro.png" alt="" />
+                <Image src={imgApro} alt="" />
               </div>
               <div className="w-11/12">
                 <div className="bg-white rounded-lg overflow-hidden">
@@ -1599,7 +1606,7 @@ const howtowin = ({ htws }: { htws: any }) => {
             </div>
             <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
               <div className="w-1/12 mb-16">
-                <img src="public/assets/htw/img/aprm.png" alt="" />
+                <Image src={imgAprm} alt="" />
               </div>
               <div className="w-11/12">
                 <div className="bg-white rounded-lg overflow-hidden">
@@ -1663,7 +1670,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <td className="text-center font-semibold">
                           <div
                             className="p-2 bg-gray-300 rounded-md"
-                            style={{ lineHeight: 12 }}
+                            
                           >
                             3,000 - 15,000 <br />
                             <span style={{ fontWeight: 300, fontSize: 12 }}>
@@ -1725,7 +1732,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <td className="text-center font-semibold">
                           <div
                             className="p-2 bg-gray-300 rounded-md"
-                            style={{ lineHeight: 12 }}
+                            
                           >
                             15,001 - 30,000 <br />
                             <span style={{ fontWeight: 300, fontSize: 12 }}>
@@ -1787,7 +1794,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <td className="text-center font-semibold">
                           <div
                             className="p-2 bg-gray-300 rounded-md"
-                            style={{ lineHeight: 12 }}
+                            
                           >
                             {" "}
                             &gt;30,001
@@ -1862,7 +1869,7 @@ const howtowin = ({ htws }: { htws: any }) => {
             <>
                 <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
                     <div className="w-1/12 mb-16">
-                    <img src="public/assets/htw/img/cc.png" alt="" />
+                    <Image src={imgCC} alt="" />
                     </div>
                     <div className="w-11/12">
                     <div className="text-center p-4 text-blue-500">
@@ -1886,7 +1893,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <thead>
                             <tr>
                             <th className="p-4 text-center font-bold" rowSpan={2}>
-                                <img src="public/assets/htw/img/acct.png" alt="" srcSet="" />
+                                <Image src={imgAcct} alt="" />
                             </th>
                             <th colSpan={2}>
                                 <div className="gradient-cct text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
@@ -2012,7 +2019,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                 </div>
                 <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
                     <div>
-                    <img src="public/assets/htw/img/arcoiris.png" alt="" />
+                    <Image src={imgARC} alt="" />
                     </div>
                     <div className="bg-blacki text-white text-center mx-2 py-2 px-10 w-full rounded-md ">
                     Receive 10 DigiPoints for every Adobe Express license you sell
@@ -2020,7 +2027,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                 </div>
                 <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
                     <div className="w-1/12 mb-16">
-                    <img src="public/assets/htw/img/apro.png" alt="" />
+                    <Image src={imgApro} alt="" />
                     </div>
                     <div className="w-11/12">
                     <div className="bg-white rounded-lg overflow-hidden">
@@ -2035,7 +2042,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <thead>
                             <tr>
                             <th className="p-4 text-center font-bold" rowSpan={2}>
-                                <img src="public/assets/htw/img/ccc.png" alt="" srcSet="" />
+                                <Image src={imgCCE} alt="" />
                             </th>
                             <th colSpan={6}>
                                 <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
@@ -2108,7 +2115,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                 </div>
                 <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
                     <div className="w-1/12 mb-16">
-                    <img src="public/assets/htw/img/aprm.png" alt="" />
+                    <Image src={imgAprm} alt="" />
                     </div>
                     <div className="w-11/12">
                     <div className="bg-white rounded-lg overflow-hidden">
@@ -2142,7 +2149,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                             <td className="text-center font-semibold">
                                 <div
                                 className="p-2 bg-gray-300 rounded-md"
-                                style={{ lineHeight: 12 }}
+                                
                                 >
                                 3,000 - 15,000 <br />
                                 <span style={{ fontWeight: 300, fontSize: 12 }}>
@@ -2164,7 +2171,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                             <td className="text-center font-semibold">
                                 <div
                                 className="p-2 bg-gray-300 rounded-md"
-                                style={{ lineHeight: 12 }}
+                                
                                 >
                                 15,001 - 30,000 <br />
                                 <span style={{ fontWeight: 300, fontSize: 12 }}>
@@ -2186,7 +2193,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                             <td className="text-center font-semibold">
                                 <div
                                 className="p-2 bg-gray-300 rounded-md"
-                                style={{ lineHeight: 12 }}
+                                
                                 >
                                 {" "}
                                 &gt;30,001
@@ -2547,7 +2554,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                     {(() => {
                         const distributionChannelName = organization?.distribution_channel?.name;
 
-                        if (distributionChannelName === "DISTRIBUTOR") {
+                        if (distributionChannelName === "DISTRIBUTOR") { 
                             return (
                                 // <Image
                                 //     src={
