@@ -51,9 +51,6 @@ const howtowin = ({ htws }: { htws: any }) => {
 
     }, [user]);
 
-    const BLUR_DATA_URL =
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJ0lEQVQYV2Nk+M+ACzAyMA4YP+DAPZgYGBge08E0e/k8SiohoGU4TxpfSgMALwkOWmaSgkNAAAAAElFTkSuQmCC';
-
     const htwRes =
         dataHTW2 === "Q3-Q4"
             ? {
@@ -2556,52 +2553,23 @@ const howtowin = ({ htws }: { htws: any }) => {
 
                         if (distributionChannelName === "DISTRIBUTOR") { 
                             return (
-                                // <Image
-                                //     src={
-                                //         (dataHTW2 === "Autorenewal")
-                                //             ? "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1741355462/HOW_TO_WIN_DISTRIS_AUTORENEWAL_FEBRERO_2026_h1jrlg"
-                                //             : "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1741355515/HOW_TO_WIN_DISTRIS_NEW_BUSINESS_FEBRERO_2026_xbayib"
-                                //     }
-                                //     height={1200}
-                                //     width={1245}
-                                //     quality={100}
-                                //     placeholder="blur"
-                                //     blurDataURL={BLUR_DATA_URL}
-                                //     // style={{ width: "100%", height: "100%" }}
-                                //     className="img-fluid"
-                                // />
                                 <div className="w-full"> {
-                                  (dataHTW2 === "Autorenewal")
+                                  dataHTW2 === "Autorenewal"
                                       ? <HtwTableAuto2026 />
                                       : <HtwTableNew2026 />
                                 }
                                 </div>
                             );
 
-
                         } else {
-                            // return (
-                            //     <Image
-                            //         src={
-                            //             (dataHTW2 === "Autorenewal")
-                            //                 ? "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1740760432/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii"
-                            //                 : "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1740760510/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp"
-                            //         }
-                            //         height={1200}
-                            //         width={1245}
-                            //         quality={100}
-                            //         placeholder="blur"
-                            //         blurDataURL={BLUR_DATA_URL}
-                            //         // style={{ width: "100%", height: "100%" }}
-                            //         className="img-fluid"
-                            //     />
-                            // );
-                            <div className="w-full"> {
-                              (dataHTW2 === "Autorenewal") 
-                                  ? <HtwTableAuto2025 />
-                                  : <HtwTableNew2025 />
-                            }
-                            </div>
+                            return (
+                              <div className="w-full"> {
+                                dataHTW2 === "Autorenewal"
+                                    ? <HtwTableAuto2025 />
+                                    : <HtwTableNew2025 />
+                              }
+                              </div>
+                            )
                         }
 
                         return null;
