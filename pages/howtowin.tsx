@@ -14,6 +14,12 @@ import { CurrentUser } from "services/User/user.service";
 import Image from "next/image";
 import { OrganizationsFunction } from "functions/Organizations/Organizations";
 import { setLoading } from "store/reducers/users.reducer";
+import * as imgCC from "../public/assets/htw/img/cc.png"; 
+import * as imgARC from "../public/assets/htw/img/arcoiris.png"; 
+import * as imgAcct from "../public/assets/htw/img/acct.png"; 
+import * as imgCCE from "../public/assets/htw/img/ccc.png";
+import * as imgAprm from "../public/assets/htw/img/aprm.png";
+import * as imgApro from "../public/assets/htw/img/apro.png";
 
 const howtowin = ({ htws }: { htws: any }) => {
     const { user } = useSelector((state: RootState) => state.currentUser);
@@ -44,9 +50,6 @@ const howtowin = ({ htws }: { htws: any }) => {
         }
 
     }, [user]);
-
-    const BLUR_DATA_URL =
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJ0lEQVQYV2Nk+M+ACzAyMA4YP+DAPZgYGBge08E0e/k8SiohoGU4TxpfSgMALwkOWmaSgkNAAAAAElFTkSuQmCC';
 
     const htwRes =
         dataHTW2 === "Q3-Q4"
@@ -83,6 +86,2138 @@ const howtowin = ({ htws }: { htws: any }) => {
             };
 
     const htwData = htwRes;
+
+
+    const HtwTableNew2025 = () => {
+        return (
+            <>
+                <div className="max-w-6xl mx-auto flex flex-row justify-end items-end w-full h-full">
+                    <div className="w-1/12 mb-16">
+                      <Image src={imgCC} alt="" />
+                    </div>
+                    <div className="w-11/12">
+                    <div className="text-center p-4 text-blue-500">
+                        <div className="text-lg font-medium">All Apps</div>
+                        <div>
+                        DigiPoints for the sale of each USD 1,000 FOB in sales in
+                        participating products
+                        </div>
+                    </div>
+                    <div className="bg-white rounded-lg overflow-hidden">
+                        <table className="w-full border-collapse fixed-layout">
+                        <colgroup>
+                            <col style={{ width: "16.66%" }} />
+                            <col style={{ width: "13.89%" }} />
+                            <col style={{ width: "13.89%" }} />
+                            <col style={{ width: "13.89%" }} />
+                            <col style={{ width: "13.89%" }} />
+                            <col style={{ width: "13.89%" }} />
+                            <col style={{ width: "13.89%" }} />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                            <th className="p-4 text-center font-bold" rowSpan={2}>
+                                
+                                <Image src={imgAcct} alt="" />
+                            </th>
+                            <th colSpan={2}>
+                                <div className="gradient-cct text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
+                                CCT
+                                </div>
+                            </th>
+                            <th colSpan={2}>
+                                <div className="gradient-cct-pro text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
+                                CCT PRO
+                                </div>
+                            </th>
+                            <th colSpan={2}>
+                                <div className="gradient-cce text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
+                                CCE Ed4
+                                </div>
+                            </th>
+                            </tr>
+                            <tr>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VMP</div>
+                                <div className="text-xs">(COM - EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VIP</div>
+                                <div className="text-xs">(EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VMP</div>
+                                <div className="text-xs">(COM - EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VIP</div>
+                                <div className="text-xs">(EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VMP</div>
+                                <div className="text-xs">(COM - EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VIP</div>
+                                <div className="text-xs">(EDU - GOV)</div>
+                                </div>
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* 10-14 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div className="p-2 bg-gray-300 rounded-md">10 - 14 seats</div>
+                            </td>
+                            <td className="py-2 px-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    40
+                                </p>
+                                </div>
+                            </td>
+                            <td className="py-2 px-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    20
+                                </p>
+                                </div>
+                            </td>
+                            <td className="py-2 px-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    50
+                                </p>
+                                </div>
+                            </td>
+                            <td className="py-2 px-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    30
+                                </p>
+                                </div>
+                            </td>
+                            <td className="py-2 px-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    70
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    40
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                            {/* 15-50 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div className="p-2 bg-gray-300 rounded-md">15 - 50 seats</div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    70
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    30
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    80
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    40
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    100
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    50
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                            {/* >51 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div className="p-2 bg-gray-300 rounded-md">&gt; 51 seats</div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    80
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    50
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    120
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    60
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    140
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    70
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    {/* Adobe Creative Cloud Logo */}
+                    </div>
+                </div>
+                <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
+                    <div>
+                    <img src="/public/assets/htw/img/arcoiris.png" alt="" />
+                    </div>
+                    <div className="bg-blacki text-white text-center mx-2 py-2 px-10 w-full rounded-md ">
+                    Receive 10 DigiPoints for every <a href="https://www.adobe.com/express/" target="_new" title="Adobe Express"><u>Adobe Express</u></a> license you sell
+                    </div>
+                </div>
+                <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
+                    <div className="w-1/12 mb-16">
+                      <Image src={imgApro} alt="" />
+                    </div>
+                    <div className="w-11/12">
+                    <div className="bg-white rounded-lg overflow-hidden">
+                        <table className="w-full border-collapse fixed-layout">
+                        <colgroup>
+                            <col style={{ width: "16.66%" }} />
+                            <col style={{ width: "25.002%" }} />
+                            <col style={{ width: "16.668%" }} />
+                            <col style={{ width: "25.002%" }} />
+                            <col style={{ width: "16.668%" }} />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                            <th className="p-4 text-center font-bold" rowSpan={2}>
+                                <Image src={imgCCE} alt="" />
+                            </th>
+                            <th colSpan={2}>
+                                <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
+                                Acrobat Pro
+                                </div>
+                            </th>
+                            <th colSpan={2}>
+                                <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
+                                Acrobat Premium
+                                </div>
+                            </th>
+                            </tr>
+                            <tr>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2 my-2">
+                                <div>VMP</div>
+                                <div className="text-xs">(COM - EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2 my-2">
+                                <div>VIP</div>
+                                <div className="text-xs">(EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2 my-2">
+                                <div>VMP</div>
+                                <div className="text-xs">(COM - EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2 my-2">
+                                <div>VIP</div>
+                                <div className="text-xs">(EDU - GOV)</div>
+                                </div>
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* 10-14 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div className="p-2 bg-gray-300 rounded-md">5 - 29 seats</div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    50
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    20
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    75
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    60
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                            {/* 15-50 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div className="p-2 bg-gray-300 rounded-md">30 - 100 seats</div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    80
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    30
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    120
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    85
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                            {/* >51 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div className="p-2 bg-gray-300 rounded-md"> &gt;101 seats</div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    100
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    40
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    195
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    120
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    {/* Adobe Creative Cloud Logo */}
+                    </div>
+                </div>
+                <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
+                    <div className="bg-gray-300 font-bold text-black text-center mx-2 py-2 px-10 w-full rounded-md ">
+                    Receive 10 DigiPoints for every <a href="https://www.adobe.com/express/" target="_new" title="Adobe Express"><u>Adobe Express</u></a> license you sell
+                    </div>
+                </div>
+                <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
+                    <div className="w-1/12 mb-16">
+                    <Image src={imgAprm} alt="" />
+                    </div>
+                    <div className="w-11/12">
+                    <div className="bg-white rounded-lg overflow-hidden">
+                        <table className="w-full border-collapse fixed-layout">
+                        <colgroup>
+                            <col style={{ width: "16.66%" }} />
+                            <col style={{ width: "41.67%" }} />
+                            <col style={{ width: "41.67%" }} />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                            <th className="p-4 text-center font-bold" rowSpan={2}></th>
+                            <th colSpan={2}>
+                                <div className="bg-azul text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
+                                Acrobat Sign
+                                </div>
+                            </th>
+                            </tr>
+                            <tr>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VMP</div>
+                                <div className="text-xs">(COM - EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VIP</div>
+                                <div className="text-xs">(EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VMP</div>
+                                <div className="text-xs">(COM - EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VIP</div>
+                                <div className="text-xs">(EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VMP</div>
+                                <div className="text-xs">(COM - EDU - GOV)</div>
+                                </div>
+                            </th>
+                            <th className="text-center text-sm font-medium">
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VIP</div>
+                                <div className="text-xs">(EDU - GOV)</div>
+                                </div>
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* 10-14 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div
+                                className="p-2 bg-gray-300 rounded-md"
+                                
+                                >
+                                3,000 - 15,000 <br />
+                                <span style={{ fontWeight: 300, fontSize: 12 }}>
+                                    transactions
+                                </span>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    40
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    20
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    75
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    60
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    70
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    40
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                            {/* 15-50 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div
+                                className="p-2 bg-gray-300 rounded-md"
+                                
+                                >
+                                15,001 - 30,000 <br />
+                                <span style={{ fontWeight: 300, fontSize: 12 }}>
+                                    transactions
+                                </span>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    60
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    30
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    120
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    85
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    100
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    50
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                            {/* >51 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div
+                                className="p-2 bg-gray-300 rounded-md"
+                                
+                                >
+                                {" "}
+                                &gt;30,001
+                                <br />
+                                <span style={{ fontWeight: 300, fontSize: 12 }}>
+                                    transactions
+                                </span>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    80
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    40
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    195
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    120
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    140
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold">
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    70
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    {/* Adobe Creative Cloud Logo */}
+                    </div>
+                </div>
+            </>
+
+        )
+    }
+
+    const HtwTableAuto2025 = () => {
+        return (
+        <>
+            <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
+              <div className="w-1/12 mb-16">
+                <Image src={imgCC} alt="" />
+              </div>
+              <div className="w-11/12">
+                <div className="text-center p-4 text-blue-500">
+                  <div className="text-lg font-medium">All Apps</div>
+                  <div>
+                    DigiPoints for the sale of each USD 1,000 FOB in sales in
+                    participating products
+                  </div>
+                </div>
+                <div className="bg-white rounded-lg overflow-hidden">
+                  <table className="w-full border-collapse fixed-layout">
+                    <colgroup>
+                      <col style={{ width: "16.66%" }} />
+                      <col style={{ width: "13.89%" }} />
+                      <col style={{ width: "13.89%" }} />
+                      <col style={{ width: "13.89%" }} />
+                      <col style={{ width: "13.89%" }} />
+                      <col style={{ width: "13.89%" }} />
+                      <col style={{ width: "13.89%" }} />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th className="p-4 text-center font-bold" rowSpan={2}>
+                          <Image src={imgAcct} alt="" />
+                        </th>
+                        <th colSpan={2}>
+                          <div className="gradient-cct text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
+                            CCT
+                          </div>
+                        </th>
+                        <th colSpan={2}>
+                          <div className="gradient-cct-pro text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
+                            CCT PRO
+                          </div>
+                        </th>
+                        <th colSpan={2}>
+                          <div className="gradient-cce text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
+                            CCE Ed4
+                          </div>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th className="text-center text-sm font-medium" colSpan={6}>
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VMP</div>
+                            <div className="text-xs">(COM - EDU - GOV)</div>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* 10-14 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div className="p-2 bg-gray-300 rounded-md">10 - 14 seats</div>
+                        </td>
+                        <td className="py-2 px-4 text-center font-semibold" colSpan={2}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              20
+                            </p>
+                          </div>
+                        </td>
+                        <td className="py-2 px-4 text-center font-semibold" colSpan={2}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              30
+                            </p>
+                          </div>
+                        </td>
+                        <td className="py-2 px-4 text-center font-semibold" colSpan={2}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              40
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* 15-50 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div className="p-2 bg-gray-300 rounded-md">15 - 50 seats</div>
+                        </td>
+                        <td className="p-4 text-center font-semibold" colSpan={2}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              30
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold" colSpan={2}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              40
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold" colSpan={2}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              50
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* >51 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div className="p-2 bg-gray-300 rounded-md">&gt; 51 seats</div>
+                        </td>
+                        <td className="p-4 text-center font-semibold" colSpan={2}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              60
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold" colSpan={2}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              70
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold" colSpan={2}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              80
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                {/* Adobe Creative Cloud Logo */}
+              </div>
+            </div>
+            <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
+              <div>
+                <Image src={imgARC} alt="" />
+              </div>
+              <div className="bg-blacki text-white text-center mx-2 py-2 px-10 w-full rounded-md ">
+                Receive 10 DigiPoints for every <a href="https://www.adobe.com/express/" target="_new" title="Adobe Express"><u>Adobe Express</u></a> license you sell
+              </div>
+            </div>
+            <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
+              <div className="w-1/12 mb-16">
+                <Image src={imgApro} alt="" />
+              </div>
+              <div className="w-11/12">
+                <div className="bg-white rounded-lg overflow-hidden">
+                  <table className="w-full border-collapse fixed-layout">
+                    <colgroup>
+                      <col style={{ width: "16.66%" }} />
+                      <col style={{ width: "25.002%" }} />
+                      <col style={{ width: "16.668%" }} />
+                      <col style={{ width: "25.002%" }} />
+                      <col style={{ width: "16.668%" }} />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th className="p-4 text-center font-bold" rowSpan={2}>
+                          <Image src={imgCCE} alt="" />
+                        </th>
+                        <th colSpan={6}>
+                          <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
+                            Acrobat Pro
+                          </div>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th className="text-center text-sm font-medium" colSpan={6}>
+                          <div className="bg-gray-200 rounded-md py-2 mx-2 my-2">
+                            <div>VMP</div>
+                            <div className="text-xs">(COM - EDU - GOV)</div>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* 10-14 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div className="p-2 bg-gray-300 rounded-md">5 - 29 seats</div>
+                        </td>
+                        <td className="p-4 text-center font-semibold" colSpan={6}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              30
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* 15-50 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div className="p-2 bg-gray-300 rounded-md">30 - 100 seats</div>
+                        </td>
+                        <td className="p-4 text-center font-semibold" colSpan={6}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              40
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* >51 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div className="p-2 bg-gray-300 rounded-md"> &gt;101 seats</div>
+                        </td>
+                        <td className="p-4 text-center font-semibold" colSpan={6}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              70
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                {/* Adobe Creative Cloud Logo */}
+              </div>
+            </div>
+            <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
+              <div className="bg-gray-300 font-bold text-black text-center mx-2 py-2 px-10 w-full rounded-md ">
+                Receive 10 DigiPoints for every <a href="https://www.adobe.com/express/" target="_new" title="Adobe Express"><u>Adobe Express</u></a> license you sell
+              </div>
+            </div>
+            <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
+              <div className="w-1/12 mb-16">               
+                <Image src={imgAprm} alt="" />
+              </div>
+              <div className="w-11/12">
+                <div className="bg-white rounded-lg overflow-hidden">
+                  <table className="w-full border-collapse fixed-layout">
+                    <colgroup>
+                      <col style={{ width: "16.66%" }} />
+                      <col style={{ width: "41.67%" }} />
+                      <col style={{ width: "41.67%" }} />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th className="p-4 text-center font-bold" rowSpan={2}></th>
+                        <th colSpan={2}>
+                          <div className="bg-azul text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
+                            Acrobat Sign
+                          </div>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th className="text-center text-sm font-medium" colSpan={6}>
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VMP</div>
+                            <div className="text-xs">(COM - EDU - GOV)</div>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* 10-14 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div
+                            className="p-2 bg-gray-300 rounded-md"
+                            
+                          >
+                            3,000 - 15,000 <br />
+                            <span style={{ fontWeight: 300, fontSize: 12 }}>
+                              transactions
+                            </span>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold" colSpan={6}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              20
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* 15-50 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div
+                            className="p-2 bg-gray-300 rounded-md"
+                            
+                          >
+                            15,001 - 30,000 <br />
+                            <span style={{ fontWeight: 300, fontSize: 12 }}>
+                              transactions
+                            </span>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold" colSpan={6}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              30
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* >51 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div
+                            className="p-2 bg-gray-300 rounded-md"
+                            
+                          >
+                            {" "}
+                            &gt;30,001
+                            <br />
+                            <span style={{ fontWeight: 300, fontSize: 12 }}>
+                              transactions
+                            </span>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold" colSpan={6}>
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              40
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                {/* Adobe Creative Cloud Logo */}
+              </div>
+            </div>
+        </>
+          
+        )
+    }
+
+    const HtwTableNew2026 = () => {
+        return (
+        <>
+            <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
+              <div className="w-1/12 mb-16">
+                <Image src={imgCC} alt="" />
+              </div>
+              <div className="w-11/12">
+                <div className="text-center p-4 text-blue-500">
+                  <div className="text-lg font-medium">All Apps</div>
+                  <div>
+                    DigiPoints for the sale of each USD 1,000 FOB in sales in
+                    participating products
+                  </div>
+                </div>
+                <div className="bg-white rounded-lg overflow-hidden">
+                  <table className="w-full border-collapse fixed-layout">
+                    <colgroup>
+                      <col style={{ width: "16.66%" }} />
+                      <col style={{ width: "13.89%" }} />
+                      <col style={{ width: "13.89%" }} />
+                      <col style={{ width: "13.89%" }} />
+                      <col style={{ width: "13.89%" }} />
+                      <col style={{ width: "13.89%" }} />
+                      <col style={{ width: "13.89%" }} />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th className="p-4 text-center font-bold" rowSpan={2}>
+                          {/* <Image src={"/public/assets/htw/img/acct.png"} alt=""  layout="fill"/> */}
+                          <Image src={imgAcct} alt="" />
+                        </th>
+                        <th colSpan={2}>
+                          <div className="gradient-cct text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
+                            CCT
+                          </div>
+                        </th>
+                        <th colSpan={2}>
+                          <div className="gradient-cct-pro text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
+                            CCT PRO
+                          </div>
+                        </th>
+                        <th colSpan={2}>
+                          <div className="gradient-cce text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
+                            CCE Ed4
+                          </div>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VMP</div>
+                            <div className="text-xs">(COM - EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VIP</div>
+                            <div className="text-xs">(EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VMP</div>
+                            <div className="text-xs">(COM - EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VIP</div>
+                            <div className="text-xs">(EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VMP</div>
+                            <div className="text-xs">(COM - EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VIP</div>
+                            <div className="text-xs">(EDU - GOV)</div>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* 10-14 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div className="p-2 bg-gray-300 rounded-md">10 - 14 seats</div>
+                        </td>
+                        <td className="py-2 px-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="py-2 px-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="py-2 px-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="py-2 px-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="py-2 px-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* 15-50 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div className="p-2 bg-gray-300 rounded-md">15 - 50 seats</div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* >51 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div className="p-2 bg-gray-300 rounded-md">&gt; 51 seats</div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                {/* Adobe Creative Cloud Logo */}
+              </div>
+            </div>
+            <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
+              <div>
+                <Image src={imgARC} alt="" />
+              </div>
+              <div className="bg-blacki text-white text-center mx-2 py-2 px-10 w-full rounded-md ">
+                Receive 10 DigiPoints for every <a href="https://www.adobe.com/express/" target="_new" title="Adobe Express"><u>Adobe Express</u></a> license you sell
+              </div>
+            </div>
+            <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
+              <div className="w-1/12 mb-16">
+                <Image src={imgApro} alt="" />
+              </div>
+              <div className="w-11/12">
+                <div className="bg-white rounded-lg overflow-hidden">
+                  <table className="w-full border-collapse fixed-layout">
+                    <colgroup>
+                      <col style={{ width: "16.66%" }} />
+                      <col style={{ width: "25.002%" }} />
+                      <col style={{ width: "16.668%" }} />
+                      <col style={{ width: "25.002%" }} />
+                      <col style={{ width: "16.668%" }} />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th className="p-4 text-center font-bold" rowSpan={2}>
+                          <img src="img/ccc.png" alt="" srcSet="" />
+                        </th>
+                        <th colSpan={2}>
+                          <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
+                            Acrobat Pro
+                          </div>
+                        </th>
+                        <th colSpan={2}>
+                          <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
+                            Acrobat Premium
+                          </div>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2 my-2">
+                            <div>VMP</div>
+                            <div className="text-xs">(COM - EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2 my-2">
+                            <div>VIP</div>
+                            <div className="text-xs">(EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2 my-2">
+                            <div>VMP</div>
+                            <div className="text-xs">(COM - EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2 my-2">
+                            <div>VIP</div>
+                            <div className="text-xs">(EDU - GOV)</div>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* 10-14 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div className="p-2 bg-gray-300 rounded-md">5 - 29 seats</div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* 15-50 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div className="p-2 bg-gray-300 rounded-md">30 - 100 seats</div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* >51 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div className="p-2 bg-gray-300 rounded-md"> &gt;101 seats</div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                {/* Adobe Creative Cloud Logo */}
+              </div>
+            </div>
+            <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
+              <div className="bg-gray-300 font-bold text-black text-center mx-2 py-2 px-10 w-full rounded-md ">
+                Receive 10 DigiPoints for every <a href="https://www.adobe.com/express/" target="_new" title="Adobe Express"><u>Adobe Express</u></a> license you sell
+              </div>
+            </div>
+            <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
+              <div className="w-1/12 mb-16">
+                <Image src={imgAprm} alt="" />
+              </div>
+              <div className="w-11/12">
+                <div className="bg-white rounded-lg overflow-hidden">
+                  <table className="w-full border-collapse fixed-layout">
+                    <colgroup>
+                      <col style={{ width: "16.66%" }} />
+                      <col style={{ width: "41.67%" }} />
+                      <col style={{ width: "41.67%" }} />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th className="p-4 text-center font-bold" rowSpan={2}></th>
+                        <th colSpan={2}>
+                          <div className="bg-azul text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
+                            Acrobat Sign
+                          </div>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VMP</div>
+                            <div className="text-xs">(COM - EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VIP</div>
+                            <div className="text-xs">(EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VMP</div>
+                            <div className="text-xs">(COM - EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VIP</div>
+                            <div className="text-xs">(EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VMP</div>
+                            <div className="text-xs">(COM - EDU - GOV)</div>
+                          </div>
+                        </th>
+                        <th className="text-center text-sm font-medium">
+                          <div className="bg-gray-200 rounded-md py-2 mx-2">
+                            <div>VIP</div>
+                            <div className="text-xs">(EDU - GOV)</div>
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* 10-14 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div
+                            className="p-2 bg-gray-300 rounded-md"
+                            
+                          >
+                            3,000 - 15,000 <br />
+                            <span style={{ fontWeight: 300, fontSize: 12 }}>
+                              transactions
+                            </span>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul "></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              70
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              40
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* 15-50 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div
+                            className="p-2 bg-gray-300 rounded-md"
+                            
+                          >
+                            15,001 - 30,000 <br />
+                            <span style={{ fontWeight: 300, fontSize: 12 }}>
+                              transactions
+                            </span>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              100
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              50
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                      {/* >51 seats row */}
+                      <tr>
+                        <td className="text-center font-semibold">
+                          <div
+                            className="p-2 bg-gray-300 rounded-md"
+                            
+                          >
+                            {" "}
+                            &gt;30,001
+                            <br />
+                            <span style={{ fontWeight: 300, fontSize: 12 }}>
+                              transactions
+                            </span>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              7
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              5
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cce"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              140
+                            </p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center font-semibold">
+                          <div className="relative flex flex-row w-full items-center justify-center">
+                            <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                            <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                              70
+                            </p>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                {/* Adobe Creative Cloud Logo */}
+              </div>
+            </div>
+        </>
+          
+        )
+    }
+
+    const HtwTableAuto2026 = () => {
+        return (
+            <>
+                <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
+                    <div className="w-1/12 mb-16">
+                    <Image src={imgCC} alt="" />
+                    </div>
+                    <div className="w-11/12">
+                    <div className="text-center p-4 text-blue-500">
+                        <div className="text-lg font-medium">All Apps</div>
+                        <div>
+                        DigiPoints for the sale of each USD 1,000 FOB in sales in
+                        participating products
+                        </div>
+                    </div>
+                    <div className="bg-white rounded-lg overflow-hidden">
+                        <table className="w-full border-collapse fixed-layout">
+                        <colgroup>
+                            <col style={{ width: "16.66%" }} />
+                            <col style={{ width: "13.89%" }} />
+                            <col style={{ width: "13.89%" }} />
+                            <col style={{ width: "13.89%" }} />
+                            <col style={{ width: "13.89%" }} />
+                            <col style={{ width: "13.89%" }} />
+                            <col style={{ width: "13.89%" }} />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                            <th className="p-4 text-center font-bold" rowSpan={2}>
+                                <Image src={imgAcct} alt="" />
+                            </th>
+                            <th colSpan={2}>
+                                <div className="gradient-cct text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
+                                CCT
+                                </div>
+                            </th>
+                            <th colSpan={2}>
+                                <div className="gradient-cct-pro text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
+                                CCT PRO
+                                </div>
+                            </th>
+                            <th colSpan={2}>
+                                <div className="gradient-cce text-white py-2 mx-2 my-2 rounded-md text-center font-bold text-xl">
+                                CCE Ed4
+                                </div>
+                            </th>
+                            </tr>
+                            <tr>
+                            <th className="text-center text-sm font-medium" colSpan={6}>
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VMP</div>
+                                <div className="text-xs">(COM - EDU - GOV)</div>
+                                </div>
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* 10-14 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div className="p-2 bg-gray-300 rounded-md">10 - 14 seats</div>
+                            </td>
+                            <td className="py-2 px-4 text-center font-semibold" colSpan={2}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            <td className="py-2 px-4 text-center font-semibold" colSpan={2}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            <td className="py-2 px-4 text-center font-semibold" colSpan={2}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                            {/* 15-50 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div className="p-2 bg-gray-300 rounded-md">15 - 50 seats</div>
+                            </td>
+                            <td className="p-4 text-center font-semibold" colSpan={2}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold" colSpan={2}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold" colSpan={2}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                            {/* >51 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div className="p-2 bg-gray-300 rounded-md">&gt; 51 seats</div>
+                            </td>
+                            <td className="p-4 text-center font-semibold" colSpan={2}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold" colSpan={2}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold" colSpan={2}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-cct-pro"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    {/* Adobe Creative Cloud Logo */}
+                    </div>
+                </div>
+                <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
+                    <div>
+                    <Image src={imgARC} alt="" />
+                    </div>
+                    <div className="bg-blacki text-white text-center mx-2 py-2 px-10 w-full rounded-md ">
+                    Receive 10 DigiPoints for every <a href="https://www.adobe.com/express/" target="_new" title="Adobe Express"><u>Adobe Express</u></a> license you sell
+                    </div>
+                </div>
+                <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
+                    <div className="w-1/12 mb-16">
+                    <Image src={imgApro} alt="" />
+                    </div>
+                    <div className="w-11/12">
+                    <div className="bg-white rounded-lg overflow-hidden">
+                        <table className="w-full border-collapse fixed-layout">
+                        <colgroup>
+                            <col style={{ width: "16.66%" }} />
+                            <col style={{ width: "25.002%" }} />
+                            <col style={{ width: "16.668%" }} />
+                            <col style={{ width: "25.002%" }} />
+                            <col style={{ width: "16.668%" }} />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                            <th className="p-4 text-center font-bold" rowSpan={2}>
+                                <Image src={imgCCE} alt="" />
+                            </th>
+                            <th colSpan={6}>
+                                <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
+                                Acrobat Pro
+                                </div>
+                            </th>
+                            </tr>
+                            <tr>
+                            <th className="text-center text-sm font-medium" colSpan={6}>
+                                <div className="bg-gray-200 rounded-md py-2 mx-2 my-2">
+                                <div>VMP</div>
+                                <div className="text-xs">(COM - EDU - GOV)</div>
+                                </div>
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* 10-14 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div className="p-2 bg-gray-300 rounded-md">5 - 29 seats</div>
+                            </td>
+                            <td className="p-4 text-center font-semibold" colSpan={6}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                            {/* 15-50 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div className="p-2 bg-gray-300 rounded-md">30 - 100 seats</div>
+                            </td>
+                            <td className="p-4 text-center font-semibold" colSpan={6}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                            {/* >51 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div className="p-2 bg-gray-300 rounded-md"> &gt;101 seats</div>
+                            </td>
+                            <td className="p-4 text-center font-semibold" colSpan={6}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-rojo "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    {/* Adobe Creative Cloud Logo */}
+                    </div>
+                </div>
+                <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
+                    <div className="bg-gray-300 font-bold text-black text-center mx-2 py-2 px-10 w-full rounded-md ">
+                    Receive 10 DigiPoints for every <a href="https://www.adobe.com/express/" target="_new" title="Adobe Express"><u>Adobe Express</u></a> license you sell
+                    </div>
+                </div>
+                <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
+                    <div className="w-1/12 mb-16">
+                    <Image src={imgAprm} alt="" />
+                    </div>
+                    <div className="w-11/12">
+                    <div className="bg-white rounded-lg overflow-hidden">
+                        <table className="w-full border-collapse fixed-layout">
+                        <colgroup>
+                            <col style={{ width: "16.66%" }} />
+                            <col style={{ width: "41.67%" }} />
+                            <col style={{ width: "41.67%" }} />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                            <th className="p-4 text-center font-bold" rowSpan={2}></th>
+                            <th colSpan={2}>
+                                <div className="bg-azul text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
+                                Acrobat Sign
+                                </div>
+                            </th>
+                            </tr>
+                            <tr>
+                            <th className="text-center text-sm font-medium" colSpan={6}>
+                                <div className="bg-gray-200 rounded-md py-2 mx-2">
+                                <div>VMP</div>
+                                <div className="text-xs">(COM - EDU - GOV)</div>
+                                </div>
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* 10-14 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div
+                                className="p-2 bg-gray-300 rounded-md"
+                                
+                                >
+                                3,000 - 15,000 <br />
+                                <span style={{ fontWeight: 300, fontSize: 12 }}>
+                                    transactions
+                                </span>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold" colSpan={6}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul "></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                            {/* 15-50 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div
+                                className="p-2 bg-gray-300 rounded-md"
+                                
+                                >
+                                15,001 - 30,000 <br />
+                                <span style={{ fontWeight: 300, fontSize: 12 }}>
+                                    transactions
+                                </span>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold" colSpan={6}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                            {/* >51 seats row */}
+                            <tr>
+                            <td className="text-center font-semibold">
+                                <div
+                                className="p-2 bg-gray-300 rounded-md"
+                                
+                                >
+                                {" "}
+                                &gt;30,001
+                                <br />
+                                <span style={{ fontWeight: 300, fontSize: 12 }}>
+                                    transactions
+                                </span>
+                                </div>
+                            </td>
+                            <td className="p-4 text-center font-semibold" colSpan={6}>
+                                <div className="relative flex flex-row w-full items-center justify-center">
+                                <div className="absolute left-0 top-1/2 h-10 w-2 rounded-full -translate-y-1/2 bg-azul"></div>
+                                <p className="bg-gray-100 px-2 py-1 text-center rounded-md w-full">
+                                    5
+                                </p>
+                                </div>
+                            </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    {/* Adobe Creative Cloud Logo */}
+                    </div>
+                </div>
+            </>
+        )
+    }
 
     // return (
     //   <ContainerContent pageTitle={t("dashboard.htw")}>
@@ -416,42 +2551,25 @@ const howtowin = ({ htws }: { htws: any }) => {
                     {(() => {
                         const distributionChannelName = organization?.distribution_channel?.name;
 
-                        if (distributionChannelName === "DISTRIBUTOR") {
+                        if (distributionChannelName === "DISTRIBUTOR") { 
                             return (
-                                <Image
-                                    src={
-                                        (dataHTW2 === "Autorenewal")
-                                            ? "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1741355462/HOW_TO_WIN_DISTRIS_AUTORENEWAL_FEBRERO_2026_h1jrlg"
-                                            : "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1741355515/HOW_TO_WIN_DISTRIS_NEW_BUSINESS_FEBRERO_2026_xbayib"
-                                    }
-                                    height={1200}
-                                    width={1245}
-                                    quality={100}
-                                    placeholder="blur"
-                                    blurDataURL={BLUR_DATA_URL}
-                                    // style={{ width: "100%", height: "100%" }}
-                                    className="img-fluid"
-                                />
+                                <div className="w-full"> {
+                                  dataHTW2 === "Autorenewal"
+                                      ? <HtwTableAuto2026 />
+                                      : <HtwTableNew2026 />
+                                }
+                                </div>
                             );
-
 
                         } else {
                             return (
-                                <Image
-                                    src={
-                                        (dataHTW2 === "Autorenewal")
-                                            ? "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1740760432/HOW_TO_WIN_RESELLER_AUTORENEWAL_FEBRERO_2025_w4grii"
-                                            : "https://res.cloudinary.com/dechrcyu3/image/upload/w_1100,q_auto/v1740760510/HOW_TO_WIN_RESELLER_NEW_BUSINESS_FEBRERO_2025_ojlngp"
-                                    }
-                                    height={1200}
-                                    width={1245}
-                                    quality={100}
-                                    placeholder="blur"
-                                    blurDataURL={BLUR_DATA_URL}
-                                    // style={{ width: "100%", height: "100%" }}
-                                    className="img-fluid"
-                                />
-                            );
+                              <div className="w-full"> {
+                                dataHTW2 === "Autorenewal"
+                                    ? <HtwTableAuto2025 />
+                                    : <HtwTableNew2025 />
+                              }
+                              </div>
+                            )
                         }
 
                         return null;
