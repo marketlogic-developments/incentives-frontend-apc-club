@@ -14,8 +14,9 @@ import RankingTable from "./tableStatsElements/RankingTable";
 
 
 const TableStats = () => {
-    const token = useSelector((state) => state.user.token);
-    const user = useSelector((state) => state.currentUser);
+    // const token = useSelector((state) => state.user.token);
+    const { user, token } = useSelector((state) => state.currentUser);
+    const userb = useSelector((state) => state.currentUser);
     const dispatch = useDispatch();
     const [totalSales, setTotalSales] = useState([]);
     const [percentageTotal, setpercentageTotal] = useState(0);
@@ -28,104 +29,109 @@ const TableStats = () => {
     const dataFromAxios = useSelector((state) => state.sales.salesgement);
     const golprogram = useSelector((state) => state.currentUser.organizations);
     const [wait, setWait] = useState(false);
-    const organizatitons_id = user.user ? user.user.profile.organizations[0].id : undefined;
+    const organizatitons_id = userb.user ? userb.user.profile.organizations[0].id : undefined;
 
     useEffect(() => {
+        console.log("Token:", token); // <-- Verifica si el token es válido
         const fetchData = async () => {
-            try {
-                setWait(false);
-                setLoading(true);
-                
-                const obj = `administration/organizations?id=${organizatitons_id}`
-                // console.log("Estamos Probando entrar");
-                // console.log(user);
-                
-                if (user.user) {
-                    const response = await axios.get(
-                        `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
-                        {
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Access-Control-Allow-Origin": "*",
-                                Authorization: `Bearer ${user.token}`,
-                            },
-                        }
-                    );
-
-                    const data = response.data.result.goals
+            if (userb.user && token) {
+                try {
+                    setWait(false);
+                    setLoading(true);
                     
-                    // Setea el Goal partners
-                    setGoal(data.reduce((acum, item) => acum + item.amount, 0))
-                }   
-
-                if (token && dataFromAxios.length === 0) {
-                    if (user.roleId === 1) {
-                        dispatch(getSalesBySegmentAll(token));
-                    }
-
-                    if (user.companyId === null) {
-                        dispatch(
-                            getSalesBySegmentDist(token, user.distributionChannel.soldToParty)
+                    const obj = `administration/organizations?id=${organizatitons_id}`
+                    // console.log("Estamos Probando entrar");
+                    // console.log(user);
+                    
+                    if (userb.user) {
+                        const response = await axios.get(
+                            `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
+                            {
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Access-Control-Allow-Origin": "*",
+                                    Authorization: `Bearer ${userb.token}`,
+                                },
+                            }
                         );
-                    } else {
-                        dispatch(
-                            getSalesBySegmentComp(token, user.company.resellerMasterId)
-                        );
+                        
+                        console.log(response);
+                        
+                        const data = response.data.result.goals
+                        
+                        // Setea el Goal partners
+                        setGoal(data.reduce((acum, item) => acum + item.amount, 0))
+                    }   
+    
+                    if (token && dataFromAxios.length === 0) {
+                        if (user.roleId === 1) {
+                            dispatch(getSalesBySegmentAll(token));
+                        }
+    
+                        if (user.companyId === null) {
+                            dispatch(
+                                getSalesBySegmentDist(token, user.distributionChannel.soldToParty)
+                            );
+                        } else {
+                            dispatch(
+                                getSalesBySegmentComp(token, user.company.resellerMasterId)
+                            );
+                        }
                     }
+    
+                    setLoading(false);
+                    setWait(true);
+                } catch (error) {
+                    console.error("Error en la consulta:", error);
                 }
-
-                setLoading(false);
-                setWait(true);
-            } catch (error) {
-                console.error("Error en la consulta:", error);
             }
         };
 
         fetchData();
-    }, [token]);
+    }, [token, user]);
 
-    useEffect(() => {
-        if (dataFromAxios.length !== 0 && wait) {
-            setLoading(true);
+    // useEffect(() => {
+    //     if (dataFromAxios.length !== 0 && wait) {
+    //         setLoading(true);
 
-            setTotalSales(dataFromAxios);
+    //         setTotalSales(dataFromAxios);
 
-            const totalSalesReduce = Math.round(
-                dataFromAxios.reduce(
-                    (acc, { total_sales_amount }) => acc + Number(total_sales_amount),
-                    0
-                )
-            );
+    //         const totalSalesReduce = Math.round(
+    //             dataFromAxios.reduce(
+    //                 (acc, { total_sales_amount }) => acc + Number(total_sales_amount),
+    //                 0
+    //             )
+    //         );
 
-            setSales(totalSalesReduce);
+    //         setSales(totalSalesReduce);
 
-            const percentageTotal = Math.round(
-                (totalSalesReduce * 100) / Number(goal)
-            );
-            setpercentageTotal(Number(goal) === 0 ? 100 : percentageTotal);
+    //         const percentageTotal = Math.round(
+    //             (totalSalesReduce * 100) / Number(goal)
+    //         );
+    //         setpercentageTotal(Number(goal) === 0 ? 100 : percentageTotal);
 
-            const goalSales = dataFromAxios
-                .reduce(
-                    (previous, { total_sales_amount }) =>
-                        previous + Number(total_sales_amount),
-                    0
-                )
-                .toLocaleString();
+    //         const goalSales = dataFromAxios
+    //             .reduce(
+    //                 (previous, { total_sales_amount }) =>
+    //                     previous + Number(total_sales_amount),
+    //                 0
+    //             )
+    //             .toLocaleString();
 
-            setGoalSales(goalSales);
+    //         setGoalSales(goalSales);
 
-            infoPercentages(
-                dataFromAxios.filter(
-                    ({ business_unit }) => business_unit === "Creative Cloud"
-                ),
-                dataFromAxios.filter(
-                    ({ business_unit }) => business_unit === "Document Cloud"
-                )
-            );
+    //         infoPercentages(
+    //             dataFromAxios.filter(
+    //                 ({ business_unit }) => business_unit === "Creative Cloud"
+    //             ),
+    //             dataFromAxios.filter(
+    //                 ({ business_unit }) => business_unit === "Document Cloud"
+    //             )
+    //         );
 
-            setLoading(false);
-        }
-    }, [dataFromAxios, goal]);
+    //         setLoading(false);
+    //     }
+    // }, [dataFromAxios, goal]);
 
     //This Function calculates the percentage of all CC business type and DC business type
     const infoPercentages = (ccInfoFilter, dcInfoFilter) => {
