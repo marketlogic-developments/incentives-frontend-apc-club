@@ -64,9 +64,7 @@ const GraphSales = () => {
                 
                 const obj = `administration/organizations?id=${organizatitons_id}`
                 // console.log("Estamos Probando entrar");
-                // console.log(user);
-                console.log(userb);   
-                
+                // console.log(user);                
                 if (userb.user) {
                     const response = await axios.get(
                         `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,

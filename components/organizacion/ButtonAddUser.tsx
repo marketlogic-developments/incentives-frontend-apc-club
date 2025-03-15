@@ -117,9 +117,9 @@ const ButtonAddUser = () => {
           title: `${t("participantes.solSend")}`,
           text: `${t("participantes.solRes")}`,
           confirmButtonColor: "#eb1000",
-          footer: `<p class="text-center">${t(
+          footer: `<p className="text-center">${t(
             "participantes.contact"
-          )} <a href='mailto:info@adobepcclub.com' class="text-[#eb1000] font-bold text-center">info@adobepcclub.com</a></p>`,
+          )} <a href='mailto:info@adobepcclub.com' className="text-[#eb1000] font-bold text-center">info@adobepcclub.com</a></p>`,
         }).then((result) => {
           if (result.isConfirmed) {
             setForm({

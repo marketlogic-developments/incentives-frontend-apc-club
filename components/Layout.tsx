@@ -278,6 +278,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
         })
         .map(({ icon, page, text, subsections, link }, index) => (
           <MenuAPC
+            key={index}
             icon={icon}
             page={page}
             text={text}

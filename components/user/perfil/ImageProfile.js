@@ -8,8 +8,8 @@ const ImageProfile = ({ profilePhoto = "", onClick = () => {} }) => {
         className="w-full h-full rounded-full"
         alt="Avatar"
       />
-      <div class="relative">
-        <div class="absolute inset-y-0 -right-2 -top-10" onClick={onClick}>
+      <div className="relative">
+        <div className="absolute inset-y-0 -right-2 -top-10" onClick={onClick}>
           <label className="btn btn-circle btn-sm bg-gray-300	border-none hover:bg-gray-400 drop-shadow-lg text-black">
             X
           </label>

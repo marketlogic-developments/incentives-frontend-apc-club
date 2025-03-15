@@ -27,8 +27,8 @@
     "registro": "Do you want to join the APC Club?",
     "linkRegistro": "Register Here",
     "sorry": "We are sorry!",
-    "userNoActivo1": "<p class='text-justify'>We have not found your account active in the PartnerConnectionClub program. If you have any questions or concerns about it, please contact us through our support email:</p> <br/>",
-    "userNoActivo2": "<br/> <p class='text-justify'>Our team is ready to help you resolve your doubts.</p>"
+    "userNoActivo1": "<p className='text-justify'>We have not found your account active in the PartnerConnectionClub program. If you have any questions or concerns about it, please contact us through our support email:</p> <br/>",
+    "userNoActivo2": "<br/> <p className='text-justify'>Our team is ready to help you resolve your doubts.</p>"
   },
 
   "tyc": {

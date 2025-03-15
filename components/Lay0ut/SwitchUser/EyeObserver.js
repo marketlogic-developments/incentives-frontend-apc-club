@@ -42,7 +42,7 @@ const EyeObserver = () => {
         icon: "no-border",
       },
       iconHtml:
-        '<svg width="60" height="60" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 5.25C4.5 5.25 1.5 12 1.5 12s3 6.75 10.5 6.75S22.5 12 22.5 12s-3-6.75-10.5-6.75Z"></path><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path></svg>',
+        '<svg width="60" height="60" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 5.25C4.5 5.25 1.5 12 1.5 12s3 6.75 10.5 6.75S22.5 12 22.5 12s-3-6.75-10.5-6.75Z"></path><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path></svg>',
       showCancelButton: true,
       confirmButtonColor: "#1473E6",
       cancelButtonColor: "#d33",
@@ -60,9 +60,9 @@ const EyeObserver = () => {
         height="30"
         fill="none"
         stroke="#ffffff"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
       >

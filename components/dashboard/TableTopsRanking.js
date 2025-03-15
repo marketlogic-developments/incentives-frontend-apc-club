@@ -259,7 +259,7 @@ const TableTopsRanking = ({
           <thead className={`bg-black ${thStyles}`}>
             <tr>
               {cols.length !== 0 &&
-                cols.map((col) => <th className="text-left py-4">{col}</th>)}
+                cols.map((col, index) => <th key={index} className="text-left py-4">{col}</th>)}
             </tr>
           </thead>
           <tbody>
