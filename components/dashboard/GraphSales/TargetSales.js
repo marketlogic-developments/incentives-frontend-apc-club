@@ -51,11 +51,12 @@ const TargetSales = ({ data, goal, goalNew, goalRenew }) => {
         <p className="xl:!text-2xl lg:!text-xl font-semibold">
           $
           {formatNumber(
-            Math.round(
-              goal
-                .map(({ meta }) => Number(meta))
-                .reduce((currently, preValue) => currently + preValue, 0)
-            )
+            // Math.round(
+            //   goal
+            //     .map(({ meta }) => Number(meta))
+            //     .reduce((currently, preValue) => currently + preValue, 0)
+            // )
+            goal
           )}
         </p>
       </div>

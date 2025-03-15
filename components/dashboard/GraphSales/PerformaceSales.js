@@ -2,7 +2,14 @@ import { Tooltip } from "@mantine/core";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-const PerformaceSales = ({ CC, DC, goals }) => {
+const PerformaceSales = ({ CC, DC, goals, 
+  VIP_NEW_BUSINESS_CC,
+  VIP_NEW_BUSINESS_DC, 
+  VMP_AUTO_RENEWAL_CC, 
+  VMP_AUTO_RENEWAL_DC, 
+  VMP_NEW_BUSINESS_CC,
+  VMP_NEW_BUSINESS_DC,
+}) => {
   const data = [...CC, ...DC];
   const [t, i18n] = useTranslation("global");
 
@@ -84,7 +91,7 @@ const PerformaceSales = ({ CC, DC, goals }) => {
     };
   }, [data]);
 
-  console.log(dataSalesByType);
+  // console.log(dataSalesByType);
 
   return (
     <div className="flex flex-col w-full p-4 gap-4 targetDashboard">
@@ -99,12 +106,12 @@ const PerformaceSales = ({ CC, DC, goals }) => {
             </p>
             <p className="!text-sm">
               ${formatNumber(Number(dataSalesByType.renewal))}/ $
-              {formatNumber(Number(dataSalesByType.totalSalesRenew))}
+              {formatNumber(VMP_AUTO_RENEWAL_CC + VMP_AUTO_RENEWAL_DC)}
             </p>
           </div>
           <Tooltip
             label={`${Number(
-              (dataSalesByType.renewal * 100) / dataSalesByType.totalSalesRenew
+              (dataSalesByType.renewal * 100) / (VMP_AUTO_RENEWAL_CC + VMP_AUTO_RENEWAL_DC)
             ).toFixed(2)}%`}
           >
             <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
@@ -113,7 +120,7 @@ const PerformaceSales = ({ CC, DC, goals }) => {
                 style={{
                   width: `${
                     (dataSalesByType.renewal * 100) /
-                    dataSalesByType.totalSalesRenew
+                    (VMP_AUTO_RENEWAL_CC + VMP_AUTO_RENEWAL_DC)
                   }%`,
                 }}
               />
@@ -127,13 +134,13 @@ const PerformaceSales = ({ CC, DC, goals }) => {
             </p>
             <p className="!text-sm">
               ${formatNumber(Number(dataSalesByType.newBusiness))}/ $
-              {formatNumber(Number(dataSalesByType.totalSalesNewBusiness))}
+              {formatNumber(VIP_NEW_BUSINESS_CC + VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_DC)}
             </p>
           </div>
           <Tooltip
             label={`${Number(
               (dataSalesByType.newBusiness * 100) /
-                dataSalesByType.totalSalesNewBusiness
+                (VIP_NEW_BUSINESS_CC + VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_DC)
             ).toFixed(2)}%`}
           >
             <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
@@ -142,7 +149,7 @@ const PerformaceSales = ({ CC, DC, goals }) => {
                 style={{
                   width: `${
                     (dataSalesByType.newBusiness * 100) /
-                    dataSalesByType.totalSalesNewBusiness
+                    (VIP_NEW_BUSINESS_CC + VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_DC)
                   }%`,
                 }}
               />
@@ -157,7 +164,7 @@ const PerformaceSales = ({ CC, DC, goals }) => {
             <p className="lg:!text-xs xl:!text-sm font-bold">Creative Cloud</p>
             <p className="!text-sm">
               ${formatNumber(Number(dataSalesByType.totalSalesCC))}/ $
-              {formatNumber(Number(dataSalesByType.totalSalesCreativeCloud))}
+              {formatNumber(VIP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_CC + VMP_AUTO_RENEWAL_CC)}
             </p>
           </div>
           <Tooltip label={`${Number(dataSalesByType.withCC).toFixed(2)}%`}>
@@ -174,7 +181,7 @@ const PerformaceSales = ({ CC, DC, goals }) => {
             <p className="lg:!text-xs xl:!text-sm font-bold">Document Cloud</p>
             <p className="!text-sm">
               ${formatNumber(Number(dataSalesByType.totalSalesDC))}/ $
-              {formatNumber(Number(dataSalesByType.totalSalesDocument))}
+              {formatNumber(VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_DC + VMP_AUTO_RENEWAL_DC)}
             </p>
           </div>
           <Tooltip label={`${Number(dataSalesByType.withDC).toFixed(2)}%`}>

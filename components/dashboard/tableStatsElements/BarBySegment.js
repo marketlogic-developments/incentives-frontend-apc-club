@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 const BarBySegment = ({ percentageCC, percentageDC, formatNumber }) => {
   const [t, i18n] = useTranslation("global");
-
+  useEffect(() => {
+    // console.log(percentageCC, percentageDC);
+    
+    // console.log(formatNumber(1000000000));
+  }, []);
   return (
     <div
       className={`w-full max-sm:mx-auto flex flex-col gap-5 progressiveBar p-6 targetDashboard gap-6`}

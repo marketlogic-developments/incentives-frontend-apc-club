@@ -37,7 +37,9 @@ const TableStats = () => {
                 setLoading(true);
                 
                 const obj = `administration/organizations?id=${organizatitons_id}`
-
+                // console.log("Estamos Probando entrar");
+                // console.log(user);
+                
                 if (user.user) {
                     const response = await axios.get(
                         `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
@@ -54,7 +56,7 @@ const TableStats = () => {
                     
                     // Setea el Goal partners
                     setGoal(data.reduce((acum, item) => acum + item.amount, 0))
-                }
+                }   
 
                 if (token && dataFromAxios.length === 0) {
                     if (user.roleId === 1) {
@@ -176,6 +178,16 @@ const TableStats = () => {
 
         setpercentageCC(arrayPercentageCC);
         setpercentageDC(arrayPercentageDC);
+    };
+
+    const infoPercentagesGoals = (totalCC, totalDC) => {
+        const totalGeneral = totalCC + totalDC;
+    
+        const percentageCC = (totalCC * 100) / totalGeneral;
+        const percentageDC = (totalDC * 100) / totalGeneral;
+    
+        setpercentageCC([{ type: "Creative Cloud", tablePercentage: percentageCC, goal: totalCC }]);
+        setpercentageDC([{ type: "Document Cloud", tablePercentage: percentageDC, goal: totalDC }]);
     };
 
     // if (loading) {
