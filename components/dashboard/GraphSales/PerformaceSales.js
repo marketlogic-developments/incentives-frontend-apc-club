@@ -102,7 +102,8 @@ const PerformaceSales = ({ CC, DC, goals,
         <div className="flex flex-col gap-2">
           <div className="flex w-full justify-between">
             <p className="lg:!text-xs xl:!text-sm font-bold">
-              {t("dashboard.renovaciones")}
+              {/* {t("dashboard.renovaciones")} */}
+              Auto Renewal
             </p>
             <p className="!text-sm">
               ${formatNumber(Number(dataSalesByType.renewal))}/ $
@@ -130,7 +131,8 @@ const PerformaceSales = ({ CC, DC, goals,
         <div className="flex flex-col gap-2">
           <div className="flex w-full justify-between">
             <p className="lg:!text-xs xl:!text-sm font-bold">
-              {t("dashboard.nbusiness")}
+              {/* {t("dashboard.nbusiness")} */}
+              New Business
             </p>
             <p className="!text-sm">
               ${formatNumber(Number(dataSalesByType.newBusiness))}/ $

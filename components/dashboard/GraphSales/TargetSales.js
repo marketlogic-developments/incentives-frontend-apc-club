@@ -66,14 +66,16 @@ const TargetSales = ({ data, goal, goalNew, goalRenew }) => {
           goal={goalRenew[0]?.meta}
           percentageTotal={sales.percentageRenewal || 0}
           color={"#232B2F"}
-          type={t("dashboard.renovaciones")}
+          // type={t("dashboard.renovaciones")}
+          type={'Auto Renewal'}
         />
         <PieChart
           sales={sales.newBusiness}
           goal={goalNew[0]?.meta}
           percentageTotal={sales.percentageNewbusiness || 0}
           color={"#21A5A2"}
-          type={t("dashboard.nbusiness")}
+          // type={t("dashboard.nbusiness")}
+          type={'New Business'}
         />
       </div>
     </div>
