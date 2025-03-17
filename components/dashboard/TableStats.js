@@ -39,9 +39,14 @@ const TableStats = () => {
                     setWait(false);
                     setLoading(true);
                     
-                    const obj = `administration/organizations?id=${organizatitons_id}`
+                    let obj = `administration/organizations?id=${organizatitons_id}`
+
+                    if (userb.user.is_superuser) {
+                        obj = `administration/organizations?page=1&limit=100`
+                    }
                     // console.log("Estamos Probando entrar");
-                    // console.log(user);
+                    console.log(user);
+                    // console.log(userb);
                     
                     if (userb.user) {
                         const response = await axios.get(
@@ -56,11 +61,16 @@ const TableStats = () => {
                         );
                         
                         console.log(response);
+                        let data = response.data.result.goals
+                        if (userb.user.is_superuser) {
+                            // Paso 1: Aplanar los arrays de goals
+                            const allGoals = response.data.result.content.flatMap(org => org.goals);
+                            setGoal(allGoals.reduce((acum, goal) => acum + goal.amount, 0))
+                        } else {
+                            // Setea el Goal partners
+                            setGoal(data.reduce((acum, item) => acum + item.amount, 0))
+                        }
                         
-                        const data = response.data.result.goals
-                        
-                        // Setea el Goal partners
-                        setGoal(data.reduce((acum, item) => acum + item.amount, 0))
                     }   
     
                     if (token && dataFromAxios.length === 0) {
