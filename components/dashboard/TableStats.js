@@ -38,39 +38,55 @@ const TableStats = () => {
                 try {
                     setWait(false);
                     setLoading(true);
+                    let page = 1;
+                    let totalPages = 1; // Asumimos que hay al menos una página
+                    let allGoals = []; // Array para acumular todos los goals
                     
-                    let obj = `administration/organizations?id=${organizatitons_id}`
-
-                    if (userb.user.is_superuser) {
-                        obj = `administration/organizations?page=1&limit=100`
-                    }
-                    // console.log("Estamos Probando entrar");
-                    console.log(user);
-                    // console.log(userb);
                     
                     if (userb.user) {
-                        const response = await axios.get(
-                            `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
-                            {
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Access-Control-Allow-Origin": "*",
-                                    Authorization: `Bearer ${userb.token}`,
-                                },
-                            }
-                        );
-                        
-                        console.log(response);
-                        let data = response.data.result.goals
-                        if (userb.user.is_superuser) {
-                            // Paso 1: Aplanar los arrays de goals
-                            const allGoals = response.data.result.content.flatMap(org => org.goals);
-                            setGoal(allGoals.reduce((acum, goal) => acum + goal.amount, 0))
-                        } else {
-                            // Setea el Goal partners
-                            setGoal(data.reduce((acum, item) => acum + item.amount, 0))
+                        while (page <= totalPages && userb.user.is_superuser) {
+                            const obj = `administration/organizations?page=${page}&limit=100`;
+                            
+                            const response = await axios.get(
+                                `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
+                                {
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "Access-Control-Allow-Origin": "*",
+                                        Authorization: `Bearer ${userb.token}`,
+                                    },
+                                }
+                            );
+                            
+                            console.log(response);
+                            
+                            // Obtener los goals de la página actual
+                            const goals = response.data.result.content.flatMap(org => org.goals);
+                            allGoals = allGoals.concat(goals); // Concatenar los goals
+                            
+                            // Actualizar el total de páginas
+                            totalPages = response.data.result.total_pages;
+                            
+                            page++; // Ir a la siguiente página
                         }
                         
+                        if (userb.user.is_superuser) {
+                            setGoal(allGoals.reduce((acum, goal) => acum + goal.amount, 0));
+                        } else {
+                            const obj = `administration/organizations?id=${organizatitons_id}`
+                            const response = await axios.get(
+                                `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
+                                {
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "Access-Control-Allow-Origin": "*",
+                                        Authorization: `Bearer ${userb.token}`,
+                                    },
+                                }
+                            );                    
+                            console.log(response);
+                            setGoal(data.reduce((acum, item) => acum + item.amount, 0))
+                        }
                     }   
     
                     if (token && dataFromAxios.length === 0) {
