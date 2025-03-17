@@ -13,8 +13,7 @@ const BarBySegment = ({ percentageCC, percentageDC, formatNumber }) => {
       className={`w-full max-sm:mx-auto flex flex-col gap-5 progressiveBar p-6 targetDashboard gap-6`}
     >
       <div>
-        <h2 className="font-bold text-xl">{t("dashboard.licencias")}</h2>
-        {/* <p></p> */}
+        <h2 className="font-bold text-xl">Licenses</h2>
       </div>
       <div className="flex flex-col gap-6 my-auto">
         <div className="w-full h-16 flex items-center gap-6 gapBar lg:flex-col xl:flex-row">

@@ -179,9 +179,10 @@ const GraphSales = () => {
         <div className="flex flex-col w-full gap-6">
             <div>
                 <h2 className="text-xl font-bold">
-                    {user?.roles[0].name === "sales_rep"
+                    {/* {user?.roles[0].name === "sales_rep"
                         ? t("dashboard.misVentas")
-                        : t("dashboard.ventasOrg")}
+                        : t("dashboard.ventasOrg")} */}
+                        My organization's sales
                 </h2>
             </div>
             <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
