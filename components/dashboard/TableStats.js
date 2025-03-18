@@ -44,33 +44,38 @@ const TableStats = () => {
                     
                     
                     if (userb.user) {
-                        while (page <= totalPages && userb.user.is_superuser) {
-                            const obj = `administration/organizations?page=${page}&limit=100`;
-                            
-                            const response = await axios.get(
-                                `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
-                                {
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                        "Access-Control-Allow-Origin": "*",
-                                        Authorization: `Bearer ${userb.token}`,
-                                    },
-                                }
-                            );
-                            
-                            console.log(response);
-                            
-                            // Obtener los goals de la página actual
-                            const goals = response.data.result.content.flatMap(org => org.goals);
-                            allGoals = allGoals.concat(goals); // Concatenar los goals
-                            
-                            // Actualizar el total de páginas
-                            totalPages = response.data.result.total_pages;
-                            
-                            page++; // Ir a la siguiente página
-                        }
-                        
-                        if (userb.user.is_superuser) {
+                        if(userb.user.is_superuser){
+                            while (page <= totalPages && userb.user.is_superuser) {
+                                const obj = `administration/organizations?page=${page}&limit=100`;
+                                
+                                const response = await axios.get(
+                                    `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
+                                    {
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                            "Access-Control-Allow-Origin": "*",
+                                            Authorization: `Bearer ${userb.token}`,
+                                        },
+                                    }
+                                );
+                                
+                                console.log(response);
+
+                                const filteredContent = response.data.result.content.filter(
+                                    org => org.distribution_channel && 
+                                          (org.distribution_channel.name === "GOLD" || org.distribution_channel.name === "PLATINUM")
+                                );
+                                
+                                
+                                // Obtener los goals de la página actual
+                                const goals = filteredContent.flatMap(org => org.goals);
+                                allGoals = allGoals.concat(goals); // Concatenar los goals
+                                
+                                // Actualizar el total de páginas
+                                totalPages = response.data.result.total_pages;
+                                
+                                page++; // Ir a la siguiente página
+                            }
                             setGoal(allGoals.reduce((acum, goal) => acum + goal.amount, 0));
                         } else {
                             const obj = `administration/organizations?id=${organizatitons_id}`
@@ -85,6 +90,7 @@ const TableStats = () => {
                                 }
                             );                    
                             console.log(response);
+                            const data = response.data.result.goals;
                             setGoal(data.reduce((acum, item) => acum + item.amount, 0))
                         }
                     }   
