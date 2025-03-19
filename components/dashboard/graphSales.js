@@ -63,10 +63,83 @@ const GraphSales = () => {
                     // setWait(false);
                     // setLoading(true);
                     
-                    const obj = `administration/organizations?id=${organizatitons_id}`
                     // console.log("Estamos Probando entrar");
                     // console.log(user);                
-                    if (userb.user) {
+                    if (userb.user && userb.user.is_superuser) {
+                         // Objetos para acumular los valores de cada categoría
+                    let categories = {
+                        CC: 0,
+                        DC: 0,
+                        VIP_NEW_BUSINESS_CC: 0,
+                        VIP_NEW_BUSINESS_DC: 0,
+                        VMP_AUTO_RENEWAL_CC: 0,
+                        VMP_AUTO_RENEWAL_DC: 0,
+                        VMP_NEW_BUSINESS_CC: 0,
+                        VMP_NEW_BUSINESS_DC: 0,
+                    };
+
+                    let page = 1;
+                    let totalPages = 1; // Asumimos que hay al menos una página
+                    // Bucle para obtener todas las páginas (solo para superusuarios)
+                    while (page <= totalPages && userb.user.is_superuser) {
+                        let obj = `administration/organizations?page=${page}&limit=100`;
+
+                        console.log(user);
+
+                        const response = await axios.get(
+                            `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
+                            {
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Access-Control-Allow-Origin": "*",
+                                    Authorization: `Bearer ${userb.token}`,
+                                },
+                            }
+                        );
+
+                        console.log(response);
+
+                        // Filtrar los ítems que tienen distribution_channel.name igual a "GOLD" o "PLATINUM"
+                        const filteredContent = response.data.result.content.filter(
+                            org => org.distribution_channel && 
+                                (org.distribution_channel.name === "GOLD" || org.distribution_channel.name === "PLATINUM")
+                        );
+
+                        // Obtener los goals de los ítems filtrados y acumular los valores de las categorías
+                        filteredContent.forEach(org => {
+                            org.goals.forEach(goal => {
+                                if (goal.extended_attributes?.CATEGORIES) {
+                                    categories.CC += goal.extended_attributes.CATEGORIES.CC || 0;
+                                    categories.DC += goal.extended_attributes.CATEGORIES.DC || 0;
+                                    categories.VIP_NEW_BUSINESS_CC += goal.extended_attributes.CATEGORIES.VIP_NEW_BUSINESS_CC || 0;
+                                    categories.VIP_NEW_BUSINESS_DC += goal.extended_attributes.CATEGORIES.VIP_NEW_BUSINESS_DC || 0;
+                                    categories.VMP_AUTO_RENEWAL_CC += goal.extended_attributes.CATEGORIES.VMP_AUTO_RENEWAL_CC || 0;
+                                    categories.VMP_AUTO_RENEWAL_DC += goal.extended_attributes.CATEGORIES.VMP_AUTO_RENEWAL_DC || 0;
+                                    categories.VMP_NEW_BUSINESS_CC += goal.extended_attributes.CATEGORIES.VMP_NEW_BUSINESS_CC || 0;
+                                    categories.VMP_NEW_BUSINESS_DC += goal.extended_attributes.CATEGORIES.VMP_NEW_BUSINESS_DC || 0;
+                                }
+                            });
+                        });
+
+                        // Actualizar el total de páginas
+                        totalPages = response.data.total_pages;
+
+                        page++; // Ir a la siguiente página
+                    }
+
+                    // Si es superusuario, setear los valores acumulados
+                    setCCGoal(categories.CC);
+                    setDCGoal(categories.DC);
+                    setVIP_NEW_BUSINESS_CC(categories.VIP_NEW_BUSINESS_CC);
+                    setVIP_NEW_BUSINESS_DC(categories.VIP_NEW_BUSINESS_DC);
+                    setVMP_AUTO_RENEWAL_CC(categories.VMP_AUTO_RENEWAL_CC);
+                    setVMP_AUTO_RENEWAL_DC(categories.VMP_AUTO_RENEWAL_DC);
+                    setVMP_NEW_BUSINESS_CC(categories.VMP_NEW_BUSINESS_CC);
+                    setVMP_NEW_BUSINESS_DC(categories.VMP_NEW_BUSINESS_DC);
+
+                    } else {
+
+                        const obj = `administration/organizations?id=${organizatitons_id}`
                         const response = await axios.get(
                             `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
                             {
@@ -122,8 +195,7 @@ const GraphSales = () => {
     
                         // console.log(CCGoal, DCGoal);
                         
-                    }   
-    
+                    }
                     if (token && dataFromAxios.length === 0) {
                         if (userb.roleId === 1) {
                             dispatch(getSalesBySegmentAll(token));
