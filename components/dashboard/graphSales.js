@@ -122,7 +122,7 @@ const GraphSales = () => {
                         });
 
                         // Actualizar el total de páginas
-                        totalPages = response.data.total_pages;
+                        totalPages = response.data.result.total_pages;
 
                         page++; // Ir a la siguiente página
                     }
