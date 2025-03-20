@@ -100,13 +100,13 @@ const GraphSales = () => {
                         console.log(response);
 
                         // Filtrar los ítems que tienen distribution_channel.name igual a "GOLD" o "PLATINUM"
-                        const filteredContent = response.data.result.content.filter(
-                            org => org.distribution_channel && 
-                                (org.distribution_channel.name === "GOLD" || org.distribution_channel.name === "PLATINUM")
-                        );
+                        // const filteredContent = response.data.result.content.filter(
+                        //     org => org.distribution_channel && 
+                        //         (org.distribution_channel.name === "GOLD" || org.distribution_channel.name === "PLATINUM")
+                        // );
 
                         // Obtener los goals de los ítems filtrados y acumular los valores de las categorías
-                        filteredContent.forEach(org => {
+                        response.data.result.content.forEach(org => {
                             org.goals.forEach(goal => {
                                 if (goal.extended_attributes?.CATEGORIES) {
                                     categories.CC += goal.extended_attributes.CATEGORIES.CC || 0;
@@ -137,6 +137,8 @@ const GraphSales = () => {
                     setVMP_NEW_BUSINESS_CC(categories.VMP_NEW_BUSINESS_CC);
                     setVMP_NEW_BUSINESS_DC(categories.VMP_NEW_BUSINESS_DC);
 
+                    console.log(categories);
+                    
                     } else {
 
                         const obj = `administration/organizations?id=${organizatitons_id}`
