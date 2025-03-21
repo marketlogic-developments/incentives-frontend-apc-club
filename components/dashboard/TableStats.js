@@ -135,8 +135,6 @@ const TableStats = () => {
 
                         response_sales.data.result.forEach((item) => {
                             const category = item.category;
-                            const sub = item.sub_category;
-                            const type = cleanType(item.type);
                             const revenue = item.total_revenue;
         
                             // Totales generales
