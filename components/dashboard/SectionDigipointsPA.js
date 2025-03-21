@@ -55,7 +55,7 @@ const SectionDigipointsPA = () => {
                     `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=aacd4c7e-d8f0-4a2c-a99c-a1f189a7a576`,
                     {
                         params: {
-                            id: `${organizatitons_id}`,
+                            id: `${user.profile.organizations[0].id}`,
                         },
                     },
                     {
@@ -68,7 +68,7 @@ const SectionDigipointsPA = () => {
             };
 
             let totalPointsByCategory = { CC: 0, DC: 0 };
-
+            
             response.data.result.forEach((item) => {
                 const category = item.category;
                 const points = item.total_points;
