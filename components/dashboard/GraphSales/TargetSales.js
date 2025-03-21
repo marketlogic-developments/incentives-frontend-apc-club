@@ -36,17 +36,17 @@ const TargetSales = ({ data, goal, goalNew, goalRenew, saleNew, saleRenew }) => 
             </div>
             <div className="flex justify-around my-auto">
                 <PieChart
-                    sales={saleNew}
+                    sales={saleRenew}
                     goal={goalRenew}
-                    percentageTotal={(saleNew * 100) / goal || 0}
+                    percentageTotal={(saleRenew * 100) / goal || 0}
                     color={"#232B2F"}
                     // type={t("dashboard.renovaciones")}
                     type={'Auto Renewal'}
                 />
                 <PieChart
-                    sales={saleRenew}
+                    sales={saleNew}
                     goal={goalNew}
-                    percentageTotal={(saleRenew * 100) / goal || 0}
+                    percentageTotal={(saleNew * 100) / goal || 0}
                     color={"#21A5A2"}
                     // type={t("dashboard.nbusiness")}
                     type={'New Business'}
