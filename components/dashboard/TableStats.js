@@ -150,7 +150,6 @@ const TableStats = () => {
                         // const DCGoals = allGoals.reduce((acum, goal) => acum + goal.extended_attributes.CATEGORIES.DC, 0)
                         // const CCpercent = ((totalByCategory.CC || 0) * 100) / CCGoals
                         // const DCpercent = ((totalByCategory.DC || 0) * 100) / DCGoals
-
                         // setpercentageCC([{ type: "Creative Cloud", tablePercentage: CCpercent || 0, goal: CCGoals|| 0 }]);
                         // setpercentageDC([{ type: "Document Cloud", tablePercentage: DCpercent || 0, goal: DCGoals|| 0 }]);
 
