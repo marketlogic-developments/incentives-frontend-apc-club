@@ -6,6 +6,8 @@ import { getDigiPointPerformance } from "../../store/reducers/sales.reducer";
 import { useTranslation } from "react-i18next";
 import DigiPointsTotalD from "./DigiPointsSections/DigiPointsTotalD";
 import PieChart from "../charts/PieChart";
+import axios from "axios";
+
 
 const SectionDigipointsPA = () => {
     const dispatch = useDispatch();
@@ -35,13 +37,13 @@ const SectionDigipointsPA = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            let response_sales = undefined;
-            if (userb.user.is_superuser) {
-                response_sales = await axios.get(
+            let response = undefined;
+            if (user.is_superuser) {
+                response = await axios.get(
                     `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=8c6f1313-7291-4450-911c-828b7d7411f4`,
                     {
                         headers: {
-                            Authorization: `Bearer ${userb.token}`,
+                            Authorization: `Bearer ${user.token}`,
                             "Content-Type": "application/json",
                             "Access-Control-Allow-Origin": "*",
                         },
@@ -49,7 +51,7 @@ const SectionDigipointsPA = () => {
                 );
 
             } else {
-                response_sales = await axios.post(
+                response = await axios.post(
                     `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=aacd4c7e-d8f0-4a2c-a99c-a1f189a7a576`,
                     {
                         params: {
@@ -58,12 +60,34 @@ const SectionDigipointsPA = () => {
                     },
                     {
                         headers: {
-                            Authorization: `Bearer ${userb.token}`,
+                            Authorization: `Bearer ${user.token}`,
                             "Content-Type": "application/json",
                         },
                     }
                 );
             };
+
+            let totalPointsByCategory = { CC: 0, DC: 0 };
+
+            response.data.result.forEach((item) => {
+                const category = item.category;
+                const points = item.total_points;
+
+                // Totales generales
+                if (category === 'CC' || category === 'DC') {
+                    totalPointsByCategory[category] += parseInt(points);
+                };
+            });
+
+            setTtotalUpload(parseInt(totalPointsByCategory.CC || 0) + parseInt(totalPointsByCategory.DC || 0));
+            setDigipointUploaded(
+                [
+                    {
+                        value: parseInt(totalPointsByCategory.CC || 0) + parseInt(totalPointsByCategory.DC || 0),
+                        name: "Sales"
+                    }
+                ]
+            )
         };
 
         fetchData();
