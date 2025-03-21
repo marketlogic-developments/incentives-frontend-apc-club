@@ -532,7 +532,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                 </div>
                 <div className="mx-auto flex max-w-6xl flex-row items-center justify-center py-2 w-full mb-24">
                     <div className="bg-gray-300 font-bold text-black text-center mx-2 py-2 px-10 w-full rounded-md ">
-                    Receive 15 DigiPoints for every <a href="https://www.adobe.com/express/" target="_new" title="Adobe Express"><u>Adobe Express AI</u></a> license you sell
+                    Receive 15 DigiPoints for every Acrobat AI Assistant license you sell
                     </div>
                 </div>
                 <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
@@ -1408,7 +1408,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                 <Image src={imgARC} alt="" />
               </div>
               <div className="bg-blacki text-white text-center mx-2 py-2 px-10 w-full rounded-md ">
-                Receive 10 DigiPoints for every <a href="https://www.adobe.com/express/" target="_new" title="Adobe Express"><u>Adobe Express</u></a> license you sell
+                Receive 5 DigiPoints for every Acobat AI Assitant license you sell
               </div>
             </div>
             <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
