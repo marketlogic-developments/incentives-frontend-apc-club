@@ -41,7 +41,7 @@ const TableStats = () => {
                     let page = 1;
                     let totalPages = 1; // Asumimos que hay al menos una página
                     let allGoals = []; // Array para acumular todos los goals
-                    
+                    let totalGeneral = undefined;
                     
                     if (userb.user) {
                         if(userb.user.is_superuser){
@@ -77,6 +77,7 @@ const TableStats = () => {
                                 page++; // Ir a la siguiente página
                             }
                             setGoal(allGoals.reduce((acum, goal) => acum + goal.amount, 0));
+                            totalGeneral = allGoals.reduce((acum, goal) => acum + goal.amount, 0)
                         } else {
                             const obj = `administration/organizations?id=${organizatitons_id}`
                             const response = await axios.get(
@@ -92,7 +93,69 @@ const TableStats = () => {
                             console.log(response);
                             const data = response.data.result.goals;
                             setGoal(data.reduce((acum, item) => acum + item.amount, 0))
-                        }
+                            totalGeneral = data.reduce((acum, item) => acum + item.amount, 0)
+                        };
+
+                        let response_sales = undefined;
+                        if (userb.user.is_superuser) {
+                            response_sales = await axios.get(
+                                `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=8c6f1313-7291-4450-911c-828b7d7411f4`,
+                                {
+                                    headers: {
+                                        Authorization: `Bearer ${userb.token}`,
+                                        "Content-Type": "application/json",
+                                        "Access-Control-Allow-Origin": "*",
+                                    },
+                                }
+                            );
+        
+                        } else {
+        
+                            response_sales = await axios.post(
+                                `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=aacd4c7e-d8f0-4a2c-a99c-a1f189a7a576`,
+                                {
+                                    params: {
+                                        id: `${organizatitons_id}`,
+                                    },
+                                },
+                                {
+                                    headers: {
+                                        Authorization: `Bearer ${userb.token}`,
+                                        "Content-Type": "application/json",
+                                    },
+                                }
+                            );
+                        };
+
+                        // Acumuladores generales
+                        let totalByCategory = { CC: 0, DC: 0 };
+
+                        // Limpia el tipo (eliminar espacios y poner en minúsculas)
+                        const cleanType = (type) => type.trim().toLowerCase();
+
+                        response_sales.data.result.forEach((item) => {
+                            const category = item.category;
+                            const sub = item.sub_category;
+                            const type = cleanType(item.type);
+                            const revenue = item.total_revenue;
+        
+                            // Totales generales
+                            if (category === 'CC' || category === 'DC') {
+                                totalByCategory[category] += revenue;
+                            }
+                        });
+                        
+                        setSales((totalByCategory.CC || 0) + (totalByCategory.DC || 0));
+                        setGoalSales((totalByCategory.CC || 0) + (totalByCategory.DC || 0));
+                        setpercentageTotal(parseFloat(((totalByCategory.CC || 0) + (totalByCategory.DC || 0) * 100) / totalGeneral).toFixed(2));
+                        // const CCGoals = allGoals.reduce((acum, goal) => acum + goal.extended_attributes.CATEGORIES.CC, 0)
+                        // const DCGoals = allGoals.reduce((acum, goal) => acum + goal.extended_attributes.CATEGORIES.DC, 0)
+                        // const CCpercent = ((totalByCategory.CC || 0) * 100) / CCGoals
+                        // const DCpercent = ((totalByCategory.DC || 0) * 100) / DCGoals
+
+                        // setpercentageCC([{ type: "Creative Cloud", tablePercentage: CCpercent || 0, goal: CCGoals|| 0 }]);
+                        // setpercentageDC([{ type: "Document Cloud", tablePercentage: DCpercent || 0, goal: DCGoals|| 0 }]);
+
                     }   
     
                     if (token && dataFromAxios.length === 0) {
@@ -166,67 +229,67 @@ const TableStats = () => {
     // }, [dataFromAxios, goal]);
 
     //This Function calculates the percentage of all CC business type and DC business type
-    const infoPercentages = (ccInfoFilter, dcInfoFilter) => {
-        const order = ["Teams", "Enterprise", "Education"];
+    // const infoPercentages = (ccInfoFilter, dcInfoFilter) => {
+    //     const order = ["Teams", "Enterprise", "Education"];
 
-        const compareObjectsCC = (a, b) => {
-            const indexA = order.indexOf(a.typeCC);
-            const indexB = order.indexOf(b.typeCC);
-            return indexA - indexB;
-        };
-        const compareObjectsDC = (a, b) => {
-            const indexA = order.indexOf(a.typeDC);
-            const indexB = order.indexOf(b.typeDC);
-            return indexA - indexB;
-        };
+    //     const compareObjectsCC = (a, b) => {
+    //         const indexA = order.indexOf(a.typeCC);
+    //         const indexB = order.indexOf(b.typeCC);
+    //         return indexA - indexB;
+    //     };
+    //     const compareObjectsDC = (a, b) => {
+    //         const indexA = order.indexOf(a.typeDC);
+    //         const indexB = order.indexOf(b.typeDC);
+    //         return indexA - indexB;
+    //     };
 
-        const arrayPercentageCC = ccInfoFilter
-            .map((data) => {
-                const allSalesCC = dataFromAxios
-                    .filter(({ business_unit }) => business_unit === "Creative Cloud")
-                    .map(({ total_sales_amount }) => Number(total_sales_amount))
-                    .reduce((previous, currently) => previous + currently);
+    //     const arrayPercentageCC = ccInfoFilter
+    //         .map((data) => {
+    //             const allSalesCC = dataFromAxios
+    //                 .filter(({ business_unit }) => business_unit === "Creative Cloud")
+    //                 .map(({ total_sales_amount }) => Number(total_sales_amount))
+    //                 .reduce((previous, currently) => previous + currently);
 
-                const percentage = (data.total_sales_amount * 100) / allSalesCC;
+    //             const percentage = (data.total_sales_amount * 100) / allSalesCC;
 
-                return {
-                    typeCC: data.sub_bu,
-                    tablePercentage: percentage,
-                    sales: Number(data.total_sales_amount),
-                };
-            })
-            .sort(compareObjectsCC);
+    //             return {
+    //                 typeCC: data.sub_bu,
+    //                 tablePercentage: percentage,
+    //                 sales: Number(data.total_sales_amount),
+    //             };
+    //         })
+    //         .sort(compareObjectsCC);
 
-        const arrayPercentageDC = dcInfoFilter
-            .map((data) => {
-                const allSalesCC = dataFromAxios
-                    .filter(({ business_unit }) => business_unit === "Document Cloud")
-                    .map(({ total_sales_amount }) => Number(total_sales_amount))
-                    .reduce((previous, currently) => previous + currently);
+    //     const arrayPercentageDC = dcInfoFilter
+    //         .map((data) => {
+    //             const allSalesCC = dataFromAxios
+    //                 .filter(({ business_unit }) => business_unit === "Document Cloud")
+    //                 .map(({ total_sales_amount }) => Number(total_sales_amount))
+    //                 .reduce((previous, currently) => previous + currently);
 
-                const percentage = (data.total_sales_amount * 100) / allSalesCC;
+    //             const percentage = (data.total_sales_amount * 100) / allSalesCC;
 
-                return {
-                    typeDC: data.sub_bu,
-                    tablePercentage: percentage,
-                    sales: Number(data.total_sales_amount),
-                };
-            })
-            .sort(compareObjectsDC);
+    //             return {
+    //                 typeDC: data.sub_bu,
+    //                 tablePercentage: percentage,
+    //                 sales: Number(data.total_sales_amount),
+    //             };
+    //         })
+    //         .sort(compareObjectsDC);
 
-        setpercentageCC(arrayPercentageCC);
-        setpercentageDC(arrayPercentageDC);
-    };
+    //     setpercentageCC(arrayPercentageCC);
+    //     setpercentageDC(arrayPercentageDC);
+    // };
 
-    const infoPercentagesGoals = (totalCC, totalDC) => {
-        const totalGeneral = totalCC + totalDC;
+    // const infoPercentagesGoals = (totalCC, totalDC) => {
+    //     const totalGeneral = totalCC + totalDC;
     
-        const percentageCC = (totalCC * 100) / totalGeneral;
-        const percentageDC = (totalDC * 100) / totalGeneral;
+    //     const percentageCC = (totalCC * 100) / totalGeneral;
+    //     const percentageDC = (totalDC * 100) / totalGeneral;
     
-        setpercentageCC([{ type: "Creative Cloud", tablePercentage: percentageCC, goal: totalCC }]);
-        setpercentageDC([{ type: "Document Cloud", tablePercentage: percentageDC, goal: totalDC }]);
-    };
+    //     setpercentageCC([{ type: "Creative Cloud", tablePercentage: percentageCC, goal: totalCC }]);
+    //     setpercentageDC([{ type: "Document Cloud", tablePercentage: percentageDC, goal: totalDC }]);
+    // };
 
     // if (loading) {
     //   return <div className="lds-dual-ring"></div>;
@@ -244,7 +307,7 @@ const TableStats = () => {
                 ? thousandValue.slice(0, thousandValue.indexOf(".") + 3) + "K"
                 : thousandValue + "K";
         } else {
-            return number.toLocaleString("en-US");
+            return number
         }
     }
 
