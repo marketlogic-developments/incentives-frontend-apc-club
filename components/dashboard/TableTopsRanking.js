@@ -178,7 +178,7 @@ const TableTopsRanking = ({
     <div className="grid w-full">
       <div className="sm:flex justify-between items-center">
         <div>
-          <h2 className="!text-xl font-bold">{t("dashboard.topUsuarios")}</h2>
+          <h2 className="!text-xl font-bold">Top 5 Users</h2>
         </div>
         {user?.roles[0].name === "administrador" || user?.is_superuser && (
           <div className="cursor-pointer flex lg:flex-row flex-col gap-3 items-center">
@@ -259,7 +259,7 @@ const TableTopsRanking = ({
           <thead className={`bg-black ${thStyles}`}>
             <tr>
               {cols.length !== 0 &&
-                cols.map((col) => <th className="text-left py-4">{col}</th>)}
+                cols.map((col, index) => <th key={index} className="text-left py-4">{col}</th>)}
             </tr>
           </thead>
           <tbody>

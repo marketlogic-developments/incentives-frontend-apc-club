@@ -7,9 +7,9 @@ const CardProduct = ({ info, index }) => {
 
   return (
     <>
-      <div key={index} class="flip-card-market justify-self-center !h-[400px]">
-        <div class="flip-card-inner-market">
-          <div class="flip-card-front-market overflow-hidden py-6">
+      <div key={index} className="flip-card-market justify-self-center !h-[400px]">
+        <div className="flip-card-inner-market">
+          <div className="flip-card-front-market overflow-hidden py-6">
             <div className="card-details justify-center">
               <figure className="cursor-pointer bg-[#333333] p-6">
                 <img src={info.imagePath} alt={info.name} className="w-1/4" />

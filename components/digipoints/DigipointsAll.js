@@ -159,25 +159,26 @@ const DigipointsAll = () => {
             onChange={(e) => setSalesOption(e.target.value)}
           >
             <option value="salesRep">Representante de ventas</option>
-            <option value="salesTeam">Equipo de ventas</option>
+            {/* <option value="salesTeam">Equipo de ventas</option> */}
           </select>
           {salesOption === "salesTeam" && (
-            <select
-              className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-              onChange={(e) => {
-                const team = teams.find(
-                  (data) => Number(e.target.value) === data.id
-                );
-                return setTeamInfo(team);
-              }}
-            >
-              <option value="">Elije tu equipo de ventas</option>
-              {teams.map((data) => (
-                <option value={data.id} key={data.id}>
-                  {data.name_group}
-                </option>
-              ))}
-            </select>
+            ""
+            // <select
+            //   className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+            //   onChange={(e) => {
+            //     const team = teams.find(
+            //       (data) => Number(e.target.value) === data.id
+            //     );
+            //     return setTeamInfo(team);
+            //   }}
+            // >
+            //   <option value="">Elije tu equipo de ventas</option>
+            //   {teams.map((data) => (
+            //     <option value={data.id} key={data.id}>
+            //       {data.name_group}
+            //     </option>
+            //   ))}
+            // </select>
           )}
           <button className="btn btn-primary" onClick={() => nextModal()}>
             {t("tabla.continuar")}

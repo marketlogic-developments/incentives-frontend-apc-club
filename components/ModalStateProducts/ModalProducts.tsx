@@ -73,22 +73,22 @@ const ModalProducts = ({ data }:{data: Order | null}) => {
                 <path
                   d="M5.40039 9.10147V23.7917C5.40221 24.3999 5.64462 24.9827 6.07469 25.4128C6.50476 25.8428 7.08754 26.0852 7.69574 26.0871H23.3041C23.9123 26.0852 24.4951 25.8428 24.9252 25.4128C25.3552 24.9827 25.5977 24.3999 25.5995 23.7917V9.10147"
                   stroke="#1473E6"
-                  stroke-width="1.83628"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.83628"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M25.8289 4.0517H5.17071C4.28333 4.0517 3.56396 4.77106 3.56396 5.65844V7.03565C3.56396 7.92303 4.28333 8.6424 5.17071 8.6424H25.8289C26.7162 8.6424 27.4356 7.92303 27.4356 7.03565V5.65844C27.4356 4.77106 26.7162 4.0517 25.8289 4.0517Z"
                   stroke="#1473E6"
-                  stroke-width="1.83628"
-                  stroke-linejoin="round"
+                  strokeWidth="1.83628"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M19.1723 17.8238L15.4997 21.4964L11.8271 17.8238M15.4997 20.2276V13.2331"
                   stroke="#1473E6"
-                  stroke-width="1.83628"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.83628"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
               <p className="font-bold ">{t("estadoProducto.oRecibida")}</p>
@@ -108,9 +108,9 @@ const ModalProducts = ({ data }:{data: Order | null}) => {
                       ? "#1473E6"
                       : "#BABABA"
                   }
-                  stroke-width="1.73963"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.73963"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
               <p className="font-bold">{t("estadoProducto.oAprovada")}</p>
@@ -126,15 +126,15 @@ const ModalProducts = ({ data }:{data: Order | null}) => {
                 <path
                   d="M22.2638 5.2189H5.73723C4.05588 5.2189 2.69287 6.58191 2.69287 8.26326V19.5709C2.69287 21.2522 4.05588 22.6152 5.73723 22.6152H22.2638C23.9451 22.6152 25.3081 21.2522 25.3081 19.5709V8.26326C25.3081 6.58191 23.9451 5.2189 22.2638 5.2189Z"
                   stroke={active === 3 || active === 4 ? "#1473E6" : "#BABABA"}
-                  stroke-width="1.73963"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.73963"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M2.69287 10.4378H25.3081M7.04196 16.3091H9.65141V17.3963H7.04196V16.3091Z"
                   stroke={active === 3 || active === 4 ? "#1473E6" : "#BABABA"}
-                  stroke-width="3.26181"
-                  stroke-linejoin="round"
+                  strokeWidth="3.26181"
+                  strokeLinejoin="round"
                 />
               </svg>
               <p className="font-bold lg:whitespace-nowrap text-center">
@@ -153,9 +153,9 @@ const ModalProducts = ({ data }:{data: Order | null}) => {
                   <path
                     d="M25.6498 14.7407L2.42896 24.3174C2.36445 24.3477 2.29335 24.3614 2.2222 24.357C2.15104 24.3527 2.08211 24.3306 2.02172 24.2928C1.96133 24.2549 1.91143 24.2024 1.87658 24.1403C1.84173 24.0781 1.82305 24.0081 1.82227 23.9369V17.7769C1.82227 17.6756 1.85762 17.5775 1.92223 17.4995C1.98684 17.4215 2.07665 17.3685 2.17617 17.3496L15.6377 14.7945C16.5814 14.6157 16.5814 13.2642 15.6377 13.0853L2.17563 10.5303C2.0763 10.5113 1.98669 10.4583 1.9222 10.3804C1.8577 10.3025 1.82237 10.2046 1.82227 10.1035V3.94629C1.82227 3.63424 2.14192 3.38852 2.42896 3.51138L25.6498 13.143C25.8059 13.2102 25.9389 13.3217 26.0323 13.4637C26.1258 13.6056 26.1756 13.7719 26.1756 13.9418C26.1756 14.1118 26.1258 14.278 26.0323 14.42C25.9389 14.562 25.8059 14.6735 25.6498 14.7407Z"
                     stroke={active === 4 ? "#1473E6" : "#BABABA"}
-                    stroke-width="1.71547"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="1.71547"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </g>
                 <defs>

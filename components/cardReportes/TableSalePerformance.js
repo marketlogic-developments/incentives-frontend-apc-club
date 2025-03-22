@@ -67,11 +67,11 @@ const TableSalePerformance = ({
                 <td className="text-left py-2">{data.nivel}</td>
                 <td className="text-left py-2">
                   {data.status === t("Reportes.inactivo") ? (
-                    <div class="badge bg-red-200 text-red-600 text-sm text-left py-2">
+                    <div className="badge bg-red-200 text-red-600 text-sm text-left py-2">
                       {t("Reportes.inactivo")}
                     </div>
                   ) : (
-                    <div class="badge bg-green-200 text-green-600 text-sm border-green-300 text-left py-2">
+                    <div className="badge bg-green-200 text-green-600 text-sm border-green-300 text-left py-2">
                       {t("Reportes.activo")}
                     </div>
                   )}

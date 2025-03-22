@@ -35,7 +35,7 @@ export const useDataUser = () => {
 
   const setDataUser = async (): Promise<void> => {
     try {
-      const prevSession = Cookies.get("prevSession");
+      const prevSession = typeof window !== "undefined" ? Cookies.get("prevSession") : null;
       const res = await getCurrentUser(); // O CurrentUserTest para pruebas
       // const res = { result: CurrentUserTest }; // O CurrentUserTest para pruebas
       if (!res) throw new Error("Failed Login, try again");
@@ -59,7 +59,7 @@ export const useDataUser = () => {
       );
     } catch (err) {
       console.error(err);
-      throw err;
+      // throw err;
     }
   };
 
@@ -170,8 +170,13 @@ export const useDataUser = () => {
 
       // if (!res) throw new Error("Failed Login, try again");
       Cookies.set("prevSession", user?.token as string);
-      sessionStorage.removeItem("token");
-      sessionStorage.setItem("token", res.result.token);
+      if (typeof window !== "undefined") {
+        sessionStorage.removeItem("token");
+        sessionStorage.setItem("token", res.result.token);
+      }
+      
+      // sessionStorage.removeItem("token");
+      // sessionStorage.setItem("token", res.result.token);
     } catch (err) {
       console.error(err);
       throw err;

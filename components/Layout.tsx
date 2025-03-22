@@ -67,11 +67,14 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [menuUser, setMenuUser] = useState<boolean>(false);
   const menuMarket = useSelector((state: RootState) => state.awards.menuMarket);
-  const [screen, setScreen] = useState<number>(0);
-  const prevSession=Cookies.get("prevSession")
+  // const [screen, setScreen] = useState<number>(0);
+  // const prevSession=Cookies.get("prevSession")
 
   const { setDataUser } = useDataUser();
   const { Locations, textLocation } = useLocation();
+  const [isClient, setIsClient] = useState(false);
+  const [screen, setScreen] = useState<number>(typeof window !== "undefined" ? window.innerWidth : 0);
+  const [prevSession, setPrevSession] = useState<string | undefined>();
 
 
 
@@ -80,30 +83,45 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
       ? Object.entries(user.status).find(([key]) => key === statusName)
       : undefined;
 
+
+    
+
   //Get Data User
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-
-    if (!user && token) {
-      setDataUser();
-    } else if (!token) {
-      route.push("/");
+    // const token = sessionStorage.getItem("token");
+    if (isClient) {
+      const token = sessionStorage.getItem("token");
+      if (!user && token) {
+        setDataUser();
+      } else if (!token) {
+        route.push("/");
+      }
     }
-  }, [location]);
+  }, [isClient,location]);
 
   //Logout for Inactivity
   useEffect(() => {
-    setScreen(window.innerWidth);
-    const handleWindowResize = () => {
+    // setScreen(window.innerWidth);
+    // const handleWindowResize = () => {
+    //   setScreen(window.innerWidth);
+    // };
+
+    // window.addEventListener("resize", handleWindowResize);
+
+    // return () => {
+    //   window.removeEventListener("resize", handleWindowResize);
+    // };
+    setIsClient(true); // Asegura que el hook siempre se ejecuta en el cliente
+    if (typeof window !== "undefined") {
       setScreen(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  });
+  
+      // Listener para cambios de tamaño
+      const handleResize = () => setScreen(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+      
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
 
   //Show Modals
   useEffect(() => {
@@ -128,6 +146,11 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
       }
     }
   }, [user, video, opened]);
+
+  
+  useEffect(() => {
+    setPrevSession(Cookies.get("prevSession"));
+  }, []);
 
   const profileImage: React.ReactNode = (
     <div className="bg-[#1473E6] rounded-full btn btn-circle btn-sm border-none hover:bg-[#1473E6]">
@@ -278,6 +301,7 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
         })
         .map(({ icon, page, text, subsections, link }, index) => (
           <MenuAPC
+            key={index}
             icon={icon}
             page={page}
             text={text}

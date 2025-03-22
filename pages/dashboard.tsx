@@ -43,7 +43,7 @@ const dashboard: FC<Props> = ({ entries, banners, infoApc }) => {
           <div className="gap-10 flex flex-col h-full items-center">
             <TableStats />
             <GraphSales />
-            {user?.roles[0].name === "partner_admin" && <SectionDigipointsPA />}
+            {user?.roles[0].name === 'partner_admin' && <SectionDigipointsPA />}
 
             <TableTopsRanking
               containerStyles={
