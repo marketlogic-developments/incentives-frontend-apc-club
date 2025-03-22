@@ -79,7 +79,7 @@ const ModalDistribution = ({ setOpened, invoiceData }) => {
                 {t("digipoints.represV")}
               </label>
             </div>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <input
                 type="radio"
                 value="team"
@@ -89,7 +89,7 @@ const ModalDistribution = ({ setOpened, invoiceData }) => {
               <label className="ml-3 align-middle !text-xs">
                 {t("digipoints.teamV")}
               </label>
-            </div>
+            </div> */}
           </div>
         </form>
         {typeContent}

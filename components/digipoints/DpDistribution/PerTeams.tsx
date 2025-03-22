@@ -85,7 +85,7 @@ const PerTeams: FC<Props> = ({ invoiceData, setOpened }) => {
   return (
     <>
       <div className="flex flex-col gap-6">
-        <div className="grid grid-cols-2 gap-6">
+        {/* <div className="grid grid-cols-2 gap-6">
           <p className="font-bold !text-base self-center">
             {t("digipoints.teamV")} ({teams?.content.length ?? 0})
           </p>
@@ -102,7 +102,7 @@ const PerTeams: FC<Props> = ({ invoiceData, setOpened }) => {
             </div>
           </div>
           <p className="col-span-2">{t("digipoints.selectTeam")}</p>
-        </div>
+        </div> */}
         <div className="w-full">
           <div className="overflow-x-auto">
             <table
