@@ -8,8 +8,8 @@ const UserRanking = ({ data, index }) => {
       }`}
     >
       <div className="flex xl:gap-6 lg:gap-3">
-        <div className="user bg-[#1473E6] rounded-full w-[35px] h-[35px] min-w-[35px] min-h-[35px] flex items-center justify-center">
-          <p className="text-white text-center">{data.names[0]}</p>
+        <div class="user bg-[#1473E6] rounded-full w-[35px] h-[35px] min-w-[35px] min-h-[35px] flex items-center justify-center">
+          <p class="text-white text-center">{data.names[0]}</p>
         </div>
         <div className="flex flex-col">
           <p className="!text-xs font-bold">{data.names}</p>

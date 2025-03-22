@@ -7,7 +7,7 @@ const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
     <div className="flex flex-col w-full p-6 gap-6 targetDashboard">
       <div className="flex justify-between">
         <div>
-          <h2 className="font-bold 2xl:text-xl">Partners Goal</h2>
+          <h2 className="font-bold 2xl:text-xl">Goal partners</h2>
         </div>
         <div className="min-h-[45px] flex items-top">
           {goal !== 0 && (
@@ -39,15 +39,13 @@ const Meta = ({ user, formatNumber, goal, percentageTotal, sales }) => {
           className="customLi lg:!text-xs xl:!text-base"
           style={{ "--colorBg": "#2799F6" }}
         >
-          {/* {t("dashboard.Alcanzado")} */}
-          Achieved
+          {t("dashboard.Alcanzado")}
         </li>
         <li
           className="customLi lg:!text-xs xl:!text-base"
           style={{ "--colorBg": "#F2F2F2" }}
         >
-          {/* {t("dashboard.faltante")} */}
-          Target Balance
+          {t("dashboard.faltante")}
         </li>
       </div>
     </div>

@@ -9,8 +9,8 @@ const NoImageProfile = ({
   return (
     <div className="relative bg-[#1473E6] rounded-full w-[80px] h-[80px] flex items-center justify-center">
       <p className="absolute text-white !text-base">{name}</p>
-      <div className="relative">
-        <div className="absolute inset-y-0 left-3 -top-10" onClick={onClick}>
+      <div class="relative">
+        <div class="absolute inset-y-0 left-3 -top-10" onClick={onClick}>
           <label className="btn btn-circle btn-sm bg-gray-300 border-none hover:bg-gray-400 drop-shadow-lg text-black">
             {icon}
           </label>

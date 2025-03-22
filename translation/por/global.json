@@ -27,8 +27,8 @@
     "registro": "Quer se juntar ao APC Club?",
     "linkRegistro": "Cadastre-se aqui",
     "sorry": "Desculpe-nos!",
-    "userNoActivo1": "<p className='text-justify'>Atualmente não encontramos sua conta ativa em programa da PartnerConnectionClub. Se você tiver alguma dúvida ou preocupação sobre sua conta, por favor entre em contato conosco através do nosso e-mail de suporte:</p> </br>",
-    "userNoActivo2": "<br/> <p className='text-justify'>Nossa equipe de suporte ficará feliz em ajudá-lo a esclarecer qualquer dúvida que você tenha."
+    "userNoActivo1": "<p class='text-justify'>Atualmente não encontramos sua conta ativa em programa da PartnerConnectionClub. Se você tiver alguma dúvida ou preocupação sobre sua conta, por favor entre em contato conosco através do nosso e-mail de suporte:</p> </br>",
+    "userNoActivo2": "<br/> <p class='text-justify'>Nossa equipe de suporte ficará feliz em ajudá-lo a esclarecer qualquer dúvida que você tenha."
   },
 
   "tyc": {

@@ -34,9 +34,9 @@ const TargetInvoice: FC<Props> = ({ invoiceData }) => {
               <path
                 d="M7.31923 0.998047H3.32693C3.06223 0.998047 2.80836 1.1032 2.62119 1.29038C2.43401 1.47755 2.32886 1.73141 2.32886 1.99612V9.64802L5.32308 6.98649L8.3173 9.64802V1.99612C8.3173 1.73141 8.21215 1.47755 8.02497 1.29038C7.83779 1.1032 7.58393 0.998047 7.31923 0.998047Z"
                 stroke="#1473E6"
-                strokeWidth="0.665382"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                stroke-width="0.665382"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               />
             </svg>
             <p className="!text-xs font-bold">{t("tabla.nfactura")}</p>
@@ -53,8 +53,8 @@ const TargetInvoice: FC<Props> = ({ invoiceData }) => {
                 <path
                   d="M9.75 1.875H2.25C1.62868 1.875 1.125 2.37868 1.125 3V9.75C1.125 10.3713 1.62868 10.875 2.25 10.875H9.75C10.3713 10.875 10.875 10.3713 10.875 9.75V3C10.875 2.37868 10.3713 1.875 9.75 1.875Z"
                   stroke="#1473E6"
-                  strokeWidth="0.75"
-                  strokeLinejoin="round"
+                  stroke-width="0.75"
+                  stroke-linejoin="round"
                 />
                 <path
                   d="M6.9375 6C7.24816 6 7.5 5.74816 7.5 5.4375C7.5 5.12684 7.24816 4.875 6.9375 4.875C6.62684 4.875 6.375 5.12684 6.375 5.4375C6.375 5.74816 6.62684 6 6.9375 6Z"
@@ -95,15 +95,15 @@ const TargetInvoice: FC<Props> = ({ invoiceData }) => {
                 <path
                   d="M3 1.125V1.875M9 1.125V1.875"
                   stroke="#1473E6"
-                  strokeWidth="0.75"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  stroke-width="0.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 />
                 <path
                   d="M10.875 3.75H1.125"
                   stroke="#1473E6"
-                  strokeWidth="0.75"
-                  strokeLinejoin="round"
+                  stroke-width="0.75"
+                  stroke-linejoin="round"
                 />
               </g>
               <defs>
@@ -146,15 +146,15 @@ const TargetInvoice: FC<Props> = ({ invoiceData }) => {
                 <path
                   d="M9.53906 3H4.33594C3.59812 3 3 3.59812 3 4.33594V9.53906C3 10.2769 3.59812 10.875 4.33594 10.875H9.53906C10.2769 10.875 10.875 10.2769 10.875 9.53906V4.33594C10.875 3.59812 10.2769 3 9.53906 3Z"
                   stroke="#1473E6"
-                  strokeWidth="0.75"
-                  strokeLinejoin="round"
+                  stroke-width="0.75"
+                  stroke-linejoin="round"
                 />
                 <path
                   d="M8.98828 3L9 2.4375C8.99901 2.08971 8.86041 1.75644 8.61448 1.51052C8.36856 1.26459 8.03529 1.12599 7.6875 1.125H2.625C2.22754 1.12617 1.84669 1.28459 1.56564 1.56564C1.28459 1.84669 1.12617 2.22754 1.125 2.625V7.6875C1.12599 8.03529 1.26459 8.36856 1.51052 8.61448C1.75644 8.86041 2.08971 8.99901 2.4375 9H3"
                   stroke="#1473E6"
-                  strokeWidth="0.75"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  stroke-width="0.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 />
               </g>
               <defs>

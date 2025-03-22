@@ -18,7 +18,7 @@ const IncentivePoints = ({ width = 70, height = 70 }) => {
         d="M29.7993 28.8397C28.9819 28.0223 27.6567 28.0222 26.8394 28.8395C26.0221 29.6568 26.0222 30.982 26.8396 31.7994L41.6384 46.5981C42.4558 47.4156 43.781 47.4157 44.5983 46.5984C45.4155 45.7811 45.4154 44.4559 44.598 43.6385L29.7993 28.8397Z"
         fill="white"
         stroke="#EB1000"
-        strokeWidth="2.33263"
+        stroke-width="2.33263"
         stroke-miterlimit="10"
       />
       <path
@@ -32,9 +32,9 @@ const IncentivePoints = ({ width = 70, height = 70 }) => {
       <path
         d="M18.1875 29.75H21.375M20.9885 22.9885L23.2423 25.2423M27.75 20.1875V23.375M34.5115 22.9885L32.2577 25.2423M23.2423 34.2577L20.9885 36.5115"
         stroke="#EB1000"
-        strokeWidth="2.33263"
+        stroke-width="2.33263"
         stroke-miterlimit="10"
-        strokeLinecap="round"
+        stroke-linecap="round"
       />
     </svg>
   );

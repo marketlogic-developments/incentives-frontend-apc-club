@@ -177,14 +177,14 @@ const productos = () => {
               <path
                 d="M9.25 5.72827H10.625C10.9897 5.72827 11.3394 5.87858 11.5973 6.14612C11.8551 6.41367 12 6.77654 12 7.1549L12 14.5734C12 14.9517 11.8551 15.3146 11.5973 15.5822C11.3394 15.8497 10.9897 16 10.625 16H2.375C2.01033 16 1.66059 15.8497 1.40273 15.5822C1.14487 15.3146 1 14.9517 1 14.5734L1 7.1549C1 6.77654 1.14487 6.41367 1.40273 6.14612C1.66059 5.87858 2.01033 5.72827 2.375 5.72827H3.75"
                 stroke="#1473E6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               />
               <path
                 d="M9.25 3.85328L6.5 1.00002L3.75 3.85328M6.5 11.8424L6.5 1.57067"
                 stroke="#1473E6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               />
             </svg>
             <p className="font-bold text-info xl:!text-base lg:!text-sm ">
