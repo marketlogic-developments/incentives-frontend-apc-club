@@ -76,7 +76,7 @@
               }
               svg {
                 fill: transparent;
-                strokeWidth: 1;
+                stroke-width: 1;
                 margin: 0;
               }
             }
@@ -105,7 +105,7 @@
               svg {
                 stroke: $primaryColorRed;
                 fill: transparent;
-                strokeWidth: 1;
+                stroke-width: 1;
                 margin: 0;
               }
             }
@@ -157,7 +157,7 @@
               svg {
                 stroke: $primaryColorRed;
                 fill: transparent;
-                strokeWidth: 1;
+                stroke-width: 1;
 
                 path {
                   stroke: $primaryColorRed;
@@ -189,7 +189,7 @@
             svg {
               stroke: $primaryColorRed;
               fill: transparent;
-              strokeWidth: 1;
+              stroke-width: 1;
 
               path {
                 stroke: $primaryColorRed;
@@ -198,7 +198,7 @@
           }
 
           svg {
-            strokeWidth: 1;
+            stroke-width: 1;
             stroke: #000;
             fill: transparent;
             min-width: 18px;
@@ -705,7 +705,7 @@
       path {
         stroke: $primaryColorRed;
         fill: transparent;
-        strokeWidth: 1;
+        stroke-width: 1;
       }
     }
   }
@@ -732,12 +732,12 @@
     path {
       stroke: $primaryColorRed;
       fill: transparent;
-      strokeWidth: 1;
+      stroke-width: 1;
     }
   }
 
   svg {
-    strokeWidth: 1;
+    stroke-width: 1;
     fill: transparent;
     min-width: 18px;
     width: var(--wicons);

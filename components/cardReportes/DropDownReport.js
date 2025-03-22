@@ -11,7 +11,7 @@ const DropDownReport = ({
       <div className="relative">
         <div
           tabIndex="0"
-          className="m-1 font-bold cursor-pointer btn btn-sm bg-gray-100 border-none !rounded-l-lg !rounded-r-lg !rounded-none hover:bg-gray-200 text-black sm:flex sm:justify-start grid justify-items-center"
+          class="m-1 font-bold cursor-pointer btn btn-sm bg-gray-100 border-none !rounded-l-lg !rounded-r-lg !rounded-none hover:bg-gray-200 text-black sm:flex sm:justify-start grid justify-items-center"
         >
           <div className="absolute inset-y-0 right-3">
             <div className="flex items-center h-full">{icon}</div>

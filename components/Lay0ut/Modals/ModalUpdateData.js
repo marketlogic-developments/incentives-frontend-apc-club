@@ -105,9 +105,9 @@ const ModalUpdateData = ({ onClose }) => {
                 onSubmit={submitForm}
             >
                 <div className="grid lg:grid-cols-2 gap-4">
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">{t("modalUpdate.firstName")} *</span>
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">{t("modalUpdate.firstName")} *</span>
                         </label>
                         <input
                             type="text"
@@ -119,9 +119,9 @@ const ModalUpdateData = ({ onClose }) => {
                             id={t("modalUpdate.firstName")}
                         />
                     </div>
-                    <div className="form-control w-full">
-                        <label className="label">
-                            <span className="label-text">{t("modalUpdate.middleName")}</span>
+                    <div class="form-control w-full">
+                        <label class="label">
+                            <span class="label-text">{t("modalUpdate.middleName")}</span>
                         </label>
                         <input
                             type="text"
@@ -132,9 +132,9 @@ const ModalUpdateData = ({ onClose }) => {
                             minLength={3}
                         />
                     </div>
-                    <div className="form-control w-full">
-                        <label className="label">
-                            <span className="label-text">{t("modalUpdate.lastName")} *</span>
+                    <div class="form-control w-full">
+                        <label class="label">
+                            <span class="label-text">{t("modalUpdate.lastName")} *</span>
                         </label>
                         <input
                             type="text"
@@ -146,9 +146,9 @@ const ModalUpdateData = ({ onClose }) => {
                             minLength={3}
                         />
                     </div>
-                    <div className="form-control w-full">
-                        <label className="label">
-                            <span className="label-text">
+                    <div class="form-control w-full">
+                        <label class="label">
+                            <span class="label-text">
                                 {t("modalUpdate.secondLastName")} *
                             </span>
                         </label>
@@ -164,9 +164,9 @@ const ModalUpdateData = ({ onClose }) => {
                     </div>
                 </div>
 
-                <div className="form-control w-full">
-                    <label className="label">
-                        <span className="label-text">{t("modalUpdate.document")}</span>
+                <div class="form-control w-full">
+                    <label class="label">
+                        <span class="label-text">{t("modalUpdate.document")}</span>
                     </label>
                     <div className="flex justify-between">
                         <select
@@ -295,7 +295,7 @@ const ModalUpdateData = ({ onClose }) => {
                         });
                     }}
                 />
-                <button className="btn btn-info hover:bg-black w-full">
+                <button class="btn btn-info hover:bg-black w-full">
                     {t("modalUpdate.updateData")}
                 </button>
             </form>

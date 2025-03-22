@@ -104,9 +104,9 @@ const CarouselBanners: FC<Props> = ({ banners }) => {
       {[...banners]
         .sort((a, b) => a.order - b.order)
         .filter(filters)
-        .map((data, index) => {
+        .map((data) => {
           return (
-            <Carousel.Slide key={index}>
+            <Carousel.Slide>
               {data.typeRedirection ? (
                 <div
                   className="w-full flex justify-center cursor-pointer p-[1px]"
