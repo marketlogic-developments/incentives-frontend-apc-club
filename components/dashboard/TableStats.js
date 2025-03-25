@@ -182,23 +182,23 @@ const TableStats = () => {
                         const ccData = data_licenses.filter((item) => item.business_unit === "Creative Cloud");
                         const dcData = data_licenses.filter((item) => item.business_unit === "Document Cloud");
 
-                        const totalCC = ccData.reduce((acc, curr) => acc + curr.total_invoices_points, 0);
-                        const totalDC = dcData.reduce((acc, curr) => acc + curr.total_invoices_points, 0);
+                        const totalCC = ccData.reduce((acc, curr) => acc + curr.total_sales_us, 0);
+                        const totalDC = dcData.reduce((acc, curr) => acc + curr.total_sales_us, 0);
 
                         const newPercentageCC = ccData.map((item) => {
-                            const share = totalCC > 0 ? (item.total_invoices_points / totalCC) * 100 : 0;
+                            const share = totalCC > 0 ? (item.total_sales_us / totalCC) * 100 : 0;
                             return {
                                 typeCC: item.sub_bu,            // "Teams", "Education", "Enterprise"
-                                sales: item.total_invoices_points,
+                                sales: item.total_sales_us,
                                 tablePercentage: share.toFixed(2) // redondea a 2 decimales
                             };
                         });
 
                         const newPercentageDC = dcData.map((item) => {
-                            const share = totalDC > 0 ? (item.total_invoices_points / totalDC) * 100 : 0;
+                            const share = totalDC > 0 ? (item.total_sales_us / totalDC) * 100 : 0;
                             return {
                                 typeDC: item.sub_bu,
-                                sales: item.total_invoices_points,
+                                sales: item.total_sales_us,
                                 tablePercentage: share.toFixed(2)
                             };
                         });
