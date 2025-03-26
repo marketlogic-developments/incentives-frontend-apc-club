@@ -29,6 +29,8 @@ const TableStats = () => {
     const dataFromAxios = useSelector((state) => state.sales.salesgement);
     const golprogram = useSelector((state) => state.currentUser.organizations);
     const [wait, setWait] = useState(false);
+    const [topGlobalSales, setTopGlobalSales] = useState({});
+
     const organizatitons_id = userb.user ? userb.user.profile.organizations[0].id : undefined;
 
     useEffect(() => {
@@ -157,6 +159,19 @@ const TableStats = () => {
                                 }
                             );
                         };
+                        
+                        let response_top_global = undefined
+                        response_top_global = await axios.get(
+                            `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d012b&download=false`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${userb.token}`,
+                                    "Content-Type": "application/json",
+                                },
+                            }
+                        );
+
+                        setTopGlobalSales(response_top_global.data.result);
 
                         // Acumuladores generales
                         let totalByCategory = { CC: 0, DC: 0 };
@@ -374,7 +389,7 @@ const TableStats = () => {
                 percentageTotal={percentageTotal}
                 sales={sales}
             />
-            <RankingTable />
+            <RankingTable top_sales={topGlobalSales}/>
         </div>
     );
 };
