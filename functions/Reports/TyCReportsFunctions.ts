@@ -1,6 +1,7 @@
 import { GenericalPromise, MultipleElements } from "services/generical.service";
 import { 
     CompaReportTyCPerChannelPPPAPropsny, 
+    InvoiceReportsDownload, 
     MedalTYCReport, 
     RegionDataCompanyUsersTC, 
     ReportsOrganizationsTyCDownload, 
@@ -70,6 +71,18 @@ export const TyCReportsFunctions=()=>{
     }
 
 
+    const ReportsInvoicesDownload = async(): Promise<MultipleElements<any>>=>{
+        try{
+            const res = await InvoiceReportsDownload()
+
+            return res
+        }catch (err) {
+            console.error(err);
+            throw err;
+          }
+    }
+
+
     const ReportTyC = async(params:string): Promise<MultipleElements<CompaReportTyCPerChannelPPPAPropsny>>=>{
         try{
             const res= await ReportTyCPerChannelPPPA(params)
@@ -115,6 +128,7 @@ export const TyCReportsFunctions=()=>{
         ReportUserPerfomanceTyC, 
         ReportUserPerfomanceTyCDownload, 
         ReportOrganizationsTyCDownload,
-        ReportProductsParticipating
+        ReportProductsParticipating,
+        ReportsInvoicesDownload
     }
 }
