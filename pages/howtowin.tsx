@@ -370,7 +370,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <thead>
                             <tr>
                             <th className="p-4 text-center font-bold" rowSpan={2}>
-                                <Image src={imgAdcl} alt="" />
+                                <Image src={imgCCE} alt="" />
                             </th>
                             <th colSpan={2}>
                                 <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
