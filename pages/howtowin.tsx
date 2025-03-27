@@ -370,7 +370,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <thead>
                             <tr>
                             <th className="p-4 text-center font-bold" rowSpan={2}>
-                                <Image src={imgCCE} alt="" />
+                                <Image src={imgAdcl} alt="" />
                             </th>
                             <th colSpan={2}>
                                 <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
@@ -969,7 +969,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                     <thead>
                       <tr>
                         <th className="p-4 text-center font-bold" rowSpan={2}>
-                          <Image src={imgCCE} alt="" />
+                          <Image src={imgAdcl} alt="" />
                         </th>
                         <th colSpan={6}>
                           <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
@@ -1429,7 +1429,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                     <thead>
                       <tr>
                         <th className="p-4 text-center font-bold" rowSpan={2}>
-                          <img src="img/ccc.png" alt="" srcSet="" />
+                        <Image src={imgAdcl} alt="" />
                         </th>
                         <th colSpan={2}>
                           <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
@@ -2027,7 +2027,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <thead>
                             <tr>
                             <th className="p-4 text-center font-bold" rowSpan={2}>
-                                <Image src={imgCCE} alt="" />
+                                <Image src={imgAdcl} alt="" />
                             </th>
                             <th colSpan={6}>
                                 <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
