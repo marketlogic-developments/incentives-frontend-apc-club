@@ -20,7 +20,6 @@ import * as imgAcct from "../public/assets/htw/img/acct.png";
 import * as imgCCE from "../public/assets/htw/img/ccc.png";
 import * as imgAprm from "../public/assets/htw/img/aprm.png";
 import * as imgApro from "../public/assets/htw/img/apro.png";
-import * as imgADC from "../public/assets/htw/img/adc.png";
 
 const howtowin = ({ htws }: { htws: any }) => {
     const { user } = useSelector((state: RootState) => state.currentUser);
@@ -355,7 +354,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                 </div>
                 <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
                     <div className="w-1/12 mb-16">
-                      <Image src={imgADC} alt="" />
+                      <Image src={imgApro} alt="" />
                     </div>
                     <div className="w-11/12">
                     <div className="bg-white rounded-lg overflow-hidden">
