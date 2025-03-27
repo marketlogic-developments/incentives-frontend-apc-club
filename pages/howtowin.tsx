@@ -355,7 +355,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                 </div>
                 <div className="max-w-6xl mx-auto flex flex-row justify-end items-end">
                     <div className="w-1/12 mb-16">
-                      <Image src={imgAdcl} alt="" />
+                      <Image src={imgApro} alt="" />
                     </div>
                     <div className="w-11/12">
                     <div className="bg-white rounded-lg overflow-hidden">
