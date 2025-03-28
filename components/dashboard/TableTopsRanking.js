@@ -33,7 +33,7 @@ const TableTopsRanking = ({
 
 
     useEffect(() => {
-        if (user) {
+        if (user && user?.is_superuser) {
             const fetchCompanies = async () => {
                 const response_companies = await axios.get(
                     `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d014b`,
