@@ -170,8 +170,8 @@ const TableTopsRanking = ({
                                     const hasDecimals = revenue % 1 !== 0;
 
                                     const formattedRevenue = revenue.toLocaleString("es-ES", {
-                                        minimumFractionDigits: hasDecimals ? 2 : 0,
-                                        maximumFractionDigits: hasDecimals ? 2 : 0,
+                                        minimumFractionDigits: hasDecimals ? 0 : 0,
+                                        maximumFractionDigits: hasDecimals ? 0 : 0,
                                     });
 
                                     return (
@@ -180,7 +180,7 @@ const TableTopsRanking = ({
                                             <td className="text-left">{data["First Name"]} {data["Last Name"]}</td>
                                             <td className="text-left">{data["Email"]}</td>
                                             <td className="text-left min-w-[65px]">{formattedRevenue}</td>
-                                            <td className="text-left">{data["Sales DigiPoints by user"]}</td>
+                                            <td className="text-left">$ {data["Sales DigiPoints by user"]}</td>
                                             <td className="text-left">{data["Region"]}</td>
                                         </tr>
                                     );
