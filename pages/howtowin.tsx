@@ -20,6 +20,7 @@ import * as imgAcct from "../public/assets/htw/img/acct.png";
 import * as imgCCE from "../public/assets/htw/img/ccc.png";
 import * as imgAprm from "../public/assets/htw/img/aprm.png";
 import * as imgApro from "../public/assets/htw/img/apro.png";
+import * as imgAdcl from "../public/assets/htw/img/adc.png";
 
 const howtowin = ({ htws }: { htws: any }) => {
     const { user } = useSelector((state: RootState) => state.currentUser);
@@ -369,7 +370,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <thead>
                             <tr>
                             <th className="p-4 text-center font-bold" rowSpan={2}>
-                                <Image src={imgCCE} alt="" />
+                                <Image src={imgAdcl} alt="" />
                             </th>
                             <th colSpan={2}>
                                 <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
@@ -968,7 +969,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                     <thead>
                       <tr>
                         <th className="p-4 text-center font-bold" rowSpan={2}>
-                          <Image src={imgCCE} alt="" />
+                          <Image src={imgAdcl} alt="" />
                         </th>
                         <th colSpan={6}>
                           <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
@@ -1428,7 +1429,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                     <thead>
                       <tr>
                         <th className="p-4 text-center font-bold" rowSpan={2}>
-                          <img src="img/ccc.png" alt="" srcSet="" />
+                        <Image src={imgAdcl} alt="" />
                         </th>
                         <th colSpan={2}>
                           <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
@@ -2026,7 +2027,7 @@ const howtowin = ({ htws }: { htws: any }) => {
                         <thead>
                             <tr>
                             <th className="p-4 text-center font-bold" rowSpan={2}>
-                                <Image src={imgCCE} alt="" />
+                                <Image src={imgAdcl} alt="" />
                             </th>
                             <th colSpan={6}>
                                 <div className="bg-rojo text-white py-2 mx-2 rounded-md text-center font-bold text-xl">
