@@ -179,8 +179,8 @@ const TableTopsRanking = ({
                                             <td className="p-2 text-xl font-bold text-left">#{index + 1}</td>
                                             <td className="text-left">{data["First Name"]} {data["Last Name"]}</td>
                                             <td className="text-left">{data["Email"]}</td>
-                                            <td className="text-left min-w-[65px]">{formattedRevenue}</td>
-                                            <td className="text-left">$ {data["Sales DigiPoints by user"]}</td>
+                                            <td className="text-left min-w-[65px]">$ {formattedRevenue}</td>
+                                            <td className="text-left">{data["Sales DigiPoints by user"]}</td>
                                             <td className="text-left">{data["Region"]}</td>
                                         </tr>
                                     );
