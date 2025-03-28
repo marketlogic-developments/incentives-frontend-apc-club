@@ -38,7 +38,7 @@ const TableTopsRanking = ({
                 `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d014b`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${user.token}`,
                         "Content-Type": "application/json",
                     },
                 }
@@ -54,7 +54,7 @@ const TableTopsRanking = ({
         const fetchTopSales = async () => {
             let response = undefined;
     
-            if (user && token) {
+            if (user) {
                 const regionParam = filters.region ? filters.region : null;
                 const companyParam = filters.company ? filters.company : null;
     
@@ -69,7 +69,7 @@ const TableTopsRanking = ({
                         },
                         {
                             headers: {
-                                Authorization: `Bearer ${token}`,
+                                Authorization: `Bearer ${user.token}`,
                                 "Content-Type": "application/json",
                             },
                         }
@@ -86,7 +86,7 @@ const TableTopsRanking = ({
                         },
                         {
                             headers: {
-                                Authorization: `Bearer ${token}`,
+                                Authorization: `Bearer ${user.token}`,
                                 "Content-Type": "application/json",
                             },
                         }
