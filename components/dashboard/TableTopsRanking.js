@@ -33,21 +33,23 @@ const TableTopsRanking = ({
 
 
     useEffect(() => {
-        const fetchCompanies = async () => {
-            const response_companies = await axios.get(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d014b`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${user.token}`,
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
-
-            setAllCompanies(response_companies.data.result);
+        if (user) {
+            const fetchCompanies = async () => {
+                const response_companies = await axios.get(
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d014b`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token ?? token}`,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+    
+                setAllCompanies(response_companies.data.result);
+            }
+    
+            fetchCompanies();
         }
-
-        fetchCompanies();
     }, [token])
 
     useEffect(() => {
@@ -69,7 +71,7 @@ const TableTopsRanking = ({
                         },
                         {
                             headers: {
-                                Authorization: `Bearer ${user.token}`,
+                                Authorization: `Bearer ${user.token ?? token}`,
                                 "Content-Type": "application/json",
                             },
                         }
@@ -86,7 +88,7 @@ const TableTopsRanking = ({
                         },
                         {
                             headers: {
-                                Authorization: `Bearer ${user.token}`,
+                                Authorization: `Bearer ${user.token ?? token}`,
                                 "Content-Type": "application/json",
                             },
                         }
