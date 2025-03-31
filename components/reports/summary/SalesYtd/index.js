@@ -16,7 +16,7 @@ const SalesYtd = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [sales, setSales] = useState();
-  const token = useSelector((state) => state.user.token);
+  const token = useSelector((state) => state.currentUser.token);
   const [regionVsGoals, setRegionVsGoals] = useState({
     total: 0,
     expected: 0,
@@ -468,22 +468,38 @@ const SalesYtd = () => {
   /* TOTAL SALES VS GOALS */
   const calculateRevenueSum = (data) => {
     const filteredItems = data.filter((item) => {
-      const resDist =
-        filters.level === "DISTRIBUTOR" ||
-        (filters.company_name.length !== 0 &&
-          item.company_type === "DISTRIBUTOR")
-          ? "DISTRIBUTOR"
-          : "RESELLER";
+      const partnerLevel ="distribution_channel.name".split('.').reduce((obj, key) => obj?.[key], item);
 
-      return item.company_type === resDist;
+      const filt =
+      filters.company_name.length === 0 ||
+        (filters.company_name.length !== 0 &&
+          partnerLevel === filters.company_name)
+          ? true
+          : false;
+          
+      return filt;
     });
 
+    console.log("total:",filteredItems.length)
+
     const totalRevenueSum = filteredItems.reduce((sum, item) => {
-      return sum + parseFloat(item.total_revenue);
+      const goals ="goals".split('.').reduce((obj, key) => obj?.[key], item);
+      let goalsy=0;
+      goals.forEach((item) => {
+     const   perMonth= "amount".split('.').reduce((obj, key) => obj?.[key], item);
+     goalsy = goalsy + parseFloat(perMonth);
+    });
+      return sum + parseFloat(goalsy);
     }, 0);
 
     const expectedRevenueSum = filteredItems.reduce((sum, item) => {
-      return sum + parseFloat(item.expected_revenue);
+      const goals ="goals".split('.').reduce((obj, key) => obj?.[key], item);
+      let goalsy=0;
+      goals.forEach((item) => {
+        const   perMonth= "amount".split('.').reduce((obj, key) => obj?.[key], item);
+     goalsy = goalsy + parseFloat(perMonth);
+    });
+      return sum + parseFloat(goalsy);
     }, 0);
 
     return {
@@ -512,13 +528,12 @@ const SalesYtd = () => {
 
   const getUniqueFieldValues = (data, fieldName) => {
     const uniqueValues = new Set();
-
     data.forEach((item) => {
-      const fieldValue = item[fieldName];
-      if (fieldValue !== null && fieldValue !== "") {
-        uniqueValues.add(fieldValue);
+      const fieldValue = fieldName.split('.').reduce((obj, key) => obj?.[key], item);
+      if (fieldValue) {
+          uniqueValues.add(fieldValue);
       }
-    });
+  });
 
     return Array.from(uniqueValues);
   };
@@ -526,54 +541,137 @@ const SalesYtd = () => {
   /* TOTAL DE CREATIVE CLOUD Y DOCUMENT CLOUD  */
   const calculateCreativeDocumentSum = (data) => {
     const filteredItems = data.filter((item) => {
-      const resDist =
-        filters.level === "DISTRIBUTOR" ||
-        (filters.company_name.length !== 0 &&
-          item.company_type === "DISTRIBUTOR")
-          ? "DISTRIBUTOR"
-          : "RESELLER";
+      const partnerLevel ="distribution_channel.name".split('.').reduce((obj, key) => obj?.[key], item);
 
-      return item.company_type === resDist;
+      const filt =
+      filters.company_name.length === 0 ||
+        (filters.company_name.length !== 0 &&
+          partnerLevel === filters.company_name)
+          ? true
+          : false;
+          
+      return filt;
     });
 
-    const calculateTotal = (property) =>
-      filteredItems.reduce((sum, item) => {
-        const value = parseFloat(item[property]);
-        return isNaN(value) ? sum : sum + value;
+    const calculateTotal = (property) => {
+      return filteredItems.reduce((total, item) => {
+        const goals = item.goals; 
+        if (!goals || !Array.isArray(goals)) return total; 
+        
+        const sum = goals.reduce((sum, goal) => {
+          const value = property.split('.').reduce((obj, key) => obj?.[key], goal);
+          const num = parseFloat(value);
+          
+          return isNaN(num) ? sum : sum + num;
+        }, 0);
+    
+        return total + sum;
       }, 0);
+    };
+    
+    const expected_cc_renew = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_AUTO_RENEWAL_CC").toFixed(2));
+    const expected_cc_newbusiness = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_NEW_BUSINESS_CC").toFixed(2))+
+    parseFloat(calculateTotal("extended_attributes.CATEGORIES.VIP_NEW_BUSINESS_CC").toFixed(2));
+    const expected_dc_renew = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_AUTO_RENEWAL_DC").toFixed(2));
+    const expected_dc_newbusiness = parseFloat(calculateTotal( "extended_attributes.CATEGORIES.VMP_NEW_BUSINESS_DC").toFixed(2))+
+    parseFloat(calculateTotal( "extended_attributes.CATEGORIES.VIP_NEW_BUSINESS_DC").toFixed(2));
+    const sales_cc_renewal = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_AUTO_RENEWAL_CC_SALES").toFixed(2));
+    const sales_cc_newbusiness = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VIP_NEW_BUSINESS_CC_SALES").toFixed(2))+
+    parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_NEW_BUSINESS_CC_SALES").toFixed(2));
+    const sales_dc_renewal = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_AUTO_RENEWAL_DC_SALES").toFixed(2));
+    const sales_dc_newbusiness = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VIP_NEW_BUSINESS_DC_SALES").toFixed(2))+
+    parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_NEW_BUSINESS_DC_SALES").toFixed(2));
+    const expectedCloud =  expected_cc_renew +expected_cc_newbusiness;
+    const salesCloud = 0;//sales_cc_renewal + sales_cc_newbusiness;
+    const expectedDoc =  expected_dc_renew + expected_dc_newbusiness;
+    const salesDoc =0; //sales_dc_renewal +sales_dc_newbusiness;
 
-    const expected_cc_renew = calculateTotal("expected_cc_renew").toFixed(2);
-    const expected_cc_newbusiness = calculateTotal(
-      "expected_cc_newbusiness"
-    ).toFixed(2);
-    const expected_dc_renew = calculateTotal("expected_dc_renew").toFixed(2);
-    const expected_dc_newbusiness = calculateTotal(
-      "expected_dc_newbusiness"
-    ).toFixed(2);
-    const sales_cc_renewal = calculateTotal("sales_cc_renewal").toFixed(2);
-    const sales_cc_newbusiness = calculateTotal("sales_cc_newbusiness").toFixed(
-      2
-    );
-    const sales_dc_renewal = calculateTotal("sales_dc_renewal").toFixed(2);
-    const sales_dc_newbusiness = calculateTotal("sales_dc_newbusiness").toFixed(
-      2
-    );
-    const expectedCloud = (
-      calculateTotal("expected_cc_renew") +
-      calculateTotal("expected_cc_newbusiness")
-    ).toFixed(2);
-    const salesCloud = (
-      calculateTotal("sales_cc_renewal") +
-      calculateTotal("sales_cc_newbusiness")
-    ).toFixed(2);
-    const expectedDoc = (
-      calculateTotal("expected_dc_renew") +
-      calculateTotal("expected_dc_newbusiness")
-    ).toFixed(2);
-    const salesDoc = (
-      calculateTotal("sales_dc_renewal") +
-      calculateTotal("sales_dc_newbusiness")
-    ).toFixed(2);
+//    const fetchSales = async () => {
+//     console.log('fetchSales ----')
+
+//             let response = await axios.get(
+//                         `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=8c6f1313-7291-4450-911c-828b7d7411f4`,
+//                         {
+//                             headers: {
+//                                 Authorization: `Bearer ${token}`,
+//                                 "Content-Type": "application/json",
+//                                 "Access-Control-Allow-Origin": "*",
+//                             },
+//                         }
+//                     );
+
+            
+// console.log(response.data.result)
+//                 // Limpia el tipo (eliminar espacios y poner en minúsculas)
+//                 const cleanType = (type) => type.trim().toLowerCase();
+
+//                 // Acumuladores generales
+//                 let totalByCategory = { CC: 0, DC: 0 };
+//                 let totalBySubCategory = { VIP: 0, VMP: 0 };
+//                 let totalByType = { 'New Business': 0, Autorenewal: 0 };
+
+//                 // Acumuladores para combinaciones específicas
+//                 let vipNewBusinessCC = 0;
+//                 let vipNewBusinessDC = 0;
+//                 let vmpAutoRenewalCC = 0;
+//                 let vmpAutoRenewalDC = 0;
+//                 let vmpNewBusinessCC = 0;
+//                 let vmpNewBusinessDC = 0;
+
+//                 response.data.result.forEach((item) => {
+//                     const category = item.category;
+//                     const sub = item.sub_category;
+//                     const type = cleanType(item.type);
+//                     const revenue = item.total_revenue;
+
+//                     // Totales generales
+//                     if (category === 'CC' || category === 'DC') {
+//                         totalByCategory[category] += revenue;
+//                     }
+
+//                     if (sub === 'VIP' || sub === 'VMP') {
+//                         totalBySubCategory[sub] += revenue;
+//                     }
+
+//                     if (type === 'new business') {
+//                         totalByType['New Business'] += revenue;
+//                     } else if (type === 'autorenewal' || type === 'autorrenewal') {
+//                         totalByType['Autorenewal'] += revenue;
+//                     }
+
+//                     // Totales específicos para los setters
+//                     if (sub === 'VIP' && type === 'new business') {
+//                         if (category === 'CC') vipNewBusinessCC += revenue;
+//                         if (category === 'DC') vipNewBusinessDC += revenue;
+//                     }
+
+//                     if (sub === 'VMP' && type === 'autorenewal') {
+//                         if (category === 'CC') vmpAutoRenewalCC += revenue;
+//                         if (category === 'DC') vmpAutoRenewalDC += revenue;
+//                     }
+
+//                     if (sub === 'VMP' && type === 'new business') {
+//                         if (category === 'CC') vmpNewBusinessCC += revenue;
+//                         if (category === 'DC') vmpNewBusinessDC += revenue;
+//                     }
+//                 });
+
+//                 // Se actualizan los estados
+//                /* setCCGoalSales(totalByCategory.CC);
+//                 setDCGoalSales(totalByCategory.DC);
+//                 setVIP_NEW_BUSINESS_CC_SALES(vipNewBusinessCC);
+//                 setVIP_NEW_BUSINESS_DC_SALES(vipNewBusinessDC);
+//                 setVMP_AUTO_RENEWAL_CC_SALES(vmpAutoRenewalCC);
+//                 setVMP_AUTO_RENEWAL_DC_SALES(vmpAutoRenewalDC);
+//                 setVMP_NEW_BUSINESS_CC_SALES(vmpNewBusinessCC);
+//                 setVMP_NEW_BUSINESS_DC_SALES(vmpNewBusinessDC);*/
+
+//                 salesCloud=vipNewBusinessCC+vmpAutoRenewalCC+vmpNewBusinessCC;
+//                 salesDoc=vipNewBusinessDC+vmpAutoRenewalDC+vmpNewBusinessDC;
+//             };
+//         };
+
+//         fetchSales();
 
     return {
       expected_cc_renew,
@@ -598,28 +696,33 @@ const SalesYtd = () => {
   useEffect(() => {
     setDataLoaded(false);
     dispatch(getSalesYtd(token, filters)).then((res) => {
-      const revenueSums = calculateRevenueSum(res.payload);
+      console.log('datos -----------');
+      console.log(res.result.content);
+      
+      setCountries(getUniqueFieldValues(res.result.content, "country.name"));
+      setRegions(getUniqueFieldValues(res.result.content, "country.region.name"));
+      const revenueSums = calculateRevenueSum(res.result.content);
       setSales(revenueSums);
 
       const formattedData = calculateAndFormatData(
-        res.payload,
+        res.result.content,
         calculateTotalRevenueByRegion,
         getColorForField,
         colorMapping
       );
       setRegionVsGoals(formattedData);
 
-      setCloudDocument(calculateCreativeDocumentSum(res.payload));
+      setCloudDocument(calculateCreativeDocumentSum(res.result.content));
 
       const formattedTotals = formatterDataToBarChart(
-        res.payload,
+        res.result.content,
         calculateQuarterlyTotals,
         formatQuarterlyTotals,
         ["vip", "vmp"]
       );
       setMarketplaceVip(createMarketplaceVipObject(formattedTotals));
 
-      const formatterRevenueTotals = calculateRevenueDifferences(res.payload, [
+      const formatterRevenueTotals = calculateRevenueDifferences(res.result.content, [
         "GOLD",
         "PLATINUM",
         "DISTRIBUTOR",
@@ -627,18 +730,17 @@ const SalesYtd = () => {
       ]);
       setLevelSale(formatterRevenueTotals);
 
-      setDataTable(calculateSegmentTotals(res.payload));
-      setLevels(getUniqueFieldValues(res.payload, "level"));
-      setRegions(getUniqueFieldValues(res.payload, "region"));
-      setCountries(getUniqueFieldValues(res.payload, "country_id"));
-      setCompaniesType(getUniqueFieldValues(res.payload, "company_type"));
+      setDataTable(calculateSegmentTotals(res.result.content));
+      setLevels(getUniqueFieldValues(res.result.content, "distribution_channel.name"));
+      setCompaniesType(getUniqueFieldValues(res.result.content, "company_type"));
       setDataLoaded(true);
     });
   }, [filters]);
 
   useEffect(() => {
     dispatch(getSalesYtd(token, filterAux)).then((res) => {
-      setCompaniesName(getUniqueFieldValues(res.payload, "company_name"));
+      setCompaniesName(getUniqueFieldValues(res.result.content, "name"));
+      
     });
   }, []);
 
