@@ -183,10 +183,11 @@ const PerformaceSales = ({
                         <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
                             <span
                                 className="bg-[#1473E6] h-full rounded-full"
-                                style={{ width: `${
-                                    (VIP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_AUTO_RENEWAL_CC_SALES * 100) /
-                                    (VIP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_CC + VMP_AUTO_RENEWAL_CC)
-                                }%` }}
+                                style={{
+                                    width: `${(VIP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_AUTO_RENEWAL_CC_SALES * 100) /
+                                        (VIP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_CC + VMP_AUTO_RENEWAL_CC)
+                                        }%`
+                                }}
                             />
                         </div>
                     </Tooltip>
@@ -206,10 +207,11 @@ const PerformaceSales = ({
                         <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
                             <span
                                 className={`bg-primary h-full rounded-full`}
-                                style={{ width: `${
-                                    (VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_DC_SALES + VMP_AUTO_RENEWAL_DC_SALES * 100) /
-                                    (VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_DC + VMP_AUTO_RENEWAL_DC)
-                                }%` }}
+                                style={{
+                                    width: `${(VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_DC_SALES + VMP_AUTO_RENEWAL_DC_SALES * 100) /
+                                        (VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_DC + VMP_AUTO_RENEWAL_DC)
+                                        }%`
+                                }}
                             />
                         </div>
                     </Tooltip>

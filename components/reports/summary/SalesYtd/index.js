@@ -12,6 +12,7 @@ import TableSection from "./TableSection";
 import axios from "axios";
 
 
+
 const SalesYtd = () => {
     const [defaultYear, setDefaultYear] = useState(["2025"]);
     /* Variable and const */
@@ -207,51 +208,6 @@ const SalesYtd = () => {
         CERTIFIED: "#21A5A2",
     };
 
-    /* SET DATA */
-    const calculateSegmentTotals = (data) => {
-        const resellerData = data.filter((item) => {
-            const resDist =
-                filters.level === "DISTRIBUTOR" ||
-                    (filters.company_name.length !== 0 &&
-                        item.company_type === "DISTRIBUTOR")
-                    ? "DISTRIBUTOR"
-                    : "RESELLER";
-
-            return item.company_type === resDist;
-        });
-
-        const segmentTotals = resellerData.reduce((totals, item) => {
-            totals["Commercial"] =
-                (totals["Commercial"] || 0) + parseFloat(item.sales_commercial);
-            totals["Government"] =
-                (totals["Government"] || 0) + parseFloat(item.sales_government);
-            totals["Education"] =
-                (totals["Education"] || 0) + parseFloat(item.sales_education);
-            totals["Behavior"] = totals["Behavior"] || 0;
-            return totals;
-        }, {});
-
-        const pointsTotals = data.reduce((totals, item) => {
-            totals["Commercial"] =
-                (totals["Commercial"] || 0) + parseInt(item.puntos_commercial);
-            totals["Government"] =
-                (totals["Government"] || 0) + parseInt(item.puntos_government);
-            totals["Education"] =
-                (totals["Education"] || 0) + parseInt(item.puntos_education);
-            totals["Behavior"] =
-                (totals["Behavior"] || 0) + parseInt(item.puntos_behavior);
-            return totals;
-        }, {});
-
-        const result = Object.keys(segmentTotals).map((segment) => ({
-            segment,
-            total: segmentTotals[segment],
-            total_points: pointsTotals[segment],
-        }));
-
-        return result;
-    };
-
     /* SELECTS */
     const handleFilters = (name, value) => {
         return setFilters({ ...filters, [name]: value === null ? "" : value });
@@ -284,188 +240,6 @@ const SalesYtd = () => {
         return mapping[value] || defaultColor;
     };
 
-    /* MARKETPLACE & VIP */
-    const calculateQuarterlyTotals = (data, propertyNames) => {
-        const quarterlyTotals = propertyNames.reduce((totals, propertyName) => {
-            totals[propertyName] = {
-                Q1: 0,
-                Q2: 0,
-                Q3: 0,
-                Q4: 0,
-            };
-            return totals;
-        }, {});
-
-        data.forEach((obj) => {
-            const resDist =
-                filters.level === "DISTRIBUTOR" ||
-                    (filters.company_name.length !== 0 &&
-                        obj.company_type === "DISTRIBUTOR")
-                    ? "DISTRIBUTOR"
-                    : "RESELLER";
-
-            if (obj.company_type === resDist) {
-                propertyNames.forEach((propertyName) => {
-                    for (let quarter = 1; quarter <= 4; quarter++) {
-                        quarterlyTotals[propertyName][`Q${quarter}`] += parseFloat(
-                            obj[`${propertyName}_revenue_q${quarter}`]
-                        );
-                    }
-                });
-            }
-        });
-
-        return quarterlyTotals;
-    };
-
-    const formatQuarterlyTotals = (totals) => {
-        const formattedTotals = {};
-        for (const propertyName in totals) {
-            formattedTotals[propertyName] = {
-                Q1: totals[propertyName].Q1.toFixed(2),
-                Q2: totals[propertyName].Q2.toFixed(2),
-                Q3: totals[propertyName].Q3.toFixed(2),
-                Q4: totals[propertyName].Q4.toFixed(2),
-            };
-        }
-        return formattedTotals;
-    };
-
-    const formatterDataToBarChart = (
-        data,
-        calculateQuarterlyTotals,
-        formatTotalsFunction,
-        legendLabels
-    ) => {
-        const quarterlyTotals = calculateQuarterlyTotals(data, legendLabels);
-        const formattedTotals = formatTotalsFunction(quarterlyTotals);
-
-        const dataObjects = legendLabels.map((label) => ({
-            label: label,
-            data: Object.keys(formattedTotals[label]).map((quarter) =>
-                Number(formattedTotals[label][quarter])
-            ),
-        }));
-
-        // Calcular totalVip, totalVmp y totalSale
-        const totalVip = dataObjects
-            .filter((obj) => obj.label.includes("vip"))
-            .reduce(
-                (total, obj) => total + obj.data.reduce((sum, value) => sum + value, 0),
-                0
-            );
-
-        const totalVmp = dataObjects
-            .filter((obj) => obj.label.includes("vmp"))
-            .reduce(
-                (total, obj) => total + obj.data.reduce((sum, value) => sum + value, 0),
-                0
-            );
-
-        const totalSale = totalVip + totalVmp;
-
-        // Calcular porcentajes y formatear el objeto resultante
-        const result = dataObjects.map((obj) => {
-            const total = obj.data.reduce((sum, value) => sum + value, 0);
-            const percentage = totalSale !== 0 ? (total / totalSale) * 100 : 0;
-
-            return {
-                label: obj.label,
-                data: obj.data,
-                porcentaje: percentage.toFixed(2),
-                totalVip: totalVip.toFixed(2),
-                totalVmp: totalVmp.toFixed(2),
-                totalSale: totalSale.toFixed(2),
-            };
-        });
-
-        return result;
-    };
-
-    const createMarketplaceVipObject = (formattedTotals) => {
-        const vipItem = formattedTotals.find((item) => item.label === "vip");
-        const vmpItem = formattedTotals.find((item) => item.label === "vmp");
-
-        return {
-            vip: vipItem.data,
-            vmp: vmpItem.data,
-            totalVip: vipItem.totalVip,
-            totalVmp: vmpItem.totalVmp,
-            totalSale: vipItem.totalSale,
-            percentageVip: vipItem.porcentaje,
-            percentageVmp: vmpItem.porcentaje,
-        };
-    };
-
-    /* LEVEL VS SALES GOAL */
-    const calculateRevenueDifferences = (data, levels) => {
-        const revenueDifferences = [];
-
-        levels.forEach((level) => {
-            const filteredData = data.filter((item) => item.level === level);
-            const totalRevenue = filteredData.reduce(
-                (sum, item) => sum + parseFloat(item.total_revenue),
-                0
-            );
-            const totalExpectedRevenue = filteredData.reduce(
-                (sum, item) => sum + parseFloat(item.expected_revenue),
-                0
-            );
-            const revenueDifference = totalExpectedRevenue - totalRevenue;
-
-            revenueDifferences.push({
-                data: revenueDifference.toFixed(2),
-                total_expected_revenue: totalExpectedRevenue.toFixed(2),
-                total_revenue: totalRevenue.toFixed(2),
-                level: level,
-                color: getColorForField(level, colorMapping),
-            });
-        });
-
-        return revenueDifferences;
-    };
-
-    /* TOTAL SALES VS GOALS */
-    const calculateRevenueSum = (data) => {
-        const filteredItems = data.filter((item) => {
-            const partnerLevel = "distribution_channel.name".split('.').reduce((obj, key) => obj?.[key], item);
-
-            const filt =
-                filters.company_name.length === 0 ||
-                    (filters.company_name.length !== 0 &&
-                        partnerLevel === filters.company_name)
-                    ? true
-                    : false;
-
-            return filt;
-        });
-
-        const totalRevenueSum = filteredItems.reduce((sum, item) => {
-            const goals = "goals".split('.').reduce((obj, key) => obj?.[key], item);
-            let goalsy = 0;
-            goals.forEach((item) => {
-                const perMonth = "amount".split('.').reduce((obj, key) => obj?.[key], item);
-                goalsy = goalsy + parseFloat(perMonth);
-            });
-            return sum + parseFloat(goalsy);
-        }, 0);
-
-        const expectedRevenueSum = filteredItems.reduce((sum, item) => {
-            const goals = "goals".split('.').reduce((obj, key) => obj?.[key], item);
-            let goalsy = 0;
-            goals.forEach((item) => {
-                const perMonth = "amount".split('.').reduce((obj, key) => obj?.[key], item);
-                goalsy = goalsy + parseFloat(perMonth);
-            });
-            return sum + parseFloat(goalsy);
-        }, 0);
-
-        return {
-            totalRevenueSum,
-            expectedRevenueSum,
-        };
-    };
-
     const formattedNumber = (numero) => {
         // Redondear el número hacia abajo para eliminar la parte decimal
         numero = Math.floor(numero);
@@ -484,81 +258,6 @@ const SalesYtd = () => {
         return grupos.join(",");
     };
 
-    const getUniqueFieldValues = (data, fieldName) => {
-        const uniqueValues = new Set();
-        data.forEach((item) => {
-            const fieldValue = fieldName.split('.').reduce((obj, key) => obj?.[key], item);
-            if (fieldValue) {
-                uniqueValues.add(fieldValue);
-            }
-        });
-
-        return Array.from(uniqueValues);
-    };
-
-    /* TOTAL DE CREATIVE CLOUD Y DOCUMENT CLOUD  */
-    const calculateCreativeDocumentSum = (data) => {
-        const filteredItems = data.filter((item) => {
-            const partnerLevel = "distribution_channel.name".split('.').reduce((obj, key) => obj?.[key], item);
-
-            const filt =
-                filters.company_name.length === 0 ||
-                    (filters.company_name.length !== 0 &&
-                        partnerLevel === filters.company_name)
-                    ? true
-                    : false;
-
-            return filt;
-        });
-
-        const calculateTotal = (property) => {
-            return filteredItems.reduce((total, item) => {
-                const goals = item.goals;
-                if (!goals || !Array.isArray(goals)) return total;
-
-                const sum = goals.reduce((sum, goal) => {
-                    const value = property.split('.').reduce((obj, key) => obj?.[key], goal);
-                    const num = parseFloat(value);
-
-                    return isNaN(num) ? sum : sum + num;
-                }, 0);
-
-                return total + sum;
-            }, 0);
-        };
-
-        const expected_cc_renew = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_AUTO_RENEWAL_CC").toFixed(2));
-        const expected_cc_newbusiness = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_NEW_BUSINESS_CC").toFixed(2)) +
-            parseFloat(calculateTotal("extended_attributes.CATEGORIES.VIP_NEW_BUSINESS_CC").toFixed(2));
-        const expected_dc_renew = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_AUTO_RENEWAL_DC").toFixed(2));
-        const expected_dc_newbusiness = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_NEW_BUSINESS_DC").toFixed(2)) +
-            parseFloat(calculateTotal("extended_attributes.CATEGORIES.VIP_NEW_BUSINESS_DC").toFixed(2));
-        const sales_cc_renewal = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_AUTO_RENEWAL_CC_SALES").toFixed(2));
-        const sales_cc_newbusiness = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VIP_NEW_BUSINESS_CC_SALES").toFixed(2)) +
-            parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_NEW_BUSINESS_CC_SALES").toFixed(2));
-        const sales_dc_renewal = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_AUTO_RENEWAL_DC_SALES").toFixed(2));
-        const sales_dc_newbusiness = parseFloat(calculateTotal("extended_attributes.CATEGORIES.VIP_NEW_BUSINESS_DC_SALES").toFixed(2)) +
-            parseFloat(calculateTotal("extended_attributes.CATEGORIES.VMP_NEW_BUSINESS_DC_SALES").toFixed(2));
-        const expectedCloud = expected_cc_renew + expected_cc_newbusiness;
-        const salesCloud = 0;//sales_cc_renewal + sales_cc_newbusiness;
-        const expectedDoc = expected_dc_renew + expected_dc_newbusiness;
-        const salesDoc = 0; //sales_dc_renewal +sales_dc_newbusiness;
-
-        return {
-            expected_cc_renew,
-            expected_cc_newbusiness,
-            expected_dc_newbusiness,
-            sales_cc_renewal,
-            sales_cc_newbusiness,
-            sales_dc_renewal,
-            sales_dc_newbusiness,
-            expected_dc_renew,
-            expectedCloud,
-            salesCloud,
-            expectedDoc,
-            salesDoc,
-        };
-    };
 
     const multiFilterButton = () => {
         handleFilters("company_name", multiFilter.join("~|~"));
@@ -827,28 +526,28 @@ const SalesYtd = () => {
                     fetchCountries()
                 ]);
 
-                setCompaniesName(dataOrganizations);
-                setCountries(dataCountries);
+                setCompaniesName(dataOrganizations || []);
+                setCountries(dataCountries || []);
 
                 if (dataGoals && dataSales) {
                     setSales({
-                        totalRevenueSum: dataSales.totalByCategory.CC + dataSales.totalByCategory.DC,
-                        expectedRevenueSum: dataGoals.extended_attributes?.CC + dataGoals.extended_attributes?.DC
+                        totalRevenueSum: dataSales.totalByCategory.CC || 0 + dataSales.totalByCategory.DC || 0,
+                        expectedRevenueSum: dataGoals.extended_attributes?.CC || 0 + dataGoals.extended_attributes?.DC || 0
                     });
 
                     setCloudDocument({
-                        expectedCloud: dataGoals.extended_attributes.CC,
-                        salesCloud: dataSales.totalByCategory.CC,
-                        expectedDoc: dataGoals.extended_attributes.DC,
-                        salesDoc: dataSales.totalByCategory.DC,
-                        expected_cc_renew: dataGoals.extended_attributes.VMP_AUTO_RENEWAL_CC,
-                        expected_cc_newbusiness: dataGoals.extended_attributes.VIP_NEW_BUSINESS_CC + dataGoals.extended_attributes.VMP_NEW_BUSINESS_CC,
-                        expected_dc_renew: dataGoals.extended_attributes.VMP_AUTO_RENEWAL_DC,
-                        expected_dc_newbusiness: dataGoals.extended_attributes.VIP_NEW_BUSINESS_DC + dataGoals.extended_attributes.VMP_NEW_BUSINESS_DC,
-                        sales_cc_renewal: dataSales.vmpAutoRenewalCC,
-                        sales_cc_newbusiness: dataSales.vipNewBusinessCC + dataSales.vmpNewBusinessCC,
-                        sales_dc_renewal: dataSales.vmpAutoRenewalDC,
-                        sales_dc_newbusiness: dataSales.vipNewBusinessDC + dataSales.vmpNewBusinessDC,
+                        expectedCloud: dataGoals.extended_attributes.CC || 0,
+                        salesCloud: dataSales.totalByCategory.CC || 0,
+                        expectedDoc: dataGoals.extended_attributes.DC || 0,
+                        salesDoc: dataSales.totalByCategory.DC || 0,
+                        expected_cc_renew: dataGoals.extended_attributes.VMP_AUTO_RENEWAL_CC || 0,
+                        expected_cc_newbusiness: dataGoals.extended_attributes.VIP_NEW_BUSINESS_CC || 0 + dataGoals.extended_attributes.VMP_NEW_BUSINESS_CC || 0,
+                        expected_dc_renew: dataGoals.extended_attributes.VMP_AUTO_RENEWAL_DC || 0,
+                        expected_dc_newbusiness: dataGoals.extended_attributes.VIP_NEW_BUSINESS_DC || 0 + dataGoals.extended_attributes.VMP_NEW_BUSINESS_DC || 0,
+                        sales_cc_renewal: dataSales.vmpAutoRenewalCC || 0,
+                        sales_cc_newbusiness: dataSales.vipNewBusinessCC || 0 + dataSales.vmpNewBusinessCC || 0,
+                        sales_dc_renewal: dataSales.vmpAutoRenewalDC || 0,
+                        sales_dc_newbusiness: dataSales.vipNewBusinessDC || 0 + dataSales.vmpNewBusinessDC || 0,
                     })
                 };
 
@@ -900,7 +599,7 @@ const SalesYtd = () => {
                         };
                     });
 
-                    setRegionVsGoals(regionVsGoalsArray);
+                    setRegionVsGoals(regionVsGoalsArray || []);
                 };
 
                 setDataLoaded(true);
@@ -908,7 +607,6 @@ const SalesYtd = () => {
 
             loadData();
 
-            console.log("rere ", filters.company_name.replaceAll("~|~", ","))
         }
     }, [user, filters]);
 

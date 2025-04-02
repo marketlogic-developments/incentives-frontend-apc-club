@@ -31,7 +31,7 @@ const TableStats = () => {
     const [wait, setWait] = useState(false);
     const [topGlobalSales, setTopGlobalSales] = useState({});
 
-    const organizatitons_id = userb.user ? userb.user.profile.organizations[0].id : undefined;
+    const organizatitons_id = userb.user ? userb.user.profile.organizations[0].id : null;
 
     useEffect(() => {
         console.log("Token:", token); // <-- Verifica si el token es válido
@@ -40,63 +40,43 @@ const TableStats = () => {
                 try {
                     setWait(false);
                     setLoading(true);
-                    let page = 1;
-                    let totalPages = 1; // Asumimos que hay al menos una página
-                    let allGoals = []; // Array para acumular todos los goals
-                    let totalGeneral = undefined;
 
-                    if (userb.user) {
+                    if (userb.user) {        
+                        let response_goals = undefined;
                         if (userb.user.is_superuser) {
-                            while (page <= totalPages && userb.user.is_superuser) {
-                                const obj = `administration/organizations?page=${page}&limit=100`;
-
-                                const response = await axios.get(
-                                    `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
-                                    {
-                                        headers: {
-                                            "Content-Type": "application/json",
-                                            "Access-Control-Allow-Origin": "*",
-                                            Authorization: `Bearer ${userb.token}`,
-                                        },
-                                    }
-                                );
-
-                                console.log(response);
-
-                                const filteredContent = response.data.result.content.filter(
-                                    org => org.distribution_channel &&
-                                        (org.distribution_channel.name === "GOLD" || org.distribution_channel.name === "PLATINUM")
-                                );
-
-
-                                // Obtener los goals de la página actual
-                                const goals = filteredContent.flatMap(org => org.goals);
-                                allGoals = allGoals.concat(goals); // Concatenar los goals
-
-                                // Actualizar el total de páginas
-                                totalPages = response.data.result.total_pages;
-
-                                page++; // Ir a la siguiente página
-                            }
-                            setGoal(allGoals.reduce((acum, goal) => acum + goal.amount, 0));
-                            totalGeneral = allGoals.reduce((acum, goal) => acum + goal.amount, 0)
-                        } else {
-                            const obj = `administration/organizations?id=${organizatitons_id}`
-                            const response = await axios.get(
-                                `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
+                            response_goals = await axios.post(
+                                `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=aacd4c7e-d8f0-4a2c-a99c-a1f189a7a579`,
+                                {
+                                    params: {
+                                        region_name: null,
+                                        country_name: null,
+                                        organization_ids: null,
+                                    },
+                                },
                                 {
                                     headers: {
-                                        "Content-Type": "application/json",
-                                        "Access-Control-Allow-Origin": "*",
                                         Authorization: `Bearer ${userb.token}`,
+                                        "Content-Type": "application/json",
                                     },
                                 }
                             );
-                            console.log(response);
-                            const data = response.data.result.goals;
-                            setGoal(data.reduce((acum, item) => acum + item.amount, 0))
-                            totalGeneral = data.reduce((acum, item) => acum + item.amount, 0)
-                        };
+                            
+                        } else {
+                            response_goals = await axios.post(
+                                `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=aacd4c7e-d8f0-4a2c-a99c-a1f189a7a579`,
+                                {
+                                    params: {
+                                        organization_ids: `${organizatitons_id}`,
+                                    },
+                                },
+                                {
+                                    headers: {
+                                        Authorization: `Bearer ${userb.token}`,
+                                        "Content-Type": "application/json",
+                                    },
+                                }
+                            );
+                        }
 
                         let response_sales = undefined;
                         if (userb.user.is_superuser) {
@@ -189,9 +169,12 @@ const TableStats = () => {
                             }
                         });
 
-                        setSales((totalByCategory.CC || 0) + (totalByCategory.DC || 0));
-                        setGoalSales((totalByCategory.CC || 0) + (totalByCategory.DC || 0));
-                        setpercentageTotal(parseFloat(((totalByCategory.CC || 0) + (totalByCategory.DC || 0) * 100) / totalGeneral).toFixed(2));
+                        const totalGoals = response_goals.data.result[0].extended_attributes?.CC + response_goals.data.result[0].extended_attributes?.DC
+
+                        setGoal(totalGoals);
+                        setSales((totalByCategory.CC) + (totalByCategory.DC));
+                        setGoalSales((totalByCategory.CC) + (totalByCategory.DC));
+                        setpercentageTotal(parseFloat(((totalByCategory.CC + totalByCategory.DC) * 100) / totalGoals).toFixed(2));
                         
                         const data_licenses = response_licenses.data.result
                         const ccData = data_licenses.filter((item) => item.business_unit === "Creative Cloud");
@@ -248,116 +231,6 @@ const TableStats = () => {
 
         fetchData();
     }, [token, user]);
-
-    // useEffect(() => {
-    //     if (dataFromAxios.length !== 0 && wait) {
-    //         setLoading(true);
-
-    //         setTotalSales(dataFromAxios);
-
-    //         const totalSalesReduce = Math.round(
-    //             dataFromAxios.reduce(
-    //                 (acc, { total_sales_amount }) => acc + Number(total_sales_amount),
-    //                 0
-    //             )
-    //         );
-
-    //         setSales(totalSalesReduce);
-
-    //         const percentageTotal = Math.round(
-    //             (totalSalesReduce * 100) / Number(goal)
-    //         );
-    //         setpercentageTotal(Number(goal) === 0 ? 100 : percentageTotal);
-
-    //         const goalSales = dataFromAxios
-    //             .reduce(
-    //                 (previous, { total_sales_amount }) =>
-    //                     previous + Number(total_sales_amount),
-    //                 0
-    //             )
-    //             .toLocaleString();
-
-    //         setGoalSales(goalSales);
-
-    //         infoPercentages(
-    //             dataFromAxios.filter(
-    //                 ({ business_unit }) => business_unit === "Creative Cloud"
-    //             ),
-    //             dataFromAxios.filter(
-    //                 ({ business_unit }) => business_unit === "Document Cloud"
-    //             )
-    //         );
-
-    //         setLoading(false);
-    //     }
-    // }, [dataFromAxios, goal]);
-
-    //This Function calculates the percentage of all CC business type and DC business type
-    // const infoPercentages = (ccInfoFilter, dcInfoFilter) => {
-    //     const order = ["Teams", "Enterprise", "Education"];
-
-    //     const compareObjectsCC = (a, b) => {
-    //         const indexA = order.indexOf(a.typeCC);
-    //         const indexB = order.indexOf(b.typeCC);
-    //         return indexA - indexB;
-    //     };
-    //     const compareObjectsDC = (a, b) => {
-    //         const indexA = order.indexOf(a.typeDC);
-    //         const indexB = order.indexOf(b.typeDC);
-    //         return indexA - indexB;
-    //     };
-
-    //     const arrayPercentageCC = ccInfoFilter
-    //         .map((data) => {
-    //             const allSalesCC = dataFromAxios
-    //                 .filter(({ business_unit }) => business_unit === "Creative Cloud")
-    //                 .map(({ total_sales_amount }) => Number(total_sales_amount))
-    //                 .reduce((previous, currently) => previous + currently);
-
-    //             const percentage = (data.total_sales_amount * 100) / allSalesCC;
-
-    //             return {
-    //                 typeCC: data.sub_bu,
-    //                 tablePercentage: percentage,
-    //                 sales: Number(data.total_sales_amount),
-    //             };
-    //         })
-    //         .sort(compareObjectsCC);
-
-    //     const arrayPercentageDC = dcInfoFilter
-    //         .map((data) => {
-    //             const allSalesCC = dataFromAxios
-    //                 .filter(({ business_unit }) => business_unit === "Document Cloud")
-    //                 .map(({ total_sales_amount }) => Number(total_sales_amount))
-    //                 .reduce((previous, currently) => previous + currently);
-
-    //             const percentage = (data.total_sales_amount * 100) / allSalesCC;
-
-    //             return {
-    //                 typeDC: data.sub_bu,
-    //                 tablePercentage: percentage,
-    //                 sales: Number(data.total_sales_amount),
-    //             };
-    //         })
-    //         .sort(compareObjectsDC);
-
-    //     setpercentageCC(arrayPercentageCC);
-    //     setpercentageDC(arrayPercentageDC);
-    // };
-
-    // const infoPercentagesGoals = (totalCC, totalDC) => {
-    //     const totalGeneral = totalCC + totalDC;
-
-    //     const percentageCC = (totalCC * 100) / totalGeneral;
-    //     const percentageDC = (totalDC * 100) / totalGeneral;
-
-    //     setpercentageCC([{ type: "Creative Cloud", tablePercentage: percentageCC, goal: totalCC }]);
-    //     setpercentageDC([{ type: "Document Cloud", tablePercentage: percentageDC, goal: totalDC }]);
-    // };
-
-    // if (loading) {
-    //   return <div className="lds-dual-ring"></div>;
-    // }
 
     function formatNumber(number) {
         if (number >= 1000000) {
