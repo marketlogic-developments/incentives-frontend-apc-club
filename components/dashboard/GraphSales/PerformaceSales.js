@@ -23,84 +23,17 @@ const PerformaceSales = ({
     const [t, i18n] = useTranslation("global");
 
     function formatNumber(number) {
-        const formattedNumber =
-            number >= 1000000
-                ? (number / 1000000).toFixed(2) + "M"
-                : number >= 1000
-                    ? (number / 1000).toFixed(2) + "K"
-                    : number.toLocaleString("en-US");
+        let formattedNumber;
+        if (number >= 1000000) {
+            formattedNumber = Math.floor((number / 1000000) * 100) / 100 + "M";
+        } else if (number >= 1000) {
+            formattedNumber = Math.floor((number / 1000) * 100) / 100 + "K";
+        } else {
+            formattedNumber = number.toLocaleString("en-US");
+        }
         return formattedNumber;
     }
-
-    const dataSalesByType = useMemo(() => {
-        if (data.length > 1) {
-            return {
-                renewal: data
-                    .filter(({ business_type }) => business_type === "Renewal")
-                    .map(({ total_sales_amount }) => Number(total_sales_amount))
-                    .reduce((current, prev) => current + prev, 0),
-                newBusiness: data
-                    .filter(({ business_type }) => business_type === "New Business")
-                    .map(({ total_sales_amount }) => Number(total_sales_amount))
-                    .reduce((current, prev) => current + prev, 0),
-
-                totalSalesNewBusiness: goals
-                    .filter(({ business_type }) => business_type === "New Business")
-                    .map(({ meta }) => Number(meta))
-                    .reduce((current, prev) => current + prev, 0),
-                totalSalesRenew: goals
-                    .filter(({ business_type }) => business_type === "Renewal")
-                    .map(({ meta }) => Number(meta))
-                    .reduce((current, prev) => current + prev, 0),
-                totalSalesCreativeCloud: goals
-                    .filter(({ business_unit }) => business_unit === "Creative Cloud")
-                    .map(({ meta }) => Number(meta))
-                    .reduce((current, prev) => current + prev, 0),
-                totalSalesDocument: goals
-                    .filter(({ business_unit }) => business_unit === "Document Cloud")
-                    .map(({ meta }) => Number(meta))
-                    .reduce((current, prev) => current + prev, 0),
-
-                totalSalesCC: CC.map(({ total_sales_amount }) =>
-                    Number(total_sales_amount)
-                ).reduce((current, prev) => current + prev, 0),
-                totalSalesDC: DC.map(({ total_sales_amount }) =>
-                    Number(total_sales_amount)
-                ).reduce((current, prev) => current + prev, 0),
-                withCC:
-                    (CC.map(({ total_sales_amount }) =>
-                        Number(total_sales_amount)
-                    ).reduce((current, prev) => current + prev, 0) *
-                        100) /
-                    goals
-                        .filter(({ business_unit }) => business_unit === "Creative Cloud")
-                        .map(({ meta }) => Number(meta))
-                        .reduce((current, prev) => current + prev, 0),
-                withDC:
-                    (DC.map(({ total_sales_amount }) =>
-                        Number(total_sales_amount)
-                    ).reduce((current, prev) => current + prev, 0) *
-                        100) /
-                    goals
-                        .filter(({ business_unit }) => business_unit === "Document Cloud")
-                        .map(({ meta }) => Number(meta))
-                        .reduce((current, prev) => current + prev, 0),
-            };
-        }
-
-        return {
-            renewal: 0,
-            totalSalesRenew: 0,
-            newBusiness: 0,
-            totalSalesNewBusiness: 0,
-            totalSalesCC: 0,
-            totalSalesCreativeCloud: 0,
-            totalSalesDC: 0,
-            totalSalesDocument: 0,
-        };
-    }, [data]);
-
-    // console.log(dataSalesByType);
+    
 
     return (
         <div className="flex flex-col w-full p-4 gap-4 targetDashboard">
@@ -115,21 +48,19 @@ const PerformaceSales = ({
                             Auto Renewal
                         </p>
                         <p className="!text-sm">
-                            ${formatNumber(Number(VMP_AUTO_RENEWAL_CC_SALES + VMP_AUTO_RENEWAL_DC_SALES))}/ $
-                            {formatNumber(VMP_AUTO_RENEWAL_CC + VMP_AUTO_RENEWAL_DC)}
+                            ${formatNumber(Number(VMP_AUTO_RENEWAL_CC_SALES + VMP_AUTO_RENEWAL_DC_SALES))}/ ${formatNumber(VMP_AUTO_RENEWAL_CC + VMP_AUTO_RENEWAL_DC)}
                         </p>
                     </div>
                     <Tooltip
                         label={`${Number(
-                            (VMP_AUTO_RENEWAL_CC_SALES + VMP_AUTO_RENEWAL_DC_SALES * 100) / (VMP_AUTO_RENEWAL_CC + VMP_AUTO_RENEWAL_DC)
+                            ((VMP_AUTO_RENEWAL_CC_SALES + VMP_AUTO_RENEWAL_DC_SALES) / (VMP_AUTO_RENEWAL_CC + VMP_AUTO_RENEWAL_DC)) * 100
                         ).toFixed(2)}%`}
                     >
                         <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
                             <span
                                 className="bg-[#232B2F] h-full rounded-full"
                                 style={{
-                                    width: `${(VMP_AUTO_RENEWAL_CC_SALES + VMP_AUTO_RENEWAL_DC_SALES * 100) /
-                                        (VMP_AUTO_RENEWAL_CC + VMP_AUTO_RENEWAL_DC)
+                                    width: `${((VMP_AUTO_RENEWAL_CC_SALES + VMP_AUTO_RENEWAL_DC_SALES) / (VMP_AUTO_RENEWAL_CC + VMP_AUTO_RENEWAL_DC)) * 100
                                         }%`,
                                 }}
                             />
@@ -149,17 +80,17 @@ const PerformaceSales = ({
                     </div>
                     <Tooltip
                         label={`${Number(
-                            (VIP_NEW_BUSINESS_CC_SALES + VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_DC_SALES * 100) /
-                            (VIP_NEW_BUSINESS_CC + VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_DC)
-                        ).toFixed(2)}%`}
+                            (
+                                (VIP_NEW_BUSINESS_CC_SALES + VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_DC_SALES) / 
+                                (VIP_NEW_BUSINESS_CC + VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_DC)) * 100).toFixed(2)}%`}
                     >
                         <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
                             <span
                                 className="bg-[#21A5A2] h-full rounded-full"
                                 style={{
-                                    width: `${(VIP_NEW_BUSINESS_CC_SALES + VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_DC_SALES * 100) /
-                                        (VIP_NEW_BUSINESS_CC + VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_DC)
-                                        }%`,
+                                    width: `${(
+                                        (VIP_NEW_BUSINESS_CC_SALES + VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_DC_SALES) / 
+                                        (VIP_NEW_BUSINESS_CC + VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_DC)) * 100}%`,
                                 }}
                             />
                         </div>
@@ -177,16 +108,16 @@ const PerformaceSales = ({
                         </p>
                     </div>
                     <Tooltip label={`${Number(
-                        (VIP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_AUTO_RENEWAL_CC_SALES * 100) /
-                        (VIP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_CC + VMP_AUTO_RENEWAL_CC)
-                    ).toFixed(2)}%`}>
+                        (
+                            (VIP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_AUTO_RENEWAL_CC_SALES) / 
+                            (VIP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_CC + VMP_AUTO_RENEWAL_CC)) * 100).toFixed(2)}%`}>
                         <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
                             <span
                                 className="bg-[#1473E6] h-full rounded-full"
                                 style={{
-                                    width: `${(VIP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_AUTO_RENEWAL_CC_SALES * 100) /
-                                        (VIP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_CC + VMP_AUTO_RENEWAL_CC)
-                                        }%`
+                                    width: `${(
+                                        (VIP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_AUTO_RENEWAL_CC_SALES) / 
+                                        (VIP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_CC + VMP_AUTO_RENEWAL_CC)) * 100}%`
                                 }}
                             />
                         </div>
@@ -201,16 +132,16 @@ const PerformaceSales = ({
                         </p>
                     </div>
                     <Tooltip label={`${Number(
-                        (VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_DC_SALES + VMP_AUTO_RENEWAL_DC_SALES * 100) /
-                        (VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_DC + VMP_AUTO_RENEWAL_DC)
-                    ).toFixed(2)}%`}>
+                        (
+                            (VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_DC_SALES + VMP_AUTO_RENEWAL_DC_SALES) / 
+                            (VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_DC + VMP_AUTO_RENEWAL_DC)) * 100).toFixed(2)}%`}>
                         <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
                             <span
                                 className={`bg-primary h-full rounded-full`}
                                 style={{
-                                    width: `${(VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_DC_SALES + VMP_AUTO_RENEWAL_DC_SALES * 100) /
-                                        (VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_DC + VMP_AUTO_RENEWAL_DC)
-                                        }%`
+                                    width: `${(
+                                        (VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_DC_SALES + VMP_AUTO_RENEWAL_DC_SALES) / 
+                                        (VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_DC + VMP_AUTO_RENEWAL_DC)) * 100}%`
                                 }}
                             />
                         </div>

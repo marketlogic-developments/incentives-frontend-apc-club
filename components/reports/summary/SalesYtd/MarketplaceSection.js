@@ -11,13 +11,17 @@ const MarketplaceSection = ({
   marketplaceVip,
   sales,
 }) => {
-  const formatValue = (value) => {
-    return value >= 1000000
-      ? (value / 1000000).toFixed(2) + "M"
-      : value >= 1000
-        ? (value / 1000).toFixed(2) + "K"
-        : value;
-  };
+  function formatValue(number) {
+    let formattedNumber;
+    if (number >= 1000000) {
+        formattedNumber = Math.floor((number / 1000000) * 100) / 100 + "M";
+    } else if (number >= 1000) {
+        formattedNumber = Math.floor((number / 1000) * 100) / 100 + "K";
+    } else {
+        formattedNumber = number.toLocaleString("en-US");
+    }
+    return formattedNumber;
+}
   const [legend, setlegend] = useState(["VIP", "Marketplace"]);
   const handleLegendSelection = (selectedLegends) => {
     setlegend(selectedLegends);

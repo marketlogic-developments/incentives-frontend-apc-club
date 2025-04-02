@@ -7,12 +7,14 @@ const TargetSales = ({ data, goal, goalNew, goalRenew, saleNew, saleRenew }) => 
     const [t, i18n] = useTranslation("global");
 
     function formatNumber(number) {
-        const formattedNumber =
-            number >= 1000000
-                ? (number / 1000000).toFixed(1) + "M"
-                : number >= 1000
-                    ? (number / 1000).toFixed(1) + "K"
-                    : number.toLocaleString("en-US");
+        let formattedNumber;
+        if (number >= 1000000) {
+            formattedNumber = Math.floor((number / 1000000) * 100) / 100 + "M";
+        } else if (number >= 1000) {
+            formattedNumber = Math.floor((number / 1000) * 100) / 100 + "K";
+        } else {
+            formattedNumber = number.toLocaleString("en-US");
+        }
         return formattedNumber;
     }
 
@@ -38,7 +40,7 @@ const TargetSales = ({ data, goal, goalNew, goalRenew, saleNew, saleRenew }) => 
                 <PieChart
                     sales={saleRenew}
                     goal={goalRenew}
-                    percentageTotal={(saleRenew * 100) / goal || 0}
+                    percentageTotal={(saleRenew / goal) * 100}
                     color={"#232B2F"}
                     // type={t("dashboard.renovaciones")}
                     type={'Auto Renewal'}
@@ -46,7 +48,7 @@ const TargetSales = ({ data, goal, goalNew, goalRenew, saleNew, saleRenew }) => 
                 <PieChart
                     sales={saleNew}
                     goal={goalNew}
-                    percentageTotal={(saleNew * 100) / goal || 0}
+                    percentageTotal={(saleNew / goal) * 100}
                     color={"#21A5A2"}
                     // type={t("dashboard.nbusiness")}
                     type={'New Business'}

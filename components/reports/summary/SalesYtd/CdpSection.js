@@ -7,15 +7,17 @@ import PerformanceSaleSection from "./PerformanceSaleSection";
 
 const CdpSection = ({ data }) => {
     const [t, i18n] = useTranslation("global");
-    const formatNumber = (number) => {
-        const formattedNumber =
-            number >= 1000000
-                ? (number / 1000000).toFixed(1) + "M"
-                : number >= 1000
-                    ? (number / 1000).toFixed(1) + "K"
-                    : number.toLocaleString("en-US");
+    function formatNumber(number) {
+        let formattedNumber;
+        if (number >= 1000000) {
+            formattedNumber = Math.floor((number / 1000000) * 100) / 100 + "M";
+        } else if (number >= 1000) {
+            formattedNumber = Math.floor((number / 1000) * 100) / 100 + "K";
+        } else {
+            formattedNumber = number.toLocaleString("en-US");
+        }
         return formattedNumber;
-    };
+    }
     return (
         <div className="flex flex-col mb-4 mt-4 w-full gap-6">
             <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
