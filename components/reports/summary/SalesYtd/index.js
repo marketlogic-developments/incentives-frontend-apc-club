@@ -531,23 +531,23 @@ const SalesYtd = () => {
 
                 if (dataGoals && dataSales) {
                     setSales({
-                        totalRevenueSum: dataSales.totalByCategory.CC || 0 + dataSales.totalByCategory.DC || 0,
-                        expectedRevenueSum: dataGoals.extended_attributes?.CC || 0 + dataGoals.extended_attributes?.DC || 0
+                        totalRevenueSum: dataSales.totalByCategory.CC + dataSales.totalByCategory.DC,
+                        expectedRevenueSum: dataGoals.extended_attributes?.CC + dataGoals.extended_attributes?.DC
                     });
 
                     setCloudDocument({
-                        expectedCloud: dataGoals.extended_attributes.CC || 0,
-                        salesCloud: dataSales.totalByCategory.CC || 0,
-                        expectedDoc: dataGoals.extended_attributes.DC || 0,
-                        salesDoc: dataSales.totalByCategory.DC || 0,
-                        expected_cc_renew: dataGoals.extended_attributes.VMP_AUTO_RENEWAL_CC || 0,
-                        expected_cc_newbusiness: dataGoals.extended_attributes.VIP_NEW_BUSINESS_CC || 0 + dataGoals.extended_attributes.VMP_NEW_BUSINESS_CC || 0,
-                        expected_dc_renew: dataGoals.extended_attributes.VMP_AUTO_RENEWAL_DC || 0,
-                        expected_dc_newbusiness: dataGoals.extended_attributes.VIP_NEW_BUSINESS_DC || 0 + dataGoals.extended_attributes.VMP_NEW_BUSINESS_DC || 0,
-                        sales_cc_renewal: dataSales.vmpAutoRenewalCC || 0,
-                        sales_cc_newbusiness: dataSales.vipNewBusinessCC || 0 + dataSales.vmpNewBusinessCC || 0,
-                        sales_dc_renewal: dataSales.vmpAutoRenewalDC || 0,
-                        sales_dc_newbusiness: dataSales.vipNewBusinessDC || 0 + dataSales.vmpNewBusinessDC || 0,
+                        expectedCloud: dataGoals.extended_attributes.CC,
+                        salesCloud: dataSales.totalByCategory.CC,
+                        expectedDoc: dataGoals.extended_attributes.DC,
+                        salesDoc: dataSales.totalByCategory.DC,
+                        expected_cc_renew: dataGoals.extended_attributes.VMP_AUTO_RENEWAL_CC,
+                        expected_cc_newbusiness: dataGoals.extended_attributes.VIP_NEW_BUSINESS_CC + dataGoals.extended_attributes.VMP_NEW_BUSINESS_CC,
+                        expected_dc_renew: dataGoals.extended_attributes.VMP_AUTO_RENEWAL_DC,
+                        expected_dc_newbusiness: dataGoals.extended_attributes.VIP_NEW_BUSINESS_DC + dataGoals.extended_attributes.VMP_NEW_BUSINESS_DC,
+                        sales_cc_renewal: dataSales.vmpAutoRenewalCC,
+                        sales_cc_newbusiness: dataSales.vipNewBusinessCC + dataSales.vmpNewBusinessCC,
+                        sales_dc_renewal: dataSales.vmpAutoRenewalDC,
+                        sales_dc_newbusiness: dataSales.vipNewBusinessDC + dataSales.vmpNewBusinessDC,
                     })
                 };
 
