@@ -601,8 +601,8 @@ const SalesYtd = () => {
                     dataSalesExtended?.revenueByRegion
                 ) {
                     const nameMapping = {
-                        BRAZIL: "Brazil",
-                        MEXICO: "México",
+                        BRAZIL: "BRAZIL",
+                        MEXICO: "MEXICO",
                         NOLA: "NOLA",
                         SOLA: "SOLA",
                     };
@@ -623,6 +623,8 @@ const SalesYtd = () => {
                         };
                     });
 
+
+                    console.log("lilililili ", regionVsGoalsArray)
                     setRegionVsGoals(regionVsGoalsArray || []);
 
                     setMarketplaceVip(dataSalesExtended.marketplaceVipData);

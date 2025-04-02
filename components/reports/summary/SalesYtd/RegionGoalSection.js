@@ -12,7 +12,7 @@ const RegionGoalSection = ({ dataLoaded, regionVsGoals }) => {
         {dataLoaded && (
           <SalesYTDCharts
           totalDatas={regionVsGoals}
-          yNames={["NOLA", "SOLA", "México", "Brazil"]}
+          yNames={["BRAZIL", "MEXICO", "NOLA", "SOLA"]}
         />
         )}
       </CardChart>
