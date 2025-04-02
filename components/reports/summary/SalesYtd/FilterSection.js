@@ -42,25 +42,13 @@ const FilterSection = ({
   return (
     <div className="pt-2 grid items-center sm:grid-cols-6 grid-cols-2 gap-3">
       <div className={screen < 639 ? "hidden" : "col-span-6 grid gap-2"}>
-        <SelectInputValue
-          placeholder={"Year"}
-          value={filters.year}
-          data={year.map((year) => ({
-            label: year,
-            value: year,
-          }))}
-          icon={<ArrowDown />}
-          searchable={false}
-          onChange={handleFilters}
-          name={"year"}
-        />
         <div className={screen < 639 ? "hidden" : "col-span-6"}>
           <MultiSelectPrime
             placeholder={"Company Name"}
             value={multiFilter}
             data={companyName.map((company_name) => ({
-              label: company_name,
-              value: encodeURIComponent(company_name),
+              label: company_name.name,
+              value: encodeURIComponent(company_name.name),
             }))}
             icon={<ArrowDown />}
             selectionLimit={99}
@@ -84,8 +72,8 @@ const FilterSection = ({
           placeholder={"Country"}
           value={filters.country_id}
           data={countries.map((country_id) => ({
-            label: country_id,
-            value: country_id,
+            label: country_id.name,
+            value: country_id.name,
           }))}
           icon={<ArrowDown />}
           searchable={true}
@@ -93,7 +81,7 @@ const FilterSection = ({
           name={"country_id"}
         />
 
-        <SelectInputValue
+        {/* <SelectInputValue
           placeholder={"Partner level"}
           value={filters.level}
           data={levels.map((level) => ({ label: level, value: level }))}
@@ -101,8 +89,8 @@ const FilterSection = ({
           searchable={true}
           onChange={handleFilters}
           name={"level"}
-        />
-        <SalesYtdMultiselectModal
+        /> */}
+        {/* <SalesYtdMultiselectModal
           title={
             <p className="text-black font-bold text-lg">
               {t("Reportes.filter_by")}
@@ -111,7 +99,7 @@ const FilterSection = ({
           datas={multiSelect}
           clearSelects={clearSelects}
           multiFilterButton={multiFilterButton}
-        />
+        /> */}
         {/* <div className="w-4/5 justify-end">
           <BtnFilter
             text={t("Filter")}
