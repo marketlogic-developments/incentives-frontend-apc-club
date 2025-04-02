@@ -575,7 +575,7 @@ const SalesYtd = () => {
                         {
                             params: {
                                 region_name: `${filters.region}`,
-                                country_name: null,
+                                country_name: `${filters.country_id}`,
                                 organization_ids: `${filters.company_name.replaceAll("~|~", ",")}`,
                             },
                         },
@@ -598,7 +598,7 @@ const SalesYtd = () => {
                         {
                             params: {
                                 region_name: `${filters.region}`,
-                                country_name: null,
+                                country_name: `${filters.country_id}`,
                                 organization_ids: `${filters.company_name.replaceAll("~|~", ",")}`,
                             },
                         },
@@ -662,6 +662,7 @@ const SalesYtd = () => {
                         {
                             params: {
                                 region_name: `${filters.region}`,
+                                country_name: `${filters.country_id}`,
                                 id: `${filters.company_name.replaceAll("~|~", ",")}`
                             },
                         },
@@ -748,7 +749,7 @@ const SalesYtd = () => {
                         {
                             params: {
                                 region_name: `${filters.region}`,
-                                country_name: null,
+                                country_name: `${filters.country_id}`,
                                 organization_ids: `${filters.company_name.replaceAll("~|~", ",")}`,
                             },
                         },
