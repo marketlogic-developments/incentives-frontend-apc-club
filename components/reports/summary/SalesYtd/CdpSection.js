@@ -37,7 +37,7 @@ const CdpSection = ({ data }) => {
                                 (data.sales_cc_renewal * 100) / data.expectedCloud
                             ).toFixed(2)}
                             color={"#232B2F"}
-                            type={t("Renewal")}
+                            type={t("Auto Renewal")}
                         />
                         <PieChart
                             sales={data.sales_cc_newbusiness}
@@ -65,7 +65,7 @@ const CdpSection = ({ data }) => {
                                 (data.sales_dc_renewal * 100) / data.expectedDoc
                             ).toFixed(2)}
                             color={"#232B2F"}
-                            type={t("Renewal")}
+                            type={t("Auto Renewal")}
                         />
                         <PieChart
                             sales={data.sales_dc_newbusiness}

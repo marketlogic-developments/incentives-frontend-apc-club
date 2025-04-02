@@ -7,10 +7,10 @@ const PerformanceSaleSection = ({ data }) => {
   const formatNumber = (number) => {
     const formattedNumber =
       number >= 1000000
-        ? (number / 1000000).toFixed(1) + "M"
+        ? Math.floor((number / 1000000) * 100) / 100 + "M"
         : number >= 1000
-        ? (number / 1000).toFixed(1) + "K"
-        : number.toLocaleString("en-US");
+          ? Math.floor((number / 1000) * 100) / 100 + "K"
+          : number.toLocaleString("en-US");
     return formattedNumber;
   };
   const totalSalesRenewal =
@@ -53,7 +53,7 @@ const PerformanceSaleSection = ({ data }) => {
         <div className="flex flex-col gap-2">
           <div className="flex w-full justify-between">
             <p className="lg:!text-xs xl:!text-sm font-bold">
-              {t("Renewals")}
+              {"Auto Renewal"}
             </p>
             <p className="!text-sm">
               $
@@ -86,12 +86,12 @@ const PerformanceSaleSection = ({ data }) => {
               $
               {formatNumber(
                 Number(data.sales_dc_newbusiness) +
-                  Number(data.sales_cc_newbusiness)
+                Number(data.sales_cc_newbusiness)
               )}
               / $
               {formatNumber(
                 Number(data.expected_dc_newbusiness) +
-                  Number(data.expected_cc_newbusiness)
+                Number(data.expected_cc_newbusiness)
               )}
             </p>
           </div>
@@ -116,7 +116,7 @@ const PerformanceSaleSection = ({ data }) => {
               $
               {formatNumber(
                 Number(data.sales_cc_renewal) +
-                  Number(data.sales_cc_newbusiness)
+                Number(data.sales_cc_newbusiness)
               )}
               / ${formatNumber(Number(data.expectedCloud))}
             </p>
@@ -139,7 +139,7 @@ const PerformanceSaleSection = ({ data }) => {
               $
               {formatNumber(
                 Number(data.sales_dc_renewal) +
-                  Number(data.sales_dc_newbusiness)
+                Number(data.sales_dc_newbusiness)
               )}
               / ${formatNumber(Number(data.expectedDoc))}
             </p>

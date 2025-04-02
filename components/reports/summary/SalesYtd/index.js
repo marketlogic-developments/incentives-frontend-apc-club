@@ -465,15 +465,17 @@ const SalesYtd = () => {
                     const revenueByRegion = {};
                     const revenueByLevel = { GOLD: 0, PLATINUM: 0 };
 
-                    for (const record of sales) {
-                        const { region, total_revenue, distribution_channel } = record;
-
-                        // Sumar por región
-                        revenueByRegion[region] = (revenueByRegion[region] || 0) + total_revenue;
-
-                        // Sumar por canal
-                        if (revenueByLevel[distribution_channel] !== undefined) {
-                            revenueByLevel[distribution_channel] += total_revenue;
+                    if (sales) {
+                        for (const record of sales) {
+                            const { region, total_revenue, distribution_channel } = record;
+    
+                            // Sumar por región
+                            revenueByRegion[region] = (revenueByRegion[region] || 0) + total_revenue;
+    
+                            // Sumar por canal
+                            if (revenueByLevel[distribution_channel] !== undefined) {
+                                revenueByLevel[distribution_channel] += total_revenue;
+                            }
                         }
                     }
 
@@ -571,6 +573,7 @@ const SalesYtd = () => {
                     });
                 };
 
+                console.log("asdasdasdasd ", dataGoalsExtended)
 
                 if (
                     dataGoalsExtended?.regionTotals &&
