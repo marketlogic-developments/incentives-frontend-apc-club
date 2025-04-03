@@ -142,11 +142,11 @@ const catalogo = () => {
                         }
                     >
                         <option value="">{t("adobeMarket.filtrarPro")}</option>
-                        {/* {filters.map((filter: any) => (
+                        {filters.map((filter: any) => (
                             <option key={filter.id} value={filter.id}>
                                 {filter.name}
                             </option>
-                        ))} */}
+                        ))}
                     </select>
                 </div>
                 <div className="flex gap-3 mr-3 cursor-pointer items-center lg:justify-start justify-center">

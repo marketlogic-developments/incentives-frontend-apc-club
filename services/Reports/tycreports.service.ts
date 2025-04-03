@@ -150,37 +150,37 @@ export const ReportsOrganizationsTyCDownload = async () => {
 
 
 export const InvoiceReportsDownload = async () => {
-    // try {
-    //     const response = await API.get(
-    //         `administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d011b&download=true&name=invoice_report`,
-    //         {
-    //             responseType: "blob",
-    //         }
-    //     );
-    //     // Crear una URL del archivo descargado
-    //     const url = window.URL.createObjectURL(new Blob([response.data]));
-    //     const link = document.createElement("a");
+    try {
+        const response = await API.get(
+            `administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d011b&download=true&name=invoice_report`,
+            {
+                responseType: "blob",
+            }
+        );
+        // Crear una URL del archivo descargado
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
 
-    //     // Configurar el enlace para descargar el archivo
-    //     link.href = url;
+        // Configurar el enlace para descargar el archivo
+        link.href = url;
 
-    //     // Nombre del archivo
-    //     link.setAttribute("download", "invoice_report.xlsx");
-    //     document.body.appendChild(link);
-    //     link.click();
+        // Nombre del archivo
+        link.setAttribute("download", "invoice_report.xlsx");
+        document.body.appendChild(link);
+        link.click();
 
-    //     // Limpiar la URL creada
-    //     link.parentNode?.removeChild(link);
-    //     window.URL.revokeObjectURL(url);
+        // Limpiar la URL creada
+        link.parentNode?.removeChild(link);
+        window.URL.revokeObjectURL(url);
 
-    //     return response.data.result;
+        return response.data.result;
 
-    // } catch (err) {
-    //     HandleError(err);
-    //     // Retorna `null` en caso de error, lo cual puede ser 
-    //     // manejado en el componente que llama esta función
-    //     throw err;
-    // };
+    } catch (err) {
+        HandleError(err);
+        // Retorna `null` en caso de error, lo cual puede ser 
+        // manejado en el componente que llama esta función
+        throw err;
+    };
 };
 
 
