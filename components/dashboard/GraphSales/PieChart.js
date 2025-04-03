@@ -5,9 +5,9 @@ const PieChart = ({ percentageTotal, sales, color, type, goal, goalsim = true })
   const formatNumber = (number, showSymbol) => {
     const formattedNumber =
       number >= 1000000
-        ? (number / 1000000).toFixed(2) + "M"
+        ? Math.floor((number / 1000000) * 100) / 100 + "M"
         : number >= 1000
-        ? (number / 1000).toFixed(2) + "K"
+        ? Math.floor((number / 1000) * 100) / 100 + "K"
         : number.toLocaleString("en-US");
     return showSymbol ? `$${formattedNumber}` : formattedNumber;
   };

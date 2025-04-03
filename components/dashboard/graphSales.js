@@ -189,144 +189,54 @@ const GraphSales = () => {
         const fetchData = async () => {
             if (userb && token) {
                 try {
-                    // setWait(false);
-                    // setLoading(true);
-
-                    // console.log("Estamos Probando entrar");
-                    // console.log(user);                
-                    if (userb.user && userb.user.is_superuser) {
-                        // Objetos para acumular los valores de cada categoría
-                        let categories = {
-                            CC: 0,
-                            DC: 0,
-                            VIP_NEW_BUSINESS_CC: 0,
-                            VIP_NEW_BUSINESS_DC: 0,
-                            VMP_AUTO_RENEWAL_CC: 0,
-                            VMP_AUTO_RENEWAL_DC: 0,
-                            VMP_NEW_BUSINESS_CC: 0,
-                            VMP_NEW_BUSINESS_DC: 0,
-                        };
-
-                        let page = 1;
-                        let totalPages = 1; // Asumimos que hay al menos una página
-                        // Bucle para obtener todas las páginas (solo para superusuarios)
-                        while (page <= totalPages && userb.user.is_superuser) {
-                            let obj = `administration/organizations?page=${page}&limit=100`;
-
-                            console.log(user);
-
-                            const response = await axios.get(
-                                `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
-                                {
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                        "Access-Control-Allow-Origin": "*",
-                                        Authorization: `Bearer ${userb.token}`,
-                                    },
-                                }
-                            );
-
-                            console.log(response);
-
-                            // Filtrar los ítems que tienen distribution_channel.name igual a "GOLD" o "PLATINUM"
-                            const filteredContent = response.data.result.content.filter(
-                                org => org.distribution_channel &&
-                                    (org.distribution_channel.name === "GOLD" || org.distribution_channel.name === "PLATINUM")
-                            );
-
-                            // Obtener los goals de los ítems filtrados y acumular los valores de las categorías
-                            filteredContent.forEach(org => {
-                                org.goals.forEach(goal => {
-                                    if (goal.extended_attributes?.CATEGORIES) {
-                                        categories.CC += goal.extended_attributes.CATEGORIES.CC || 0;
-                                        categories.DC += goal.extended_attributes.CATEGORIES.DC || 0;
-                                        categories.VIP_NEW_BUSINESS_CC += goal.extended_attributes.CATEGORIES.VIP_NEW_BUSINESS_CC || 0;
-                                        categories.VIP_NEW_BUSINESS_DC += goal.extended_attributes.CATEGORIES.VIP_NEW_BUSINESS_DC || 0;
-                                        categories.VMP_AUTO_RENEWAL_CC += goal.extended_attributes.CATEGORIES.VMP_AUTO_RENEWAL_CC || 0;
-                                        categories.VMP_AUTO_RENEWAL_DC += goal.extended_attributes.CATEGORIES.VMP_AUTO_RENEWAL_DC || 0;
-                                        categories.VMP_NEW_BUSINESS_CC += goal.extended_attributes.CATEGORIES.VMP_NEW_BUSINESS_CC || 0;
-                                        categories.VMP_NEW_BUSINESS_DC += goal.extended_attributes.CATEGORIES.VMP_NEW_BUSINESS_DC || 0;
-                                    }
-                                });
-                            });
-
-                            // Actualizar el total de páginas
-                            totalPages = response.data.result.total_pages;
-
-                            page++; // Ir a la siguiente página
-                        }
-
-                        // Si es superusuario, setear los valores acumulados
-                        setCCGoal(categories.CC);
-                        setDCGoal(categories.DC);
-                        setVIP_NEW_BUSINESS_CC(categories.VIP_NEW_BUSINESS_CC);
-                        setVIP_NEW_BUSINESS_DC(categories.VIP_NEW_BUSINESS_DC);
-                        setVMP_AUTO_RENEWAL_CC(categories.VMP_AUTO_RENEWAL_CC);
-                        setVMP_AUTO_RENEWAL_DC(categories.VMP_AUTO_RENEWAL_DC);
-                        setVMP_NEW_BUSINESS_CC(categories.VMP_NEW_BUSINESS_CC);
-                        setVMP_NEW_BUSINESS_DC(categories.VMP_NEW_BUSINESS_DC);
-
-                        console.log(categories);
-
-                    } else {
-
-                        const obj = `administration/organizations?id=${organizatitons_id}`
-                        const response = await axios.get(
-                            `${process.env.NEXT_PUBLIC_BACKEND_URL}${obj}`,
+                    let response_goals = undefined;
+                    if (userb.user.is_superuser) {
+                        response_goals = await axios.post(
+                            `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=aacd4c7e-d8f0-4a2c-a99c-a1f189a7a579`,
+                            {
+                                params: {
+                                    region_name: null,
+                                    country_name: null,
+                                    organization_ids: null,
+                                },
+                            },
                             {
                                 headers: {
-                                    "Content-Type": "application/json",
-                                    "Access-Control-Allow-Origin": "*",
                                     Authorization: `Bearer ${userb.token}`,
+                                    "Content-Type": "application/json",
                                 },
                             }
                         );
-                        const data = response.data.result.goals
+                        
+                    } else {
+                        response_goals = await axios.post(
+                            `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=aacd4c7e-d8f0-4a2c-a99c-a1f189a7a579`,
+                            {
+                                params: {
+                                    organization_ids: `${organizatitons_id}`,
+                                },
+                            },
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${userb.token}`,
+                                    "Content-Type": "application/json",
+                                },
+                            }
+                        );
+                    };
 
-                        // Setea el Goal partners
-                        setCCGoal(data.reduce((acum, item) => {
-                            acum.CC = (acum.CC || 0) + (item.extended_attributes?.CATEGORIES?.CC || 0);
-                            return acum;
-                        }, { CC: 0 }).CC)
 
-                        setDCGoal(data.reduce((acum, item) => {
-                            acum.DC = (acum.DC || 0) + (item.extended_attributes?.CATEGORIES?.DC || 0);
-                            return acum;
-                        }, { DC: 0 }).DC)
+                    const goalsData = response_goals.data.result[0].extended_attributes
 
-                        setVIP_NEW_BUSINESS_CC(data.reduce((acum, item) => {
-                            acum.VIP_NEW_BUSINESS_CC = (acum.VIP_NEW_BUSINESS_CC || 0) + (item.extended_attributes?.CATEGORIES?.VIP_NEW_BUSINESS_CC || 0);
-                            return acum;
-                        }, { VIP_NEW_BUSINESS_CC: 0 }).VIP_NEW_BUSINESS_CC)
+                    setCCGoal(goalsData.CC);
+                    setDCGoal(goalsData.DC);
+                    setVIP_NEW_BUSINESS_CC(goalsData.VIP_NEW_BUSINESS_CC);
+                    setVIP_NEW_BUSINESS_DC(goalsData.VIP_NEW_BUSINESS_DC);
+                    setVMP_AUTO_RENEWAL_CC(goalsData.VMP_AUTO_RENEWAL_CC);
+                    setVMP_AUTO_RENEWAL_DC(goalsData.VMP_AUTO_RENEWAL_DC);
+                    setVMP_NEW_BUSINESS_CC(goalsData.VMP_NEW_BUSINESS_CC);
+                    setVMP_NEW_BUSINESS_DC(goalsData.VMP_NEW_BUSINESS_DC);
 
-                        setVIP_NEW_BUSINESS_DC(data.reduce((acum, item) => {
-                            acum.VIP_NEW_BUSINESS_DC = (acum.VIP_NEW_BUSINESS_DC || 0) + (item.extended_attributes?.CATEGORIES?.VIP_NEW_BUSINESS_DC || 0);
-                            return acum;
-                        }, { VIP_NEW_BUSINESS_DC: 0 }).VIP_NEW_BUSINESS_DC)
-
-                        setVMP_AUTO_RENEWAL_CC(data.reduce((acum, item) => {
-                            acum.VMP_AUTO_RENEWAL_CC = (acum.VMP_AUTO_RENEWAL_CC || 0) + (item.extended_attributes?.CATEGORIES?.VMP_AUTO_RENEWAL_CC || 0);
-                            return acum;
-                        }, { VMP_AUTO_RENEWAL_CC: 0 }).VMP_AUTO_RENEWAL_CC)
-
-                        setVMP_AUTO_RENEWAL_DC(data.reduce((acum, item) => {
-                            acum.VMP_AUTO_RENEWAL_DC = (acum.VMP_AUTO_RENEWAL_DC || 0) + (item.extended_attributes?.CATEGORIES?.VMP_AUTO_RENEWAL_DC || 0);
-                            return acum;
-                        }, { VMP_AUTO_RENEWAL_DC: 0 }).VMP_AUTO_RENEWAL_DC)
-
-                        setVMP_NEW_BUSINESS_CC(data.reduce((acum, item) => {
-                            acum.VMP_NEW_BUSINESS_CC = (acum.VMP_NEW_BUSINESS_CC || 0) + (item.extended_attributes?.CATEGORIES?.VMP_NEW_BUSINESS_CC || 0);
-                            return acum;
-                        }, { VMP_NEW_BUSINESS_CC: 0 }).VMP_NEW_BUSINESS_CC)
-
-                        setVMP_NEW_BUSINESS_DC(data.reduce((acum, item) => {
-                            acum.VMP_NEW_BUSINESS_DC = (acum.VMP_NEW_BUSINESS_DC || 0) + (item.extended_attributes?.CATEGORIES?.VMP_NEW_BUSINESS_DC || 0);
-                            return acum;
-                        }, { VMP_NEW_BUSINESS_DC: 0 }).VMP_NEW_BUSINESS_DC)
-
-                        // console.log(CCGoal, DCGoal);
-
-                    }
                     if (token && dataFromAxios.length === 0) {
                         if (userb.roleId === 1) {
                             dispatch(getSalesBySegmentAll(token));
@@ -354,30 +264,6 @@ const GraphSales = () => {
         fetchData();
         fetchSales();
     }, [token]);
-
-    // useEffect(() => {
-    //     // console.log(goals);
-
-    //     // Check if the sales state is an array before filtering and setting CC state
-    //     if (Array.isArray(sales) && typeof setCC === "function") {
-    //         setCC(
-    //             [
-    //                 { business_unit: "Document Cloud", total: VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_DC_SALES + VMP_AUTO_RENEWAL_DC_SALES },
-    //                 { business_unit: "Creative Cloud", total: VIP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_AUTO_RENEWAL_CC_SALES }
-    //             ].filter(({ business_unit }) => business_unit === "Creative Cloud")
-    //         );
-    //     }
-
-    //     // Check if the sales state is an array before filtering and setting DC state
-    //     if (Array.isArray(sales) && typeof setDC === "function") {
-    //         setDC(
-    //             [
-    //                 { business_unit: "Document Cloud", total: VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_DC_SALES + VMP_AUTO_RENEWAL_DC_SALES },
-    //                 { business_unit: "Creative Cloud", total: VIP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_AUTO_RENEWAL_CC_SALES }
-    //             ].filter(({ business_unit }) => business_unit === "Document Cloud")
-    //         );
-    //     }
-    // }, [sales]);
 
     return (
         <div className="flex flex-col w-full gap-6">

@@ -11,9 +11,9 @@ const RegionGoalSection = ({ dataLoaded, regionVsGoals }) => {
         {!dataLoaded && <div className="lds-dual-ring"></div>}
         {dataLoaded && (
           <SalesYTDCharts
-          totalDatas={regionVsGoals}
-          yNames={["NOLA", "SOLA", "México", "Brazil"]}
-        />
+            totalDatas={regionVsGoals}
+            yNames={["BRAZIL", "MEXICO", "NOLA", "SOLA"]}
+          />
         )}
       </CardChart>
     </div>

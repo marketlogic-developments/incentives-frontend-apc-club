@@ -594,9 +594,10 @@ export const getSalesPerformance = (token, data) => async (dispatch) => {
 
 export const getSalesYtd = (token, data) => async (dispatch) => {
   try {
+    //  `${process.env.NEXT_PUBLIC_BACKEND_URL}/administration/organizations/?year=${data.year}&company_name=${data.company_name}&region=${data.region}&country_id=${data.country_id}&level=${data.level}`,
     return axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/reporters/salesperformancefilters/?year=${data.year}&company_name=${data.company_name}&region=${data.region}&country_id=${data.country_id}&level=${data.level}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/organizations?page=1&limit=100`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -605,7 +606,10 @@ export const getSalesYtd = (token, data) => async (dispatch) => {
           },
         }
       )
-      .then((res) => dispatch(getSaleYTD(res.data)));
+      .then((res) => {
+        dispatch(getSaleYTD(res.data));
+        return res.data;
+    });
   } catch (err) {
     console.log(err);
   }

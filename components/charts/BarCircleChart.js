@@ -12,7 +12,6 @@ const BarCircleChart = ({ datas }) => {
       : value;
   };
 
-  console.log(datas, "aaaaaaaaaaaaaaaaaaaaaa");
   return (
     <div className="flex flex-col w-full p-4 gap-4 targetDashboard">
       <div className="flex justify-between">

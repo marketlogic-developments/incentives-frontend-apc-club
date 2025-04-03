@@ -69,25 +69,31 @@ const SectionDigipointsPA = () => {
 
             let totalPointsByCategory = { CC: 0, DC: 0 };
             let totalPointsAssignedByCategory = { CC: 0, DC: 0 };
+            let totalPointsAssignedByPartnerAdmin = { CC: 0, DC: 0 };
             
             response.data.result.forEach((item) => {
                 const category = item.category;
                 const points = item.total_points;
                 const points_assigned = item.total_points_assigned;
+                const percent_points_assigned = item.ten_percent_points_assigned;
 
                 // Totales generales
                 if (category === 'CC' || category === 'DC') {
                     totalPointsByCategory[category] += parseInt(points);
                     totalPointsAssignedByCategory[category] += parseInt(points_assigned);
+                    totalPointsAssignedByPartnerAdmin[category] += parseInt(percent_points_assigned);
                 };
             });
 
-            setTtotalUpload(parseInt(totalPointsByCategory.CC || 0) + parseInt(totalPointsByCategory.DC || 0));
-            setAssignedValue(parseInt(totalPointsAssignedByCategory.CC || 0) + parseInt(totalPointsAssignedByCategory.DC || 0));
+            setTtotalUpload(
+                parseInt(totalPointsByCategory.CC ?? 0) + parseInt(totalPointsByCategory.DC ?? 0) +
+                parseInt(totalPointsAssignedByPartnerAdmin.CC ?? 0) + parseInt(totalPointsAssignedByPartnerAdmin.DC ?? 0)
+            );
+            setAssignedValue(parseInt(totalPointsAssignedByCategory.CC ?? 0) + parseInt(totalPointsAssignedByCategory.DC ?? 0));
             setDigipointUploaded(
                 [
                     {
-                        value: parseInt(totalPointsByCategory.CC || 0) + parseInt(totalPointsByCategory.DC || 0),
+                        value: parseInt(totalPointsByCategory.CC ?? 0) + parseInt(totalPointsByCategory.DC ?? 0) + parseInt(totalPointsAssignedByPartnerAdmin.CC ?? 0) + parseInt(totalPointsAssignedByPartnerAdmin.DC ?? 0),
                         name: "Sales"
                     }
                 ]

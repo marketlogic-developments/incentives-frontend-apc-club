@@ -43,14 +43,16 @@ const SalesYTDCharts = ({
     xAxis: {
       type: "value",
       axisLabel: {
-        formatter: function (value) {
-          if (value >= 1000000) {
-            return (value / 1000000).toFixed(0) + "M";
-          } else if (value >= 1000) {
-            return (value / 1000).toFixed(0) + "K";
-          } else {
-            return value?.toFixed(0);
-          }
+        formatter: function (number) {
+          let formattedNumber;
+        if (number >= 1000000) {
+            formattedNumber = Math.floor((number / 1000000) * 100) / 100 + "M";
+        } else if (number >= 1000) {
+            formattedNumber = Math.floor((number / 1000) * 100) / 100 + "K";
+        } else {
+            formattedNumber = number.toLocaleString("en-US");
+        }
+        return formattedNumber;
         },
       },
     },
