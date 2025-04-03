@@ -83,24 +83,24 @@ const Summary = () => {
           }`}
           onClick={() => setContent(t("SalesYoy"))}
         /> */}
-                <ButtonBgOut
+                {/* <ButtonBgOut
                     title={t("Reportes.digipoints_performance")}
                     styles={`${content === "DigipoinstPerformance"
                             ? "bg-red-100"
                             : "hover:bg-red-100 hover:!text-red-500 hover:!text-sm"
                         }`}
                     onClick={() => setContent(t("DigipoinstPerformance"))}
-                />
+                /> */}
             </div>
             <div className={`${content === "SalesYtd" ? "block" : "hidden"}`}>
                 <SalesYtd />
             </div>
-            <div
+            {/* <div
                 className={`${content === "DigipoinstPerformance" ? "block" : "hidden"
                     }`}
             >
                 <DigipoinstPerformance />
-            </div>
+            </div> */}
         </div>
     );
 };
