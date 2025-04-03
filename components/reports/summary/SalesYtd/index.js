@@ -606,14 +606,15 @@ const SalesYtd = () => {
                         NOLA: "NOLA",
                         SOLA: "SOLA",
                     };
-
-                    const regionVsGoalsArray = Object.entries(
-                        dataSalesExtended.revenueByRegion
-                    ).map(([region, revenue]) => {
+                
+                    const allRegions = ["BRAZIL", "MEXICO", "NOLA", "SOLA"];
+                
+                    const regionVsGoalsArray = allRegions.map((region) => {
                         const displayName = nameMapping[region] || region;
+                        const revenue = dataSalesExtended.revenueByRegion[region] || 0;
                         const expected = dataGoalsExtended.regionTotals[region] || 0;
                         const colorKey = region.toUpperCase();
-
+                
                         return {
                             name: displayName,
                             total: revenue,
@@ -622,13 +623,10 @@ const SalesYtd = () => {
                             expectedColor: "#828282",
                         };
                     });
-
-
-                    console.log("lilililili ", regionVsGoalsArray)
-                    setRegionVsGoals(regionVsGoalsArray || []);
-
+                
+                    setRegionVsGoals(regionVsGoalsArray);
                     setMarketplaceVip(dataSalesExtended.marketplaceVipData);
-                };
+                }
 
                 if (dataSalesExtended && dataGoalsExtended) {
                     const levelsChart = ["GOLD", "PLATINUM"];
