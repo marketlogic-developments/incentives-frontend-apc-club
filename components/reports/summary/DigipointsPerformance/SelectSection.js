@@ -18,7 +18,7 @@ const SelectSection = ({
   const [t, i18n] = useTranslation("global");
   return (
     <>
-      <SelectInputValue
+      {/* <SelectInputValue
         placeholder={"Year"}
         value={filters.year}
         data={year.map((year) => ({
@@ -29,13 +29,13 @@ const SelectSection = ({
         searchable={false}
         onChange={handleFilters}
         name={"year"}
-      />
+      /> */}
       <SelectInputValue
         placeholder={"Company Name"}
         value={filters.company_name}
         data={companiesName.map((company_name) => ({
           label: company_name.name,
-          value: encodeURIComponent(company_name.name),
+          value: company_name.name,
         }))}
         icon={<ArrowDown />}
         searchable={true}
