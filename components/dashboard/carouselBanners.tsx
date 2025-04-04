@@ -20,8 +20,6 @@ const CarouselBanners: FC<Props> = ({ banners }) => {
 
 
     const filters = (banner: any) => {
-        console.log("jahsdgkajsdghaksd ", banner)
-        console.log("jahsdgkajsdghaksd 1 ", user?.profile.organizations)
         if (banner?.exceptions) {
             const org = user?.profile.organizations[0];
             
