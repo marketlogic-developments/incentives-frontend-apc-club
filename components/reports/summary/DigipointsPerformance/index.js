@@ -6,359 +6,490 @@ import DigipointSection from "./DigipointSection";
 import DigipointRedemptionSection from "./DigipointRedemptionSection";
 import { useEffect } from "react";
 import {
-  getDigiPointContry,
-  getDigiPointPerformance,
+    getDigiPointContry,
+    getDigiPointPerformance,
 } from "../../../../store/reducers/sales.reducer";
 import { useDispatch, useSelector } from "react-redux";
 import DigiPointsTotal from "./DigiPointsTotal";
+import axios from "axios";
+
+
 
 const DigipoinstPerformance = () => {
-  const [defaultYear, setDefaultYear] = useState(["2023", "2024"]);
-  /* Variables and const */
-  const [t, i18n] = useTranslation("global");
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
-  const [filters, setFilters] = useState({
-    year: "2024",
-    company_name: "",
-    region: "",
-    country: "",
-  });
-  const [digipointUploaded, setDigipointUploaded] = useState([]);
-  const [totalUpload, setTtotalUpload] = useState(0);
-  const [assignedValue, setAssignedValue] = useState(0);
-  const [redeemedValue, setRedeemedValue] = useState(0);
-
-  const [companiesName, setCompaniesName] = useState([]);
-  const [countries, setCountries] = useState([]);
-  const [regions, setRegions] = useState([]);
-  const [digipointSR, setDigipointSR] = useState({
-    datas: {},
-    yNames: [],
-  });
-  const [digipointsStatus, setDigipointStatus] = useState([]);
-  const [digipointsRA, setDigipointRA] = useState({
-    datas: [],
-  });
-  const [isDataReady, setIsReady] = useState(false);
-  const multiSelect = [
-    {
-      multiSelect: false,
-      placeholder: "Year",
-      value: filters.year,
-      dataSelect: defaultYear?.map((year) => ({
-        label: year,
-        value: year,
-      })),
-      onChange: (name, value) => handleFilters(name, value),
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "year",
-    },
-    {
-      placeholder: "Quater",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "quater",
-    },
-    {
-      placeholder: "Month",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "Month",
-    },
-    {
-      placeholder: "Region",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "region",
-    },
-    {
-      placeholder: "Country",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: <ArrowDown />,
-      name: "country",
-    },
-    {
-      placeholder: "Partner level",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: "",
-      name: "partner_level",
-    },
-    {
-      placeholder: "Partner",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: "",
-      name: "partner",
-    },
-    {
-      placeholder: "Market segment",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: "",
-      name: "market_segment",
-    },
-    {
-      placeholder: "Business unit",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: "",
-      name: "business_unit",
-    },
-    {
-      placeholder: "Business type",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: "",
-      name: "business_type",
-    },
-    {
-      placeholder: "Licensing type",
-      value: [],
-      dataSelect: [],
-      searchable: true,
-      icon: "",
-      name: "licensiong",
-    },
-  ];
-  const colorsData = [
-    { name: "Digipoints", color: "#0149A0" },
-    { name: "Expected", color: "#1473E6" },
-    { name: "Assigned", color: "#75AFF5" },
-    { name: "Redeemed", color: "#A4CDFF" },
-  ];
-
-  const handleFilters = (name, value) => {
-    return setFilters({ ...filters, [name]: value === null ? "" : value });
-  };
-  const clearSelects = () => {
-    setFilters({
-      year: "2024",
-      company_name: "",
-      region: "",
-      country: "",
+    const [defaultYear, setDefaultYear] = useState(["2025"]);
+    /* Variables and const */
+    const [t, i18n] = useTranslation("global");
+    const dispatch = useDispatch();
+    const { user, token } = useSelector((state) => state.currentUser);
+    const [filters, setFilters] = useState({
+        year: "2025",
+        company_name: "",
+        region: "",
+        country: "",
     });
-  };
+    const [digipointUploaded, setDigipointUploaded] = useState([]);
+    const [totalUpload, setTtotalUpload] = useState(0);
+    const [assignedValue, setAssignedValue] = useState(0);
+    const [redeemedValue, setRedeemedValue] = useState(0);
 
-  const mapColorsToData = (originalData, colorsData) => {
-    const colorMap = colorsData.reduce((map, item) => {
-      map[item.name] = item.color;
-      return map;
-    }, {});
+    const [companiesName, setCompaniesName] = useState([]);
+    const [countries, setCountries] = useState([]);
+    const [regions, setRegions] = useState([
+        {name: "NOLA"},
+        {name: "SOLA"},
+        {name: "BRAZIL"},
+        {name: "MEXICO"}
+    ]);
+    const [digipointSR, setDigipointSR] = useState({
+        datas: {},
+        yNames: [],
+    });
+    const [digipointsStatus, setDigipointStatus] = useState([]);
+    const [digipointsRA, setDigipointRA] = useState({
+        datas: [],
+    });
+    const [isDataReady, setIsReady] = useState(false);
+    const multiSelect = [
+        {
+            multiSelect: false,
+            placeholder: "Year",
+            value: filters.year,
+            dataSelect: defaultYear?.map((year) => ({
+                label: year,
+                value: year,
+            })),
+            onChange: (name, value) => handleFilters(name, value),
+            searchable: true,
+            icon: <ArrowDown />,
+            name: "year",
+        },
+        {
+            placeholder: "Quater",
+            value: [],
+            dataSelect: [],
+            searchable: true,
+            icon: <ArrowDown />,
+            name: "quater",
+        },
+        {
+            placeholder: "Month",
+            value: [],
+            dataSelect: [],
+            searchable: true,
+            icon: <ArrowDown />,
+            name: "Month",
+        },
+        {
+            placeholder: "Region",
+            value: [],
+            dataSelect: [],
+            searchable: true,
+            icon: <ArrowDown />,
+            name: "region",
+        },
+        {
+            placeholder: "Country",
+            value: [],
+            dataSelect: [],
+            searchable: true,
+            icon: <ArrowDown />,
+            name: "country",
+        },
+        {
+            placeholder: "Partner level",
+            value: [],
+            dataSelect: [],
+            searchable: true,
+            icon: "",
+            name: "partner_level",
+        },
+        {
+            placeholder: "Partner",
+            value: [],
+            dataSelect: [],
+            searchable: true,
+            icon: "",
+            name: "partner",
+        },
+        {
+            placeholder: "Market segment",
+            value: [],
+            dataSelect: [],
+            searchable: true,
+            icon: "",
+            name: "market_segment",
+        },
+        {
+            placeholder: "Business unit",
+            value: [],
+            dataSelect: [],
+            searchable: true,
+            icon: "",
+            name: "business_unit",
+        },
+        {
+            placeholder: "Business type",
+            value: [],
+            dataSelect: [],
+            searchable: true,
+            icon: "",
+            name: "business_type",
+        },
+        {
+            placeholder: "Licensing type",
+            value: [],
+            dataSelect: [],
+            searchable: true,
+            icon: "",
+            name: "licensiong",
+        },
+    ];
+    const colorsData = [
+        { name: "Digipoints", color: "#0149A0" },
+        { name: "Expected", color: "#1473E6" },
+        { name: "Assigned", color: "#75AFF5" },
+        { name: "Redeemed", color: "#A4CDFF" },
+    ];
 
-    const modifiedData = originalData.map((item) => ({
-      ...item,
-      color: colorMap[item.name] || "#000000", // Color predeterminado si no se encuentra en el mapa
-    }));
+    const handleFilters = (name, value) => {
+        return setFilters({ ...filters, [name]: value === null ? "" : value });
+    };
+    const clearSelects = () => {
+        setFilters({
+            year: "2025",
+            company_name: "",
+            region: "",
+            country: "",
+        });
+    };
 
-    return modifiedData;
-  };
+    const mapColorsToData = (originalData, colorsData) => {
+        const colorMap = colorsData.reduce((map, item) => {
+            map[item.name] = item.color;
+            return map;
+        }, {});
 
-  const transformDataWithColors = (data, colorsByCountry) => {
-    return data
-      .filter((item) => item.category !== null)
-      .map((item) => {
-        const countryColor = colorsByCountry[item.category] || "#000000";
-        const cleanedData = item.data.map((value) =>
-          value === 0 ? undefined : value
-        );
-        return {
-          name: item.category,
-          color: countryColor,
-          data: cleanedData,
-          label: item.labels,
+        const modifiedData = originalData.map((item) => ({
+            ...item,
+            color: colorMap[item.name] || "#000000",
+        }));
+
+        return modifiedData;
+    };
+
+    const transformDataWithColors = (data, colorsByCountry) => {
+        return data
+            .filter((item) => item.category !== null)
+            .map((item) => {
+                const countryColor = colorsByCountry[item.category] || "#000000";
+                const cleanedData = item.data.map((value) =>
+                    value === 0 ? undefined : value
+                );
+                return {
+                    name: item.category,
+                    color: countryColor,
+                    data: cleanedData,
+                    label: item.labels,
+                };
+            });
+    };
+
+    const transformDataWithColors2 = (data, colorsByCountry) => {
+        return data
+            .filter((item) => item.name !== null)
+            .map((item) => {
+                const countryColor = colorsByCountry[item.name] || "#000000";
+                const cleanedData = item.data.map((value) =>
+                    value === 0 ? undefined : value
+                );
+                return {
+                    name: item.name,
+                    color: countryColor,
+                    data: cleanedData,
+                };
+            });
+    };
+
+    const filterArray = (arr, valueToExclude) => {
+        return arr.filter((item) => item !== valueToExclude);
+    };
+
+    const filterObject = (object, valueToExclude) => {
+        return object.filter((item) => item.name !== valueToExclude);
+    };
+
+    const getUniqueFieldValues = (data, fieldName) => {
+        const uniqueValues = new Set();
+
+        data.forEach((item) => {
+            const fieldValue = item[fieldName];
+            if (fieldValue !== null && fieldValue !== "") {
+                uniqueValues.add(fieldValue);
+            }
+        });
+
+        return Array.from(uniqueValues);
+    };
+    const formattedNumber = (numero) => {
+        // Redondear el número hacia abajo para eliminar la parte decimal
+        numero = Math.floor(numero);
+
+        // Convertir el número a cadena de texto
+        let numeroStr = numero.toString();
+
+        // Dividir la cadena en grupos de tres caracteres desde la derecha
+        let grupos = [];
+        while (numeroStr.length > 0) {
+            grupos.unshift(numeroStr.slice(-3));
+            numeroStr = numeroStr.slice(0, -3);
+        }
+
+        // Unir los grupos con comas y retornar el resultado
+        return grupos.join(",");
+    };
+
+    /* GET DATA */
+    useEffect(() => {
+        setIsReady(false);
+
+        const fetchSales = async () => {
+            if (user && token) {
+                if (user.is_superuser) {
+                    const response = await axios.post(
+                        `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=8c6f1313-7291-4450-911c-828b7d7411f5`,
+                        {
+                            params: {
+                                organization_name: `${filters.company_name}`,
+                                country_name: `${filters.country}`,
+                                region_name: `${filters.region}`,
+                            },
+                        },
+                        {
+                            headers: {
+                                Authorization: `Bearer ${user.token}`,
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
+
+                    if (user.is_superuser) {
+                        const response = await axios.get(
+                            `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d014c`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${user.token}`,
+                                    "Content-Type": "application/json",
+                                },
+                            }
+                        );
+                        
+                        setCountries(response.data.result);
+                    };
+
+
+                    if (user.is_superuser) {
+                        const response = await axios.get(
+                            `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d014b`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${user.token}`,
+                                    "Content-Type": "application/json",
+                                },
+                            }
+                        );
+                        
+                        setCompaniesName(response.data.result);
+                    };
+
+                    const groupedData = response.data.result.reduce((acc, current) => {
+                        const region = current.region_name;
+
+                        if (!acc.regions[region]) {
+                            acc.regions[region] = {
+                                region_name: region,
+                                total_points_assigned: 0,
+                                ten_percent_points_assigned: 0,
+                                total_points: 0,
+                            };
+                        };
+
+                        acc.regions[region].total_points_assigned += Number(current.total_points_assigned);
+                        acc.regions[region].ten_percent_points_assigned += Number(current.ten_percent_points_assigned);
+                        acc.regions[region].total_points += Number(current.total_points);
+
+                        acc.totals.total_points_assigned += Number(current.total_points_assigned);
+                        acc.totals.ten_percent_points_assigned += Number(current.ten_percent_points_assigned);
+                        acc.totals.total_points += Number(current.total_points);
+
+                        return acc;
+                    }, { regions: {}, totals: { total_points_assigned: 0, ten_percent_points_assigned: 0, total_points: 0 } });
+
+                    // Datos agrupados por región para gráfica "DigiPoints by Status and Region"
+                    const transformedDatas = Object.values(groupedData.regions).map(region => ({
+                        name: region.region_name,
+                        data: [
+                            region.total_points + region.ten_percent_points_assigned,
+                            region.total_points_assigned + region.ten_percent_points_assigned,
+                            0
+                        ]
+                    }));
+
+                    const yNames = ["Total Points", "Assigned", "Redeemed"];
+
+                    setDigipointSR({
+                        datas: transformDataWithColors2(transformedDatas, {
+                            MEXICO: "#1C2226",
+                            NOLA: "#2799F6",
+                            SOLA: "#1473E6",
+                            BRAZIL: "#21A5A2",
+                        }),
+                        yNames,
+                    });
+
+                    // Datos para la gráfica de Pie "DigiPoints Uploaded YTD"
+                    const dataUploaded = [
+                        {
+                            name: "Sales",
+                            value: groupedData.totals.total_points + groupedData.totals.ten_percent_points_assigned
+                        },
+                        // {
+                        //     name: "Assigned",
+                        //     value: groupedData.totals.total_points_assigned
+                        // },
+                        // {
+                        //     name: "Redeemed",
+                        //     value: 0
+                        // }
+                    ];
+
+                    setDigipointUploaded(dataUploaded);
+
+                    setTtotalUpload(groupedData.totals.total_points + groupedData.totals.ten_percent_points_assigned);
+                    setAssignedValue(groupedData.totals.total_points_assigned + groupedData.totals.ten_percent_points_assigned);
+                    setRedeemedValue(0);
+
+                    setIsReady(true);
+                };
+            };
         };
-      });
-  };
 
-  const transformDataWithColors2 = (data, colorsByCountry) => {
-    return data
-      .filter((item) => item.name !== null)
-      .map((item) => {
-        const countryColor = colorsByCountry[item.name] || "#000000";
-        const cleanedData = item.data.map((value) =>
-          value === 0 ? undefined : value
-        );
-        return {
-          name: item.name,
-          color: countryColor,
-          data: cleanedData,
-        };
-      });
-  };
+        fetchSales();
+        // dispatch(getDigiPointPerformance(token, filters)).then((res) => {
+        //     /* DIGIPOINTS UPLOADED */
+        //     setDigipointUploaded(res.payload.digipointsUploaded);
+        //     /* const total = digipointUploaded.reduce((acc, item) => acc + parseInt(item.value, 10), 0);
+        //     setTtotalUpload(total); */
 
-  const filterArray = (arr, valueToExclude) => {
-    return arr.filter((item) => item !== valueToExclude);
-  };
+        //     /* DIGIPOINTS BY STATUS AND REGION PENDING*/
+        //     setDigipointSR({
+        //         datas: transformDataWithColors2(
+        //             res.payload.digipointsByStatusAndRegion.series,
+        //             {
+        //                 MEXICO: "#1C2226",
+        //                 NOLA: "#2799F6",
+        //                 SOLA: "#1473E6",
+        //                 BRAZIL: "#21A5A2",
+        //             }
+        //         ),
+        //         yNames: filterArray(
+        //             res.payload.digipointsByStatusAndRegion.yAxis.data,
+        //             "Expected"
+        //         ),
+        //     });
 
-  const filterObject = (object, valueToExclude) => {
-    return object.filter((item) => item.name !== valueToExclude);
-  };
+        //     /* DIGIPOINTS BY STATUS */
+        //     const filerDigipintsStatus = filterObject(
+        //         res.payload.digipointsByStatus,
+        //         "Expected"
+        //     );
+        //     setDigipointStatus(mapColorsToData(filerDigipintsStatus, colorsData));
 
-  const getUniqueFieldValues = (data, fieldName) => {
-    const uniqueValues = new Set();
+        //     const digipointsByStatusALL = res.payload.digipointsByStatus;
 
-    data.forEach((item) => {
-      const fieldValue = item[fieldName];
-      if (fieldValue !== null && fieldValue !== "") {
-        uniqueValues.add(fieldValue);
-      }
-    });
+        //     // Busca el objeto con name igual a "Assigned"
+        //     const totalItem = digipointsByStatusALL.find(
+        //         (item) => item.name === "Digipoints"
+        //     );
+        //     if (totalItem) {
+        //         setTtotalUpload(totalItem.value);
+        //     }
 
-    return Array.from(uniqueValues);
-  };
-  const formattedNumber = (numero) => {
-    // Redondear el número hacia abajo para eliminar la parte decimal
-    numero = Math.floor(numero);
+        //     // Busca el objeto con name igual a "Assigned"
+        //     const assignedItem = digipointsByStatusALL.find(
+        //         (item) => item.name === "Assigned"
+        //     );
+        //     if (assignedItem) {
+        //         setAssignedValue(assignedItem.value);
+        //     }
 
-    // Convertir el número a cadena de texto
-    let numeroStr = numero.toString();
+        //     // Busca el objeto con name igual a "Redeemed"
+        //     const redeemedItem = digipointsByStatusALL.find(
+        //         (item) => item.name === "Redeemed"
+        //     );
+        //     if (redeemedItem) {
+        //         setRedeemedValue(redeemedItem.value);
+        //     }
 
-    // Dividir la cadena en grupos de tres caracteres desde la derecha
-    let grupos = [];
-    while (numeroStr.length > 0) {
-      grupos.unshift(numeroStr.slice(-3));
-      numeroStr = numeroStr.slice(0, -3);
-    }
+        //     /* DIGIPOINTS BY REGION AND AMOUND */
+        //     setDigipointRA({
+        //         datas: transformDataWithColors(
+        //             res.payload.redempionsByRegionAndAmount.yAxis.allData,
+        //             {
+        //                 MEXICO: "#1C2226",
+        //                 NOLA: "#2799F6",
+        //                 SOLA: "#1473E6",
+        //                 BRAZIL: "#21A5A2",
+        //             }
+        //         ),
+        //     });
 
-    // Unir los grupos con comas y retornar el resultado
-    return grupos.join(",");
-  };
+        //     /* SET DATA FILTER */
+        //     setCompaniesName(res.payload.digipointsFilterCompanyName);
+        //     setCountries(res.payload.digipointsFilterCountry);
+        //     setRegions(res.payload.digipointsFilterRegion);
 
-  /* GET DATA */
-  useEffect(() => {
-    setIsReady(false);
-    dispatch(getDigiPointPerformance(token, filters)).then((res) => {
-      /* DIGIPOINTS UPLOADED */
-      setDigipointUploaded(res.payload.digipointsUploaded);
-      /* const total = digipointUploaded.reduce((acc, item) => acc + parseInt(item.value, 10), 0);
-      setTtotalUpload(total); */
-
-      /* DIGIPOINTS BY STATUS AND REGION PENDING*/
-      setDigipointSR({
-        datas: transformDataWithColors2(
-          res.payload.digipointsByStatusAndRegion.series,
-          {
-            MEXICO: "#1C2226",
-            NOLA: "#2799F6",
-            SOLA: "#1473E6",
-            BRAZIL: "#21A5A2",
-          }
-        ),
-        yNames: filterArray(
-          res.payload.digipointsByStatusAndRegion.yAxis.data,
-          "Expected"
-        ),
-      });
-
-      /* DIGIPOINTS BY STATUS */
-      const filerDigipintsStatus = filterObject(
-        res.payload.digipointsByStatus,
-        "Expected"
-      );
-      setDigipointStatus(mapColorsToData(filerDigipintsStatus, colorsData));
-
-      const digipointsByStatusALL = res.payload.digipointsByStatus;
-
-      // Busca el objeto con name igual a "Assigned"
-      const totalItem = digipointsByStatusALL.find(
-        (item) => item.name === "Digipoints"
-      );
-      if (totalItem) {
-        setTtotalUpload(totalItem.value);
-      }
-
-      // Busca el objeto con name igual a "Assigned"
-      const assignedItem = digipointsByStatusALL.find(
-        (item) => item.name === "Assigned"
-      );
-      if (assignedItem) {
-        setAssignedValue(assignedItem.value);
-      }
-
-      // Busca el objeto con name igual a "Redeemed"
-      const redeemedItem = digipointsByStatusALL.find(
-        (item) => item.name === "Redeemed"
-      );
-      if (redeemedItem) {
-        setRedeemedValue(redeemedItem.value);
-      }
-
-      /* DIGIPOINTS BY REGION AND AMOUND */
-      setDigipointRA({
-        datas: transformDataWithColors(
-          res.payload.redempionsByRegionAndAmount.yAxis.allData,
-          {
-            MEXICO: "#1C2226",
-            NOLA: "#2799F6",
-            SOLA: "#1473E6",
-            BRAZIL: "#21A5A2",
-          }
-        ),
-      });
-
-      /* SET DATA FILTER */
-      setCompaniesName(res.payload.digipointsFilterCompanyName);
-      setCountries(res.payload.digipointsFilterCountry);
-      setRegions(res.payload.digipointsFilterRegion);
-
-      setIsReady(true);
-    });
-  }, [filters]);
-  return (
-    <div className="m-5">
-      <div className="pt-2 grid items-center sm:grid-cols-6 grid-cols-2 gap-3">
-        <SelectSection
-          filters={filters}
-          year={defaultYear}
-          companiesName={companiesName}
-          countries={countries}
-          regions={regions}
-          multiSelect={multiSelect}
-          handleFilters={handleFilters}
-          clearSelects={clearSelects}
-        />
-      </div>
-      {isDataReady && (
-        <DigiPointsTotal
-          dataLoaded={isDataReady}
-          totalSaleGoal={{
-            expected: totalUpload,
-            reached: assignedValue,
-            progress: redeemedValue,
-          }}
-        />
-      )}
-      <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
-        <DigipointSection
-          dataUploaded={digipointUploaded}
-          isDataReady={isDataReady}
-          dataSR={digipointSR}
-        />
-        <DigipointRedemptionSection
-          dataDigStatus={digipointsStatus}
-          isDataReady={isDataReady}
-          digipointsRA={digipointsRA}
-        />
-      </div>
-      <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4"></div>
-    </div>
-  );
+        //     setIsReady(true);
+        // });
+    }, [filters, user]);
+    return (
+        <div className="m-5">
+            <div className="pt-2 grid items-center sm:grid-cols-6 grid-cols-2 gap-3">
+                <SelectSection
+                    filters={filters}
+                    year={defaultYear}
+                    companiesName={companiesName}
+                    countries={countries}
+                    regions={regions}
+                    multiSelect={multiSelect}
+                    handleFilters={handleFilters}
+                    clearSelects={clearSelects}
+                />
+            </div>
+            {isDataReady && (
+                <DigiPointsTotal
+                    dataLoaded={isDataReady}
+                    totalSaleGoal={{
+                        expected: totalUpload,
+                        reached: assignedValue,
+                        progress: redeemedValue,
+                    }}
+                />
+            )}
+            <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4">
+                <DigipointSection
+                    dataUploaded={digipointUploaded}
+                    isDataReady={isDataReady}
+                    dataSR={digipointSR}
+                />
+                {/* <DigipointRedemptionSection
+                    dataDigStatus={digipointsStatus}
+                    isDataReady={isDataReady}
+                    digipointsRA={digipointsRA}
+                /> */}
+            </div>
+            <div className="grid sm:grid-cols-2 grid-rows-1 pt-4 pb-4 gap-4"></div>
+        </div>
+    );
 };
 
 export default DigipoinstPerformance;

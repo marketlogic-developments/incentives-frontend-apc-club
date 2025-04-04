@@ -89,7 +89,7 @@ const SectionDigipointsPA = () => {
                 parseInt(totalPointsByCategory.CC ?? 0) + parseInt(totalPointsByCategory.DC ?? 0) +
                 parseInt(totalPointsAssignedByPartnerAdmin.CC ?? 0) + parseInt(totalPointsAssignedByPartnerAdmin.DC ?? 0)
             );
-            setAssignedValue(parseInt(totalPointsAssignedByCategory.CC ?? 0) + parseInt(totalPointsAssignedByCategory.DC ?? 0));
+            setAssignedValue(parseInt(totalPointsAssignedByCategory.CC ?? 0) + parseInt(totalPointsAssignedByCategory.DC ?? 0) + parseInt(totalPointsAssignedByPartnerAdmin.CC ?? 0) + parseInt(totalPointsAssignedByPartnerAdmin.DC ?? 0));
             setDigipointUploaded(
                 [
                     {
