@@ -61,6 +61,7 @@ export interface Organization {
   phone_number: string;
   address: string;
   status: boolean;
+  level?: any
   validations: string[];
 }
 
@@ -68,7 +69,7 @@ export interface tokenRefresh {
   refresh_token: string;
   token: string;
   type: string;
-}
+};
 
 export const getCurrentUser =
   async (): Promise<GenericalPromise<CurrentUser> | void> => {
