@@ -328,9 +328,9 @@ const DigipoinstPerformance = () => {
                     const transformedDatas = Object.values(groupedData.regions).map(region => ({
                         name: region.region_name,
                         data: [
-                            region.total_points + region.ten_percent_points_assigned, // suma total_points + ten_percent_points_assigned
-                            region.total_points_assigned,
-                            0 // Redeemed en cero
+                            region.total_points + region.ten_percent_points_assigned,
+                            region.total_points_assigned + region.ten_percent_points_assigned,
+                            0
                         ]
                     }));
 
@@ -346,14 +346,11 @@ const DigipoinstPerformance = () => {
                         yNames,
                     });
 
-                    // Calcula la suma de total_revenue
-                    const totalRevenueSum = response.data.result.reduce((sum, item) => sum + Number(item.total_revenue), 0);
-
                     // Datos para la gráfica de Pie "DigiPoints Uploaded YTD"
                     const dataUploaded = [
                         {
                             name: "Sales",
-                            value: totalRevenueSum
+                            value: groupedData.totals.total_points + groupedData.totals.ten_percent_points_assigned
                         },
                         // {
                         //     name: "Assigned",
@@ -368,7 +365,7 @@ const DigipoinstPerformance = () => {
                     setDigipointUploaded(dataUploaded);
 
                     setTtotalUpload(groupedData.totals.total_points + groupedData.totals.ten_percent_points_assigned);
-                    setAssignedValue(groupedData.totals.total_points_assigned);
+                    setAssignedValue(groupedData.totals.total_points_assigned + groupedData.totals.ten_percent_points_assigned);
                     setRedeemedValue(0);
 
                     setIsReady(true);
