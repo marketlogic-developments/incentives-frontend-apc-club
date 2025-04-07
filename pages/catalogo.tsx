@@ -50,10 +50,6 @@ const catalogo = () => {
             .finally(() => setLoading(false));
     };
 
-    useEffect(() => {
-        getAwards();
-    }, [params]);
-
 
     useEffect(() => {
         const getGiftList = () => {
@@ -63,8 +59,15 @@ const catalogo = () => {
             }).finally(() => setLoading(false));
         };
 
+        const { limit, page, search, relation_filter } = params;
+        ListAwards(`page=${page}&limit=${limit}&search=${search}&search_fields=name`)
+            .then((res) => {
+                setGlobalAwards(res);
+            })
+            .finally(() => setLoading(false));
+            
         getGiftList();
-    }, [user]);
+    }, [params, user]);
 
     const [t, i18n] = useTranslation("global");
 
