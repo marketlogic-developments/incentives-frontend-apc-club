@@ -82,7 +82,7 @@ const Summary = () => {
               : "hover:bg-red-100 hover:!text-red-500 hover:!text-sm"
           }`}
           onClick={() => setContent(t("SalesYoy"))}
-        /> */}
+        /> */} 
                 <ButtonBgOut
                     title={t("Reportes.digipoints_performance")}
                     styles={`${content === "DigipoinstPerformance"
