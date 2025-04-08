@@ -8,7 +8,7 @@ import AwardsFunction from "functions/Awards/AwardsFunction";
 const ContditionsProviders = ({ data }:{data: OrderListProduct[]}) => {
   const [t, i18n] = useTranslation("global");
   const [target, setTarget] = useState(0);
-  const [dataProvider, setDataProvider] = useState(data[0].supplier_name);
+  const [dataProvider, setDataProvider] = useState(data[0].supplier_code);
 
 
 

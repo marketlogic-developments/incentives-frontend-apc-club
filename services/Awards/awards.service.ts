@@ -47,6 +47,7 @@ export interface ShoppingCarProduct extends Award {
 export interface OrderListProduct extends ShoppingCarProduct {
     supplier_name: string;
     supplier_id: string;
+    supplier_code: string;
 }
 
 export interface ShoppingCar {
