@@ -33,12 +33,9 @@ const catalogo = () => {
     const fetchAwardsCard = async () => {
 
         if (user && token) {
-
             const { limit, page, search, relation_filter } = params;
-
             let queryString = `page=${page}&limit=${limit}`;
-
-            const additionalFilters = relation_filter ? {supplier_id: relation_filter} : undefined;
+            const additionalFilters = relation_filter ? { supplier_id: relation_filter } : undefined;
 
             if (search) {
                 queryString += `&search=${search}&search_fields=name`
@@ -61,7 +58,6 @@ const catalogo = () => {
             const data = response.data.result;
 
             setGlobalAwards(data);
-
             setLoading(false);
         }
     };
