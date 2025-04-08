@@ -4,6 +4,7 @@ import { HandleError, PaginatedElements } from "services/generical.service";
 
 export interface Order {
   order_id: string;
+  created_at: string;
   stage: string;
   status: OrderStatus;
   user_id: string;

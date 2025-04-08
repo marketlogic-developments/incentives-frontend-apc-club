@@ -10,18 +10,19 @@ import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { RootState } from "store/store";
-import { Award } from "services/Awards/awards.service";
 import DataNotFound from "components/Module/404/DataNotFound";
-import { MultipleElements } from "services/generical.service";
 import AwardsFunction from "functions/Awards/AwardsFunction";
+import axios from "axios";
+
+
 
 const catalogo = () => {
-    const [globalAwards, setGlobalAwards] = useState<MultipleElements<Award>>();
-    const { ListAwards, ListSuppliers } = AwardsFunction()
+    const { ListSuppliers } = AwardsFunction()
     const route = useRouter();
-    const { user } = useSelector((state: RootState) => state.currentUser);
+    const { user, token } = useSelector((state: RootState) => state.currentUser);
     const [loading, setLoading] = useState<boolean>(false);
     const [filters, setFilters] = useState([]);
+    const [globalAwards, setGlobalAwards] = useState<any>();
     const [params, setParams] = useState({
         page: 1,
         limit: 6,
@@ -29,45 +30,49 @@ const catalogo = () => {
         relation_filter: ""
     });
 
-    const getAwards = () => {
-        setLoading(true);
+    const fetchAwardsCard = async () => {
 
-        const { limit, page, search, relation_filter } = params;
+        if (user && token) {
+            const { limit, page, search, relation_filter } = params;
+            let queryString = `page=${page}&limit=${limit}`;
+            const additionalFilters = relation_filter ? { supplier_id: relation_filter } : undefined;
 
-        let queryString = `page=${page}&limit=${limit}&search=${search}&search_fields=name`;
+            if (search) {
+                queryString += `&search=${search}&search_fields=name`
+            };
 
-        const additionalFilters = relation_filter ? {supplier_id: relation_filter} : undefined;
+            if (additionalFilters) {
+                queryString += `&additional_filters=${encodeURIComponent(JSON.stringify(additionalFilters))}`;
+            };
 
-        if (additionalFilters) {
-            queryString += `&additional_filters=${encodeURIComponent(JSON.stringify(additionalFilters))}`;
-        };
+            const response = await axios.get(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}marketplace/products?${queryString}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
 
+            const data = response.data.result;
 
-        ListAwards(queryString)
-            .then((res) => {
-                setGlobalAwards(res);
-            })
-            .finally(() => setLoading(false));
+            setGlobalAwards(data);
+            setLoading(false);
+        }
     };
-
 
     useEffect(() => {
         const getGiftList = () => {
             setLoading(true);
             ListSuppliers(user?.id ?? "").then((res) => {
                 setFilters(res)
-            }).finally(() => setLoading(false));
+            }).finally();
         };
 
-        const { limit, page, search, relation_filter } = params;
-        ListAwards(`page=${page}&limit=${limit}&search=${search}&search_fields=name`)
-            .then((res) => {
-                setGlobalAwards(res);
-            })
-            .finally(() => setLoading(false));
-            
         getGiftList();
-    }, [params, user]);
+        fetchAwardsCard();
+    }, [user, params]);
 
     const [t, i18n] = useTranslation("global");
 
@@ -79,7 +84,7 @@ const catalogo = () => {
             }
 
             if (!globalAwards) {
-                return <DataNotFound action={getAwards} />;
+                return <DataNotFound action={fetchAwardsCard} />;
             }
 
             return (
@@ -195,7 +200,7 @@ const catalogo = () => {
             {RenderAwards}
             <div className="w-full">
                 <ReactPaginate
-                    pageCount={globalAwards?.total_pages as number}
+                    pageCount={globalAwards?.total_pages ?? 0}
                     marginPagesDisplayed={2}
                     pageRangeDisplayed={5}
                     onPageChange={handlePageClick}

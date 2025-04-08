@@ -103,9 +103,8 @@ const estadoProducto = () => {
         onClose={() => setOpened(false)}
         size={(screen as number) < 768 ? "100%" : "70%"}
         title={t("estadoProducto.detalleOrden")}
-        className={`modalStatusProducts ${
-          (screen as number) < 768 && "modal100"
-        }`}
+        className={`modalStatusProducts ${(screen as number) < 768 && "modal100"
+          }`}
       >
         <ModalProducts data={modalData} />
       </Modal>
@@ -164,9 +163,8 @@ const estadoProducto = () => {
               {orders &&
                 orders?.content.map((data, index) => (
                   <tr
-                    className={`${
-                      (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
-                    } w-full hover:bg-[#F9F9F9] hover:!text-info cursor-pointer`}
+                    className={`${(index + 1) % 2 === 0 && "bg-[#F5F5F5]"
+                      } w-full hover:bg-[#F9F9F9] hover:!text-info cursor-pointer`}
                     key={index}
                     onClick={() => {
                       setModalData(data);
@@ -177,8 +175,13 @@ const estadoProducto = () => {
                       #{data.order_id.split("-")[0]}
                     </th>
                     <td className="py-4 px-6">
-                      {/* {data.CreatedAt.split("T")[0]} */}
-                      {"aaaaa"}
+                      {(() => {
+                        const date = new Date(data.created_at.replace(' ', 'T'));
+                        const dd = String(date.getDate()).padStart(2, '0');
+                        const mm = String(date.getMonth() + 1).padStart(2, '0');
+                        const yyyy = date.getFullYear();
+                        return `${dd}/${mm}/${yyyy}`;
+                      })()}
                     </td>
                     <td className="py-4 px-6">
                       {data.products
@@ -198,9 +201,8 @@ const estadoProducto = () => {
                     </td>
                     <td className="py-2 px-3">
                       <p
-                        className={`lg:w-1/2 w-max py-2 px-3 font-semibold rounded-md !text-xs ${
-                          orderStatus(data.status)?.bg
-                        }`}
+                        className={`lg:w-1/2 w-max py-2 px-3 font-semibold rounded-md !text-xs ${orderStatus(data.status)?.bg
+                          }`}
                       >
                         {orderStatus(data.status)?.text}
                       </p>
