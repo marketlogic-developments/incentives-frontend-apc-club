@@ -2,7 +2,11 @@ import axios, { AxiosInstance } from "axios";
 
 const createInstance = (): AxiosInstance => {
     const api = axios.create({
+<<<<<<< Updated upstream
         baseURL: 'https://api.adobepcclub.com/api/',
+=======
+        baseURL: 'https://development-api.adobepcclub.com/api/', 
+>>>>>>> Stashed changes
         headers: { 
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
