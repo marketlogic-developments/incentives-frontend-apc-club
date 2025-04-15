@@ -102,7 +102,7 @@ const SectionDigipointsPA = () => {
     
             setDigipointUploaded([
                 {
-                    value: totalSales + promotionPoints + behaviorPoints,
+                    value: totalSales,
                     name: "Sales"
                 },
                 {
