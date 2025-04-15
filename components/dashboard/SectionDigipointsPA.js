@@ -97,7 +97,7 @@ const SectionDigipointsPA = () => {
                 totalPointsAssignedByCategory.CC + totalPointsAssignedByCategory.DC +
                 totalPointsAssignedByPartnerAdmin.CC + totalPointsAssignedByPartnerAdmin.DC;
     
-            setTtotalUpload(totalSales);
+            setTtotalUpload(totalSales + promotionPoints + behaviorPoints);
             setAssignedValue(totalAssigned);
     
             setDigipointUploaded([
