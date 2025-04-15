@@ -157,16 +157,18 @@ const TableStats = () => {
                         let totalByCategory = { CC: 0, DC: 0 };
 
                         // Limpia el tipo (eliminar espacios y poner en minúsculas)
-                        const cleanType = (type) => type.trim().toLowerCase();
+                        const cleanType = (type) => (type ?? '').toString().trim().toLowerCase();
 
                         response_sales.data.result.forEach((item) => {
-                            const category = item.category;
-                            const revenue = item.total_revenue;
+                            if (item.category != "Promotion" || item.category != "BEHAVIOR") {
+                                const category = item.category;
+                                const revenue = item.total_revenue;
 
-                            // Totales generales
-                            if (category === 'CC' || category === 'DC') {
-                                totalByCategory[category] += revenue;
-                            }
+                                // Totales generales
+                                if (category === 'CC' || category === 'DC') {
+                                    totalByCategory[category] += revenue;
+                                };
+                            };
                         });
 
                         const totalGoals = response_goals.data.result[0].extended_attributes?.CC + response_goals.data.result[0].extended_attributes?.DC
