@@ -35,10 +35,10 @@ const DigipoinstPerformance = () => {
     const [companiesName, setCompaniesName] = useState([]);
     const [countries, setCountries] = useState([]);
     const [regions, setRegions] = useState([
-        {name: "NOLA"},
-        {name: "SOLA"},
-        {name: "BRAZIL"},
-        {name: "MEXICO"}
+        { name: "NOLA" },
+        { name: "SOLA" },
+        { name: "BRAZIL" },
+        { name: "MEXICO" }
     ]);
     const [digipointSR, setDigipointSR] = useState({
         datas: {},
@@ -272,59 +272,70 @@ const DigipoinstPerformance = () => {
                         }
                     );
 
-                    if (user.is_superuser) {
-                        const response = await axios.get(
-                            `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d014c`,
-                            {
-                                headers: {
-                                    Authorization: `Bearer ${user.token}`,
-                                    "Content-Type": "application/json",
-                                },
-                            }
-                        );
-                        
-                        setCountries(response.data.result);
-                    };
+                    // países
+                    const response_1 = await axios.get(
+                        `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d014c`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${user.token}`,
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
+                    setCountries(response_1.data.result);
 
+                    // empresas
+                    const response_2 = await axios.get(
+                        `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d014b`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${user.token}`,
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
+                    setCompaniesName(response_2.data.result);
 
-                    if (user.is_superuser) {
-                        const response = await axios.get(
-                            `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d014b`,
-                            {
-                                headers: {
-                                    Authorization: `Bearer ${user.token}`,
-                                    "Content-Type": "application/json",
-                                },
-                            }
-                        );
-                        
-                        setCompaniesName(response.data.result);
-                    };
+                    let promotionPoints = 0;
+                    let behaviorPoints = 0;
 
                     const groupedData = response.data.result.reduce((acc, current) => {
                         const region = current.region_name;
+                        const category = current.category;
+                        const total_points = Number(current.total_points ?? 0);
+                        const assigned = Number(current.total_points_assigned ?? 0);
+                        const percent = Number(current.ten_percent_points_assigned ?? 0);
 
-                        if (!acc.regions[region]) {
-                            acc.regions[region] = {
-                                region_name: region,
-                                total_points_assigned: 0,
-                                ten_percent_points_assigned: 0,
-                                total_points: 0,
-                            };
-                        };
+                        if (category === 'Promotion') {
+                            promotionPoints += total_points;
+                        } else if (category === 'BEHAVIOR') {
+                            behaviorPoints += total_points;
+                        } else {
+                            if (!acc.regions[region]) {
+                                acc.regions[region] = {
+                                    region_name: region,
+                                    total_points_assigned: 0,
+                                    ten_percent_points_assigned: 0,
+                                    total_points: 0,
+                                };
+                            }
 
-                        acc.regions[region].total_points_assigned += Number(current.total_points_assigned);
-                        acc.regions[region].ten_percent_points_assigned += Number(current.ten_percent_points_assigned);
-                        acc.regions[region].total_points += Number(current.total_points);
+                            acc.regions[region].total_points_assigned += assigned;
+                            acc.regions[region].ten_percent_points_assigned += percent;
+                            acc.regions[region].total_points += total_points;
 
-                        acc.totals.total_points_assigned += Number(current.total_points_assigned);
-                        acc.totals.ten_percent_points_assigned += Number(current.ten_percent_points_assigned);
-                        acc.totals.total_points += Number(current.total_points);
+                            acc.totals.total_points_assigned += assigned;
+                            acc.totals.ten_percent_points_assigned += percent;
+                            acc.totals.total_points += total_points;
+                        }
 
                         return acc;
-                    }, { regions: {}, totals: { total_points_assigned: 0, ten_percent_points_assigned: 0, total_points: 0 } });
+                    }, {
+                        regions: {},
+                        totals: { total_points_assigned: 0, ten_percent_points_assigned: 0, total_points: 0 }
+                    });
 
-                    // Datos agrupados por región para gráfica "DigiPoints by Status and Region"
+                    // Bar chart
                     const transformedDatas = Object.values(groupedData.regions).map(region => ({
                         name: region.region_name,
                         data: [
@@ -346,110 +357,43 @@ const DigipoinstPerformance = () => {
                         yNames,
                     });
 
-                    // Datos para la gráfica de Pie "DigiPoints Uploaded YTD"
+                    // Pie chart
                     const dataUploaded = [
                         {
                             name: "Sales",
                             value: groupedData.totals.total_points + groupedData.totals.ten_percent_points_assigned
                         },
-                        // {
-                        //     name: "Assigned",
-                        //     value: groupedData.totals.total_points_assigned
-                        // },
-                        // {
-                        //     name: "Redeemed",
-                        //     value: 0
-                        // }
+                        {
+                            name: "Promotion",
+                            value: promotionPoints
+                        },
+                        {
+                            name: "Behavior",
+                            value: behaviorPoints
+                        }
                     ];
 
                     setDigipointUploaded(dataUploaded);
 
-                    setTtotalUpload(groupedData.totals.total_points + groupedData.totals.ten_percent_points_assigned);
-                    setAssignedValue(groupedData.totals.total_points_assigned + groupedData.totals.ten_percent_points_assigned);
-                    setRedeemedValue(0);
+                    setTtotalUpload(
+                        groupedData.totals.total_points +
+                        groupedData.totals.ten_percent_points_assigned +
+                        promotionPoints +
+                        behaviorPoints
+                    );
 
+                    setAssignedValue(
+                        groupedData.totals.total_points_assigned +
+                        groupedData.totals.ten_percent_points_assigned
+                    );
+
+                    setRedeemedValue(0);
                     setIsReady(true);
-                };
-            };
+                }
+            }
         };
 
         fetchSales();
-        // dispatch(getDigiPointPerformance(token, filters)).then((res) => {
-        //     /* DIGIPOINTS UPLOADED */
-        //     setDigipointUploaded(res.payload.digipointsUploaded);
-        //     /* const total = digipointUploaded.reduce((acc, item) => acc + parseInt(item.value, 10), 0);
-        //     setTtotalUpload(total); */
-
-        //     /* DIGIPOINTS BY STATUS AND REGION PENDING*/
-        //     setDigipointSR({
-        //         datas: transformDataWithColors2(
-        //             res.payload.digipointsByStatusAndRegion.series,
-        //             {
-        //                 MEXICO: "#1C2226",
-        //                 NOLA: "#2799F6",
-        //                 SOLA: "#1473E6",
-        //                 BRAZIL: "#21A5A2",
-        //             }
-        //         ),
-        //         yNames: filterArray(
-        //             res.payload.digipointsByStatusAndRegion.yAxis.data,
-        //             "Expected"
-        //         ),
-        //     });
-
-        //     /* DIGIPOINTS BY STATUS */
-        //     const filerDigipintsStatus = filterObject(
-        //         res.payload.digipointsByStatus,
-        //         "Expected"
-        //     );
-        //     setDigipointStatus(mapColorsToData(filerDigipintsStatus, colorsData));
-
-        //     const digipointsByStatusALL = res.payload.digipointsByStatus;
-
-        //     // Busca el objeto con name igual a "Assigned"
-        //     const totalItem = digipointsByStatusALL.find(
-        //         (item) => item.name === "Digipoints"
-        //     );
-        //     if (totalItem) {
-        //         setTtotalUpload(totalItem.value);
-        //     }
-
-        //     // Busca el objeto con name igual a "Assigned"
-        //     const assignedItem = digipointsByStatusALL.find(
-        //         (item) => item.name === "Assigned"
-        //     );
-        //     if (assignedItem) {
-        //         setAssignedValue(assignedItem.value);
-        //     }
-
-        //     // Busca el objeto con name igual a "Redeemed"
-        //     const redeemedItem = digipointsByStatusALL.find(
-        //         (item) => item.name === "Redeemed"
-        //     );
-        //     if (redeemedItem) {
-        //         setRedeemedValue(redeemedItem.value);
-        //     }
-
-        //     /* DIGIPOINTS BY REGION AND AMOUND */
-        //     setDigipointRA({
-        //         datas: transformDataWithColors(
-        //             res.payload.redempionsByRegionAndAmount.yAxis.allData,
-        //             {
-        //                 MEXICO: "#1C2226",
-        //                 NOLA: "#2799F6",
-        //                 SOLA: "#1473E6",
-        //                 BRAZIL: "#21A5A2",
-        //             }
-        //         ),
-        //     });
-
-        //     /* SET DATA FILTER */
-        //     setCompaniesName(res.payload.digipointsFilterCompanyName);
-        //     setCountries(res.payload.digipointsFilterCountry);
-        //     setRegions(res.payload.digipointsFilterRegion);
-
-        //     setIsReady(true);
-        // });
     }, [filters, user]);
     return (
         <div className="m-5">

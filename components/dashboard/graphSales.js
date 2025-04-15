@@ -105,7 +105,7 @@ const GraphSales = () => {
                 };
 
                 // Limpia el tipo (eliminar espacios y poner en minúsculas)
-                const cleanType = (type) => type.trim().toLowerCase();
+                const cleanType = (type) => (type ?? '').toString().trim().toLowerCase();
 
                 // Acumuladores generales
                 let totalByCategory = { CC: 0, DC: 0 };
@@ -121,41 +121,43 @@ const GraphSales = () => {
                 let vmpNewBusinessDC = 0;
 
                 response.data.result.forEach((item) => {
-                    const category = item.category;
-                    const sub = item.sub_category;
-                    const type = cleanType(item.type);
-                    const revenue = item.total_revenue;
+                    if (item.category != "Promotion" || item.category != "BEHAVIOR") {
+                        const category = item.category;
+                        const sub = item.sub_category;
+                        const type = cleanType(item.type);
+                        const revenue = item.total_revenue;
 
-                    // Totales generales
-                    if (category === 'CC' || category === 'DC') {
-                        totalByCategory[category] += revenue;
-                    }
+                        // Totales generales
+                        if (category === 'CC' || category === 'DC') {
+                            totalByCategory[category] += revenue;
+                        }
 
-                    if (sub === 'VIP' || sub === 'VMP') {
-                        totalBySubCategory[sub] += revenue;
-                    }
+                        if (sub === 'VIP' || sub === 'VMP') {
+                            totalBySubCategory[sub] += revenue;
+                        }
 
-                    if (type === 'new business') {
-                        totalByType['New Business'] += revenue;
-                    } else if (type === 'autorenewal' || type === 'autorrenewal') {
-                        totalByType['Autorenewal'] += revenue;
-                    }
+                        if (type === 'new business') {
+                            totalByType['New Business'] += revenue;
+                        } else if (type === 'autorenewal' || type === 'autorrenewal') {
+                            totalByType['Autorenewal'] += revenue;
+                        }
 
-                    // Totales específicos para los setters
-                    if (sub === 'VIP' && type === 'new business') {
-                        if (category === 'CC') vipNewBusinessCC += revenue;
-                        if (category === 'DC') vipNewBusinessDC += revenue;
-                    }
+                        // Totales específicos para los setters
+                        if (sub === 'VIP' && type === 'new business') {
+                            if (category === 'CC') vipNewBusinessCC += revenue;
+                            if (category === 'DC') vipNewBusinessDC += revenue;
+                        }
 
-                    if (sub === 'VMP' && type === 'autorenewal') {
-                        if (category === 'CC') vmpAutoRenewalCC += revenue;
-                        if (category === 'DC') vmpAutoRenewalDC += revenue;
-                    }
+                        if (sub === 'VMP' && type === 'autorenewal') {
+                            if (category === 'CC') vmpAutoRenewalCC += revenue;
+                            if (category === 'DC') vmpAutoRenewalDC += revenue;
+                        }
 
-                    if (sub === 'VMP' && type === 'new business') {
-                        if (category === 'CC') vmpNewBusinessCC += revenue;
-                        if (category === 'DC') vmpNewBusinessDC += revenue;
-                    }
+                        if (sub === 'VMP' && type === 'new business') {
+                            if (category === 'CC') vmpNewBusinessCC += revenue;
+                            if (category === 'DC') vmpNewBusinessDC += revenue;
+                        };
+                    };
                 });
 
                 // Se actualizan los estados

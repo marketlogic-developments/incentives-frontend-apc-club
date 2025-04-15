@@ -49,7 +49,6 @@ const SectionDigipointsPA = () => {
                         },
                     }
                 );
-
             } else {
                 response = await axios.post(
                     `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=aacd4c7e-d8f0-4a2c-a99c-a1f189a7a576`,
@@ -65,41 +64,58 @@ const SectionDigipointsPA = () => {
                         },
                     }
                 );
-            };
-
+            }
+    
             let totalPointsByCategory = { CC: 0, DC: 0 };
             let totalPointsAssignedByCategory = { CC: 0, DC: 0 };
             let totalPointsAssignedByPartnerAdmin = { CC: 0, DC: 0 };
-            
+            let promotionPoints = 0;
+            let behaviorPoints = 0;
+    
             response.data.result.forEach((item) => {
                 const category = item.category;
-                const points = item.total_points;
-                const points_assigned = item.total_points_assigned;
-                const percent_points_assigned = item.ten_percent_points_assigned;
-
-                // Totales generales
+                const points = parseInt(item.total_points ?? 0);
+                const points_assigned = parseInt(item.total_points_assigned ?? 0);
+                const percent_points_assigned = parseInt(item.ten_percent_points_assigned ?? 0);
+    
                 if (category === 'CC' || category === 'DC') {
-                    totalPointsByCategory[category] += parseInt(points);
-                    totalPointsAssignedByCategory[category] += parseInt(points_assigned);
-                    totalPointsAssignedByPartnerAdmin[category] += parseInt(percent_points_assigned);
-                };
+                    totalPointsByCategory[category] += points;
+                    totalPointsAssignedByCategory[category] += points_assigned;
+                    totalPointsAssignedByPartnerAdmin[category] += percent_points_assigned;
+                } else if (category === 'Promotion') {
+                    promotionPoints += points;
+                } else if (category === 'BEHAVIOR') {
+                    behaviorPoints += points;
+                }
             });
-
-            setTtotalUpload(
-                parseInt(totalPointsByCategory.CC ?? 0) + parseInt(totalPointsByCategory.DC ?? 0) +
-                parseInt(totalPointsAssignedByPartnerAdmin.CC ?? 0) + parseInt(totalPointsAssignedByPartnerAdmin.DC ?? 0)
-            );
-            setAssignedValue(parseInt(totalPointsAssignedByCategory.CC ?? 0) + parseInt(totalPointsAssignedByCategory.DC ?? 0) + parseInt(totalPointsAssignedByPartnerAdmin.CC ?? 0) + parseInt(totalPointsAssignedByPartnerAdmin.DC ?? 0));
-            setDigipointUploaded(
-                [
-                    {
-                        value: parseInt(totalPointsByCategory.CC ?? 0) + parseInt(totalPointsByCategory.DC ?? 0) + parseInt(totalPointsAssignedByPartnerAdmin.CC ?? 0) + parseInt(totalPointsAssignedByPartnerAdmin.DC ?? 0),
-                        name: "Sales"
-                    }
-                ]
-            )
+    
+            const totalSales =
+                totalPointsByCategory.CC + totalPointsByCategory.DC +
+                totalPointsAssignedByPartnerAdmin.CC + totalPointsAssignedByPartnerAdmin.DC;
+    
+            const totalAssigned =
+                totalPointsAssignedByCategory.CC + totalPointsAssignedByCategory.DC +
+                totalPointsAssignedByPartnerAdmin.CC + totalPointsAssignedByPartnerAdmin.DC;
+    
+            setTtotalUpload(totalSales + promotionPoints + behaviorPoints);
+            setAssignedValue(totalAssigned);
+    
+            setDigipointUploaded([
+                {
+                    value: totalSales,
+                    name: "Sales"
+                },
+                {
+                    value: promotionPoints,
+                    name: "Promotion"
+                },
+                {
+                    value: behaviorPoints,
+                    name: "Behavior"
+                }
+            ]);
         };
-
+    
         fetchData();
     }, [user, filters]);
 
