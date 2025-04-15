@@ -361,7 +361,7 @@ const DigipoinstPerformance = () => {
                     const dataUploaded = [
                         {
                             name: "Sales",
-                            value: groupedData.totals.total_points + groupedData.totals.ten_percent_points_assigned
+                            value: groupedData.totals.total_points + groupedData.totals.ten_percent_points_assigned + promotionPoints + behaviorPoints
                         },
                         {
                             name: "Promotion",
