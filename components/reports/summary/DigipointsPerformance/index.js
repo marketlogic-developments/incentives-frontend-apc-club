@@ -25,6 +25,7 @@ const DigipoinstPerformance = () => {
         year: "2025",
         company_name: "",
         region: "",
+        quarter: "",
         country: "",
     });
     const [digipointUploaded, setDigipointUploaded] = useState([]);
@@ -39,6 +40,12 @@ const DigipoinstPerformance = () => {
         { name: "SOLA" },
         { name: "BRAZIL" },
         { name: "MEXICO" }
+    ]);
+    const [quarters, setQuarters] = useState([
+        { name: "2025-Q1" },
+        { name: "2025-Q2" },
+        { name: "2025-Q3" },
+        { name: "2025-Q4" }
     ]);
     const [digipointSR, setDigipointSR] = useState({
         datas: {},
@@ -159,6 +166,7 @@ const DigipoinstPerformance = () => {
             year: "2025",
             company_name: "",
             region: "",
+            quarter: "",
             country: "",
         });
     };
@@ -262,6 +270,7 @@ const DigipoinstPerformance = () => {
                                 organization_name: `${filters.company_name}`,
                                 country_name: `${filters.country}`,
                                 region_name: `${filters.region}`,
+                                quarter_name: `${filters.quarter}`,
                             },
                         },
                         {
@@ -404,6 +413,7 @@ const DigipoinstPerformance = () => {
                     companiesName={companiesName}
                     countries={countries}
                     regions={regions}
+                    quarters={quarters}
                     multiSelect={multiSelect}
                     handleFilters={handleFilters}
                     clearSelects={clearSelects}

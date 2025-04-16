@@ -77,7 +77,12 @@ const SalesYtd = () => {
     const [levels, setLevels] = useState([]);
     const [regions, setRegions] = useState(["NOLA", "SOLA", "MEXICO", "BRAZIL"]);
     const [countries, setCountries] = useState([]);
-    const [quarter, setQuarter] = useState(["q1", "q2", "q3", "q4"]);
+    const [quarters, setQuarters] = useState([
+        { name: "2025-Q1" },
+        { name: "2025-Q2" },
+        { name: "2025-Q3" },
+        { name: "2025-Q4" }
+    ]);
     const [month, setMonth] = useState([
         "1",
         "2",
@@ -364,7 +369,8 @@ const SalesYtd = () => {
                             params: {
                                 region_name: `${filters.region}`,
                                 country_name: `${filters.country_id}`,
-                                id: `${filters.company_name.replaceAll("~|~", ",")}`
+                                id: `${filters.company_name.replaceAll("~|~", ",")}`,
+                                quarter_name: `${filters.quarter}`,
                             },
                         },
                         {
@@ -454,6 +460,7 @@ const SalesYtd = () => {
                                 region_name: `${filters.region}`,
                                 country_name: `${filters.country_id}`,
                                 organization_ids: `${filters.company_name.replaceAll("~|~", ",")}`,
+                                quarter_name: `${filters.quarter}`,
                             },
                         },
                         {
@@ -661,7 +668,7 @@ const SalesYtd = () => {
                 levels={levels}
                 region={regions}
                 countries={countries}
-                quarter={quarter}
+                quarters={quarters}
                 month={month}
                 marketSegment={marketSegment}
                 businessUnit={businessUnit}

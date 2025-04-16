@@ -15,6 +15,7 @@ const FilterSection = ({
   levels,
   region,
   countries,
+  quarters,
   multiFilterButton,
   multiFilter,
   handleFilters,
@@ -80,6 +81,19 @@ const FilterSection = ({
           onChange={handleFilters}
           name={"country_id"}
         />
+
+      <SelectInputValue
+        placeholder={"Quarter"}
+        value={filters.quarter}
+        data={quarters.map((quarter) => ({
+          label: quarter.name,
+          value: quarter.name,
+        }))}
+        icon={<ArrowDown />}
+        searchable={true}
+        onChange={handleFilters}
+        name={"quarter"}
+      />
 
         {/* <SelectInputValue
           placeholder={"Partner level"}
