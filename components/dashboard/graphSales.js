@@ -121,7 +121,7 @@ const GraphSales = () => {
                 let vmpNewBusinessDC = 0;
 
                 response.data.result.forEach((item) => {
-                    if (["Promotion", "BEHAVIOR"].includes(item.category)) {
+                    if (!["Promotion", "BEHAVIOR"].includes(item.category)) {
                         const category = item.category;
                         const sub = item.sub_category;
                         const type = cleanType(item.type);
