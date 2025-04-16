@@ -234,6 +234,7 @@ const SalesYtd = () => {
             company_name: "",
             company_type: "",
             region: "",
+            quarter_name: "",
             country_id: "",
             level: "",
         });
@@ -370,7 +371,7 @@ const SalesYtd = () => {
                                 region_name: `${filters.region}`,
                                 country_name: `${filters.country_id}`,
                                 id: `${filters.company_name.replaceAll("~|~", ",")}`,
-                                quarter_name: `${filters.quarter}` || null,
+                                quarter_name: `${filters.quarter}`,
                             },
                         },
                         {
@@ -460,7 +461,7 @@ const SalesYtd = () => {
                                 region_name: `${filters.region}`,
                                 country_name: `${filters.country_id}`,
                                 organization_ids: `${filters.company_name.replaceAll("~|~", ",")}`,
-                                quarter_name: `${filters.quarter}` || null,
+                                quarter_name: `${filters.quarter}`,
                             },
                         },
                         {

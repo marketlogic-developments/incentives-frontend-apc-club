@@ -167,6 +167,7 @@ const DigipoinstPerformance = () => {
             company_name: "",
             region: "",
             quarter: "",
+            quarter_name: "",
             country: "",
         });
     };
@@ -270,7 +271,7 @@ const DigipoinstPerformance = () => {
                                 organization_name: `${filters.company_name}`,
                                 country_name: `${filters.country}`,
                                 region_name: `${filters.region}`,
-                                quarter_name: `${filters.quarter}` || null,
+                                quarter_name: `${filters.quarter}`,
                             },
                         },
                         {
