@@ -160,7 +160,7 @@ const TableStats = () => {
                         const cleanType = (type) => (type ?? '').toString().trim().toLowerCase();
 
                         response_sales.data.result.forEach((item) => {
-                            if (item.category != "Promotion" || item.category != "BEHAVIOR") {
+                            if (["Promotion", "BEHAVIOR"].includes(item.category)) {
                                 const category = item.category;
                                 const revenue = item.total_revenue;
 

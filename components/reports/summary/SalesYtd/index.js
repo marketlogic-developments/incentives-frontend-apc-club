@@ -399,7 +399,7 @@ const SalesYtd = () => {
                     let vmpNewBusinessDC = 0;
 
                     response.data.result.forEach((item) => {
-                        if (item.category != "Promotion" || item.category != "BEHAVIOR") {
+                        if (["Promotion", "BEHAVIOR"].includes(item.category)) {
                             const category = item.category;
                             const sub = item.sub_category;
                             const type = cleanType(item.type);
