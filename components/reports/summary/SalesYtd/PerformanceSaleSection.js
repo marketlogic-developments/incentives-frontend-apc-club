@@ -17,33 +17,21 @@ const PerformanceSaleSection = ({ data }) => {
     Number(data.sales_cc_renewal) + Number(data.sales_dc_renewal);
   const totalExpectedRenewal =
     Number(data.expected_cc_renew) + Number(data.expected_dc_renew);
-  const renewalPercentage = (
-    (totalSalesRenewal / totalExpectedRenewal) *
-    100
-  ).toFixed(2);
+  const renewalPercentage = Math.round((totalSalesRenewal / totalExpectedRenewal) * 100 * 100) / 100;
 
   const totalSalesNewBusiness =
     Number(data.sales_dc_newbusiness) + Number(data.sales_cc_newbusiness);
   const totalExpectedNewBusiness =
     Number(data.expected_dc_newbusiness) + Number(data.expected_cc_newbusiness);
-  const newBusinessPercentage = (
-    (totalSalesNewBusiness / totalExpectedNewBusiness) *
-    100
-  ).toFixed(2);
+  const newBusinessPercentage = Math.round((totalSalesNewBusiness / totalExpectedNewBusiness) * 100 * 100) / 100;
 
   const totalSalesRenewalAndNewBusiness =
     Number(data.sales_cc_renewal) + Number(data.sales_cc_newbusiness);
-  const creativeCloud = (
-    (totalSalesRenewalAndNewBusiness / data.expectedCloud) *
-    100
-  ).toFixed(2);
+  const creativeCloud = Math.round((totalSalesRenewalAndNewBusiness / data.expectedCloud) * 100 * 100) / 100;
 
   const totalDocumentSalesRenewalAndNewBusiness =
     Number(data.sales_dc_renewal) + Number(data.sales_dc_newbusiness);
-  const documentCloud = (
-    (totalDocumentSalesRenewalAndNewBusiness / data.expectedDoc) *
-    100
-  ).toFixed(2);
+  const documentCloud = Math.round((totalDocumentSalesRenewalAndNewBusiness / data.expectedDoc) * 100 * 100) / 100;
   return (
     <div className="flex flex-col w-full p-4 gap-4 targetDashboard">
       <div className="flex justify-between">
