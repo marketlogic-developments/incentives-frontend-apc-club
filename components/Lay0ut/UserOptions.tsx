@@ -229,7 +229,6 @@ const UserOptions: FC<Props> = ({
           <a
             className="!text-xs mt-6 font-bold cursor-pointer"
             href={String(t("menu.preguntasLink"))}
-            target="_blank"
           >
             {t("menu.preguntas")}
           </a>

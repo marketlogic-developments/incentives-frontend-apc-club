@@ -129,7 +129,7 @@ const ModalCustomerCare = ({ closeModal }) => {
       ];
     }
     if (form.subject === t("formCustomerCare.option9")) {
-      return [t("formCustomerCare.option1")];
+      return [t("formCustomerCare.option9")];
     }
   }, [form]);
 
