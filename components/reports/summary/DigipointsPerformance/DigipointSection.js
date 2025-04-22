@@ -15,17 +15,16 @@ const DigipointSection = ({
         const resultado = data.map((item) => {
             const [total, asigned, redeem] = item.data;
 
-            const asignedVsUpload = Number((asigned / total) * 100).toFixed(2);
-            const redeemVsAsigned = Number((redeem / asigned) * 100).toFixed(2);
+            const asignedVsUpload = Math.round((asigned / total) * 100 * 100) / 100;
+            const redeemVsAsigned = Math.round((redeem / asigned) * 100 * 100) / 100;
 
             return {
-                asignedVsUpload: asignedVsUpload,
-                redeemVsAsigned: redeemVsAsigned,
+                asignedVsUpload,
+                redeemVsAsigned,
             };
         });
         return resultado;
     };
-
     useEffect(() => {
         if (dataSR?.datas.length) {
             const res = calculatePercentage(dataSR?.datas);

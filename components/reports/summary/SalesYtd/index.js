@@ -77,7 +77,12 @@ const SalesYtd = () => {
     const [levels, setLevels] = useState([]);
     const [regions, setRegions] = useState(["NOLA", "SOLA", "MEXICO", "BRAZIL"]);
     const [countries, setCountries] = useState([]);
-    const [quarter, setQuarter] = useState(["q1", "q2", "q3", "q4"]);
+    const [quarters, setQuarters] = useState([
+        { name: "2025-Q1" },
+        { name: "2025-Q2" },
+        { name: "2025-Q3" },
+        { name: "2025-Q4" }
+    ]);
     const [month, setMonth] = useState([
         "1",
         "2",
@@ -229,6 +234,7 @@ const SalesYtd = () => {
             company_name: "",
             company_type: "",
             region: "",
+            quarter_name: "",
             country_id: "",
             level: "",
         });
@@ -364,7 +370,8 @@ const SalesYtd = () => {
                             params: {
                                 region_name: `${filters.region}`,
                                 country_name: `${filters.country_id}`,
-                                id: `${filters.company_name.replaceAll("~|~", ",")}`
+                                id: `${filters.company_name.replaceAll("~|~", ",")}`,
+                                quarter_name: `${filters.quarter || ""}`,
                             },
                         },
                         {
@@ -392,7 +399,7 @@ const SalesYtd = () => {
                     let vmpNewBusinessDC = 0;
 
                     response.data.result.forEach((item) => {
-                        if (item.category != "Promotion" || item.category != "BEHAVIOR") {
+                        if (!["Promotion", "BEHAVIOR"].includes(item.category)) {
                             const category = item.category;
                             const sub = item.sub_category;
                             const type = cleanType(item.type);
@@ -454,6 +461,7 @@ const SalesYtd = () => {
                                 region_name: `${filters.region}`,
                                 country_name: `${filters.country_id}`,
                                 organization_ids: `${filters.company_name.replaceAll("~|~", ",")}`,
+                                quarter_name: `${filters.quarter || ""}`,
                             },
                         },
                         {
@@ -661,7 +669,7 @@ const SalesYtd = () => {
                 levels={levels}
                 region={regions}
                 countries={countries}
-                quarter={quarter}
+                quarters={quarters}
                 month={month}
                 marketSegment={marketSegment}
                 businessUnit={businessUnit}

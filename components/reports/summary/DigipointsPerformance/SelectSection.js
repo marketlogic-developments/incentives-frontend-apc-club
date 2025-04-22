@@ -10,6 +10,7 @@ const SelectSection = ({
   companiesName = [],
   countries = [],
   regions = [],
+  quarters = [],
   handleFilters,
   clearSelects,
   filters,
@@ -65,6 +66,18 @@ const SelectSection = ({
         searchable={true}
         onChange={handleFilters}
         name={"region"}
+      />
+      <SelectInputValue
+        placeholder={"Quarter"}
+        value={filters.quarter}
+        data={quarters.map((quarter) => ({
+          label: quarter.name,
+          value: quarter.name,
+        }))}
+        icon={<ArrowDown />}
+        searchable={true}
+        onChange={handleFilters}
+        name={"quarter"}
       />
       {/* <SalesYtdMultiselectModal
         title={<p className="text-black font-bold text-lg">Filtrar por</p>}

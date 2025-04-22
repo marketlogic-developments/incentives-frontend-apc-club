@@ -92,12 +92,12 @@ export const useLocation = () => {
         iconactive: "",
         text: t("menu.Reportes"),
       },
-      {
-        page: "/puntosporventas",
-        icon: <IconPuntosPorVentas />,
-        iconactive: "",
-        text: t("menu.Puntos_por_ventas"),
-      },
+      // {
+      //   page: "/puntosporventas",
+      //   icon: <IconPuntosPorVentas />,
+      //   iconactive: "",
+      //   text: t("menu.Puntos_por_ventas"),
+      // },
       // {
       //   page: "/herramientas",
       //   icon: <IconSettings />,
