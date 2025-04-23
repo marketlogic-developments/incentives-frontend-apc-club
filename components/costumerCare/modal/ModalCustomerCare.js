@@ -145,9 +145,9 @@ const ModalCustomerCare = ({ closeModal }) => {
     const { description, subject, type } = form;
 
     const country =
-      user.companyId === null
-        ? user.distributionChannel.country
-        : user.company.country;
+      user?.companyId === null
+        ? user?.distributionChannel.country
+        : user?.company.country;
 
     const objSend = {
       subject,
@@ -157,15 +157,15 @@ const ModalCustomerCare = ({ closeModal }) => {
       } | ${
         form.contactWhatsApp && "Autorización para contactar por WhatsApp"
       }`,
-      email: user.email,
-      region: user.region,
+      email: user?.email,
+      region: user?.region,
       country: country === null ? "-None-" : country,
       company:
-        user.companyId === null
-          ? user.distributionChannel.nameDist
-          : user.company.name,
-      userName: user.name,
-      userLastName: user.lastName,
+        user?.companyId === null
+          ? user?.distributionChannel.nameDist
+          : user?.company.name,
+      userName: user?.name,
+      userLastName: user?.lastName,
     };
 
     const formData = new FormData();
