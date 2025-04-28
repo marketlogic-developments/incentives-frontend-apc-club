@@ -28,7 +28,7 @@ const ModalCustomerCare = ({ closeModal }) => {
     contactEmail: false,
     contactWhatsApp: false,
   });
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.currentUser);
   const dataSelectOne = [
     t("formCustomerCare.option1"),
     t("formCustomerCare.option2"),
@@ -144,28 +144,15 @@ const ModalCustomerCare = ({ closeModal }) => {
   const handleSubmit = () => {
     const { description, subject, type } = form;
 
-    const country =
-      user?.companyId === null
-        ? user?.distributionChannel.country
-        : user?.company.country;
-
     const objSend = {
       subject,
       type,
-      description: `${form.description} | ${
-        form.contactEmail && "Autorización para contactar por correo"
-      } | ${
-        form.contactWhatsApp && "Autorización para contactar por WhatsApp"
-      }`,
+      description: `${form.description}`,
       email: user?.email,
-      region: user?.region,
-      country: country === null ? "-None-" : country,
-      company:
-        user?.companyId === null
-          ? user?.distributionChannel.nameDist
-          : user?.company.name,
-      userName: user?.name,
-      userLastName: user?.lastName,
+      first_name: user?.profile?.first_name,
+      last_name: user?.profile?.last_name,
+      accept_contacted_mail: form.contactEmail === false ? "No" : "Si",
+      accept_contacted_whatsapp: form.contactWhatsApp === false ? "No" : "Si"
     };
 
     const formData = new FormData();
@@ -175,7 +162,7 @@ const ModalCustomerCare = ({ closeModal }) => {
     }
 
     return axios
-      .post("https://hooks.zapier.com/hooks/catch/666990/34yutk3/", formData)
+      .post("https://marketlogic-automation-production.up.railway.app/webhook/send_mail_faq", formData)
       .then(() => {
         setForm({
           type: "",
