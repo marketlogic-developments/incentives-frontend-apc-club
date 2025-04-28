@@ -25,14 +25,14 @@ const Registro = ({ close, register }) => {
 
     const formData = new FormData();
 
-    formData.append("First_Name", firstname);
+    formData.append("FirstName", firstname);
     formData.append("Email", email);
     formData.append("Phone", phone);
     formData.append("Company", company);
     formData.append("textArea", textarea);
 
     axios
-      .post("https://hooks.zapier.com/hooks/catch/666990/3bgdttq/", formData)
+      .post("https://marketlogic-automation-production.up.railway.app/webhook/send_mail_register_requests", formData)
       .then(() => {
         setFirstname("");
         setCompany("");
