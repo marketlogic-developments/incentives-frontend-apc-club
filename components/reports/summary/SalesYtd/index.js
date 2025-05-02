@@ -403,7 +403,7 @@ const SalesYtd = () => {
                             const category = item.category;
                             const sub = item.sub_category;
                             const type = cleanType(item.type);
-                            const revenue = item.total_revenue;
+                            const revenue = Number(item.total_revenue || 0);
 
                             // Totales generales
                             if (category === 'CC' || category === 'DC') {
