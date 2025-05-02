@@ -16,6 +16,7 @@ const FilterSection = ({
   region,
   countries,
   quarters,
+  companyType,
   multiFilterButton,
   multiFilter,
   handleFilters,
@@ -82,7 +83,7 @@ const FilterSection = ({
           name={"country_id"}
         />
 
-      <SelectInputValue
+      {/* <SelectInputValue
         placeholder={"Quarter"}
         value={filters.quarter}
         data={quarters.map((quarter) => ({
@@ -93,6 +94,18 @@ const FilterSection = ({
         searchable={true}
         onChange={handleFilters}
         name={"quarter"}
+      /> */}
+      <SelectInputValue
+        placeholder={"Tipo de canal"}
+        value={filters.companyType}
+        data={companyType.map((companyType) => ({
+          label: companyType.name,
+          value: companyType.name,
+        }))}
+        icon={<ArrowDown />}
+        searchable={true}
+        onChange={handleFilters}
+        name={"companyType"}
       />
 
         {/* <SelectInputValue

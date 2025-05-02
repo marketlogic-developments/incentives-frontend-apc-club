@@ -15,6 +15,7 @@ import axios from "axios";
 
 const SalesYtd = () => {
     const [defaultYear, setDefaultYear] = useState(["2025"]);
+    const [companyType, setCompanyType] = useState([{name: "RESELLERS"}, {name: "DISTRIBUTORS"}]);
     /* Variable and const */
     const [loading, setLoading] = useState(false);
     // const dispatch = useDispatch();
@@ -54,6 +55,7 @@ const SalesYtd = () => {
         region: "",
         country_id: "",
         quarter: "",
+        companyType: "",
         month: "",
         marketSegment: "",
         businessUnit: "",
@@ -372,6 +374,7 @@ const SalesYtd = () => {
                                 country_name: `${filters.country_id}`,
                                 id: `${filters.company_name.replaceAll("~|~", ",")}`,
                                 quarter_name: `${filters.quarter || ""}`,
+                                point_type: `${filters.companyType || ""}`,
                             },
                         },
                         {
@@ -462,6 +465,7 @@ const SalesYtd = () => {
                                 country_name: `${filters.country_id}`,
                                 organization_ids: `${filters.company_name.replaceAll("~|~", ",")}`,
                                 quarter_name: `${filters.quarter || ""}`,
+                                point_type: `${filters.companyType || ""}`,
                             },
                         },
                         {
@@ -670,10 +674,10 @@ const SalesYtd = () => {
                 region={regions}
                 countries={countries}
                 quarters={quarters}
+                companyType={companyType}
                 month={month}
                 marketSegment={marketSegment}
                 businessUnit={businessUnit}
-                companyType={companies}
                 handleFilters={handleFilters}
                 handleMultiFilters={handleMultiFilters}
                 multiFilterButton={multiFilterButton}
