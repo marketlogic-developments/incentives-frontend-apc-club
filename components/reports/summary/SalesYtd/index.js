@@ -15,7 +15,7 @@ import axios from "axios";
 
 const SalesYtd = () => {
     const [defaultYear, setDefaultYear] = useState(["2025"]);
-    const [companyType, setCompanyType] = useState([{name: "RESELLERS"}, {name: "DISTRIBUTORS"}]);
+    const [companyType, setCompanyType] = useState([{ name: "RESELLERS" }, { name: "DISTRIBUTORS" }]);
     /* Variable and const */
     const [loading, setLoading] = useState(false);
     // const dispatch = useDispatch();
@@ -437,7 +437,7 @@ const SalesYtd = () => {
                             if (sub === 'VMP' && type === 'new business') {
                                 if (category === 'CC') vmpNewBusinessCC += revenue;
                                 if (category === 'DC') vmpNewBusinessDC += revenue;
-                            };  
+                            };
                         };
                     });
 
@@ -507,8 +507,22 @@ const SalesYtd = () => {
                         vmp,
                         totalVip,
                         totalVmp,
-                        percentageVip: total > 0 ? ((totalVip / total) * 100).toFixed(2) : "0",
-                        percentageVmp: total > 0 ? ((totalVmp / total) * 100).toFixed(2) : "0",
+                        percentageVip: total > 0
+                            ? (Math.trunc((totalVip / total) * 10000) / 100)
+                                .toLocaleString("en-US", {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                    useGrouping: false,
+                                })
+                            : "0.00",
+                        percentageVmp: total > 0
+                            ? (Math.trunc((totalVmp / total) * 10000) / 100)
+                                .toLocaleString("en-US", {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                    useGrouping: false,
+                                })
+                            : "0.00",
                     };
 
                     const revenueByRegion = {};
@@ -620,15 +634,15 @@ const SalesYtd = () => {
                         NOLA: "NOLA",
                         SOLA: "SOLA",
                     };
-                
+
                     const allRegions = ["BRAZIL", "MEXICO", "NOLA", "SOLA"];
-                
+
                     const regionVsGoalsArray = allRegions.map((region) => {
                         const displayName = nameMapping[region] || region;
                         const revenue = dataSalesExtended.revenueByRegion[region] || 0;
                         const expected = dataGoalsExtended.regionTotals[region] || 0;
                         const colorKey = region.toUpperCase();
-                
+
                         return {
                             name: displayName,
                             total: revenue,
@@ -637,7 +651,7 @@ const SalesYtd = () => {
                             expectedColor: "#828282",
                         };
                     });
-                
+
                     setRegionVsGoals(regionVsGoalsArray);
                     setMarketplaceVip(dataSalesExtended.marketplaceVipData);
                 }
@@ -690,9 +704,8 @@ const SalesYtd = () => {
                     totalSaleGoal={{
                         expected: formattedNumber(sales.expectedRevenueSum),
                         reached: formattedNumber(sales.totalRevenueSum),
-                        progress: `${Number(
-                            (sales.totalRevenueSum * 100) / sales.expectedRevenueSum
-                        ).toFixed(2)} %`,
+                        progress: `${Math.trunc((sales.totalRevenueSum * 10000) / sales.expectedRevenueSum) / 100
+                            } %`,
                     }}
                 />
             )}

@@ -29,10 +29,10 @@ const StackedVerticalBarChart: FC<Props> = ({
     value:
       Number(item.total) > Number(item.expected)
         ? 0
-        : Number(item.expected - item.total).toFixed(0),
+        : Math.trunc(Number(item.expected) - Number(item.total)),
     itemStyle: { color: item.expectedColor },
     aux: item.expected,
-  }));
+  }));  
 
   const option = {
     tooltip: {
@@ -43,12 +43,14 @@ const StackedVerticalBarChart: FC<Props> = ({
       formatter: function (params: any) {
         const totalValue = params[0].data.value;
         const expectedValue = params[1].data.aux;
-        return `Signed: ${formatValue(totalValue)} / Expected: ${formatValue(
-          expectedValue
-        )} - Progress: ${Number((totalValue / expectedValue) * 100).toFixed(
-          2
-        )}%`;
-      },
+      
+        const truncateToTwoDecimals = (num: number) =>
+          Math.trunc(num * 100) / 100;
+      
+        const progress = truncateToTwoDecimals((totalValue / expectedValue) * 100);
+      
+        return `Signed: ${formatValue(totalValue)} / Expected: ${formatValue(expectedValue)} - Progress: ${progress}%`;
+      }      
     },
     legend: {},
     grid: {
@@ -67,13 +69,13 @@ const StackedVerticalBarChart: FC<Props> = ({
       axisLabel: {
         formatter: function (value: any) {
           if (value >= 1000000) {
-            return (value / 1000000).toFixed(0) + "M";
+            return Math.trunc(value / 1000000) + "M";
           } else if (value >= 1000) {
-            return (value / 1000).toFixed(0) + "K";
+            return Math.trunc(value / 1000) + "K";
           } else {
-            return value?.toFixed(0);
+            return Math.trunc(value);
           }
-        },
+        }        
       },
     },
     series: [
@@ -104,12 +106,17 @@ const StackedVerticalBarChart: FC<Props> = ({
     ],
   };
   const formatValue = (value: any) => {
+    const truncate = (num: number, decimals: number): number => {
+      const factor = Math.pow(10, decimals);
+      return Math.trunc(num * factor) / factor;
+    };
+  
     return value >= 1000000
-      ? (value / 1000000).toFixed(2) + "M"
+      ? truncate(value / 1000000, 2) + "M"
       : value >= 1000
-      ? (value / 1000).toFixed(2) + "K"
-      : value;
-  };
+      ? truncate(value / 1000, 2) + "K"
+      : truncate(value, 2);
+  };  
   return (
     <div className="w-full">
       <ReactEcharts option={option} className="w-auto h-auto" />

@@ -36,10 +36,17 @@ const PieChart:FC<PieChartProps> = ({
     tooltip: {
       trigger: "item",
       formatter: function (params: any) {
-        return `Signed: ${params.data.value} / Expected: ${params.data.total} - Progress: ${Number((params.data.value / params.data.total) * 100).toFixed(
-            2
-          )}%`;
-      },
+        const truncate = (num: number, decimals: number) => {
+          const factor = Math.pow(10, decimals);
+          return Math.trunc(num * factor) / factor;
+        };
+      
+        const value = params.data.value;
+        const total = params.data.total;
+        const progress = truncate((value / total) * 100, 2);
+      
+        return `Signed: ${value} / Expected: ${total} - Progress: ${progress}%`;
+      }      
     },
     legend: legend,
     series: [

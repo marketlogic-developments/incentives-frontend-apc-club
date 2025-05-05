@@ -33,17 +33,17 @@ const CdpSection = ({ data }) => {
                     <div className="flex justify-around my-auto">
                         <PieChart
                             sales={data.sales_cc_renewal}
-                            percentageTotal={Number(
-                                (data.sales_cc_renewal * 100) / data.expectedCloud
-                            ).toFixed(2)}
+                            percentageTotal={
+                                Math.trunc((data.sales_cc_renewal * 10000) / data.expectedCloud) / 100
+                            }
                             color={"#232B2F"}
                             type={t("Auto Renewal")}
                         />
                         <PieChart
                             sales={data.sales_cc_newbusiness}
-                            percentageTotal={Number(
-                                (data.sales_cc_newbusiness * 100) / data.expectedCloud
-                            ).toFixed(2)}
+                            percentageTotal={
+                                Math.trunc((data.sales_cc_newbusiness * 10000) / data.expectedCloud) / 100
+                            }                              
                             color={"#21A5A2"}
                             type={t("New Business")}
                         />
@@ -61,17 +61,17 @@ const CdpSection = ({ data }) => {
                     <div className="flex justify-around my-auto">
                         <PieChart
                             sales={data.sales_dc_renewal}
-                            percentageTotal={Number(
-                                (data.sales_dc_renewal * 100) / data.expectedDoc
-                            ).toFixed(2)}
+                            percentageTotal={
+                                Math.trunc((data.sales_dc_renewal * 10000) / data.expectedDoc) / 100
+                            }                              
                             color={"#232B2F"}
                             type={t("Auto Renewal")}
                         />
                         <PieChart
                             sales={data.sales_dc_newbusiness}
-                            percentageTotal={Number(
-                                (data.sales_dc_newbusiness * 100) / data.expectedDoc
-                            ).toFixed(2)}
+                            percentageTotal={
+                                Math.trunc((data.sales_dc_newbusiness * 10000) / data.expectedDoc) / 100
+                            }  
                             color={"#21A5A2"}
                             type={t("New Business")}
                         />

@@ -13,16 +13,22 @@ const HorizontalBar = ({
   }));
   const valueFormatter = (value) => {
     if (typeof value !== 'number') {
-      return ""; // or any other default value you prefer
+      return ""; // o cualquier valor por defecto
     }
+  
+    const truncate = (num, decimals) => {
+      const factor = Math.pow(10, decimals);
+      return Math.trunc(num * factor) / factor;
+    };
+  
     if (value >= 1000000) {
-      return (value / 1000000).toFixed(2) + "M";
+      return truncate(value / 1000000, 2) + "M";
     } else if (value >= 1000) {
-      return (value / 1000).toFixed(2) + "K";
+      return truncate(value / 1000, 2) + "K";
     } else {
-      return value.toFixed(0);
+      return Math.trunc(value).toString();
     }
-  };
+  };  
   const option = {
     title: {
       text: "",
@@ -50,13 +56,13 @@ const HorizontalBar = ({
       axisLabel: {
         formatter: function (value) {
           if (value >= 1000000) {
-            return (value / 1000000).toFixed(0) + "M";
+            return Math.trunc(value / 1000000) + "M";
           } else if (value >= 1000) {
-            return (value / 1000).toFixed(0) + "K";
+            return Math.trunc(value / 1000) + "K";
           } else {
-            return value?.toFixed(0);
+            return Math.trunc(value);
           }
-        },
+        }
       },
       boundaryGap: [0, 0.01],
     },

@@ -39,14 +39,25 @@ const DigiPointsTotal = ({ dataLoaded, totalSaleGoal }) => {
         <div className="flex sm:justify-center justify-start gap-3">
           <Check />
           <div className="grid">
-            <h3 className="text-gray-400 font-bold">Assigned {totalSaleGoal.expected !== 0 ? ((totalSaleGoal.reached / totalSaleGoal.expected) * 100).toFixed(2) : 0 }%</h3>
+            <h3 className="text-gray-400 font-bold">
+              Assigned {totalSaleGoal.expected !== 0
+                ? Math.trunc((totalSaleGoal.reached / totalSaleGoal.expected) * 10000) / 100
+                : 0
+              }%
+            </h3>
+
             <h1 className="text-black font-bold">{formattedNumber(totalSaleGoal.reached)}</h1>
           </div>
         </div>
         <div className="flex sm:justify-center justify-start gap-3">
           <Redeem />
           <div className="grid">
-            <h3 className="text-gray-400 font-bold">Redeemed {totalSaleGoal.reached !== 0 ? ((totalSaleGoal.progress / totalSaleGoal.reached) * 100).toFixed(2) : 0 }%</h3>
+            <h3 className="text-gray-400 font-bold">
+              Redeemed {totalSaleGoal.reached !== 0
+                ? Math.trunc((totalSaleGoal.progress / totalSaleGoal.reached) * 10000) / 100
+                : 0
+              }%
+            </h3>
             <h1 className="text-black font-bold">{formattedNumber(totalSaleGoal.progress)}</h1>
           </div>
         </div>

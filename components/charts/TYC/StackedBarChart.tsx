@@ -57,7 +57,7 @@ const StackedBarChart: FC<Props> = ({ totalDatas = [], yNames = ["NOLA", "SOLA",
           return `Signed: ${totalValue} / Expected: ${expectedValue} - Progress: N/A`
         }
 
-        const progress = ((totalValue / expectedValue) * 100).toFixed(2)
+        const progress = Math.trunc((totalValue / expectedValue) * 10000) / 100;
         return `Signed: ${totalValue} / Expected: ${expectedValue} - Progress: ${progress}%`
       },
     },
@@ -73,13 +73,13 @@ const StackedBarChart: FC<Props> = ({ totalDatas = [], yNames = ["NOLA", "SOLA",
       axisLabel: {
         formatter: (value: number) => {
           if (value >= 1000000) {
-            return (value / 1000000).toFixed(0) + "M"
+            return Math.trunc(value / 1000000) + "M";
           } else if (value >= 1000) {
-            return (value / 1000).toFixed(0) + "K"
+            return Math.trunc(value / 1000) + "K";
           } else {
-            return value.toFixed(0)
+            return Math.trunc(value).toString();
           }
-        },
+        }        
       },
     },
     yAxis: {

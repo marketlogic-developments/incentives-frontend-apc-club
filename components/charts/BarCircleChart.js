@@ -5,12 +5,15 @@ import { useTranslation } from "react-i18next";
 const BarCircleChart = ({ datas }) => {
   const [t, i18n] = useTranslation("global");
   const formatValue = (value) => {
+    const truncateToTwoDecimals = (num) => Math.trunc(num * 100) / 100;
+  
     return value >= 1000000
-      ? (value / 1000000).toFixed(2) + "M"
+      ? truncateToTwoDecimals(value / 1000000) + "M"
       : value >= 1000
-      ? (value / 1000).toFixed(2) + "K"
-      : value;
+      ? truncateToTwoDecimals(value / 1000) + "K"
+      : truncateToTwoDecimals(value);
   };
+  
 
   return (
     <div className="flex flex-col w-full p-4 gap-4 targetDashboard">
@@ -34,23 +37,23 @@ const BarCircleChart = ({ datas }) => {
                 </p>
               </div>
               <Tooltip
-                label={`${Number(
-                  (data.total_revenue * 100) /
+                label={`${Math.trunc(
+                  ((data.total_revenue * 100) /
                     (data.total_expected_revenue === "0.00"
                       ? 1
-                      : data.total_expected_revenue)
-                ).toFixed(2)}%`}
+                      : data.total_expected_revenue)) * 100
+                ) / 100}%`}
               >
                 <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
                   <span
                     className={`bg-[${data?.color}] h-full rounded-full`}
                     style={{
-                      width: `${Number(
+                      width: `${Math.trunc(
                         (data.total_revenue * 100) /
                           (data.total_expected_revenue === "0.00"
                             ? 1
                             : data.total_expected_revenue)
-                      ).toFixed(0)}%`,
+                      )}%`,
                     }}
                   />
                 </div>
