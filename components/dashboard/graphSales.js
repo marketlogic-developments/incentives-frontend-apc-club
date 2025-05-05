@@ -125,7 +125,7 @@ const GraphSales = () => {
                         const category = item.category;
                         const sub = item.sub_category;
                         const type = cleanType(item.type);
-                        const revenue = parseFloat(item.total_revenue || '0');
+                        const revenue = item.total_revenue;
 
                         // Totales generales
                         if (category === 'CC' || category === 'DC') {
