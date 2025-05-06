@@ -373,7 +373,7 @@ const SalesYtd = () => {
                                 region_name: `${filters.region}`,
                                 country_name: `${filters.country_id}`,
                                 id: `${filters.company_name.replaceAll("~|~", ",")}`,
-                                quarter_name: `${filters.quarter || ""}`,
+                                // quarter_name: `${filters.quarter || ""}`,
                                 point_type: `${filters.companyType || ""}`,
                             },
                         },

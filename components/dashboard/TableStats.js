@@ -32,6 +32,7 @@ const TableStats = () => {
     const [topGlobalSales, setTopGlobalSales] = useState({});
 
     const organizatitons_id = userb.user ? userb.user.profile.organizations[0].id : null;
+    
 
     useEffect(() => {
         console.log("Token:", token); // <-- Verifica si el token es válido
@@ -98,6 +99,9 @@ const TableStats = () => {
                                 {
                                     params: {
                                         id: `${organizatitons_id}`,
+                                        region_name: null,
+                                        country_name: null,
+                                        point_type: null,
                                     },
                                 },
                                 {

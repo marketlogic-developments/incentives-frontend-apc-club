@@ -93,6 +93,9 @@ const GraphSales = () => {
                         {
                             params: {
                                 id: `${organizatitons_id}`,
+                                region_name: null,
+                                country_name: null,
+                                point_type: null,
                             },
                         },
                         {
@@ -125,38 +128,38 @@ const GraphSales = () => {
                         const category = item.category;
                         const sub = item.sub_category;
                         const type = cleanType(item.type);
-                        const revenue = item.total_revenue;
+                        const revenue = parseFloat(item.total_revenue);
 
-                        // Totales generales
-                        if (category === 'CC' || category === 'DC') {
-                            totalByCategory[category] += revenue;
+                        if (!isNaN(revenue)) {
+                            if (category === 'CC' || category === 'DC') {
+                                totalByCategory[category] += revenue;
+                            }
+
+                            if (sub === 'VIP' || sub === 'VMP') {
+                                totalBySubCategory[sub] += revenue;
+                            }
+
+                            if (type === 'new business') {
+                                totalByType['New Business'] += revenue;
+                            } else if (type === 'autorenewal' || type === 'autorrenewal') {
+                                totalByType['Autorenewal'] += revenue;
+                            }
+
+                            if (sub === 'VIP' && type === 'new business') {
+                                if (category === 'CC') vipNewBusinessCC += revenue;
+                                if (category === 'DC') vipNewBusinessDC += revenue;
+                            }
+
+                            if (sub === 'VMP' && type === 'autorenewal') {
+                                if (category === 'CC') vmpAutoRenewalCC += revenue;
+                                if (category === 'DC') vmpAutoRenewalDC += revenue;
+                            }
+
+                            if (sub === 'VMP' && type === 'new business') {
+                                if (category === 'CC') vmpNewBusinessCC += revenue;
+                                if (category === 'DC') vmpNewBusinessDC += revenue;
+                            }
                         }
-
-                        if (sub === 'VIP' || sub === 'VMP') {
-                            totalBySubCategory[sub] += revenue;
-                        }
-
-                        if (type === 'new business') {
-                            totalByType['New Business'] += revenue;
-                        } else if (type === 'autorenewal' || type === 'autorrenewal') {
-                            totalByType['Autorenewal'] += revenue;
-                        }
-
-                        // Totales específicos para los setters
-                        if (sub === 'VIP' && type === 'new business') {
-                            if (category === 'CC') vipNewBusinessCC += revenue;
-                            if (category === 'DC') vipNewBusinessDC += revenue;
-                        }
-
-                        if (sub === 'VMP' && type === 'autorenewal') {
-                            if (category === 'CC') vmpAutoRenewalCC += revenue;
-                            if (category === 'DC') vmpAutoRenewalDC += revenue;
-                        }
-
-                        if (sub === 'VMP' && type === 'new business') {
-                            if (category === 'CC') vmpNewBusinessCC += revenue;
-                            if (category === 'DC') vmpNewBusinessDC += revenue;
-                        };
                     };
                 });
 

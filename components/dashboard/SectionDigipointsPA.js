@@ -55,6 +55,9 @@ const SectionDigipointsPA = () => {
                     {
                         params: {
                             id: `${user.profile.organizations[0].id}`,
+                            region_name: null,
+                            country_name: null,
+                            point_type: null,
                         },
                     },
                     {
