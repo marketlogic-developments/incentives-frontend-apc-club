@@ -95,13 +95,8 @@ const SectionDigipointsPA = () => {
                 }
             });
     
-            const totalSales =
-                totalPointsByCategory.CC + totalPointsByCategory.DC +
-                totalPointsAssignedByPartnerAdmin.CC + totalPointsAssignedByPartnerAdmin.DC;
-    
-            const totalAssigned =
-                totalPointsAssignedByCategory.CC + totalPointsAssignedByCategory.DC +
-                totalPointsAssignedByPartnerAdmin.CC + totalPointsAssignedByPartnerAdmin.DC;
+            const totalSales = totalPointsByCategory.CC + totalPointsByCategory.DC;
+            const totalAssigned = totalPointsAssignedByCategory.CC + totalPointsAssignedByCategory.DC;
     
             setTtotalUpload(totalSales + promotionPoints + behaviorPoints);
             setAssignedValue(totalAssigned);
@@ -119,11 +114,7 @@ const SectionDigipointsPA = () => {
                 {
                     value: behaviorPoints,
                     name: "Behavior"
-                },
-                // {
-                //     value: redeemedValue,
-                //     name: "Redeemed"
-                // }
+                }
             ]);
         };
     
