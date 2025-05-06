@@ -171,18 +171,16 @@ const TableStats = () => {
                             };
                         });
 
-                        const totalGoals = response_goals.data.result[0].extended_attributes?.CC + response_goals.data.result[0].extended_attributes?.DC;
+                        const totalGoals = response_goals.data.result[0].extended_attributes?.CC + response_goals.data.result[0].extended_attributes?.DC
 
                         setGoal(totalGoals);
-                        setSales(totalByCategory.CC + totalByCategory.DC);
-                        setGoalSales(totalByCategory.CC + totalByCategory.DC);
-
+                        setSales((totalByCategory.CC) + (totalByCategory.DC));
+                        setGoalSales((totalByCategory.CC) + (totalByCategory.DC));
                         setpercentageTotal(
-                        truncate(((totalByCategory.CC + totalByCategory.DC) * 100) / totalGoals, 2)
+                            Math.floor((((totalByCategory.CC + totalByCategory.DC) * 100) / totalGoals) * 100) / 100
                         );
-
-                        const data_licenses = response_licenses.data.result;
-
+                        
+                        const data_licenses = response_licenses.data.result
                         const ccData = data_licenses.filter((item) => item.business_unit === "Creative Cloud");
                         const dcData = data_licenses.filter((item) => item.business_unit === "Document Cloud");
 
@@ -190,22 +188,22 @@ const TableStats = () => {
                         const totalDC = dcData.reduce((acc, curr) => acc + curr.total_sales_us, 0);
 
                         const newPercentageCC = ccData.map((item) => {
-                        const share = totalCC > 0 ? (item.total_sales_us / totalCC) * 100 : 0;
-                        return {
-                            typeCC: item.sub_bu,
-                            sales: item.total_sales_us,
-                            tablePercentage: truncate(share, 2)
-                        };
+                            const share = totalCC > 0 ? (item.total_sales_us / totalCC) * 100 : 0;
+                            return {
+                                typeCC: item.sub_bu,
+                                sales: item.total_sales_us,
+                                tablePercentage: Math.floor(share * 100) / 100
+                            };
                         });
-
+                        
                         const newPercentageDC = dcData.map((item) => {
-                        const share = totalDC > 0 ? (item.total_sales_us / totalDC) * 100 : 0;
-                        return {
-                            typeDC: item.sub_bu,
-                            sales: item.total_sales_us,
-                            tablePercentage: truncate(share, 2)
-                        };
-                        });
+                            const share = totalDC > 0 ? (item.total_sales_us / totalDC) * 100 : 0;
+                            return {
+                                typeDC: item.sub_bu,
+                                sales: item.total_sales_us,
+                                tablePercentage: Math.floor(share * 100) / 100
+                            };
+                        });                        
 
                         setpercentageCC(newPercentageCC);
                         setpercentageDC(newPercentageDC);
