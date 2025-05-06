@@ -33,7 +33,7 @@ const PerformaceSales = ({
         }
         return formattedNumber;
     }
-    
+
 
     return (
         <div className="flex flex-col w-full p-4 gap-4 targetDashboard">
@@ -52,9 +52,11 @@ const PerformaceSales = ({
                         </p>
                     </div>
                     <Tooltip
-                        label={`${Number(
-                            ((VMP_AUTO_RENEWAL_CC_SALES + VMP_AUTO_RENEWAL_DC_SALES) / (VMP_AUTO_RENEWAL_CC + VMP_AUTO_RENEWAL_DC)) * 100
-                        ).toFixed(2)}%`}
+                        label={`${Math.trunc(
+                            ((VMP_AUTO_RENEWAL_CC_SALES + VMP_AUTO_RENEWAL_DC_SALES) /
+                                (VMP_AUTO_RENEWAL_CC + VMP_AUTO_RENEWAL_DC)) *
+                            10000
+                        ) / 100}%`}
                     >
                         <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
                             <span
@@ -79,17 +81,19 @@ const PerformaceSales = ({
                         </p>
                     </div>
                     <Tooltip
-                        label={`${Number(
+                        label={`${Math.trunc(
                             (
-                                (VIP_NEW_BUSINESS_CC_SALES + VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_DC_SALES) / 
-                                (VIP_NEW_BUSINESS_CC + VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_DC)) * 100).toFixed(2)}%`}
+                                (VIP_NEW_BUSINESS_CC_SALES + VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_DC_SALES) /
+                                (VIP_NEW_BUSINESS_CC + VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_DC)
+                            ) * 10000
+                        ) / 100}%`}
                     >
                         <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
                             <span
                                 className="bg-[#21A5A2] h-full rounded-full"
                                 style={{
                                     width: `${(
-                                        (VIP_NEW_BUSINESS_CC_SALES + VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_DC_SALES) / 
+                                        (VIP_NEW_BUSINESS_CC_SALES + VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_DC_SALES) /
                                         (VIP_NEW_BUSINESS_CC + VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_DC)) * 100}%`,
                                 }}
                             />
@@ -107,16 +111,19 @@ const PerformaceSales = ({
                             {formatNumber(VIP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_CC + VMP_AUTO_RENEWAL_CC)}
                         </p>
                     </div>
-                    <Tooltip label={`${Number(
+                    <Tooltip label={`${Math.trunc(
                         (
-                            (VIP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_AUTO_RENEWAL_CC_SALES) / 
-                            (VIP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_CC + VMP_AUTO_RENEWAL_CC)) * 100).toFixed(2)}%`}>
+                            (VIP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_AUTO_RENEWAL_CC_SALES) /
+                            (VIP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_CC + VMP_AUTO_RENEWAL_CC)
+                        ) * 10000
+                    ) / 100}%`}
+                    >
                         <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
                             <span
                                 className="bg-[#1473E6] h-full rounded-full"
                                 style={{
                                     width: `${(
-                                        (VIP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_AUTO_RENEWAL_CC_SALES) / 
+                                        (VIP_NEW_BUSINESS_CC_SALES + VMP_NEW_BUSINESS_CC_SALES + VMP_AUTO_RENEWAL_CC_SALES) /
                                         (VIP_NEW_BUSINESS_CC + VMP_NEW_BUSINESS_CC + VMP_AUTO_RENEWAL_CC)) * 100}%`
                                 }}
                             />
@@ -131,16 +138,19 @@ const PerformaceSales = ({
                             {formatNumber(VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_DC + VMP_AUTO_RENEWAL_DC)}
                         </p>
                     </div>
-                    <Tooltip label={`${Number(
+                    <Tooltip label={`${Math.trunc(
                         (
-                            (VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_DC_SALES + VMP_AUTO_RENEWAL_DC_SALES) / 
-                            (VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_DC + VMP_AUTO_RENEWAL_DC)) * 100).toFixed(2)}%`}>
+                            (VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_DC_SALES + VMP_AUTO_RENEWAL_DC_SALES) /
+                            (VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_DC + VMP_AUTO_RENEWAL_DC)
+                        ) * 10000
+                    ) / 100}%`}
+                    >
                         <div className="w-full bg-base-200 h-[13px] flex rounded-full overflow-hidden">
                             <span
                                 className={`bg-primary h-full rounded-full`}
                                 style={{
                                     width: `${(
-                                        (VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_DC_SALES + VMP_AUTO_RENEWAL_DC_SALES) / 
+                                        (VIP_NEW_BUSINESS_DC_SALES + VMP_NEW_BUSINESS_DC_SALES + VMP_AUTO_RENEWAL_DC_SALES) /
                                         (VIP_NEW_BUSINESS_DC + VMP_NEW_BUSINESS_DC + VMP_AUTO_RENEWAL_DC)) * 100}%`
                                 }}
                             />

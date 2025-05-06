@@ -125,9 +125,26 @@ const SalesPerformance = () => {
 
         if (!sortedData[monthName]) {
           sortedData[monthName] = true;
-          goalAmountArray.push(Number(sum_goal_amount).toFixed(2));
-          totalSalesArray.push(Number(sum_total_sales_us).toFixed(2));
+
+          goalAmountArray.push(
+            (Math.trunc(Number(sum_goal_amount) * 100) / 100)
+              .toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+                useGrouping: false,
+              })
+          );
+
+          totalSalesArray.push(
+            (Math.trunc(Number(sum_total_sales_us) * 100) / 100)
+              .toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+                useGrouping: false,
+              })
+          );
         }
+
       });
       setGoalAmount(goalAmountArray);
       setTotalSales(totalSalesArray);
@@ -140,11 +157,11 @@ const SalesPerformance = () => {
     [];
 
   const numberToMoney = (quantity = 0) => {
-    return `$ ${Number(quantity)
-      .toFixed(0)
+    return `$ ${Math.trunc(Number(quantity))
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
   };
+
 
   const xValuesLine = [
     "Dic",

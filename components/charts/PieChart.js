@@ -29,14 +29,25 @@ const PieChart = ({
     tooltip: {
       trigger: "item",
       formatter: function (params) {
-        const result =
-          params.value >= 1000000
-            ? formatter + (params.value / 1000000).toFixed(2) + "M"
-            : params.value >= 1000
-            ? formatter + (params.value / 1000).toFixed(2) + "K"
-            : formatter + params.value;
-        return `${result} / ${parseInt((params.value * 100) / total)}%`;
-      },
+        const truncate = (num, decimals) => {
+          const factor = Math.pow(10, decimals);
+          return Math.trunc(num * factor) / factor;
+        };
+      
+        const value = params.value;
+      
+        const formattedValue =
+          value >= 1000000
+            ? formatter + truncate(value / 1000000, 2) + "M"
+            : value >= 1000
+            ? formatter + truncate(value / 1000, 2) + "K"
+            : formatter + truncate(value, 0); // o value.toString() si no deseas truncar aquí
+      
+        const percentage = Math.trunc((value * 100) / total);
+      
+        return `${formattedValue} / ${percentage}%`;
+      }
+      
     },
     legend: legend,
     series: [
@@ -55,14 +66,22 @@ const PieChart = ({
           show: true,
           position: "outside",
           formatter: function (params) {
+            const truncate = (num, decimals) => {
+              const factor = Math.pow(10, decimals);
+              return Math.trunc(num * factor) / factor;
+            };
+          
+            const value = params.value;
+          
             const formattedValue =
-              params.value >= 1000000
-                ? formatter + (params.value / 1000000).toFixed(2) + "M"
-                : params.value >= 1000
-                ? formatter + (params.value / 1000).toFixed(2) + "K"
-                : formatter + params.value;
+              value >= 1000000
+                ? formatter + truncate(value / 1000000, 2) + "M"
+                : value >= 1000
+                ? formatter + truncate(value / 1000, 2) + "K"
+                : formatter + truncate(value, 0); // sin decimales
+          
             return `${params.name}: ${formattedValue}`;
-          },
+          }          
         },
         emphasis: {
           label: {

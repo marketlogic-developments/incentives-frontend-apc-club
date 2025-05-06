@@ -55,11 +55,11 @@ const InvoiceReport = () => {
     const { ReportsInvoicesDownload } = TyCReportsFunctions();
 
     const numberToMoney = (quantity = 0) => {
-        return `$ ${Number(quantity)
-            .toFixed(0)
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
-    };
+        return `$ ${Math.trunc(Number(quantity))
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+      };
+      
 
     /* Loader setter */
     useEffect(() => {

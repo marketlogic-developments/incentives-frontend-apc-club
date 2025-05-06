@@ -151,9 +151,8 @@ const puntosporventas = () => {
             {currentItems &&
               [...currentItems].map((data, index) => (
                 <tr
-                  className={`${
-                    (index + 1) % 2 === 0 && "bg-[#F5F5F5]"
-                  } w-full`}
+                  className={`${(index + 1) % 2 === 0 && "bg-[#F5F5F5]"
+                    } w-full`}
                   key={index}
                 >
                   <td className="py-4 px-2">{data.sales_order}</td>
@@ -169,7 +168,13 @@ const puntosporventas = () => {
                     </td>
                   )}
                   <td className="py-4 px-2">
-                    ${parseFloat(data.total_sales_us).toFixed(2)}
+                    ${(Math.trunc(parseFloat(data.total_sales_us) * 100) / 100)
+                      .toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                        useGrouping: false,
+                      })}
+
                   </td>
                 </tr>
               ))}

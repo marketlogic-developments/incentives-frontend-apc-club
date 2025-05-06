@@ -46,10 +46,7 @@ const DigiPointsTotalD = ({ dataLoaded, totalSaleGoal }) => {
               <h3 className="text-gray-400 font-bold">
                 Assigned{" "}
                 {totalSaleGoal.expected !== 0
-                  ? (
-                      (totalSaleGoal.reached / totalSaleGoal.expected) *
-                      100
-                    ).toFixed(2)
+                  ? Math.trunc((totalSaleGoal.reached / totalSaleGoal.expected) * 10000) / 100
                   : 0}
                 %
               </h3>
@@ -64,10 +61,7 @@ const DigiPointsTotalD = ({ dataLoaded, totalSaleGoal }) => {
               <h3 className="text-gray-400 font-bold">
                 Redeemed{" "}
                 {totalSaleGoal.reached !== 0
-                  ? (
-                      (totalSaleGoal.progress / totalSaleGoal.reached) *
-                      100
-                    ).toFixed(2)
+                  ? Math.trunc((totalSaleGoal.progress / totalSaleGoal.reached) * 10000) / 100
                   : 0}
                 %
               </h3>

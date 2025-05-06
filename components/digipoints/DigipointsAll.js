@@ -375,7 +375,7 @@ const DigipointsAll = () => {
                   <td className="py-4 px-6">{obj?.company_or_channel_id}</td>
                   <td className="py-4 px-6">{obj?.digipoints_allocate}</td>
                   <td className="py-4 px-2">
-                    ${parseFloat(obj?.invoice_amount).toFixed(2)}
+                  ${Math.trunc(parseFloat(obj?.invoice_amount) * 100) / 100}
                   </td>
                   <td className="py-4 px-6">
                     {obj.status === false ? (

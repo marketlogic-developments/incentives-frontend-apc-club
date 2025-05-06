@@ -215,26 +215,26 @@ const RegistrationPerformance = () => {
                 cols={
                   user?.roles[0].name === "name"
                     ? [
-                        "Invoice",
-                        "Disti Partner Rollup",
-                        "Reseller Partner Rollup",
-                        "Business Unit",
-                        "Business Type",
-                        "SKU",
-                        "Quarter",
-                        "DigiPoints",
-                        "Total Sales US",
-                      ]
+                      "Invoice",
+                      "Disti Partner Rollup",
+                      "Reseller Partner Rollup",
+                      "Business Unit",
+                      "Business Type",
+                      "SKU",
+                      "Quarter",
+                      "DigiPoints",
+                      "Total Sales US",
+                    ]
                     : [
-                        "Invoice",
-                        "Disti Partner Rollup",
-                        "Reseller Partner Rollup",
-                        "Business Unit",
-                        "Business Type",
-                        "SKU",
-                        "Quarter",
-                        "Total Sales US",
-                      ]
+                      "Invoice",
+                      "Disti Partner Rollup",
+                      "Reseller Partner Rollup",
+                      "Business Unit",
+                      "Business Type",
+                      "SKU",
+                      "Quarter",
+                      "Total Sales US",
+                    ]
                 }
               >
                 {currentItems &&
@@ -265,7 +265,12 @@ const RegistrationPerformance = () => {
                           </td>
                         )}
                         <td className="text-start p-4">
-                          ${parseFloat(data.total_sales_amount).toFixed(2)}
+                          ${(Math.trunc(parseFloat(data.total_sales_amount) * 100) / 100)
+                            .toLocaleString("en-US", {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                              useGrouping: false
+                            })}
                         </td>
                       </tr>
                     ))}

@@ -30,7 +30,7 @@ const SortedTable = ({
   pageCount = 0,
   paginate = false,
   sumColum = false,
-  handlePageClick = () => {},
+  handlePageClick = () => { },
 }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc");
@@ -51,50 +51,49 @@ const SortedTable = ({
 
   /* FORMATO DE NUMERO A DINERO */
   const numberToMoney = (quantity = 0) => {
-    return `$ ${Number(quantity)
-      .toFixed(0)
+    return `$ ${Math.trunc(Number(quantity))
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
   };
 
   /* FORMATO PARA EL PORCENTAJE */
   const formatAVG = (avgnumber) => {
-    const formattedValue = (avgnumber * 100).toFixed(1) + "%";
-    return formattedValue;
+    const truncated = Math.trunc(avgnumber * 1000) / 10;
+    return `${truncated}%`;
   };
 
   /* FORMATO PARA EL Cantidades */
   const formatNumberWithCommas = (number) => {
-  if (typeof number !== 'number') {
-    console.error('El número no es válido.');
-    return ''; // Opcional: Devolver una cadena vacía u otro valor predeterminado en caso de número no válido.
-  }
+    if (typeof number !== 'number') {
+      console.error('El número no es válido.');
+      return ''; // Opcional: Devolver una cadena vacía u otro valor predeterminado en caso de número no válido.
+    }
 
-  // Convierte el número a una cadena de texto
-  const numberString = number.toString();
+    // Convierte el número a una cadena de texto
+    const numberString = number.toString();
 
-  // Divide la cadena en partes por el punto decimal si hay uno
-  const parts = numberString.split(".");
+    // Divide la cadena en partes por el punto decimal si hay uno
+    const parts = numberString.split(".");
 
-  // Parte entera del número
-  const integerPart = parts[0];
+    // Parte entera del número
+    const integerPart = parts[0];
 
-  // Parte decimal del número (si existe)
-  const decimalPart = parts[1] || "";
+    // Parte decimal del número (si existe)
+    const decimalPart = parts[1] || "";
 
-  // Agrega comas para separar los miles en la parte entera
-  const formattedIntegerPart = integerPart.replace(
-    /\B(?=(\d{3})+(?!\d))/g,
-    ","
-  );
+    // Agrega comas para separar los miles en la parte entera
+    const formattedIntegerPart = integerPart.replace(
+      /\B(?=(\d{3})+(?!\d))/g,
+      ","
+    );
 
-  // Combina la parte entera formateada y la parte decimal (si existe)
-  const formattedNumber = decimalPart
-    ? `${formattedIntegerPart}.${decimalPart}`
-    : formattedIntegerPart;
+    // Combina la parte entera formateada y la parte decimal (si existe)
+    const formattedNumber = decimalPart
+      ? `${formattedIntegerPart}.${decimalPart}`
+      : formattedIntegerPart;
 
-  return formattedNumber;
-};
+    return formattedNumber;
+  };
 
   /* FORMATO PARA LA FECHA */
   const formatDate = (dateString) => {
@@ -147,9 +146,8 @@ const SortedTable = ({
                 {cols.length !== 0 &&
                   cols.map((col, index) => (
                     <th
-                      className={`text-left ${colStyles} ${
-                        col.sort && "cursor-pointer"
-                      } `}
+                      className={`text-left ${colStyles} ${col.sort && "cursor-pointer"
+                        } `}
                       onClick={() => col.sort && handleSort(col.identity)}
                     >
                       <div className="flex items-center gap-1">
@@ -182,14 +180,14 @@ const SortedTable = ({
                           {col.symbol === "DATE"
                             ? formatDate(row[col.identity])
                             : col.symbol === "USD"
-                            ? numberToMoney(row[col.identity])
-                            : col.symbol === "AVG"
-                            ? formatAVG(row[col.identity])
-                            : col.symbol === "N"
-                            ? row[col.identity]
-                            : col.symbol === "Numbers"
-                            ? formatNumberWithCommas(row[col.identity])
-                            : row[col.identity]}
+                              ? numberToMoney(row[col.identity])
+                              : col.symbol === "AVG"
+                                ? formatAVG(row[col.identity])
+                                : col.symbol === "N"
+                                  ? row[col.identity]
+                                  : col.symbol === "Numbers"
+                                    ? formatNumberWithCommas(row[col.identity])
+                                    : row[col.identity]}
                         </th>
                       ))}
                     </tr>
@@ -197,22 +195,24 @@ const SortedTable = ({
               {sumColum && (
                 <tr>
                   {cols.map((col, index) => (
-                    <th
-                      key={`total-${col.identity}`}
-                      className={totalTableStyles}
-                    >
+                    <th key={`total-${col.identity}`} className={totalTableStyles}>
                       {col.symbol === "USD"
                         ? numberToMoney(columnSums[col.identity])
                         : col.symbol === "Numbers"
-                        ? formatNumberWithCommas(columnSums[col.identity])
-                        : col.symbol === "%"
-                        ? Number(columnSums[col.identity]).toFixed(2) +
-                          col.symbol
-                        : index === 0
-                        ? "Total"
-                        : ""}
+                          ? formatNumberWithCommas(columnSums[col.identity])
+                          : col.symbol === "%"
+                            ? (Math.trunc(columnSums[col.identity] * 100) / 100)
+                              .toLocaleString("en-US", {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                                useGrouping: false,
+                              }) + col.symbol
+                            : index === 0
+                              ? "Total"
+                              : ""}
                     </th>
                   ))}
+
                 </tr>
               )}
             </tbody>

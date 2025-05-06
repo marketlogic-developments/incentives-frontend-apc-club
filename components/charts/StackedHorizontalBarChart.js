@@ -28,11 +28,11 @@ const StackedHorizontalBarChart = ({
       show: true,
       formatter: function (params) {
         return params.value >= 1000000
-          ? (params.value / 1000000).toFixed(0) + "M"
+          ? Math.trunc(params.value / 1000000) + "M"
           : params.value >= 1000
-          ? (params.value / 1000).toFixed(0) + "K"
-          : params.value;
-      },
+          ? Math.trunc(params.value / 1000) + "K"
+          : Math.trunc(params.value);
+      }      
     },
   }));
 
@@ -89,13 +89,13 @@ const StackedHorizontalBarChart = ({
       axisLabel: {
         formatter: function (value) {
           if (value >= 1000000) {
-            return (value / 1000000).toFixed(0) + "M";
+            return Math.trunc(value / 1000000) + "M";
           } else if (value >= 1000) {
-            return (value / 1000).toFixed(0) + "K";
+            return Math.trunc(value / 1000) + "K";
           } else {
-            return value?.toFixed(0);
+            return Math.trunc(value);
           }
-        },
+        }        
       },
     },
     yAxis: {

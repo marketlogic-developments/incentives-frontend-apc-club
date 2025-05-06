@@ -14,10 +14,10 @@ const SalesYTDCharts = ({
     value:
       Number(item.total) > Number(item.expected)
         ? 0
-        : Number(item.expected - item.total).toFixed(0),
+        : Math.trunc(Number(item.expected) - Number(item.total)),
     itemStyle: { color: item.expectedColor },
     aux: item.expected,
-  }));
+  }));  
 
   const option = {
     tooltip: {
@@ -28,10 +28,16 @@ const SalesYTDCharts = ({
       formatter: function (params) {
         const totalValue = params[0].data.value;
         const expectedValue = params[1].data.aux;
-        return `Reached: ${formatValue(totalValue)} / Expected: ${formatValue(
-          expectedValue
-        )} - Progress: ${Number((totalValue / expectedValue) * 100).toFixed(2)}%`;
-      },
+      
+        const truncate = (num, decimals) => {
+          const factor = Math.pow(10, decimals);
+          return Math.trunc(num * factor) / factor;
+        };
+      
+        const progress = truncate((totalValue / expectedValue) * 100, 2);
+      
+        return `Reached: ${formatValue(totalValue)} / Expected: ${formatValue(expectedValue)} - Progress: ${progress}%`;
+      }      
     },
     legend: {},
     grid: {
@@ -88,12 +94,17 @@ const SalesYTDCharts = ({
     ],
   };
   const formatValue = (value) => {
+    const truncate = (num, decimals) => {
+      const factor = Math.pow(10, decimals);
+      return Math.trunc(num * factor) / factor;
+    };
+  
     return value >= 1000000
-      ? (value / 1000000).toFixed(2) + "M"
+      ? truncate(value / 1000000, 2) + "M"
       : value >= 1000
-      ? (value / 1000).toFixed(2) + "K"
-      : value;
-  };
+      ? truncate(value / 1000, 2) + "K"
+      : truncate(value, 2);
+  };  
   return (
     <div className="w-full">
       <ReactEcharts option={option} className="w-auto h-auto" />

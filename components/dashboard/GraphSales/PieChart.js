@@ -28,7 +28,7 @@ const PieChart = ({ percentageTotal, sales, color, type, goal, goalsim = true })
                 {formatNumber(sales, goalsim)}
               </p>
               <p className="lg:!text-[0.65rem] xl:!text-xs text-black">
-                {Number(percentageTotal).toFixed(2)}%
+              {Math.trunc(Number(percentageTotal) * 100) / 100}%
               </p>
             </div>
           </div>

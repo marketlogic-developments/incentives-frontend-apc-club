@@ -32,6 +32,7 @@ const TableStats = () => {
     const [topGlobalSales, setTopGlobalSales] = useState({});
 
     const organizatitons_id = userb.user ? userb.user.profile.organizations[0].id : null;
+    
 
     useEffect(() => {
         console.log("Token:", token); // <-- Verifica si el token es válido
@@ -98,6 +99,9 @@ const TableStats = () => {
                                 {
                                     params: {
                                         id: `${organizatitons_id}`,
+                                        region_name: null,
+                                        country_name: null,
+                                        point_type: null,
                                     },
                                 },
                                 {
@@ -176,7 +180,9 @@ const TableStats = () => {
                         setGoal(totalGoals);
                         setSales((totalByCategory.CC) + (totalByCategory.DC));
                         setGoalSales((totalByCategory.CC) + (totalByCategory.DC));
-                        setpercentageTotal(parseFloat(((totalByCategory.CC + totalByCategory.DC) * 100) / totalGoals).toFixed(2));
+                        setpercentageTotal(
+                            Math.floor((((totalByCategory.CC + totalByCategory.DC) * 100) / totalGoals) * 100) / 100
+                        );
                         
                         const data_licenses = response_licenses.data.result
                         const ccData = data_licenses.filter((item) => item.business_unit === "Creative Cloud");
@@ -188,20 +194,20 @@ const TableStats = () => {
                         const newPercentageCC = ccData.map((item) => {
                             const share = totalCC > 0 ? (item.total_sales_us / totalCC) * 100 : 0;
                             return {
-                                typeCC: item.sub_bu,            // "Teams", "Education", "Enterprise"
+                                typeCC: item.sub_bu,
                                 sales: item.total_sales_us,
-                                tablePercentage: share.toFixed(2) // redondea a 2 decimales
+                                tablePercentage: Math.floor(share * 100) / 100
                             };
                         });
-
+                        
                         const newPercentageDC = dcData.map((item) => {
                             const share = totalDC > 0 ? (item.total_sales_us / totalDC) * 100 : 0;
                             return {
                                 typeDC: item.sub_bu,
                                 sales: item.total_sales_us,
-                                tablePercentage: share.toFixed(2)
+                                tablePercentage: Math.floor(share * 100) / 100
                             };
-                        });
+                        });                        
 
                         setpercentageCC(newPercentageCC);
                         setpercentageDC(newPercentageDC);
