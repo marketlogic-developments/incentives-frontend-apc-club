@@ -69,52 +69,52 @@ const SectionDigipointsPA = () => {
                 );
             }
     
-            let totalPointsByCategory = { CC: 0, DC: 0 };
-            let totalPointsAssignedByCategory = { CC: 0, DC: 0 };
-            let totalPointsAssignedByPartnerAdmin = { CC: 0, DC: 0 };
-            let promotionPoints = 0;
-            let behaviorPoints = 0;
+            let digipointByCategory = {
+                Sales: 0,
+                Promotion: 0,
+                Behavior: 0
+            };
+            
+            let totalPointsAssigned = 0;
+            let totalPointsUploaded = 0;
             let redeemed = 0;
-    
+            
             response.data.result.forEach((item) => {
                 const category = item.category;
                 const points = parseInt(item.total_points ?? 0);
                 const points_assigned = parseInt(item.total_points_assigned ?? 0);
-                const percent_points_assigned = parseInt(item.ten_percent_points_assigned ?? 0);
-    
+            
+                // Uploaded: sumar todo menos Redeemed
+                if (category !== 'Redeemed') {
+                    totalPointsUploaded += points;
+                }
+            
+                // Assigned: sumar todo menos UNASSIGNED y Redeemed
+                if (category !== 'Redeemed' && category !== 'UNASSIGNED') {
+                    totalPointsAssigned += points_assigned;
+                }
+            
+                // Categorías específicas para desglose visual
                 if (category === 'CC' || category === 'DC') {
-                    totalPointsByCategory[category] += points;
-                    totalPointsAssignedByCategory[category] += points_assigned;
-                    totalPointsAssignedByPartnerAdmin[category] += percent_points_assigned;
+                    digipointByCategory.Sales += points;
                 } else if (category === 'Promotion') {
-                    promotionPoints += points;
+                    digipointByCategory.Promotion += points;
                 } else if (category === 'Behavior') {
-                    behaviorPoints += points;
+                    digipointByCategory.Behavior += points;
                 } else if (category === 'Redeemed') {
                     redeemed += points;
                 }
             });
-    
-            const totalSales = totalPointsByCategory.CC + totalPointsByCategory.DC;
-            const totalAssigned = totalPointsAssignedByCategory.CC + totalPointsAssignedByCategory.DC;
-    
-            setTtotalUpload(totalSales + promotionPoints + behaviorPoints);
-            setAssignedValue(totalAssigned);
-            setRedeemedValue(redeemed);
-    
+            
+            // Setear los valores
+            setTtotalUpload(totalPointsUploaded);        // uploaded total
+            setAssignedValue(totalPointsAssigned);       // assigned total
+            setRedeemedValue(redeemed);                  // redeemed total
+            
             setDigipointUploaded([
-                {
-                    value: totalSales,
-                    name: "Sales"
-                },
-                {
-                    value: promotionPoints,
-                    name: "Promotion"
-                },
-                {
-                    value: behaviorPoints,
-                    name: "Behavior"
-                }
+                { name: "Sales", value: digipointByCategory.Sales },
+                { name: "Promotion", value: digipointByCategory.Promotion },
+                { name: "Behavior", value: digipointByCategory.Behavior }
             ]);
         };
     
