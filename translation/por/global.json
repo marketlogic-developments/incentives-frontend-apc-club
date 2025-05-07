@@ -330,8 +330,8 @@
     "premiosSol": "Prêmios solicitados",
     "condiciones": "Condições importantes",
     "status1": "Recebida",
-    "status2": "Aprovada",
-    "status3": "Processo de pagamento",
+    "status2": "On Review",
+    "status3": "In Payment Process",
     "status4": "Enviada"
   },
   "redenciones": {
