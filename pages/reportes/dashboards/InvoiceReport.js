@@ -160,10 +160,10 @@ const InvoiceReport = () => {
 
     /* Download */
     const importFileExcel = async (data) => {
-        // ReportsInvoicesDownload()
-        // .then((res) => {})
-        // .catch((error) => {console.error("Error en la petición:", error)})
-        // .finally(() => {});
+        ReportsInvoicesDownload()
+        .then((res) => {})
+        .catch((error) => {console.error("Error en la petición:", error)})
+        .finally(() => {});
     };
 
     /* Table */
