@@ -16,7 +16,6 @@ const DigiPointsCard = () => {
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
   return (
     <div className="flex px-3 py-3.5 bg-base-100 border-[1px] border-[#E0E0E0] rounded-[10px] w-full">
       <div className="flex flex-col w-full gap-6">

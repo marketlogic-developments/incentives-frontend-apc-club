@@ -182,6 +182,8 @@ const SalesPerformance = () => {
                             />
                         </DropDownReport>
                     </div>
+                </div>
+                <div className="grid grid-cols-2 sm:justify-items-end justify-items-center mt-3">
                     <div className="grid sm:w-[45%] w-auto" onClick={clearSelects}>
                         <p className="bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2 cursor-pointer font-bold">
                             Reset Filters

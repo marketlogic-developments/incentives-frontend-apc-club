@@ -13,21 +13,21 @@ const mydigipoints = () => {
       icon: (
         <IconHistoricDigipoints/>
       ),
-      num: digipoints?.historical ?? 0,
+      num: digipoints?.history_points ?? 0,
       type: t("digipoints.historicos"),
     },
     {
       icon: (
         <IconRedeemedDigiPoints/>
       ),
-      num: digipoints?.redeemed ?? 0,
+      num: digipoints?.redeemed_points ?? 0,
       type: t("digipoints.Dredimidos"),
     },
     {
       icon: (
         <IconCurrentDigiPoints />
       ),
-      num: digipoints?.current ?? 0,
+      num: digipoints?.current_points ?? 0,
       type: t("digipoints.actuales"),
     },
   ];
