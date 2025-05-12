@@ -331,8 +331,8 @@
     "condiciones": "Condiciones importantes",
     "status1": "Order Received",
     "status2": "On Review",
-    "status3": "In Payment Process",
-    "status4": "Sent"
+    "status3": "Payment Process",
+    "status4": "Delivered"
   },
   "redenciones": {
     "idOrden": "ID de la orden",

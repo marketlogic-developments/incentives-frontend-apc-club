@@ -67,7 +67,7 @@ const SelectSection = ({
         onChange={handleFilters}
         name={"region"}
       />
-      <SelectInputValue
+      {/* <SelectInputValue
         placeholder={"Quarter"}
         value={filters.quarter}
         data={quarters.map((quarter) => ({
@@ -78,7 +78,7 @@ const SelectSection = ({
         searchable={true}
         onChange={handleFilters}
         name={"quarter"}
-      />
+      /> */}
       {/* <SalesYtdMultiselectModal
         title={<p className="text-black font-bold text-lg">Filtrar por</p>}
         datas={multiSelect}

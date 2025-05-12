@@ -41,12 +41,12 @@ const DigipoinstPerformance = () => {
         { name: "BRAZIL" },
         { name: "MEXICO" }
     ]);
-    const [quarters, setQuarters] = useState([
-        { name: "2025-Q1" },
-        { name: "2025-Q2" },
-        { name: "2025-Q3" },
-        { name: "2025-Q4" }
-    ]);
+    // const [quarters, setQuarters] = useState([
+    //     { name: "2025-Q1" },
+    //     { name: "2025-Q2" },
+    //     { name: "2025-Q3" },
+    //     { name: "2025-Q4" }
+    // ]);
     const [digipointSR, setDigipointSR] = useState({
         datas: {},
         yNames: [],
@@ -257,7 +257,6 @@ const DigipoinstPerformance = () => {
         return grupos.join(",");
     };
 
-    /* GET DATA */
     useEffect(() => {
         setIsReady(false);
 
@@ -304,39 +303,71 @@ const DigipoinstPerformance = () => {
                             },
                         }
                     );
+
                     setCompaniesName(response_2.data.result);
 
                     let promotionPoints = 0;
                     let behaviorPoints = 0;
+                    let reedmedPoints = 0;
 
                     const groupedData = response.data.result.reduce((acc, current) => {
-                        const region = current.region_name;
+                        const region_raw = current.region_name?.trim();
+                        const isValidRegion = !!region_raw;
+                        const region = region_raw || 'Unknown'; // 'Unknown' solo para totales, no para gráficas
+
                         const category = current.category;
                         const total_points = Number(current.total_points ?? 0);
                         const assigned = Number(current.total_points_assigned ?? 0);
                         const percent = Number(current.ten_percent_points_assigned ?? 0);
 
-                        if (category === 'Promotion') {
-                            promotionPoints += total_points;
-                        } else if (category === 'BEHAVIOR') {
-                            behaviorPoints += total_points;
-                        } else {
-                            if (!acc.regions[region]) {
-                                acc.regions[region] = {
-                                    region_name: region,
-                                    total_points_assigned: 0,
-                                    ten_percent_points_assigned: 0,
-                                    total_points: 0,
-                                };
-                            }
+                        if (!acc.regions[region]) {
+                            acc.regions[region] = {
+                                region_name: region,
+                                total_points_assigned: 0,
+                                ten_percent_points_assigned: 0,
+                                total_points: 0,
+                                redeemed_points: 0,
+                                isValid: isValidRegion // marcaremos si debe mostrarse en gráfico
+                            };
+                        }
 
-                            acc.regions[region].total_points_assigned += assigned;
-                            acc.regions[region].ten_percent_points_assigned += percent;
-                            acc.regions[region].total_points += total_points;
+                        switch (category) {
+                            case 'Promotion':
+                                promotionPoints += total_points;
 
-                            acc.totals.total_points_assigned += assigned;
-                            acc.totals.ten_percent_points_assigned += percent;
-                            acc.totals.total_points += total_points;
+                                acc.regions[region].total_points_assigned += assigned;
+                                acc.regions[region].ten_percent_points_assigned += percent;
+                                acc.regions[region].total_points += total_points;
+
+                                acc.totals.total_points_assigned += assigned;
+                                acc.totals.ten_percent_points_assigned += percent;
+                                break;
+
+                            case 'Behavior':
+                                behaviorPoints += total_points;
+
+                                acc.regions[region].total_points_assigned += assigned;
+                                acc.regions[region].ten_percent_points_assigned += percent;
+                                acc.regions[region].total_points += total_points;
+
+                                acc.totals.total_points_assigned += assigned;
+                                acc.totals.ten_percent_points_assigned += percent;
+                                break;
+
+                            case 'Redeemed':
+                                reedmedPoints += total_points;
+                                acc.regions[region].redeemed_points += total_points;
+                                break;
+
+                            default:
+                                acc.regions[region].total_points_assigned += assigned;
+                                acc.regions[region].ten_percent_points_assigned += percent;
+                                acc.regions[region].total_points += total_points;
+
+                                acc.totals.total_points_assigned += assigned;
+                                acc.totals.ten_percent_points_assigned += percent;
+                                acc.totals.total_points += total_points;
+                                break;
                         }
 
                         return acc;
@@ -345,15 +376,17 @@ const DigipoinstPerformance = () => {
                         totals: { total_points_assigned: 0, ten_percent_points_assigned: 0, total_points: 0 }
                     });
 
-                    // Bar chart
-                    const transformedDatas = Object.values(groupedData.regions).map(region => ({
-                        name: region.region_name,
-                        data: [
-                            region.total_points + region.ten_percent_points_assigned,
-                            region.total_points_assigned + region.ten_percent_points_assigned,
-                            0
-                        ]
-                    }));
+                    // ✅ Solo incluir regiones válidas (no 'Unknown') en la gráfica
+                    const transformedDatas = Object.values(groupedData.regions)
+                        .filter(region => region.isValid)
+                        .map(region => ({
+                            name: region.region_name,
+                            data: [
+                                region.total_points + region.ten_percent_points_assigned,               // Total Points
+                                region.total_points_assigned + region.ten_percent_points_assigned,     // Assigned
+                                region.redeemed_points || 0                                             // Redeemed
+                            ]
+                        }));
 
                     const yNames = ["Total Points", "Assigned", "Redeemed"];
 
@@ -362,42 +395,28 @@ const DigipoinstPerformance = () => {
                             MEXICO: "#1C2226",
                             NOLA: "#2799F6",
                             SOLA: "#1473E6",
-                            BRAZIL: "#21A5A2",
+                            BRAZIL: "#21A5A2"
                         }),
                         yNames,
                     });
 
-                    // Pie chart
+                    // Pie chart global
                     const dataUploaded = [
-                        {
-                            name: "Sales",
-                            value: groupedData.totals.total_points + groupedData.totals.ten_percent_points_assigned
-                        },
-                        {
-                            name: "Promotion",
-                            value: promotionPoints
-                        },
-                        {
-                            name: "Behavior",
-                            value: behaviorPoints
-                        }
+                        { name: "Sales", value: groupedData.totals.total_points },
+                        { name: "Promotion", value: promotionPoints },
+                        { name: "Behavior", value: behaviorPoints }
                     ];
 
                     setDigipointUploaded(dataUploaded);
 
                     setTtotalUpload(
                         groupedData.totals.total_points +
-                        groupedData.totals.ten_percent_points_assigned +
                         promotionPoints +
                         behaviorPoints
                     );
 
-                    setAssignedValue(
-                        groupedData.totals.total_points_assigned +
-                        groupedData.totals.ten_percent_points_assigned
-                    );
-
-                    setRedeemedValue(0);
+                    setAssignedValue(groupedData.totals.total_points_assigned);
+                    setRedeemedValue(reedmedPoints);
                     setIsReady(true);
                 }
             }
@@ -414,7 +433,7 @@ const DigipoinstPerformance = () => {
                     companiesName={companiesName}
                     countries={countries}
                     regions={regions}
-                    quarters={quarters}
+                    // quarters={quarters}
                     multiSelect={multiSelect}
                     handleFilters={handleFilters}
                     clearSelects={clearSelects}

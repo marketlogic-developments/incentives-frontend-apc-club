@@ -56,30 +56,29 @@ const InvoiceReport = () => {
 
     const numberToMoney = (quantity = 0) => {
         return `$ ${Math.trunc(Number(quantity))
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
-      };
-      
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+    };
 
-    /* Loader setter */
     useEffect(() => {
-        setIsLoaded(true);
+        const fetchInvoicesReport = async () => {
+            if (user) {
+                const response = await axios.post(
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=04c31aa2-84b3-4d18-860d-21b2a42d011b`,
+                    {},
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token ?? token}`,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+                setData(response?.data?.result ?? []);
+            }
+        };
+
+        fetchInvoicesReport();
     }, []);
-
-    /* Querys */
-    useEffect(() => {
-        if (isLoaded && token) {
-            setLoading(true);
-            dispatch(getInvoiceReport(token, filters))
-                .then((response) => {
-                    setLoading(false);
-                    setData(response.payload);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    }, [isLoaded, token, filters]);
 
     /* Selects */
     const handleSelectOneChange = (name, value) => {
@@ -160,10 +159,10 @@ const InvoiceReport = () => {
 
     /* Download */
     const importFileExcel = async (data) => {
-        // ReportsInvoicesDownload()
-        // .then((res) => {})
-        // .catch((error) => {console.error("Error en la petición:", error)})
-        // .finally(() => {});
+        ReportsInvoicesDownload()
+            .then((res) => { })
+            .catch((error) => { console.error("Error en la petición:", error) })
+            .finally(() => { });
     };
 
     /* Table */
