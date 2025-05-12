@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Modal } from "@mantine/core";
-import React, { useState, useMemo, useRef, FC } from "react";
+import React, { useState, useMemo, useRef, FC, useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,7 +9,6 @@ import {
 import Swal from "sweetalert2";
 import { useTranslation } from "react-i18next";
 import InformativeSections from "./UserOptions/InformativeSections";
-import { useEffect } from "react";
 import { CurrentUser } from "services/User/user.service";
 
 interface Props {
@@ -40,6 +39,12 @@ const UserOptions: FC<Props> = ({
   const [viewimage, setviewImage] = useState("");
   const [opened, setOpened] = useState(false);
 
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const handleClickFuera = (event: MouseEvent) => {
     const Refcurrent = componenteRef?.current;
 
@@ -52,12 +57,14 @@ const UserOptions: FC<Props> = ({
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickFuera);
+    if (isMounted) {
+      document.addEventListener("mousedown", handleClickFuera);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickFuera);
-    };
-  }, [opened]);
+      return () => {
+        document.removeEventListener("mousedown", handleClickFuera);
+      };
+    }
+  }, [opened, isMounted]);
 
   const openFileInput = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
@@ -107,6 +114,10 @@ const UserOptions: FC<Props> = ({
   const handleImgProfile = () => {
   
   };
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <>

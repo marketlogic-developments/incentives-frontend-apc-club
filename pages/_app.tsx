@@ -1,5 +1,3 @@
-"use client";
-
 import "../styles/global.scss";
 import Layout from "../components/Layout";
 import { MantineProvider } from "@mantine/core";
@@ -13,6 +11,7 @@ import global_por from "../translation/por/global.json";
 import global_en from "../translation/en/global.json";
 import Head from "next/head";
 import Script from "next/script";
+import { useRouter } from "next/router";
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -36,6 +35,20 @@ interface Props {
 }
 
 export default function MyApp({ Component, pageProps }: Props) {
+  const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center z-50">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
 
   return (
     <>

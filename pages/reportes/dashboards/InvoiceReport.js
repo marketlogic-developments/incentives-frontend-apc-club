@@ -62,23 +62,28 @@ const InvoiceReport = () => {
 
     useEffect(() => {
         const fetchInvoicesReport = async () => {
-            if (user) {
-                const response = await axios.post(
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=04c31aa2-84b3-4d18-860d-21b2a42d011b`,
-                    {},
-                    {
-                        headers: {
-                            Authorization: `Bearer ${user.token ?? token}`,
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
-                setData(response?.data?.result ?? []);
+            try {
+                if (user) {
+                    const response = await axios.post(
+                        `${process.env.NEXT_PUBLIC_BACKEND_URL}/administration/queries_storage/run_query_with_param?id=04c31aa2-84b3-4d18-860d-21b2a42d011b`,
+                        {},
+                        {
+                            headers: {
+                                Authorization: `Bearer ${user.token ?? token}`,
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
+                    setData(response?.data?.result ?? []);
+                }
+            } catch (error) {
+                console.error("Error fetching invoice report data:", error);
+                setData([]); 
             }
         };
 
         fetchInvoicesReport();
-    }, []);
+    }, [user, token]);
 
     /* Selects */
     const handleSelectOneChange = (name, value) => {
