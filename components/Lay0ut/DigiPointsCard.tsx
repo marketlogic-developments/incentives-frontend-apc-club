@@ -10,7 +10,7 @@ import { IconCurrentDigiPoints } from "public/assets/Icons/Digipoints/Digipoints
 const DigiPointsCard = () => {
   const [t, i18n] = useTranslation("global");
   const router = useRouter();
-  const { digipoints } = useSelector((state: RootState) => state.currentUser);
+  const digipoints = useSelector((state: RootState) => state.currentUser.digipoints);
 
   return (
     <div className="flex px-3 py-3.5 bg-base-100 border-[1px] border-[#E0E0E0] rounded-[10px] w-full">

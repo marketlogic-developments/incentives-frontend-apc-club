@@ -40,7 +40,7 @@ const SectionDigipointsPA = () => {
             let response = undefined;
             if (user.is_superuser) {
                 response = await axios.get(
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=8c6f1313-7291-4450-911c-828b7d7411f4`,
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d099b`,
                     {
                         headers: {
                             Authorization: `Bearer ${user.token}`,
@@ -69,53 +69,52 @@ const SectionDigipointsPA = () => {
                 );
             }
     
-            let totalPointsByCategory = { CC: 0, DC: 0 };
-            let totalPointsAssignedByCategory = { CC: 0, DC: 0 };
-            let totalPointsAssignedByPartnerAdmin = { CC: 0, DC: 0 };
-            let promotionPoints = 0;
-            let behaviorPoints = 0;
-    
+            let digipointByCategory = {
+                Sales: 0,
+                Promotion: 0,
+                Behavior: 0
+            };
+            
+            let totalPointsAssigned = 0;
+            let totalPointsUploaded = 0;
+            let redeemed = 0;
+            
             response.data.result.forEach((item) => {
                 const category = item.category;
                 const points = parseInt(item.total_points ?? 0);
                 const points_assigned = parseInt(item.total_points_assigned ?? 0);
-                const percent_points_assigned = parseInt(item.ten_percent_points_assigned ?? 0);
-    
+            
+                // Uploaded: sumar todo menos Redeemed
+                if (category !== 'Redeemed') {
+                    totalPointsUploaded += points;
+                }
+            
+                // Assigned: sumar todo menos UNASSIGNED y Redeemed
+                if (category !== 'Redeemed' && category !== 'UNASSIGNED') {
+                    totalPointsAssigned += points_assigned;
+                }
+            
+                // Categorías específicas para desglose visual
                 if (category === 'CC' || category === 'DC') {
-                    totalPointsByCategory[category] += points;
-                    totalPointsAssignedByCategory[category] += points_assigned;
-                    totalPointsAssignedByPartnerAdmin[category] += percent_points_assigned;
+                    digipointByCategory.Sales += points;
                 } else if (category === 'Promotion') {
-                    promotionPoints += points;
-                } else if (category === 'BEHAVIOR') {
-                    behaviorPoints += points;
+                    digipointByCategory.Promotion += points;
+                } else if (category === 'Behavior') {
+                    digipointByCategory.Behavior += points;
+                } else if (category === 'Redeemed') {
+                    redeemed += points;
                 }
             });
-    
-            const totalSales =
-                totalPointsByCategory.CC + totalPointsByCategory.DC +
-                totalPointsAssignedByPartnerAdmin.CC + totalPointsAssignedByPartnerAdmin.DC;
-    
-            const totalAssigned =
-                totalPointsAssignedByCategory.CC + totalPointsAssignedByCategory.DC +
-                totalPointsAssignedByPartnerAdmin.CC + totalPointsAssignedByPartnerAdmin.DC;
-    
-            setTtotalUpload(totalSales + promotionPoints + behaviorPoints);
-            setAssignedValue(totalAssigned);
-    
+            
+            // Setear los valores
+            setTtotalUpload(totalPointsUploaded);        // uploaded total
+            setAssignedValue(totalPointsAssigned);       // assigned total
+            setRedeemedValue(redeemed);                  // redeemed total
+            
             setDigipointUploaded([
-                {
-                    value: totalSales,
-                    name: "Sales"
-                },
-                {
-                    value: promotionPoints,
-                    name: "Promotion"
-                },
-                {
-                    value: behaviorPoints,
-                    name: "Behavior"
-                }
+                { name: "Sales", value: digipointByCategory.Sales },
+                { name: "Promotion", value: digipointByCategory.Promotion },
+                { name: "Behavior", value: digipointByCategory.Behavior }
             ]);
         };
     
@@ -124,7 +123,7 @@ const SectionDigipointsPA = () => {
 
     return (
         <div className="w-full flex gap-6">
-            {/* <div className="w-1/2 card bg-base-100 shadow-md ">
+            <div className="w-1/2 card bg-base-100 shadow-md ">
                 <DigiPointsTotalD
                     dataLoaded={true}
                     totalSaleGoal={{
@@ -158,7 +157,7 @@ const SectionDigipointsPA = () => {
                         <div className="lds-dual-ring my-auto"></div>
                     )}
                 </CardChart>
-            </div> */}
+            </div>
         </div>
     );
 };

@@ -131,7 +131,7 @@ const reportesDashboard = () => {
             height={screen < 639 ? 45 : 70}
           />
         </CardReportes>
-        <CardReportes
+        {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={"Promo Report"}
           onClick={() => {
@@ -143,8 +143,8 @@ const reportesDashboard = () => {
             width={screen < 639 ? 45 : 70}
             height={screen < 639 ? 45 : 70}
           />
-        </CardReportes>
-        <CardReportes
+        </CardReportes> */}
+        {/* <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={"Behavior Report"}
           onClick={() => {
@@ -156,7 +156,7 @@ const reportesDashboard = () => {
             width={screen < 639 ? 45 : 70}
             height={screen < 639 ? 45 : 70}
           />
-        </CardReportes>
+        </CardReportes> */}
         <CardReportes
           styles="hover:bg-red-600 hover:text-white"
           titleCard={t("Reportes.google_analytic")}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDigiPointsPerformance } from "../../../store/reducers/sales.reducer";
 import {
   ArrowDown,
   CloudDownload,
@@ -14,7 +13,6 @@ import {
   SelectInputValue,
 } from "../../../components";
 import { useRouter } from "next/router";
-import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import SortedTable from "../../../components/table/SortedTable";
 import {
   importCsvFunction,
@@ -22,13 +20,15 @@ import {
   digiPointsPerformanceColumnsCsv,
   digiPointsPerformanceColumnsExcel,
 } from "../../../components/functions/reports";
+import axios from "axios";
+
 const DigiPointsPerformance = () => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
+  const { user, token } = useSelector((state) => state.currentUser);
   const [filters, setFilters] = useState({
-    company: "",
-    level: "",
-    region: "",
+    "Company Name": "",
+    "Company Level": "",
+    Region: "",
   });
   const [selectOne, setSelectOne] = useState("");
   const [itemOffset, setItemOffset] = useState(0);
@@ -37,87 +37,70 @@ const DigiPointsPerformance = () => {
   const [t, i18n] = useTranslation("global");
   const itemsPerPage = 10;
   const [loading, setLoading] = useState(false);
-  const [loadingBarChart, setLoadingBarChart] = useState(true);
   const router = useRouter();
-  const sortedData = {};
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
   useEffect(() => {
-    if (isLoaded && token) {
-      setLoading(true);
-      dispatch(getDigiPointsPerformance(token))
-        .then((response) => {
-          setLoading(false);
-          setData(response.payload);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [isLoaded]);
-
-  const xValuesLine = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
-
-  /* Download */
-  const importFile = async (data) => {
-    const columns = digiPointsPerformanceColumnsCsv(data);
-    const csvConfig = {
-      data: data,
-      columns: columns,
-      downloadTitle: "DigiPoints Performance",
+    const fetchDigipointPerfomance = async () => {
+      if (user) {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=04c31aa2-84b3-4d18-860d-21b2a42d088b`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${user.token ?? token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setData(response?.data?.result ?? []);
+      }
     };
 
-    await importCsvFunction(csvConfig);
+    fetchDigipointPerfomance();
+  }, [token, isLoaded]);
+
+  const importFile = async (data) => {
+    const columns = digiPointsPerformanceColumnsCsv(data);
+    await importCsvFunction({
+      data,
+      columns,
+      downloadTitle: "DigiPoints Performance",
+    });
   };
 
   const importFileExcel = async (data) => {
-    const excelConfig = {
-      data: data,
+    await importExcelFunction({
+      data,
       columns: digiPointsPerformanceColumnsExcel,
       downloadTitle: "DigiPoints Performance",
-    };
-
-    await importExcelFunction(excelConfig);
+    });
   };
 
-  /* Selects */
   const handleFilters = (name, value) => {
-    if (name === "company") {
-      return setFilters({ level: "", region: "", company: value });
+    if (name === "Company Name") {
+      return setFilters({ "Company Level": "", Region: "", "Company Name": value });
     }
-
     return setFilters({ ...filters, [name]: value });
   };
 
   const setRegion = [
+    ...new Set(data.filter((d) => d.Region !== null).map((d) => d.Region)),
+  ];
+
+  const setLevel = [
     ...new Set(
-      data.filter(({ region }) => region !== null).map(({ region }) => region)
+      data.filter((d) => d["Company Level"] !== null).map((d) => d["Company Level"])
     ),
   ];
 
-  const setLevel = [...new Set(data.map(({ company_level }) => company_level))];
-
-  /* Filter */
   const filteredUsers = data.filter((user) => {
     if (
       selectOne &&
-      !user.company_name
+      !user["Company Name"]
         .toString()
         .toLowerCase()
         .includes(selectOne.toLowerCase())
@@ -130,35 +113,32 @@ const DigiPointsPerformance = () => {
   const dataTable = useMemo(() => {
     return filteredUsers.filter((item) => {
       const companyFilter =
-        filters.company === "" || item.company_name === filters.company;
+        filters["Company Name"] === "" ||
+        item["Company Name"] === filters["Company Name"];
       const levelFilter =
-        filters.level === "" || item.company_level === filters.level;
+        filters["Company Level"] === "" ||
+        item["Company Level"] === filters["Company Level"];
       const regionFilter =
-        filters.region === "" || item.region === filters.region;
+        filters.Region === "" || item.Region === filters.Region;
       return companyFilter && levelFilter && regionFilter;
     });
   }, [filters, filteredUsers]);
 
-  /* Clear Filter */
   const clearSelects = () => {
     setFilters({
-      company: "",
-      level: "",
-      region: "",
+      "Company Name": "",
+      "Company Level": "",
+      Region: "",
     });
   };
 
   const currentItems = useMemo(() => {
     const endOffset = itemOffset + itemsPerPage;
-
-    if (dataTable.length === 1) {
-      return dataTable;
-    }
-
-    return dataTable.slice(itemOffset, endOffset);
+    return dataTable.length === 1
+      ? dataTable
+      : dataTable.slice(itemOffset, endOffset);
   }, [itemOffset, dataTable]);
 
-  /* Paginate */
   const pageCount = useMemo(
     () => Math.ceil(dataTable.length / itemsPerPage),
     [dataTable, itemsPerPage]
@@ -166,7 +146,6 @@ const DigiPointsPerformance = () => {
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % filteredUsers.length;
-
     setItemOffset(newOffset);
   };
 
@@ -175,168 +154,54 @@ const DigiPointsPerformance = () => {
       <div className="grid grid-rows-1">
         <TitleWithIcon icon={<RocketIcon />} title={"DigiPoints Performance"} />
       </div>
-      <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
-        <AiOutlineHome
-          className="cursor-pointer"
-          onClick={() => {
-            router.push("/dashboard");
-          }}
-        />
-        <span>
-          <AiOutlineRight />
-        </span>
-        <span
-          className="cursor-pointer"
-          onClick={() => {
-            router.push("/reportesDashboard");
-          }}
-        >
-          My Reports
-        </span>
-        <span>
-          <AiOutlineRight />
-        </span>
-        <span className="font-bold text-[#1473E6]">
-          {"DigiPoints Performance"}
-        </span>
-      </div>
-      {/* <div className="grid grid-row-1 mt-8">
-        <div className="grid sm:grid-cols-3 lg:grid-cols-7 grid-rows-1 items-center justify-items-center">
-          <DropDownReport
-            icon={<ArrowDown />}
-            title={t("organizacion.organizacion")}
-          >
-            <li>
-              <a>Organización 1</a>
-            </li>
-            <li>
-              <a>Organización 2</a>
-            </li>
-          </DropDownReport>
-          <DropDownReport
-            icon={<ArrowDown />}
-            title={t("organizacion.organizaciones")}
-          >
-            <li>
-              <a>Organizacion 1</a>
-            </li>
-            <li>
-              <a>Organización 2</a>
-            </li>
-          </DropDownReport>
-          <DropDownReport icon={<ArrowDown />} title={t("Reportes.usuarios")}>
-            <li>
-              <a>Usuario 1</a>
-            </li>
-            <li>
-              <a>Usuario 2</a>
-            </li>
-          </DropDownReport>
-          <DropDownReport
-            icon={<ArrowDown />}
-            title={t("Reportes.tipos_usuarios")}
-          >
-            <li>
-              <a>Tipo 1</a>
-            </li>
-            <li>
-              <a>Tipo 2</a>
-            </li>
-          </DropDownReport>
-          <DropDownReport icon={<ArrowDown />} title={t("Reportes.anios")}>
-            <li>
-              <a>Año 1</a>
-            </li>
-            <li>
-              <a>Año 2</a>
-            </li>
-          </DropDownReport>
-          <BtnFilter
-            text={t("Reportes.filtrar")}
-            styles="bg-white !text-blue-500 hover:bg-white border-blue-500 hover:border-blue-600"
-          />
-          <BtnFilter
-            text={t("Reportes.limpiar_filtros")}
-            styles="bg-white !text-gray-400 hover:bg-white border-none hover:border-none m-1"
-          />
-        </div>
-      </div> */}
-      {/* <div className="grid sm:grid-cols-2 md:grid-rows-1 grid-rows-1 w-full gap-2">
-        <CardChart title={"Goals vs. Sales"} paragraph="">
-          <BarChar
-            title={"Monthly sales"}
-            colorBarOne={"black"}
-            colorBarTwo={"#2799F6"}
-            dataLeyend={["Goals", "Current sales"]}
-            dataOne={goalAmount}
-            dataTwo={totalSales}
-            xValues={xValuesLine}
-          />
-        </CardChart>
-        <CardChart title={t("Reportes.digiponits")}>
-          <LineChart
-            title={"Monthly loaded DigiPoints"}
-            color={"red"}
-            xValues={xValuesLine}
-            data={totalPointsAssigned}
-          />
-        </CardChart>
-      </div> */}
       <div className="grid sm:grid-cols-2 grid-rows-1 mt-5">
         <div className="grid grid-cols-3 sm:justify-items-start justify-items-center mt-3 gap-3">
           <div className="sm:w-[90%] w-auto">
             <SelectInputValue
               placeholder={"Company Name"}
-              value={filters.company}
-              data={filteredUsers.map(({ company_name }) => company_name)}
+              value={filters["Company Name"]}
+              data={[...new Set(filteredUsers.map((u) => u["Company Name"]))]}
               icon={<ArrowDown />}
               onChange={handleFilters}
-              name={"company"}
+              name={"Company Name"}
               searchable={true}
             />
           </div>
           <div className="sm:w-[90%] w-auto">
             <SelectInputValue
               placeholder={"Level"}
-              value={filters.level}
-              data={setLevel.map((level) => level)}
+              value={filters["Company Level"]}
+              data={setLevel}
               icon={<ArrowDown />}
               onChange={handleFilters}
-              name={"level"}
-              disabled={filters.company !== "" ? true : false}
+              name={"Company Level"}
+              disabled={filters["Company Name"] !== ""}
             />
           </div>
           <div className="sm:w-[90%] w-auto">
             <SelectInputValue
               placeholder={"Region"}
-              value={filters.region}
+              value={filters.Region}
               data={setRegion}
               icon={<ArrowDown />}
               onChange={handleFilters}
-              name={"region"}
-              disabled={filters.company !== "" ? true : false}
+              name={"Region"}
+              disabled={filters["Company Name"] !== ""}
             />
           </div>
         </div>
         <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
-          <DropDownReport
-            icon={<CloudDownload />}
-            title={t("Reportes.descargar")}
-          >
+          <DropDownReport icon={<CloudDownload />} title={t("Reportes.descargar")}>
             <BtnWithImage
               text={t("Reportes.descargar") + " CSV"}
               icon={<CloudDownload />}
-              styles={
-                "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
-              }
+              styles={"bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"}
               onClick={() => importFile(dataTable)}
             />
             <BtnWithImage
               text={t("Reportes.descargar") + " Excel"}
               icon={<CloudDownload />}
-              styles={
-                "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
-              }
+              styles={"bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"}
               onClick={() => importFileExcel(dataTable)}
             />
           </DropDownReport>
@@ -347,64 +212,29 @@ const DigiPointsPerformance = () => {
           </div>
         </div>
       </div>
-        {loading && <div className="lds-dual-ring"></div>}
-        {!loading && (
-          <SortedTable
-            containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
-            tableStyles={"table-zebra !text-sm"}
-            colStyles={"p-2"}
-            thStyles={"sticky text-white"}
-            cols={[
-              {
-                rowStyles: "",
-                sort: true,
-                symbol: "",
-                identity: "company_name",
-                columnName: "Company Name",
-              },
-              { symbol: "", identity: "region", columnName: "Region" },
-              {
-                symbol: "",
-                identity: "company_level",
-                columnName: "Company Level",
-              },
-              {
-                symbol: "",
-                identity: "company_active_users",
-                columnName: "Company Active Users",
-              },
-              {
-                symbol: "",
-                sort: true,
-                identity: "digipoints_uploaded",
-                columnName: "Total DigiPoints Uploaded",
-              },
-              {
-                symbol: "",
-                sort: true,
-                identity: "digipoints_assigned",
-                columnName: "Total Digipoints Assigned",
-              },
-              {
-                symbol: "",
-                sort: true,
-                identity: "digipoints_redeemed",
-                columnName: "Total DigiPoints Redeemed",
-              },
-              {
-                symbol: "AVG",
-                sort: true,
-                identity: "total_avg_assigned",
-                columnName: "% Assigned",
-              },
-            ]}
-            generalRowStyles={"text-left py-3 mx-7"}
-            paginate={true}
-            pageCount={pageCount}
-            currentItems={currentItems}
-            handlePageClick={handlePageClick}
-          />
-        )}
+      {loading && <div className="lds-dual-ring"></div>}
+      {!loading && (
+        <SortedTable
+          containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
+          tableStyles={"table-zebra !text-sm"}
+          colStyles={"p-2"}
+          thStyles={"sticky text-white"}
+          cols={[
+            { identity: "Company Name", columnName: "Company Name" },
+            { identity: "Region", columnName: "Region" },
+            { identity: "Company Level", columnName: "Company Level" },
+            { identity: "Active Users Count", columnName: "Company Active Users" },
+            { identity: "Total Uploaded DigiPoints", columnName: "Total DigiPoints Uploaded" },
+            { identity: "Total Assigned DigiPoints", columnName: "Total Digipoints Assigned" },
+            { identity: "Total Redeemed Points %", columnName: "Total Redeemed Points %" },
+          ]}
+          generalRowStyles={"text-left py-3 mx-7"}
+          paginate={true}
+          pageCount={pageCount}
+          currentItems={currentItems}
+          handlePageClick={handlePageClick}
+        />
+      )}
     </div>
   );
 };
