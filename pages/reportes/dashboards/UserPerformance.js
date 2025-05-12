@@ -42,12 +42,12 @@ import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
 import { TyCReportsFunctions } from "functions/Reports/TyCReportsFunctions";
 
 
-const SalesPerformance = () => {
+const UserPerformance = () => {
     const dispatch = useDispatch();
     const { ReportUserPerfomanceTyC, ReportUserPerfomanceTyCDownload} = TyCReportsFunctions();
     const token = useSelector((state) => state.user.token);
     const [selectOne, setSelectOne] = useState("");
-    const [searchByInvoice, setSearchByInvoice] = useState("");
+    const [searchByEmail, setSearchByEmail] = useState("");
     const [itemOffset, setItemOffset] = useState(0);
     const products = useSelector((state) => state.sales.products);
     const [data, setData] = useState([]);
@@ -98,7 +98,7 @@ const SalesPerformance = () => {
         const { limit = 10, page = 1, search = "", additional_filters = "{}" } = params;
 
         // Escapar el JSON para que se pase correctamente en la URL
-        const queryParams = `page=${page}&limit=${limit}&additional_filters=${encodeURIComponent(additional_filters)}&relation_filters={}`;
+        const queryParams = `page=${page}&limit=${limit}&additional_filters=${encodeURIComponent(additional_filters)}&relation_filters={}&search=${encodeURIComponent(search)}`;
 
         ReportUserPerfomanceTyC(queryParams)
             .then((res) => {
@@ -113,7 +113,7 @@ const SalesPerformance = () => {
 
     useEffect(() => {
         getDataReportTC();
-    }, [params]);
+    }, [params, searchByEmail]);
 
     const handlePageClick = (e) => {
         setParams((prev) => ({ ...prev, page: e.selected + 1 }));
@@ -196,8 +196,15 @@ const SalesPerformance = () => {
                     image={<SearchIcon />}
                     placeHolder={"Email"}
                     stylesContainer={""}
-                    value={searchByInvoice}
-                    onChange={(e) => setSearchByInvoice(e.target.value)}
+                    value={searchByEmail}
+                    onChange={(e) => {
+                        setSearchByEmail(e.target.value);
+                        setParams((prev) => ({ 
+                            ...prev, 
+                            search: e.target.value,
+                            page: 1 // Reset to first page when searching
+                        }));
+                    }}
                     stylesInput={
                         "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
                     }
@@ -344,4 +351,4 @@ const SalesPerformance = () => {
     );
 };
 
-export default SalesPerformance;
+export default UserPerformance;

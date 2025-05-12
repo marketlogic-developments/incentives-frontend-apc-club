@@ -149,7 +149,7 @@ const PartnerTycReport = () => {
                         className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
                         placeholder={String(t("tabla.buscar"))}
                         type="text"
-                        onBlur={(e) =>
+                        onChange={(e) =>
                             setParams((prev) => ({
                                 ...prev,
                                 search: e.target.value,

@@ -73,8 +73,8 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
   const { setDataUser } = useDataUser();
   const { Locations, textLocation } = useLocation();
   const [isClient, setIsClient] = useState(false);
-  const [screen, setScreen] = useState<number>(typeof window !== "undefined" ? window.innerWidth : 0);
-  const [prevSession, setPrevSession] = useState<string | undefined>();
+  const [screen, setScreen] = useState<number>(0);
+  const [prevSession, setPrevSession] = useState<string | undefined>(undefined);
 
 
 
@@ -101,26 +101,20 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
 
   //Logout for Inactivity
   useEffect(() => {
-    // setScreen(window.innerWidth);
-    // const handleWindowResize = () => {
-    //   setScreen(window.innerWidth);
-    // };
-
-    // window.addEventListener("resize", handleWindowResize);
-
-    // return () => {
-    //   window.removeEventListener("resize", handleWindowResize);
-    // };
-    setIsClient(true); // Asegura que el hook siempre se ejecuta en el cliente
-    if (typeof window !== "undefined") {
-      setScreen(window.innerWidth);
-  
-      // Listener para cambios de tamaño
-      const handleResize = () => setScreen(window.innerWidth);
-      window.addEventListener("resize", handleResize);
-      
-      return () => window.removeEventListener("resize", handleResize);
-    }
+    // This effect runs only on the client side after hydration is complete
+    setIsClient(true);
+    
+    // Now it's safe to use window
+    const handleResize = () => setScreen(window.innerWidth);
+    
+    // Set initial screen size
+    setScreen(window.innerWidth);
+    
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   //Show Modals
@@ -149,8 +143,11 @@ const Layout: React.FC<MyComponentProps> = ({ children }) => {
 
   
   useEffect(() => {
-    setPrevSession(Cookies.get("prevSession"));
-  }, []);
+    // Only run on client side after hydration
+    if (isClient) {
+      setPrevSession(Cookies.get("prevSession"));
+    }
+  }, [isClient]);
 
   const profileImage: React.ReactNode = (
     <div className="bg-[#1473E6] rounded-full btn btn-circle btn-sm border-none hover:bg-[#1473E6]">
