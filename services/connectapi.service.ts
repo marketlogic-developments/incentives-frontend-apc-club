@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 
 const createInstance = (): AxiosInstance => {
     const api = axios.create({
-        baseURL: 'https://development-api.adobepcclub.com/api/',
+        baseURL: 'https://api.adobepcclub.com/api/',
         headers: { 
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
