@@ -2,346 +2,249 @@
 
 import React, { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    getSalesvsGoalsUsePerformance,
-    getUserSalePerformance,
-} from "../../../store/reducers/sales.reducer";
+import axios from "axios";
 import {
     ArrowDown,
     CloudDownload,
     SearchIcon,
     UserPerformance as User,
 } from "../../../components/icons";
-import { useTranslation } from "react-i18next";
 import {
-    BarChar,
     BtnFilter,
     BtnWithImage,
-    CardChart,
     DropDownReport,
-    MultiLineChart,
     SearchInput,
     SelectInputValue,
     Table,
     TitleWithIcon,
 } from "../../../components";
-import jsonexport from "jsonexport";
-import { saveAs } from "file-saver";
 import ReactPaginate from "react-paginate";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
-import {
-    importCsvFunction,
-    importExcelFunction,
-    userPerformanceColumnsCsv,
-    userPerformanceColumnsExcel,
-} from "../../../components/functions/reports";
-import PieChart from "../../../components/dashboard/GraphSales/PieChart";
 import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
 import { TyCReportsFunctions } from "functions/Reports/TyCReportsFunctions";
+import { useTranslation } from "react-i18next";
 
-
-const SalesPerformance = () => {
-    const dispatch = useDispatch();
-    const { ReportUserPerfomanceTyC, ReportUserPerfomanceTyCDownload} = TyCReportsFunctions();
-    const token = useSelector((state) => state.user.token);
-    const [selectOne, setSelectOne] = useState("");
-    const [searchByInvoice, setSearchByInvoice] = useState("");
-    const [itemOffset, setItemOffset] = useState(0);
-    const products = useSelector((state) => state.sales.products);
+const UserPerformance = () => {
+    const { ReportUserPerfomanceTyCDownload } = TyCReportsFunctions();
+    const { user, token } = useSelector((state) => state.currentUser);
     const [data, setData] = useState([]);
-    const [others, setData2] = useState();
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [t, i18n] = useTranslation("global");
-    const itemsPerPage = 10;
+    const [params, setParams] = useState({ page: 1, limit: 10 });
+    const [searchByEmail, setSearchByEmail] = useState("");
+    const [selectCompany, setSelectCompany] = useState("");
+    const [selectRegion, setSelectRegion] = useState("");
+    const [itemOffset, setItemOffset] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [loadingBarChart, setLoadingBarChart] = useState(true);
+    const itemsPerPage = 10;
     const router = useRouter();
-    const [dataBarChar, setDataBarChar] = useState([]);
-    const [dataUserPolicy, setDataUserPolicy] = useState([]);
-    const [dataCompanyPolicy, setDataCompanyPolicy] = useState([]);
-    const months = [
-        "Ene",
-        "Feb",
-        "Mar",
-        "Abr",
-        "May",
-        "Jun",
-        "Jul",
-        "Ago",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dic",
-    ];
-    const sortedData = {};
-    const [redeemPoints, setRedeemPoints] = useState([]);
-    const [salesPoints, setSalesPoints] = useState([]);
-    const redeemPointsArray = [];
-    const salesPointsArray = [];
+    const [t] = useTranslation("global");
 
-    const [params, setParams] = useState({
-        page: 1,
-        limit: 10,
-        additional_filters: "{}",
-        search: "",
-    });
-
-    useEffect(() => {
-        setIsLoaded(true);
-    }, []);
-
-    const getDataReportTC = () => {
-        setLoading(true);
-
-        const { limit = 10, page = 1, search = "", additional_filters = "{}" } = params;
-
-        // Escapar el JSON para que se pase correctamente en la URL
-        const queryParams = `page=${page}&limit=${limit}&additional_filters=${encodeURIComponent(additional_filters)}&relation_filters={}`;
-
-        ReportUserPerfomanceTyC(queryParams)
-            .then((res) => {
-                setData2(res);
-                setData(res.content);
-            })
-            .catch((error) => {
-                console.error("Error en la petición:", error);
-            })
-            .finally(() => setLoading(false));
+    const numberToMoney = (value = 0) => {
+        const number = parseFloat(value) || 0;
+        return `$ ${number.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        })}`;
     };
 
     useEffect(() => {
-        getDataReportTC();
-    }, [params]);
+        const fetchUsersPerfomance = async () => {
+            if (!user) return;
+            setLoading(true);
+            try {
+                const response = await axios.post(
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=f47ac10b-58cc-4372-a567-0e02b2c3d479`,
+                    {},
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token ?? token}`,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+                setData(response?.data?.result ?? []);
+            } catch (error) {
+                console.error("Error fetching performance data:", error);
+                setData([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUsersPerfomance();
+    }, [user, token]);
+
+    const filteredUsers = useMemo(() => {
+        return data.filter((user) => {
+            const email = (user["User Name"] ?? "").toLowerCase();
+            const company = (user["Company Name"] ?? "").toLowerCase();
+            const region = (user["Region"] ?? "").toLowerCase();
+
+            return (
+                (!searchByEmail || email.includes(searchByEmail.toLowerCase())) &&
+                (!selectCompany || company === selectCompany.toLowerCase()) &&
+                (!selectRegion || region === selectRegion.toLowerCase())
+            );
+        });
+    }, [data, searchByEmail, selectCompany, selectRegion]);
+
+    const currentItems = useMemo(() => {
+        const endOffset = itemOffset + itemsPerPage;
+        return filteredUsers.slice(itemOffset, endOffset);
+    }, [itemOffset, filteredUsers]);
 
     const handlePageClick = (e) => {
-        setParams((prev) => ({ ...prev, page: e.selected + 1 }));
+        const newOffset = (e.selected * itemsPerPage) % filteredUsers.length;
+        setItemOffset(newOffset);
     };
 
-    const TyCFilter = async (data) => {
-        let filterValue = {};
-
-        if (data === "true") {
-            filterValue = { policies_status: true };
-        } else if (data === "false") {
-            filterValue = { policies_status: false };
-        }
-
-        setParams((prev) => ({
-            ...prev,
-            additional_filters: JSON.stringify(filterValue),
-        }));
+    const clearFilters = () => {
+        setSearchByEmail("");
+        setSelectCompany("");
+        setSelectRegion("");
+        setItemOffset(0);
     };
 
     const importFileExcel = async () => {
-        ReportUserPerfomanceTyCDownload()
-        .then((res) => {})
-        .catch((error) => {console.error("Error en la petición:", error)})
-        .finally(() => {});
-    };
-
-    useEffect(() => {
-        if (dataBarChar) {
-            for (let i = 1; i <= 12; i++) {
-                const monthData = dataBarChar.find((item) => item.month_redeem === i);
-
-                if (monthData) {
-                    redeemPointsArray.push(monthData.redeem_points);
-                    salesPointsArray.push(monthData.sales_points);
-                } else {
-                    redeemPointsArray.push(0);
-                    salesPointsArray.push(0);
+        try {
+            const response = await axios.post(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=f47ac10b-58cc-4372-a567-0e02b2c3d479&download=true&name=user_perfomance`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token ?? token}`,
+                        "Content-Type": "application/json",
+                    },
+                    responseType: "blob",
                 }
-            }
-            setRedeemPoints(redeemPointsArray);
-            setSalesPoints(salesPointsArray);
-            setLoadingBarChart(false);
+            );
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "user_perfomance.xlsx");
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } catch (error) {
+            console.error("Error downloading Excel:", error);
         }
-    }, [dataBarChar]);
+    };
 
     return (
         <div className="mt-8">
             <div className="pt-2 grid items-center grid-rows-1 gap-3">
                 <TitleWithIcon icon={<User />} title={t("Reportes.user_performance")} />
             </div>
+
             <div className="flex w-full items-center gap-4 pt-10 pb-2 pl-0">
-                <AiOutlineHome
-                    className="cursor-pointer"
-                    onClick={() => {
-                        router.push("/dashboard");
-                    }}
-                />
-                <span>
-                    <AiOutlineRight />
-                </span>
-                <span
-                    className="cursor-pointer"
-                    onClick={() => {
-                        router.push("/reportesDashboard");
-                    }}
-                >
-                    My Reports
-                </span>
-                <span>
-                    <AiOutlineRight />
-                </span>
-                <span className="font-bold text-[#1473E6]">
-                    {t("Reportes.user_performance")}
-                </span>
+                <AiOutlineHome className="cursor-pointer" onClick={() => router.push("/dashboard")} />
+                <span><AiOutlineRight /></span>
+                <span className="cursor-pointer" onClick={() => router.push("/reportesDashboard")}>My Reports</span>
+                <span><AiOutlineRight /></span>
+                <span className="font-bold text-[#1473E6]">{t("Reportes.user_performance")}</span>
             </div>
-            
-            <div className="pt-2 grid items-center sm:grid-cols-4 grid-cols-2 gap-3">
+
+            <div className="pt-2 grid items-center sm:grid-cols-6 grid-cols-2 gap-3">
                 <SearchInput
                     image={<SearchIcon />}
-                    placeHolder={"Email"}
-                    stylesContainer={""}
-                    value={searchByInvoice}
-                    onChange={(e) => setSearchByInvoice(e.target.value)}
-                    stylesInput={
-                        "border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
-                    }
+                    placeHolder="Email"
+                    value={searchByEmail}
+                    onChange={(e) => {
+                        setSearchByEmail(e.target.value);
+                        setItemOffset(0);
+                    }}
+                    stylesInput="border-none pl-8 placeholder:text-sm rounded-full w-full max-w-xs"
                 />
-                <DropDownReport
-                    icon={""}
-                    title={"Filtros terminos y condiciones"}
-                >
-                    <BtnWithImage
-                        text={"Mostrar todos"}
-                        icon={""}
-                        styles={
-                            "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
-                        }
-                        onClick={() => TyCFilter("all")}
-                    />
-                    <BtnWithImage
-                        text={"Los que SI aceptaron"}
-                        icon={""}
-                        styles={
-                            "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
-                        }
-                        onClick={() => TyCFilter("true")}
-                    />
-                    <BtnWithImage
-                        text={"Los que NO aceptaron"}
-                        icon={""}
-                        styles={
-                            "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
-                        }
-                        onClick={() => TyCFilter("false")}
-                    />
-                </DropDownReport>
 
-                <DropDownReport
-                    icon={<CloudDownload />}
-                    title={t("Reportes.descargar")}
-                >
+                <SelectInputValue
+                    placeholder="Company Name"
+                    value={selectCompany}
+                    data={[...new Set(data.map(d => d["Company Name"]).filter(Boolean))].map(name => ({ value: name, label: name }))}
+                    icon={<ArrowDown />}
+                    onChange={(value) => setSelectCompany(value)}
+                    name="Company Name"
+                />
+
+                <SelectInputValue
+                    placeholder="Region"
+                    value={selectRegion}
+                    data={[...new Set(data.map(d => d["Region"]).filter(Boolean))].map(region => ({ value: region, label: region }))}
+                    icon={<ArrowDown />}
+                    onChange={(value) => setSelectRegion(value)}
+                    name="Region"
+                />
+
+                <BtnFilter
+                    text={t("Reportes.limpiar_filtros")}
+                    styles="bg-white !text-blue-500 sm:!text-base hover:bg-white border-none hover:border-none m-1"
+                    onClick={clearFilters}
+                />
+
+                <DropDownReport icon={<CloudDownload />} title={t("Reportes.descargar")}>
                     <BtnWithImage
                         text={t("Reportes.descargar") + " Excel"}
                         icon={<CloudDownload />}
-                        styles={
-                            "bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
-                        }
+                        styles="bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
                         onClick={() => importFileExcel()}
                     />
                 </DropDownReport>
             </div>
-            <div className="grid sm:grid-cols-2 grid-rows-1">
-                <div className="grid sm:grid-cols-2 grid-rows-1 sm:justify-items-end justify-items-center mt-3">
-                </div>
-            </div>
-            <div className="font-bold flex items-center">
-                <h2 className="lg:text-lg sm:text-xl">Users</h2>
-            </div>
+
             <div className="grid grid-rows-1 justify-items-center">
-                {loading && <div className="lds-dual-ring"></div>}
-                {!loading && (
+                {loading ? (
+                    <div className="lds-dual-ring"></div>
+                ) : (
                     <>
                         <Table
-                            containerStyles={"mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"}
-                            tableStyles={"table-zebra !text-sm"}
-                            colStyles={"p-2"}
-                            thStyles={"sticky text-white"}
-                            cols={[
-                                "User Name",
-                                "FirstName",
-                                "LastName",
-                                "Region",
-                                "Country",
-                                // "Company ID",
-                                "Company Name",
-                                "Company Level",
-                                // "Company Type",
-                                "T&C User",
-                                "T&C Date",
-                            ]}
+                            containerStyles="mt-4 !rounded-tl-lg !rounded-tr-lg max-h-max"
+                            tableStyles="table-zebra !text-sm"
+                            colStyles="p-2"
+                            thStyles="sticky text-white"
+                            cols={["User Name", "First Name", "Last Name", "Region", "Country", "Company Name", "Company Level", "T&C User", "T&C Date", "Actual Revenue (USD)", "Total DigiPoints"]}
                         >
-                            {
-                                data.map((data) => (
-                                    <tr>
-                                        <th className="text-left py-3 px-2 mx-4">{data.email}</th>
-                                        <th className="text-left py-3 px-2 mx-4">{data.first_name}</th>
-                                        <th className="text-left py-3 px-2 mx-4">
-                                            {data.last_name}
-                                        </th>
-                                        <th className="text-left py-3 px-2 mx-4">
-                                            {data.region}
-                                        </th>
-                                        <th className="text-left py-3 px-2 mx-4">
-                                            {data.country}
-                                        </th>
-                                        {/* <th className="text-left py-3 px-2 mx-4">
-                                            {data.first_organization_code}
-                                        </th> */}
-                                        {/* <th className="text-left py-3 px-2 mx-4">{data.country_id}</th> */}
-                                        <th className="text-left py-3 px-2 mx-4">
-                                            {data.organization_name}
-                                        </th>
-                                        <th className="text-left py-3 px-2 mx-4">
-                                            {data.distribution_channel_name}
-                                        </th>
-                                        {/* <th className="text-left py-3 px-2 mx-4">
-                                            {data.rtype}
-                                        </th> */}
-                                        <td className="text-start mx-2 py-4 px-2">
-                                            {data.policies_status ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
-                                        </td>
-                                        <th className="text-left py-3 px-2 mx-4">
-                                            {data.date_accept_policies}
-                                        </th>
-                                    </tr>
-                                ))
-                            }
+                            {currentItems.map((data, index) => (
+                                <tr key={index}>
+                                    <td>{data["User Name"]}</td>
+                                    <td>{data["First Name"]}</td>
+                                    <td>{data["Last Name"]}</td>
+                                    <td>{data["Region"]}</td>
+                                    <td>{data["Country"]}</td>
+                                    <td>{data["Company Name"]}</td>
+                                    <td>{data["Company Level"]}</td>
+                                    <td className="text-start mx-2 py-4 px-2">
+                                        {data["Policies Status"] === "YES" ? <ImCheckboxChecked /> : <ImCheckboxUnchecked />}
+                                    </td>
+                                    <td>{data["T&C Date"] ?? "N/A"}</td>
+                                    <td>{numberToMoney(data["Actual Revenue (USD)"])}</td>
+                                    <td>{data["Total DigiPoints"]}</td>
+                                </tr>
+                            ))}
                         </Table>
                     </>
                 )}
             </div>
+
             <div className="w-full pt-5">
-                <div className="w-full pt-5">
-                    <ReactPaginate
-                        pageCount={others?.total_pages}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageClick}
-                        containerClassName={"pagination"}
-                        nextClassName={"item next "}
-                        previousClassName={"item previous"}
-                        activeClassName={"item active "}
-                        breakClassName={"item break-me "}
-                        breakLabel={"..."}
-                        disabledClassName={"disabled-page"}
-                        pageClassName={"item pagination-page "}
-                        nextLabel={
-                            <FaChevronRight style={{ color: "#000", fontSize: "20" }} />
-                        }
-                        previousLabel={
-                            <FaChevronLeft style={{ color: "#000", fontSize: "20" }} />
-                        }
-                    />
-                </div>
+                <ReactPaginate
+                    pageCount={Math.ceil(filteredUsers.length / itemsPerPage)}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    containerClassName="pagination"
+                    nextClassName="item next"
+                    previousClassName="item previous"
+                    activeClassName="item active"
+                    breakClassName="item break-me"
+                    breakLabel="..."
+                    disabledClassName="disabled-page"
+                    pageClassName="item pagination-page"
+                    nextLabel={<FaChevronRight style={{ color: "#000", fontSize: "20" }} />}
+                    previousLabel={<FaChevronLeft style={{ color: "#000", fontSize: "20" }} />}
+                />
             </div>
         </div>
     );
 };
 
-export default SalesPerformance;
+export default UserPerformance;

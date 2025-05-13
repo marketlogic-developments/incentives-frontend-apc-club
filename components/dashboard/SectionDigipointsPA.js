@@ -123,7 +123,7 @@ const SectionDigipointsPA = () => {
 
     return (
         <div className="w-full flex gap-6">
-            <div className="w-1/2 card bg-base-100 shadow-md ">
+            {/* <div className="w-1/2 card bg-base-100 shadow-md ">
                 <DigiPointsTotalD
                     dataLoaded={true}
                     totalSaleGoal={{
@@ -157,7 +157,7 @@ const SectionDigipointsPA = () => {
                         <div className="lds-dual-ring my-auto"></div>
                     )}
                 </CardChart>
-            </div>
+            </div> */}
         </div>
     );
 };

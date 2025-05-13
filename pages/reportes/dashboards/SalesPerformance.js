@@ -57,6 +57,32 @@ const SalesPerformance = () => {
         fetchSalesPerfomance();
     }, [token]);
 
+    const importFileExcel = async () => {
+        try {
+            const response = await axios.post(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=04c31aa2-84b3-4d18-860d-21b2a42d071b&download=true&name=sales_performance`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token ?? token}`,
+                        "Content-Type": "application/json",
+                    },
+                    responseType: 'blob',
+                }
+            );
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'sales_performance.xlsx');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } catch (error) {
+            console.error("Error downloading Sales perfomance data:", error);
+        }
+    };
+
     const handleFilters = (name, value) => {
         setFilters((prev) => ({
             ...prev,
@@ -68,15 +94,15 @@ const SalesPerformance = () => {
 
     const dataTable = useMemo(() => {
         return filteredUsers.filter((item) => {
-            const matchCompany = filters["Company Name"]
-                ? item["Company Name"] === filters["Company Name"]
-                : true;
-            const matchRegion = filters["Region"]
-                ? item["Region"] === filters["Region"]
-                : true;
-            const matchLevel = filters["Company Level"]
-                ? item["Company Level"] === filters["Company Level"]
-                : true;
+            const matchCompany = !filters["Company Name"] ||
+                item["Company Name"] === filters["Company Name"];
+
+            const matchRegion = !filters["Region"] ||
+                item["Region"] === filters["Region"];
+
+            const matchLevel = !filters["Company Level"] ||
+                item["Company Level"] === filters["Company Level"];
+
             return matchCompany && matchRegion && matchLevel;
         });
     }, [filters, filteredUsers]);
@@ -123,7 +149,7 @@ const SalesPerformance = () => {
             </div>
 
             <div className="grid sm:grid-cols-2 mt-5">
-                <div className="grid grid-cols-3 sm:justify-items-start justify-items-center mt-3 gap-3">
+                <div className="grid sm:grid-cols-3 grid-cols-1 sm:justify-items-start justify-items-center mt-3 gap-3">
                     <div className="sm:w-[90%] w-auto">
                         <SelectInputValue
                             placeholder="Company Name"
@@ -135,6 +161,20 @@ const SalesPerformance = () => {
                             }))}
                             icon={<ArrowDown />}
                             onChange={(value) => handleFilters("Company Name", value)}
+                            searchable
+                        />
+                    </div>
+                    <div className="sm:w-[90%] w-auto">
+                        <SelectInputValue
+                            placeholder="Region"
+                            name="Region"
+                            value={filters["Region"]}
+                            data={[...new Set(data.map((item) => item["Region"]).filter(Boolean))].map((region) => ({
+                                value: region,
+                                label: region
+                            }))}
+                            icon={<ArrowDown />}
+                            onChange={(value) => handleFilters("Region", value)}
                             searchable
                         />
                     </div>
@@ -152,22 +192,19 @@ const SalesPerformance = () => {
                             searchable
                         />
                     </div>
-                    <div className="sm:w-[100%] w-auto">
+                </div>
+                <div className="grid sm:grid-cols-2 grid-cols-1 sm:justify-items-end justify-items-center mt-3 gap-3">
+                    <div className="sm:w-[90%] w-auto">
                         <DropDownReport icon={<CloudDownload />} title={t("Reportes.descargar")}>
                             <BtnWithImage
                                 text={t("Reportes.descargar") + " Excel"}
                                 icon={<CloudDownload />}
                                 styles="bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
-                                onClick={() => importExcelFunction({
-                                    data: dataTable,
-                                    columns: salesPerformanceColumnsExcel,
-                                    downloadTitle: "Sales performance"
-                                })}
+                                onClick={() => importFileExcel()}
                             />
                         </DropDownReport>
                     </div>
-                </div>
-                <div className="grid grid-cols-2 sm:justify-items-end justify-items-center mt-3">
+
                     <div className="grid sm:w-[45%] w-auto" onClick={clearSelects}>
                         <p className="bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2 cursor-pointer font-bold">
                             Reset Filters

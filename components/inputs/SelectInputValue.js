@@ -92,7 +92,7 @@ const SelectInputValue = ({
 
         rightSection: { pointerEvents: "none" },
       })}
-      onChange={(info) => onChange(name, info)}
+      onChange={(value) => onChange(value)}
     />
   );
 };
