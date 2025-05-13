@@ -91,15 +91,15 @@ const DigiPointsPerformance = () => {
 
   const dataTable = useMemo(() => {
     return data.filter((item) => {
-      const matchCompany = !filters["Company Name"] || 
+      const matchCompany = !filters["Company Name"] ||
         item["Company Name"] === filters["Company Name"];
-      
-      const matchRegion = !filters["Region"] || 
+
+      const matchRegion = !filters["Region"] ||
         item["Region"] === filters["Region"];
-      
-      const matchLevel = !filters["Company Level"] || 
+
+      const matchLevel = !filters["Company Level"] ||
         item["Company Level"] === filters["Company Level"];
-      
+
       return matchCompany && matchRegion && matchLevel;
     });
   }, [filters, data]);
@@ -142,7 +142,7 @@ const DigiPointsPerformance = () => {
         <span><AiOutlineRight /></span>
         <span className="font-bold text-[#1473E6]">DigiPoints Performance</span>
       </div>
-      
+
       <div className="grid sm:grid-cols-2 mt-5">
         <div className="grid sm:grid-cols-3 grid-cols-1 sm:justify-items-start justify-items-center mt-3 gap-3">
           <div className="sm:w-[90%] w-auto">
