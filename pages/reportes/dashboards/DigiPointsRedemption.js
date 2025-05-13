@@ -109,18 +109,22 @@ const DigiPointsRedemption = () => {
   const filteredUsers = data.filter((user) => {
     if (
       selectTwo &&
-      !user.ordernumber
-        .toLowerCase()
+      !(user.ordernumber?.toLowerCase() || "")
         .includes(selectTwo.toLowerCase())
     ) {
       return false;
     }
     if (
       selectOne &&
-      !user.email
-        .toString()
-        .toLowerCase()
+      !(user.email?.toString().toLowerCase() || "")
         .includes(selectOne.toLowerCase())
+    ) {
+      return false;
+    }
+    if (
+      searchByInvoice &&
+      !(user.email?.toString().toLowerCase() || "")
+        .includes(searchByInvoice.toLowerCase())
     ) {
       return false;
     }
@@ -131,6 +135,7 @@ const DigiPointsRedemption = () => {
   const clearSelects = () => {
     setSelectOne("");
     setSelectTwo("");
+    setSearchByInvoice("");
   };
 
   /* Download Redemption*/
@@ -263,6 +268,12 @@ const DigiPointsRedemption = () => {
           name={"business"}
           searchable={true}
         />
+        <SearchInput
+          placeholder={t("Reportes.buscar_por_email")}
+          value={searchByInvoice}
+          onChange={(e) => setSearchByInvoice(e.target.value)}
+          icon={<SearchIcon />}
+        />
         <div className="sm:flex grid sm:grid-cols-3 grid-cols-2 items-center">
         <BtnFilter
           text={t("Reportes.limpiar_filtros")}
@@ -301,17 +312,17 @@ const DigiPointsRedemption = () => {
             colStyles={"p-2"}
             thStyles={"sticky text-white"}
             cols={[
-              { rowStyles:"", sort:true, symbol:"", identity: "email", columnName: "Publicar en tabla" },
-              { symbol:"", identity: "name", columnName: "Publicar en tabla" },
-              { symbol:"", identity: "last_name", columnName: "Publicar en tabla" },
-              { symbol:"", identity: "role_name", columnName: "Publicar en tabla" },
-              { symbol:"", identity: "country", columnName: "Publicar en tabla" },
-              { symbol:"", identity: "company_name", columnName: "Publicar en tabla" },
-              { symbol:"", identity: "ordernumber", columnName: "Publicar en tabla" },
-              { symbol:"", identity: "digipoint_substract", columnName: "Publicar en tabla" },
-              { symbol:"", identity: "total_quantity", columnName: "Publicar en tabla" },
-              { symbol:"DATE", identity: "created_at", columnName: "Publicar en tabla" },
-              { symbol:"", identity: "status_name", columnName: "Publicar en tabla" },
+              { rowStyles:"", sort:true, symbol:"", identity: "email", columnName: "Email" },
+              { symbol:"", identity: "name", columnName: "Name" },
+              { symbol:"", identity: "last_name", columnName: "Last Name" },
+              { symbol:"", identity: "role_name", columnName: "Role" },
+              { symbol:"", identity: "country", columnName: "Country" },
+              { symbol:"", identity: "company_name", columnName: "Company" },
+              { symbol:"", identity: "ordernumber", columnName: "Request ID" },
+              { symbol:"", identity: "digipoint_substract", columnName: "DigiPoints" },
+              { symbol:"", identity: "total_quantity", columnName: "Total Quantity" },
+              { symbol:"DATE", identity: "created_at", columnName: "Created At" },
+              { symbol:"", identity: "status_name", columnName: "Status" },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
             paginate={true}
