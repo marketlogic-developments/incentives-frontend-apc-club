@@ -20,9 +20,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getOrdersAll
-} from "../../../store/reducers/orders.reducer";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { AiOutlineHome, AiOutlineRight } from "react-icons/ai";
 import SortedTable from "../../../components/table/SortedTable";
@@ -35,12 +33,11 @@ const DigiPointsRedemption = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [itemOffset, setItemOffset] = useState(0);
   const [loading, setLoading] = useState(false);
-  const user = useSelector((state) => state.user.user);
+  const { user, token } = useSelector((state) => state.currentUser);
   const [selectOne, setSelectOne] = useState("");
   const [selectTwo, setSelectTwo] = useState("");
   const [searchByInvoice, setSearchByInvoice] = useState("");
   const [t, i18n] = useTranslation("global");
-  const token = useSelector((state) => state.user.token);
   const router = useRouter();
   
   const numberToMoney = (quantity = 0) => {
@@ -57,18 +54,33 @@ const DigiPointsRedemption = () => {
 
   /* Querys */
   useEffect(() => {
-    if (isLoaded && token) {
-      setLoading(true);
-      dispatch(getOrdersAll(token))
-        .then((response) => {
+    const fetchDigiPointsRedemption = async () => {
+      try {
+        if (user) {
+          setLoading(true);
+          const response = await axios.post(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=04c31aa2-84b3-4d18-860d-21b2a42d091b`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${user.token ?? token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          console.log("DigiPoints Redemption API response:", response);
+          setData(response?.data?.result ?? []);
           setLoading(false);
-          setData(response.payload);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [isLoaded]);
+        }
+      } catch (error) {
+        console.error("Error fetching DigiPoints Redemption data:", error);
+        setData([]);
+        setLoading(false);
+      }
+    };
+
+    fetchDigiPointsRedemption();
+  }, [user, token]);
 
   /* Selects */
   const handleSelectOneChange = (name, value) => {
@@ -122,25 +134,56 @@ const DigiPointsRedemption = () => {
   };
 
   /* Download Redemption*/
-  const importFile = async (data) => {
-    const columns = digipointRedemtionColumnsCsv(data);
-    const csvConfig = {
-      data: data,
-      columns: columns,
-      downloadTitle: "Digipoints Redemption",
-    };
-
-    await importCsvFunction(csvConfig);
+  const importFile = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=04c31aa2-84b3-4d18-860d-21b2a42d091b&download=true&name=digipoints_redemption_request`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token ?? token}`,
+            "Content-Type": "application/json",
+          },
+          responseType: 'blob',
+        }
+      );
+      
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'digipoints_redemption_request.csv');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Error downloading DigiPoints Redemption data:", error);
+    }
   };
 
-  const importFileExcel = async (data) => {
-    const excelConfig = {
-      data: data,
-      columns: digipointRedemtionColumnsExcel,
-      downloadTitle: "Digipoints Redemption",
-    };
-
-    await importExcelFunction(excelConfig);
+  const importFileExcel = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=04c31aa2-84b3-4d18-860d-21b2a42d091b&download=true&name=digipoints_redemption_request`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token ?? token}`,
+            "Content-Type": "application/json",
+          },
+          responseType: 'blob',
+        }
+      );
+      
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'digipoints_redemption_request.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Error downloading DigiPoints Redemption data:", error);
+    }
   };
 
   /* Table */
@@ -236,7 +279,7 @@ const DigiPointsRedemption = () => {
           styles={
             "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
           }
-          onClick={() => importFile(filteredUsers)}
+          onClick={() => importFile()}
         />
           <BtnWithImage
            text={t("Reportes.descargar") + " excel"}
@@ -244,7 +287,7 @@ const DigiPointsRedemption = () => {
           styles={
             "bg-white btn-sm !text-blue-500 sm:!text-base hover:bg-white border-none mt-2"
           }
-          onClick={() => importFileExcel(filteredUsers)}
+          onClick={() => importFileExcel()}
         />
         </DropDownReport>
         </div>

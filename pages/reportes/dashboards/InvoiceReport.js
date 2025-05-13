@@ -8,6 +8,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { getInvoiceReport } from "../../../store/reducers/sales.reducer";
+import axios from "axios";
+import { API } from "../../../services/connectapi.service";
 import {
     BtnFilter,
     BtnWithImage,
@@ -33,14 +35,13 @@ import {
 import { TyCReportsFunctions } from "functions/Reports/TyCReportsFunctions";
 
 const InvoiceReport = () => {
-    const [defaultYear, setDefaultYear] = useState(["2023", "2024"]);
+    const [defaultYear, setDefaultYear] = useState(["2025"]);
     const [filters, setFilters] = useState({
-        year: "2024",
+        year: "2025",
     });
     const itemsPerPage = 10;
     const dispatch = useDispatch();
-    const token = useSelector((state) => state.user.token);
-    const user = useSelector((state) => state.user.user);
+    const { user, token } = useSelector((state) => state.currentUser);
     const [isLoaded, setIsLoaded] = useState(false);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
@@ -74,6 +75,7 @@ const InvoiceReport = () => {
                             },
                         }
                     );
+                    console.log("Invoice report API response:", response);
                     setData(response?.data?.result ?? []);
                 }
             } catch (error) {
@@ -159,7 +161,7 @@ const InvoiceReport = () => {
         setSelectOne("");
         setSelectTwo("");
         setSelectThree("");
-        setSelectYear("2024");
+        setSelectYear("2025");
     };
 
     /* Download */

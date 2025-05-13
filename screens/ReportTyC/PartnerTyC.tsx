@@ -149,13 +149,13 @@ const PartnerTycReport = () => {
                         className="input input-bordered h-auto pl-8 py-2 text-sm font-normal w-full rounded-full"
                         placeholder={String(t("tabla.buscar"))}
                         type="text"
-                        onChange={(e) =>
+                        onChange={(e) => {
                             setParams((prev) => ({
                                 ...prev,
                                 search: e.target.value,
                                 page: 1,
-                            }))
-                        }
+                            }));
+                        }}
                     />
                     <div className="absolute h-full items-center flex ml-2">
                         <AiOutlineSearch color="#eb1000" />
