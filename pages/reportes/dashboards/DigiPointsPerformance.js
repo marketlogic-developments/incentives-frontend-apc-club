@@ -117,6 +117,8 @@ const DigiPointsPerformance = () => {
     return dataTable.slice(itemOffset, endOffset);
   }, [itemOffset, dataTable]);
 
+  console.log(currentItems)
+
   const pageCount = useMemo(
     () => Math.ceil(dataTable.length / itemsPerPage),
     [dataTable, itemsPerPage]
@@ -221,10 +223,10 @@ const DigiPointsPerformance = () => {
             { identity: "Company Name", columnName: "Company Name" },
             { identity: "Region", columnName: "Region" },
             { identity: "Company Level", columnName: "Company Level" },
-            { identity: "Active Users Count", columnName: "Company Active Users" },
-            { identity: "Total Uploaded DigiPoints", columnName: "Total DigiPoints Uploaded" },
-            { identity: "Total Assigned DigiPoints", columnName: "Total Digipoints Assigned" },
-            { identity: "Total Redeemed Points %", columnName: "Total Redeemed Points %" },
+            { identity: "Active Users Count", columnName: "Active Users Count" },
+            { identity: "Total DigiPoints Uploaded", columnName: "Total DigiPoints Uploaded" },
+            { identity: "Total DigiPoints Assigned", columnName: "Total DigiPoints Assigned" },
+            { identity: "Total DigiPoints Redeemed", columnName: "Total DigiPoints Redeemed" },
           ]}
           generalRowStyles={"text-left py-3 mx-7"}
           paginate={true}
