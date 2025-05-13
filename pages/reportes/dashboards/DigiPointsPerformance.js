@@ -74,12 +74,30 @@ const DigiPointsPerformance = () => {
     });
   };
 
-  const importFileExcel = async (data) => {
-    await importExcelFunction({
-      data,
-      columns: digiPointsPerformanceColumnsExcel,
-      downloadTitle: "DigiPoints Performance",
-    });
+  const importFileExcel = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=04c31aa2-84b3-4d18-860d-21b2a42d088b&download=true&name=digipoints_performance`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${user.token ?? token}`,
+            "Content-Type": "application/json",
+          },
+          responseType: 'blob',
+        }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'digipoints_performance.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Error downloading digipoints perfomance data:", error);
+    }
   };
 
   const handleFilters = (name, value) => {
@@ -192,16 +210,10 @@ const DigiPointsPerformance = () => {
           <div className="sm:w-[90%] w-auto">
             <DropDownReport icon={<CloudDownload />} title={t("Reportes.descargar")}>
               <BtnWithImage
-                text={t("Reportes.descargar") + " CSV"}
-                icon={<CloudDownload />}
-                styles={"bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"}
-                onClick={() => importFile(dataTable)}
-              />
-              <BtnWithImage
                 text={t("Reportes.descargar") + " Excel"}
                 icon={<CloudDownload />}
                 styles={"bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"}
-                onClick={() => importFileExcel(dataTable)}
+                onClick={() => importFileExcel()}
               />
             </DropDownReport>
           </div>

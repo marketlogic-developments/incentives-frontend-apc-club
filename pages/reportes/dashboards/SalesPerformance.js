@@ -57,6 +57,32 @@ const SalesPerformance = () => {
         fetchSalesPerfomance();
     }, [token]);
 
+    const importFileExcel = async () => {
+        try {
+            const response = await axios.post(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=04c31aa2-84b3-4d18-860d-21b2a42d071b&download=true&name=sales_performance`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token ?? token}`,
+                        "Content-Type": "application/json",
+                    },
+                    responseType: 'blob',
+                }
+            );
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'sales_performance.xlsx');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } catch (error) {
+            console.error("Error downloading Sales perfomance data:", error);
+        }
+    };
+
     const handleFilters = (name, value) => {
         setFilters((prev) => ({
             ...prev,
@@ -68,15 +94,15 @@ const SalesPerformance = () => {
 
     const dataTable = useMemo(() => {
         return filteredUsers.filter((item) => {
-            const matchCompany = !filters["Company Name"] || 
+            const matchCompany = !filters["Company Name"] ||
                 item["Company Name"] === filters["Company Name"];
-            
-            const matchRegion = !filters["Region"] || 
+
+            const matchRegion = !filters["Region"] ||
                 item["Region"] === filters["Region"];
-            
-            const matchLevel = !filters["Company Level"] || 
+
+            const matchLevel = !filters["Company Level"] ||
                 item["Company Level"] === filters["Company Level"];
-            
+
             return matchCompany && matchRegion && matchLevel;
         });
     }, [filters, filteredUsers]);
@@ -174,16 +200,11 @@ const SalesPerformance = () => {
                                 text={t("Reportes.descargar") + " Excel"}
                                 icon={<CloudDownload />}
                                 styles="bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2"
-                                onClick={() => importExcelFunction({
-                                    data: dataTable,
-                                    columns: salesPerformanceColumnsExcel,
-                                    downloadTitle: "Sales performance"
-                                })}
+                                onClick={() => importFileExcel()}
                             />
                         </DropDownReport>
                     </div>
-                </div>
-                <div className="grid grid-cols-2 sm:justify-items-end justify-items-center mt-3">
+
                     <div className="grid sm:w-[45%] w-auto" onClick={clearSelects}>
                         <p className="bg-white btn-sm !text-blue-500 hover:bg-white border-none mt-2 cursor-pointer font-bold">
                             Reset Filters
