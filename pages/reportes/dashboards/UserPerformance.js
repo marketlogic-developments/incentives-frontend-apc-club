@@ -40,12 +40,12 @@ import {
 import PieChart from "../../../components/dashboard/GraphSales/PieChart";
 import { ImCheckboxUnchecked, ImCheckboxChecked } from "react-icons/im";
 import { TyCReportsFunctions } from "functions/Reports/TyCReportsFunctions";
-
+import axios from "axios";
 
 const UserPerformance = () => {
     const dispatch = useDispatch();
     const { ReportUserPerfomanceTyC, ReportUserPerfomanceTyCDownload} = TyCReportsFunctions();
-    const token = useSelector((state) => state.user.token);
+    const { user, token } = useSelector((state) => state.currentUser);
     const [selectOne, setSelectOne] = useState("");
     const [searchByEmail, setSearchByEmail] = useState("");
     const [itemOffset, setItemOffset] = useState(0);
@@ -135,10 +135,29 @@ const UserPerformance = () => {
     };
 
     const importFileExcel = async () => {
-        ReportUserPerfomanceTyCDownload()
-        .then((res) => {})
-        .catch((error) => {console.error("Error en la petición:", error)})
-        .finally(() => {});
+        try {
+          const response = await axios.post(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=f47ac10b-58cc-4372-a567-0e02b2c3d479&download=true&name=user_perfomance`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${user.token ?? token}`,
+                "Content-Type": "application/json",
+              },
+              responseType: 'blob',
+            }
+          );
+          
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', 'user_perfomance.xlsx');
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        } catch (error) {
+          console.error("Error downloading User Perfomance data:", error);
+        }
     };
 
     useEffect(() => {
