@@ -301,23 +301,17 @@ const DigiPointsRedemption = () => {
             colStyles={"p-2"}
             thStyles={"sticky text-white"}
             cols={[
-              { rowStyles:"", sort:true, symbol:"", identity: "email", columnName: "User Email" },
-              { symbol:"", identity: "name", columnName: "First Name" },
-              { symbol:"", identity: "last_name", columnName: "Last Name" },
-              { symbol:"", identity: "role_name", columnName: "User Role" },
-              { symbol:"", identity: "region", columnName: "Region" },
-              { symbol:"", identity: "country", columnName: "Country" },
-              { symbol:"", identity: "company_id", columnName: "Company ID" },
-              { symbol:"", identity: "company_name", columnName: "Company Name" },
-              { symbol:"", identity: "company_level", columnName: "Company Level" },
-              { symbol:"", identity: "pp_email", columnName: "Partner Principal User Email" },
-              { symbol:"", identity: "pp_tos", columnName: "Partner Principal Accepted ToS" },
-              { symbol:"", identity: "ordernumber", columnName: "Request ID" },
-              { symbol:"", identity: "digipoint_substract", columnName: "Redeemed DigiPoints" },
-              { symbol:"", identity: "total_quantity", columnName: "Quantity" },
-              { symbol:"", identity: "total_price", columnName: "Amount (USD)" },
-              { symbol:"DATE", identity: "created_at", columnName: "Redeemed On" },
-              { symbol:"", identity: "status_name", columnName: "Reward Status" },
+              { rowStyles:"", sort:true, symbol:"", identity: "email", columnName: "Publicar en tabla" },
+              { symbol:"", identity: "name", columnName: "Publicar en tabla" },
+              { symbol:"", identity: "last_name", columnName: "Publicar en tabla" },
+              { symbol:"", identity: "role_name", columnName: "Publicar en tabla" },
+              { symbol:"", identity: "country", columnName: "Publicar en tabla" },
+              { symbol:"", identity: "company_name", columnName: "Publicar en tabla" },
+              { symbol:"", identity: "ordernumber", columnName: "Publicar en tabla" },
+              { symbol:"", identity: "digipoint_substract", columnName: "Publicar en tabla" },
+              { symbol:"", identity: "total_quantity", columnName: "Publicar en tabla" },
+              { symbol:"DATE", identity: "created_at", columnName: "Publicar en tabla" },
+              { symbol:"", identity: "status_name", columnName: "Publicar en tabla" },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
             paginate={true}
