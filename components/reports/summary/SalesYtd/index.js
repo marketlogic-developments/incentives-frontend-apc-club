@@ -115,94 +115,84 @@ const SalesYtd = () => {
             multiSelect: false,
             placeholder: "Year",
             value: filters.year,
-            dataSelect: defaultYear?.map((year) => ({
-                label: year,
-                value: year,
-            })),
-            onChange: (name, value) => handleFilters(name, value),
+            dataSelect: defaultYear.map((year) => ({ label: year, value: year })),
+            name: "year",
+            onChange: (value) => handleFilters("year", value),
             searchable: true,
             icon: <ArrowDown />,
-            name: "year",
         },
         {
             multiSelect: true,
             placeholder: "Company name",
             value: multiFilter,
-            dataSelect: companiesName?.map((company_name) => ({
-                label: company_name,
-                value: company_name,
-            })),
-            onChange: (name, value) => handleMultiFilters(name, value),
+            dataSelect: companiesName.map((company_name) => ({ label: company_name, value: company_name })),
+            name: "company_name",
+            onChange: (value) => handleMultiFilters("company_name", value),
             searchable: true,
             icon: <ArrowDown />,
-            name: "company_name",
         },
         {
             multiSelect: false,
             placeholder: "Levels",
             value: filters.level,
-            dataSelect: levels?.map((level) => ({
-                label: level,
-                value: level,
-            })),
-            onChange: (name, value) => handleFilters(name, value),
+            dataSelect: levels.map((level) => ({ label: level, value: level })),
+            name: "level",
+            onChange: (value) => handleFilters("level", value),
             searchable: true,
             icon: <ArrowDown />,
-            name: "level",
         },
         {
             multiSelect: false,
             placeholder: "Region",
             value: filters.region,
-            dataSelect: regions?.map((region) => ({
-                label: region,
-                value: region,
-            })),
-            onChange: (name, value) => handleFilters(name, value),
+            dataSelect: regions.map((region) => ({ label: region, value: region })),
+            name: "region",
+            onChange: (value) => handleFilters("region", value),
             searchable: true,
             icon: <ArrowDown />,
-            name: "region",
         },
         {
             multiSelect: false,
             placeholder: "Country",
             value: filters.country_id,
-            dataSelect: countries?.map((country_id) => ({
-                label: country_id,
-                value: country_id,
-            })),
-            onChange: (name, value) => handleFilters(name, value),
+            dataSelect: countries.map((country_id) => ({ label: country_id, value: country_id })),
+            name: "country_id",
+            onChange: (value) => handleFilters("country_id", value),
             searchable: true,
             icon: <ArrowDown />,
-            name: "country_id",
         },
         {
             multiSelect: false,
             placeholder: "Market Segment",
             value: filters.marketSegment,
-            dataSelect: marketSegment?.map((marketSegment) => ({
-                label: marketSegment,
-                value: marketSegment,
-            })),
-            onChange: (name, value) => handleFilters(name, value),
+            dataSelect: marketSegment.map((segment) => ({ label: segment, value: segment })),
+            name: "marketSegment",
+            onChange: (value) => handleFilters("marketSegment", value),
             searchable: true,
             icon: <ArrowDown />,
-            name: "marketSegment",
         },
         {
             multiSelect: false,
             placeholder: "Business Unit",
             value: filters.businessUnit,
-            dataSelect: businessUnit?.map((businessUnit) => ({
-                label: businessUnit,
-                value: businessUnit,
-            })),
-            onChange: (name, value) => handleFilters(name, value),
+            dataSelect: businessUnit.map((unit) => ({ label: unit, value: unit })),
+            name: "businessUnit",
+            onChange: (value) => handleFilters("businessUnit", value),
             searchable: true,
             icon: <ArrowDown />,
-            name: "businessUnit",
+        },
+        {
+            multiSelect: false,
+            placeholder: "Company Type",
+            value: filters.companyType,
+            dataSelect: companyType.map((type) => ({ label: type.name, value: type.name })),
+            name: "companyType",
+            onChange: (value) => handleFilters("companyType", value),
+            searchable: true,
+            icon: <ArrowDown />,
         },
     ];
+
     const xValuesLine = ["Q1", "Q2", "Q3", "Q4"];
     const colorMapping = {
         NOLA: "#2799F6",
@@ -215,9 +205,45 @@ const SalesYtd = () => {
         CERTIFIED: "#21A5A2",
     };
 
-    /* SELECTS */
-    const handleFilters = (name, value) => {
-        return setFilters({ ...filters, [name]: value === null ? "" : value });
+    const handleFilters = (value) => {
+        // Simular cuál filtro fue modificado, comparando el valor contra las opciones de cada campo
+
+        // Región
+        if (regions.includes(value)) {
+            return setFilters((prev) => ({ ...prev, region: value }));
+        }
+
+        // País
+        if (countries.some((c) => c.name === value)) {
+            return setFilters((prev) => ({ ...prev, country_id: value }));
+        }
+
+        // Company Type
+        if (companyType.some((c) => c.name === value)) {
+            return setFilters((prev) => ({ ...prev, companyType: value }));
+        }
+
+        // Nivel
+        if (levels.includes(value)) {
+            return setFilters((prev) => ({ ...prev, level: value }));
+        }
+
+        // Market Segment
+        if (marketSegment.includes(value)) {
+            return setFilters((prev) => ({ ...prev, marketSegment: value }));
+        }
+
+        // Business Unit
+        if (businessUnit.includes(value)) {
+            return setFilters((prev) => ({ ...prev, businessUnit: value }));
+        }
+
+        // Año
+        if (defaultYear.includes(value)) {
+            return setFilters((prev) => ({ ...prev, year: value }));
+        }
+
+        console.warn("❌ Valor no reconocido para filtro:", value);
     };
 
     const handleMultiFilters = (name, value) => {
