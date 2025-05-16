@@ -59,7 +59,7 @@ const DigiPointsRedemption = () => {
         if (user) {
           setLoading(true);
           const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=04c31aa2-84b3-4d18-860d-21b2a42d091b`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=aacd4c7e-d8f0-4a2c-a99c-a1f189a7a578`,
             {},
             {
               headers: {
@@ -301,23 +301,17 @@ const DigiPointsRedemption = () => {
             colStyles={"p-2"}
             thStyles={"sticky text-white"}
             cols={[
-              { rowStyles:"", sort:true, symbol:"", identity: "email", columnName: "User Email" },
-              { symbol:"", identity: "name", columnName: "First Name" },
-              { symbol:"", identity: "last_name", columnName: "Last Name" },
-              { symbol:"", identity: "role_name", columnName: "User Role" },
-              { symbol:"", identity: "region", columnName: "Region" },
-              { symbol:"", identity: "country", columnName: "Country" },
-              { symbol:"", identity: "company_id", columnName: "Company ID" },
-              { symbol:"", identity: "company_name", columnName: "Company Name" },
-              { symbol:"", identity: "company_level", columnName: "Company Level" },
-              { symbol:"", identity: "pp_email", columnName: "Partner Principal User Email" },
-              { symbol:"", identity: "pp_tos", columnName: "Partner Principal Accepted ToS" },
-              { symbol:"", identity: "ordernumber", columnName: "Request ID" },
-              { symbol:"", identity: "digipoint_substract", columnName: "Redeemed DigiPoints" },
-              { symbol:"", identity: "total_quantity", columnName: "Quantity" },
-              { symbol:"", identity: "total_price", columnName: "Amount (USD)" },
-              { symbol:"DATE", identity: "created_at", columnName: "Redeemed On" },
-              { symbol:"", identity: "status_name", columnName: "Reward Status" },
+              { key: "email", rowStyles:"", sort:true, symbol:"", identity: "email", columnName: "User Name" },
+              { key: "name", symbol:"", identity: "name", columnName: "FirstName" },
+              { key: "last_name", symbol:"", identity: "last_name", columnName: "LastName" },
+              { key: "role_name", symbol:"", identity: "role_name", columnName: "User Role" },
+              { key: "country", symbol:"", identity: "country", columnName: "Country" },
+              { key: "company_name", symbol:"", identity: "company_name", columnName: "Company Name" },
+              { key: "ordernumber", symbol:"", identity: "ordernumber", columnName: "orden" },
+              { key: "status_name", symbol:"", identity: "status_name", columnName: "estatus" },
+              { key: "total_quantity", symbol:"", identity: "total_quantity", columnName: "Quanty" },
+              { key: "total_price", symbol:"", identity: "total_price", columnName: "Value Gift card" },
+              { key: "digipoint_substract", symbol:"", identity: "digipoint_substract", columnName: "DigiPoints" },
             ]}
             generalRowStyles={"text-left py-3 mx-7"}
             paginate={true}
