@@ -38,9 +38,11 @@ const SectionDigipointsPA = () => {
     useEffect(() => {
         const fetchData = async () => {
             let response = undefined;
+
             if (user.is_superuser) {
-                response = await axios.get(
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_without_param?id=04c31aa2-84b3-4d18-860d-21b2a42d099b`,
+                response = await axios.post(
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=8c6f1313-7291-4450-911c-828b7d7411f5`,
+                    {},
                     {
                         headers: {
                             Authorization: `Bearer ${user.token}`,
@@ -49,15 +51,13 @@ const SectionDigipointsPA = () => {
                         },
                     }
                 );
+        
             } else {
                 response = await axios.post(
-                    `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=aacd4c7e-d8f0-4a2c-a99c-a1f189a7a576`,
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=8c6f1313-7291-4450-911c-828b7d7411f5`,
                     {
                         params: {
-                            id: `${user.profile.organizations[0].id}`,
-                            region_name: null,
-                            country_name: null,
-                            point_type: null,
+                            organization_name: `${user.profile.organizations[0].name}`,
                         },
                     },
                     {
@@ -87,13 +87,14 @@ const SectionDigipointsPA = () => {
                 // Uploaded: sumar todo menos Redeemed
                 if (category !== 'Redeemed') {
                     totalPointsUploaded += points;
-                }
-            
-                // Assigned: sumar todo menos UNASSIGNED y Redeemed
-                if (category !== 'Redeemed' && category !== 'UNASSIGNED') {
                     totalPointsAssigned += points_assigned;
                 }
-            
+
+                // Uploaded: sumar todo menos Redeemed
+                if (category === 'Redeemed') {
+                    redeemed += points_assigned;
+                }
+
                 // Categorías específicas para desglose visual
                 if (category === 'CC' || category === 'DC') {
                     digipointByCategory.Sales += points;
@@ -123,7 +124,7 @@ const SectionDigipointsPA = () => {
 
     return (
         <div className="w-full flex gap-6">
-            {/* <div className="w-1/2 card bg-base-100 shadow-md ">
+            <div className="w-1/2 card bg-base-100 shadow-md ">
                 <DigiPointsTotalD
                     dataLoaded={true}
                     totalSaleGoal={{
@@ -157,7 +158,7 @@ const SectionDigipointsPA = () => {
                         <div className="lds-dual-ring my-auto"></div>
                     )}
                 </CardChart>
-            </div> */}
+            </div>
         </div>
     );
 };
