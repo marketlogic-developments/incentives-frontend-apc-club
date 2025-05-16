@@ -40,12 +40,12 @@ export const useLocation = () => {
         iconactive: "",
         text: t("menu.Dashboard"),
       },
-      // {
-      //   page: "/reportes/dashboards/InvoiceReportUser",
-      //   icon: <InvoiceReportUser />,
-      //   iconactive: "",
-      //   text: "Invoice Report",
-      // },
+      {
+        page: "/reportes/dashboards/InvoiceReportUser",
+        icon: <InvoiceReportUser />,
+        iconactive: "",
+        text: "Invoice Report",
+      },
       {
         page: "/comunicado",
         iconactive: "",
