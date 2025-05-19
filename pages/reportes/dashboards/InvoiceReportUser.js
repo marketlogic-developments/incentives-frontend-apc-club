@@ -86,6 +86,7 @@ const InvoiceReport = () => {
                         invoice: item["Sales Order"],
                         date: item["Invoice Sale Date"],
                         client: item["Client"],
+                        licensing_contract: item["Licensing Contract"],
                         amount_by_user: item["Revenue by user (USD)"],
                         digipoints_by_user: item["Points Assigned"],
                         is_promo_by_user: item["Rule Type"],
@@ -95,9 +96,8 @@ const InvoiceReport = () => {
                     }))
                     .filter(
                         (item) =>
-                        Number(item.amount_by_user) > 0 && Number(item.digipoints_by_user) > 0
+                            Number(item.amount_by_user) > 0 && Number(item.digipoints_by_user) > 0
                     ) ?? [];
-
 
                 setData(normalized);
             } catch (error) {
@@ -137,14 +137,14 @@ const InvoiceReport = () => {
     }));
 
     const filteredUsers = data.filter((user) => {
-  return (
-    user.digipoints_by_user > 0 &&
-    user.amount_by_user > 0 &&
-    (!selectThree || user.company_name?.toLowerCase().includes(selectThree.toLowerCase())) &&
-    (!selectTwo || user.business_type?.toLowerCase().includes(selectTwo.toLowerCase())) &&
-    (!selectOne || user.business_unit?.toLowerCase().includes(selectOne.toLowerCase()))
-  );
-});
+        return (
+            user.digipoints_by_user > 0 &&
+            user.amount_by_user > 0 &&
+            (!selectThree || user.company_name?.toLowerCase().includes(selectThree.toLowerCase())) &&
+            (!selectTwo || user.business_type?.toLowerCase().includes(selectTwo.toLowerCase())) &&
+            (!selectOne || user.business_unit?.toLowerCase().includes(selectOne.toLowerCase()))
+        );
+    });
 
 
     const clearSelects = () => {
@@ -234,10 +234,9 @@ const InvoiceReport = () => {
                                 "Invoice",
                                 "Date",
                                 "Client",
-                                "Revenue by user (USD)",
+                                "Licensing Contract",
+                                "Invoice Sale Date",
                                 "Sales DigiPoints by user",
-                                // "Promotions DigiPoints",
-                                "Promotions Name",
                             ]}
                         >
                             {currentItems &&
@@ -258,10 +257,9 @@ const InvoiceReport = () => {
                                             <td className="text-start mx-2 py-4 px-2">{data.invoice}</td>
                                             <td className="text-start mx-2 py-4 px-2">{data.date}</td>
                                             <td className="text-start mx-2 py-4 px-2">{data.client}</td>
-                                            <td className="text-start mx-2 py-4 px-2">{numberToMoney(data.amount_by_user)}</td>
-                                            <td className="text-start mx-2 py-4 px-2">{data.digipoints_by_user}</td>
-                                            {/* <td className="text-start mx-2 py-4 px-2">{data.is_promo_by_user}</td> */}
-                                            <td className="text-start mx-2 py-4 px-2">{data.promoname}</td>
+                                            <td className="text-start mx-2 py-4 px-2">{data.licensing_contract}</td>
+                                            <td className="text-start mx-2 py-4 px-2">{data.date}</td> {/* 'Invoice Sale Date' */}
+                                            <td className="text-start mx-2 py-4 px-2">{data.digipoints_by_user}</td> {/* 'Sales DigiPoints by user' */}
                                         </tr>
                                     ))}
                         </Table>
