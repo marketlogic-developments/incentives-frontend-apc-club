@@ -93,6 +93,7 @@ const InvoiceReport = () => {
                         promoname: item["Promotions Name"],
                         business_unit: item["Business Unit"],
                         business_type: item["Business Type"],
+                        material_sku: item["Material Sku"],
                     }))
                     .filter(
                         (item) =>
@@ -232,6 +233,7 @@ const InvoiceReport = () => {
                                 "User Name",
                                 "User Role",
                                 "Invoice",
+                                "Material Sku",
                                 "Date",
                                 "Client",
                                 "Licensing Contract",
@@ -255,11 +257,12 @@ const InvoiceReport = () => {
                                             <td className="text-start mx-2 py-4 px-2">{data.user}</td>
                                             <td className="text-start mx-2 py-4 px-2">{data.user_rol}</td>
                                             <td className="text-start mx-2 py-4 px-2">{data.invoice}</td>
+                                            <td className="text-start mx-2 py-4 px-2">{data.material_sku}</td>
                                             <td className="text-start mx-2 py-4 px-2">{data.date}</td>
                                             <td className="text-start mx-2 py-4 px-2">{data.client}</td>
                                             <td className="text-start mx-2 py-4 px-2">{data.licensing_contract}</td>
-                                            <td className="text-start mx-2 py-4 px-2">{data.date}</td> {/* 'Invoice Sale Date' */}
-                                            <td className="text-start mx-2 py-4 px-2">{data.digipoints_by_user}</td> {/* 'Sales DigiPoints by user' */}
+                                            <td className="text-start mx-2 py-4 px-2">{data.date}</td>
+                                            <td className="text-start mx-2 py-4 px-2">{data.digipoints_by_user}</td>
                                         </tr>
                                     ))}
                         </Table>
