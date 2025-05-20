@@ -294,7 +294,8 @@ const SalesYtd = () => {
 
 
     const multiFilterButton = () => {
-        handleFilters("company_name", multiFilter.join("~|~"));
+        // Update the filters state directly with the joined company names
+        setFilters(prev => ({ ...prev, company_name: multiFilter.join("~|~") }));
     };
 
     useEffect(() => {
