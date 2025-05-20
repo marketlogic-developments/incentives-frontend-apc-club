@@ -197,13 +197,64 @@ const InvoiceReport = () => {
                                 tableStyles="table-zebra !text-sm"
                                 colStyles="p-2"
                                 thStyles="sticky text-white"
-                                cols={["Membership ID", "Company Name", "Region", "Country", "Company Type", "Company Level", "User Name", "User Role", "Assignment Type", "Major Licensing Programid", "Sales Order", "Material Sku", "Market Segment", "Licensing Contract", "Client", "Product Name", "Business Unit", "Business Type", "Product Category", "Sub Bu", "Promotions Name", "Invoice Sale Date", "Invoice Load Date", "Quarter", "Month", "Revenue by user (USD)", "Quantity", "Points Assigned", "Rule Type"]}
+                                cols={[
+                                    "Membership ID",
+                                    "Company Name",
+                                    "Region",
+                                    "Country",
+                                    "Company Type",
+                                    "Company Level",
+                                    "User Name",
+                                    "User Role",
+                                    "Assignment Type",
+                                    "Major Licensing Programid",
+                                    "Sales Order",
+                                    "Material Sku",
+                                    "Market Segment",
+                                    "Licensing Contract",
+                                    "Client",
+                                    "Product Name",
+                                    "Invoice Sale Date",
+                                    "Quarter",
+                                    "Revenue by user (USD)",
+                                    "Quantity",
+                                    "Points Assigned",
+                                ]}
                             >
-                                {currentItems.map((data, index) => (
+                                {currentItems.map((row, index) => (
                                     <tr key={index}>
-                                        {Object.values(data).map((val, i) => (
-                                            <td key={i}>{typeof val === "number" ? numberToMoney(val) : val ?? "N/A"}</td>
-                                        ))}
+                                        {[
+                                            "Membership ID",
+                                            "Company Name",
+                                            "Region",
+                                            "Country",
+                                            "Company Type",
+                                            "Company Level",
+                                            "User Name",
+                                            "User Role",
+                                            "Assignment Type",
+                                            "Major Licensing Programid",
+                                            "Sales Order",
+                                            "Material Sku",
+                                            "Market Segment",
+                                            "Licensing Contract",
+                                            "Client",
+                                            "Product Name",
+                                            "Invoice Sale Date",
+                                            "Quarter",
+                                            "Revenue by user (USD)",
+                                            "Quantity",
+                                            "Points Assigned"
+                                        ].map((key, i) => {
+                                            const value = row[key];
+                                            return (
+                                                <td key={i}>
+                                                    {typeof value === "number" && key === "Revenue by user (USD)"
+                                                        ? numberToMoney(value)
+                                                        : value ?? "N/A"}
+                                                </td>
+                                            );
+                                        })}
                                     </tr>
                                 ))}
                             </Table>
