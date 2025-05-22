@@ -170,7 +170,7 @@ const DigipoinstPerformance = () => {
                 .map((r) => ({
                     name: r.region_name,
                     data: [
-                        r.total_points + r.ten_percent_points_assigned,
+                        r.total_points,
                         r.total_points_assigned + r.ten_percent_points_assigned,
                         r.redeemed_points,
                     ],
@@ -186,7 +186,7 @@ const DigipoinstPerformance = () => {
             /* estados UI finales */
             setDigipointSR({ datas: series, yNames: ["Total Points", "Assigned", "Redeemed"] });
             setDigipointUploaded([
-                { name: "Sales", value: uploadSum },
+                { name: "Sales", value: uploadSum - promotion - behavior},
                 { name: "Promotion", value: promotion },
                 { name: "Behavior", value: behavior },
             ]);
