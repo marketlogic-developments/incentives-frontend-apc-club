@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import DigiPointsTotal from "../reports/summary/DigipointsPerformance/DigiPointsTotal";
 import CardChart from "../cardReportes/CardChart";
 import { useDispatch, useSelector } from "react-redux";
-import { getDigiPointPerformance } from "../../store/reducers/sales.reducer";
 import { useTranslation } from "react-i18next";
 import DigiPointsTotalD from "./DigiPointsSections/DigiPointsTotalD";
 import PieChart from "../charts/PieChart";
 import axios from "axios";
-
 
 const SectionDigipointsPA = () => {
     const dispatch = useDispatch();
@@ -51,7 +49,6 @@ const SectionDigipointsPA = () => {
                         },
                     }
                 );
-        
             } else {
                 response = await axios.post(
                     `${process.env.NEXT_PUBLIC_BACKEND_URL}administration/queries_storage/run_query_with_param?id=8c6f1313-7291-4450-911c-828b7d7411f5`,
@@ -68,31 +65,41 @@ const SectionDigipointsPA = () => {
                     }
                 );
             }
-    
+
             let digipointByCategory = {
                 Sales: 0,
                 Promotion: 0,
                 Behavior: 0
             };
-            
+
             let totalPointsAssigned = 0;
             let totalPointsUploaded = 0;
             let redeemed = 0;
-            
+
+            // <-- CAMBIO CLAVE: categorías válidas -->
+            const validCats = new Set([
+                "10% ASSIGNMENT",
+                "Promotion",
+                "BEHAVIOR",
+                "Behavior",
+                "CC",
+                "DC",
+            ]);
+
             response.data.result.forEach((item) => {
                 const category = item.category;
                 const points = parseInt(item.total_points ?? 0);
                 const points_assigned = parseInt(item.total_points_assigned ?? 0);
-            
-                // Uploaded: sumar todo menos Redeemed
-                if (category !== 'Redeemed') {
+
+                // Uploaded: sumar solo categorías válidas
+                if (validCats.has(category)) {
                     totalPointsUploaded += points;
                     totalPointsAssigned += points_assigned;
                 }
 
-                // Uploaded: sumar todo menos Redeemed
+                // Redimidos
                 if (category === 'Redeemed') {
-                    redeemed += points_assigned;
+                    redeemed += points;
                 }
 
                 // Categorías específicas para desglose visual
@@ -102,23 +109,20 @@ const SectionDigipointsPA = () => {
                     digipointByCategory.Promotion += points;
                 } else if (category === 'Behavior') {
                     digipointByCategory.Behavior += points;
-                } else if (category === 'Redeemed') {
-                    redeemed += points;
                 }
             });
-            
-            // Setear los valores
+
             setTtotalUpload(totalPointsUploaded);        // uploaded total
             setAssignedValue(totalPointsAssigned);       // assigned total
             setRedeemedValue(redeemed);                  // redeemed total
-            
+
             setDigipointUploaded([
                 { name: "Sales", value: digipointByCategory.Sales },
                 { name: "Promotion", value: digipointByCategory.Promotion },
                 { name: "Behavior", value: digipointByCategory.Behavior }
             ]);
         };
-    
+
         fetchData();
     }, [user, filters]);
 
@@ -144,13 +148,11 @@ const SectionDigipointsPA = () => {
                             formatter=""
                             legend={{
                                 top: "center",
-                                left: "70%", // Mueve la leyenda un poco más hacia el centro
+                                left: "70%",
                                 orient: "vertical",
-                                itemWidth: 14, // Ajusta el ancho del cuadrado de color de la leyenda
-                                itemHeight: 14, // Ajusta la altura del cuadrado de color de la leyenda
-                                textStyle: {
-                                    fontSize: 12, // Tamaño de la fuente para la leyenda
-                                },
+                                itemWidth: 14,
+                                itemHeight: 14,
+                                textStyle: { fontSize: 12 },
                             }}
                             center={["40%", "60%"]}
                         />
