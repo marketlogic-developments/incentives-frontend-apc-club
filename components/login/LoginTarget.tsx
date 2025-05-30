@@ -157,7 +157,7 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
           </div>
         </form>
       </div>
-      <div className="flex flex-row mt-2 mb-2 gap-3">
+      {/* <div className="flex flex-row mt-2 mb-2 gap-3">
         <p className="text-center !text-xs">{t("login.registro")}</p>
         <p
           className="cursor-pointer font-bold !text-xs text-info"
@@ -165,7 +165,7 @@ const LoginTarget: React.FC<Props> = ({ setRegister, setOpen }) => {
         >
           {t("login.linkRegistro")}
         </p>
-      </div>
+      </div> */}
       <div className="flex py-2 px-5 w-full justify-center sm:mb-5 mb-3">
         <select
           className="select !select-xs select-bordered w-2/3 text-secondary"
