@@ -114,6 +114,7 @@ const DigipoinstPerformance = () => {
                 "Behavior",
                 "CC",
                 "DC",
+                "Certified points assigned",
             ]);
 
             /* agrupación */

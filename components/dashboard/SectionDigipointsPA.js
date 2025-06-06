@@ -80,10 +80,10 @@ const SectionDigipointsPA = () => {
             const validCats = new Set([
                 "10% ASSIGNMENT",
                 "Promotion",
-                "BEHAVIOR",
                 "Behavior",
                 "CC",
                 "DC",
+                "Certified points assigned",
             ]);
 
             response.data.result.forEach((item) => {
