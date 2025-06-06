@@ -142,10 +142,10 @@ const TableUsersOrganization = ({users, loading}:{users:CurrentUser[],loading:bo
         className={`${(index + 1) % 2 === 0 && "bg-[#F5F5F5]"} w-full`}
         key={item.id}
       >
-        {/* <td className="py-3 px-6">{`${item?.profile?.first_name || "No Name"} ${
+        <td className="py-3 px-6">{`${item?.profile?.first_name || "No Name"} ${
           item?.profile?.last_name
-        }`}</td> */}
-        <td className="py-3 px-6">{`${item?.username.split("|")[0] || "No Name"}`}</td>
+        }`}</td>
+        {/* <td className="py-3 px-6">{item?.username ? item.username.split("|")[0] : "No Name"}</td> */}
         {/* <td className="py-3 px-6">{item?.region?.name || "NONE"}</td> */}
         {/* {company?.country && (
           <td className="py-3 px-6">{company.country}</td>
