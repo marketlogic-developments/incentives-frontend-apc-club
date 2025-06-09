@@ -80,6 +80,7 @@ const SectionDigipointsPA = () => {
             const validCats = new Set([
                 "10% ASSIGNMENT",
                 "Promotion",
+                "BEHAVIOR",
                 "Behavior",
                 "CC",
                 "DC",
@@ -103,7 +104,7 @@ const SectionDigipointsPA = () => {
                 }
 
                 // Categorías específicas para desglose visual
-                if (category === 'CC' || category === 'DC') {
+                if (category === 'CC' || category === 'DC' || category === 'Certified points assigned' || category === '10% ASSIGNMENT') {
                     digipointByCategory.Sales += points;
                 } else if (category === 'Promotion') {
                     digipointByCategory.Promotion += points;

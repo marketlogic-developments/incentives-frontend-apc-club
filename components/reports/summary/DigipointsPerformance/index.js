@@ -171,8 +171,8 @@ const DigipoinstPerformance = () => {
                 .map((r) => ({
                     name: r.region_name,
                     data: [
-                        r.total_points,
-                        r.total_points_assigned + r.ten_percent_points_assigned,
+                        r.total_points - r.redeemed_points,
+                        r.total_points_assigned,
                         r.redeemed_points,
                     ],
                     color:
