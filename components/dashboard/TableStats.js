@@ -158,30 +158,35 @@ const TableStats = () => {
                         setTopGlobalSales(response_top_global.data.result);
 
                         // Acumuladores generales
-                        let totalByCategory = { CC: 0, DC: 0 };
+                        let totalByCategory = { CC: 0, DC: 0, CERTIFIED: 0 };
 
                         // Limpia el tipo (eliminar espacios y poner en minúsculas)
                         const cleanType = (type) => (type ?? '').toString().trim().toLowerCase();
 
                         response_sales.data.result.forEach((item) => {
-                            if (!["Promotion", "BEHAVIOR"].includes(item.category)) {
+                            if (!["Promotion", "BEHAVIOR", "Behavior"].includes(item.category)) {
                                 const category = item.category;
                                 const revenue = item.total_revenue;
 
-                                // Totales generales
-                                if (category === 'CC' || category === 'DC') {
-                                    totalByCategory[category] += revenue;
-                                };
-                            };
+                                // Mapeo de categoría a clave del acumulador
+                                let key;
+                                if (category === 'CC') key = 'CC';
+                                else if (category === 'DC') key = 'DC';
+                                else if (category === 'Certified points assigned') key = 'CERTIFIED';
+
+                                if (key) {
+                                    totalByCategory[key] += revenue;
+                                }
+                            }
                         });
 
                         const totalGoals = response_goals.data.result[0].extended_attributes?.CC + response_goals.data.result[0].extended_attributes?.DC
 
                         setGoal(totalGoals);
-                        setSales((totalByCategory.CC) + (totalByCategory.DC));
-                        setGoalSales((totalByCategory.CC) + (totalByCategory.DC));
+                        setSales((totalByCategory.CC) + (totalByCategory.DC) + (totalByCategory.CERTIFIED));
+                        setGoalSales((totalByCategory.CC) + (totalByCategory.DC) + (totalByCategory.CERTIFIED));
                         setpercentageTotal(
-                            Math.floor((((totalByCategory.CC + totalByCategory.DC) * 100) / totalGoals) * 100) / 100
+                            Math.floor((((totalByCategory.CC + totalByCategory.DC + totalByCategory.CERTIFIED) * 100) / totalGoals) * 100) / 100
                         );
                         
                         const data_licenses = response_licenses.data.result

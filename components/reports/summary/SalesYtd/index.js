@@ -412,60 +412,80 @@ const SalesYtd = () => {
                         }
                     );
 
-                    // Limpia el tipo (eliminar espacios y poner en minúsculas)
+                    // Limpia el tipo
                     const cleanType = (type) => (type ?? '').toString().trim().toLowerCase();
 
+                    // Normaliza la categoría: CC, DC, CERTIFIED
+                    const normalizeCategory = (cat) => {
+                        if (!cat) return '';
+                        const c = cat.toString().trim().toLowerCase();
+                        if (c === 'cc') return 'CC';
+                        if (c === 'dc') return 'DC';
+                        if (c.includes('certified')) return 'CERTIFIED'; // cualquier variante
+                        return c.toUpperCase();
+                    };
+
                     // Acumuladores generales
-                    let totalByCategory = { CC: 0, DC: 0 };
+                    let totalByCategory = { CC: 0, DC: 0, CERTIFIED: 0 };
                     let totalBySubCategory = { VIP: 0, VMP: 0 };
                     let totalByType = { 'New Business': 0, Autorenewal: 0 };
 
                     // Acumuladores para combinaciones específicas
                     let vipNewBusinessCC = 0;
                     let vipNewBusinessDC = 0;
+                    let vipNewBusinessCertified = 0;
+
                     let vmpAutoRenewalCC = 0;
                     let vmpAutoRenewalDC = 0;
+                    let vmpAutoRenewalCertified = 0;
+
                     let vmpNewBusinessCC = 0;
                     let vmpNewBusinessDC = 0;
+                    let vmpNewBusinessCertified = 0;
 
                     response.data.result.forEach((item) => {
                         if (!["Promotion", "BEHAVIOR"].includes(item.category)) {
-                            const category = item.category;
+                            const category = normalizeCategory(item.category);
                             const sub = item.sub_category;
                             const type = cleanType(item.type);
                             const revenue = Number(item.total_revenue || 0);
 
-                            // Totales generales
-                            if (category === 'CC' || category === 'DC') {
-                                totalByCategory[category] += revenue;
-                            };
+                            // Totales generales: incluye Certified
+                            if (['CC', 'DC', 'CERTIFIED', ''].includes(category)) {
+                                if (totalByCategory.hasOwnProperty(category)) {
+                                    totalByCategory[category] += revenue;
+                                }
+                            }
 
                             if (sub === 'VIP' || sub === 'VMP') {
                                 totalBySubCategory[sub] += revenue;
-                            };
+                            }
 
                             if (type === 'new business') {
                                 totalByType['New Business'] += revenue;
                             } else if (type === 'autorenewal' || type === 'autorrenewal') {
                                 totalByType['Autorenewal'] += revenue;
-                            };
+                            }
 
-                            // Totales específicos para los setters
+                            // Totales específicos para los setters (agregamos Certified)
                             if (sub === 'VIP' && type === 'new business') {
                                 if (category === 'CC') vipNewBusinessCC += revenue;
                                 if (category === 'DC') vipNewBusinessDC += revenue;
-                            };
+                                if (category === 'CERTIFIED') vipNewBusinessCertified += revenue;
+                            }
 
                             if (sub === 'VMP' && type === 'autorenewal') {
                                 if (category === 'CC') vmpAutoRenewalCC += revenue;
                                 if (category === 'DC') vmpAutoRenewalDC += revenue;
-                            };
+                                if (category === 'CERTIFIED') vmpAutoRenewalCertified += revenue;
+                            }
 
                             if (sub === 'VMP' && type === 'new business') {
                                 if (category === 'CC') vmpNewBusinessCC += revenue;
                                 if (category === 'DC') vmpNewBusinessDC += revenue;
-                            };
-                        };
+                                if (category === 'CERTIFIED') vmpNewBusinessCertified += revenue;
+                            }
+                        }
                     });
 
                     return {
@@ -474,12 +494,15 @@ const SalesYtd = () => {
                         totalByType,
                         vipNewBusinessCC,
                         vipNewBusinessDC,
+                        vipNewBusinessCertified,
                         vmpAutoRenewalCC,
                         vmpAutoRenewalDC,
+                        vmpAutoRenewalCertified,
                         vmpNewBusinessCC,
                         vmpNewBusinessDC,
+                        vmpNewBusinessCertified,
                     }
-                };
+                }
             };
 
             const fetchSalesExtended = async () => {
@@ -623,7 +646,8 @@ const SalesYtd = () => {
                     setSales({
                         totalRevenueSum:
                             (dataSales.totalByCategory?.CC ?? 0) +
-                            (dataSales.totalByCategory?.DC ?? 0),
+                            (dataSales.totalByCategory?.DC ?? 0) +
+                            (dataSales.totalByCategory?.CERTIFIED ?? 0),
                         expectedRevenueSum:
                             (dataGoals.extended_attributes?.CC ?? 0) +
                             (dataGoals.extended_attributes?.DC ?? 0),
