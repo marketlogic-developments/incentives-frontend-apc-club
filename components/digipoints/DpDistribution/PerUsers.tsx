@@ -48,7 +48,7 @@ const PerUsers: FC<Props> = ({ invoiceData, setOpened }) => {
   console.log(usersCompany)
 
   useEffect(() => {
-    ListAllUsers("limit=50");
+    ListAllUsers("limit=100");
   }, []);
 
   const handleAssign = () => {

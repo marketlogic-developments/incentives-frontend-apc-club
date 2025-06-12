@@ -40,7 +40,7 @@ const ModalCreateTeam = ({ infoModal, setInfoModal, setOpened }) => {
   });
 
   useEffect(() => {
-    ListAllUsers("limit=50");
+    ListAllUsers("limit=100");
   }, []);
 
   useEffect(() => {
