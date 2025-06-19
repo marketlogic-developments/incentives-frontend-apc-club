@@ -147,15 +147,18 @@ const DigipoinstPerformance = () => {
                     if (validCats.has(r.category)) {
                         uploadSum += total;
                         assignedSum += assigned;
+                        assignedSum += ten;
                     }
 
                     /* acumulados por región */
                     g.total_points += total;
                     g.total_points_assigned += assigned;
+                    g.total_points_assigned += ten;
                     g.ten_percent_points_assigned += ten;
 
                     acc.totals.total_points += total;
                     acc.totals.total_points_assigned += assigned;
+                    acc.totals.total_points_assigned += ten;
                     acc.totals.ten_percent_points_assigned += ten;
                     return acc;
                 },

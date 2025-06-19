@@ -89,14 +89,18 @@ const SectionDigipointsPA = () => {
 
             response.data.result.forEach((item) => {
                 const category = item.category;
-                const points = parseInt(item.total_points ?? 0);
-                const points_assigned = parseInt(item.total_points_assigned ?? 0);
+                const points = parseFloat(item.total_points ?? 0);
+                const points_assigned = parseFloat(item.total_points_assigned ?? 0);
+                const tenPercent     = parseFloat(item.ten_percent_points_assigned ?? 0);
 
                 // Uploaded: sumar solo categorías válidas
                 if (validCats.has(category)) {
                     totalPointsUploaded += points;
                     totalPointsAssigned += points_assigned;
                 }
+
+                // sumar SIEMPRE el 10 %
+                totalPointsAssigned += tenPercent;
 
                 // Redimidos
                 if (category === 'Redeemed') {
@@ -113,9 +117,9 @@ const SectionDigipointsPA = () => {
                 }
             });
 
-            setTtotalUpload(totalPointsUploaded);        // uploaded total
-            setAssignedValue(totalPointsAssigned);       // assigned total
-            setRedeemedValue(redeemed);                  // redeemed total
+            setTtotalUpload(Math.round(totalPointsUploaded));
+            setAssignedValue(Math.round(totalPointsAssigned));
+            setRedeemedValue(Math.round(redeemed));
 
             setDigipointUploaded([
                 { name: "Sales", value: digipointByCategory.Sales },
