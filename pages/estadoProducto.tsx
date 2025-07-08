@@ -191,11 +191,8 @@ const estadoProducto = () => {
                                         </td>
                                         <td className="py-4 px-6">
                                             {data.products
-                                                .map((e: ShoppingCarProduct) => Number(e.price))
-                                                .reduce(
-                                                    (initialValue: number, current: number) =>
-                                                        initialValue + current
-                                                )}
+                                                .map((e: ShoppingCarProduct) => Number(e.price) * Number(e.quantity))
+                                                .reduce((sum, current) => sum + current, 0)}
                                         </td>
                                         <td className="py-2 px-3">
                                             <p
