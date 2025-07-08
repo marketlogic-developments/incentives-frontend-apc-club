@@ -421,12 +421,15 @@ const SalesYtd = () => {
                         const c = cat.toString().trim().toLowerCase();
                         if (c === 'cc') return 'CC';
                         if (c === 'dc') return 'DC';
-                        if (c.includes('certified')) return 'CERTIFIED'; // cualquier variante
+                        if (c.includes('certified')) return 'CERTIFIED';
+                        if (c.includes('exceeded')) return 'EXCEEDED_30';
                         return c.toUpperCase();
                     };
 
+                    
+
                     // Acumuladores generales
-                    let totalByCategory = { CC: 0, DC: 0, CERTIFIED: 0 };
+                    let totalByCategory = { CC: 0, DC: 0, CERTIFIED: 0, EXCEEDED_30: 0 };
                     let totalBySubCategory = { VIP: 0, VMP: 0 };
                     let totalByType = { 'New Business': 0, Autorenewal: 0 };
 
@@ -451,7 +454,7 @@ const SalesYtd = () => {
                             const revenue = Number(item.total_revenue || 0);
 
                             // Totales generales: incluye Certified
-                            if (['CC', 'DC', 'CERTIFIED', ''].includes(category)) {
+                            if (['CC', 'DC', 'CERTIFIED', 'EXCEEDED_30'].includes(category)) {
                                 if (totalByCategory.hasOwnProperty(category)) {
                                     totalByCategory[category] += revenue;
                                 }
@@ -647,7 +650,8 @@ const SalesYtd = () => {
                         totalRevenueSum:
                             (dataSales.totalByCategory?.CC ?? 0) +
                             (dataSales.totalByCategory?.DC ?? 0) +
-                            (dataSales.totalByCategory?.CERTIFIED ?? 0),
+                            (dataSales.totalByCategory?.CERTIFIED ?? 0) +
+                            (dataSales.totalByCategory?.EXCEEDED_30 ?? 0),
                         expectedRevenueSum:
                             (dataGoals.extended_attributes?.CC ?? 0) +
                             (dataGoals.extended_attributes?.DC ?? 0),

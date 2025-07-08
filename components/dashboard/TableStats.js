@@ -158,7 +158,7 @@ const TableStats = () => {
                         setTopGlobalSales(response_top_global.data.result);
 
                         // Acumuladores generales
-                        let totalByCategory = { CC: 0, DC: 0, CERTIFIED: 0 };
+                        let totalByCategory = { CC: 0, DC: 0, CERTIFIED: 0, EXCEEDED_30: 0 };
 
                         // Limpia el tipo (eliminar espacios y poner en minúsculas)
                         const cleanType = (type) => (type ?? '').toString().trim().toLowerCase();
@@ -167,12 +167,16 @@ const TableStats = () => {
                             if (!["Promotion", "BEHAVIOR", "Behavior"].includes(item.category)) {
                                 const category = item.category;
                                 const revenue = item.total_revenue;
-
+                                
                                 // Mapeo de categoría a clave del acumulador
                                 let key;
+
+                                console.log("alallalalala", category)
+
                                 if (category === 'CC') key = 'CC';
                                 else if (category === 'DC') key = 'DC';
                                 else if (category === 'Certified points assigned') key = 'CERTIFIED';
+                                else if (category === 'EXCEEDED 30 DAYS WITHOUT ASSIGNMENT') key = 'EXCEEDED_30';
 
                                 if (key) {
                                     totalByCategory[key] += revenue;
@@ -181,12 +185,12 @@ const TableStats = () => {
                         });
 
                         const totalGoals = response_goals.data.result[0].extended_attributes?.CC + response_goals.data.result[0].extended_attributes?.DC
-
+                        
                         setGoal(totalGoals);
-                        setSales((totalByCategory.CC) + (totalByCategory.DC) + (totalByCategory.CERTIFIED));
-                        setGoalSales((totalByCategory.CC) + (totalByCategory.DC) + (totalByCategory.CERTIFIED));
+                        setSales((totalByCategory.CC) + (totalByCategory.DC) + (totalByCategory.CERTIFIED) + (totalByCategory.EXCEEDED_30));
+                        setGoalSales((totalByCategory.CC) + (totalByCategory.DC) + (totalByCategory.CERTIFIED) + (totalByCategory.EXCEEDED_30));
                         setpercentageTotal(
-                            Math.floor((((totalByCategory.CC + totalByCategory.DC + totalByCategory.CERTIFIED) * 100) / totalGoals) * 100) / 100
+                            Math.floor((((totalByCategory.CC + totalByCategory.DC + totalByCategory.CERTIFIED + totalByCategory.EXCEEDED_30) * 100) / totalGoals) * 100) / 100
                         );
                         
                         const data_licenses = response_licenses.data.result
@@ -212,7 +216,7 @@ const TableStats = () => {
                                 sales: item.total_sales_us,
                                 tablePercentage: Math.floor(share * 100) / 100
                             };
-                        });                        
+                        });
 
                         setpercentageCC(newPercentageCC);
                         setpercentageDC(newPercentageDC);
